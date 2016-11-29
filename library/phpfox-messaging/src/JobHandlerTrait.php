@@ -5,7 +5,7 @@ namespace Phpfox\Messaging;
 /**
  * Class JobHandlerTrait
  *
- * @package Phpfox\JobQueues
+ * @package Phpfox\Messaging
  */
 trait JobHandlerTrait
 {

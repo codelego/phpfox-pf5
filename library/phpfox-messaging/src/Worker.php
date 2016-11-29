@@ -5,7 +5,7 @@ namespace Phpfox\Messaging;
 /**
  * Class Worker
  *
- * @package Phpfox\JobQueues
+ * @package Phpfox\Messaging
  */
 class Worker
 {

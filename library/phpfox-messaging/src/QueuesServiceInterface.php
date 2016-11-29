@@ -4,7 +4,7 @@ namespace Phpfox\Messaging;
 /**
  * Interface QueuesServiceInterface
  *
- * @package Phpfox\JobQueues
+ * @package Phpfox\Messaging
  */
 interface QueuesServiceInterface
 {

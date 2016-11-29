@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Rmtl;
+namespace Phpfox\Phpfox\Realm;
 
 
 class WindowPushService
