@@ -4,7 +4,9 @@ namespace Phpfox\Html;
 
 class HtmlFacades
 {
-    public function __construct(){}
+    public function __construct()
+    {
+    }
 
     /**
      * @param string|array $title

@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\RequireJs{
+namespace Phpfox\RequireJs {
 
     return [
         'autoload.psr4' => [
@@ -9,11 +9,14 @@ namespace Phpfox\RequireJs{
                 'library\phpfox-requirejs\test',
             ],
         ],
-        'service.map' => [
+        'service.map'   => [
             'requireJs' => [null, RequireJs::class,],
         ],
-        'events'   => [
-            'requireJs' => ['onAssetManagerGetHeader', 'onAssetManagerGetFooter'],
+        'events'        => [
+            'requireJs' => [
+                'onAssetManagerGetHeader',
+                'onAssetManagerGetFooter',
+            ],
         ],
     ];
 }

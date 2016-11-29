@@ -2,8 +2,6 @@
 
 namespace Phpfox\Mvc;
 
-use Phpfox\Mvc\ViewModel;
-
 class Responder
 {
     /**
@@ -54,6 +52,17 @@ class Responder
         $this->terminate();
     }
 
+    public function terminate()
+    {
+        events()->trigger('onResponderTerminate');
+        exit();
+    }
+
+    public function getCode()
+    {
+        return $this->code;
+    }
+
     /**
      * @link https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
      *
@@ -67,16 +76,5 @@ class Responder
             http_response_code((int)$code);
         }
         return $this;
-    }
-
-    public function getCode()
-    {
-        return $this->code;
-    }
-
-    public function terminate()
-    {
-        events()->trigger('onResponderTerminate');
-        exit();
     }
 }

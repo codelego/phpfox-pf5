@@ -1,6 +1,7 @@
 <?php
 
-namespace Phpfox\Session{
+namespace Phpfox\Session {
+
     return [
         'autoload.psr4' => [
             'Phpfox\\Session\\' => [
@@ -8,7 +9,7 @@ namespace Phpfox\Session{
                 'library\phpfox-session\test',
             ],
         ],
-        'service.map' => [
+        'service.map'   => [
             'session' => [SampleSessionFactory::class, null, null],
         ],
     ];

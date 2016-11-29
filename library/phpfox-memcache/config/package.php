@@ -5,7 +5,7 @@ namespace Phpfox\Memcache {
     use Phpfox\Cache\CacheStorageFactory;
 
     return [
-        'autoload.psr4' => [
+        'autoload.psr4'   => [
             'Phpfox\\Memecache\\' => [
                 'library\phpfox-memcache\src',
                 'library\phpfox-memcache\test',

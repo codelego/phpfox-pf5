@@ -3,7 +3,7 @@
 namespace Phpfox\Form {
 
     return [
-        'autoload.psr4' => [
+        'autoload.psr4'  => [
             'Phpfox\\Form\\' => [
                 'library\phpfox-form\src',
                 'library\phpfox-form\test',

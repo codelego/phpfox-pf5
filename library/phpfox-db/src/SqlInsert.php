@@ -146,6 +146,7 @@ class SqlInsert
         $ignore = $this->_ignoreOnDuplicate ? ' IGNORE ' : '';
 
         return 'INSERT ' . $delay . $ignore . ' INTO ' . $this->table . '('
-        . implode(', ', $keys) . ') VALUES (' . implode(', ', $values) . ')';
+            . implode(', ', $keys) . ') VALUES (' . implode(', ', $values)
+            . ')';
     }
 }

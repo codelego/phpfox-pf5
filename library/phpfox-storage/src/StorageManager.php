@@ -39,16 +39,6 @@ class StorageManager implements StorageManagerInterface
         $this->default = $configs['default'];
     }
 
-    public function get($id)
-    {
-        if (!$id) {
-            $id = $this->default;
-        }
-
-        return $this->vars[$id] ? $this->vars[$id]
-            : $this->vars[$id] = $this->factory->factory($this->map[$id]);
-    }
-
     public function set($id, StorageServiceInterface $service)
     {
         $this->vars[$id] = $service;
@@ -63,6 +53,16 @@ class StorageManager implements StorageManagerInterface
     public function getUrl($id, $name)
     {
         return $this->get($id)->getUrl($name);
+    }
+
+    public function get($id)
+    {
+        if (!$id) {
+            $id = $this->default;
+        }
+
+        return $this->vars[$id] ? $this->vars[$id]
+            : $this->vars[$id] = $this->factory->factory($this->map[$id]);
     }
 
     public function cdnUrl($id, $name)

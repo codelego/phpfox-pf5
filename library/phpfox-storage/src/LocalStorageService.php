@@ -62,6 +62,17 @@ class LocalStorageService implements StorageServiceInterface
         return true;
     }
 
+    public function putFile($local, $name)
+    {
+        $path = $this->getPath($name);
+        $this->ensure($path);
+
+        if (!copy($local, $path)) {
+            throw new StorageServiceException("Could not put file from '{$local}' to '{$path}'.");
+        }
+        return true;
+    }
+
     protected function ensure($path)
     {
         if (!is_dir($path)
@@ -72,17 +83,6 @@ class LocalStorageService implements StorageServiceInterface
 
         if (file_exists($path)) {
             @unlink($path);
-        }
-        return true;
-    }
-
-    public function putFile($local, $name)
-    {
-        $path = $this->getPath($name);
-        $this->ensure($path);
-
-        if (!copy($local, $path)) {
-            throw new StorageServiceException("Could not put file from '{$local}' to '{$path}'.");
         }
         return true;
     }

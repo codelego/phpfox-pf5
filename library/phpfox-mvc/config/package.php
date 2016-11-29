@@ -1,5 +1,6 @@
 <?php
-namespace Phpfox\Mvc{
+namespace Phpfox\Mvc {
+
     return [
         'autoload.psr4' => [
             'Phpfox\\Mvc\\' => [
@@ -7,7 +8,7 @@ namespace Phpfox\Mvc{
                 'library\phpfox-mvc\test',
             ],
         ],
-        'service.map' => [
+        'service.map'   => [
             'responder' => [null, Responder::class,],
             'requester' => [null, Requester::class,],
             'app'       => [null, Application::class],

@@ -25,7 +25,7 @@ class FilesystemLogger implements LoggerInterface
     {
         $config = array_merge([
             'filename' => 'main.log',
-            'level'  => '*',
+            'level'    => '*',
         ], (array)$config);
 
         $directory = realpath(__DIR__ . '/../../../../data/log');
@@ -48,7 +48,7 @@ class FilesystemLogger implements LoggerInterface
             $message = $this->interpolate($message, $context);
         }
         return $level . ': ' . date('Y-m-d H:i:s') . PHP_EOL . $message
-        . PHP_EOL . PHP_EOL . PHP_EOL;
+            . PHP_EOL . PHP_EOL . PHP_EOL;
     }
 
     protected function write($message)

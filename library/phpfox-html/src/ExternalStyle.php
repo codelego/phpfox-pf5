@@ -61,8 +61,8 @@ class ExternalStyle implements HtmlElementInterface
 
     public function getHtml()
     {
-        return implode(PHP_EOL, array_map(function($v){
-            return _sprintf('<{0} {1}/>',['link', _attrize($v)]);
-        },$this->data));
+        return implode(PHP_EOL, array_map(function ($v) {
+            return _sprintf('<{0} {1}/>', ['link', _attrize($v)]);
+        }, $this->data));
     }
 }

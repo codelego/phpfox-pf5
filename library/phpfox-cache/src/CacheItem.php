@@ -45,6 +45,11 @@ class CacheItem implements CacheItemInterface
         $this->expiresAfter($ttl);
     }
 
+    public function expiresAfter($ttl)
+    {
+        $this->_expiration = $ttl == 0 ? 0 : time() + (int)$ttl;
+    }
+
     public function ttl()
     {
         return $this->_ttls;
@@ -74,11 +79,6 @@ class CacheItem implements CacheItemInterface
     public function isValid()
     {
         return $this->_expiration == 0 || time() <= $this->_expiration;
-    }
-
-    public function expiresAfter($ttl)
-    {
-        $this->_expiration = $ttl == 0 ? 0 : time() + (int)$ttl;
     }
 
     /**

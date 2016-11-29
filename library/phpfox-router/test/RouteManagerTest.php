@@ -29,7 +29,8 @@ class RouteManagerTest extends \PHPUnit_Framework_TestCase
 
         service('router.filters')->get('@profile')->cache('nam.ngvan', true);
 
-        echo service('router')->getUrl('profile/members',['name'=>'nam.ngvan']);
+        echo service('router')->getUrl('profile/members',
+            ['name' => 'nam.ngvan']);
 
         $result = $routing->resolve('nam.ngvan/members', null, null, null);
 

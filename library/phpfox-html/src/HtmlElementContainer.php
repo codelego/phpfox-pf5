@@ -17,35 +17,12 @@ class HtmlElementContainer implements HtmlElementInterface
 
     public function __construct($key)
     {
-        if(is_string($key)){
+        if (is_string($key)) {
             $this->map = config($key);
             foreach ($this->map as $k => $v) {
                 $this->get($k);
             }
         }
-    }
-
-    /**
-     * @return string
-     */
-    public function getHtml()
-    {
-        return implode(PHP_EOL, array_map(function ($v) {
-            return $v->getHtml();
-        }, $this->container));
-    }
-
-    /**
-     * @param string $id
-     * @param mixed  $value
-     *
-     * @return $this
-     */
-    public function set($id, $value)
-    {
-        $this->container[$id] = $value;
-
-        return $this;
     }
 
     /**
@@ -88,6 +65,29 @@ class HtmlElementContainer implements HtmlElementInterface
         }
 
         return (new \ReflectionClass($class))->newInstanceArgs($ref);
+    }
+
+    /**
+     * @return string
+     */
+    public function getHtml()
+    {
+        return implode(PHP_EOL, array_map(function ($v) {
+            return $v->getHtml();
+        }, $this->container));
+    }
+
+    /**
+     * @param string $id
+     * @param mixed  $value
+     *
+     * @return $this
+     */
+    public function set($id, $value)
+    {
+        $this->container[$id] = $value;
+
+        return $this;
     }
 
     public function clear()

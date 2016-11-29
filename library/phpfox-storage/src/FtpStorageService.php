@@ -146,6 +146,64 @@ class FtpStorageService implements StorageServiceInterface
     }
 
     /**
+     * @return \resource
+     * @throws StorageServiceException
+     */
+    private function connect()
+    {
+        if (null != $this->ftpStream) {
+            return $this->ftpStream;
+        }
+
+        if ($this->isFtps == false) {
+            $this->ftpStream = @ftp_connect($this->host, $this->port,
+                $this->timeout);
+        } else {
+            if (!function_exists('ftp_ssl_connect')) {
+                throw new StorageServiceException(sprintf('Unexepected configuration, Coul not connect FPTS without extension OpenSSL',
+                    $this->host));
+            } else {
+                $this->ftpStream = ftp_ssl_connect($this->host, $this->port,
+                    $this->timeout);
+            }
+        }
+
+        if (!$this->ftpStream) {
+            throw new StorageServiceException(sprintf('Unable to connect to "%s"',
+                $this->host));
+        }
+
+        // there no username password
+        if (null === $this->username) {
+            return $this->ftpStream;
+        }
+
+        $return = @ftp_login($this->ftpStream, $this->username,
+            $this->password);
+
+        if (!$return) {
+            throw new StorageServiceException('Login FTP failed.');
+        }
+
+        return $this->ftpStream;
+    }
+
+    /**
+     * disconnect ftp server
+     */
+    public function disconnect()
+    {
+        if (null !== $this->ftpStream) {
+            try {
+                @ftp_close($this->ftpStream);
+            } catch (\Exception $ex) {
+                throw new StorageServiceException($ex->getMessage());
+            }
+            $this->ftpStream = null;
+        }
+    }
+
+    /**
      * @inheritdoc
      */
     function putObject($data, $name)
@@ -272,81 +330,6 @@ class FtpStorageService implements StorageServiceInterface
         return true;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function deleteFile($name)
-    {
-        $path = $this->getPath($name);
-        $this->connect();
-
-        $return = @ftp_delete($this->ftpStream, $path);
-
-        if (!$return) {
-//            throw new StorageServiceException(sprintf('Unable to delete "%s"', $path));
-        }
-
-        return true;
-    }
-
-    /**
-     * @return \resource
-     * @throws StorageServiceException
-     */
-    private function connect()
-    {
-        if (null != $this->ftpStream) {
-            return $this->ftpStream;
-        }
-
-        if ($this->isFtps == false) {
-            $this->ftpStream = @ftp_connect($this->host, $this->port,
-                $this->timeout);
-        } else {
-            if (!function_exists('ftp_ssl_connect')) {
-                throw new StorageServiceException(sprintf('Unexepected configuration, Coul not connect FPTS without extension OpenSSL',
-                    $this->host));
-            } else {
-                $this->ftpStream = ftp_ssl_connect($this->host, $this->port,
-                    $this->timeout);
-            }
-        }
-
-        if (!$this->ftpStream) {
-            throw new StorageServiceException(sprintf('Unable to connect to "%s"',
-                $this->host));
-        }
-
-        // there no username password
-        if (null === $this->username) {
-            return $this->ftpStream;
-        }
-
-        $return = @ftp_login($this->ftpStream, $this->username,
-            $this->password);
-
-        if (!$return) {
-            throw new StorageServiceException('Login FTP failed.');
-        }
-
-        return $this->ftpStream;
-    }
-
-    /**
-     * disconnect ftp server
-     */
-    public function disconnect()
-    {
-        if (null !== $this->ftpStream) {
-            try {
-                @ftp_close($this->ftpStream);
-            } catch (\Exception $ex) {
-                throw new StorageServiceException($ex->getMessage());
-            }
-            $this->ftpStream = null;
-        }
-    }
-
     private function ensure($path)
     {
         $dir = explode("/", $path);
@@ -361,6 +344,23 @@ class FtpStorageService implements StorageServiceInterface
                     return false;
                 }
             }
+        }
+
+        return true;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function deleteFile($name)
+    {
+        $path = $this->getPath($name);
+        $this->connect();
+
+        $return = @ftp_delete($this->ftpStream, $path);
+
+        if (!$return) {
+//            throw new StorageServiceException(sprintf('Unable to delete "%s"', $path));
         }
 
         return true;

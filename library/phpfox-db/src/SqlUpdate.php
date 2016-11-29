@@ -139,6 +139,6 @@ class SqlUpdate
             : ' WHERE ' . $this->sqlCondition->prepare();
 
         return 'UPDATE ' . $this->table . ' SET ' . implode(', ', $array)
-        . $where;
+            . $where;
     }
 }

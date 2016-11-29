@@ -1,8 +1,8 @@
 <?php
-namespace Phpfox\Storage{
+namespace Phpfox\Storage {
 
     return [
-        'autoload.psr4' => [
+        'autoload.psr4'   => [
             'Phpfox\\Storage\\' => [
                 'library\phpfox-storage\src',
                 'library\phpfox-storage\test',
@@ -13,7 +13,7 @@ namespace Phpfox\Storage{
             'ftp'   => FtpStorageService::class,
             'ssh2'  => Ssh2StorageService::class,
         ],
-        'service.map'        => [
+        'service.map'     => [
             'storage' => [SampleStorageManagerFactory::class, null, null],
         ],
     ];

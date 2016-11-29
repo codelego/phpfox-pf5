@@ -1,6 +1,7 @@
 <?php
 
-namespace Phpfox\Mail{
+namespace Phpfox\Mail {
+
     return [
         'autoload.psr4' => [
             'Phpfox\\Mail\\' => [
@@ -8,7 +9,7 @@ namespace Phpfox\Mail{
                 'library\phpfox-mail\test',
             ],
         ],
-        'service.map' => [
+        'service.map'   => [
             'mail' => [null, MailService::class,],
         ],
     ];

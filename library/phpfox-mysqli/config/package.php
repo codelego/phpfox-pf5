@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Mysqli{
+namespace Phpfox\Mysqli {
 
     return [
         'autoload.psr4' => [
@@ -9,7 +9,7 @@ namespace Phpfox\Mysqli{
                 'library\phpfox-mysqli\test',
             ],
         ],
-        'db.drivers' => [
+        'db.drivers'    => [
             'mysqli' => MysqliAdapter::class,
         ],
     ];

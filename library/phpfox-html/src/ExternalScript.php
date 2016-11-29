@@ -26,7 +26,7 @@ class ExternalScript implements HtmlElementInterface
 
         $props = array_merge([
             'type' => 'text/javascript',
-            'src' => $path,
+            'src'  => $path,
         ], $props);
 
         $this->_append($key, $props);
@@ -49,7 +49,7 @@ class ExternalScript implements HtmlElementInterface
 
         $props = array_merge([
             'type' => 'text/javascript',
-            'src' => $path,
+            'src'  => $path,
         ], $props);
 
         $this->_prepend($key, $props);
@@ -59,8 +59,8 @@ class ExternalScript implements HtmlElementInterface
 
     public function getHtml()
     {
-        return implode(PHP_EOL, array_map(function($v){
-            return _sprintf('<{0} async {1}/></{0}>',['script', _attrize($v)]);
-        },$this->data));
+        return implode(PHP_EOL, array_map(function ($v) {
+            return _sprintf('<{0} async {1}/></{0}>', ['script', _attrize($v)]);
+        }, $this->data));
     }
 }

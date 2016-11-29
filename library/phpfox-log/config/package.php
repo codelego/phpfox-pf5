@@ -1,9 +1,9 @@
 <?php
 
-namespace Phpfox\Log{
+namespace Phpfox\Log {
 
     return [
-        'autoload.psr4' => [
+        'autoload.psr4'  => [
             'Phpfox\\Log\\' => [
                 'library\phpfox-log\src',
                 'library\phpfox-log\test',
@@ -21,7 +21,7 @@ namespace Phpfox\Log{
                 ],
             ],
         ],
-        'service.map'       => [
+        'service.map'    => [
             'log.main' => [LogContainerFactory::class, null, 'log.main'],
         ],
     ];

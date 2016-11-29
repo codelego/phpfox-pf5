@@ -51,7 +51,7 @@ class HeadDescription implements HtmlElementInterface
     public function getHtml()
     {
         return '<meta name="description" content="' . htmlentities(implode(',',
-            $this->data)) . '"/>';
+                $this->data)) . '"/>';
     }
 
 }

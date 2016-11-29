@@ -25,14 +25,6 @@ class EnvironmentParams
             : $this->fallback($key);
     }
 
-    public function assign($params)
-    {
-        foreach ($params as $k => $v) {
-            $this->data[$k] = $v;
-        }
-        return $this;
-    }
-
     /**
      * @param string $key
      *
@@ -41,6 +33,14 @@ class EnvironmentParams
     public function fallback($key)
     {
         return $key;
+    }
+
+    public function assign($params)
+    {
+        foreach ($params as $k => $v) {
+            $this->data[$k] = $v;
+        }
+        return $this;
     }
 
     /**

@@ -35,12 +35,6 @@ class FilterContainer
             : $this->elements[$id] = $this->build($id);
     }
 
-    public function set($id, $value)
-    {
-        $this->map[$id] = $value;
-        return $this;
-    }
-
     /**
      * @param string $id
      *
@@ -67,5 +61,11 @@ class FilterContainer
         $class = array_shift($ref);
 
         return new $class();
+    }
+
+    public function set($id, $value)
+    {
+        $this->map[$id] = $value;
+        return $this;
     }
 }

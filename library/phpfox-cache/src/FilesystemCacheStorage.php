@@ -35,50 +35,11 @@ class FilesystemCacheStorage implements CacheStorageInterface
         $this->debug = (bool)$configs['debug'];
     }
 
-    /**
-     * @param string $name
-     *
-     * @return string
-     */
-    private function getFilename($name)
-    {
-        $path = md5($name);
-        $path = substr($path, 0, 3) . DIRECTORY_SEPARATOR . $path;
-        return $this->directory . DIRECTORY_SEPARATOR . $path;
-    }
-
-    /**
-     * @param string $filename
-     *
-     * @return bool
-     */
-    private function ensureFilename($filename)
-    {
-        $dir = dirname($filename);
-        if (!is_dir($dir) && !@mkdir($dir, 0777, true)) {
-            return false;
-        }
-        return true;
-    }
-
     public function getItems($keys = [])
     {
         return array_map(function ($v) {
             return $this->getItem($v);
         }, $keys);
-    }
-
-    public function save(CacheItemInterface $item)
-    {
-        $filename = $this->getFilename($item->key());
-
-        if (!$this->ensureFilename($filename)) {
-            return false;
-        }
-        if (!file_put_contents($filename, serialize($item))) {
-            return false;
-        }
-        return true;
     }
 
     public function getItem($key)
@@ -98,11 +59,49 @@ class FilesystemCacheStorage implements CacheStorageInterface
         return $data;
     }
 
+    /**
+     * @param string $name
+     *
+     * @return string
+     */
+    private function getFilename($name)
+    {
+        $path = md5($name);
+        $path = substr($path, 0, 3) . DIRECTORY_SEPARATOR . $path;
+        return $this->directory . DIRECTORY_SEPARATOR . $path;
+    }
+
     public function setItem($key, $value, $ttl = 0)
     {
         $this->save(new CacheItem($key, $value, $ttl));
     }
 
+    public function save(CacheItemInterface $item)
+    {
+        $filename = $this->getFilename($item->key());
+
+        if (!$this->ensureFilename($filename)) {
+            return false;
+        }
+        if (!file_put_contents($filename, serialize($item))) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @param string $filename
+     *
+     * @return bool
+     */
+    private function ensureFilename($filename)
+    {
+        $dir = dirname($filename);
+        if (!is_dir($dir) && !@mkdir($dir, 0777, true)) {
+            return false;
+        }
+        return true;
+    }
 
     public function hasItem($key)
     {

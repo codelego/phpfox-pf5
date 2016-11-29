@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\I18n{
+namespace Phpfox\I18n {
 
     return [
         'autoload.psr4' => [
@@ -9,7 +9,7 @@ namespace Phpfox\I18n{
                 'library\phpfox-i18n\test',
             ],
         ],
-        'service.map' => [
+        'service.map'   => [
             'translator' => [null, Translator::class,],
         ],
     ];

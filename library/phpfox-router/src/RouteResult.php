@@ -16,39 +16,20 @@ class RouteResult
     /**
      * @return string
      */
-    public function getControllerName()
-    {
-        return $this->getParam('controller');
-    }
-
-    /**
-     * @param string $value
-     *
-     * @return $this
-     */
-    public function setControllerName($value)
-    {
-        $this->params['controller'] = $value;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
     public function getActionName()
     {
         return $this->getParam('action');
     }
 
     /**
-     * @param string $value
+     * @param string     $key
+     * @param null|mixed $default
      *
-     * @return $this
+     * @return mixed|null
      */
-    public function setActionName($value)
+    public function getParam($key, $default = null)
     {
-        $this->params['action'] = $value;
-        return $this;
+        return isset($this->params[$key]) ? $this->params[$key] : $default;
     }
 
     /**
@@ -70,17 +51,6 @@ class RouteResult
     {
         $this->params = $params;
         return $this;
-    }
-
-    /**
-     * @param string     $key
-     * @param null|mixed $default
-     *
-     * @return mixed|null
-     */
-    public function getParam($key, $default = null)
-    {
-        return isset($this->params[$key]) ? $this->params[$key] : $default;
     }
 
     /**
@@ -109,6 +79,36 @@ class RouteResult
             $this->setControllerName('Core\Controller\ErrorController');
             $this->setActionName('404');
         }
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getControllerName()
+    {
+        return $this->getParam('controller');
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return $this
+     */
+    public function setControllerName($value)
+    {
+        $this->params['controller'] = $value;
+        return $this;
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return $this
+     */
+    public function setActionName($value)
+    {
+        $this->params['action'] = $value;
         return $this;
     }
 }

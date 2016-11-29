@@ -14,7 +14,7 @@ class ApcCacheStorage implements CacheStorageInterface
 
     public function __construct()
     {
-        if(!function_exists('apc_fetch')){
+        if (!function_exists('apc_fetch')) {
             throw new InvalidArgumentException("Require apc extension");
         }
     }
@@ -56,13 +56,13 @@ class ApcCacheStorage implements CacheStorageInterface
         return true;
     }
 
-    public function save(CacheItemInterface $item)
-    {
-        apc_store($item->key(), $item->get(), $item->ttl());
-    }
-
     public function setItem($key, $value, $ttl = 0)
     {
         $this->save(new CacheItem($key, $value, $ttl));
+    }
+
+    public function save(CacheItemInterface $item)
+    {
+        apc_store($item->key(), $item->get(), $item->ttl());
     }
 }

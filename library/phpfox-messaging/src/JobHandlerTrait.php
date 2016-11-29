@@ -53,7 +53,7 @@ trait JobHandlerTrait
     public function dequeue()
     {
     }
-    
+
     /**
      * turn it failure by do nothing.
      */

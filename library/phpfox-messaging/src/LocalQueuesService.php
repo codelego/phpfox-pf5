@@ -14,15 +14,6 @@ class LocalQueuesService implements QueuesServiceInterface
     {
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-
     public function addMessage(
         $message,
         $timeout = 0,
@@ -53,6 +44,14 @@ class LocalQueuesService implements QueuesServiceInterface
             'messageBody'   => $item['message_data'],
             'reservationId' => $item['message_id'],
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**

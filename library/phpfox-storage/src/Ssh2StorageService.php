@@ -127,6 +127,84 @@ class Ssh2StorageService implements StorageServiceInterface
         return $content;
     }
 
+    /**
+     * @return \resource
+     * @throws StorageServiceException
+     */
+    private function getFtpStream()
+    {
+        if (null === $this->ftpStream) {
+            $this->connect();
+            $this->ftpStream = @ssh2_sftp($this->sshStream);
+            if (null === $this->ftpStream) {
+                throw new StorageServiceException('Unable to get sftp resource');
+            }
+        }
+
+        return $this->ftpStream;
+    }
+
+    /**
+     * @return \resource
+     * @throws  StorageServiceException
+     */
+    private function connect()
+    {
+        if ($this->sshStream) {
+            return $this->sshStream;
+        }
+
+        $return = null;
+        $publicKey = $this->publicKey;
+        $privateKey = $this->privateKey;
+        $hostKey = $this->hostKey;
+
+        // Connect with keys
+        if (($publicKey && $privateKey && $hostKey)) {
+            $this->sshStream = @ssh2_connect($this->host, $this->port, [
+                'hostkey' => $hostKey,
+            ], [
+                'disconnect' => [$this, 'onDisconnect'],
+            ]);
+        } // Connect without keys
+        else {
+            $this->sshStream = @ssh2_connect($this->host, $this->port, [], [
+                'disconnect' => [$this, 'onDisconnect'],
+            ]);
+        }
+
+        if (!$this->sshStream) {
+            throw new StorageServiceException(sprintf('Unable to connect to "%s"',
+                $this->host));
+        }
+
+
+        // Auth using keys
+        if ($publicKey && $privateKey && $hostKey) {
+            $return = @ssh2_auth_pubkey_file($this->sshStream,
+                $this->getUsername(), $publicKey, $privateKey,
+                $this->getPassword());
+        } // Auth using username/password only
+        else {
+            if ($this->getUsername() && $this->getPassword()) {
+                $return = @ssh2_auth_password($this->sshStream,
+                    $this->getUsername(), $this->getPassword());
+            } // Auth using none
+            else {
+                $return = @ssh2_auth_none($this->sshStream,
+                    $this->getUsername());
+            }
+        }
+
+        // Failure
+        if (!$return) {
+            throw new StorageServiceException('Login failed.');
+        }
+
+
+        return $this->sshStream;
+    }
+
     public function putObject($data, $name)
     {
         $path = $this->getPath($name);
@@ -147,6 +225,44 @@ class Ssh2StorageService implements StorageServiceInterface
         }
 
         return true;
+    }
+
+    /**
+     * @param $command
+     *
+     * @return string
+     * @throws StorageServiceException
+     */
+    private function command($command)
+    {
+        $this->connect();
+
+        $stream = @ssh2_exec($this->sshStream, $command);
+
+        if (!$stream) {
+            throw new StorageServiceException(sprintf('Unable to execute command "%s"',
+                $command));
+        }
+        $errorStream = @ssh2_fetch_stream($stream, SSH2_STREAM_STDERR);
+
+        stream_set_blocking($stream, true);
+        stream_set_timeout($stream, $this->timeout);
+        if ($errorStream) {
+            stream_set_blocking($errorStream, true);
+            stream_set_timeout($errorStream, $this->timeout);
+        }
+
+        $data = stream_get_contents($stream);
+        if ($errorStream) {
+            stream_get_contents($errorStream);
+        }
+
+        fclose($stream);
+        if ($errorStream) {
+            fclose($errorStream);
+        }
+
+        return trim($data);
     }
 
     public function getFile($local, $name)
@@ -217,64 +333,16 @@ class Ssh2StorageService implements StorageServiceInterface
     }
 
     /**
-     * @return \resource
-     * @throws  StorageServiceException
+     * @throws StorageServiceException
      */
-    private function connect()
+    public function onDisconnect()
     {
-        if ($this->sshStream) {
-            return $this->sshStream;
-        }
+        throw new StorageServiceException('Disconnected from server');
+    }
 
-        $return = null;
-        $publicKey = $this->publicKey;
-        $privateKey = $this->privateKey;
-        $hostKey = $this->hostKey;
-
-        // Connect with keys
-        if (($publicKey && $privateKey && $hostKey)) {
-            $this->sshStream = @ssh2_connect($this->host, $this->port, [
-                'hostkey' => $hostKey,
-            ], [
-                'disconnect' => [$this, 'onDisconnect'],
-            ]);
-        } // Connect without keys
-        else {
-            $this->sshStream = @ssh2_connect($this->host, $this->port, [], [
-                'disconnect' => [$this, 'onDisconnect'],
-            ]);
-        }
-
-        if (!$this->sshStream) {
-            throw new StorageServiceException(sprintf('Unable to connect to "%s"',
-                $this->host));
-        }
-
-
-        // Auth using keys
-        if ($publicKey && $privateKey && $hostKey) {
-            $return = @ssh2_auth_pubkey_file($this->sshStream,
-                $this->getUsername(), $publicKey, $privateKey,
-                $this->getPassword());
-        } // Auth using username/password only
-        else {
-            if ($this->getUsername() && $this->getPassword()) {
-                $return = @ssh2_auth_password($this->sshStream,
-                    $this->getUsername(), $this->getPassword());
-            } // Auth using none
-            else {
-                $return = @ssh2_auth_none($this->sshStream,
-                    $this->getUsername());
-            }
-        }
-
-        // Failure
-        if (!$return) {
-            throw new StorageServiceException('Login failed.');
-        }
-
-
-        return $this->sshStream;
+    public function __destruct()
+    {
+        $this->disconnect();
     }
 
     public function disconnect()
@@ -283,74 +351,6 @@ class Ssh2StorageService implements StorageServiceInterface
             $this->command('exit');
             $this->sshStream = null;
         }
-    }
-
-    /**
-     * @throws StorageServiceException
-     */
-    public function onDisconnect()
-    {
-        throw new StorageServiceException('Disconnected from server');
-    }
-
-    /**
-     * @param $command
-     *
-     * @return string
-     * @throws StorageServiceException
-     */
-    private function command($command)
-    {
-        $this->connect();
-
-        $stream = @ssh2_exec($this->sshStream, $command);
-
-        if (!$stream) {
-            throw new StorageServiceException(sprintf('Unable to execute command "%s"',
-                $command));
-        }
-        $errorStream = @ssh2_fetch_stream($stream, SSH2_STREAM_STDERR);
-
-        stream_set_blocking($stream, true);
-        stream_set_timeout($stream, $this->timeout);
-        if ($errorStream) {
-            stream_set_blocking($errorStream, true);
-            stream_set_timeout($errorStream, $this->timeout);
-        }
-
-        $data = stream_get_contents($stream);
-        if ($errorStream) {
-            stream_get_contents($errorStream);
-        }
-
-        fclose($stream);
-        if ($errorStream) {
-            fclose($errorStream);
-        }
-
-        return trim($data);
-    }
-
-    /**
-     * @return \resource
-     * @throws StorageServiceException
-     */
-    private function getFtpStream()
-    {
-        if (null === $this->ftpStream) {
-            $this->connect();
-            $this->ftpStream = @ssh2_sftp($this->sshStream);
-            if (null === $this->ftpStream) {
-                throw new StorageServiceException('Unable to get sftp resource');
-            }
-        }
-
-        return $this->ftpStream;
-    }
-
-    public function __destruct()
-    {
-        $this->disconnect();
     }
 
     public function __sleep()

@@ -67,13 +67,8 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testPackages()
     {
-        $result = service('db')
-            ->sqlSelect()
-            ->from(':core_package')
-            ->select('*')
-            ->where('is_active=?', 1)
-            ->order('is_core', 1)
-            ->order('priority', 1)
+        $result = service('db')->sqlSelect()->from(':core_package')->select('*')
+            ->where('is_active=?', 1)->order('is_core', 1)->order('priority', 1)
             ->execute();
 
         $result = $result->fetch();

@@ -24,6 +24,23 @@ class Application implements DispatchInterface
      */
     protected $actionName = 'index';
 
+    public function isDispatched()
+    {
+        return $this->dispatched;
+    }
+
+    public function setDispatched($flag)
+    {
+        $this->dispatched = (bool)$flag;
+        return $this;
+    }
+
+    public function getFullActionName()
+    {
+        return preg_replace('/\W+/', '_', _deflect(str_replace('Controller', '',
+            $this->getControllerName() . '.' . $this->getActionName())));
+    }
+
     public function getControllerName()
     {
         return $this->controllerName;
@@ -44,23 +61,6 @@ class Application implements DispatchInterface
     {
         $this->actionName = $actionName;
         return $this;
-    }
-
-    public function isDispatched()
-    {
-        return $this->dispatched;
-    }
-
-    public function setDispatched($flag)
-    {
-        $this->dispatched = (bool)$flag;
-        return $this;
-    }
-
-    public function getFullActionName()
-    {
-        return preg_replace('/\W+/', '_', _deflect(str_replace('Controller', '',
-            $this->getControllerName() . '.' . $this->getActionName())));
     }
 
     public function dispatch()
