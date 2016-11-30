@@ -1,0 +1,5 @@
+/data/log/*
+/data/cache/*
+/vendor/
+/static/node_modules/
+/config/*.local.php

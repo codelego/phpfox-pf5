@@ -1,0 +1,1 @@
+define(["platform/message/chat"],function(){});
