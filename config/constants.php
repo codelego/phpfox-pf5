@@ -15,3 +15,5 @@ defined('PHPFOX_PACKAGE_DIR') or define('PHPFOX_PACKAGE_DIR',
     PHPFOX_DIR . DS . '/package');
 
 defined('PHPFOX_TABLE_PREFIX') or define('PHPFOX_TABLE_PREFIX', 'pf5_');
+
+defined('PHPFOX_NO_CACHE') or define('PHPFOX_NO_CACHE', false);

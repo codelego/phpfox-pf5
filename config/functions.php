@@ -2,9 +2,30 @@
 
 namespace {
 
+    function _file_export($file, $data)
+    {
+        if (file_exists($file)) {
+            @unlink($file);
+        }
+        file_put_contents($file,
+            '<?php return ' . var_export($data, true) . ';');
+    }
+
+    /**
+     * @param mixed $autoloader
+     * @param array $array
+     */
+    function _autoload_psr4($autoloader, $array)
+    {
+        foreach ($array as $k => $vs) {
+            foreach ($vs as $v) {
+                $autoloader->addPsr4($k, PHPFOX_DIR . '/' . $v);
+            }
+        }
+    }
+
     function _merge_library_config($dirs = [])
     {
-        $dirs[] = PHPFOX_DIR . '/library/';
         $paths = [];
         $merged = [];
 
@@ -36,24 +57,13 @@ namespace {
                 continue;
             }
 
-            $merged = _array_merge_recursive_new($merged, include $path);
+            $merged = _array_merge_recursive($merged, include $path);
 
         }
 
         ksort($merged);
 
-        $autoloadPsr4 = $merged['autoload.psr4'];
-        unset($merged['autoload.psr4']);
-        $filename = PHPFOX_DIR . '/config/psr4.init.php';
-        file_put_contents($filename,
-            '<?php return ' . var_export($autoloadPsr4, true) . ';');
-
-
-        $filename = PHPFOX_DIR . '/config/service.init.php';
-        file_put_contents($filename,
-            '<?php return ' . var_export($merged, true) . ';');
-
-        chmod($filename, 0777);
+        return $merged;
     }
 
     /**
@@ -196,7 +206,7 @@ namespace {
      *
      * @return mixed
      */
-    function _array_merge_recursive_new(&$base, $array)
+    function _array_merge_recursive(&$base, $array)
     {
         if (is_array($array)) {
             foreach ($array as $k => $v) {
@@ -273,33 +283,6 @@ namespace {
             $path = '/';
         }
         return [$path, $host, $method, $protocol];
-    }
-
-
-    if (true) {
-        $data = include PHPFOX_DIR . '/config/service.init.php';
-        $data['db.adapters']['default'] = include PHPFOX_DIR
-            . '/config/db.init.php';
-
-        \Phpfox::init();
-        $configs = \Phpfox::getConfigContainer();
-
-        $configs->merge($data);
-
-        /** @var \Phpfox\Mysqli\MysqliAdapter $db */
-
-        $db = \Phpfox::get('db');
-
-        /** @var \Phpfox\Mvc\ConfigContainer $configs */
-
-
-        $rows = $db->select()->select('*')->from(':core_package')
-            ->where('is_active=?', 1)->order('priority', 1)->execute()->fetch();
-
-        foreach ($rows as $row) {
-            $configs->merge(include PHPFOX_DIR . '/' . $row['path']
-                . '/config/package.php');
-        }
     }
 
 }
