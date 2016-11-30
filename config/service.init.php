@@ -231,6 +231,31 @@
       1 => 'Phpfox\\Router\\ProfileNameFilter',
     ),
   ),
+  'router.groups' => 
+  array (
+    '@admincp' => 
+    array (
+      'route' => '{admincp}',
+      'defaults' => 
+      array (
+      ),
+    ),
+    '@rest' => 
+    array (
+      'route' => '{rest}',
+      'defaults' => 
+      array (
+      ),
+    ),
+    '@ajax' => 
+    array (
+      'route' => '{ajax}',
+    ),
+    '@' => 
+    array (
+      'route' => '',
+    ),
+  ),
   'router.phrases' => 
   array (
   ),
@@ -291,6 +316,23 @@
       0 => NULL,
       1 => 'Phpfox\\I18n\\Translator',
     ),
+    'log.jobs' => 
+    array (
+      0 => 'Phpfox\\Log\\LogContainerFactory',
+      1 => NULL,
+    ),
+    'queues' => 
+    array (
+      0 => NULL,
+      1 => 'LocalQueueClass',
+      2 => 'queues',
+    ),
+    'queues.01' => 
+    array (
+      0 => NULL,
+      1 => 'AwsSQS',
+      2 => 'queue.01',
+    ),
     'log.main' => 
     array (
       0 => 'Phpfox\\Log\\LogContainerFactory',
@@ -313,23 +355,6 @@
       0 => 'Phpfox\\Cache\\CacheStorageFactory',
       1 => NULL,
       2 => 'cache.memcached',
-    ),
-    'log.jobs' => 
-    array (
-      0 => 'Phpfox\\Log\\LogContainerFactory',
-      1 => NULL,
-    ),
-    'queues' => 
-    array (
-      0 => NULL,
-      1 => 'LocalQueueClass',
-      2 => 'queues',
-    ),
-    'queues.01' => 
-    array (
-      0 => NULL,
-      1 => 'AwsSQS',
-      2 => 'queue.01',
     ),
     'responder' => 
     array (
@@ -364,7 +389,7 @@
     'router' => 
     array (
       0 => NULL,
-      1 => 'Phpfox\\Router\\RouteContainer',
+      1 => 'Phpfox\\Router\\RouteManager',
     ),
     'router.filters' => 
     array (

@@ -5,9 +5,9 @@ namespace Phpfox\Messaging {
 
     return [
         'autoload.psr4' => [
-            'Phpfox\\Messaging\\' => [
-                'library/phpfox-messaging/src',
-                'library/phpfox-messaging/test',
+            'Phpfox\\Jobs\\' => [
+                'library/phpfox-jobs/src',
+                'library/phpfox-jobs/test',
             ],
         ],
         'log.container' => [

@@ -29,6 +29,11 @@
     0 => 'library/phpfox-i18n/src',
     1 => 'library/phpfox-i18n/test',
   ),
+  'Phpfox\\Jobs\\' => 
+  array (
+    0 => 'library/phpfox-jobs/src',
+    1 => 'library/phpfox-jobs/test',
+  ),
   'Phpfox\\Log\\' => 
   array (
     0 => 'library/phpfox-log/src',
@@ -43,11 +48,6 @@
   array (
     0 => 'library/phpfox-memcache/src',
     1 => 'library/phpfox-memcache/test',
-  ),
-  'Phpfox\\Messaging\\' => 
-  array (
-    0 => 'library/phpfox-messaging/src',
-    1 => 'library/phpfox-messaging/test',
   ),
   'Phpfox\\Mvc\\' => 
   array (

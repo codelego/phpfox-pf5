@@ -25,10 +25,18 @@ return [
                 'action'     => 'index',
             ],
         ],
+        'settings' => [
+            'route'    => '{settings}(/[:action])',
+            'defaults' => [
+                'controller' => 'user.settings',
+                'action'     => 'index',
+            ],
+        ],
     ],
     'controller.map'  => [
         'user.auth'     => [null, Controller\AuthController::class],
         'user.register' => [null, Controller\RegisterController::class,],
+        'user.settings' => [null, Controller\SettingsController::class,],
     ],
     'event.listeners' => [
         'user.callback' => ['onMemberLoginBefore', 'onMemberLoginAfter'],

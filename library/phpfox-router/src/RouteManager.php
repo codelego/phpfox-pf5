@@ -9,7 +9,15 @@ class RouteManager
      *
      * @var RouteInterface[]
      */
-    protected $routes = [];
+    protected $byNames = [];
+
+    /**
+     * @var array
+     */
+    protected $byGroups = [];
+
+
+    protected $groups = [];
 
     /**
      * @var array
@@ -36,12 +44,12 @@ class RouteManager
      */
     public function reset()
     {
-        $this->routes = [];
+        $this->byNames = [];
         $routes = config('router.routes');
         $this->phrases = config('router.phrases');
 
         foreach ($routes as $k => $v) {
-            $this->routes[$k] = $this->build($v);
+            $this->byNames[$k] = $this->build($v);
         }
     }
 
@@ -73,7 +81,7 @@ class RouteManager
      */
     public function has($id)
     {
-        return isset($this->routes[$id]);
+        return isset($this->byNames[$id]);
     }
 
     /**
@@ -84,7 +92,7 @@ class RouteManager
      */
     public function add($id, $params)
     {
-        $this->routes[$id] = $this->build($params);
+        $this->byNames[$id] = $this->build($params);
 
         return $this;
     }
@@ -108,13 +116,13 @@ class RouteManager
      */
     public function get($id)
     {
-        if (isset($this->routes[$id])) {
-            return $this->routes[$id];
+        if (isset($this->byNames[$id])) {
+            return $this->byNames[$id];
         }
 
         // todo use production/development to control
         if (null != $this->fallbackId) {
-            return $this->routes[$this->fallbackId];
+            return $this->byNames[$this->fallbackId];
         }
 
         throw new RouteException("Unexpected route '{$id}'");
@@ -132,7 +140,7 @@ class RouteManager
     {
         $result = new RouteResult();
 
-        foreach ($this->routes as $id => $route) {
+        foreach ($this->byNames as $id => $route) {
             if (!$route->match($path, $host, $method, $protocol, $result)) {
                 $result->reset();
                 continue;
