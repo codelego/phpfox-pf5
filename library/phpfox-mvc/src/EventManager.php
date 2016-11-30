@@ -33,11 +33,10 @@ class EventManager implements EventManagerInterface
         try {
             foreach ($this->events[$name] as $listener) {
 
-                \Phpfox::has($listener) and \Phpfox::get($listener)
-                    ->{$name}($event, $response);
+                \Phpfox::get($listener)->{$name}($event, $response);
 
                 // If the event was asked to stop propagating, do so
-                if ($event->isPropagationStopped()) {
+                if ($event->isStopped()) {
                     $response->setStopped(true);
                     break;
                 }

@@ -75,7 +75,7 @@ class Event implements EventInterface
         return isset($this->params[$name]) ? $this->params[$name] : null;
     }
 
-    public function isPropagationStopped()
+    public function isStopped()
     {
         return $this->stopped;
     }

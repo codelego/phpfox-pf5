@@ -21,7 +21,7 @@ class FilterContainer
      */
     public function __construct()
     {
-        $this->map = config('router.filters');
+        $this->map = \Phpfox::config('router.filters');
     }
 
     /**

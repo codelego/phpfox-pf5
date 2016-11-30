@@ -18,7 +18,7 @@ class HtmlElementContainer implements HtmlElementInterface
     public function __construct($key)
     {
         if (is_string($key)) {
-            $this->map = config($key);
+            $this->map = \Phpfox::config($key);
             foreach ($this->map as $k => $v) {
                 $this->get($k);
             }

@@ -73,5 +73,5 @@ interface EventInterface
      *
      * @return bool
      */
-    public function isPropagationStopped();
+    public function isStopped();
 }

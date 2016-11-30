@@ -7,7 +7,7 @@ class StorageServiceFactory implements StorageServiceFactoryInterface
 {
     public function factory($options)
     {
-        $driver = config('storage.drivers', $options['driver']);
+        $driver = \Phpfox::config('storage.drivers', $options['driver']);
         return new $driver($options);
     }
 }

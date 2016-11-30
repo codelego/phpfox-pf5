@@ -39,7 +39,7 @@ class ProfileNameFilter implements FilterInterface
             return $this->cached[$name];
         }
 
-        $response = events()->emit('onFilterProfileName', $result);
+        $response = \Phpfox::emit('onFilterProfileName', $result);
 
         if (!$response) {
             return $this->cached[$name] = false;

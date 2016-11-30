@@ -3,8 +3,6 @@
 namespace {
 
     use Phpfox\Mvc\App as Application;
-    use Phpfox\Mvc\ConfigContainer;
-    use Phpfox\Mvc\EventManager;
 
     // usage global namespace.
     class Phpfox extends Application
@@ -284,38 +282,6 @@ namespace {
         return [$path, $host, $method, $protocol];
     }
 
-    /**
-     * @return ConfigContainer
-     */
-    function configs()
-    {
-        \Phpfox::get('configs');
-    }
-
-    /**
-     * @param string $key
-     * @param string $item
-     *
-     * @return mixed|null
-     */
-    function config($key, $item = null)
-    {
-        return \Phpfox::get('configs')->get($key, $item);
-    }
-
-
-    function service($id)
-    {
-
-    }
-
-    /**
-     * @return EventManager
-     */
-    function &events()
-    {
-        return \Phpfox::get('events');
-    }
 
     if (true) {
         $data = include PHPFOX_DIR . '/config/service.init.php';

@@ -24,7 +24,7 @@ class ViewLayout extends ViewModel
      */
     public function prepare()
     {
-        events()->emit('onViewLayoutPrepare', $this);
+        \Phpfox::emit('onViewLayoutPrepare', $this);
 
         return $this;
     }

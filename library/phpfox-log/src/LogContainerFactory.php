@@ -15,8 +15,8 @@ class LogContainerFactory
             $key = 'default';
         }
 
-        $drivers = config('log.drivers');
-        $containers = config('log.containers');
+        $drivers = \Phpfox::config('log.drivers');
+        $containers = \Phpfox::config('log.containers');
         $loggerOptions = $containers[$key];
 
         $container = new LogContainer();

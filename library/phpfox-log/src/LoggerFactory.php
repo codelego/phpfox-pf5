@@ -16,10 +16,10 @@ class LoggerFactory
      */
     public function factory($class, $options)
     {
-        $logOptions = config('log.containers', $options);
+        $logOptions = \Phpfox::config('log.containers', $options);
 
         if (!$class) {
-            $drivers = config('log.drivers');
+            $drivers = \Phpfox::config('log.drivers');
             $class = $drivers[$logOptions['driver']];
         }
 

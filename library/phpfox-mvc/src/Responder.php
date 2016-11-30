@@ -54,7 +54,7 @@ class Responder
 
     public function terminate()
     {
-        events()->emit('onResponderTerminate');
+        \Phpfox::emit('onResponderTerminate', null);
         exit();
     }
 
