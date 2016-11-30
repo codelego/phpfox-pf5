@@ -305,6 +305,11 @@
       1 => NULL,
       2 => 'default',
     ),
+    'events' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Event\\EventManager',
+    ),
     'html' => 
     array (
       0 => NULL,
@@ -356,6 +361,11 @@
       1 => NULL,
       2 => 'cache.memcached',
     ),
+    'gateways' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Model\\GatewayManager',
+    ),
     'responder' => 
     array (
       0 => NULL,
@@ -374,7 +384,7 @@
     'views' => 
     array (
       0 => NULL,
-      1 => 'Phpfox\\Mvc\\TwigTemplate',
+      1 => 'Phpfox\\View\\PhpTemplate',
     ),
     'models' => 
     array (

@@ -14,6 +14,11 @@
     0 => 'library/phpfox-db/src',
     1 => 'library/phpfox-db/test',
   ),
+  'Phpfox\\Event\\' => 
+  array (
+    0 => 'library/phpfox-events/src',
+    1 => 'library/phpfox-events/test',
+  ),
   'Phpfox\\Form\\' => 
   array (
     0 => 'library/phpfox-form/src',
@@ -49,6 +54,11 @@
     0 => 'library/phpfox-memcache/src',
     1 => 'library/phpfox-memcache/test',
   ),
+  'Phpfox\\Model\\' => 
+  array (
+    0 => 'library/phpfox-models/src',
+    1 => 'library/phpfox-models/test',
+  ),
   'Phpfox\\Mvc\\' => 
   array (
     0 => 'library/phpfox-mvc/src',
@@ -83,6 +93,11 @@
   array (
     0 => 'library/phpfox-storage/src',
     1 => 'library/phpfox-storage/test',
+  ),
+  'Phpfox\\View\\' => 
+  array (
+    0 => 'library/phpfox-view/src',
+    1 => 'library/phpfox-view/test',
   ),
   'Phpfox\\Widget\\' => 
   array (

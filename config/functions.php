@@ -288,15 +288,13 @@ namespace {
 
         /** @var \Phpfox\Mysqli\MysqliAdapter $db */
 
-        $db = \Phpfox::getService('db');
+        $db = \Phpfox::get('db');
 
         /** @var \Phpfox\Mvc\ConfigContainer $configs */
 
 
         $rows = $db->select()->select('*')->from(':core_package')
-            ->where('is_active=?', 1)->order('priority', 1)
-            ->execute()
-            ->fetch();
+            ->where('is_active=?', 1)->order('priority', 1)->execute()->fetch();
 
         foreach ($rows as $row) {
             $configs->merge(include PHPFOX_DIR . '/' . $row['path']

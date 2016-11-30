@@ -254,7 +254,7 @@ class SqlSelect
 
     public function paging($page, $limit)
     {
-        return \Phpfox::getService('paging')->factory($this)->paging($page, $limit);
+        return \Phpfox::get('paging')->factory($this)->paging($page, $limit);
     }
 
     /**

@@ -16,6 +16,4 @@ foreach ($psr4Array as $namespace => $paths) {
 }
 
 
-
-
 include __DIR__ . '/functions.php';

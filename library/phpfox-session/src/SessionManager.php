@@ -35,6 +35,28 @@ class SessionManager
     }
 
     /**
+     * @param string $id
+     *
+     * @return mixed
+     */
+    public function get($id)
+    {
+        return @$_SESSION[$id];
+    }
+
+    /**
+     * @param string $id
+     * @param string $value
+     *
+     * @return $this
+     */
+    public function set($id, $value)
+    {
+        $_SESSION[$id] = $value;
+        return $this;
+    }
+
+    /**
      * Start session manager
      *
      * @return bool always true.

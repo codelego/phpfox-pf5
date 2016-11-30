@@ -8,7 +8,7 @@ class HtmlHeaderTest extends \PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        $htmlFacades = \Phpfox::getService('html');
+        $htmlFacades = \Phpfox::get('html');
 
         $this->assertInstanceOf('Phpfox\Html\HtmlFacades', $htmlFacades);
 

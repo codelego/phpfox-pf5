@@ -33,14 +33,15 @@ class Responder
 
     public function response()
     {
-        $layout = \Phpfox::getService('layout')->prepare();
-        return \Phpfox::getService('renderer')->render($layout);
+        $layout = \Phpfox::get('layout')->prepare();
+        return \Phpfox::get('renderer')->render($layout);
     }
 
     /**
      * @param string $url  External/Internal url
      * @param int    $code Optional, default 302, 301:  Permanently, 302:
      *                     Temporary
+     * @return bool
      */
     public function redirect($url, $code = 302)
     {
@@ -50,6 +51,8 @@ class Responder
             header('location: ' . $url);
         }
         $this->terminate();
+
+        return false;
     }
 
     public function terminate()

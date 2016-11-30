@@ -3,6 +3,9 @@
 namespace Phpfox\Mvc;
 
 
+use Phpfox\Html\HtmlFacades;
+use Phpfox\Router\RouteManager;
+
 class App
 {
     /**
@@ -15,10 +18,6 @@ class App
      */
     protected static $_config;
 
-    /**
-     * @var EventManager
-     */
-    protected static $_event;
 
     /**
      * @var bool
@@ -36,7 +35,6 @@ class App
         self::$_initialized = true;
         self::$_service = new ServiceManager();
         self::$_config = new ConfigContainer();
-        self::$_event = new EventManager();
     }
 
     public static function getServiceContainer()
@@ -70,6 +68,23 @@ class App
         return self::$_config->get($id, $item);
     }
 
+    public static function getParam($key)
+    {
+        if ($key) {
+            ;
+        }
+
+        return true;
+    }
+
+    public static function getUserParam($key)
+    {
+        if ($key) {
+            ;
+        }
+        return true;
+    }
+
     /**
      * @see ServiceManager::get()
      *
@@ -77,7 +92,7 @@ class App
      *
      * @return mixed
      */
-    public static function getService($id)
+    public static function get($id)
     {
         return self::$_service->get($id);
     }
@@ -153,5 +168,59 @@ class App
     public static function trigger($event)
     {
         return self::$_service->get('events')->trigger($event);
+    }
+
+    public static function isUser()
+    {
+        return self::$_service->get('auth')->isUser();
+    }
+
+    public static function getUserId()
+    {
+        return self::$_service->get('auth')->getUserId();
+    }
+
+    public static function isLoggedIn()
+    {
+        return self::$_service->get('auth')->isLoggedIn();
+    }
+
+    public static function membersOnly()
+    {
+        return self::$_service->get('auth')->isUser();
+    }
+
+    /**
+     * @return HtmlFacades
+     */
+    public static function html()
+    {
+        return self::$_service->get('html');
+    }
+
+    public static function trans($id, $context = [])
+    {
+        return self::$_service->get('translator')->translate($id, $context);
+    }
+
+    /**
+     * @see RouteManager::getUrl()
+     *
+     * @param string $id
+     * @param array  $argv
+     *
+     * @return string
+     */
+    public static function getUrl($id, $argv = [])
+    {
+        return self::$_service->get('routing')->getUrl($id, $argv);
+    }
+
+    /**
+     * @return Responder
+     */
+    public static function getResponse()
+    {
+
     }
 }

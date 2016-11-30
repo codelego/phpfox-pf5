@@ -34,7 +34,7 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function getAdapter()
     {
-        return \Phpfox::getService('db');
+        return \Phpfox::get('db');
     }
 
     public function testSqlSelect()
@@ -66,7 +66,7 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testPackages()
     {
-        $result = \Phpfox::getService('db')->sqlSelect()->from(':core_package')->select('*')
+        $result = \Phpfox::get('db')->sqlSelect()->from(':core_package')->select('*')
             ->where('is_active=?', 1)->order('is_core', 1)->order('priority', 1)
             ->execute();
 
@@ -78,12 +78,12 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase
             $data = array_merge_recursive($data, include $configFilename);
         }
 
-        $autoloader = \Phpfox::getService('autoloader');
+        $autoloader = \Phpfox::get('autoloader');
         foreach ($data['psr4'] as $k => $vs) {
             foreach ($vs as $v) {
                 $autoloader->addPsr4($k, PHPFOX_DIR . DS . $v);
             }
         }
-        \Phpfox::getService('log')->info(var_export($data, true));
+        \Phpfox::get('log')->info(var_export($data, true));
     }
 }
