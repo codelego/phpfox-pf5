@@ -20,7 +20,7 @@ class InlineScript implements HtmlElementInterface
      *
      * @return $this
      */
-    public function append($key, $script)
+    public function add($key, $script)
     {
         if ($this->ensureKey($script)) {
             return $this;
@@ -53,6 +53,10 @@ class InlineScript implements HtmlElementInterface
      */
     public function getHtml()
     {
+        if (!$this->data) {
+            return '';
+        }
+
         return _sprintf('<{0} type="{1}">{2}</{0}>', [
             'script',
             'text/javascript',

@@ -2,6 +2,8 @@
 
 namespace Phpfox\Html;
 
+use Phpfox;
+
 /**
  * Class ExternalScript
  *
@@ -18,8 +20,14 @@ class ExternalScript implements HtmlElementInterface
      *
      * @return $this
      */
-    public function append($key, $path, $props = [])
+    public function add($key, $path, $props = [])
     {
+        if (!$path) {
+            $path = Phpfox::getConfig('static.js', $key);
+        }
+
+        $path = $this->getUrl($path);
+
         if ($this->ensureKey($path)) {
             return $this;
         }
@@ -43,13 +51,19 @@ class ExternalScript implements HtmlElementInterface
      */
     public function prepend($key, $path, $props = [])
     {
+        if (!$path) {
+            $path = \Phpfox::getConfig('static.js', $key);
+        }
+
         if ($this->ensureKey($path)) {
             return $this;
         }
 
+        $url = $this->getUrl($path);
+
         $props = array_merge([
             'type' => 'text/javascript',
-            'src'  => $path,
+            'src'  => $url,
         ], $props);
 
         $this->_prepend($key, $props);
@@ -60,7 +74,7 @@ class ExternalScript implements HtmlElementInterface
     public function getHtml()
     {
         return implode(PHP_EOL, array_map(function ($v) {
-            return _sprintf('<{0} async {1}/></{0}>', ['script', _attrize($v)]);
+            return _sprintf('<{0} {1}/></{0}>', ['script', _attrize($v)]);
         }, $this->data));
     }
 }

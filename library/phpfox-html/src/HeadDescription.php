@@ -2,11 +2,6 @@
 
 namespace Phpfox\Html;
 
-/**
- * Class HeadDescription
- *
- * @package Phpfox\Html
- */
 class HeadDescription implements HtmlElementInterface
 {
 
@@ -16,24 +11,13 @@ class HeadDescription implements HtmlElementInterface
     protected $data = [];
 
     /**
-     * @param string $data
+     * @param string|array $data
      *
      * @return $this
      */
-    public function append($data)
+    public function set($data)
     {
-        $this->data[] = $data;
-        return $this;
-    }
-
-    /**
-     * @param string $data
-     *
-     * @return $this
-     */
-    public function prepend($data)
-    {
-        array_unshift($this->data, $data);
+        $this->data = is_string($data) ? [$data] : $data;
         return $this;
     }
 
@@ -42,6 +26,7 @@ class HeadDescription implements HtmlElementInterface
      */
     public function clear()
     {
+        $this->data = [];
         return $this;
     }
 

@@ -35,10 +35,8 @@ class PhpTemplate implements ViewRenderInterface
 
     public function load($name)
     {
-        if (!isset($this->map[$name])) {
-            throw new ViewException("Can not resolve path of '{$name}'");
-        }
+        $filename = \Phpfox::getConfig('views.map', $name);
 
-        return PHPFOX_DIR . DS . $this->map[$name];
+        return PHPFOX_DIR . DS . $filename;
     }
 }

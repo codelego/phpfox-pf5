@@ -1,4 +1,74 @@
 <?php return array (
+  'db.drivers' => 
+  array (
+    'mysqli' => 'Phpfox\\Mysqli\\MysqliAdapter',
+  ),
+  'job.handlers' => 
+  array (
+    'sample' => 'Phpfox\\Messaging\\SampleJobHandler',
+  ),
+  'log.container' => 
+  array (
+    'jobs.log' => 
+    array (
+      0 => 
+      array (
+        'driver' => 'filesystem',
+        'filename' => 'jobs.log',
+      ),
+    ),
+  ),
+  'router.filters' => 
+  array (
+    '@profile' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Router\\ProfileNameFilter',
+    ),
+  ),
+  'router.groups' => 
+  array (
+    '@admincp' => 
+    array (
+      'route' => '{admincp}',
+      'defaults' => 
+      array (
+      ),
+    ),
+    '@rest' => 
+    array (
+      'route' => '{rest}',
+      'defaults' => 
+      array (
+      ),
+    ),
+    '@ajax' => 
+    array (
+      'route' => '{ajax}',
+    ),
+    '@' => 
+    array (
+      'route' => '',
+    ),
+  ),
+  'router.phrases' => 
+  array (
+  ),
+  'router.routes' => 
+  array (
+  ),
+  'session.drivers' => 
+  array (
+    'memcache' => 'Phpfox\\Memcache\\MemcacheSessionSaveHandler',
+    'memcached' => 'Phpfox\\Memcache\\MemcachedSessionSaveHandler',
+  ),
+  'storage.drivers' => 
+  array (
+    'local' => 'Phpfox\\Storage\\LocalStorageService',
+    'ftp' => 'Phpfox\\Storage\\FtpStorageService',
+    'ssh2' => 'Phpfox\\Storage\\Ssh2StorageService',
+  ),
+  0 => 'html.title',
   'auth.adapters' => 
   array (
   ),
@@ -76,18 +146,6 @@
       2 => 'cache.filesystem',
     ),
   ),
-  'db.drivers' => 
-  array (
-    'mysqli' => 'Phpfox\\Mysqli\\MysqliAdapter',
-  ),
-  'events' => 
-  array (
-    'requireJs' => 
-    array (
-      0 => 'onAssetManagerGetHeader',
-      1 => 'onAssetManagerGetFooter',
-    ),
-  ),
   'form.decorator' => 
   array (
     'button' => 'Phpfox\\Form\\Button',
@@ -126,90 +184,12 @@
     'form' => 'Phpfox\\Form\\Form',
     'fieldset' => 'Phpfox\\Form\\Fieldset',
   ),
-  'html.container' => 
-  array (
-    'title' => 
-    array (
-      0 => NULL,
-      1 => 'Phpfox\\Html\\HeadTitle',
-    ),
-    'headKeyword' => 
-    array (
-      0 => NULL,
-      1 => 'Phpfox\\Html\\HeadKeyword',
-    ),
-    'headMeta' => 
-    array (
-      0 => NULL,
-      1 => 'Phpfox\\Html\\HeadMeta',
-    ),
-    'openGraph' => 
-    array (
-      0 => NULL,
-      1 => 'Phpfox\\Html\\HeadOpenGraph',
-    ),
-    'links' => 
-    array (
-      0 => NULL,
-      1 => 'Phpfox\\Html\\HeadLink',
-    ),
-    'styles' => 
-    array (
-      0 => NULL,
-      1 => 'Phpfox\\Html\\ExternalStyle',
-    ),
-    'inlineStyles' => 
-    array (
-      0 => NULL,
-      1 => 'Phpfox\\Html\\InlineStyle',
-    ),
-    'script' => 
-    array (
-      0 => NULL,
-      1 => 'Phpfox\\Html\\ExternalScript',
-    ),
-    'startScript' => 
-    array (
-      0 => NULL,
-      1 => 'Phpfox\\Html\\InlineScript',
-    ),
-    'bootHtml' => 
-    array (
-      0 => NULL,
-      1 => 'Phpfox\\Html\\StaticHtml',
-    ),
-    'shutdownScripts' => 
-    array (
-      0 => NULL,
-      1 => 'Phpfox\\Html\\InlineScript',
-    ),
-    'breadcrumb' => 
-    array (
-      0 => NULL,
-      1 => 'Phpfox\\Html\\Breadcrumb',
-    ),
-  ),
-  'job.handlers' => 
-  array (
-    'sample' => 'Phpfox\\Messaging\\SampleJobHandler',
-  ),
-  'log.container' => 
-  array (
-    'jobs.log' => 
-    array (
-      0 => 
-      array (
-        'driver' => 'filesystem',
-        'filename' => 'jobs.log',
-      ),
-    ),
-  ),
   'log.containers' => 
   array (
     'log.auth' => 
     array (
     ),
-    'log.main' => 
+    'main.log' => 
     array (
       0 => 
       array (
@@ -222,45 +202,6 @@
   array (
     'filesystem' => 'Phpfox\\Log\\FilesystemLogger',
     'db' => 'Phpfox\\Log\\DbLogger',
-  ),
-  'router.filters' => 
-  array (
-    '@profile' => 
-    array (
-      0 => NULL,
-      1 => 'Phpfox\\Router\\ProfileNameFilter',
-    ),
-  ),
-  'router.groups' => 
-  array (
-    '@admincp' => 
-    array (
-      'route' => '{admincp}',
-      'defaults' => 
-      array (
-      ),
-    ),
-    '@rest' => 
-    array (
-      'route' => '{rest}',
-      'defaults' => 
-      array (
-      ),
-    ),
-    '@ajax' => 
-    array (
-      'route' => '{ajax}',
-    ),
-    '@' => 
-    array (
-      'route' => '',
-    ),
-  ),
-  'router.phrases' => 
-  array (
-  ),
-  'router.routes' => 
-  array (
   ),
   'service.map' => 
   array (
@@ -316,6 +257,91 @@
       1 => 'Phpfox\\Html\\HtmlFacades',
       2 => NULL,
     ),
+    'breadcrumb' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Html\\Breadcrumb',
+    ),
+    'require_js' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Html\\RequireJs',
+    ),
+    'require_css' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Html\\RequireCss',
+    ),
+    'html.title' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Html\\HeadTitle',
+    ),
+    'html.keyword' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Html\\HeadKeyword',
+    ),
+    'html.description' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Html\\HeadDescription',
+    ),
+    'html.meta' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Html\\HeadMeta',
+    ),
+    'html.open_graph' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Html\\HeadOpenGraph',
+    ),
+    'html.link' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Html\\HeadLink',
+    ),
+    'html.start.style' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Html\\ExternalStyle',
+    ),
+    'html.start.inline_style' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Html\\InlineStyle',
+    ),
+    'html.start.script' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Html\\ExternalScript',
+    ),
+    'html.start.inline_script' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Html\\InlineScript',
+    ),
+    'html.start.static_html' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Html\\StaticHtml',
+    ),
+    'html.shutdown.script' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Html\\ExternalScript',
+    ),
+    'html.shutdown.inline_script' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Html\\InlineScript',
+    ),
+    'html.shutdown.static_html' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Html\\StaticHtml',
+    ),
     'translator' => 
     array (
       0 => NULL,
@@ -338,11 +364,11 @@
       1 => 'AwsSQS',
       2 => 'queue.01',
     ),
-    'log.main' => 
+    'main.log' => 
     array (
       0 => 'Phpfox\\Log\\LogContainerFactory',
       1 => NULL,
-      2 => 'log.main',
+      2 => 'main.log',
     ),
     'mail' => 
     array (
@@ -391,11 +417,6 @@
       0 => NULL,
       1 => 'Phpfox\\Mvc\\GatewayManager',
     ),
-    'requireJs' => 
-    array (
-      0 => NULL,
-      1 => 'Phpfox\\RequireJs\\RequireJs',
-    ),
     'router' => 
     array (
       0 => NULL,
@@ -424,15 +445,12 @@
       1 => 'Phpfox\\Widget\\WidgetManager',
     ),
   ),
-  'session.drivers' => 
-  array (
-    'memcache' => 'Phpfox\\Memcache\\MemcacheSessionSaveHandler',
-    'memcached' => 'Phpfox\\Memcache\\MemcachedSessionSaveHandler',
-  ),
-  'storage.drivers' => 
-  array (
-    'local' => 'Phpfox\\Storage\\LocalStorageService',
-    'ftp' => 'Phpfox\\Storage\\FtpStorageService',
-    'ssh2' => 'Phpfox\\Storage\\Ssh2StorageService',
-  ),
+  1 => 'html.keyword',
+  2 => 'html.description',
+  3 => 'html.open_graph',
+  4 => 'html.link',
+  5 => 'html.meta',
+  6 => 'html.start.style',
+  7 => 'html.start.inline_style',
+  8 => 'require_css',
 );

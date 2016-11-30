@@ -21,7 +21,7 @@ class HeadKeyword implements HtmlElementInterface
      */
     public function set($data)
     {
-        $this->data[] = is_string($data) ? [$data] : $data;
+        $this->data = is_string($data) ? [$data] : $data;
         return $this;
     }
 
@@ -55,6 +55,6 @@ class HeadKeyword implements HtmlElementInterface
      */
     public function __toString()
     {
-        return htmlentities(implode(',', $this->data));
+        return htmlentities(implode(', ', $this->data));
     }
 }

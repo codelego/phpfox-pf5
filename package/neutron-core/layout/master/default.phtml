@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <?= Phpfox::html()->getStartHtml() ?>
+</head>
+<body class="">
+<header>
+    <?= $this->render('layout.master.header', []) ?>
+</header>
+<?= $layout_content ?>
+<footer>
+    <?= $this->render('layout.master.footer', []) ?>
+</footer>
+<?= Phpfox::html()->getShutdownHtml() ?>
+</body>
+</html>

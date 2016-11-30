@@ -12,6 +12,12 @@ class HeadMeta implements HtmlElementInterface
 
     use HtmlSimpleTrait;
 
+    public function __construct()
+    {
+        $this->data[] = ['charset' => 'utf-8'];
+        $this->data[] = ['name'=>'viewport','content'=>'width=device-width, initial-scale=1.0 user-scalable=yes'];
+    }
+
     /**
      * @param string $name
      * @param array  $props

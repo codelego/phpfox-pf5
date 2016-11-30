@@ -25,12 +25,13 @@ class FilesystemLogger implements LoggerInterface
     {
         $config = array_merge([
             'filename' => 'main.log',
-            'level'    => '*',
+            'level'    => 'debug',
         ], (array)$config);
 
-        $directory = realpath(__DIR__ . '/../../../../data/log');
+        $directory = realpath(__DIR__ . '/../../../data');
 
-        $this->filename = $directory . DS . $config['filename'];
+
+        $this->filename = $directory . DS . 'log' . DS . $config['filename'];
 
         $this->setLevel($config['level']);
     }

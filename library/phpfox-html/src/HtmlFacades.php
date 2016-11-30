@@ -2,6 +2,8 @@
 
 namespace Phpfox\Html;
 
+use Phpfox;
+
 class HtmlFacades
 {
     public function __construct()
@@ -15,8 +17,7 @@ class HtmlFacades
      */
     public function setTitle($title)
     {
-        \Phpfox::get('html.header')->get('html.header.title')
-            ->set($title);
+        Phpfox::get('html.title')->set($title);
         return $this;
     }
 
@@ -25,7 +26,7 @@ class HtmlFacades
      */
     public function clearTitle()
     {
-        \Phpfox::get('html.header.title')->clear();
+        Phpfox::get('html.title')->clear();
         return $this;
     }
 
@@ -36,7 +37,7 @@ class HtmlFacades
      */
     public function setTitleSeparator($separator)
     {
-        \Phpfox::get('html.header.title')->setSeparator($separator);
+        Phpfox::get('html.title')->setSeparator($separator);
         return $this;
     }
 
@@ -45,17 +46,32 @@ class HtmlFacades
      */
     public function getTitleSeparator()
     {
-        return \Phpfox::get('html.header.title')->getSepartor();
+        return Phpfox::get('html.title')->getSepartor();
     }
 
     /**
+     * @see HeadKeyword::set()
+     *
      * @param  string|array $keywords
      *
      * @return $this
      */
-    public function setKeywords($keywords)
+    public function setKeyword($keywords)
     {
-        \Phpfox::get('html.header.keyword')->set($keywords);
+        Phpfox::get('html.keyword')->set($keywords);
+        return $this;
+    }
+
+    /**
+     * @see HeadDescription::set()
+     *
+     * @param  string|array $description
+     *
+     * @return $this
+     */
+    public function setDescription($description)
+    {
+        Phpfox::get('html.description')->set($description);
         return $this;
     }
 
@@ -64,7 +80,22 @@ class HtmlFacades
      */
     public function clearKeywords()
     {
-        \Phpfox::get('html.header.keyword')->clear();
+        Phpfox::get('html.keyword')->clear();
+        return $this;
+    }
+
+    /**
+     * @see ExternalStyle::add()
+     *
+     * @param string      $key
+     * @param string|null $path
+     * @param array       $props
+     *
+     * @return $this
+     */
+    public function addStyle($key, $path, $props = [])
+    {
+        Phpfox::get('html.start.style')->add($key, $path, $props);
         return $this;
     }
 
@@ -76,7 +107,7 @@ class HtmlFacades
      */
     public function addBreadcrumb($title, $href)
     {
-        \Phpfox::get('breadcrumb')->add($title, $href);
+        Phpfox::get('breadcrumb')->add($title, $href);
         return $this;
     }
 
@@ -85,15 +116,7 @@ class HtmlFacades
      */
     public function breadcrumb()
     {
-        return \Phpfox::get('breadcrumb');
-    }
-
-    /**
-     * @return HeadMeta
-     */
-    public function headMeta()
-    {
-        return \Phpfox::get('html.header.meta');
+        return Phpfox::get('breadcrumb');
     }
 
     /**
@@ -104,31 +127,8 @@ class HtmlFacades
      */
     public function addMeta($name, $props = [])
     {
-        \Phpfox::get('html.header.meta')->add($name, $props);
+        Phpfox::get('html.meta')->add($name, $props);
         return $this;
-    }
-
-    public function clearMeta()
-    {
-        \Phpfox::get('html.header.meta')->clear();
-
-        return $this;
-    }
-
-    /**
-     * @return HeadOpenGraph
-     */
-    public function openGraph()
-    {
-        return \Phpfox::get('html.header.open_graph');
-    }
-
-    /**
-     * @return HeadLink
-     */
-    public function links()
-    {
-        return \Phpfox::get('html.header.link');
     }
 
     /**
@@ -140,9 +140,63 @@ class HtmlFacades
      */
     public function addLink($key, $href, $props = [])
     {
-        \Phpfox::get('html.header.link')->add($key, $href, $props);
+        Phpfox::get('html.link')->add($key, $href, $props);
         return $this;
     }
 
+    /**
+     * @see ExternalScript::add()
+     *
+     * @param string      $key
+     * @param string|null $path
+     * @param array       $props
+     *
+     * @return $this
+     */
+    public function addScripts($key, $path, $props = [])
+    {
+        Phpfox::get('html.shutdown.script')->add($key, $path, $props);
+        return $this;
+    }
 
+    /**
+     * @return string
+     */
+    public function getStartHtml()
+    {
+        return implode(PHP_EOL, array_map(function ($v) {
+            return Phpfox::get($v)->getHtml();
+        }, [
+            'html.meta',
+            'html.title',
+            'html.keyword',
+            'html.description',
+            'html.open_graph',
+            'html.link',
+            'html.start.style',
+            'html.start.inline_style',
+            'html.start.script',
+            'html.start.inline_script',
+            'html.start.static_html',
+            'require_css',
+        ]));
+    }
+
+    /**
+     * Get html script of footer
+     *
+     * @return string
+     */
+    public function getShutdownHtml()
+    {
+        return implode(PHP_EOL, array_map(function ($v) {
+            return Phpfox::get($v)->getHtml();
+        }, [
+            'html.shutdown.script',
+            'require_js',
+            'require_css',
+        ]));
+
+    }
 }
+

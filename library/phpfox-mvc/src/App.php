@@ -18,7 +18,6 @@ class App
      */
     protected static $_config;
 
-
     /**
      * @var bool
      */

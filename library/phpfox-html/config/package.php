@@ -1,30 +1,42 @@
 <?php
 
-namespace Phpfox\Html {
+namespace Phpfox\Html;
 
-    return [
-        'autoload.psr4'  => [
-            'Phpfox\\Html\\' => [
-                'library/phpfox-html/src',
-                'library/phpfox-html/test',
-            ],
+return [
+    'autoload.psr4' => [
+        'Phpfox\\Html\\' => [
+            'library/phpfox-html/src',
+            'library/phpfox-html/test',
         ],
-        'html.container' => [
-            'title'           => [null, HeadTitle::class],
-            'headKeyword'     => [null, HeadKeyword::class],
-            'headMeta'        => [null, HeadMeta::class],
-            'openGraph'       => [null, HeadOpenGraph::class],
-            'links'           => [null, HeadLink::class],
-            'styles'          => [null, ExternalStyle::class],
-            'inlineStyles'    => [null, InlineStyle::class],
-            'script'          => [null, ExternalScript::class],
-            'startScript'     => [null, InlineScript::class],
-            'bootHtml'        => [null, StaticHtml::class],
-            'shutdownScripts' => [null, InlineScript::class],
-            'breadcrumb'      => [null, Breadcrumb::class,],
-        ],
-        'service.map'    => [
-            'html' => [null, HtmlFacades::class, null],
-        ],
-    ];
-}
+    ],
+    'html.title',
+    'html.keyword',
+    'html.description',
+    'html.open_graph',
+    'html.link',
+    'html.meta',
+    'html.start.style',
+    'html.start.inline_style',
+    'require_css',
+    'service.map'   => [
+        'html'                        => [null, HtmlFacades::class, null],
+        'breadcrumb'                  => [null, Breadcrumb::class,],
+        'require_js'                  => [null, RequireJs::class,],
+        'require_css'                 => [null, RequireCss::class,],
+        'html.title'                  => [null, HeadTitle::class],
+        'html.keyword'                => [null, HeadKeyword::class],
+        'html.description'            => [null, HeadDescription::class],
+        'html.meta'                   => [null, HeadMeta::class],
+        'html.open_graph'             => [null, HeadOpenGraph::class],
+        'html.link'                   => [null, HeadLink::class],
+        'html.start.style'            => [null, ExternalStyle::class],
+        'html.start.inline_style'     => [null, InlineStyle::class],
+        'html.start.script'           => [null, ExternalScript::class],
+        'html.start.inline_script'    => [null, InlineScript::class],
+        'html.start.static_html'      => [null, StaticHtml::class],
+        'html.shutdown.script'        => [null, ExternalScript::class],
+        'html.shutdown.inline_script' => [null, InlineScript::class],
+        'html.shutdown.static_html'   => [null, StaticHtml::class],
+
+    ],
+];

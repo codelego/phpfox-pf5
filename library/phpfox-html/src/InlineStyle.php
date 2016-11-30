@@ -52,6 +52,9 @@ class InlineStyle implements HtmlElementInterface
      */
     public function getHtml()
     {
+        if (!$this->data) {
+            return '';
+        }
         return _sprintf('<{0} type="{1}">{2}</{0}>', [
             'script',
             'text/css',

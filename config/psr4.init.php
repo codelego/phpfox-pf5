@@ -74,11 +74,6 @@
     0 => 'library/phpfox-realm/src',
     1 => 'library/phpfox-realm/test',
   ),
-  'Phpfox\\RequireJs\\' => 
-  array (
-    0 => 'library/phpfox-requirejs/src',
-    1 => 'library/phpfox-requirejs/test',
-  ),
   'Phpfox\\Router\\' => 
   array (
     0 => 'library/phpfox-router/src',

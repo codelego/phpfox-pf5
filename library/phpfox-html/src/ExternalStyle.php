@@ -18,17 +18,24 @@ class ExternalStyle implements HtmlElementInterface
      *
      * @return $this
      */
-    public function append($key, $path, $props = [])
+    public function add($key, $path = null, $props = [])
     {
+        if (!$path) {
+            $path = \Phpfox::getConfig('static.css', $key);
+        }
+
         if ($this->ensureKey($path)) {
             return $this;
         }
 
+        $url = $this->getUrl($path);
+
         $props = array_merge([
             'type' => 'text/css',
             'rel'  => 'stylesheet',
-            'href' => $path,
+            'href' => $url,
         ], $props);
+
 
         $this->_append($key, $props);
 
@@ -42,16 +49,22 @@ class ExternalStyle implements HtmlElementInterface
      *
      * @return $this
      */
-    public function prepend($key, $path, $props = [])
+    public function prepend($key, $path = null, $props = [])
     {
+        if (!$path) {
+            $path = \Phpfox::getConfig('static.css', $key);
+        }
+
         if ($this->ensureKey($path)) {
             return $this;
         }
 
+        $url = $this->getUrl($path);
+
         $props = array_merge([
             'type' => 'text/css',
             'rel'  => 'stylesheet',
-            'href' => $path,
+            'href' => $url,
         ], $props);
 
         $this->_prepend($key, $props);

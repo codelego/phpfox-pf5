@@ -50,8 +50,11 @@ class HeadOpenGraph implements HtmlElementInterface
      */
     public function getHtml()
     {
-        $result = [];
+        if (empty($this->data)) {
+            return '';
+        }
 
+        $result = [];
         foreach ($this->data as $key => $value) {
             $result[] = sprintf('<meta property="%s" content="%s" />', $key,
                 $value);

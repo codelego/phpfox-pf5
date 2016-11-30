@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\RequireJs;
+namespace Phpfox\Html;
 
 /**
  * Class RequireJs
@@ -17,48 +17,54 @@ class RequireJs
     /**
      * @var string
      */
-    private $_baseUrl;
+    protected $_baseUrl;
     /**
      * @var
      */
-    private $_modules;
+    protected $_modules;
     /**
      * Script list
      *
      * @var array
      */
-    private $scripts = [];
+    protected $_scripts = [];
     /**
      * @var array
      */
-    private $paths = [];
+    protected $_paths = [];
     /**
      * @var array
      */
-    private $bundles = [];
+    protected $_bundles = [];
     /**
      * @var array
      */
-    private $dependency = ['jquery'];
+    protected $_deps = ['jquery', 'bootstrap'];
     /**
      * @var array
      */
-    private $_shim = [];
+    protected $_shim = [];
+
+    public function __construct()
+    {
+        $this->_shim = \Phpfox::getConfig('requirejs.shim');
+        $this->_paths = \Phpfox::getConfig('requirejs.paths');
+    }
 
     /**
      * @return array
      */
     public function getScripts()
     {
-        return $this->scripts;
+        return $this->_scripts;
     }
 
     /**
-     * @param array $scripts
+     * @param array $_scripts
      */
-    public function setScripts($scripts)
+    public function setScripts($_scripts)
     {
-        $this->scripts = $scripts;
+        $this->_scripts = $_scripts;
     }
 
     /**
@@ -89,17 +95,19 @@ class RequireJs
     }
 
     /**
+     * Add dependency
+     *
      * @param string|array $values
      *
      * @return $this
      */
-    public function addDependency($values)
+    public function deps($values)
     {
         if (is_string($values)) {
-            $this->dependency[] = $values;
+            $this->_deps[] = $values;
         } else {
             foreach ($values as $value) {
-                $this->dependency[] = $value;
+                $this->_deps[] = $value;
             }
         }
 
@@ -140,7 +148,7 @@ class RequireJs
      */
     public function prependDependency($value)
     {
-        array_unshift($this->dependency, $value);
+        array_unshift($this->_deps, $value);
 
         return $this;
     }
@@ -158,7 +166,7 @@ class RequireJs
             $name = uniqid('script_');
         }
 
-        $this->scripts[$name] = $code;
+        $this->_scripts[$name] = $code;
 
         return $this;
     }
@@ -171,7 +179,7 @@ class RequireJs
      */
     public function prependScript($name, $string)
     {
-        $this->scripts = array_merge([$name => $string], $this->scripts);
+        $this->_scripts = array_merge([$name => $string], $this->_scripts);
 
         return $this;
     }
@@ -184,7 +192,7 @@ class RequireJs
      */
     public function addPath($name, $path)
     {
-        $this->paths[$name] = $path;
+        $this->_paths[$name] = $path;
 
         return $this;
     }
@@ -197,7 +205,7 @@ class RequireJs
     public function addPaths($paths)
     {
         foreach ($paths as $name => $path) {
-            $this->paths[$name] = $path;
+            $this->_paths[$name] = $path;
         }
 
         return $this;
@@ -237,16 +245,16 @@ class RequireJs
             $value = [$value];
         }
 
-        if (empty($this->bundles[$name])) {
-            $this->bundles[$name] = [];
+        if (empty($this->_bundles[$name])) {
+            $this->_bundles[$name] = [];
         }
 
         foreach ($value as $val) {
-            $this->bundles[$name][] = $val;
+            $this->_bundles[$name][] = $val;
         }
 
-        $this->bundles[$name]
-            = array_values(array_unique($this->bundles[$name]));
+        $this->_bundles[$name]
+            = array_values(array_unique($this->_bundles[$name]));
 
         return $this;
     }
@@ -264,17 +272,7 @@ class RequireJs
      */
     public function __toString()
     {
-        return (string)$this->render();
-    }
-
-    /**
-     * @return string
-     */
-    public function render()
-    {
-        return '<script type="text/javascript">' . PHP_EOL
-            . $this->renderConfig() . ' ; ' . PHP_EOL . $this->renderScript()
-            . PHP_EOL . '</script>';
+        return $this->getHtml();
     }
 
     /**
@@ -282,7 +280,7 @@ class RequireJs
      */
     public function renderConfig()
     {
-        \app()->emit('onBeforeJavascriptRender', $this);
+        \Phpfox::emit('onBeforeJavascriptRender', $this);
 
         $config = [
             'baseUrl' => $this->getBaseUrl(),
@@ -292,8 +290,7 @@ class RequireJs
             //            'waitSeconds' => 15,
         ];
 
-        return 'requirejs.config(' . json_encode($config, JSON_PRETTY_PRINT)
-            . ');';
+        return 'requirejs.config(' . json_encode($config, JSON_PRETTY_PRINT) . ');';
     }
 
     /**
@@ -313,15 +310,15 @@ class RequireJs
      */
     public function getPaths()
     {
-        return $this->paths;
+        return $this->_paths;
     }
 
     /**
-     * @param array $paths
+     * @param array $_paths
      */
-    public function setPaths($paths)
+    public function setPaths($_paths)
     {
-        $this->paths = $paths;
+        $this->_paths = $_paths;
     }
 
     /**
@@ -329,15 +326,15 @@ class RequireJs
      */
     public function getBundles()
     {
-        return $this->bundles;
+        return $this->_bundles;
     }
 
     /**
-     * @param array $bundles
+     * @param array $_bundles
      */
-    public function setBundles($bundles)
+    public function setBundles($_bundles)
     {
-        $this->bundles = $bundles;
+        $this->_bundles = $_bundles;
     }
 
     /**
@@ -358,15 +355,15 @@ class RequireJs
 
         $response = [];
 
-        foreach ($this->scripts as $script) {
+        foreach ($this->_scripts as $script) {
             $response[] = $script;
         }
 
-        $response[] = 'BootInit()';
+        $response[] = 'if(typeof BootInit == "function"){BootInit();}';
 
         $content = implode(';' . PHP_EOL, $response);
 
-        $dependency = json_encode($this->getDependency(), JSON_PRETTY_PRINT);
+        $dependency = json_encode($this->_deps, JSON_PRETTY_PRINT);
 
         return 'require(' . $dependency . ', function(){' . PHP_EOL . $content
             . PHP_EOL . ' });';
@@ -375,19 +372,19 @@ class RequireJs
     /**
      * @return array
      */
-    public function getDependency()
+    public function getDeps()
     {
-        return array_values(array_unique($this->dependency));
+        return array_values(array_unique($this->_deps));
     }
 
     /**
-     * @param array $dependency
+     * @param array $_deps
      *
      * @return $this
      */
-    public function setDependency($dependency)
+    public function setDeps($_deps)
     {
-        $this->dependency = $dependency;
+        $this->_deps = $_deps;
 
         return $this;
     }
@@ -395,16 +392,23 @@ class RequireJs
     /**
      * @return string
      */
-    public function renderScriptHtml()
+    public function getHtml()
     {
-        return '<script type="text/javascript">' . PHP_EOL
-            . $this->renderScript() . PHP_EOL . '</script>';
+        return implode(PHP_EOL, [
+            '<script type="text/javascript">',
+            $this->renderConfig(),
+            $this->renderScript(),
+            '</script>',
+        ]);
     }
 
-    public function renderConfigHtml()
+    public function getConfigHtml()
     {
-        return '<script type="text/javascript">' . PHP_EOL
-            . $this->renderConfig() . PHP_EOL . '</script>';
+        return implode(PHP_EOL, [
+            '<script type="text/javascript">',
+            $this->renderConfig(),
+            '</script>',
+        ]);
     }
 
     /**

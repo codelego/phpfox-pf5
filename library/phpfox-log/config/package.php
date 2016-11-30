@@ -14,7 +14,7 @@ namespace Phpfox\Log {
             'db'         => DbLogger::class,
         ],
         'log.containers' => [
-            'log.main' => [
+            'main.log' => [
                 [
                     'driver'   => 'filesystem',
                     'filename' => 'main.log',
@@ -22,7 +22,7 @@ namespace Phpfox\Log {
             ],
         ],
         'service.map'    => [
-            'log.main' => [LogContainerFactory::class, null, 'log.main'],
+            'main.log' => [LogContainerFactory::class, null, 'main.log'],
         ],
     ];
 }

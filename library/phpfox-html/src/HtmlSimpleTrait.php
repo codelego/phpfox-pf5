@@ -4,6 +4,7 @@ namespace Phpfox\Html;
 
 Trait HtmlSimpleTrait
 {
+    protected $staticUrl = '/pf5/static/';
     /**
      * @var int
      */
@@ -101,5 +102,16 @@ Trait HtmlSimpleTrait
     {
         $this->data = array_merge([$this->_normalize($key) => $value],
             $this->data);
+
+    }
+
+    /**
+     * @param string $path
+     *
+     * @return string
+     */
+    protected function getUrl($path)
+    {
+        return $this->staticUrl . $path;
     }
 }
