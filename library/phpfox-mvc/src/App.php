@@ -35,7 +35,8 @@ class App
         }
         self::$_initialized = true;
         self::$_service = new ServiceManager();
-
+        self::$_config = new ConfigContainer();
+        self::$_event = new EventManager();
     }
 
     public static function getServiceContainer()
@@ -64,7 +65,7 @@ class App
      *
      * @return mixed|null
      */
-    public static function config($id, $item = null)
+    public static function getConfig($id, $item = null)
     {
         return self::$_config->get($id, $item);
     }
@@ -76,7 +77,7 @@ class App
      *
      * @return mixed
      */
-    public static function get($id)
+    public static function getService($id)
     {
         return self::$_service->get($id);
     }
@@ -100,7 +101,7 @@ class App
      *
      * @return bool
      */
-    public static function has($id)
+    public static function hasService($id)
     {
         return self::$_service->has($id);
     }

@@ -13,7 +13,7 @@ class SessionManagerTest extends \PHPUnit_Framework_TestCase
 {
     public function testSaveHandler()
     {
-        \Phpfox::get('session')->start();
+        \Phpfox::getService('session')->start();
 
         var_dump(session_id());
     }

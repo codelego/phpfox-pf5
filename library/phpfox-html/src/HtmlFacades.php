@@ -15,7 +15,7 @@ class HtmlFacades
      */
     public function setTitle($title)
     {
-        \Phpfox::get('html.header')->get('html.header.title')->set($title);
+        \Phpfox::getService('html.header')->get('html.header.title')->set($title);
         return $this;
     }
 
@@ -24,7 +24,7 @@ class HtmlFacades
      */
     public function clearTitle()
     {
-        \Phpfox::get('html.header.title')->clear();
+        \Phpfox::getService('html.header.title')->clear();
         return $this;
     }
 
@@ -35,7 +35,7 @@ class HtmlFacades
      */
     public function setTitleSeparator($separator)
     {
-        \Phpfox::get('html.header.title')->setSeparator($separator);
+        \Phpfox::getService('html.header.title')->setSeparator($separator);
         return $this;
     }
 
@@ -44,7 +44,7 @@ class HtmlFacades
      */
     public function getTitleSeparator()
     {
-        return \Phpfox::get('html.header.title')->getSepartor();
+        return \Phpfox::getService('html.header.title')->getSepartor();
     }
 
     /**
@@ -54,7 +54,7 @@ class HtmlFacades
      */
     public function setKeywords($keywords)
     {
-        \Phpfox::get('html.header.keyword')->set($keywords);
+        \Phpfox::getService('html.header.keyword')->set($keywords);
         return $this;
     }
 
@@ -63,7 +63,7 @@ class HtmlFacades
      */
     public function clearKeywords()
     {
-        \Phpfox::get('html.header.keyword')->clear();
+        \Phpfox::getService('html.header.keyword')->clear();
         return $this;
     }
 
@@ -72,7 +72,7 @@ class HtmlFacades
      */
     public function breadcrumb()
     {
-        return \Phpfox::get('breadcrumb');
+        return \Phpfox::getService('breadcrumb');
     }
 
     /**
@@ -80,7 +80,7 @@ class HtmlFacades
      */
     public function headMeta()
     {
-        return \Phpfox::get('html.header.meta');
+        return \Phpfox::getService('html.header.meta');
     }
 
     /**
@@ -91,13 +91,13 @@ class HtmlFacades
      */
     public function addMeta($name, $props = [])
     {
-        \Phpfox::get('html.header.meta')->add($name, $props);
+        \Phpfox::getService('html.header.meta')->add($name, $props);
         return $this;
     }
 
     public function clearMeta()
     {
-        \Phpfox::get('html.header.meta')->clear();
+        \Phpfox::getService('html.header.meta')->clear();
 
         return $this;
     }
@@ -107,7 +107,7 @@ class HtmlFacades
      */
     public function openGraph()
     {
-        return \Phpfox::get('html.header.open_graph');
+        return \Phpfox::getService('html.header.open_graph');
     }
 
     /**
@@ -115,7 +115,7 @@ class HtmlFacades
      */
     public function links()
     {
-        return \Phpfox::get('html.header.link');
+        return \Phpfox::getService('html.header.link');
     }
 
     /**
@@ -127,7 +127,7 @@ class HtmlFacades
      */
     public function addLink($key, $href, $props = [])
     {
-        \Phpfox::get('html.header.link')->add($key, $href, $props);
+        \Phpfox::getService('html.header.link')->add($key, $href, $props);
         return $this;
     }
 }

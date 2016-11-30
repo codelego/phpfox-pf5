@@ -33,11 +33,11 @@ class SampleModel
 
     public function delete()
     {
-        \Phpfox::get('models')->delete('sample', $this->getId());
+        \Phpfox::getService('models')->delete('sample', $this->getId());
     }
 
     public function save()
     {
-        \Phpfox::get('models')->delete('sample', $this->getId());
+        \Phpfox::getService('models')->delete('sample', $this->getId());
     }
 }

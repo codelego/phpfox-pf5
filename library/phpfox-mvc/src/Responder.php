@@ -33,8 +33,8 @@ class Responder
 
     public function response()
     {
-        $layout = \Phpfox::get('layout')->prepare();
-        return \Phpfox::get('renderer')->render($layout);
+        $layout = \Phpfox::getService('layout')->prepare();
+        return \Phpfox::getService('renderer')->render($layout);
     }
 
     /**

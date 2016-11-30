@@ -14,11 +14,11 @@ class SaveHandlerFactory
     public function factory($class, $options)
     {
         if (is_string($options)) {
-            $options = \Phpfox::config('session.adapters', $options);
+            $options = \Phpfox::getConfig('session.adapters', $options);
         }
 
         if (!$class) {
-            $class = \Phpfox::config('session.drivers', $options['driver']);
+            $class = \Phpfox::getConfig('session.drivers', $options['driver']);
         }
 
         return new $class($options);

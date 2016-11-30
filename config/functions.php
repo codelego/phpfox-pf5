@@ -2,13 +2,6 @@
 
 namespace {
 
-    use Phpfox\Mvc\App as Application;
-
-    // usage global namespace.
-    class Phpfox extends Application
-    {
-    }
-
     function _merge_library_config($dirs = [])
     {
         $dirs[] = PHPFOX_DIR . '/library/';
@@ -289,19 +282,21 @@ namespace {
             . '/config/db.init.php';
 
         \Phpfox::init();
-        $configs = \Phpfox::get('configs');
+        $configs = \Phpfox::getConfigContainer();
 
         $configs->merge($data);
 
         /** @var \Phpfox\Mysqli\MysqliAdapter $db */
 
-        $db = \Phpfox::get('db');
+        $db = \Phpfox::getService('db');
 
         /** @var \Phpfox\Mvc\ConfigContainer $configs */
 
 
         $rows = $db->select()->select('*')->from(':core_package')
-            ->where('is_active=?', 1)->order('priority', 1)->execute()->fetch();
+            ->where('is_active=?', 1)->order('priority', 1)
+            ->execute()
+            ->fetch();
 
         foreach ($rows as $row) {
             $configs->merge(include PHPFOX_DIR . '/' . $row['path']

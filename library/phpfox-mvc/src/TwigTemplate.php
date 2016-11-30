@@ -17,7 +17,7 @@ class TwigTemplate implements ViewRenderInterface
 
     public function __construct()
     {
-        $this->twig = new \Twig_Environment(\Phpfox::get('view.loader'), []);
+        $this->twig = new \Twig_Environment(\Phpfox::getService('view.loader'), []);
     }
 
     /**

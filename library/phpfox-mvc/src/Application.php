@@ -70,7 +70,7 @@ class Application implements DispatchInterface
 
         list($path, $host, $method, $protocol) = _http_init_info();
 
-        $routing = \Phpfox::get('router');
+        $routing = \Phpfox::getService('router');
 
         if (null == $this->controllerName) {
             $routeResult = $routing->resolve($path, $host, $method, $protocol);
@@ -84,6 +84,6 @@ class Application implements DispatchInterface
                 = (new $this->controllerName())->resolve($this->actionName);
         } while ($this->dispatched == false and --$loop > 0);
 
-        echo \Phpfox::get('responder')->setContent($content)->response();
+        echo \Phpfox::getService('responder')->setContent($content)->response();
     }
 }

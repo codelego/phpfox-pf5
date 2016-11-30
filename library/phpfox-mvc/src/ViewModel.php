@@ -79,7 +79,7 @@ class ViewModel
 
     public function forge()
     {
-        return \Phpfox::get('template')->parital($this->template, $this->variables);
+        return \Phpfox::getService('template')->parital($this->template, $this->variables);
     }
 
     public function terminate()

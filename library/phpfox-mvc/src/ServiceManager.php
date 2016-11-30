@@ -10,17 +10,10 @@ class ServiceManager
     protected $container = [];
 
     /**
-     * @var ConfigContainer
-     */
-    protected $config;
-
-    /**
      * ServiceManager constructor.
      */
     public function __construct()
     {
-        $this->config = new ConfigContainer();
-        $this->container['configs'] = $this->config;
         $this->container['self'] = $this;
     }
 
@@ -46,7 +39,7 @@ class ServiceManager
      */
     public function has($id)
     {
-        return $this->config->get('service.map', $id) != null;
+        return \Phpfox::getConfig('service.map', $id) != null;
     }
 
     /**
@@ -67,7 +60,7 @@ class ServiceManager
      */
     public function build($id)
     {
-        $ref = $this->config->get('service.map', $id);
+        $ref = \Phpfox::getConfig('service.map', $id);
 
         if (!$ref) {
             throw new \InvalidArgumentException("There are no service identity '{$id}'");

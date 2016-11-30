@@ -33,7 +33,7 @@ class EventManager implements EventManagerInterface
         try {
             foreach ($this->events[$name] as $listener) {
 
-                \Phpfox::get($listener)->{$name}($event, $response);
+                \Phpfox::getService($listener)->{$name}($event, $response);
 
                 // If the event was asked to stop propagating, do so
                 if ($event->isStopped()) {
@@ -43,7 +43,7 @@ class EventManager implements EventManagerInterface
             }
 
         } catch (\Exception $exception) {
-            \Phpfox::get('events.log')->error($exception->getMessage());
+            \Phpfox::getService('events.log')->error($exception->getMessage());
         }
 
         return $response;

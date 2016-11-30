@@ -21,7 +21,7 @@ class GatewayManager implements GatewayManagerInterface
 
     public function __construct()
     {
-        $this->map = \Phpfox::config('models');
+        $this->map = \Phpfox::getConfig('models');
     }
 
     public function set($id, $gateway)

@@ -2,8 +2,10 @@
 
 include __DIR__ . '/constants.php';
 
-
 $autoloader = include __DIR__ . '/../vendor/autoload.php';
+$autoloader->addClassMap([
+    'Phpfox'=> __DIR__ .'/../library/phpfox-mvc/lib/Phpfox.php'
+]);
 
 $psr4Array = include __DIR__ . '/psr4.init.php';
 
@@ -12,6 +14,8 @@ foreach ($psr4Array as $namespace => $paths) {
         $autoloader->addPsr4($namespace, PHPFOX_DIR . '/' . $path);
     }
 }
+
+
 
 
 include __DIR__ . '/functions.php';

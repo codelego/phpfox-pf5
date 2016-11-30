@@ -8,14 +8,14 @@ class RouteManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testService()
     {
-        $routing = \Phpfox::get('router');
+        $routing = \Phpfox::getService('router');
 
         $this->assertNotNull($routing, 'Can not init routing service');
     }
 
     public function testLogin()
     {
-        $routing = \Phpfox::get('router');
+        $routing = \Phpfox::getService('router');
 
         $result = $routing->resolve('login', null, null, null);
 
@@ -25,11 +25,11 @@ class RouteManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testProfile()
     {
-        $routing = \Phpfox::get('router');
+        $routing = \Phpfox::getService('router');
 
-        \Phpfox::get('router.filters')->get('@profile')->cache('nam.ngvan', true);
+        \Phpfox::getService('router.filters')->get('@profile')->cache('nam.ngvan', true);
 
-        echo \Phpfox::get('router')->getUrl('profile/members',
+        echo \Phpfox::getService('router')->getUrl('profile/members',
             ['name' => 'nam.ngvan']);
 
         $result = $routing->resolve('nam.ngvan/members', null, null, null);
