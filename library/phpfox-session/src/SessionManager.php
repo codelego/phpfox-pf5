@@ -21,17 +21,12 @@ class SessionManager
         }
 
         // skip session storage
-        if (PHP_SAPI == 'cli') {
+        if (PHP_SAPI == 'cli' || PHPFOX_NO_SESSION) {
             $this->saveHandler = new NullSaveHandler();
             return;
         }
 
-        if ($configs['driver'] == 'files') {
-            $this->saveHandler = 'files';
-        } else {
-            $driver = new $configs['driver'];
-            $this->saveHandler = $driver($configs);
-        }
+        $this->saveHandler = $configs['handler'];
     }
 
     /**

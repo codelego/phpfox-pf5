@@ -17,3 +17,5 @@ defined('PHPFOX_PACKAGE_DIR') or define('PHPFOX_PACKAGE_DIR',
 defined('PHPFOX_TABLE_PREFIX') or define('PHPFOX_TABLE_PREFIX', 'pf5_');
 
 defined('PHPFOX_NO_CACHE') or define('PHPFOX_NO_CACHE', false);
+
+defined('PHPFOX_NO_SESSION') or define('PHPFOX_NO_SESSION', false);

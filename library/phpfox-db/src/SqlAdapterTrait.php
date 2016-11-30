@@ -5,12 +5,12 @@ namespace Phpfox\Db;
 Trait SqlAdapterTrait
 {
     /**
-     * @param string $table
-     * @param array  $data
+     * @param string     $table
+     * @param array|null $data
      *
      * @return SqlInsert
      */
-    public function sqlInsert($table, $data)
+    public function insert($table, $data = null)
     {
         return (new SqlInsert($this))->insert($table, $data);
     }
@@ -26,23 +26,41 @@ Trait SqlAdapterTrait
     }
 
     /**
-     * @param string $table
-     * @param array  $data
+     * @param string     $table
+     * @param array|null $data
+     * @param array|null $where
      *
      * @return SqlUpdate
      */
-    public function sqlUpdate($table, $data)
+    public function update($table, $data = null, $where = null)
     {
-        return (new SqlUpdate($this))->update($table)->values($data);
+        $sql = (new SqlUpdate($this))->update($table);
+
+        if (!empty($data)) {
+            $sql->values($data);
+        }
+
+        if (!empty($where)) {
+            $sql->where($where);
+        }
+
+        return $sql;
     }
 
     /**
-     * @param string $table
+     * @param string     $table
+     * @param null|array $where
      *
      * @return SqlDelete
      */
-    public function sqlDelete($table)
+    public function delete($table, $where = null)
     {
-        return (new SqlDelete($this))->from($table);
+        $sql = (new SqlDelete($this))->from($table);
+
+        if (!empty($where)) {
+            $sql->where($where);
+        }
+
+        return $sql;
     }
 }

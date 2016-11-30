@@ -77,27 +77,29 @@ interface AdapterInterface
     public function select($argv = '*');
 
     /**
-     * @param $table
-     * @param $data
+     * @param string      $table
+     * @param array|array $data
      *
      * @return SqlInsert
      */
-    public function sqlInsert($table, $data);
+    public function insert($table, $data);
 
     /**
-     * @param $table
-     * @param $data
+     * @param string     $table
+     * @param array|null $data
+     * @param array|null $where
      *
      * @return SqlUpdate
      */
-    public function sqlUpdate($table, $data);
+    public function update($table, $data = null, $where = null);
 
     /**
-     * @param string $table
+     * @param string     $table
+     * @param array|null $where
      *
      * @return SqlDelete
      */
-    public function sqlDelete($table);
+    public function delete($table, $where = null);
 
     /**
      * @param bool|true $master Use master connection

@@ -75,6 +75,8 @@ if (!$shouldGenerate) {
     _file_export($cacheFiles['psr4.init'], $all['autoload.psr4']);
     unset($all['autoload.psr4']);
 
+    ksort($all);
     _file_export($cacheFiles['service.init'], $all);
+
     unset($all);
 }

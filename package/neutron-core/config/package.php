@@ -84,7 +84,6 @@ return [
         'core.admincp-settings'  => Controller\AdminSettingsController::class,
     ],
     'service.map'     => [
-        'session'     => '',
         'i18n.loader' => [null, PhraseLoader::class],
     ],
     'views.map'       => [
@@ -93,4 +92,8 @@ return [
         'layout.master.footer'  => 'package/neutron-core/layout/master/footer.phtml',
         'layout.master.admin'   => 'package/neutron-core/layout/master/admin.phtml',
     ],
+    'session.drivers' => [
+        'db' => Service\SessionDbSaveHandler::class,
+    ],
+    'session.adapter' => ['driver' => 'db'],
 ];
