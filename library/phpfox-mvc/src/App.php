@@ -5,6 +5,7 @@ namespace Phpfox\Mvc;
 
 use Phpfox\Html\HtmlFacades;
 use Phpfox\Router\RouteManager;
+use Phpfox\View\PhpTemplate;
 
 class App
 {
@@ -197,9 +198,9 @@ class App
         return self::$_service->get('html');
     }
 
-    public static function trans($id, $context = [])
+    public static function trans($id, $domain, $locale, $context = [])
     {
-        return self::$_service->get('translator')->translate($id, $context);
+        return self::$_service->get('translator')->translate($id,  $domain, $locale, $context);
     }
 
     /**
@@ -221,5 +222,13 @@ class App
     public static function getResponse()
     {
 
+    }
+
+    /**
+     * @return PhpTemplate
+     */
+    public static function getViews()
+    {
+        return self::$_service->get('views');
     }
 }

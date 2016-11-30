@@ -2,33 +2,73 @@
 
 namespace Phpfox\I18n;
 
-/**
- * Class TextDomain
- *
- * @package Phpfox\I18n
- */
-class TextDomain implements TextDomainInterface
+class TextDomain
 {
-    /**
-     * @var PluralRule
-     */
-    protected $pluralRule;
-
     /**
      * @var string
      */
     protected $messages = [];
 
     /**
-     * @inheritdoc
+     * @var string
      */
-    public function textPlural($domain, $message, $number = 0)
-    {
+    protected $locale;
 
+    /**
+     * @var string
+     */
+    protected $domain;
+
+    /**
+     * TextDomain constructor.
+     *
+     * @param string $locale
+     * @param string $domain
+     */
+    public function __construct($locale, $domain)
+    {
+        $this->locale = $locale;
+        $this->domain = $domain;
+
+        $this->messages = \Phpfox::get('i18n.loader')
+            ->load($this->locale, $domain);
     }
 
-    public function text($domain, $message)
+    /**
+     * @param string    $id
+     * @param int $number
+     *
+     * @return mixed
+     */
+    public function plural($id, $number = 0)
+    {
+        if (!isset($this->messages[$id]) || !is_array($this->messages[$id])) {
+            return $id;
+        }
+
+        if (!is_array($this->messages[$id][$number])) {
+            return $this->messages[$id][0];
+        }
+
+        return $this->messages[$id][$number];
+    }
+
+    /**
+     * @param string $id
+     *
+     * @return string
+     */
+    public function text($id)
     {
 
+        if (!isset($this->messages[$id])) {
+            return $id;
+        }
+
+        if (is_array($this->messages[$id])) {
+            return $this->messages[$id][0];
+        }
+
+        return $this->messages[$id];
     }
 }

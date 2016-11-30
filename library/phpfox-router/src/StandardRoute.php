@@ -54,7 +54,8 @@ class StandardRoute implements RouteInterface
         }
 
         if (!empty($params['route'])) {
-            $this->route = $params['route'];
+            $this->route = str_replace(['[:', ']'], ['<', '>'],
+                $params['route']);
         }
 
         if (!empty($params['host'])) {
@@ -86,20 +87,14 @@ class StandardRoute implements RouteInterface
      */
     public function compile($uri, $regex = [])
     {
-        // The URI should be considered literal except for keys and optional parts
-        // Escape everything preg_quote would escape except for : ( ) < >
-        $expression = preg_replace('#' . '[.\\+*?[^\\]${}=!|]' . '#', '\\\\$0',
-            $uri);
+        $return = preg_replace('#[.\\+*?[^\\]${}=!|]#', '\\\\$0', $uri);
 
-
-        if (strpos($expression, '(') !== false) {
-            // Make optional parts of the URI non-capturing and optional
-            $expression = str_replace(['(', ')',], ['(?:', ')?',], $expression);
+        if (strpos($return, '(') !== false) {
+            $return = str_replace(['(', ')',], ['(?:', ')?',], $return);
         }
 
         // Insert default regex for keys
-        $expression = str_replace(['<', '>',], ['(?P<', '>' . '[^/]++' . ')',],
-            $expression);
+        $return = str_replace(['<', '>',], ['(?P<', '>[^/]++)',], $return);
 
         if ($regex) {
             $search = $replace = [];
@@ -107,10 +102,10 @@ class StandardRoute implements RouteInterface
                 $search[] = "<$key>" . '[^/]++';
                 $replace[] = "<$key>$value";
             }
-            $expression = str_replace($search, $replace, $expression);
+            $return = str_replace($search, $replace, $return);
         }
 
-        return '#^' . $expression . '$#u';
+        return '#^' . $return . '$#u';
     }
 
     /**
@@ -220,7 +215,9 @@ class StandardRoute implements RouteInterface
                 }
             } elseif (is_array($this->filter)) {
                 foreach ($this->filter as $v) {
-                    if (!\Phpfox::get('router.filters')->get($v)->filter($result)) {
+                    if (!\Phpfox::get('router.filters')->get($v)
+                        ->filter($result)
+                    ) {
                         return false;
                     }
                 }
@@ -347,7 +344,6 @@ class StandardRoute implements RouteInterface
             $uri = rtrim($host, '/') . '/' . PHPFOX_BASE_DIR . $uri
                 . $queryString;
         }
-
         return PHPFOX_BASE_URL . $uri . $queryString;
     }
 

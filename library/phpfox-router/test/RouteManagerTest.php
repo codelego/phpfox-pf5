@@ -27,14 +27,12 @@ class RouteManagerTest extends \PHPUnit_Framework_TestCase
     {
         $routing = \Phpfox::get('router');
 
-        \Phpfox::get('router.filters')->get('@profile')->cache('nam.ngvan', true);
+        \Phpfox::get('router.filters')->get('@profile')
+            ->cache('nam-ngvan', true);
 
-        echo \Phpfox::get('router')->getUrl('profile/members',
-            ['name' => 'nam.ngvan']);
-
+        /** @var RouteResult $result */
         $result = $routing->resolve('nam.ngvan/members', null, null, null);
 
-        $this->assertEquals('User\Controller\IndexController',
-            $result->getControllerName());
+        $this->assertEquals('user.profile', $result->getControllerName());
     }
 }

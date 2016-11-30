@@ -4,31 +4,38 @@ namespace Neutron\User;
 
 return [
     'router.routes'   => [
-        'login'    => [
+        'login'           => [
             'route'    => '{login}',
             'defaults' => [
                 'controller' => 'user.auth',
                 'action'     => 'login',
             ],
         ],
-        'logout'   => [
+        'logout'          => [
             'route'    => '{logout}',
             'defaults' => [
                 'controller' => 'user.auth',
                 'action'     => 'logout',
             ],
         ],
-        'register' => [
+        'register'        => [
             'route'    => '{register}(/[:action])',
             'defaults' => [
                 'controller' => 'user.auth',
                 'action'     => 'index',
             ],
         ],
-        'settings' => [
+        'settings'        => [
             'route'    => '{settings}(/[:action])',
             'defaults' => [
                 'controller' => 'user.settings',
+                'action'     => 'index',
+            ],
+        ],
+        'profile.members' => [
+            'route'    => '[:name]/members',
+            'defaults' => [
+                'controller' => 'user.profile',
                 'action'     => 'index',
             ],
         ],

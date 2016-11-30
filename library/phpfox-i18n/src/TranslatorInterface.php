@@ -6,7 +6,7 @@ namespace Phpfox\I18n;
 interface TranslatorInterface
 {
     /**
-     * @param string $message
+     * @param string $id
      * @param string $domain
      * @param string $locale
      * @param array  $data
@@ -14,27 +14,27 @@ interface TranslatorInterface
      * @return string
      */
     public function translate(
-        $message,
+        $id,
         $domain = null,
         $locale = null,
         $data = null
     );
 
     /**
-     * @param string $message
+     * @param string $id
      * @param int    $number
      * @param string $domain
      * @param string $locale
-     * @param array  $data
+     * @param array  $ctx
      *
      * @return string
      */
     public function plural(
-        $message,
+        $id,
         $number,
         $domain = null,
         $locale = null,
-        $data = null
+        $ctx = null
     );
 
     /**

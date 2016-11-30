@@ -14,70 +14,54 @@ class Translator implements TranslatorInterface
      */
     protected $messages = [];
 
-    /**
-     * @var LoaderInterface
-     */
-    protected $loader;
+    public function translate($id, $domain = null, $locale = null, $data = null)
+    {
+        $domain = $domain ? $domain : '';
+        $locale = $locale ? $locale : $this->locale;
+        $key = $locale . '_n_' . $domain;
 
-    /**
-     * @inheritdoc
-     */
-    public function translate(
-        $message,
-        $domain = null,
-        $locale = null,
-        $data = null
-    ) {
-        $domain = $domain ?: '';
-        $locale = $locale ?: $this->locale;
-
-        $message = (isset($this->messages[$domain])
-            ?: $this->messages[$domain]
-                = new TextDomain($locale))->textPlural($locale, $message, 0);
-
-        if (!$data) {
-            return $message;
+        if (!isset($this->messages[$key])) {
+            $this->messages[$key] = new TextDomain($locale, $domain);
         }
 
-        return _sprintf($message, $data);
+        $id = $this->messages[$key]->text($id);
+
+        if (!$data) {
+            return $id;
+        }
+
+        return _sprintf($id, $data);
     }
 
-    /**
-     * @inheritdoc
-     */
     public function plural(
-        $message,
+        $id,
         $number,
         $domain = null,
         $locale = null,
-        $data = null
+        $ctx = null
     ) {
-        $domain = $domain ?: '';
-        $locale = $locale ?: $this->locale;
+        $domain = $domain ? $domain : '';
+        $locale = $locale ? $locale : $this->locale;
+        $key = $locale . '_n_' . $domain;
 
-        $message = (isset($this->messages[$domain])
-            ?: $this->messages[$domain]
-                = new TextDomain($locale))->textPlural($locale, $message,
-            $number);
-
-        if (!$data) {
-            return $message;
+        if (!isset($this->messages[$key])) {
+            $this->messages[$key] = new TextDomain($locale, $domain);
         }
 
-        return _sprintf($message, $data);
+        $id = $this->messages[$key]->plural($id, $number);
+
+        if (!$ctx) {
+            return $id;
+        }
+
+        return _sprintf($id, $ctx);
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getLocale()
     {
         return $this->locale;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function setLocale($locale)
     {
         $this->locale = $locale;

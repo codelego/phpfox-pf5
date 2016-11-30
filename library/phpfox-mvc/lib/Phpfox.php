@@ -6,7 +6,6 @@ namespace {
     class Phpfox extends App
     {
 
-
     }
 }
 

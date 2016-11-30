@@ -7,9 +7,9 @@ interface LoaderInterface
 {
     /**
      * @param $locale
-     * @param $textDomain
+     * @param $domain
      *
-     * @return TextDomainInterface
+     * @return array
      */
-    public function load($locale, $textDomain);
+    public function load($locale, $domain);
 }

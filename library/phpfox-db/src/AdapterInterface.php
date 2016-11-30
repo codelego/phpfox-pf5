@@ -70,9 +70,11 @@ interface AdapterInterface
     public function lastId();
 
     /**
+     * @param  string $argv
+     *
      * @return SqlSelect
      */
-    public function select();
+    public function select($argv = '*');
 
     /**
      * @param $table

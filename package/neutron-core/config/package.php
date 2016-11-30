@@ -2,6 +2,8 @@
 
 namespace Neutron\Core;
 
+use Neutron\Core\Service\PhraseLoader;
+
 return [
     'autoload.psr4'   => [
         'Neutron\\Core\\' => [
@@ -82,7 +84,8 @@ return [
         'core.admincp-settings'  => Controller\AdminSettingsController::class,
     ],
     'service.map'     => [
-        'session' => '',
+        'session'     => '',
+        'i18n.loader' => [null, PhraseLoader::class],
     ],
     'views.map'       => [
         'layout.master.default' => 'package/neutron-core/layout/master/default.phtml',
