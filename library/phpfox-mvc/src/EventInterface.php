@@ -1,12 +1,7 @@
 <?php
 
-namespace Phpfox\EventManager;
+namespace Phpfox\Mvc;
 
-/**
- * Representation of an event
- *
- * @package Phpfox\EventManager
- */
 interface EventInterface
 {
     /**

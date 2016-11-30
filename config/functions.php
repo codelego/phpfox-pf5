@@ -2,9 +2,68 @@
 
 namespace {
 
-    use Phpfox\Framework\Config\ConfigContainer;
-    use Phpfox\Framework\Event\EventManager;
-    use Phpfox\Framework\Service\ServiceManager;
+    use Phpfox\Mvc\App as Application;
+    use Phpfox\Mvc\ConfigContainer;
+    use Phpfox\Mvc\EventManager;
+
+    // usage global namespace.
+    class Phpfox extends Application
+    {
+    }
+
+    function _merge_library_config($dirs = [])
+    {
+        $dirs[] = PHPFOX_DIR . '/library/';
+        $paths = [];
+        $merged = [];
+
+        foreach ($dirs as $libraryDir) {
+            $directoryIterator
+                = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($libraryDir,
+                RecursiveDirectoryIterator::SKIP_DOTS),
+                RecursiveIteratorIterator::SELF_FIRST,
+                RecursiveIteratorIterator::CATCH_GET_CHILD // Ignore "Permission denied"
+            );
+
+            foreach ($directoryIterator as $path => $entry) {
+                if ($entry->isDir()) {
+                    continue;
+                }
+
+                $path = $entry->getPath() . '/' . $entry->getFilename();
+
+                if (!strpos($path, 'package.php')) {
+                    continue;
+                }
+                $paths[] = $path;
+            }
+
+        }
+
+        foreach ($paths as $path) {
+            if (!file_exists($path)) {
+                continue;
+            }
+
+            $merged = _array_merge_recursive_new($merged, include $path);
+
+        }
+
+        ksort($merged);
+
+        $autoloadPsr4 = $merged['autoload.psr4'];
+        unset($merged['autoload.psr4']);
+        $filename = PHPFOX_DIR . '/config/psr4.init.php';
+        file_put_contents($filename,
+            '<?php return ' . var_export($autoloadPsr4, true) . ';');
+
+
+        $filename = PHPFOX_DIR . '/config/service.init.php';
+        file_put_contents($filename,
+            '<?php return ' . var_export($merged, true) . ';');
+
+        chmod($filename, 0777);
+    }
 
     /**
      * Format a string using $number token
@@ -140,15 +199,23 @@ namespace {
         return implode(' ', $result);
     }
 
-    function _array_merge_recursive_new($base, $array)
+    /**
+     * @param $base
+     * @param $array
+     *
+     * @return mixed
+     */
+    function _array_merge_recursive_new(&$base, $array)
     {
-        foreach ($array as $k => $v) {
-            if (!isset($base[$k])) {
-                $base[$k] = $v;
-            } elseif (is_array($v)) {
-                $base[$k] = array_merge($base[$k], $v);
-            } else {
-                $base[$k] = $v;
+        if (is_array($array)) {
+            foreach ($array as $k => $v) {
+                if (!isset($base[$k])) {
+                    $base[$k] = $v;
+                } elseif (is_array($v)) {
+                    $base[$k] = array_merge($base[$k], $v);
+                } else {
+                    $base[$k] = $v;
+                }
             }
         }
         return $base;
@@ -222,7 +289,7 @@ namespace {
      */
     function configs()
     {
-        return ConfigContainer::instance();
+        \Phpfox::get('configs');
     }
 
     /**
@@ -233,27 +300,47 @@ namespace {
      */
     function config($key, $item = null)
     {
-        return ConfigContainer::instance()->get($key, $item);
+        return \Phpfox::get('configs')->get($key, $item);
     }
 
 
     function service($id)
     {
-        return ServiceManager::instance()->get($id);
-    }
 
-    /**
-     * @return ServiceManager
-     */
-    function services()
-    {
-        return ServiceManager::instance();
     }
 
     /**
      * @return EventManager
      */
-    function events(){
-
+    function &events()
+    {
+        return \Phpfox::get('events');
     }
+
+    if (true) {
+        $data = include PHPFOX_DIR . '/config/service.init.php';
+        $data['db.adapters']['default'] = include PHPFOX_DIR
+            . '/config/db.init.php';
+
+        \Phpfox::init();
+        $configs = \Phpfox::get('configs');
+
+        $configs->merge($data);
+
+        /** @var \Phpfox\Mysqli\MysqliAdapter $db */
+
+        $db = \Phpfox::get('db');
+
+        /** @var \Phpfox\Mvc\ConfigContainer $configs */
+
+
+        $rows = $db->select()->select('*')->from(':core_package')
+            ->where('is_active=?', 1)->order('priority', 1)->execute()->fetch();
+
+        foreach ($rows as $row) {
+            $configs->merge(include PHPFOX_DIR . '/' . $row['path']
+                . '/config/package.php');
+        }
+    }
+
 }

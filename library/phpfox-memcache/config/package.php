@@ -7,8 +7,8 @@ namespace Phpfox\Memcache {
     return [
         'autoload.psr4'   => [
             'Phpfox\\Memecache\\' => [
-                'library\phpfox-memcache\src',
-                'library\phpfox-memcache\test',
+                'library/phpfox-memcache/src',
+                'library/phpfox-memcache/test',
             ],
         ],
         'session.drivers' => [

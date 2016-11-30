@@ -5,8 +5,8 @@ namespace Phpfox\Session {
     return [
         'autoload.psr4' => [
             'Phpfox\\Session\\' => [
-                'library\phpfox-session\src',
-                'library\phpfox-session\test',
+                'library/phpfox-session/src',
+                'library/phpfox-session/test',
             ],
         ],
         'service.map'   => [

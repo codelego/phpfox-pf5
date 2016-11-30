@@ -87,7 +87,7 @@ class TableGateway implements GatewayInterface
      */
     public function adapter()
     {
-        return service($this->_adapter);
+        return \Phpfox::get$this->_adapter);
     }
 
     /**

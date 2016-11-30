@@ -9,7 +9,7 @@ Trait SqlAdapterTrait
         return (new SqlInsert($this))->insert($table, $data);
     }
 
-    public function sqlSelect()
+    public function select()
     {
         return new SqlSelect($this);
     }

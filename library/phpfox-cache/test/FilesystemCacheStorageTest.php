@@ -8,7 +8,7 @@ class FilesystemCacheStorageTest extends \PHPUnit_Framework_TestCase
 
     public function testMemcache()
     {
-        $cache = service('cache.memcached');
+        $cache = \Phpfox::get('cache.memcached');
 
         $key = 'abc';
         $data = new \stdClass();
@@ -34,7 +34,7 @@ class FilesystemCacheStorageTest extends \PHPUnit_Framework_TestCase
 
     public function testApc()
     {
-        $cache = service('cache.apc');
+        $cache = \Phpfox::get('cache.apc');
 
         $key = 'abc';
         $data = new \stdClass();
@@ -59,7 +59,7 @@ class FilesystemCacheStorageTest extends \PHPUnit_Framework_TestCase
 
     public function testDefault()
     {
-        $cache = service('cache');
+        $cache = \Phpfox::get('cache');
 
         $key = 'abc';
         $data = new \stdClass();

@@ -7,8 +7,8 @@ use Phpfox\Log\LogContainerFactory;
 return [
     'autoload.psr4'  => [
         'Phpfox\\Auth\\' => [
-            'library\phpfox-auth\src',
-            'library\phpfox-auth\test',
+            'library/phpfox-auth/src',
+            'library/phpfox-auth/test',
         ],
     ],
     'auth.adapters'  => [],

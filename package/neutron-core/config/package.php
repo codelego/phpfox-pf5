@@ -1,8 +1,14 @@
 <?php
 
-namespace Pf5\Core;
+namespace Neutron\Core;
 
 return [
+    'autoload.psr4'     => [
+        'Neutron\\Core\\' => [
+            'package/neutron-core/src',
+            'package/neutron-core/test',
+        ],
+    ],
     'router.route'      => [
         'home'           => [
             'route'    => '/',

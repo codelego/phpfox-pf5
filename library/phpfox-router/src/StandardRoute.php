@@ -2,7 +2,6 @@
 
 namespace Phpfox\Router;
 
-
 class StandardRoute implements RouteInterface
 {
     /**
@@ -214,14 +213,14 @@ class StandardRoute implements RouteInterface
 
         if (null != $this->filter) {
             if (is_string($this->filter)) {
-                if (!service('router.filters')->get($this->filter)
+                if (!\Phpfox::get('router.filters')->get($this->filter)
                     ->filter($result)
                 ) {
                     return false;
                 }
             } elseif (is_array($this->filter)) {
                 foreach ($this->filter as $v) {
-                    if (!service('router.filters')->get($v)->filter($result)) {
+                    if (!\Phpfox::get('router.filters')->get($v)->filter($result)) {
                         return false;
                     }
                 }

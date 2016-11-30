@@ -13,7 +13,7 @@ class MysqliSqlResult implements SqlResultInterface
 {
 
     /**
-     * @var mixed
+     * @var \mysqli_result
      */
     private $resource;
 
@@ -32,7 +32,7 @@ class MysqliSqlResult implements SqlResultInterface
     {
         $result = [];
 
-        while (null != ($object = $this->resource->fetch_object())) {
+        while (null != ($object = $this->resource->fetch_assoc())) {
             $result[] = $object;
         }
 

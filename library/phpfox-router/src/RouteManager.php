@@ -2,12 +2,7 @@
 
 namespace Phpfox\Router;
 
-/**
- * Class RouteContainer
- *
- * @package Phpfox\Router
- */
-class RouteContainer
+class RouteManager
 {
     /**
      * router by name
@@ -31,12 +26,13 @@ class RouteContainer
      */
     public function __construct()
     {
-        echo "create from constructor";
         $this->reset();
     }
 
     /**
      * Start to build routing
+     * todo: change route pattern from <action> to [:action]
+     * todo: add new route group to fast filter for a large group.
      */
     public function reset()
     {

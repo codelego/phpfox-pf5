@@ -5,8 +5,8 @@ namespace Phpfox\Cache;
 return [
     'autoload.psr4'  => [
         'Phpfox\\Cache\\' => [
-            'library\phpfox-cache\src',
-            'library\phpfox-cache\test',
+            'library/phpfox-cache/src',
+            'library/phpfox-cache/test',
         ],
     ],
     'cache.drivers'  => [
@@ -23,6 +23,20 @@ return [
         ],
         'cache.apcu'       => [
             'driver' => 'apcu',
+        ],
+    ],
+    'cache.map'      => [
+        'cache.local' => [
+            CacheStorageFactory::class,
+            null,
+            'cache.filesystem',
+        ],
+        'cache.apc'   => [CacheStorageFactory::class, null, 'cache.apc'],
+        'cache.apcu'  => [CacheStorageFactory::class, null, 'cache.apcu'],
+        'cache'       => [
+            CacheStorageFactory::class,
+            null,
+            'cache.filesystem',
         ],
     ],
     'service.map'    => [

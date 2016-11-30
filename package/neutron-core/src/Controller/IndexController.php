@@ -1,6 +1,6 @@
 <?php
 
-namespace Pf5\Core\Controller;
+namespace Neutron\Core\Controller;
 
 
 class IndexController

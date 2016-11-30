@@ -33,8 +33,8 @@ class Responder
 
     public function response()
     {
-        $layout = service('layout')->prepare();
-        return service('renderer')->render($layout);
+        $layout = \Phpfox::get('layout')->prepare();
+        return \Phpfox::get('renderer')->render($layout);
     }
 
     /**
@@ -54,7 +54,7 @@ class Responder
 
     public function terminate()
     {
-        events()->trigger('onResponderTerminate');
+        events()->emit('onResponderTerminate');
         exit();
     }
 

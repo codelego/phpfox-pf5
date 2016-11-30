@@ -4,8 +4,8 @@ namespace Phpfox\Storage {
     return [
         'autoload.psr4'   => [
             'Phpfox\\Storage\\' => [
-                'library\phpfox-storage\src',
-                'library\phpfox-storage\test',
+                'library/phpfox-storage/src',
+                'library/phpfox-storage/test',
             ],
         ],
         'storage.drivers' => [

@@ -10,11 +10,11 @@ namespace Phpfox\Router;
 class RouteManagerFactory
 {
     /**
-     * @return RouteContainer
+     * @return RouteManager
      */
     public function factory()
     {
-        return new RouteContainer();
+        return new RouteManager();
     }
 
     public function shouldCache()

@@ -1,12 +1,7 @@
 <?php
 
-namespace Phpfox\EventManager;
+namespace Phpfox\Mvc;
 
-/**
- * Interface EventManagerInterface
- *
- * @package Phpfox\EventManager
- */
 interface EventManagerInterface
 {
     /**
@@ -44,11 +39,18 @@ interface EventManagerInterface
      *
      * Can accept an EventInterface or will create one if not passed
      *
-     * @param  string|EventInterface $event
-     * @param  object|string         $target
-     * @param  array|object          $argv
+     * @param  string $event
+     * @param  mixed  $target
+     * @param  mixed  $argv
      *
      * @return mixed
      */
-    public function trigger($event, $target = null, $argv = []);
+    public function emit($event, $target = null, $argv = []);
+
+    /**
+     * @param EventInterface $event
+     *
+     * @return EventResponse
+     */
+    public function trigger(EventInterface $event);
 }

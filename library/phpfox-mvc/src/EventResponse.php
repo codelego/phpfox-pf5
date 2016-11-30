@@ -1,15 +1,10 @@
 <?php
 
-namespace Phpfox\EventManager;
+namespace Phpfox\Mvc;
 
 use SplStack;
 
-/**
- * Class Response
- *
- * @package Phpfox\EventManager
- */
-class Response extends SplStack
+class EventResponse extends SplStack
 {
     /**
      * @var bool

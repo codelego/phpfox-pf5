@@ -72,7 +72,7 @@ interface AdapterInterface
     /**
      * @return SqlSelect
      */
-    public function sqlSelect();
+    public function select();
 
     /**
      * @param $table

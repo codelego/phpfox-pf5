@@ -26,7 +26,7 @@ class StandardController implements ControllerInterface
      */
     public function forward($controller, $action)
     {
-        service('app')->setDispatched(false)->setControllerName($controller)
+        \Phpfox::get('app')->setDispatched(false)->setControllerName($controller)
             ->setActionName($action);
 
         return false;

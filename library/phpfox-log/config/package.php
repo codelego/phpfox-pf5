@@ -5,8 +5,8 @@ namespace Phpfox\Log {
     return [
         'autoload.psr4'  => [
             'Phpfox\\Log\\' => [
-                'library\phpfox-log\src',
-                'library\phpfox-log\test',
+                'library/phpfox-log/src',
+                'library/phpfox-log/test',
             ],
         ],
         'log.drivers'    => [

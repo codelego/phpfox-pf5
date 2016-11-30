@@ -5,8 +5,8 @@ namespace Phpfox\Db;
 return [
     'autoload.psr4' => [
         'Phpfox\\Db\\' => [
-            'library\phpfox-db\src',
-            'library\phpfox-db\test',
+            'library/phpfox-db/src',
+            'library/phpfox-db/test',
         ],
     ],
     'service.map'   => [
