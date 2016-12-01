@@ -77,9 +77,14 @@ class ViewModel
         return $this;
     }
 
-    public function forge()
+    public function render()
     {
-        return \Phpfox::get('template')->parital($this->template, $this->variables);
+        if (null == $this->template) {
+            return '';
+        }
+
+        return \Phpfox::getViews()
+            ->render($this->template, $this->variables);
     }
 
     public function terminate()

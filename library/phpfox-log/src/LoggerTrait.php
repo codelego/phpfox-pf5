@@ -83,7 +83,6 @@ trait LoggerTrait
 
     public function info($message, $context = [])
     {
-        var_dump($this->accept(LogLevel::INFO));
         if ($this->accept(LogLevel::INFO)) {
             $this->write($this->format(LogLevel::INFO, $message, $context));
         }

@@ -16,7 +16,7 @@ class RouteResult
     /**
      * @return string
      */
-    public function getActionName()
+    public function getAction()
     {
         return $this->getParam('action');
     }
@@ -75,9 +75,9 @@ class RouteResult
 
     public function ensure()
     {
-        if (null == $this->getControllerName()) {
-            $this->setControllerName('Core\Controller\ErrorController');
-            $this->setActionName('404');
+        if (null == $this->getController()) {
+            $this->setController('core.error');
+            $this->setAction('404');
         }
         return $this;
     }
@@ -85,7 +85,7 @@ class RouteResult
     /**
      * @return string
      */
-    public function getControllerName()
+    public function getController()
     {
         return $this->getParam('controller');
     }
@@ -95,7 +95,7 @@ class RouteResult
      *
      * @return $this
      */
-    public function setControllerName($value)
+    public function setController($value)
     {
         $this->params['controller'] = $value;
         return $this;
@@ -106,7 +106,7 @@ class RouteResult
      *
      * @return $this
      */
-    public function setActionName($value)
+    public function setAction($value)
     {
         $this->params['action'] = $value;
         return $this;

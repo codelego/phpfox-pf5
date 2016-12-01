@@ -29,47 +29,98 @@ $autoloader = include __DIR__ . '/../vendor/autoload.php';
 
 // this wrapper is not belong to namespace.
 $autoloader->addClassMap([
-    'Phpfox' => __DIR__ . '/../library/phpfox-mvc/lib/Phpfox.php',
+    'Phpfox' => __DIR__ . '/../library/phpfox-mvc/src/Phpfox.php',
 ]);
+
+if (PHP_SAPI == "cli") {
+    $whoops = new \Whoops\Run;
+    $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler());
+    $whoops->register();
+} else {
+    $whoops = new \Whoops\Run;
+    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+    $whoops->register();
+}
+
 
 if (!$shouldGenerate) {
     _autoload_psr4($autoloader, include $cacheFiles['psr4.init']);
 
     \Phpfox::init();
 
-    $configs = \Phpfox::getConfigContainer();
-    $configs->merge(include $cacheFiles['service.init']);
+    $configContainer = \Phpfox::getConfigContainer();
+    $configContainer->merge(include $cacheFiles['service.init']);
 
 } else {
 
-    $merged = _merge_library_config([PHPFOX_DIR . '/library']);
-    _autoload_psr4($autoloader, $merged['autoload.psr4']);
+    $packageVariables = _merge_library_config([PHPFOX_DIR . '/library']);
+    $settingVariables = [];
 
+    _autoload_psr4($autoloader, $packageVariables['autoload.psr4']);
     \Phpfox::init();
-    $configs = \Phpfox::getConfigContainer();
 
-    $merged['db.adapters']['default'] = include PHPFOX_DIR
+    /** @var \Phpfox\Mvc\ConfigContainer $configContainer */
+    $configContainer = \Phpfox::getConfigContainer();
+
+    $packageVariables['db.adapters']['default'] = include PHPFOX_DIR
         . '/config/db.init.php';
 
-    $configs->merge($merged);
+    $configContainer->merge($packageVariables);
 
     /** @var \Phpfox\Mysqli\MysqliAdapter $db */
     $db = \Phpfox::get('db');
 
-    /** @var \Phpfox\Mvc\ConfigContainer $configs */
+
     $rows = $db->select('*')->from(':core_package')->where('is_active=?', 1)
         ->order('priority', 1)->execute()->fetch();
 
-    $merged = [];
+    $packageVariables = [];
+
+    /**
+     * fetch package variables from package.php
+     */
     foreach ($rows as $row) {
-        _array_merge_recursive($merged,
+        _array_merge_recursive($packageVariables,
             include PHPFOX_DIR . '/' . $row['path'] . '/config/package.php');
 
     }
+    $configContainer->merge($packageVariables);
+    unset($rows, $packageVariables);
 
-    $configs->merge($merged);
-    $all = $configs->all();
 
+    /**
+     * fetch setting variables from table ':core_setting'
+     */
+    $rows = $db->select('group_id, var_name, value_actual, is_active, priority')
+        ->from(':core_setting')->where('is_active=?', 1)->order('priority', 1)
+        ->execute()->fetch();
+
+
+    foreach ($rows as $row) {
+        $key = $row['var_name'];
+        $group = $row['group_id'];
+        if (!$group) {
+            $group = 'global';
+        }
+
+        if (!isset($settingVariables[$group])) {
+            $settingVariables[$group] = [];
+        }
+
+        $val = json_decode($row['value_actual'], true);
+        if (isset($val['val'])) {
+            $val = $val['val'];
+        } else {
+            continue;
+        }
+
+        $settingVariables[$group][$key] = $val;
+    }
+
+    $configContainer->merge($settingVariables);
+    unset($rows, $settingVariables);
+
+    $all = $configContainer->all();
     _autoload_psr4($autoloader, $all['autoload.psr4']);
 
     _file_export($cacheFiles['psr4.init'], $all['autoload.psr4']);

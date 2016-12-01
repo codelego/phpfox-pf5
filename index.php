@@ -1,16 +1,12 @@
 <?php
+
+define('PHPFOX_NO_CACHE',1);
 include __DIR__ . '/config/bootstrap.php';
 
+register_shutdown_function(function () {
+    if(null != ($error = error_get_last())){
+        echo json_encode($error, JSON_PRETTY_PRINT);
+    }
+});
 
-Phpfox::html()->addScripts('require', null)->addStyle('bootstrap', null)
-    ->setTitle('some think like this')
-    ->setKeyword('phpfox, social network script, social network platform, neutron')
-    ->setDescription('Nothing loose the content');
-
-$content = Phpfox::getViews()->render('layout.master.default', [
-        'layout_content' => 'content',
-    ]);
-
-Phpfox::get('session')->start();
-
-echo Phpfox::trans('toi la {0}', null, null, ['nam nguyen']);
+Phpfox::get('mvc.dispatch')->run();

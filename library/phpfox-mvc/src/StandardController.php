@@ -13,7 +13,7 @@ class StandardController implements ControllerInterface
     public function resolve($action)
     {
         if (!method_exists($this, $method = 'action' . _inflect($action))) {
-            return $this->forward('Core\Controller\ErrorController', '404');
+            return $this->forward('core.error', '404');
         }
         return $this->{$method}();
     }
@@ -26,9 +26,6 @@ class StandardController implements ControllerInterface
      */
     public function forward($controller, $action)
     {
-        \Phpfox::get('app')->setDispatched(false)->setControllerName($controller)
-            ->setActionName($action);
-
-        return false;
+        return \Phpfox::get('mvc.dispatch')->forward($controller, $action);
     }
 }

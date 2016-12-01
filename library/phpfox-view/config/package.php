@@ -9,6 +9,7 @@ return [
         ],
     ],
     'service.map'   => [
-        'views' => [null, PhpTemplate::class],
+        'view.render' => [null, PhpTemplate::class],
+        'view.layout' => [null, ViewLayout::class],
     ],
 ];

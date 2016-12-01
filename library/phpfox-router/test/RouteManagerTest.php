@@ -33,6 +33,6 @@ class RouteManagerTest extends \PHPUnit_Framework_TestCase
         /** @var RouteResult $result */
         $result = $routing->resolve('nam.ngvan/members', null, null, null);
 
-        $this->assertEquals('user.profile', $result->getControllerName());
+        $this->assertEquals('user.profile', $result->getController());
     }
 }

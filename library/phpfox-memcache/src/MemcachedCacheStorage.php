@@ -4,6 +4,7 @@ namespace Phpfox\Memcache;
 
 use Memcached;
 use Phpfox\Cache\CacheItem;
+use Phpfox\Cache\CacheItemInterface;
 use Phpfox\Cache\CacheStorageInterface;
 
 class MemcachedCacheStorage implements CacheStorageInterface

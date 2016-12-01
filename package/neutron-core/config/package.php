@@ -69,10 +69,18 @@ return [
             ],
         ],
         'admincp.core.dashboard' => [
-            'route'    => 'core/settings(/[:action])',
+            'route'    => '{admincp}',
             'group'    => '@admincp',
             'defaults' => [
                 'controller' => 'core.admincp-dashboard',
+                'action'     => 'index',
+            ],
+        ],
+        'admincp.core.settings'  => [
+            'route'    => '{admincp}/core/settings(/[:action])',
+            'group'    => '@admincp',
+            'defaults' => [
+                'controller' => 'core.admincp-settings',
                 'action'     => 'index',
             ],
         ],
@@ -82,16 +90,15 @@ return [
         'core.admincp-dashboard' => Controller\AdminDashboardController::class,
         'core.admincp-language'  => Controller\AdminLanguageController::class,
         'core.admincp-settings'  => Controller\AdminSettingsController::class,
+        'core.error'             => Controller\ErrorController::class,
     ],
     'service.map'     => [
         'i18n.loader' => [null, PhraseLoader::class],
     ],
-    'views.map'       => [
-        'layout.master.default' => 'package/neutron-core/layout/master/default.phtml',
-        'layout.master.header'  => 'package/neutron-core/layout/master/header.phtml',
-        'layout.master.footer'  => 'package/neutron-core/layout/master/footer.phtml',
-        'layout.master.admin'   => 'package/neutron-core/layout/master/admin.phtml',
-    ],
+    'views.map'       => _get_view_map([
+        'core'   => 'neutron-core/view',
+        'layout' => 'neutron-core/layout',
+    ]),
     'session.drivers' => [
         'db' => Service\SessionDbSaveHandler::class,
     ],

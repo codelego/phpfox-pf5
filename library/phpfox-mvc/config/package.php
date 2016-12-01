@@ -9,11 +9,9 @@ namespace Phpfox\Mvc {
             ],
         ],
         'service.map'   => [
-            'responder' => [null, Responder::class,],
-            'requester' => [null, Requester::class,],
-            'app'       => [null, Application::class],
-            'views'     => [null, TwigTemplate::class],
-            'models'    => [null, GatewayManager::class],
+            'mvc.dispatch' => [null, Dispatch::class],
+            'mvc.request'  => [RequestFactory::class, null],
+            'mvc.response' => [ResponseFactory::class, null],
         ],
     ];
 }

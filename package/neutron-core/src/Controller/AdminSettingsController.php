@@ -1,7 +1,9 @@
 <?php
 namespace Neutron\Core\Controller;
 
-class AdminSettingsController
+use Phpfox\Mvc\StandardController;
+
+class AdminSettingsController extends StandardController
 {
 
 }

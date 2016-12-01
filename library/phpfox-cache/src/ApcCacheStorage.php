@@ -23,6 +23,11 @@ class ApcCacheStorage implements CacheStorageInterface
     {
         $success = false;
         $result = apc_fetch($key, $success);
+
+        if(!$success){
+            return null;
+        }
+
         return $result;
     }
 
