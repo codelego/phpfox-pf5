@@ -1,5 +1,5 @@
 <?php
-namespace Phpfox\Log;
+namespace Phpfox\Logger;
 
 /**
  * Class LoggerFactory

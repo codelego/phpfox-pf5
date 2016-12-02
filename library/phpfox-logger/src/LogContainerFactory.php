@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Log;
+namespace Phpfox\Logger;
 
 
 class LogContainerFactory
@@ -12,7 +12,7 @@ class LogContainerFactory
         }
 
         if (!$key) {
-            $key = 'default';
+            $key = 'log.main';
         }
 
         $drivers = \Phpfox::getConfig('log.drivers');

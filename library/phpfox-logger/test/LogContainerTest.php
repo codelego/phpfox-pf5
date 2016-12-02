@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Log;
+namespace Phpfox\Logger;
 
 
 class LogContainerTest extends \PHPUnit_Framework_TestCase
@@ -18,17 +18,17 @@ class LogContainerTest extends \PHPUnit_Framework_TestCase
     {
         $container = new LogContainer();
 
-        $container->add(new FilesystemLogger([
+        $container->add(new FilesLogger([
             'filename' => 'main.log',
             'accepts'  => 'debug',
         ]));
 
-        $container->add(new FilesystemLogger([
+        $container->add(new FilesLogger([
             'filename' => 'system.log',
             'accepts'  => 'info',
         ]));
 
-        $container->add(new FilesystemLogger([
+        $container->add(new FilesLogger([
             'filename' => 'translate.log',
             'accepts'  => 'critical',
         ]));

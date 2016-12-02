@@ -10,11 +10,11 @@ namespace Phpfox\Mailer {
             ],
         ],
         'mail.transports' => [
-            'smtp'      => MailTransportSmtp::class,
-            'system'    => MailTransportSystem::class,
-            'man_drill' => MailTransportManDrill::class,
+            'smtp'      => SmtpMailTransport::class,
+            'system'    => SystemMailer::class,
+            'man_drill' => MandrillMailTransport::class,
             'send_grid' => MailTransportSendGrid::class,
-            'ses'       => MailTransportSes::class,
+            'ses'       => SesMailTransport::class,
         ],
         'service.map'     => [
             'mail.transport' => [null, MailTransportManager::class,],

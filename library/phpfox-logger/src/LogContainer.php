@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Log;
+namespace Phpfox\Logger;
 
 /**
  * Class LogContainer

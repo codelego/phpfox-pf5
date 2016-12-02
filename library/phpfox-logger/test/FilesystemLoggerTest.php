@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Log;
+namespace Phpfox\Logger;
 
 
 class FilesystemLoggerTest extends \PHPUnit_Framework_TestCase
@@ -8,7 +8,7 @@ class FilesystemLoggerTest extends \PHPUnit_Framework_TestCase
 
     public function testWriter()
     {
-        $logger = new FilesystemLogger([
+        $logger = new FilesLogger([
             'filename' => 'main.log',
         ]);
 

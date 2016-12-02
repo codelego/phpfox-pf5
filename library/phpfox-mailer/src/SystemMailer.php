@@ -2,7 +2,7 @@
 namespace Phpfox\Mailer;
 
 
-class MailTransportManDrill
+class SystemMailer
 {
 
 }

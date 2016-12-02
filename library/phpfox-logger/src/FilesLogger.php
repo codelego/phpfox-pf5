@@ -1,13 +1,8 @@
 <?php
 
-namespace Phpfox\Log;
+namespace Phpfox\Logger;
 
-/**
- * Class FilesystemWriter
- *
- * @package Phpfox\Log
- */
-class FilesystemLogger implements LoggerInterface
+class FilesLogger implements LoggerInterface
 {
     use LoggerTrait;
 

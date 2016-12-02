@@ -63,7 +63,7 @@ class TabNavDecorator
         }
 
         if ($item['acl']) {
-            if (false == \Phpfox::getAcl()->authorize(null, $item['acl'])) {
+            if (false == \Phpfox::getAcl()->hasPermission(null, $item['acl'])) {
                 return '';
             }
         }

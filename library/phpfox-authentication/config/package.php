@@ -2,7 +2,7 @@
 
 namespace Phpfox\Authentication;
 
-use Phpfox\Log\LogContainerFactory;
+use Phpfox\Logger\LogContainerFactory;
 
 return [
     'autoload.psr4'  => [

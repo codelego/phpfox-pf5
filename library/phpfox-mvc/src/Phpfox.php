@@ -67,23 +67,14 @@ class Phpfox
     /**
      * @see MvcConfig::get()
      *
-     * @param string $id
+     * @param string $section
      * @param string $item
      *
      * @return mixed|null
      */
-    public static function getConfig($id, $item = null)
+    public static function getConfig($section, $item = null)
     {
-        return self::$_config->get($id, $item);
-    }
-
-    public static function getParam($key)
-    {
-        if ($key) {
-            ;
-        }
-
-        return true;
+        return self::$_config->get($section, $item);
     }
 
     /**
@@ -272,6 +263,14 @@ class Phpfox
     public static function mvcDispatch()
     {
         return self::$_service->get('mvc.dispatch');
+    }
+
+    /**
+     * @return \Phpfox\Mvc\MvcEventManager
+     */
+    public static function mvcEvents()
+    {
+        return self::$_service->get('mvc.events');
     }
 
     /**

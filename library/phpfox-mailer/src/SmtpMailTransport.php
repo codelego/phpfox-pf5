@@ -2,7 +2,7 @@
 
 namespace Phpfox\Mailer;
 
-class MailTransportSmtp implements MailTransportInterface
+class SmtpMailTransport implements MailTransportInterface
 {
     public function send(MailMessage $item)
     {

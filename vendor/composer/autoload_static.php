@@ -13,6 +13,7 @@ class ComposerStaticInitab905c08dec802c625496f344bf1ded8
         ),
         'W' => 
         array (
+            'Whoops\\' => 7,
             'Webmozart\\Assert\\' => 17,
         ),
         'S' => 
@@ -32,6 +33,10 @@ class ComposerStaticInitab905c08dec802c625496f344bf1ded8
             1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
         ),
+        'Whoops\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/filp/whoops/src/Whoops',
+        ),
         'Webmozart\\Assert\\' => 
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
@@ -47,13 +52,6 @@ class ComposerStaticInitab905c08dec802c625496f344bf1ded8
     );
 
     public static $prefixesPsr0 = array (
-        'T' => 
-        array (
-            'Twig_' => 
-            array (
-                0 => __DIR__ . '/..' . '/twig/twig/lib',
-            ),
-        ),
         'P' => 
         array (
             'Prophecy\\' => 
@@ -64,6 +62,10 @@ class ComposerStaticInitab905c08dec802c625496f344bf1ded8
     );
 
     public static $classMap = array (
+        'CredisException' => __DIR__ . '/..' . '/colinmollenhour/credis/Client.php',
+        'Credis_Client' => __DIR__ . '/..' . '/colinmollenhour/credis/Client.php',
+        'Credis_Cluster' => __DIR__ . '/..' . '/colinmollenhour/credis/Cluster.php',
+        'Credis_Sentinel' => __DIR__ . '/..' . '/colinmollenhour/credis/Sentinel.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
         'File_Iterator_Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',

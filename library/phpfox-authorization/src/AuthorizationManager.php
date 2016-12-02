@@ -5,7 +5,7 @@ namespace Phpfox\Authorization;
 
 class AuthorizationManager
 {
-    public function authorize($item, $action)
+    public function hasPermission($roleId, $action)
     {
 
     }
