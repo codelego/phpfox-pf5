@@ -1,10 +1,5 @@
 <?php
 
-use Phpfox\Html\HtmlFacades;
-use Phpfox\Mvc\MvcConfig;
-use Phpfox\Mvc\ServiceManager;
-use Phpfox\Router\RouteManager;
-use Phpfox\View\PhpTemplate;
 
 class Phpfox
 {
@@ -37,8 +32,8 @@ class Phpfox
         error_reporting(E_ALL);
 
         self::$_initialized = true;
-        self::$_service = new ServiceManager();
-        self::$_config = new MvcConfig();
+        self::$_service = new \Phpfox\Mvc\ServiceManager();
+        self::$_config = new \Phpfox\Mvc\MvcConfig();
 
         set_error_handler(function ($num, $msg, $file, $line, $context) {
 //            var_dump(debug_backtrace(1));
@@ -55,7 +50,7 @@ class Phpfox
     }
 
     /**
-     * @return MvcConfig
+     * @return \Phpfox\Mvc\MvcConfig
      */
     public static function mvcConfig()
     {
@@ -197,7 +192,7 @@ class Phpfox
     }
 
     /**
-     * @return HtmlFacades
+     * @return \Phpfox\Html\HtmlFacades
      */
     public static function html()
     {
@@ -232,7 +227,7 @@ class Phpfox
     }
 
     /**
-     * @return PhpTemplate
+     * @return \Phpfox\View\PhpTemplate
      */
     public static function getTemplate()
     {
@@ -280,7 +275,7 @@ class Phpfox
     }
 
     /**
-     * @return RouteManager
+     * @return \Phpfox\Router\RouteManager
      */
     public static function router()
     {
@@ -299,5 +294,13 @@ class Phpfox
     public static function translator()
     {
         return self::$_service->get('translator');
+    }
+
+    /**
+     * @return \Phpfox\Mailer\MailTransportManager
+     */
+    public static function mailer()
+    {
+        return self::$_service->get('mail.transport');
     }
 }

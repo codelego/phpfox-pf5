@@ -17,7 +17,7 @@ namespace Phpfox\Mailer {
             'ses'       => MailTransportSes::class,
         ],
         'service.map'     => [
-            'mailer' => [null, MailTransportManager::class,],
+            'mail.transport' => [null, MailTransportManager::class,],
         ],
     ];
 }
