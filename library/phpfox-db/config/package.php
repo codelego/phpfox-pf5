@@ -10,6 +10,6 @@ return [
         ],
     ],
     'service.map'   => [
-        'db' => [AdapterFactory::class, null, 'default'],
+        'db' => [DbAdapterFactory::class, null, 'default'],
     ],
 ];

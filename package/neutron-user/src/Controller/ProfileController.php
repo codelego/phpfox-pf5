@@ -2,9 +2,9 @@
 
 namespace Neutron\User\Controller;
 
-use Phpfox\Mvc\StandardController;
+use Phpfox\Mvc\MvcController;
 
-class ProfileController extends StandardController
+class ProfileController extends MvcController
 {
 
 }

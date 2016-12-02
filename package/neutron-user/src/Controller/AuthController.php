@@ -2,9 +2,9 @@
 
 namespace Neutron\User\Controller;
 
-use Phpfox\Mvc\StandardController;
+use Phpfox\Mvc\MvcController;
 
-class AuthController extends StandardController
+class AuthController extends MvcController
 {
 
 }

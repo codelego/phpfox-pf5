@@ -3,10 +3,10 @@
 namespace Neutron\Core\Controller;
 
 
-use Phpfox\Mvc\StandardController;
+use Phpfox\Mvc\MvcController;
 use Phpfox\View\ViewModel;
 
-class IndexController extends StandardController
+class IndexController extends MvcController
 {
     public function actionIndex()
     {

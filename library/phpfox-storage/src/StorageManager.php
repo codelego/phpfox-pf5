@@ -6,7 +6,7 @@ namespace Phpfox\Storage;
 class StorageManager implements StorageManagerInterface
 {
     /**
-     * @var StorageServiceInterface[]
+     * @var StorageAdapterInterface[]
      */
     protected $vars = [];
 
@@ -21,7 +21,7 @@ class StorageManager implements StorageManagerInterface
     protected $default;
 
     /**
-     * @var StorageServiceFactoryInterface
+     * @var StorageAdapterFactoryInterface
      */
     protected $factory;
 
@@ -30,7 +30,7 @@ class StorageManager implements StorageManagerInterface
      *
      * @param array $configs
      *
-     * @throws StorageServiceException
+     * @throws StorageException
      */
     public function __construct($configs)
     {
@@ -39,7 +39,7 @@ class StorageManager implements StorageManagerInterface
         $this->default = $configs['default'];
     }
 
-    public function set($id, StorageServiceInterface $service)
+    public function set($id, StorageAdapterInterface $service)
     {
         $this->vars[$id] = $service;
         return $this;

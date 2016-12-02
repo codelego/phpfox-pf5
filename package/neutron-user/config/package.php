@@ -49,6 +49,6 @@ return [
         'user.callback' => ['onMemberLoginBefore', 'onMemberLoginAfter'],
     ],
     'service.map'     => [
-        'user.callback' => [null, Callback::class,],
+        'user.callback' => [null, Package::class,],
     ],
 ];

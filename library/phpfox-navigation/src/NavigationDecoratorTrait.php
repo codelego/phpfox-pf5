@@ -5,6 +5,7 @@ namespace Phpfox\Navigation;
 
 trait NavigationDecoratorTrait
 {
+    protected $max_level =3;
     /**
      * @var array
      */
@@ -102,7 +103,7 @@ trait NavigationDecoratorTrait
             ];
         }
 
-        for ($level = self::MAX_LEVEL; $level > 0; --$level) {
+        for ($level = $this->max_level; $level > 0; --$level) {
             foreach ($rows as $index => $row) {
                 if (empty($row)) {
                     continue;

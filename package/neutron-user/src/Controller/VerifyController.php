@@ -3,9 +3,9 @@ namespace Neutron\User\Controller;
 
 
 use Phpfox;
-use Phpfox\Mvc\StandardController;
+use Phpfox\Mvc\MvcController;
 
-class VerifyController extends StandardController
+class VerifyController extends MvcController
 {
     public function actionIndex()
     {

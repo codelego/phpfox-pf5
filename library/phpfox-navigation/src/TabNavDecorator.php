@@ -4,6 +4,9 @@ namespace Phpfox\Navigation;
 
 class TabNavDecorator
 {
+    use NavigationDecoratorTrait;
+
+    protected $items;
 
     /**
      * @var array
@@ -55,6 +58,9 @@ class TabNavDecorator
      */
     public function renderItem($level, $item)
     {
+        if ($level) {
+            ;
+        }
 
         if ($item['acl']) {
             if (false == \app()->acl()->authorize(null, $item['acl'])) {

@@ -1,7 +1,7 @@
 <?php
 
 use Phpfox\Html\HtmlFacades;
-use Phpfox\Mvc\ConfigContainer;
+use Phpfox\Mvc\MvcConfig;
 use Phpfox\Mvc\ServiceManager;
 use Phpfox\Router\RouteManager;
 use Phpfox\View\PhpTemplate;
@@ -14,7 +14,7 @@ class Phpfox
     protected static $_service;
 
     /**
-     * @var \Phpfox\Mvc\ConfigContainer
+     * @var \Phpfox\Mvc\MvcConfig
      */
     protected static $_config;
 
@@ -38,7 +38,7 @@ class Phpfox
 
         self::$_initialized = true;
         self::$_service = new ServiceManager();
-        self::$_config = new ConfigContainer();
+        self::$_config = new MvcConfig();
 
         set_error_handler(function ($num, $msg, $file, $line, $context) {
 //            var_dump(debug_backtrace(1));
@@ -55,7 +55,7 @@ class Phpfox
     }
 
     /**
-     * @return ConfigContainer
+     * @return MvcConfig
      */
     public static function getConfigContainer()
     {
@@ -74,7 +74,7 @@ class Phpfox
     }
 
     /**
-     * @see ConfigContainer::get()
+     * @see MvcConfig::get()
      *
      * @param string $id
      * @param string $item
@@ -236,7 +236,7 @@ class Phpfox
     }
 
     /**
-     * @return \Phpfox\Mvc\Response
+     * @return \Phpfox\Mvc\MvcResponse
      */
     public static function getResponse()
     {
@@ -246,8 +246,16 @@ class Phpfox
     /**
      * @return PhpTemplate
      */
-    public static function getViews()
+    public static function getTemplate()
     {
-        return self::$_service->get('view.render');
+        return self::$_service->get('view.template');
+    }
+
+    /**
+     * @return \Phpfox\Db\DbAdapterInterface
+     */
+    public static function db()
+    {
+        return self::$_service->get('db');
     }
 }

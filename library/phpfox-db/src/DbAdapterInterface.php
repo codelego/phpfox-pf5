@@ -20,7 +20,7 @@ interface DbAdapterInterface
     public function connect();
 
     /**
-     * @throws ConnectException
+     * @throws DbConnectException
      */
     public function reconnect();
 

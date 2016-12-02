@@ -5,6 +5,8 @@ namespace Phpfox\Db;
 
 class SampleModel
 {
+    protected $id;
+
     /**
      * @var bool
      */
@@ -14,6 +16,22 @@ class SampleModel
      * @var array
      */
     private $data = [];
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     public function isSaved()
     {

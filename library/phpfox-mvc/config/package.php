@@ -9,9 +9,9 @@ namespace Phpfox\Mvc {
             ],
         ],
         'service.map'   => [
-            'mvc.dispatch' => [null, Dispatch::class],
-            'mvc.request'  => [RequestFactory::class, null],
-            'mvc.response' => [ResponseFactory::class, null],
+            'mvc.dispatch' => [null, MvcDispatch::class],
+            'mvc.request'  => [MvcRequestFactory::class, null],
+            'mvc.response' => [MvcResponseFactory::class, null],
         ],
     ];
 }

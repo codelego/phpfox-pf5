@@ -73,6 +73,7 @@ class HtmlElementContainer implements HtmlElementInterface
     public function getHtml()
     {
         return implode(PHP_EOL, array_map(function ($v) {
+            /** @ignore */
             return $v->getHtml();
         }, $this->container));
     }

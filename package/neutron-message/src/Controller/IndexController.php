@@ -2,9 +2,9 @@
 
 namespace Neutron\Message\Controller;
 
-use Phpfox\Mvc\StandardController;
+use Phpfox\Mvc\MvcController;
 
-class IndexController extends StandardController
+class IndexController extends MvcController
 {
 
 }

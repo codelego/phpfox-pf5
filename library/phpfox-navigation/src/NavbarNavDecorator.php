@@ -7,6 +7,8 @@ class NavbarNavDecorator implements NavigationDecoratorInterface
 {
     use NavigationDecoratorTrait;
 
+    protected $items = [];
+
     public function render()
     {
         /** @var NavigationLoaderInterface $loader */

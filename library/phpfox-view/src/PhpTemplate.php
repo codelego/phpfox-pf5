@@ -7,7 +7,7 @@ namespace Phpfox\View;
  *
  * @package Phpfox\Mvc
  */
-class PhpTemplate implements ViewRenderInterface
+class PhpTemplate implements ViewTemplateInterface
 {
     /**
      * @var array

@@ -66,7 +66,7 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testPackages()
     {
-        $result = \Phpfox::get('db')->select()->from(':core_package')->select('*')
+        $result = \Phpfox::db()->select()->from(':core_package')->select('*')
             ->where('is_active=?', 1)->order('is_core', 1)->order('priority', 1)
             ->execute();
 

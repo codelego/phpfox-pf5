@@ -9,12 +9,12 @@ namespace Phpfox\Storage {
             ],
         ],
         'storage.drivers' => [
-            'local' => LocalStorageService::class,
-            'ftp'   => FtpStorageService::class,
-            'ssh2'  => Ssh2StorageService::class,
+            'local' => StorageAdapterLocal::class,
+            'ftp'   => StorageAdapterFtp::class,
+            'ssh2'  => StorageAdapterSsh2::class,
         ],
         'service.map'     => [
-            'storage' => [SampleStorageManagerFactory::class, null, null],
+            'storage' => [StorageManagerFactory::class, null, null],
         ],
     ];
 }

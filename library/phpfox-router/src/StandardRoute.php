@@ -308,6 +308,7 @@ class StandardRoute implements RouteInterface
 
                     // Do not add optional groups to this result
                 }
+                return null;
             }, $portion);
 
             if ($required AND $missing) {

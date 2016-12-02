@@ -83,5 +83,7 @@ class SessionManager
         $this->saveHandler->register();
 
         @session_start();
+
+        return true;
     }
 }

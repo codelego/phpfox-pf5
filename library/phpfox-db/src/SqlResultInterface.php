@@ -10,4 +10,9 @@ namespace Phpfox\Db;
 interface SqlResultInterface
 {
     public function fetch();
+
+    /**
+     * @return bool
+     */
+    public function isValid();
 }

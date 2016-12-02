@@ -10,7 +10,7 @@ namespace Phpfox\Mail {
             ],
         ],
         'service.map'   => [
-            'mail' => [null, MailService::class,],
+            'mail.transport' => [null, MailTransportManager::class,],
         ],
     ];
 }

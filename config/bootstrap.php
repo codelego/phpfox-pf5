@@ -59,7 +59,7 @@ if (!$shouldGenerate) {
     _autoload_psr4($autoloader, $packageVariables['autoload.psr4']);
     \Phpfox::init();
 
-    /** @var \Phpfox\Mvc\ConfigContainer $configContainer */
+    /** @var \Phpfox\Mvc\MvcConfig $configContainer */
     $configContainer = \Phpfox::getConfigContainer();
 
     $packageVariables['db.adapters']['default'] = include PHPFOX_DIR

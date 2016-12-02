@@ -3,7 +3,7 @@
 namespace Phpfox\Mysqli;
 
 use Phpfox\Db\DbAdapterInterface;
-use Phpfox\Db\ConnectException;
+use Phpfox\Db\DbConnectException;
 use Phpfox\Db\SqlAdapterTrait;
 use Phpfox\Db\SqlException;
 
@@ -138,7 +138,7 @@ class MysqliDbAdapter implements DbAdapterInterface
         }
 
         if (empty($hosts)) {
-            throw new ConnectException('There are no host available');
+            throw new DbConnectException('There are no host available');
         }
 
         $hosts = array_values($hosts);
@@ -146,10 +146,10 @@ class MysqliDbAdapter implements DbAdapterInterface
         $host = $hosts[$offset];
 
         $result = $mysqli->real_connect($host, $params['user'],
-            $params['password'], $params['database'], $port);
+            $params['password'], $params['database'], $port,$socket);
 
         if (!$result) {
-            throw new ConnectException('Could not connect database '
+            throw new DbConnectException('Could not connect database '
                 . $mysqli->error);
         }
 

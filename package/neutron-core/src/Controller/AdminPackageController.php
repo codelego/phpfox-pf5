@@ -2,10 +2,10 @@
 namespace Neutron\Core\Controller;
 
 use Phpfox\Db\DbAdapterInterface;
-use Phpfox\Mvc\StandardController;
+use Phpfox\Mvc\MvcController;
 use Phpfox\View\ViewModel;
 
-class AdminPackageController extends StandardController
+class AdminPackageController extends MvcController
 {
     public function actionIndex()
     {

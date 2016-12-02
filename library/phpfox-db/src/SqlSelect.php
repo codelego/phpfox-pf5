@@ -403,7 +403,15 @@ class SqlSelect
 
         $result = $this->adapter->execute($sql, $this->_useMaster);
 
-        return $result->getInt(self::COUNT_NAME);
+        $rows = $result->fetch();
+
+        if (empty($rows)) {
+            return 0;
+        }
+
+        $row = array_shift($rows);
+
+        return (int)array_shift($row);
     }
 
     /**

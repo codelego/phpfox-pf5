@@ -3,7 +3,7 @@
 namespace Phpfox\Session;
 
 
-class SessionAdapterNull implements SessionAdapterInterface
+class SessionAdapterNull implements SessionAdapterInterface, \SessionHandlerInterface
 {
     public function register()
     {
