@@ -71,14 +71,14 @@ class NavbarNavDecorator implements NavigationDecoratorInterface
     {
         foreach ($this->items as $offset => $item) {
             if ($item['acl']) {
-                if (false == \app()->acl()->authorize(null, $item['acl'])) {
+                if (false == \Phpfox::getAcl()->authorize(null, $item['acl'])) {
                     unset($this->items[$offset]);
                     continue;
                 }
             }
 
             if ($item['type'] == 'event') {
-                if (false == ($item = \app()->callback($item['event'],
+                if (false == ($item = \Phpfox::callback($item['event'],
                         $item))
                 ) {
                     unset($this->items[$offset]);
@@ -150,7 +150,8 @@ class NavbarNavDecorator implements NavigationDecoratorInterface
             $params = $item['params'];
             foreach ($params as $k => $v) {
                 if (substr($v, 0, 1) == '$') {
-                    $params[$k] = \app()->requester()->getParam(substr($v, 1));
+                    $params[$k] = \Phpfox::mvcRequest()->getParam(substr($v,
+                        1));
                 }
             }
         }
@@ -159,7 +160,7 @@ class NavbarNavDecorator implements NavigationDecoratorInterface
             return '<li class="divider"></li>';
         } else {
             if ($item['type'] == 'route') {
-                $item['href'] = \app()->routing()
+                $item['href'] = \Phpfox::router()
                     ->getUrl($item['route'], $params);
             }
         }
@@ -170,13 +171,13 @@ class NavbarNavDecorator implements NavigationDecoratorInterface
 
         if (empty($item['href'])) {
             if (!empty($item['route'])) {
-                $href = \app()->routing()->getUrl($item['route'], $params);
+                $href = \Phpfox::router()->getUrl($item['route'], $params);
             }
         } else {
             $href = $item['href'];
         }
 
-        $label = _text('nav', $item['label']);
+        $label = _text($item['label'], 'navigation');
 
         // process plugin but return false.
         if (!$item) {

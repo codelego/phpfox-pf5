@@ -63,7 +63,7 @@ class TabNavDecorator
         }
 
         if ($item['acl']) {
-            if (false == \app()->acl()->authorize(null, $item['acl'])) {
+            if (false == \Phpfox::getAcl()->authorize(null, $item['acl'])) {
                 return '';
             }
         }
@@ -74,7 +74,8 @@ class TabNavDecorator
             $params = $item['params'];
             foreach ($params as $k => $v) {
                 if (substr($v, 0, 1) == '$') {
-                    $params[$k] = \app()->requester()->getParam(substr($v, 1));
+                    $params[$k] = \Phpfox::mvcRequest()->getParam(substr($v,
+                        1));
                 }
             }
         }
@@ -83,11 +84,10 @@ class TabNavDecorator
             return '<li class="divider"></li>';
         } else {
             if ($item['type'] == 'route') {
-                $href = \app()->routing()->getUrl($item['route'], $params);
+                $href = \Phpfox::router()->getUrl($item['route'], $params);
             } else {
                 if ($item['type'] == 'plugin') {
-                    $item = \app()->navigations()
-                        ->signal($item['event'], $params);
+                    $item = \Phpfox::callback($item['event'], $params);
                 }
             }
         }
@@ -111,7 +111,7 @@ class TabNavDecorator
         }
 
         if (!empty($item['extra'])) {
-            $extra = _htmlattrs($item['extra']);
+            $extra = _attrize($item['extra']);
         }
 
         if (!empty($item['children'])) {

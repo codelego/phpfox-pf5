@@ -50,7 +50,7 @@ interface QueuesServiceInterface
      * @return array [[
      * messageId     => string, // identity of message
      * messageBody   => string, // json encoded string contain [job: string,
-     * data: array ] reservationId => string, // Use this value to manupluate
+     * data: array ] reservationId => string, // Use this value to manual
      * task.
      * ]]
      */
@@ -63,7 +63,7 @@ interface QueuesServiceInterface
      * @return array [
      * messageId     => string, // identity of message
      * messageBody   => string, // json encoded string contain [job: string,
-     * data: array ] reservationId => string, // Use this value to manupluate
+     * data: array ] reservationId => string, // Use this value to manual
      * task.
      * ]]
      */

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: namnv
- * Date: 11/22/16
- * Time: 1:33 PM
- */
-
 namespace Phpfox\Session;
 
 

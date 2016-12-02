@@ -2,7 +2,7 @@
 namespace Phpfox\I18n;
 
 
-class Translator implements TranslatorInterface
+class Translator
 {
     /**
      * @var string
@@ -10,51 +10,63 @@ class Translator implements TranslatorInterface
     protected $locale = 'en';
 
     /**
-     * @var TextDomain[]
+     * @var MessageDomain[]
      */
     protected $messages = [];
 
-    public function translate($id, $domain = null, $locale = null, $data = null)
+    /**
+     * @param string      $id
+     * @param string|null $domain
+     * @param string|null $locale
+     * @param array|null  $context
+     *
+     * @return string
+     */
+    public function trans($id, $domain, $locale, $context)
     {
         $domain = $domain ? $domain : '';
         $locale = $locale ? $locale : $this->locale;
         $key = $locale . '_n_' . $domain;
 
         if (!isset($this->messages[$key])) {
-            $this->messages[$key] = new TextDomain($locale, $domain);
+            $this->messages[$key] = new MessageDomain($locale, $domain);
         }
 
-        $id = $this->messages[$key]->text($id);
+        $id = $this->messages[$key]->trans($id);
 
-        if (!$data) {
+        if (!$context) {
             return $id;
         }
 
-        return _sprintf($id, $data);
+        return _sprintf($id, $context);
     }
 
-    public function plural(
-        $id,
-        $number,
-        $domain = null,
-        $locale = null,
-        $ctx = null
-    ) {
+    /**
+     * @param string $id
+     * @param string $number
+     * @param string $domain
+     * @param string $locale
+     * @param string $context
+     *
+     * @return mixed|string
+     */
+    public function choice($id, $number, $domain, $locale, $context)
+    {
         $domain = $domain ? $domain : '';
         $locale = $locale ? $locale : $this->locale;
         $key = $locale . '_n_' . $domain;
 
         if (!isset($this->messages[$key])) {
-            $this->messages[$key] = new TextDomain($locale, $domain);
+            $this->messages[$key] = new MessageDomain($locale, $domain);
         }
 
-        $id = $this->messages[$key]->plural($id, $number);
+        $id = $this->messages[$key]->choice($id, $number);
 
-        if (!$ctx) {
+        if (!$context) {
             return $id;
         }
 
-        return _sprintf($id, $ctx);
+        return _sprintf($id, $context);
     }
 
     public function getLocale()

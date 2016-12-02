@@ -135,7 +135,7 @@ class StorageAdapterFtp implements StorageAdapterInterface
         }
 
         $data = '';
-        fseek($handle, 0); // seek to bebin of file.
+        fseek($handle, 0); // seek to begin of file.
         while (false != ($line = fread($handle, 1024))) {
             $data .= $line;
         }
@@ -160,7 +160,7 @@ class StorageAdapterFtp implements StorageAdapterInterface
                 $this->timeout);
         } else {
             if (!function_exists('ftp_ssl_connect')) {
-                throw new StorageException(sprintf('Unexepected configuration, Coul not connect FPTS without extension OpenSSL',
+                throw new StorageException(sprintf('Unexpected configuration, Could not connect FPTs without extension OpenSSL',
                     $this->host));
             } else {
                 $this->ftpStream = ftp_ssl_connect($this->host, $this->port,

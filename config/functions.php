@@ -308,4 +308,18 @@ namespace {
     {
         return \Phpfox::getUrl($id, $context);
     }
+
+    /**
+     * @param string $id
+     * @param string $domain
+     * @param string $locale
+     * @param array  $context
+     *
+     * @return string
+     */
+    function _text($id, $domain = null, $locale = null, $context = null)
+    {
+        return \Phpfox::get('translator')
+            ->trans($id, $domain, $locale, $context);
+    }
 }

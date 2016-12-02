@@ -2,7 +2,7 @@
 
 namespace Neutron\Core;
 
-use Neutron\Core\Service\PhraseLoader;
+use Neutron\Core\Service\I18nMessageLoader;
 
 return [
     'autoload.psr4'   => [
@@ -111,14 +111,13 @@ return [
         'core.error'           => Controller\ErrorController::class,
     ],
     'service.map'     => [
-        'i18n.loader' => [null, PhraseLoader::class],
+        'i18n.loader' => [null, I18nMessageLoader::class],
     ],
     'views.map'       => _get_view_map([
         'core'   => 'neutron-core/view',
         'layout' => 'neutron-core/layout',
     ]),
     'session.drivers' => [
-        'db' => Service\SessionAdapterDatabase::class,
+        'database' => Service\SessionHandlerDatabase::class,
     ],
-    'session.adapter' => ['driver' => 'db'],
 ];

@@ -57,8 +57,9 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase
 
         $sqlUpdate = new SqlUpdate($adapter);
 
+        $username =  'namnv';
         $result = $sqlUpdate->update('phpfox_user')
-            ->values(['user_name' => 'namnv'])->where(['user_id=?' => 1])
+            ->values(['user_name' => $username])->where(['user_id=?' => 1])
             ->execute(); // do not forget execute for that trim.
 
         $this->assertTrue($result->isValid(), 'Can not update user');
@@ -66,7 +67,7 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testPackages()
     {
-        $result = \Phpfox::db()->select()->from(':core_package')->select('*')
+        $result = \Phpfox::getDb()->select()->from(':core_package')->select('*')
             ->where('is_active=?', 1)->order('is_core', 1)->order('priority', 1)
             ->execute();
 

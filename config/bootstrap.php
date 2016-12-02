@@ -48,7 +48,7 @@ if (!$shouldGenerate) {
 
     \Phpfox::init();
 
-    $configContainer = \Phpfox::getConfigContainer();
+    $configContainer = \Phpfox::mvcConfig();
     $configContainer->merge(include $cacheFiles['service.init']);
 
 } else {
@@ -60,7 +60,7 @@ if (!$shouldGenerate) {
     \Phpfox::init();
 
     /** @var \Phpfox\Mvc\MvcConfig $configContainer */
-    $configContainer = \Phpfox::getConfigContainer();
+    $configContainer = \Phpfox::mvcConfig();
 
     $packageVariables['db.adapters']['default'] = include PHPFOX_DIR
         . '/config/db.init.php';

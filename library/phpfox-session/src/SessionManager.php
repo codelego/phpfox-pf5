@@ -10,9 +10,9 @@ namespace Phpfox\Session;
 class SessionManager
 {
     /**
-     * @var SessionAdapterInterface
+     * @var SessionHandlerInterface
      */
-    private $saveHandler = "files";
+    private $handler;
 
     public function __construct($configs)
     {
@@ -22,11 +22,11 @@ class SessionManager
 
         // skip session storage
         if (PHP_SAPI == 'cli' || PHPFOX_NO_SESSION) {
-            $this->saveHandler = new SessionAdapterNull();
+            $this->handler = new SessionHandlerNull();
             return;
         }
 
-        $this->saveHandler = $configs['handler'];
+        $this->handler = \Phpfox::get('session.save_handler');
     }
 
     /**
@@ -80,7 +80,7 @@ class SessionManager
             return false;
         }
 
-        $this->saveHandler->register();
+        $this->handler->register();
 
         @session_start();
 

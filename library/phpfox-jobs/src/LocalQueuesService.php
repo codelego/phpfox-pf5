@@ -32,7 +32,10 @@ class LocalQueuesService implements QueuesServiceInterface
 
     public function getMessage()
     {
-        $item = $this->getClient()->getMessage();
+        /**
+         * Get client from database
+         */
+        $item = null;
 
         if (!$item) {
             return null;

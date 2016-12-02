@@ -15,7 +15,7 @@ class PhraseLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function testLoader()
     {
-        $loader = new PhraseLoader();
+        $loader = new I18nMessageLoader();
 
         $loader->load('', '');
     }
@@ -28,10 +28,7 @@ class PhraseLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testTranslate($phrase, $actual)
     {
-
-        $p = \Phpfox::get('translator');
-
-        $this->assertEquals($p->translate($phrase), $actual);
+        $this->assertEquals(_text($phrase), $actual);
     }
 
     public function providePhraseAndContext()
@@ -52,7 +49,6 @@ class PhraseLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testPhraseAndContext($phrase, $context, $expected)
     {
-        $this->assertEquals(\Phpfox::get('translator')
-            ->translate($phrase, null, null, $context), $expected);
+        $this->assertEquals(_text($phrase, null, null, $context), $expected);
     }
 }

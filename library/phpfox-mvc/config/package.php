@@ -12,6 +12,7 @@ namespace Phpfox\Mvc {
             'mvc.dispatch' => [null, MvcDispatch::class],
             'mvc.request'  => [MvcRequestFactory::class, null],
             'mvc.response' => [MvcResponseFactory::class, null],
+            'mvc.events'   => [null, MvcEventManager::class],
         ],
     ];
 }

@@ -57,15 +57,11 @@ class Phpfox
     /**
      * @return MvcConfig
      */
-    public static function getConfigContainer()
+    public static function mvcConfig()
     {
         return self::$_config;
     }
 
-    public static function getEventContainer()
-    {
-        return self::$_service->get('events');
-    }
 
     public static function bootstrap()
     {
@@ -95,14 +91,6 @@ class Phpfox
         return true;
     }
 
-    public static function getUserParam($key)
-    {
-        if ($key) {
-            ;
-        }
-        return true;
-    }
-
     /**
      * @see ServiceManager::get()
      *
@@ -122,7 +110,7 @@ class Phpfox
      *
      * @return mixed
      */
-    public static function build($id)
+    public static function factory($id)
     {
         return self::$_service->factory($id);
     }
@@ -134,7 +122,7 @@ class Phpfox
      *
      * @return bool
      */
-    public static function hasService($id)
+    public static function has($id)
     {
         return self::$_service->has($id);
     }
@@ -175,17 +163,17 @@ class Phpfox
      */
     public static function emit($name, $target = null, $argv = [])
     {
-        return self::$_service->get('events')->emit($name, $target, $argv);
+        return self::$_service->get('mvc.events')->emit($name, $target, $argv);
     }
 
     /**
-     * @param \Phpfox\Event\EventInterface $event
+     * @param \Phpfox\Mvc\MvcEvent $event
      *
-     * @return \Phpfox\Event\EventResponse|null
+     * @return \Phpfox\Mvc\MvcEventResponse|null
      */
     public static function trigger($event)
     {
-        return self::$_service->get('events')->trigger($event);
+        return self::$_service->get('mvc.events')->trigger($event);
     }
 
     public static function isUser()
@@ -254,8 +242,62 @@ class Phpfox
     /**
      * @return \Phpfox\Db\DbAdapterInterface
      */
-    public static function db()
+    public static function getDb()
     {
         return self::$_service->get('db');
+    }
+
+    /**
+     * @return \Phpfox\Authorization\AuthorizationManager
+     */
+    public static function getAcl()
+    {
+        return self::$_service->get('authorization');
+    }
+
+    /**
+     * @return \Phpfox\Mvc\MvcRequest
+     */
+    public static function mvcRequest()
+    {
+        return self::$_service->get('mvc.request');
+    }
+
+    /**
+     * @return \Phpfox\Mvc\MvcResponse
+     */
+    public static function mvcResponse()
+    {
+        return self::$_service->get('mvc.response');
+    }
+
+    /**
+     * @return \Phpfox\Mvc\MvcDispatch
+     */
+    public static function mvcDispatch()
+    {
+        return self::$_service->get('mvc.dispatch');
+    }
+
+    /**
+     * @return RouteManager
+     */
+    public static function router()
+    {
+        return self::$_service->get('router');
+    }
+
+    public static function callback($name, $target = null, $context = [])
+    {
+        return self::$_service->get('mvc.event')
+            ->callback($name, $target, $context);
+    }
+
+    /**
+     * @return \Phpfox\I18n\Translator
+     */
+    public static function translator()
+    {
+        return self::$_service->get('translator');
     }
 }

@@ -13,6 +13,6 @@ class FilesystemLoggerTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $logger->info('{0} is working on {1}',
-            ['namnv@younetco.com', 'phpfox']);
+            ['nam.ngvan@gmail.com', 'phpfox']);
     }
 }
