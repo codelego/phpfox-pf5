@@ -3,11 +3,12 @@
 namespace Neutron\Core\Service;
 
 
-use Phpfox\Db\AdapterInterface;
+use Phpfox\Db\DbAdapterInterface;
 use Phpfox\Db\SqlLiteral;
-use Phpfox\Session\SaveHandlerInterface;
+use Phpfox\Session\SessionAdapterInterface;
 
-class SessionDbSaveHandler implements SaveHandlerInterface
+class SessionAdapterDatabase
+    implements SessionAdapterInterface, \SessionHandlerInterface
 {
     /**
      * @var string
@@ -20,7 +21,7 @@ class SessionDbSaveHandler implements SaveHandlerInterface
     protected $path = '';
 
     /**
-     * @return AdapterInterface
+     * @return DbAdapterInterface
      */
     private function getDb()
     {
@@ -98,5 +99,10 @@ class SessionDbSaveHandler implements SaveHandlerInterface
 
         }
         return true;
+    }
+
+    public function register()
+    {
+        session_set_save_handler($this);
     }
 }

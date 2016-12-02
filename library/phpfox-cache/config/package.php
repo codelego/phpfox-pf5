@@ -11,8 +11,7 @@ return [
     ],
     'cache.drivers'  => [
         'filesystem' => FilesystemCacheStorage::class,
-        'apc'        => ApcCacheStorage::class,
-        'apcu'       => ApcuCacheStorage::class,
+        'apc'        => ApcuCacheStorage::class,
     ],
     'cache.adapters' => [
         'cache.filesystem' => [
@@ -20,9 +19,6 @@ return [
         ],
         'cache.apc'        => [
             'driver' => 'apc',
-        ],
-        'cache.apcu'       => [
-            'driver' => 'apcu',
         ],
     ],
     'cache.map'      => [
@@ -32,7 +28,6 @@ return [
             'cache.filesystem',
         ],
         'cache.apc'   => [CacheStorageFactory::class, null, 'cache.apc'],
-        'cache.apcu'  => [CacheStorageFactory::class, null, 'cache.apcu'],
         'cache'       => [
             CacheStorageFactory::class,
             null,
@@ -46,7 +41,6 @@ return [
             'cache.filesystem',
         ],
         'cache.apc'   => [CacheStorageFactory::class, null, 'cache.apc'],
-        'cache.apcu'  => [CacheStorageFactory::class, null, 'cache.apcu'],
         'cache'       => [
             CacheStorageFactory::class,
             null,

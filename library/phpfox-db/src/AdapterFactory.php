@@ -9,7 +9,7 @@ class AdapterFactory
      * @param string $class reversed param
      * @param string $key   configure name under db options.
      *
-     * @return AdapterInterface
+     * @return DbAdapterInterface
      */
     public function factory($class = null, $key = null)
     {

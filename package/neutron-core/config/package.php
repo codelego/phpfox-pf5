@@ -118,7 +118,7 @@ return [
         'layout' => 'neutron-core/layout',
     ]),
     'session.drivers' => [
-        'db' => Service\SessionDbSaveHandler::class,
+        'db' => Service\SessionAdapterDatabase::class,
     ],
     'session.adapter' => ['driver' => 'db'],
 ];

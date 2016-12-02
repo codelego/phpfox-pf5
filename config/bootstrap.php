@@ -16,7 +16,7 @@ $cacheFiles = [
     'psr4.init'    => PHPFOX_DIR . '/data/cache/psr4.init.php',
 ];
 
-$shouldGenerate = PHPFOX_NO_CACHE;
+$shouldGenerate = PHPFOX_ENV != 'production';
 
 foreach ($cacheFiles as $file) {
     if (!file_exists($file)) {
@@ -67,7 +67,7 @@ if (!$shouldGenerate) {
 
     $configContainer->merge($packageVariables);
 
-    /** @var \Phpfox\Mysqli\MysqliAdapter $db */
+    /** @var \Phpfox\Mysqli\MysqliDbAdapter $db */
     $db = \Phpfox::get('db');
 
 

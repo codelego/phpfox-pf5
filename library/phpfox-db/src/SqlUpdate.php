@@ -12,7 +12,7 @@ class SqlUpdate
 {
 
     /**
-     * @var AdapterInterface
+     * @var DbAdapterInterface
      */
     protected $adapter;
 

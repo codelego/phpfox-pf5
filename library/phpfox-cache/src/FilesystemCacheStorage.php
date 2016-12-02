@@ -35,11 +35,13 @@ class FilesystemCacheStorage implements CacheStorageInterface
         $this->debug = (bool)$configs['debug'];
     }
 
-    public function getItems($keys = [])
+    public function getItems($keyValues = [])
     {
-        return array_map(function ($v) {
-            return $this->getItem($v);
-        }, $keys);
+        $result = [];
+        foreach ($keyValues as $key => $value) {
+            $result[$key] = $this->getItem($key);
+        }
+        return $result;
     }
 
     public function getItem($key)
@@ -52,11 +54,11 @@ class FilesystemCacheStorage implements CacheStorageInterface
 
         $data = unserialize(file_get_contents($filename));
 
-        if (!$data instanceof CacheItem || !$data->isValid()) {
-            return null;
+        if ($data['lifetime'] == 0 || $data['lifetime'] > time()) {
+            return $data['val'];
         }
 
-        return $data;
+        return null;
     }
 
     /**
@@ -73,17 +75,16 @@ class FilesystemCacheStorage implements CacheStorageInterface
 
     public function setItem($key, $value, $ttl = 0)
     {
-        $this->save(new CacheItem($key, $value, $ttl));
-    }
-
-    public function save(CacheItemInterface $item)
-    {
-        $filename = $this->getFilename($item->key());
+        $filename = $this->getFilename($key);
 
         if (!$this->ensureFilename($filename)) {
             return false;
         }
-        if (!file_put_contents($filename, serialize($item))) {
+        if (!file_put_contents($filename, serialize([
+            'val'      => $value,
+            'lifetime' => $ttl > 0 ? $ttl + time() : 0,
+        ]))
+        ) {
             return false;
         }
         return true;
@@ -121,7 +122,7 @@ class FilesystemCacheStorage implements CacheStorageInterface
             }
 
             if ($splInfo->isFile()) {
-                unlink($splInfo->getRealpath());
+                @unlink($splInfo->getRealpath());
             }
         }
     }

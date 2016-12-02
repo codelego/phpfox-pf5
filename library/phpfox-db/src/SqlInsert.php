@@ -11,7 +11,7 @@ class SqlInsert
 {
 
     /**
-     * @var AdapterInterface
+     * @var DbAdapterInterface
      */
     protected $adapter;
     /**

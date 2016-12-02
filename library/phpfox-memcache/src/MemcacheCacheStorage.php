@@ -2,7 +2,6 @@
 namespace Phpfox\Memcache;
 
 use Memcache;
-use Phpfox\Cache\CacheItem;
 use Phpfox\Cache\CacheStorageInterface;
 
 class MemcacheCacheStorage implements CacheStorageInterface
@@ -43,7 +42,7 @@ class MemcacheCacheStorage implements CacheStorageInterface
     {
         $this->ready();
 
-        $this->save(new CacheItem($key, $value, $ttl));
+        $this->memcache->set($key, $value, MEMCACHE_COMPRESSED, $ttl);
     }
 
     public function ready()
@@ -74,20 +73,12 @@ class MemcacheCacheStorage implements CacheStorageInterface
 
     }
 
-    public function save(CacheItemInterface $item)
-    {
-        $this->ready();
-
-        $this->memcache->set($item->key(), $item, MEMCACHE_COMPRESSED,
-            $item->ttl());
-    }
-
-    public function getItems($keys = [])
+    public function getItems($keyValues = [])
     {
         $this->ready();
 
         $result = [];
-        foreach ($keys as $k => $v) {
+        foreach ($keyValues as $k => $v) {
             $result[$k] = $this->getItem($v);
         }
 
@@ -98,16 +89,7 @@ class MemcacheCacheStorage implements CacheStorageInterface
     {
         $this->ready();
 
-        $data = $this->memcache->get($key);
-
-        if (!$data instanceof CacheItem) {
-            return null;
-        }
-        if (!$data->isValid()) {
-            return null;
-        }
-
-        return $data;
+        return $this->memcache->get($key);
     }
 
     public function hasItem($key)

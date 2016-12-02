@@ -1,12 +1,7 @@
 <?php
 namespace Phpfox\Auth;
 
-/**
- * Interface AdapterInterface
- *
- * @package Phpfox\Auth
- */
-interface AdapterInterface
+interface AuthAdapterInterface
 {
     /**
      * @return AuthResult

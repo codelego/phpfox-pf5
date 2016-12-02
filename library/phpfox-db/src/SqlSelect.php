@@ -26,7 +26,7 @@ class SqlSelect
      */
     const RIGHT_JOIN = 'RIGHT JOIN';
     /**
-     * @var AdapterInterface
+     * @var DbAdapterInterface
      */
     private $adapter;
 

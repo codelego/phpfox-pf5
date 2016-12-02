@@ -2,12 +2,7 @@
 
 namespace Phpfox\Db;
 
-/**
- * Interface AdapterInterface
- *
- * @package Phpfox\Db
- */
-interface AdapterInterface
+interface DbAdapterInterface
 {
     /**
      * @return \mysqli

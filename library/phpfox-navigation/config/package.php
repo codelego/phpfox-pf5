@@ -4,7 +4,8 @@ namespace Phpfox\Navigation;
 
 return [
     'navigation.decorators' => [
-        'vertical_dropdown' => VerticalDropDownMenu::class,
+        'navbar' => NavbarNavDecorator::class,
+        'tab'    => TabNavDecorator::class,
     ],
     'service.map'           => [
         'navigation' => [null, NavigationManager::class],

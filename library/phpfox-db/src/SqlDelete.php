@@ -10,7 +10,7 @@ namespace Phpfox\Db;
 class SqlDelete
 {
     /**
-     * @var AdapterInterface
+     * @var DbAdapterInterface
      */
     protected $adapter;
 

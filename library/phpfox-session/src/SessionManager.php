@@ -10,7 +10,7 @@ namespace Phpfox\Session;
 class SessionManager
 {
     /**
-     * @var SaveHandlerInterface
+     * @var SessionAdapterInterface
      */
     private $saveHandler = "files";
 
@@ -22,7 +22,7 @@ class SessionManager
 
         // skip session storage
         if (PHP_SAPI == 'cli' || PHPFOX_NO_SESSION) {
-            $this->saveHandler = new NullSaveHandler();
+            $this->saveHandler = new SessionAdapterNull();
             return;
         }
 
@@ -52,9 +52,27 @@ class SessionManager
     }
 
     /**
+     * @see session_destroy
+     */
+    public function destroy()
+    {
+        session_destroy();
+    }
+
+    /**
+     * call session_commit
+     *
+     * @see session_commit
+     */
+    public function close()
+    {
+        session_commit();
+    }
+
+    /**
      * Start session manager
      *
-     * @return bool always true.
+     * @see session_start
      */
     public function start()
     {
@@ -62,10 +80,8 @@ class SessionManager
             return false;
         }
 
-        session_set_save_handler($this->saveHandler);
+        $this->saveHandler->register();
 
         @session_start();
-
-        return true;
     }
 }

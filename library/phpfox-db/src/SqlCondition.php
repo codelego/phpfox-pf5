@@ -10,7 +10,7 @@ namespace Phpfox\Db;
 class SqlCondition
 {
     /**
-     * @var AdapterInterface
+     * @var DbAdapterInterface
      */
     protected $adapter;
 

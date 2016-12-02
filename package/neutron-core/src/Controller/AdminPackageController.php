@@ -1,7 +1,7 @@
 <?php
 namespace Neutron\Core\Controller;
 
-use Phpfox\Db\AdapterInterface;
+use Phpfox\Db\DbAdapterInterface;
 use Phpfox\Mvc\StandardController;
 use Phpfox\View\ViewModel;
 
@@ -10,7 +10,7 @@ class AdminPackageController extends StandardController
     public function actionIndex()
     {
 
-        /** @var AdapterInterface $db */
+        /** @var DbAdapterInterface $db */
         $db = \Phpfox::get('db');
 
         $packages = $db->select('*')

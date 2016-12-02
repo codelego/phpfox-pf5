@@ -14,7 +14,6 @@ class FilesystemCacheStorageTest extends \PHPUnit_Framework_TestCase
         return [
             ['cache.local',],
             ['cache.apc',],
-            ['cache.apcu',],
         ];
     }
 
@@ -35,13 +34,13 @@ class FilesystemCacheStorageTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNull($item);
 
-        $cache->save(new CacheItem($key, $data, 0));
+        $cache->setItem($key, $data, 0);
 
         $retry = $cache->getItem($key);
 
         $this->assertNotNull($retry);
 
-        $this->assertEquals($retry->get(), $data);
+        $this->assertEquals($retry, $data);
 
         $cache->deleteItem($key);
 

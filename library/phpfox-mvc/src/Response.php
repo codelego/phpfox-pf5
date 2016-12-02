@@ -58,7 +58,7 @@ class Response
     {
         \Phpfox::emit('onResponderTerminate', null);
 
-        if (function_exists('ob_get_level')) {
+        if (PHPFOX_UNIT_TEST == false and function_exists('ob_get_level')) {
             while (ob_get_level()) {
                 ob_get_clean();
             }

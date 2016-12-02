@@ -12,11 +12,11 @@ class PackageTest extends \PHPUnit_Framework_TestCase
     {
         return [
             ['/', 'core.index', 'index'],
-            ['admincp/core/settings', 'core.admincp-settings', 'index'],
-            ['admincp/core/settings/mail', 'core.admincp-settings', 'mail'],
+            ['admincp/core/settings', 'core.admin-settings', 'index'],
+            ['admincp/core/settings/mail', 'core.admin-settings', 'mail'],
             [
                 'admincp/core/settings/message',
-                'core.admincp-settings',
+                'core.admin-settings',
                 'message',
             ],
         ];

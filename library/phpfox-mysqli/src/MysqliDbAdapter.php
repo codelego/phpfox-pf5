@@ -2,7 +2,7 @@
 
 namespace Phpfox\Mysqli;
 
-use Phpfox\Db\AdapterInterface;
+use Phpfox\Db\DbAdapterInterface;
 use Phpfox\Db\ConnectException;
 use Phpfox\Db\SqlAdapterTrait;
 use Phpfox\Db\SqlException;
@@ -12,7 +12,7 @@ use Phpfox\Db\SqlException;
  *
  * @package Phpfox\Db
  */
-class MysqliAdapter implements AdapterInterface
+class MysqliDbAdapter implements DbAdapterInterface
 {
     use SqlAdapterTrait;
 

@@ -83,7 +83,7 @@ class TableGateway implements GatewayInterface
     }
 
     /**
-     * @return AdapterInterface
+     * @return DbAdapterInterface
      */
     public function adapter()
     {

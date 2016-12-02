@@ -10,7 +10,7 @@ namespace Phpfox\Mysqli {
             ],
         ],
         'db.drivers'    => [
-            'mysqli' => MysqliAdapter::class,
+            'mysqli' => MysqliDbAdapter::class,
         ],
     ];
 }

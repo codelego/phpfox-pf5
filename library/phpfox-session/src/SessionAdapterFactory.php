@@ -3,13 +3,13 @@
 namespace Phpfox\Session;
 
 
-class SaveHandlerFactory
+class SessionAdapterFactory
 {
     /**
      * @param string       $class
      * @param string|array $options
      *
-     * @return SaveHandlerInterface
+     * @return SessionAdapterInterface
      */
     public function factory($class, $options)
     {

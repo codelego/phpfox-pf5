@@ -11,7 +11,7 @@ class SqlJoin
 {
 
     /**
-     * @var AdapterInterface
+     * @var DbAdapterInterface
      */
     protected $adapter;
 

@@ -6,21 +6,19 @@ class ApcuCacheStorage implements CacheStorageInterface
 {
     public function setItem($key, $value, $ttl = 0)
     {
-        $this->save(new CacheItem($key, $value, $ttl));
+        apcu_store($key, $value, $ttl);
+        return true;
     }
 
-    public function save(CacheItemInterface $item)
+    public function getItems($keyValues = [])
     {
-        apcu_store($item->key(), serialize($item), $item->ttl());
-    }
+        $success = false;
+        $data = apcu_fetch($keyValues, $success);
 
-    public function getItems($keys = [])
-    {
-        $result = [];
-        foreach ($keys as $k => $v) {
-            $result[$k] = $this->getItem($v);
+        if (!$success) {
+            return null;
         }
-        return $result;
+        return $data;
     }
 
     public function getItem($key)
@@ -29,20 +27,6 @@ class ApcuCacheStorage implements CacheStorageInterface
         $data = apcu_fetch((string)$key, $success);
 
         if (!$success) {
-            return null;
-        }
-
-        if (!$data) {
-            return null;
-        }
-
-        $data = unserialize($data);
-
-        if (!$data instanceof CacheItemInterface) {
-            return null;
-        }
-
-        if (!$data->isValid()) {
             return null;
         }
 

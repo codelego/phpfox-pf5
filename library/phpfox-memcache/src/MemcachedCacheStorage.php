@@ -3,8 +3,6 @@ namespace Phpfox\Memcache;
 
 
 use Memcached;
-use Phpfox\Cache\CacheItem;
-use Phpfox\Cache\CacheItemInterface;
 use Phpfox\Cache\CacheStorageInterface;
 
 class MemcachedCacheStorage implements CacheStorageInterface
@@ -12,7 +10,7 @@ class MemcachedCacheStorage implements CacheStorageInterface
     /**
      * @var Memcached
      */
-    protected $memcache;
+    protected $memcached;
 
     /**
      * @var array
@@ -45,7 +43,7 @@ class MemcachedCacheStorage implements CacheStorageInterface
     {
         $this->ready();
 
-        $this->save(new CacheItem($key, $value, $ttl));
+        $this->memcached->set($key, $value, $ttl);
     }
 
     public function ready()
@@ -54,7 +52,7 @@ class MemcachedCacheStorage implements CacheStorageInterface
             return;
         }
 
-        $this->memcache = new Memcached();
+        $this->memcached = new Memcached();
         $v = $this->configs;
 
         foreach ($v['servers'] as $a) {
@@ -70,26 +68,19 @@ class MemcachedCacheStorage implements CacheStorageInterface
                 $a['retry_interval'] = $v['retry_interval'];
             }
 
-            $this->memcache->addServer($a['host'], $a['port'], $a['weight']);
+            $this->memcached->addServer($a['host'], $a['port'], $a['weight']);
         }
 
         $this->connected = true;
 
     }
 
-    public function save(CacheItemInterface $item)
-    {
-        $this->ready();
-
-        $this->memcache->set($item->key(), $item, $item->ttl());
-    }
-
-    public function getItems($keys = [])
+    public function getItems($keyValues = [])
     {
         $this->ready();
 
         $result = [];
-        foreach ($keys as $k => $v) {
+        foreach ($keyValues as $k => $v) {
             $result[$k] = $this->getItem($v);
         }
 
@@ -100,30 +91,21 @@ class MemcachedCacheStorage implements CacheStorageInterface
     {
         $this->ready();
 
-        $data = $this->memcache->get($key);
-
-        if (!$data instanceof CacheItem) {
-            return null;
-        }
-        if (!$data->isValid()) {
-            return null;
-        }
-
-        return $data;
+        return $this->memcached->get($key);
     }
 
     public function hasItem($key)
     {
         $this->ready();
 
-        return null != $this->memcache->get($key);
+        return null != $this->memcached->get($key);
     }
 
     public function clear()
     {
         $this->ready();
 
-        $this->memcache->flush();
+        $this->memcached->flush();
         return true;
     }
 
@@ -131,7 +113,7 @@ class MemcachedCacheStorage implements CacheStorageInterface
     {
         $this->ready();
 
-        $this->memcache->delete($key);
+        $this->memcached->delete($key);
     }
 
     public function deleteItems($keys)
@@ -139,13 +121,13 @@ class MemcachedCacheStorage implements CacheStorageInterface
         $this->ready();
 
         array_walk($keys, function ($v) {
-            $this->memcache->delete($v);
+            $this->memcached->delete($v);
         });
     }
 
     function __sleep()
     {
-        $this->memcache = null;
+        $this->memcached = null;
         $this->connected = false;
         return [];
     }
