@@ -43,10 +43,10 @@ class GatewayManager implements GatewayManagerInterface
     public function get($id)
     {
         return isset($this->container[$id]) ? $this->container[$id]
-            : $this->container[$id] = $this->build($id);
+            : $this->container[$id] = $this->factory($id);
     }
 
-    public function build($id)
+    public function factory($id)
     {
         if (!isset($this->map[$id])
             || !class_exists($this->map[$id][0])

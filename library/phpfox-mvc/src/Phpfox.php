@@ -116,7 +116,7 @@ class Phpfox
     }
 
     /**
-     * @see ServiceManager::build()
+     * @see ServiceManager::factory()
      *
      * @param string $id
      *
@@ -124,7 +124,7 @@ class Phpfox
      */
     public static function build($id)
     {
-        return self::$_service->build($id);
+        return self::$_service->factory($id);
     }
 
     /**

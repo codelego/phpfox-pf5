@@ -48,7 +48,8 @@ namespace {
                 $key = str_replace(['//', '/', '\\', '@.'],
                     ['.', '.', '.', '@'], _deflect($prefix . DS . $prepare));
 
-                $value = str_replace($extension, '', trim(str_replace($packageDir, '', $path), DS));
+                $value = str_replace($extension, '',
+                    trim(str_replace($packageDir, '', $path), DS));
 
                 $map[$key] = $value;
             }
@@ -189,6 +190,30 @@ namespace {
     {
         return strtolower(trim(preg_replace('/([a-z0-9])([A-Z])/', '\1-\2',
             $string), '-. '));
+    }
+
+    function _factory($ref)
+    {
+        if (is_string($ref)) {
+            return new $ref;
+        }
+
+        $factory = array_shift($ref);
+
+        if (is_string($factory)) {
+            return call_user_func_array([
+                new $factory(),
+                'factory',
+            ], $ref);
+        }
+
+        $class = array_shift($ref);
+
+        if (empty($ref)) {
+            return new $class();
+        }
+
+        return (new \ReflectionClass($class))->newInstanceArgs($ref);
     }
 
     /**

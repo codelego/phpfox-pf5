@@ -19,7 +19,7 @@ interface GatewayManagerInterface
      * @return GatewayInterface
      * @throws GatewayException
      */
-    public function build($id);
+    public function factory($id);
 
     /**
      * @param string                 $id

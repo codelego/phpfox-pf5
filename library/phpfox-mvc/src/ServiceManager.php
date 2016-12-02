@@ -50,7 +50,7 @@ class ServiceManager
     public function get($id)
     {
         return isset($this->container[$id]) ? $this->container[$id]
-            : $this->container[$id] = $this->build($id);
+            : $this->container[$id] = $this->factory($id);
     }
 
     /**
@@ -58,7 +58,7 @@ class ServiceManager
      *
      * @return mixed
      */
-    public function build($id)
+    public function factory($id)
     {
         $ref = \Phpfox::getConfig('service.map', $id);
 
@@ -103,6 +103,6 @@ class ServiceManager
     public function __invoke($id)
     {
         return isset($this->container[$id]) ? $this->container[$id]
-            : $this->container[$id] = $this->build($id);
+            : $this->container[$id] = $this->factory($id);
     }
 }

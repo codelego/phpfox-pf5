@@ -72,7 +72,23 @@ return [
             'route'    => '{admincp}',
             'group'    => '@admincp',
             'defaults' => [
-                'controller' => 'core.admincp-dashboard',
+                'controller' => 'core.admin-dashboard',
+                'action'     => 'index',
+            ],
+        ],
+        'admincp.core.theme'     => [
+            'route'    => '{admincp}/core/theme(/[:action])',
+            'group'    => '@admincp',
+            'defaults' => [
+                'controller' => 'core.admin-theme',
+                'action'     => 'index',
+            ],
+        ],
+        'admincp.core.package'   => [
+            'route'    => '{admincp}/core/package(/[:action])',
+            'group'    => '@admincp',
+            'defaults' => [
+                'controller' => 'core.admin-package',
                 'action'     => 'index',
             ],
         ],
@@ -80,17 +96,19 @@ return [
             'route'    => '{admincp}/core/settings(/[:action])',
             'group'    => '@admincp',
             'defaults' => [
-                'controller' => 'core.admincp-settings',
+                'controller' => 'core.admin-settings',
                 'action'     => 'index',
             ],
         ],
     ],
     'controller.map'  => [
-        'core.index'             => Controller\IndexController::class,
-        'core.admincp-dashboard' => Controller\AdminDashboardController::class,
-        'core.admincp-language'  => Controller\AdminLanguageController::class,
-        'core.admincp-settings'  => Controller\AdminSettingsController::class,
-        'core.error'             => Controller\ErrorController::class,
+        'core.index'           => Controller\IndexController::class,
+        'core.admin-dashboard' => Controller\AdminDashboardController::class,
+        'core.admin-language'  => Controller\AdminLanguageController::class,
+        'core.admin-theme'     => Controller\AdminThemeController::class,
+        'core.admin-settings'  => Controller\AdminSettingsController::class,
+        'core.admin-package'   => Controller\AdminPackageController::class,
+        'core.error'           => Controller\ErrorController::class,
     ],
     'service.map'     => [
         'i18n.loader' => [null, PhraseLoader::class],
