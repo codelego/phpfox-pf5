@@ -7,7 +7,7 @@
 <header>
     <?= $this->render('layout.master.header', []) ?>
 </header>
-<?php echo $layout_content ?>
+<?php echo @$layout_content ?>
 <footer>
     <?= $this->render('layout.master.footer', []) ?>
 </footer>

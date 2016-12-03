@@ -12,6 +12,16 @@ class FilesLogger implements LoggerInterface
     protected $filename;
 
     /**
+     * @var int
+     */
+    protected $directoryPermission = 0777;
+
+    /**
+     * @var int
+     */
+    protected $filePermission = 0777;
+
+    /**
      * FilesystemLogger constructor.
      *
      * @param array $config
@@ -27,6 +37,16 @@ class FilesLogger implements LoggerInterface
 
 
         $this->filename = $directory . DS . 'log' . DS . $config['filename'];
+
+        if (!file_exists($this->filename)) {
+            if (!is_dir($dir = dirname($this->filename))
+                && mkdir($dir, true, $this->directoryPermission)
+            ) {
+                @file_put_contents($this->filename,
+                    '# create by FilesLogger ' . PHP_EOL);
+                @chmod($this->filename, $this->filePermission);
+            }
+        }
 
         $this->setLevel($config['level']);
     }

@@ -2,13 +2,12 @@
 namespace Phpfox\Mailer;
 
 
-class SystemTransport implements TransportInterface
+class SystemMailTransport implements MailTransportInterface
 {
-
     public function send(Message $msg)
     {
         if (!$msg->isValid()) {
-            throw new \InvalidArgumentException('Message does not contain all required data.');
+            throw new InvalidMessageException('Message does not contain all required data.');
         }
 
         $mailer = new \PHPMailer();
@@ -49,7 +48,7 @@ class SystemTransport implements TransportInterface
 
 
         if (!$sendResult and PHPFOX_ENV != 'production') {
-            throw new MessageException('Can not send mail using smtp '
+            throw new TransportException('Can not send mail using smtp '
                 . PHP_EOL . $debugOutput);
         } elseif (!$sendResult) {
             return false;

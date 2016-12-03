@@ -126,20 +126,6 @@ class Phpfox
     }
 
     /**
-     * @see GatewayInterface::findById()
-     *
-     * @param string $gateway
-     * @param mixed  $id
-     *
-     * @return \Phpfox\Model\ModelInterface
-     */
-    public function findById($gateway, $id)
-    {
-        return self::$_service->get('gateway')->findById($gateway, $id);
-    }
-
-
-    /**
      * @param string      $name
      * @param object|null $target
      * @param array|null  $argv
@@ -295,10 +281,23 @@ class Phpfox
     }
 
     /**
-     * @return \Phpfox\Mailer\TransportManager
+     * @return \Phpfox\Mailer\MailFacades
      */
     public static function mailer()
     {
         return self::$_service->get('mail.transport');
+    }
+
+    /**
+     * @see GatewayInterface::findById()
+     *
+     * @param string $gateway
+     * @param mixed  $id
+     *
+     * @return \Phpfox\Model\ModelInterface
+     */
+    public function findById($gateway, $id)
+    {
+        return self::$_service->get('gateway')->findById($gateway, $id);
     }
 }

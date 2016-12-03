@@ -2,7 +2,7 @@
 namespace Phpfox\Mailer;
 
 
-class TransportException extends \Exception
+class TransportException extends MailException
 {
 
 }

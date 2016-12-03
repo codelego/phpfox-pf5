@@ -57,7 +57,7 @@ class SmtpMailTransportTest extends \PHPUnit_Framework_TestCase
      */
     public function testSendMail($configs)
     {
-        $transport = new SmtpTransport($configs);
+        $transport = new SmtpMailTransport($configs);
 
         $msg = new Message();
         $msg->exchangeArray([

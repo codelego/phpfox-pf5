@@ -8,7 +8,7 @@ class SystemMailTransportTest extends \PHPUnit_Framework_TestCase
 
     public function testSendMail()
     {
-        $transport = new SystemTransport();
+        $transport = new SystemMailTransport();
 
         $msg = new Message();
         $msg->exchangeArray([

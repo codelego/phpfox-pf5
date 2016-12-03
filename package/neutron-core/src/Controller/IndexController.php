@@ -10,6 +10,6 @@ class IndexController extends MvcController
 {
     public function actionIndex()
     {
-        return new ViewModel();
+        return new ViewModel('core.index.index');
     }
 }

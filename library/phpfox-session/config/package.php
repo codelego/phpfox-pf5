@@ -3,7 +3,7 @@
 namespace Phpfox\Session;
 
 return [
-    'psr4'   => [
+    'psr4'            => [
         'Phpfox\\Session\\' => [
             'library/phpfox-session/src',
             'library/phpfox-session/test',
@@ -15,6 +15,6 @@ return [
         'memcache' => MemcacheSessionHandler::class,
     ],
     'service.map'     => [
-        'session' => [SessionManagerFactory::class, null],
+        'session' => [null, SessionManager::class],
     ],
 ];

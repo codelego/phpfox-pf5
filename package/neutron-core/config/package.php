@@ -5,7 +5,7 @@ namespace Neutron\Core;
 use Neutron\Core\Service\I18nMessageLoader;
 
 return [
-    'psr4'   => [
+    'psr4'            => [
         'Neutron\\Core\\' => [
             'package/neutron-core/src',
             'package/neutron-core/test',

@@ -1,6 +1,8 @@
 <?php
+
 namespace Phpfox\Mailer;
 
-class TransportManager
+class MailTemplate
 {
+
 }

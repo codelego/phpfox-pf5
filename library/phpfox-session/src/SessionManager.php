@@ -14,7 +14,7 @@ class SessionManager
      */
     private $handler;
 
-    public function __construct($configs)
+    public function __construct()
     {
         if (session_id()) {
             return;

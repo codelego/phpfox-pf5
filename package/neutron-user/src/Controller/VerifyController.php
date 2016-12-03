@@ -1,8 +1,6 @@
 <?php
 namespace Neutron\User\Controller;
 
-
-use Phpfox;
 use Phpfox\Mvc\MvcController;
 
 class VerifyController extends MvcController

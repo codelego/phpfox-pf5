@@ -2,11 +2,6 @@
 
 namespace Phpfox\Mailer;
 
-/**
- * Class Message
- *
- * @package Phpfox\Mail
- */
 class Message
 {
     /**
