@@ -9,7 +9,7 @@ namespace Phpfox\Session;
  *
  * @package Phpfox\Session
  */
-class SessionHandlerRedis implements SessionHandlerInterface
+class RedisSessionHandler implements SessionHandlerInterface
 {
     /**
      * @link https://www.digitalocean.com/community/tutorials/how-to-set-up-a-redis-server-as-a-session-handler-for-php-on-ubuntu-14-04

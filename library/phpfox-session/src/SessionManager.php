@@ -22,7 +22,7 @@ class SessionManager
 
         // skip session storage
         if (PHP_SAPI == 'cli' || PHPFOX_NO_SESSION) {
-            $this->handler = new SessionHandlerNull();
+            $this->handler = new NullSessionHandler();
             return;
         }
 
