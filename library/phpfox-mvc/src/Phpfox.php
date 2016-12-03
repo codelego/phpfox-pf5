@@ -295,7 +295,7 @@ class Phpfox
     }
 
     /**
-     * @return \Phpfox\Mailer\MailTransportManager
+     * @return \Phpfox\Mailer\TransportManager
      */
     public static function mailer()
     {
