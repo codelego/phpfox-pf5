@@ -2,7 +2,7 @@
 namespace Phpfox\Storage {
 
     return [
-        'psr4'   => [
+        'psr4'            => [
             'Phpfox\\Storage\\' => [
                 'library/phpfox-storage/src',
                 'library/phpfox-storage/test',
@@ -14,7 +14,8 @@ namespace Phpfox\Storage {
             'ssh2'  => Ssh2FileStorage::class,
         ],
         'service.map'     => [
-            'file_storage' => [FileStorageManagerFactory::class, null, null],
+            'storage.manager'        => [FileStorageManagerFactory::class],
+            'storage.file_name' => [null, FileNameSupport::class],
         ],
     ];
 }

@@ -95,6 +95,7 @@ class FileStorageManager implements FileStorageManagerInterface
         return $this->get($id)->deleteFile($name);
     }
 
+
     public function __sleep()
     {
         return ['map', 'default', 'factory'];

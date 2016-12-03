@@ -5,21 +5,18 @@ namespace Phpfox\Storage;
 
 class LocalFileStorageTest extends \PHPUnit_Framework_TestCase
 {
-
     public function provideConstructor()
     {
         return [
             [
-                LocalFileStorage::class,
-                [
+                new LocalFileStorage([
                     'basePath'   => PHPFOX_DIR . 'public',
                     'baseUrl'    => PHPFOX_BASE_URL,
                     'baseCdnUrl' => 'http:///example.max-cdn.com/',
-                ],
+                ]),
             ],
             [
-                FtpFileStorage::class,
-                [
+                new FtpFileStorage([
                     'basePath'   => PHPFOX_DIR . 'public',
                     'baseUrl'    => PHPFOX_BASE_URL,
                     'baseCdnUrl' => 'http:///example.max-cdn.com/',
@@ -27,11 +24,10 @@ class LocalFileStorageTest extends \PHPUnit_Framework_TestCase
                     'username'   => 'namnv',
                     'password'   => 'namnv123',
                     'port'       => 21,
-                ],
+                ]),
             ],
             [
-                Ssh2FileStorage::class,
-                [
+                new Ssh2FileStorage([
                     'basePath'   => '/var/www/html/namnv/',
                     'baseUrl'    => PHPFOX_BASE_URL,
                     'baseCdnUrl' => 'http:///example.max-cdn.com/',
@@ -39,22 +35,19 @@ class LocalFileStorageTest extends \PHPUnit_Framework_TestCase
                     'username'   => 'root',
                     'password'   => 'Qc@FoX2016',
                     'port'       => 22,
-                ],
+                ]),
             ],
         ];
     }
 
     /**
-     * @param $class
-     * @param $params
      *
      * @dataProvider provideConstructor
+     *
+     * @param FileStorageInterface $fileStorage
      */
-    public function testConstructor($class, $params)
+    public function testConstructor($fileStorage)
     {
-        /** @var FileStorageInterface $fileStorage */
-        $fileStorage = new $class($params);
-
         $this->assertEquals(PHPFOX_BASE_URL . 'public/path/to/url.png',
             $fileStorage->mapUrl('public/path/to/url.png'));
 
@@ -72,8 +65,19 @@ class LocalFileStorageTest extends \PHPUnit_Framework_TestCase
 
         file_put_contents($local, '200 0k' . PHP_EOL . get_class($fileStorage));
 
-        $name = (new FilePathGenerator())->generate('doc', '.txt');
+        $name = \Phpfox::get('storage.file_name')
+            ->createName(null, null, '.txt');
 
         $fileStorage->putFile($local, $name);
+
+        unlink($local);
+
+        $this->assertFileNotExists($local);
+
+        $fileStorage->getFile($local . '.backup', $name);
+
+        $this->assertFileExists($local . '.backup');
+
+        $fileStorage->deleteFile($name);
     }
 }
