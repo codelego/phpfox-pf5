@@ -3,7 +3,7 @@
 namespace Phpfox\Db;
 
 return [
-    'autoload.psr4' => [
+    'psr4' => [
         'Phpfox\\Db\\' => [
             'library/phpfox-db/src',
             'library/phpfox-db/test',

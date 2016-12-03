@@ -2,7 +2,7 @@
 namespace Phpfox\Mvc {
 
     return [
-        'autoload.psr4' => [
+        'psr4' => [
             'Phpfox\\Mvc\\' => [
                 'library/phpfox-mvc/src',
                 'library/phpfox-mvc/test',

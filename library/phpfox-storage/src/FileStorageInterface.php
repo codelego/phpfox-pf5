@@ -2,8 +2,30 @@
 
 namespace Phpfox\Storage;
 
-interface StorageAdapterInterface
+interface FileStorageInterface
 {
+
+    /**
+     * @param string $name
+     *
+     * @return string
+     */
+    public function mapPath($name);
+
+    /**
+     * @param string $name Filename
+     *
+     * @return mixed
+     */
+    public function mapUrl($name);
+
+    /**
+     * @param string $name Filename
+     *
+     * @return mixed
+     */
+    public function mapCdnUrl($name);
+
     /**
      * @param string $name Filename
      *
@@ -12,24 +34,10 @@ interface StorageAdapterInterface
     public function getUrl($name);
 
     /**
-     * @param string $name Filename
-     *
-     * @return mixed
-     */
-    public function cdnUrl($name);
-
-    /**
-     * @param string $name Filename
-     *
-     * @return mixed
-     */
-    public function url($name);
-
-    /**
      * @param  string $name
      *
      * @return mixed
-     * @throws StorageException
+     * @throws FileStorageException
      */
     public function getObject($name);
 
@@ -38,16 +46,9 @@ interface StorageAdapterInterface
      * @param $name
      *
      * @return bool
-     * @throws StorageException
+     * @throws FileStorageException
      */
     public function putObject($data, $name);
-
-    /**
-     * @param string $name
-     *
-     * @return string
-     */
-    public function getPath($name);
 
     /**
      * Copy from local to file service path.
@@ -56,7 +57,7 @@ interface StorageAdapterInterface
      * @param string $name  Relative path
      *
      * @return bool
-     * @throws StorageException
+     * @throws FileStorageException
      */
     public function putFile($local, $name);
 
@@ -65,7 +66,7 @@ interface StorageAdapterInterface
      * @param string $name
      *
      * @return bool
-     * @throws StorageException
+     * @throws FileStorageException
      */
     public function getFile($local, $name);
 
@@ -73,14 +74,18 @@ interface StorageAdapterInterface
      * @param string $name Relative path
      *
      * @return bool
-     * @throws StorageException
+     * @throws FileStorageException
      */
     public function deleteFile($name);
 
 
     /**
-     * Force disconnect, this method is very helpful when you need to release
-     * connection resource to remote service.
+     * Force release resource, this method is very helpful when you are using a file for a short time
+     * when your process is running longer,
+     * Do not forget call this method whenever you put/get/delete remote resource.
+     *
+     * Connection resource to remote service.
      */
-    public function disconnect();
+    public function release();
+
 }

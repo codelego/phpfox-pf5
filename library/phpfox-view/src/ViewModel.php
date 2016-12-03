@@ -20,7 +20,7 @@ class ViewModel
      * @param string $template
      * @param array  $variables
      */
-    public function __construct($template = null, $variables = [])
+    public function __construct($template, $variables = [])
     {
         $this->template = $template;
         $this->variables = $variables;

@@ -4,3 +4,4 @@
 /static/node_modules/
 /config/*.local.php
 /package/user/
+/public/*

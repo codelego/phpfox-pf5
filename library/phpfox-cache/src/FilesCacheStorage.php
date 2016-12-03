@@ -5,7 +5,7 @@ namespace Phpfox\Cache;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
-class CacheStorageFiles implements CacheStorageInterface
+class FilesCacheStorage implements CacheStorageInterface
 {
 
     /**

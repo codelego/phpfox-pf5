@@ -3,7 +3,7 @@
 namespace Phpfox\Logger;
 
 return [
-    'autoload.psr4'  => [
+    'psr4'  => [
         'Phpfox\\Logger\\' => [
             'library/phpfox-logger/src',
             'library/phpfox-logger/test',

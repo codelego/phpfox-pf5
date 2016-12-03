@@ -3,7 +3,7 @@
 namespace Phpfox\Session;
 
 return [
-    'autoload.psr4'   => [
+    'psr4'   => [
         'Phpfox\\Session\\' => [
             'library/phpfox-session/src',
             'library/phpfox-session/test',

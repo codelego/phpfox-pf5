@@ -3,15 +3,20 @@
 namespace Phpfox\Storage;
 
 
-class StorageAdapterLocal implements StorageAdapterInterface
+class LocalFileStorage implements FileStorageInterface
 {
-    use StorageAdapterTrait;
+    use FileStorageTrait;
 
 
     /**
      * LocalStorageService constructor.
      *
-     * @param $params
+     * Params array contain
+     * - basePath: string, required
+     * - baseUrl: string, required
+     * - baseCdnUrl: string, optional, default = baseUrl
+     *
+     * @param array $params
      */
     public function __construct($params)
     {
@@ -23,8 +28,8 @@ class StorageAdapterLocal implements StorageAdapterInterface
             $this->baseUrl = $params['baseUrl'];
         }
 
-        if (isset($params['baseCdn'])) {
-            $this->basePath = $params['baseCdn'];
+        if (isset($params['baseCdnUrl'])) {
+            $this->baseCdnUrl = $params['baseCdnUrl'];
         }
 
         if (null == $this->baseUrl) {
@@ -35,26 +40,26 @@ class StorageAdapterLocal implements StorageAdapterInterface
             $this->basePath = PHPFOX_BASE_DIR;
         }
 
-        if (null == $this->baseCdn) {
-            $this->baseCdn = PHPFOX_BASE_URL;
+        if (null == $this->baseCdnUrl) {
+            $this->baseCdnUrl = PHPFOX_BASE_URL;
         }
 
         $this->basePath = rtrim($this->basePath, '/') . '/';
         $this->baseUrl = rtrim($this->baseUrl, '/') . '/';
-        $this->baseCdn = rtrim($this->baseCdn, '/') . '/';
+        $this->baseCdnUrl = rtrim($this->baseCdnUrl, '/') . '/';
     }
 
     public function getObject($name)
     {
-        return @file_get_contents($this->getPath($name));
+        return @file_get_contents($this->mapPath($name));
     }
 
     function putObject($data, $name)
     {
-        $path = $this->getPath($name);
+        $path = $this->mapPath($name);
 
         if (!file_put_contents($path, $data)) {
-            throw new StorageException("File exists");
+            throw new FileStorageException("File exists");
         }
 
         @chmod($path, 0644);
@@ -64,36 +69,38 @@ class StorageAdapterLocal implements StorageAdapterInterface
 
     public function putFile($local, $name)
     {
-        $path = $this->getPath($name);
+        $path = $this->mapPath($name);
         $this->ensure($path);
 
-        if (!copy($local, $path)) {
-            throw new StorageException("Could not put file from '{$local}' to '{$path}'.");
+        if (!file_exists($local)) {
+            \Phpfox::get('dev.log')
+                ->error('File not found {0}, {1}', [$local, __CLASS__]);
+        }
+
+        if (!@copy($local, $path)) {
+            throw new FileStorageException("Could not put file from '{$local}' to '{$path}'.");
         }
         return true;
     }
 
     protected function ensure($path)
     {
-        if (!is_dir($path)
-            && !mkdir(dirname($path), $this->directoryPermission, true)
+        if (!is_dir($dir = dirname($path))
+            && !mkdir($dir, $this->directoryPermission, true)
         ) {
-            throw new StorageException("Could not write to '{$path}'.");
+            throw new FileStorageException("Oops! Unable create directory '{$path}'.");
         }
 
-        if (file_exists($path)) {
-            @unlink($path);
-        }
         return true;
     }
 
     public function getFile($local, $name)
     {
-        $path = $this->getPath($name);
+        $path = $this->mapPath($name);
         $this->ensure($path);
 
         if (!copy($path, $local)) {
-            throw new StorageException("Could not put file from '$path' to '{$local}'.");
+            throw new FileStorageException("Could not put file from '$path' to '{$local}'.");
         }
 
         return true;
@@ -101,7 +108,7 @@ class StorageAdapterLocal implements StorageAdapterInterface
 
     public function deleteFile($name)
     {
-        $path = $this->getPath($name);
+        $path = $this->mapPath($name);
 
         if (file_exists($path)) {
             @unlink($path);
@@ -109,11 +116,15 @@ class StorageAdapterLocal implements StorageAdapterInterface
         return true;
     }
 
-    public function disconnect()
+    public function release()
     {
-        // do nothing, this method must be implemented to contract with interface.
+        // no resource to release
     }
 
+    /**
+     * @return array
+     * @ignore
+     */
     public function __sleep()
     {
         return [

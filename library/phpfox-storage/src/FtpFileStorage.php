@@ -1,10 +1,22 @@
 <?php
 namespace Phpfox\Storage;
 
-
-class StorageAdapterFtp implements StorageAdapterInterface
+/**
+ * Class FtpFileStorage
+ *
+ * <p>
+ * Storage file uses FTPs servers, In order too build your own intranet website,
+ * it is helpful to separating storage machine from application machine.
+ * </p>
+ * <quote>
+ * Prefer Ssh2FileStorage than FtpFileStorage for performance and security.
+ * </quote>
+ *
+ * @package Phpfox\Storage
+ */
+class FtpFileStorage implements FileStorageInterface
 {
-    use StorageAdapterTrait;
+    use FileStorageTrait;
 
     /**
      * @var int
@@ -19,7 +31,7 @@ class StorageAdapterFtp implements StorageAdapterInterface
     /**
      * @var int
      */
-    private $timeout = 20;
+    private $timeout = 3;
 
     /**
      * @var bool
@@ -29,12 +41,12 @@ class StorageAdapterFtp implements StorageAdapterInterface
     /**
      * @var string
      */
-    private $username = '';
+    private $username;
 
     /**
      * @var string
      */
-    private $password = '';
+    private $password;
 
     /**
      * @var \resource
@@ -42,7 +54,19 @@ class StorageAdapterFtp implements StorageAdapterInterface
     private $ftpStream;
 
     /**
-     * @inheritdoc
+     * FtpFileStorage constructor.
+     *
+     * Params array contain
+     * - basePath: string, required
+     * - baseUrl: string, required
+     * - baseCdnUrl: string, optional, default = baseUrl
+     * - timeout: int , optional, default "3" seconds
+     * - username: string, required
+     * - password: string, required
+     * - port: int, optional, default "21"
+     * - protocol: string, optional default "ftp", available value "ftp"|"ftps"
+     *
+     * @param array $params
      */
     public function __construct($params)
     {
@@ -55,8 +79,8 @@ class StorageAdapterFtp implements StorageAdapterInterface
             $this->baseUrl = $params['baseUrl'];
         }
 
-        if (isset($params['baseCdn'])) {
-            $this->basePath = $params['baseCdn'];
+        if (isset($params['baseCdnUrl'])) {
+            $this->baseCdnUrl = $params['baseCdnUrl'];
         }
 
         if (null == $this->baseUrl) {
@@ -67,13 +91,13 @@ class StorageAdapterFtp implements StorageAdapterInterface
             $this->basePath = PHPFOX_BASE_DIR;
         }
 
-        if (null == $this->baseCdn) {
-            $this->baseCdn = PHPFOX_BASE_URL;
+        if (null == $this->baseCdnUrl) {
+            $this->baseCdnUrl = PHPFOX_BASE_URL;
         }
 
         $this->basePath = rtrim($this->basePath, '/') . '/';
         $this->baseUrl = rtrim($this->baseUrl, '/') . '/';
-        $this->baseCdn = rtrim($this->baseCdn, '/') . '/';
+        $this->baseCdnUrl = rtrim($this->baseCdnUrl, '/') . '/';
 
 
         if (!empty($params['timeout'])) {
@@ -81,15 +105,15 @@ class StorageAdapterFtp implements StorageAdapterInterface
         }
 
         if (!empty($params['username'])) {
-            $this->username = (int)$params['username'];
+            $this->username = $params['username'];
         }
 
         if (!empty($params['password'])) {
-            $this->password = (int)$params['password'];
+            $this->password = $params['password'];
         }
 
         if (!empty($params['host'])) {
-            $this->host = (int)$params['host'];
+            $this->host = $params['host'];
         }
 
         if (!empty($params['port'])) {
@@ -101,17 +125,14 @@ class StorageAdapterFtp implements StorageAdapterInterface
         }
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getObject($name)
     {
-        $path = $this->getPath($name);
+        $path = $this->mapPath($name);
 
         $handle = tmpfile();
 
         if (!$handle) {
-            throw new StorageException('Can not open stream to buffer data');
+            throw new FileStorageException('Can not open stream to buffer data');
         }
 
         $this->connect();
@@ -130,7 +151,7 @@ class StorageAdapterFtp implements StorageAdapterInterface
         }
 
         if (!$return) {
-            throw new StorageException(sprintf('Unable to get contents of "%s"',
+            throw new FileStorageException(sprintf('Unable to get contents of "%s"',
                 $path));
         }
 
@@ -147,7 +168,7 @@ class StorageAdapterFtp implements StorageAdapterInterface
 
     /**
      * @return \resource
-     * @throws StorageException
+     * @throws FileStorageException
      */
     private function connect()
     {
@@ -160,7 +181,7 @@ class StorageAdapterFtp implements StorageAdapterInterface
                 $this->timeout);
         } else {
             if (!function_exists('ftp_ssl_connect')) {
-                throw new StorageException(sprintf('Unexpected configuration, Could not connect FPTs without extension OpenSSL',
+                throw new FileStorageException(sprintf('Unexpected configuration, Could not connect FPTs without extension OpenSSL',
                     $this->host));
             } else {
                 $this->ftpStream = ftp_ssl_connect($this->host, $this->port,
@@ -169,8 +190,8 @@ class StorageAdapterFtp implements StorageAdapterInterface
         }
 
         if (!$this->ftpStream) {
-            throw new StorageException(sprintf('Unable to connect to "%s"',
-                $this->host));
+            throw new FileStorageException(_sprintf('Unable to connect to "{0}"',
+                [$this->host]));
         }
 
         // there no username password
@@ -182,14 +203,15 @@ class StorageAdapterFtp implements StorageAdapterInterface
             $this->password);
 
         if (!$return) {
-            throw new StorageException('Login FTP failed.');
+            throw new FileStorageException(_sprintf('Login FTP failed {0}:{1}.',[$this->username, $this->password]));
         }
 
         return $this->ftpStream;
     }
 
     /**
-     * disconnect ftp server
+     * @throws FileStorageException
+     * @ignore
      */
     public function disconnect()
     {
@@ -197,18 +219,15 @@ class StorageAdapterFtp implements StorageAdapterInterface
             try {
                 @ftp_close($this->ftpStream);
             } catch (\Exception $ex) {
-                throw new StorageException($ex->getMessage());
+                throw new FileStorageException($ex->getMessage());
             }
             $this->ftpStream = null;
         }
     }
 
-    /**
-     * @inheritdoc
-     */
     function putObject($data, $name)
     {
-        $path = $this->getPath($name);
+        $path = $this->mapPath($name);
 
         // Create stack buffer
         $existed = in_array('stack', stream_get_wrappers());
@@ -219,7 +238,7 @@ class StorageAdapterFtp implements StorageAdapterInterface
         $handle = tmpfile();
 
         if (!$handle) {
-            throw new StorageException(sprintf('Unable to create stack buffer'));
+            throw new FileStorageException(sprintf('Unable to create stack buffer'));
         }
 
         // Write into stack
@@ -248,7 +267,7 @@ class StorageAdapterFtp implements StorageAdapterInterface
         fclose($handle);
 
         if (!$return) {
-            throw new StorageException(sprintf('Unable to put contents to "%s"',
+            throw new FileStorageException(sprintf('Unable to put contents to "%s"',
                 $path));
         }
 
@@ -264,12 +283,9 @@ class StorageAdapterFtp implements StorageAdapterInterface
         return true;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getFile($local, $name)
     {
-        $path = $this->getPath($name);
+        $path = $this->mapPath($name);
 
         $this->connect();
 
@@ -285,7 +301,7 @@ class StorageAdapterFtp implements StorageAdapterInterface
         }
 
         if (!$return) {
-            throw new StorageException(sprintf('Unable to get "%s" -> "%s"',
+            throw new FileStorageException(sprintf('Unable to get "%s" -> "%s"',
                 $name, $local));
         }
 
@@ -294,11 +310,11 @@ class StorageAdapterFtp implements StorageAdapterInterface
 
     public function putFile($local, $name)
     {
-        $path = $this->getPath($name);
+        $path = $this->mapPath($name);
 
         // Make sure parent exists
         if (!$this->ensure(dirname($path))) {
-            throw new StorageException(sprintf('Can not create directory %s',
+            throw new FileStorageException(sprintf('Can not create directory %s',
                 dirname($path)));
         }
 
@@ -319,7 +335,7 @@ class StorageAdapterFtp implements StorageAdapterInterface
         }
 
         if (!$return) {
-            throw new StorageException(sprintf('Unable to put "%s" to "%s"',
+            throw new FileStorageException(sprintf('Unable to put "%s" to "%s"',
                 $path, $local));
         }
 
@@ -349,28 +365,38 @@ class StorageAdapterFtp implements StorageAdapterInterface
         return true;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function deleteFile($name)
     {
-        $path = $this->getPath($name);
+        $path = $this->mapPath($name);
         $this->connect();
 
         $return = @ftp_delete($this->ftpStream, $path);
 
         if (!$return) {
-//            throw new StorageServiceException(sprintf('Unable to delete "%s"', $path));
+            \Phpfox::get('dev.log')
+                ->debug('Oops! {1} Unable to delete "{0}"', [$path, __CLASS__]);
         }
 
         return true;
     }
 
+    public function release()
+    {
+        $this->disconnect();
+    }
+
+    /**
+     * @ignore
+     */
     public function __destruct()
     {
         $this->disconnect();
     }
 
+    /**
+     * @ignore
+     * @return array
+     */
     public function __sleep()
     {
         $this->disconnect();

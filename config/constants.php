@@ -1,6 +1,15 @@
 <?php
 
-defined('PHPFOX_DIR') or define('PHPFOX_DIR', dirname(__DIR__));
+/**
+ * Options: system dependency
+ */
+defined('DS') or define('DS', DIRECTORY_SEPARATOR);
+
+/**
+ * string
+ * phpfox root directory
+ */
+defined('PHPFOX_DIR') or define('PHPFOX_DIR', dirname(__DIR__) . DS);
 
 /**
  * string
@@ -14,10 +23,6 @@ defined('PHPFOX_ENV') or define('PHPFOX_ENV', 'production');
  */
 defined('PHPFOX_UNIT_TEST') or define('PHPFOX_UNIT_TEST', false);
 
-/**
- * Options: system dependency
- */
-defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 
 /**
  * string

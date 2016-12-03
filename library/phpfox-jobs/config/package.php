@@ -4,7 +4,7 @@ namespace Phpfox\Messaging {
     use Phpfox\Logger\LogContainerFactory;
 
     return [
-        'autoload.psr4' => [
+        'psr4' => [
             'Phpfox\\Jobs\\' => [
                 'library/phpfox-jobs/src',
                 'library/phpfox-jobs/test',

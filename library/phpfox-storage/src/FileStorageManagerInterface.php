@@ -1,8 +1,32 @@
 <?php
 namespace Phpfox\Storage;
 
-interface StorageManagerInterface
+interface FileStorageManagerInterface
 {
+    /**
+     * @param string $id
+     * @param string $name
+     *
+     * @return string
+     */
+    public function mapPath($id, $name);
+
+    /**
+     * @param string $id   Service Id
+     * @param string $name Filename
+     *
+     * @return string
+     */
+    public function mapUrl($id, $name);
+
+    /**
+     * @param string $id   Service Id
+     * @param string $name Filename
+     *
+     * @return string
+     */
+    public function mapCdnUrl($id, $name);
+
     /**
      * @param string $id   Service Id
      * @param string $name Filename
@@ -12,44 +36,20 @@ interface StorageManagerInterface
     public function getUrl($id, $name);
 
     /**
-     * @param string $id   Service Id
-     * @param string $name Filename
-     *
-     * @return string
-     */
-    public function cdnUrl($id, $name);
-
-    /**
-     * @param string $id   Service Id
-     * @param string $name Filename
-     *
-     * @return string
-     */
-    public function url($id, $name);
-
-    /**
-     * @param string $id
-     * @param string $name
-     *
-     * @return string
-     */
-    public function getPath($id, $name);
-
-    /**
      * @param string $id
      *
-     * @return StorageAdapterInterface
-     * @throws StorageException
+     * @return FileStorageInterface
+     * @throws FileStorageException
      */
     public function get($id);
 
     /**
-     * @param string                  $id
-     * @param StorageAdapterInterface $service
+     * @param string               $id
+     * @param FileStorageInterface $service
      *
      * @return mixed
      */
-    public function set($id, StorageAdapterInterface $service);
+    public function set($id, FileStorageInterface $service);
 
     /**
      * @param string $id
@@ -66,7 +66,7 @@ interface StorageManagerInterface
      * @param string $name  Relative path
      *
      * @return bool
-     * @throws StorageException
+     * @throws FileStorageException
      */
     public function putFile($id, $local, $name);
 
@@ -76,7 +76,7 @@ interface StorageManagerInterface
      * @param string $name
      *
      * @return bool
-     * @throws StorageException
+     * @throws FileStorageException
      */
     public function getFile($id, $local, $name);
 
@@ -85,7 +85,7 @@ interface StorageManagerInterface
      * @param string $name Relative path
      *
      * @return bool
-     * @throws StorageException
+     * @throws FileStorageException
      */
     public function deleteFile($id, $name);
 

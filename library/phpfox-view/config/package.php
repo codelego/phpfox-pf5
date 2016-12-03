@@ -2,7 +2,7 @@
 namespace Phpfox\View;
 
 return [
-    'autoload.psr4' => [
+    'psr4' => [
         'Phpfox\\View\\' => [
             'library/phpfox-view/src',
             'library/phpfox-view/test',

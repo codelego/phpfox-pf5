@@ -3,16 +3,16 @@
 namespace Phpfox\Storage;
 
 
-class StorageManagerFactory
+class FileStorageManagerFactory
 {
     function factory()
     {
-        return new StorageManager([
+        return new FileStorageManager([
             'default' => 1,
-            'factory' => new StorageAdapterFactory(),
+            'factory' => new FileStorageFactory(),
             'map'     => [
                 1 => [
-                    'driver'   => StorageAdapterLocal::class,
+                    'driver'   => LocalFileStorage::class,
                     'basePath' => null,
                     'baseUrl'  => null,
                 ],

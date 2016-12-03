@@ -2,9 +2,9 @@
 namespace Phpfox\Storage;
 
 
-class StorageAdapterSsh2 implements StorageAdapterInterface
+class Ssh2FileStorage implements FileStorageInterface
 {
-    use StorageAdapterTrait;
+    use FileStorageTrait;
 
     /**
      * @var int
@@ -56,6 +56,30 @@ class StorageAdapterSsh2 implements StorageAdapterInterface
      */
     private $ftpStream;
 
+    /**
+     * Ssh2FileStorage constructor.
+     *
+     * Params array contain
+     * - basePath: string, required
+     * - baseUrl: string, required
+     * - baseCdnUrl: string, optional, default = baseUrl
+     * - timeout: int , optional, default "3" seconds
+     * - username: string, required
+     * - password: string, required
+     * - port: int, optional, default "21"
+     * - protocol: string, optional default "ftp", available value "ftp"|"ftps"
+     * - publicKey: string, optional
+     * - hostKey: string, optional
+     *
+     * Usage method
+     * - ssh2_connect
+     * - ssh2_auth_none
+     * - ssh2_auth_pubkey_file
+     *
+     * @see
+     *
+     * @param array $params
+     */
     public function __construct($params)
     {
         if (isset($params['basePath'])) {
@@ -66,8 +90,8 @@ class StorageAdapterSsh2 implements StorageAdapterInterface
             $this->baseUrl = $params['baseUrl'];
         }
 
-        if (isset($params['baseCdn'])) {
-            $this->basePath = $params['baseCdn'];
+        if (isset($params['baseCdnUrl'])) {
+            $this->baseCdnUrl = $params['baseCdnUrl'];
         }
 
         if (null == $this->baseUrl) {
@@ -78,13 +102,13 @@ class StorageAdapterSsh2 implements StorageAdapterInterface
             $this->basePath = PHPFOX_BASE_DIR;
         }
 
-        if (null == $this->baseCdn) {
-            $this->baseCdn = PHPFOX_BASE_URL;
+        if (null == $this->baseCdnUrl) {
+            $this->baseCdnUrl = PHPFOX_BASE_URL;
         }
 
         $this->basePath = rtrim($this->basePath, '/') . '/';
         $this->baseUrl = rtrim($this->baseUrl, '/') . '/';
-        $this->baseCdn = rtrim($this->baseCdn, '/') . '/';
+        $this->baseCdnUrl = rtrim($this->baseCdnUrl, '/') . '/';
 
         if (isset($params['password'])) {
             $this->password = $params['password'];
@@ -114,13 +138,13 @@ class StorageAdapterSsh2 implements StorageAdapterInterface
 
     public function getObject($name)
     {
-        $path = $this->getPath($name);
+        $path = $this->mapPath($name);
 
         $content = file_get_contents('ssh2.sftp://' . $this->getFtpStream()
             . $path);
 
         if (!$content) {
-            throw new StorageException(sprintf('Unable to get contents of "%s"',
+            throw new FileStorageException(sprintf('Unable to get contents of "%s"',
                 $path));
         }
 
@@ -129,7 +153,7 @@ class StorageAdapterSsh2 implements StorageAdapterInterface
 
     /**
      * @return \resource
-     * @throws StorageException
+     * @throws FileStorageException
      */
     private function getFtpStream()
     {
@@ -137,7 +161,7 @@ class StorageAdapterSsh2 implements StorageAdapterInterface
             $this->connect();
             $this->ftpStream = @ssh2_sftp($this->sshStream);
             if (null === $this->ftpStream) {
-                throw new StorageException('Unable to get sftp resource');
+                throw new FileStorageException('Unable to get sftp resource');
             }
         }
 
@@ -145,69 +169,60 @@ class StorageAdapterSsh2 implements StorageAdapterInterface
     }
 
     /**
-     * @return \resource
-     * @throws  StorageException
+     * @throws  FileStorageException
      */
     private function connect()
     {
         if ($this->sshStream) {
-            return $this->sshStream;
+            return;
         }
 
-        $return = null;
-        $publicKey = $this->publicKey;
-        $privateKey = $this->privateKey;
-        $hostKey = $this->hostKey;
+        $authResult = null;
 
-        // Connect with keys
-        if (($publicKey && $privateKey && $hostKey)) {
+
+        if (!function_exists('ssh2_connect')) {
+            throw new \InvalidArgumentException(_sprintf('"libssh2" extension required by {0}.', [__CLASS__]));
+        }
+        if (($this->publicKey and $this->privateKey and $this->hostKey)) {
+
             $this->sshStream = @ssh2_connect($this->host, $this->port, [
-                'hostkey' => $hostKey,
+                'hostkey' => $this->hostKey,
             ], [
                 'disconnect' => [$this, 'onDisconnect'],
             ]);
-        } // Connect without keys
-        else {
+        } else {
             $this->sshStream = @ssh2_connect($this->host, $this->port, [], [
                 'disconnect' => [$this, 'onDisconnect'],
             ]);
         }
 
+
         if (!$this->sshStream) {
-            throw new StorageException(sprintf('Unable to connect to "%s"',
+            throw new FileStorageException(sprintf('Unable to connect to "%s"',
                 $this->host));
         }
 
 
         // Auth using keys
-        if ($publicKey && $privateKey && $hostKey) {
-            $return = @ssh2_auth_pubkey_file($this->sshStream,
-                $this->username, $publicKey, $privateKey,
+        if ($this->publicKey && $this->privateKey && $this->hostKey) {
+            $authResult = @ssh2_auth_pubkey_file($this->sshStream,
+                $this->username, $this->publicKey, $this->privateKey,
                 $this->password);
-        } // Auth using username/password only
-        else {
-            if ($this->username && $this->password) {
-                $return = @ssh2_auth_password($this->sshStream,
-                    $this->username, $this->password);
-            } // Auth using none
-            else {
-                $return = @ssh2_auth_none($this->sshStream,
-                    $this->username);
-            }
+        } elseif ($this->username && $this->password) {
+            $authResult = @ssh2_auth_password($this->sshStream, $this->username,
+                $this->password);
+        } else {
+            $authResult = @ssh2_auth_none($this->sshStream, $this->username);
         }
 
-        // Failure
-        if (!$return) {
-            throw new StorageException('Login failed.');
+        if (!$authResult) {
+            throw new FileStorageException('Can not connect storage system');
         }
-
-
-        return $this->sshStream;
     }
 
     public function putObject($data, $name)
     {
-        $path = $this->getPath($name);
+        $path = $this->mapPath($name);
 
         $return = file_put_contents('ssh2.sftp://' . $this->getFtpStream()
             . $path, $data);
@@ -220,7 +235,7 @@ class StorageAdapterSsh2 implements StorageAdapterInterface
         }
 
         if (!$return) {
-            throw new StorageException(sprintf('Unable to put contents to "%s"',
+            throw new FileStorageException(sprintf('Unable to put contents to "%s"',
                 $path));
         }
 
@@ -228,10 +243,10 @@ class StorageAdapterSsh2 implements StorageAdapterInterface
     }
 
     /**
-     * @param $command
+     * @param string $command
      *
      * @return string
-     * @throws StorageException
+     * @throws FileStorageException
      */
     private function command($command)
     {
@@ -240,7 +255,7 @@ class StorageAdapterSsh2 implements StorageAdapterInterface
         $stream = @ssh2_exec($this->sshStream, $command);
 
         if (!$stream) {
-            throw new StorageException(sprintf('Unable to execute command "%s"',
+            throw new FileStorageException(sprintf('Unable to execute command "%s"',
                 $command));
         }
         $errorStream = @ssh2_fetch_stream($stream, SSH2_STREAM_STDERR);
@@ -267,39 +282,33 @@ class StorageAdapterSsh2 implements StorageAdapterInterface
 
     public function getFile($local, $name)
     {
-        $path = $this->getPath($name);
+        $path = $this->mapPath($name);
         $this->connect();
 
         $return = @ssh2_scp_recv($this->sshStream, $path, $local);
 
-        // Error
         if (!$return) {
-            throw new StorageException(sprintf('Unable to get "%s" to "%s"',
+            throw new FileStorageException(sprintf('Unable to get "%s" to "%s"',
                 $path, $local));
         }
 
         return true;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function putFile($local, $name)
     {
-        $path = $this->getPath($name);
+        $path = $this->mapPath($name);
         $directory = dirname($path);
-
+        $this->connect();
 
         $isDir = is_dir('ssh2.sftp://' . $this->getFtpStream() . $directory);
-
-        $this->connect();
 
         if (!$isDir) {
 
             if (!@ssh2_sftp_mkdir($this->getFtpStream(), $directory,
                 $this->directoryPermission, true)
             ) {
-                throw new StorageException(sprintf('Unable to make directory "%s"',
+                throw new FileStorageException(sprintf('Unable to make directory "%s"',
                     $directory));
             }
         }
@@ -307,25 +316,24 @@ class StorageAdapterSsh2 implements StorageAdapterInterface
         $return = @ssh2_scp_send($this->sshStream, $local, $path,
             $this->filePermission);
 
+        echo $local, '->', $path;
+
         if (!$return) {
-            throw new StorageException(sprintf('Unable to put "%s" to "%s"',
+            throw new FileStorageException(sprintf('Unable to put "%s" to "%s"',
                 $local, $path));
         }
 
         return true;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function deleteFile($name)
     {
-        $path = $this->getPath($name);
+        $path = $this->mapPath($name);
 
         $return = @ssh2_sftp_unlink($this->getFtpStream(), $path);
 
         if (!$return) {
-            throw new StorageException(sprintf('Unable to unlink "%s"',
+            throw new FileStorageException(sprintf('Unable to unlink "%s"',
                 $path));
         }
 
@@ -333,19 +341,19 @@ class StorageAdapterSsh2 implements StorageAdapterInterface
     }
 
     /**
-     * @throws StorageException
+     * @throws FileStorageException
      */
     public function onDisconnect()
     {
-        throw new StorageException('Disconnected from server');
+        throw new FileStorageException('Disconnected from server');
     }
 
     public function __destruct()
     {
-        $this->disconnect();
+        $this->release();
     }
 
-    public function disconnect()
+    public function release()
     {
         if (null !== $this->sshStream) {
             $this->command('exit');
@@ -355,7 +363,7 @@ class StorageAdapterSsh2 implements StorageAdapterInterface
 
     public function __sleep()
     {
-        $this->disconnect();
+        $this->release();
 
         return [
             'basePath',

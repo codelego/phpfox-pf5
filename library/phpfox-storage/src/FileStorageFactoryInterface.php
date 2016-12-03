@@ -1,12 +1,12 @@
 <?php
 namespace Phpfox\Storage;
 
-interface StorageAdapterFactoryInterface
+interface FileStorageFactoryInterface
 {
     /**
      * @param array $options
      *
-     * @throws StorageException
+     * @throws FileStorageException
      */
     public function factory($options);
 }

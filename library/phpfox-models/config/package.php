@@ -2,7 +2,7 @@
 namespace Phpfox\Model;
 
 return [
-    'autoload.psr4' => [
+    'psr4' => [
         'Phpfox\\Model\\' => [
             'library/phpfox-models/src',
             'library/phpfox-models/test',

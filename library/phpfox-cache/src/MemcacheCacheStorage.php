@@ -3,7 +3,7 @@ namespace Phpfox\Cache;
 
 use Memcache;
 
-class CacheStorageMemcache implements CacheStorageInterface
+class MemcacheCacheStorage implements CacheStorageInterface
 {
     /**
      * @var Memcache

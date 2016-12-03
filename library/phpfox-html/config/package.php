@@ -3,7 +3,7 @@
 namespace Phpfox\Html;
 
 return [
-    'autoload.psr4' => [
+    'psr4' => [
         'Phpfox\\Html\\' => [
             'library/phpfox-html/src',
             'library/phpfox-html/test',

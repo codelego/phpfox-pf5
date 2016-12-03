@@ -3,7 +3,7 @@
 namespace Phpfox\Mysqli {
 
     return [
-        'autoload.psr4' => [
+        'psr4' => [
             'Phpfox\\Mysqli\\' => [
                 'library/phpfox-mysqli/src',
                 'library/phpfox-mysqli/test',

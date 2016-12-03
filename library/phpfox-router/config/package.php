@@ -2,7 +2,7 @@
 
 namespace Phpfox\Router {
     return [
-        'autoload.psr4'  => [
+        'psr4'  => [
             'Phpfox\\Router\\' => [
                 'library/phpfox-router/src',
                 'library/phpfox-router/test',

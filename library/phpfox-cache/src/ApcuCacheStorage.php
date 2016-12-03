@@ -2,7 +2,7 @@
 namespace Phpfox\Cache;
 
 
-class CacheStorageApcu implements CacheStorageInterface
+class ApcuCacheStorage implements CacheStorageInterface
 {
     public function setItem($key, $value, $ttl = 0)
     {

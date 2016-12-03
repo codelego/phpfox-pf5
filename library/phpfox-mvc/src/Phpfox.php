@@ -35,13 +35,12 @@ class Phpfox
         self::$_service = new \Phpfox\Mvc\ServiceManager();
         self::$_config = new \Phpfox\Mvc\MvcConfig();
 
-        set_error_handler(function ($num, $msg, $file, $line, $context) {
-//            var_dump(debug_backtrace(1));
-//            echo $msg;
-        });
-        set_exception_handler(function ($exception) {
-            var_dump($exception);
-        });
+//        set_error_handler(function ($num, $msg, $file, $line, $context) {
+//
+//        });
+//        set_exception_handler(function ($exception) {
+//            var_dump($exception);
+//        });
     }
 
     public static function getServiceContainer()

@@ -3,10 +3,10 @@
 namespace Phpfox\Storage;
 
 
-class StorageManager implements StorageManagerInterface
+class FileStorageManager implements FileStorageManagerInterface
 {
     /**
-     * @var StorageAdapterInterface[]
+     * @var FileStorageInterface[]
      */
     protected $vars = [];
 
@@ -21,7 +21,7 @@ class StorageManager implements StorageManagerInterface
     protected $default;
 
     /**
-     * @var StorageAdapterFactoryInterface
+     * @var FileStorageFactoryInterface
      */
     protected $factory;
 
@@ -30,7 +30,7 @@ class StorageManager implements StorageManagerInterface
      *
      * @param array $configs
      *
-     * @throws StorageException
+     * @throws FileStorageException
      */
     public function __construct($configs)
     {
@@ -39,7 +39,7 @@ class StorageManager implements StorageManagerInterface
         $this->default = $configs['default'];
     }
 
-    public function set($id, StorageAdapterInterface $service)
+    public function set($id, FileStorageInterface $service)
     {
         $this->vars[$id] = $service;
         return $this;
@@ -50,9 +50,9 @@ class StorageManager implements StorageManagerInterface
         return isset($this->vars[$id]);
     }
 
-    public function getUrl($id, $name)
+    public function mapUrl($id, $name)
     {
-        return $this->get($id)->getUrl($name);
+        return $this->get($id)->mapUrl($name);
     }
 
     public function get($id)
@@ -65,19 +65,19 @@ class StorageManager implements StorageManagerInterface
             : $this->vars[$id] = $this->factory->factory($this->map[$id]);
     }
 
-    public function cdnUrl($id, $name)
+    public function mapCdnUrl($id, $name)
     {
-        return $this->get($id)->cdnUrl($name);
+        return $this->get($id)->mapCdnUrl($name);
     }
 
-    public function url($id, $name)
+    public function getUrl($id, $name)
     {
-        return $this->get($id)->url($name);
+        return $this->get($id)->getUrl($name);
     }
 
-    public function getPath($id, $name)
+    public function mapPath($id, $name)
     {
-        return $this->get($id)->getPath($name);
+        return $this->get($id)->mapPath($name);
     }
 
     public function putFile($id, $local, $name)

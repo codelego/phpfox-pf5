@@ -3,7 +3,7 @@
 namespace Phpfox\Mailer {
 
     return [
-        'autoload.psr4'   => [
+        'psr4'   => [
             'Phpfox\\Mailer\\' => [
                 'library/phpfox-mailer/src',
                 'library/phpfox-mailer/test',

@@ -5,7 +5,7 @@ namespace Phpfox\Authentication;
 use Phpfox\Logger\LogContainerFactory;
 
 return [
-    'autoload.psr4'  => [
+    'psr4'           => [
         'Phpfox\\Authentication\\' => [
             'library/phpfox-authentication/src',
             'library/phpfox-authentication/test',

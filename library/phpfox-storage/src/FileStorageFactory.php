@@ -3,7 +3,7 @@
 namespace Phpfox\Storage;
 
 
-class StorageAdapterFactory implements StorageAdapterFactoryInterface
+class FileStorageFactory implements FileStorageFactoryInterface
 {
     public function factory($options)
     {

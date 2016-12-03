@@ -56,7 +56,7 @@ if (!$shouldGenerate) {
     $packageVariables = _merge_library_config([PHPFOX_DIR . '/library']);
     $settingVariables = [];
 
-    _autoload_psr4($autoloader, $packageVariables['autoload.psr4']);
+    _autoload_psr4($autoloader, $packageVariables['psr4']);
     \Phpfox::init();
 
     /** @var \Phpfox\Mvc\MvcConfig $configContainer */
@@ -121,10 +121,10 @@ if (!$shouldGenerate) {
     unset($rows, $settingVariables);
 
     $all = $configContainer->all();
-    _autoload_psr4($autoloader, $all['autoload.psr4']);
+    _autoload_psr4($autoloader, $all['psr4']);
 
-    _file_export($cacheFiles['psr4.init'], $all['autoload.psr4']);
-    unset($all['autoload.psr4']);
+    _file_export($cacheFiles['psr4.init'], $all['psr4']);
+    unset($all['psr4']);
 
     ksort($all);
     _file_export($cacheFiles['service.init'], $all);

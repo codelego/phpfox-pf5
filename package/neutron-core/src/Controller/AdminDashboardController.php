@@ -7,8 +7,11 @@ use Phpfox\View\ViewModel;
 
 class AdminDashboardController extends MvcController
 {
+    /**
+     * @return ViewModel
+     */
     public function actionIndex()
     {
-        return new ViewModel('core.admin-dashboard.index');
+        return new ViewModel('core');
     }
 }

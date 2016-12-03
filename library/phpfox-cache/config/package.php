@@ -3,15 +3,15 @@
 namespace Phpfox\Cache;
 
 return [
-    'autoload.psr4'  => [
+    'psr4'  => [
         'Phpfox\\Cache\\' => [
             'library/phpfox-cache/src',
             'library/phpfox-cache/test',
         ],
     ],
     'cache.drivers'  => [
-        'filesystem' => CacheStorageFiles::class,
-        'apc'        => CacheStorageApcu::class,
+        'filesystem' => FilesCacheStorage::class,
+        'apc'        => ApcuCacheStorage::class,
     ],
     'cache.adapters' => [
         'cache.files' => [

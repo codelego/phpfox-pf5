@@ -2,19 +2,19 @@
 namespace Phpfox\Storage {
 
     return [
-        'autoload.psr4'   => [
+        'psr4'   => [
             'Phpfox\\Storage\\' => [
                 'library/phpfox-storage/src',
                 'library/phpfox-storage/test',
             ],
         ],
         'storage.drivers' => [
-            'local' => StorageAdapterLocal::class,
-            'ftp'   => StorageAdapterFtp::class,
-            'ssh2'  => StorageAdapterSsh2::class,
+            'local' => LocalFileStorage::class,
+            'ftp'   => FtpFileStorage::class,
+            'ssh2'  => Ssh2FileStorage::class,
         ],
         'service.map'     => [
-            'storage' => [StorageManagerFactory::class, null, null],
+            'file_storage' => [FileStorageManagerFactory::class, null, null],
         ],
     ];
 }
