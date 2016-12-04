@@ -403,7 +403,7 @@ class SqlSelect
 
         $result = $this->adapter->execute($sql, $this->_useMaster);
 
-        $rows = $result->fetch();
+        $rows = $result->all();
 
         if (empty($rows)) {
             return 0;

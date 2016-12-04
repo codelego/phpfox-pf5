@@ -40,6 +40,12 @@ return [
             ],
         ],
     ],
+    'auth.passwords'  => [
+        'pf5' => Auth\Pf5PasswordCompatible::class,
+        'pf4' => Auth\Pf4PasswordCompatible::class,
+        'se'  => Auth\SePasswordCompatible::class,
+        'ow'  => Auth\OwPasswordCompatible::class,
+    ],
     'controller.map'  => [
         'user.auth'     => [null, Controller\AuthController::class],
         'user.register' => [null, Controller\RegisterController::class,],

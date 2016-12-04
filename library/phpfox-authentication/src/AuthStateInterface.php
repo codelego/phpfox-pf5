@@ -7,7 +7,7 @@ namespace Phpfox\Authentication;
  *
  * @package Phpfox\Auth
  */
-interface AuthenticationStateInterface
+interface AuthStateInterface
 {
     public function read();
 

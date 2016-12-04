@@ -16,7 +16,7 @@ class I18nMessageLoader implements I18nMessageLoaderInterface
             ->order('lang', 1)
             ->execute();
 
-        foreach ($stmt->fetch() as $row) {
+        foreach ($stmt->all() as $row) {
             if ($row['is_json']) {
                 $result[$row['var_name']]
                     = array_values(json_decode($row['text_value'], 1));

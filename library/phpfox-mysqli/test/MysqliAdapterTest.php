@@ -48,7 +48,7 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($sqlResult->isValid());
 
-        $sqlResult->fetch();
+        $sqlResult->all();
     }
 
     public function testSqlInsert()
@@ -71,7 +71,7 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase
             ->where('is_active=?', 1)->order('is_core', 1)->order('priority', 1)
             ->execute();
 
-        $result = $result->fetch();
+        $result = $result->all();
 
         $this->assertNotEmpty($result);
 

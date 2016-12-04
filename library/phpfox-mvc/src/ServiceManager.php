@@ -66,6 +66,10 @@ class ServiceManager
             throw new \InvalidArgumentException("There are no service identity '{$id}'");
         }
 
+        if (is_string($ref)) {
+            return new $ref();
+        }
+
         $factory = array_shift($ref);
 
         if (is_string($factory)) {

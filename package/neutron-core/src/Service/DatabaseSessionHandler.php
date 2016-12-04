@@ -7,7 +7,7 @@ use Phpfox\Db\DbAdapterInterface;
 use Phpfox\Db\SqlLiteral;
 use Phpfox\Session\SessionHandlerInterface;
 
-class SessionHandlerDatabase
+class DatabaseSessionHandler
     implements SessionHandlerInterface, \SessionHandlerInterface
 {
     /**
@@ -59,7 +59,7 @@ class SessionHandlerDatabase
     public function read($session_id)
     {
         $row = $this->getDb()->select('*')->from(':core_session')
-            ->where('id=?', $session_id)->limit(1, 0)->execute()->fetch();
+            ->where('id=?', $session_id)->limit(1, 0)->execute()->all();
 
         if (!$row) {
             return '';
@@ -78,7 +78,7 @@ class SessionHandlerDatabase
     {
         $db = $this->getDb();
         $exists = $db->select('id')->from(':core_session')
-                ->where('id=?', $session_id)->limit(1, 0)->execute()->fetch()
+                ->where('id=?', $session_id)->limit(1, 0)->execute()->all()
             != null;
 
         if ($exists) {

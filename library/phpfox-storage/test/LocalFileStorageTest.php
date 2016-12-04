@@ -8,35 +8,9 @@ class LocalFileStorageTest extends \PHPUnit_Framework_TestCase
     public function provideConstructor()
     {
         return [
-            [
-                new LocalFileStorage([
-                    'basePath'   => PHPFOX_DIR . 'public',
-                    'baseUrl'    => PHPFOX_BASE_URL,
-                    'baseCdnUrl' => 'http:///example.max-cdn.com/',
-                ]),
-            ],
-            [
-                new FtpFileStorage([
-                    'basePath'   => PHPFOX_DIR . 'public',
-                    'baseUrl'    => PHPFOX_BASE_URL,
-                    'baseCdnUrl' => 'http:///example.max-cdn.com/',
-                    'host'       => 'localhost',
-                    'username'   => 'namnv',
-                    'password'   => 'namnv123',
-                    'port'       => 21,
-                ]),
-            ],
-            [
-                new Ssh2FileStorage([
-                    'basePath'   => '/var/www/html/namnv/',
-                    'baseUrl'    => PHPFOX_BASE_URL,
-                    'baseCdnUrl' => 'http:///example.max-cdn.com/',
-                    'host'       => '103.53.198.181',
-                    'username'   => 'root',
-                    'password'   => 'Qc@FoX2016',
-                    'port'       => 22,
-                ]),
-            ],
+            [1],
+            [2],
+            [3],
         ];
     }
 
@@ -44,10 +18,11 @@ class LocalFileStorageTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider provideConstructor
      *
-     * @param FileStorageInterface $fileStorage
+     * @param mixed $id
      */
-    public function testConstructor($fileStorage)
+    public function testConstructor($id)
     {
+        $fileStorage =  \Phpfox::get('storage.manager')->get($id);
         $this->assertEquals(PHPFOX_BASE_URL . 'public/path/to/url.png',
             $fileStorage->mapUrl('public/path/to/url.png'));
 

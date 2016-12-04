@@ -2,31 +2,28 @@
 
 namespace Phpfox\Authentication;
 
-/**
- * Interface PasswordValidatorInterface
- *
- * @package Phpfox\Auth
- */
-interface AuthenticationByPasswordInterface
+interface PasswordCompatibleInterface
 {
     /**
      * @param  string $input
-     * @param  array  $params
+     * @param  string $hashed
+     * @param  string $salt
+     * @param  string $static
      *
      * @return bool
      */
-    public function isValid($input, $params);
+    public function isValid($input, $hashed, $salt, $static);
 
     /**
      * Generate hash string using input, salt, static_salt string
      *
      * @param string $input
      * @param string $salt
-     * @param string $static_salt
+     * @param string $static
      *
      * @return string
      */
-    public function createHash($input, $salt, $static_salt = null);
+    public function createHash($input, $salt, $static = null);
 
     /**
      * Create random string to usage as salt.

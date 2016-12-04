@@ -9,7 +9,19 @@ namespace Phpfox\Db;
  */
 interface SqlResultInterface
 {
-    public function fetch();
+    /**
+     *Fetch all first record as association array
+     *
+     * @return array
+     */
+    public function all();
+
+    /**
+     * Fetch the first record as association array
+     *
+     * @return array
+     */
+    public function one();
 
     /**
      * @return bool

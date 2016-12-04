@@ -8,46 +8,17 @@ class FileStorageManager implements FileStorageManagerInterface
     /**
      * @var FileStorageInterface[]
      */
-    protected $vars = [];
-
-    /**
-     * @var array
-     */
-    protected $map = [];
-
-    /**
-     * @var string
-     */
-    protected $default;
-
-    /**
-     * @var FileStorageFactoryInterface
-     */
-    protected $factory;
-
-    /**
-     * StorageManager constructor.
-     *
-     * @param array $configs
-     *
-     * @throws FileStorageException
-     */
-    public function __construct($configs)
-    {
-        $this->map = $configs['map'];
-        $this->factory = $configs['factory'];
-        $this->default = $configs['default'];
-    }
+    protected $container = [];
 
     public function set($id, FileStorageInterface $service)
     {
-        $this->vars[$id] = $service;
+        $this->container[$id] = $service;
         return $this;
     }
 
     public function has($id)
     {
-        return isset($this->vars[$id]);
+        return isset($this->container[$id]);
     }
 
     public function mapUrl($id, $name)
@@ -58,11 +29,13 @@ class FileStorageManager implements FileStorageManagerInterface
     public function get($id)
     {
         if (!$id) {
-            $id = $this->default;
+            $id = 'default';
         }
 
-        return $this->vars[$id] ? $this->vars[$id]
-            : $this->vars[$id] = $this->factory->factory($this->map[$id]);
+        return isset($this->container[$id])
+            ? $this->container[$id]
+            : $this->container[$id] = \Phpfox::get('storage.factory')
+                ->factory($id);
     }
 
     public function mapCdnUrl($id, $name)

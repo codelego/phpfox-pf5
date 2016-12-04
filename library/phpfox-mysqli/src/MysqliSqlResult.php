@@ -27,8 +27,7 @@ class MysqliSqlResult implements SqlResultInterface
         return $this->resource !== false;
     }
 
-
-    public function fetch()
+    public function all()
     {
         $result = [];
 
@@ -37,5 +36,10 @@ class MysqliSqlResult implements SqlResultInterface
         }
 
         return $result;
+    }
+
+    public function one()
+    {
+        return $this->resource->fetch_assoc();
     }
 }

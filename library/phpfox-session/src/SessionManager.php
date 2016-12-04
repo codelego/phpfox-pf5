@@ -10,48 +10,6 @@ namespace Phpfox\Session;
 class SessionManager
 {
     /**
-     * @var SessionHandlerInterface
-     */
-    private $handler;
-
-    public function __construct()
-    {
-        if (session_id()) {
-            return;
-        }
-
-        // skip session storage
-        if (PHP_SAPI == 'cli' || PHPFOX_NO_SESSION) {
-            $this->handler = new NullSessionHandler();
-            return;
-        }
-
-        $this->handler = \Phpfox::get('session.save_handler');
-    }
-
-    /**
-     * @param string $id
-     *
-     * @return mixed
-     */
-    public function get($id)
-    {
-        return @$_SESSION[$id];
-    }
-
-    /**
-     * @param string $id
-     * @param string $value
-     *
-     * @return $this
-     */
-    public function set($id, $value)
-    {
-        $_SESSION[$id] = $value;
-        return $this;
-    }
-
-    /**
      * @see session_destroy
      */
     public function destroy()
@@ -73,6 +31,8 @@ class SessionManager
      * Start session manager
      *
      * @see session_start
+     *
+     * @return bool
      */
     public function start()
     {
@@ -80,7 +40,7 @@ class SessionManager
             return false;
         }
 
-        $this->handler->register();
+        \Phpfox::get('session.save_handler')->register();
 
         @session_start();
 

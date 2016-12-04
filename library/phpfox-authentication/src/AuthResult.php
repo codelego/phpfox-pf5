@@ -16,25 +16,21 @@ namespace Phpfox\Authentication;
  *
  * @package Phpfox\Authentication
  */
-class AuthenticationResult
+class AuthResult
 {
 
-    const SUCCESS = 1;
+    const SUCCESS = 0;
 
-    const MISSING_IDENTITY = 2;
+    const INVALID_IDENTITY = 1;
 
-    const INVALID_IDENTITY = 3;
+    const INVALID_CREDENTIAL = 2;
 
-    const MISSING_CREDENTIAL = 4;
-
-    const INVALID_CREDENTIAL = 5;
-
-    const UN_CATEGORIZE = 6;
+    const UN_CATEGORIZE = 4;
 
     /**
      * @var int
      */
-    private $code = -1;
+    private $code = 5;
 
     /**
      * @var int
@@ -52,12 +48,10 @@ class AuthenticationResult
     /**
      * @param int $code
      *
-     * @return $this
      */
     public function setCode($code)
     {
         $this->code = $code;
-        return $this;
     }
 
     /**
@@ -76,6 +70,10 @@ class AuthenticationResult
     public function setIdentity($identity)
     {
         $this->identity = $identity;
-        return $this;
+    }
+
+    public function isSuccess()
+    {
+        return $this->code == self::SUCCESS;
     }
 }

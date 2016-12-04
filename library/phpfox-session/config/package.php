@@ -15,6 +15,7 @@ return [
         'memcache' => MemcacheSessionHandler::class,
     ],
     'service.map'     => [
-        'session' => [null, SessionManager::class],
+        'session'              => [null, SessionManager::class],
+        'session.save_handler' => null,
     ],
 ];

@@ -9,6 +9,8 @@ register_shutdown_function(function () {
     }
 });
 
+Phpfox::get('session')->start();
+
 Phpfox::get('mvc.dispatch')->run();
 
 Phpfox::get('dev.log')->alert('how to confirm this box');

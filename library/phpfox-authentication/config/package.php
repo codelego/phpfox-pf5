@@ -16,7 +16,7 @@ return [
         'log.auth' => [],
     ],
     'service.map'    => [
-        'auth'     => [null, AuthenticationManager::class],
+        'auth'     => [null, AuthFacades::class],
         'log.auth' => [LogContainerFactory::class, null, 'log.auth'],
     ],
 ];

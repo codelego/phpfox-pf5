@@ -3,18 +3,18 @@
 namespace Phpfox\Mailer;
 
 return [
-    'psr4'            => [
+    'psr4'           => [
         'Phpfox\\Mailer\\' => [
             'library/phpfox-mailer/src',
             'library/phpfox-mailer/test',
         ],
     ],
-    'mail.transports' => [
+    'mailer.transports' => [
         'smtp'   => SmtpMailTransport::class,
         'system' => SystemMailTransport::class,
     ],
-    'service.map'     => [
-        'mail.transport' => [null, MailFacades::class,],
-        'mail.template'  => [null, MailTemplate::class, null],
+    'service.map'    => [
+        'mailer'         => [null, MailFacades::class,],
+        'mailer.factory' => null,
     ],
 ];

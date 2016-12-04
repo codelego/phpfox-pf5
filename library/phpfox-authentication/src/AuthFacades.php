@@ -2,7 +2,7 @@
 
 namespace Phpfox\Authentication;
 
-class AuthenticationManager
+class AuthFacades
 {
     public function login()
     {

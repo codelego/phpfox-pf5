@@ -20,14 +20,9 @@ class Message
     protected $altBody;
 
     /**
-     * @var string
+     * @var array
      */
-    protected $fromName;
-
-    /**
-     * @var string
-     */
-    protected $fromAddress;
+    protected $from = [null, null];
 
     /**
      * @var array
@@ -50,24 +45,22 @@ class Message
     protected $bcc = [];
 
     /**
-     * Message constructor.
-     *
-     * @see Message::exchangeArray()
-     *
-     * @param array $data
+     * @return Message
      */
-    public function __construct($data = null)
+    public static function factory()
     {
-        if (is_array($data)) {
-            $this->exchangeArray($data);
-        }
+        return new static();
     }
 
+    /**
+     * @param array $data
+     *
+     * @return $this
+     */
     public function exchangeArray($data)
     {
         $keys = [
-            'fromAddress',
-            'fromName',
+            'from',
             'subject',
             'body',
             'altBody',
@@ -81,12 +74,19 @@ class Message
                 $this->{$key} = $data[$key];
             }
         }
+        return $this;
     }
 
+    /**
+     * @param $address
+     * @param $name
+     *
+     * @return $this
+     */
     public function setFrom($address, $name)
     {
-        $this->fromAddress = $address;
-        $this->fromName = $name;
+        $this->from = [$address, $name];
+        return $this;
     }
 
     /**
@@ -99,10 +99,13 @@ class Message
 
     /**
      * @param string $subject
+     *
+     * @return $this
      */
     public function setSubject($subject)
     {
         $this->subject = $subject;
+        return $this;
     }
 
     /**
@@ -114,11 +117,14 @@ class Message
     }
 
     /**
-     * @param string $body
+     * @param string $html
+     *
+     * @return $this
      */
-    public function setBody($body)
+    public function setBody($html)
     {
-        $this->body = $body;
+        $this->body = $html;
+        return $this;
     }
 
     /**
@@ -130,11 +136,14 @@ class Message
     }
 
     /**
-     * @param string $altBody
+     * @param string $text
+     *
+     * @return $this
      */
-    public function setAltBody($altBody)
+    public function setAltBody($text)
     {
-        $this->altBody = $altBody;
+        $this->altBody = $text;
+        return $this;
     }
 
     /**
@@ -142,15 +151,18 @@ class Message
      */
     public function getFromName()
     {
-        return $this->fromName;
+        return $this->from[1];
     }
 
     /**
-     * @param string $fromName
+     * @param string $name
+     *
+     * @return $this
      */
-    public function setFromName($fromName)
+    public function setFromName($name)
     {
-        $this->fromName = $fromName;
+        $this->from[1] = $name;
+        return $this;
     }
 
     /**
@@ -158,15 +170,18 @@ class Message
      */
     public function getFromAddress()
     {
-        return $this->fromAddress;
+        return $this->from[0];
     }
 
     /**
-     * @param string $fromAddress
+     * @param string $address
+     *
+     * @return $this
      */
-    public function setFromAddress($fromAddress)
+    public function setFromAddress($address)
     {
-        $this->fromAddress = $fromAddress;
+        $this->from[0] = $address;
+        return $this;
     }
 
     /**
@@ -196,10 +211,13 @@ class Message
     /**
      * @param string $address
      * @param string $name
+     *
+     * @return $this
      */
     public function addTo($address, $name)
     {
         $this->to[] = [$address, $name];
+        return $this;
     }
 
     public function addReplyTo($address, $name)
@@ -218,29 +236,38 @@ class Message
     /**
      * @param string $address
      * @param string $name
+     *
+     * @return $this
      */
     public function addCc($address, $name)
     {
         $this->cc[] = [$address, $name];
+        return $this;
     }
 
+    /**
+     * @param string $address
+     * @param string $name
+     *
+     * @return $this
+     */
     public function addBcc($address, $name)
     {
         $this->bcc[] = [$address, $name];
+        return $this;
     }
 
     public function toArray()
     {
         return [
-            'fromAddress' => $this->fromAddress,
-            'fromName'    => $this->fromName,
-            'subject'     => $this->subject,
-            'body'        => $this->body,
-            'altBody'     => $this->altBody,
-            'to'          => $this->to,
-            'cc'          => $this->cc,
-            'bcc'         => $this->bcc,
-            'replyTo'     => $this->replyTo,
+            'from'    => $this->from,
+            'subject' => $this->subject,
+            'body'    => $this->body,
+            'altBody' => $this->altBody,
+            'to'      => $this->to,
+            'cc'      => $this->cc,
+            'bcc'     => $this->bcc,
+            'replyTo' => $this->replyTo,
         ];
     }
 
@@ -257,7 +284,7 @@ class Message
      */
     public function isValid()
     {
-        if (!$this->fromAddress) {
+        if (!$this->from[0]) {
             return false;
         }
 

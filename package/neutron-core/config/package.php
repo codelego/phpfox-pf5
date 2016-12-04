@@ -2,8 +2,6 @@
 
 namespace Neutron\Core;
 
-use Neutron\Core\Service\I18nMessageLoader;
-
 return [
     'psr4'            => [
         'Neutron\\Core\\' => [
@@ -43,7 +41,7 @@ return [
         ],
     ],
     'router.routes'   => [
-        'home'                   => [
+        'home'                        => [
             'route'    => '/',
             'wheres'   => [],
             'defaults' => [
@@ -51,7 +49,7 @@ return [
                 'action'     => 'index',
             ],
         ],
-        'rest.menus'             => [
+        'rest.menus'                  => [
             'route'    => 'menus',
             'method'   => 'GET',
             'group'    => '@rest',
@@ -60,7 +58,7 @@ return [
                 'action'     => 'listing',
             ],
         ],
-        'rest.menu.item'         => [
+        'rest.menu.item'              => [
             'route'    => 'menu/[:id]',
             'group'    => '@rest',
             'defaults' => [
@@ -68,7 +66,7 @@ return [
                 'action'     => 'view',
             ],
         ],
-        'admincp.core.dashboard' => [
+        'admincp.core.dashboard'      => [
             'route'    => '{admincp}',
             'group'    => '@admincp',
             'defaults' => [
@@ -76,7 +74,7 @@ return [
                 'action'     => 'index',
             ],
         ],
-        'admincp.core.theme'     => [
+        'admincp.core.theme'          => [
             'route'    => '{admincp}/core/theme(/[:action])',
             'group'    => '@admincp',
             'defaults' => [
@@ -84,7 +82,7 @@ return [
                 'action'     => 'index',
             ],
         ],
-        'admincp.core.package'   => [
+        'admincp.core.package'        => [
             'route'    => '{admincp}/core/package(/[:action])',
             'group'    => '@admincp',
             'defaults' => [
@@ -92,7 +90,7 @@ return [
                 'action'     => 'index',
             ],
         ],
-        'admincp.core.settings'  => [
+        'admincp.core.settings'       => [
             'route'    => '{admincp}/core/settings(/[:action])',
             'group'    => '@admincp',
             'defaults' => [
@@ -100,24 +98,37 @@ return [
                 'action'     => 'index',
             ],
         ],
+        'admincp.core.mail-transport' => [
+            'route'    => '{admincp}/core/mail-transport(/[:action])',
+            'group'    => '@admincp',
+            'defaults' => [
+                'controller' => 'core.admin-mail-transport',
+                'action'     => 'index',
+            ],
+        ],
     ],
     'controller.map'  => [
-        'core.index'           => Controller\IndexController::class,
-        'core.admin-dashboard' => Controller\AdminDashboardController::class,
-        'core.admin-language'  => Controller\AdminLanguageController::class,
-        'core.admin-theme'     => Controller\AdminThemeController::class,
-        'core.admin-settings'  => Controller\AdminSettingsController::class,
-        'core.admin-package'   => Controller\AdminPackageController::class,
-        'core.error'           => Controller\ErrorController::class,
+        'core.index'                => Controller\IndexController::class,
+        'core.admin-dashboard'      => Controller\AdminDashboardController::class,
+        'core.admin-language'       => Controller\AdminLanguageController::class,
+        'core.admin-theme'          => Controller\AdminThemeController::class,
+        'core.admin-settings'       => Controller\AdminSettingsController::class,
+        'core.admin-package'        => Controller\AdminPackageController::class,
+        'core.admin-mail-transport' => Controller\AdminMailTransportController::class,
+        'core.error'                => Controller\ErrorController::class,
     ],
     'service.map'     => [
-        'i18n.loader' => [null, I18nMessageLoader::class],
+        'i18n.loader'          => [null, Service\I18nMessageLoader::class],
+        'mailer.factory'       => [null, Service\MailTransportFactory::class],
+        'storage.factory'      => [null, Service\FileStorageFactory::class],
+        'session.save_handler' => [Service\SessionSaveHandlerFactory::class,],
+
     ],
     'views.map'       => _get_view_map([
         'core'   => 'neutron-core/view',
         'layout' => 'neutron-core/layout',
     ]),
     'session.drivers' => [
-        'database' => Service\SessionHandlerDatabase::class,
+        'database' => Service\DatabaseSessionHandler::class,
     ],
 ];

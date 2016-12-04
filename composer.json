@@ -13,7 +13,9 @@
   "target-dir": "",
   "require": {
     "filp/whoops": "^2.1",
-    "colinmollenhour/credis": "^1.7"
+    "colinmollenhour/credis": "^1.7",
+    "phpmailer/phpmailer": "^5.2",
+    "omnipay/omnipay": "^2.3"
   },
   "require-dev": {
     "phpunit/PHPUnit": "^4.0"

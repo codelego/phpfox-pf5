@@ -72,7 +72,7 @@ if (!$shouldGenerate) {
 
 
     $rows = $db->select('*')->from(':core_package')->where('is_active=?', 1)
-        ->order('priority', 1)->execute()->fetch();
+        ->order('priority', 1)->execute()->all();
 
     $packageVariables = [];
 
@@ -93,7 +93,7 @@ if (!$shouldGenerate) {
      */
     $rows = $db->select('group_id, var_name, value_actual, is_active, priority')
         ->from(':core_setting')->where('is_active=?', 1)->order('priority', 1)
-        ->execute()->fetch();
+        ->execute()->all();
 
 
     foreach ($rows as $row) {
