@@ -7,7 +7,7 @@ use Phpfox\Package\PackageLoaderInterface;
 
 class PackageLoader implements PackageLoaderInterface
 {
-    public function load()
+    public function loadEnabledPackages()
     {
         $all = \Phpfox::getDb()
             ->select('*')
@@ -24,4 +24,16 @@ class PackageLoader implements PackageLoaderInterface
 
         return $result;
     }
+
+    public function loadPackageInfo($id)
+    {
+        return \Phpfox::getDb()
+            ->select('*')
+            ->from(':core_package')
+            ->where('id=?', $id)
+            ->execute()
+            ->first();
+    }
+
+
 }
