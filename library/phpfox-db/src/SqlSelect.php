@@ -12,7 +12,7 @@ class SqlSelect
     /**
      *
      */
-    const COUNT_NAME = 'KENDO_total_count';
+    const COUNT_NAME = 'total_rows';
     /**
      *
      */
@@ -84,6 +84,11 @@ class SqlSelect
      * @var bool
      */
     private $_forUpdate = false;
+
+    /**
+     * @var
+     */
+    private $_prototype;
 
     /**
      * @ignore
@@ -445,6 +450,8 @@ class SqlSelect
 
         $result = $this->adapter->execute($sql, $this->_useMaster);
 
+        $result->setPrototype($this->_prototype);
+
         return $result;
     }
 
@@ -472,5 +479,16 @@ class SqlSelect
 
         return 'SELECT ' . $columns . ' FROM ' . $tables . $join . $where
             . $group . $having . $order . $limit . $forUpdate;
+    }
+
+    /**
+     * @param string $prototype
+     *
+     * @return $this
+     */
+    public function setPrototype($prototype)
+    {
+        $this->_prototype = $prototype;
+        return $this;
     }
 }

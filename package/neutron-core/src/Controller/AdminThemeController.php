@@ -17,7 +17,7 @@ class AdminThemeController extends MvcController
 
         $themes = $db->select('*')
             ->from(':core_package')
-            ->where('package_type=?','10')
+            ->where('package_type=?', '10')
             ->execute()->all();
 
         return new ViewModel('core.admin-theme.index', [

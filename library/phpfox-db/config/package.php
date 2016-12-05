@@ -3,13 +3,14 @@
 namespace Phpfox\Db;
 
 return [
-    'psr4' => [
+    'psr4'        => [
         'Phpfox\\Db\\' => [
             'library/phpfox-db/src',
             'library/phpfox-db/test',
         ],
     ],
-    'service.map'   => [
-        'db' => [DbAdapterFactory::class, null, 'default'],
+    'service.map' => [
+        'db'            => [DbAdapterFactory::class, null, 'default'],
+        'table_factory' => [null, DbTableGatewayFactory::class],
     ],
 ];

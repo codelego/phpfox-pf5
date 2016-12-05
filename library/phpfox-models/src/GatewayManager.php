@@ -2,27 +2,12 @@
 namespace Phpfox\Model;
 
 
-/**
- * Class GatewayManager
- *
- * @package Phpfox\Model
- */
 class GatewayManager implements GatewayManagerInterface
 {
     /**
      * @var GatewayInterface[]
      */
     protected $container = [];
-
-    /**
-     * @var string[]
-     */
-    protected $map = [];
-
-    public function __construct()
-    {
-        $this->map = \Phpfox::getConfig('models');
-    }
 
     public function set($id, $gateway)
     {
@@ -42,24 +27,24 @@ class GatewayManager implements GatewayManagerInterface
      */
     public function get($id)
     {
-        return isset($this->container[$id]) ? $this->container[$id]
+        return isset($this->container[$id])
+            ? $this->container[$id]
             : $this->container[$id] = $this->factory($id);
     }
 
     public function factory($id)
     {
-        if (!isset($this->map[$id])
-            || !class_exists($this->map[$id][0])
-        ) {
+        $ref = \Phpfox::getConfig('models', $id);
+
+        if (!$ref) {
             throw new GatewayException("gateway `$id` does not exists");
         }
+        $factory = array_shift($ref);
+        array_unshift($ref, $id);
 
-        list($gateway, $modelClass, $collection, $adapter) = $this->map[$id];
-
-        if (!class_exists($gateway) || !class_exists($modelClass)) {
-            throw new GatewayException("gateway `$id` does not exists");
-        }
-
-        return new $gateway($collection, $modelClass, $id, $adapter);
+        return call_user_func_array([
+            \Phpfox::get($factory),
+            'factory',
+        ], $ref);
     }
 }

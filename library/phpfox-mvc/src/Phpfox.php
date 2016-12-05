@@ -118,11 +118,11 @@ class Phpfox
      *
      * @param string $id
      *
-     * @return \Phpfox\Model\GatewayInterface
+     * @return \Phpfox\Model\GatewayInterface|\Phpfox\Db\DbTableGateway
      */
-    public static function gateway($id)
+    public static function getModel($id)
     {
-        return self::$_service->get('gateway')->get($id);
+        return self::$_service->get('models')->get($id);
     }
 
     /**
@@ -291,13 +291,13 @@ class Phpfox
     /**
      * @see GatewayInterface::findById()
      *
-     * @param string $gateway
+     * @param string $model
      * @param mixed  $id
      *
      * @return \Phpfox\Model\ModelInterface
      */
-    public function findById($gateway, $id)
+    public static function findById($model, $id)
     {
-        return self::$_service->get('gateway')->findById($gateway, $id);
+        return self::$_service->get('models')->findById($model, $id);
     }
 }

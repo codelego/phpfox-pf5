@@ -2,6 +2,7 @@
 namespace Neutron\User\Auth;
 
 
+use Neutron\User\Model\AuthPassword;
 use Phpfox\Authentication\AuthInterface;
 use Phpfox\Authentication\AuthResult;
 use Phpfox\Authentication\PasswordCompatibleInterface;
@@ -12,6 +13,7 @@ class AuthByPassword implements AuthInterface
     {
         $result = new AuthResult();
         $user = $this->findUser($identity);
+
         if (!$user) {
             $result->setCode(AuthResult::INVALID_IDENTITY);
             return $result;
@@ -40,14 +42,14 @@ class AuthByPassword implements AuthInterface
     {
         if (strpos($identity, '@') !== false) {// check is email
             return \Phpfox::getDb()->select('user_id')->from(':user')
-                ->where('email=?', $identity)->execute()->one();
+                ->where('email=?', $identity)->execute()->first();
 
         } elseif (false) {// check is phone number
             // todo implement find by phone number
         }
 
         return \Phpfox::getDb()->select('user_id')->from(':user')
-            ->where('username=?', $identity)->execute()->one();
+            ->where('username=?', $identity)->execute()->first();
     }
 
     /**
@@ -58,21 +60,23 @@ class AuthByPassword implements AuthInterface
      */
     private function checkPasswordCompatible($credential, $userId)
     {
-        $candidates = \Phpfox::getDb()->select('*')
-            ->from(':user_auth_password')
+
+        /** @var AuthPassword[] $candidates */
+        $candidates = \Phpfox::getModel('auth_password')
+            ->select()
             ->where('user_id=?', (int)$userId)
             ->execute()
             ->all();
 
         foreach ($candidates as $ca) {
-            $checker = $this->getPasswordChecker($ca['source_id']);
+            $checker = $this->getPasswordChecker($ca->getSourceId());
 
             if (!$checker) {
                 continue;
             }
 
-            if ($checker->isValid($credential, $ca['hash'],
-                $ca['salt'], $ca['static_salt'])
+            if ($checker->isValid($credential, $ca->getHashed(),
+                $ca->getSalt(), $ca->getStaticSalt())
             ) {
                 return true;
             }

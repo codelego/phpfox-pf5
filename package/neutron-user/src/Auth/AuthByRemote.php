@@ -2,7 +2,7 @@
 
 namespace Neutron\User\Auth;
 
-
+use Neutron\User\Model\AuthRemote;
 use Phpfox\Authentication\AuthInterface;
 use Phpfox\Authentication\AuthResult;
 
@@ -12,55 +12,39 @@ class AuthByRemote implements AuthInterface
     {
         $result = new AuthResult();
 
-        $remote = \Phpfox::getDb()->select('*')
-            ->from(':core_auth_remote')
+        /** @var AuthRemote $remote */
+        $remote = \Phpfox::getModel('auth_remote')
+            ->select()
             ->where('remote_id=?', (string)$identity)
             ->where('remote_uid=?', (string)$credential)
             ->execute()
-            ->one();
-
-        $remoteId = $remote['id'];
+            ->first();
 
         if (!$remote) {
             $result->setCode(AuthResult::INVALID_CREDENTIAL);
             return $result;
         }
 
-        if (!$remote['user_id']) {
+        $userId = $remote->getUserId();
+
+        if (!$userId) {
             // validate remote user id is exists
-            $this->deleteDirtyRemote($remoteId);
+            $remote->delete();
             $result->setCode(AuthResult::INVALID_CREDENTIAL);
             return $result;
         }
 
-        $user = \Phpfox::getDb()
-            ->select('*')
-            ->from(':user')
-            ->where('user_id=?', $remote['user_id'])
-            ->limit(1, 0)
-            ->execute()
-            ->one();
+        $user = \Phpfox::findById('user', $userId);
 
         if (!$user) {
-            $this->deleteDirtyRemote($remoteId);
+            $remote->delete();
             $result->setCode(AuthResult::INVALID_CREDENTIAL);
             return $result;
         }
 
-        $result->setIdentity($remote['user_id']);
+        $result->setIdentity($userId);
         $result->setCode(AuthResult::SUCCESS);
         return $result;
-    }
-
-    /**
-     * @param $remoteId
-     */
-    private function deleteDirtyRemote($remoteId)
-    {
-        \Phpfox::getDb()
-            ->delete(':core_auth_remote')
-            ->where('id=?', $remoteId)
-            ->execute();
     }
 
 }

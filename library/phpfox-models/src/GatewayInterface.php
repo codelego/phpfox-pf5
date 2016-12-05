@@ -9,22 +9,6 @@ namespace Phpfox\Model;
  */
 interface GatewayInterface
 {
-
-    /**
-     * GatewayInterface constructor.
-     *
-     * @param string $collection
-     * @param string $modelClass
-     * @param string $gatewayId
-     * @param string $adapter
-     */
-    public function __construct(
-        $collection,
-        $modelClass,
-        $gatewayId,
-        $adapter
-    );
-
     /**
      * @param mixed $id
      *
@@ -34,9 +18,30 @@ interface GatewayInterface
     public function findById($id);
 
     /**
-     * @param array $data
+     * @param  mixed $id
+     *
+     * @return bool
+     */
+    public function deleteById($id);
+
+    /**
+     * @param array|ModelInterface $values
      *
      * @return mixed
      */
-    public function insert($data);
+    public function insert($values);
+
+    /**
+     * @param  array|ModelInterface $values
+     *
+     * @return bool
+     */
+    public function update($values);
+
+    /**
+     * @param  array|ModelInterface $values
+     *
+     * @return bool
+     */
+    public function delete($values);
 }

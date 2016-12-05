@@ -20,14 +20,6 @@ class DatabaseSessionHandler
      */
     protected $path = '';
 
-    /**
-     * @return DbAdapterInterface
-     */
-    private function getDb()
-    {
-        return \Phpfox::get('db');
-    }
-
     public function close()
     {
         return true;
@@ -38,6 +30,14 @@ class DatabaseSessionHandler
         $this->getDb()
             ->delete(':core_session', ['id=?' => (string)$session_id]);
         return true;
+    }
+
+    /**
+     * @return DbAdapterInterface
+     */
+    private function getDb()
+    {
+        return \Phpfox::get('db');
     }
 
     public function gc($maxlifetime)

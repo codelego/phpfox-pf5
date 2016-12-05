@@ -19,7 +19,7 @@ class AdminPackageController extends MvcController
             ->all();
 
         return new ViewModel('core.admin-package.index', [
-            'items'=>$packages,
+            'items' => $packages,
         ]);
     }
 }

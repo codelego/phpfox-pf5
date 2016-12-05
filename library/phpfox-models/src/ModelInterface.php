@@ -7,12 +7,24 @@ namespace Phpfox\Model;
  *
  * @package Phpfox\Model
  */
-interface ModelInterface
+interface ModelInterface extends \ArrayAccess
 {
+    /**
+     * @return string
+     * Return the model id map,
+     * etc: user, blog, video_category, pages, event.
+     */
+    public function getModelId();
+
     /**
      * @return array
      */
     public function toArray();
+
+    /**
+     * @return array
+     */
+    public function getChanged();
 
     /**
      * Update data from array
@@ -36,7 +48,27 @@ interface ModelInterface
     public function save();
 
     /**
+     * @return $this
+     */
+    public function markSaved();
+
+    /**
      * @return bool
      */
     public function isSaved();
+
+    /**
+     * Magic get method
+     *
+     * @param string $name
+     *
+     * @return mixed
+     */
+    public function __get($name);
+
+    /**
+     * @param string $name
+     * @param mixed  $value
+     */
+    public function __set($name, $value);
 }

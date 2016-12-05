@@ -2,6 +2,43 @@
 
 namespace {
 
+    function _describe_table($table)
+    {
+        if (substr($table, 0, 1) == ':') {
+            $table = PHPFOX_TABLE_PREFIX . substr($table, 1);
+        }
+        $rows = Phpfox::getDb()
+            ->execute('describe ' . $table)
+            ->all();
+
+
+        $column = [];
+        $primary = [];
+        $identity = null;
+        $queryId = null;
+
+        foreach ($rows as $row) {
+            $column[$row['Field']] = 1;
+
+            if (strtolower($row['Key']) == 'pri') {
+                $primary[$row['Field']] = 1;
+            }
+
+            if (strtolower($row['Extra']) == 'auto_increment') {
+                $identity = $row['Field'];
+            }
+        }
+
+        if($identity){
+            $queryId = $identity;
+        }elseif (count($primary) == 1){
+            $queryId =  array_keys($primary)[0];
+        }
+
+
+        return [$identity, $primary, $queryId, $column];
+    }
+
     /**
      * @param array|string $array ['core'=> PHPFOX_DIR
      *                            .'/package/neutron-core/view',...]
@@ -62,6 +99,9 @@ namespace {
     {
         if (file_exists($file)) {
             @unlink($file);
+        }
+        if(!is_dir($dir = dirname($file)) && !@mkdir($dir,0777, true)){
+            exit('Can not open '. $dir .' to write export');
         }
         file_put_contents($file,
             '<?php return ' . var_export($data, true) . ';');

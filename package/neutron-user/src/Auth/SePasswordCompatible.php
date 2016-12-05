@@ -15,7 +15,7 @@ class SePasswordCompatible implements PasswordCompatibleInterface
     public function createHash($input, $salt, $static = null)
     {
         // $static  =Engine_Api::_()->getApi('settings', 'core')->getSetting('core.secret', 'staticSalt');
-        return md5($static. $input. $salt);
+        return md5($static . $input . $salt);
     }
 
     public function createSalt($length = 5)

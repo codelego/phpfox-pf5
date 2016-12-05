@@ -108,11 +108,12 @@ class SqlInsert
 
     /**
      * @param null $sql
+     * @param bool $return_last_val
      *
-     * @return SqlResultInterface
+     * @return bool|int
      * @throws SqlException
      */
-    public function execute($sql = null)
+    public function execute($sql = null, $return_last_val = false)
     {
 
         if (null == $sql) {
@@ -126,7 +127,11 @@ class SqlInsert
                 . $sql);
         }
 
-        return $result;
+        if ($return_last_val) {
+            return $this->adapter->lastId();
+        }
+
+        return true;
     }
 
     /**

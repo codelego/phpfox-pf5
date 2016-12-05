@@ -121,6 +121,7 @@ return [
         'i18n.loader'          => [null, Service\I18nMessageLoader::class],
         'mailer.factory'       => [null, Service\MailTransportFactory::class],
         'storage.factory'      => [null, Service\FileStorageFactory::class],
+        'package.loader'       => [null, Service\PackageLoader::class,],
         'session.save_handler' => [Service\SessionSaveHandlerFactory::class,],
 
     ],
@@ -130,5 +131,7 @@ return [
     ]),
     'session.drivers' => [
         'database' => Service\DatabaseSessionHandler::class,
+    ],
+    'models'          => [
     ],
 ];

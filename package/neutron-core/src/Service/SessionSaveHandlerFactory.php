@@ -22,7 +22,7 @@ class SessionSaveHandlerFactory implements SessionHandlerFactoryInterface
     protected function getConfigs()
     {
         $row = \Phpfox::getDb()->select('*')->from(':core_session_driver')
-            ->where('is_default=?', 1)->limit(1, 0)->execute()->one();
+            ->where('is_default=?', 1)->limit(1, 0)->execute()->first();
 
         $configs = [];
 

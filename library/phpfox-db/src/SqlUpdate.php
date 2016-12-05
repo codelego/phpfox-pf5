@@ -115,7 +115,6 @@ class SqlUpdate
 
         $result = $this->adapter->execute($sql);
 
-
         if (false === $result) {
             throw new DbException($sql . $this->adapter->error());
         }

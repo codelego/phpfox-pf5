@@ -5,23 +5,31 @@ namespace Phpfox\Db;
 
 use Phpfox\Model\GatewayException;
 use Phpfox\Model\GatewayInterface;
+use Phpfox\Model\ModelInterface;
 
 class DbTableGateway implements GatewayInterface
 {
     /**
      * @var string
      */
-    protected $_identity = '';
+    protected $_identity;
 
     /**
      * @var array
      */
-    protected $_columns = [];
+    protected $_columns;
 
     /**
      * @var array
      */
-    protected $_primary = [];
+    protected $_primary;
+
+    /**
+     * The column to use when query findById, deleteById, ....
+     *
+     * @var string
+     */
+    protected $_query_id;
 
     /**
      * @var string
@@ -31,55 +39,75 @@ class DbTableGateway implements GatewayInterface
     /**
      * @var string
      */
-    protected $_modelClass;
+    protected $_prototype;
 
     /**
-     * @var array
+     * @var string
      */
-    protected $_defaults = [];
-
     protected $_adapter;
 
-    protected $_gatewayId;
-
-    public function __construct(
-        $collection,
-        $modelClass,
-        $gatewayId,
-        $adapter
-    ) {
-        if (substr($collection, 0, 1) == ':') {
-            $collection = PHPFOX_TABLE_PREFIX . substr($collection, 1);
-        }
-
-        if (null == $adapter) {
-            $adapter = 'db';
-        }
-
-        $this->_table = $collection;
-        $this->_modelClass = $modelClass;
-        $this->_adapter = $adapter;
-        $this->_gatewayId = $gatewayId;
-    }
-
     /**
-     * @return string|false
+     * @var string
      */
-    public function getIdentity()
-    {
-        return $this->_identity;
+    protected $_model_id;
+
+    /**
+     * DbTableGateway constructor.
+     *
+     * @param string $id
+     * @param string $table
+     * @param string $prototype
+     * @param string $adapter
+     * @param string $meta
+     */
+    public function __construct(
+        $id,
+        $table,
+        $prototype,
+        $adapter = null,
+        $meta = null
+    ) {
+
+        $this->_model_id = $id;
+
+        if (substr($table, 0, 1) == ':') {
+            $table = PHPFOX_TABLE_PREFIX . substr($table, 1);
+        }
+
+        $this->_table = $table;
+        $this->_prototype = $prototype;
+        $this->_adapter = $adapter ? $adapter : PHPFOX_DEFAULT_DB;
+
+        if ($meta) {
+            list($this->_identity, $this->_primary, $this->_query_id,
+                $this->_columns)
+                = include PHPFOX_PACKAGE_DIR . $meta;
+        }
+
     }
 
     /**
-     * @param array $data
+     * @param array $values
      *
      * @return mixed
      */
-    public function insert($data)
+    public function insert($values)
     {
+        $temp = array_intersect_key($values,
+            $values instanceof ModelInterface ? $values->toArray() : $values);
 
-        return (new SqlInsert($this->adapter()))->insert($this->getTable(),
-            array_intersect_key($data, $this->getColumns()))->execute();
+        $result = (new SqlInsert($this->adapter()))
+            ->insert($this->_table)
+            ->values($temp)
+            ->execute(null, $this->_identity != null);
+
+        if ($this->_identity and $values instanceof ModelInterface and $result
+            && !$values->__get($this->_identity)
+        ) {
+            $values->__set($this->_identity, $result);
+        }
+
+        return $result;
     }
 
     /**
@@ -99,147 +127,91 @@ class DbTableGateway implements GatewayInterface
     }
 
     /**
-     * @return array
-     */
-    public function getColumns()
-    {
-        return $this->_columns;
-    }
-
-    /**
-     * @param array $data
+     * @param mixed $values
      *
-     * @return mixed
-     */
-    public function insertIgnore($data)
-    {
-        $sql = (new SqlInsert($this->adapter()))->insert($this->getTable(),
-            array_intersect_key($data, $this->getColumns()))
-            ->ignoreOnDuplicate(true);
-
-        return $sql->execute();
-    }
-
-    /**
-     * @return array
-     */
-    public function getDefault()
-    {
-        return $this->_defaults;
-    }
-
-    /**
-     * @param  array $data
-     *
-     * @return array (expression, condition)
-     */
-    public function getCondition($data)
-    {
-
-        $primaryData = array_intersect_key($data, $this->getPrimary());
-
-        $expressionArray = [];
-        $condition = [];
-
-        foreach ($primaryData as $k => $v) {
-            $expressionArray [] = "$k=:$k ";
-            $condition [":$k"] = $v;
-        }
-
-        $expression = implode(' AND ', $expressionArray);
-
-        return [$expression, $condition];
-    }
-
-    /**
-     * @return array
-     */
-    public function getPrimary()
-    {
-        return $this->_primary;
-    }
-
-    /**
-     * @param array $data
-     * @param array $values
-     *
-     * @return mixed
-     */
-    public function updateModel($data, $values = null)
-    {
-        if (empty($values)) {
-            $values = $data;
-        }
-
-        $values = array_intersect_key($values, $this->getColumnNotPrimary());
-
-        if (empty($values)) {
-            return true;
-        }
-
-        $query = new SqlUpdate($this->adapter());
-
-        $query->update($this->getTable())->values($values);
-
-        foreach ($this->getPrimary() as $column => $type) {
-            $query->where("$column=?", $data[$column]);
-        }
-
-        return $query->execute();
-    }
-
-    /**
-     * @return array
-     */
-    public function getColumnNotPrimary()
-    {
-        return array_diff_key($this->_columns, $this->_primary);
-    }
-
-    /**
-     * @param array $values
-     *
-     * @return SqlUpdate
+     * @return bool|mixed
      */
     public function update($values)
     {
-        return (new SqlUpdate($this->adapter()))->update($this->getTable())
-            ->values($values);
+        // update changed values, not all ?
+        $temp = array_intersect_key($values instanceof ModelInterface
+            ? $values->getChanged() : $values,
+            array_diff_key($this->_columns, $this->_primary));
+
+        if (empty($temp)) {
+            return false;
+        }
+
+        $wheres = [];
+        foreach (
+            array_intersect_key($values instanceof ModelInterface
+                ? $values->toArray() : $values, $this->_primary) as $k => $v
+        ) {
+            $wheres[$k . '=?'] = $v;
+        }
+
+        return (new SqlUpdate($this->adapter()))
+            ->update($this->_table)
+            ->values($temp)
+            ->where($wheres)
+            ->execute();
     }
 
     /**
-     * @param  array|null $data
+     * @param  array|null $values
      *
      * @return mixed
      */
-    public function create($data = null)
+    public function create($values = null)
     {
-        return new $this->_modelClass($data, false);
+        return new $this->_prototype($values, false);
+    }
+
+    /**
+     * @param  array $values
+     *
+     * @return mixed
+     */
+    public function delete($values)
+    {
+        $wheres = [];
+        foreach (
+            array_intersect_key($values instanceof ModelInterface
+                ? $values->toArray() : $values, $this->_primary) as $k => $v
+        ) {
+            $wheres[$k . '=?'] = $v;
+        }
+
+        return (new SqlDelete($this->adapter()))->from($this->_table)
+            ->where($wheres)
+            ->execute();
+    }
+
+    public function findById($id)
+    {
+        if ($this->_query_id) {
+            return $this->select()->where($this->_query_id . '=?', (string)$id)
+                ->execute()->first();
+        }
+        throw new GatewayException("Can not use findById");
     }
 
     /**
      *
      * @return SqlSelect
      */
-    public function sqlSelect()
+    public function select()
     {
-        return (new SqlSelect($this->adapter()))->from($this->getTable());
+        return (new SqlSelect($this->adapter()))
+            ->setPrototype($this->_prototype)
+            ->from($this->_table);
     }
 
-    /**
-     * @param  array $data
-     *
-     * @return mixed
-     */
-    public function deleteByModelData($data)
+    public function deleteById($id)
     {
-        $sql = $this->sqlDelete();
-
-        foreach ($this->getPrimary() as $column => $type) {
-            $sql->where("$column=?", $data[$column]);
-        }
-
-        return $sql->execute();
+        return (new SqlDelete($this->adapter()))->from($this->_table)
+            ->where($this->_query_id . '=?', (string)$id)
+            ->execute();
     }
 
     /**
@@ -247,11 +219,6 @@ class DbTableGateway implements GatewayInterface
      */
     public function sqlDelete()
     {
-        return (new SqlDelete($this->adapter()))->from($this->getTable());
-    }
-
-    public function findById($id)
-    {
-        throw new GatewayException("Can not use findById");
+        return (new SqlDelete($this->adapter()))->from($this->_table);
     }
 }

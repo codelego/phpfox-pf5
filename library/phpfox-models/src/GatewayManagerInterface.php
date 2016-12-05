@@ -14,14 +14,6 @@ interface GatewayManagerInterface
     public function get($id);
 
     /**
-     * @param  string $id
-     *
-     * @return GatewayInterface
-     * @throws GatewayException
-     */
-    public function factory($id);
-
-    /**
      * @param string                 $id
      * @param mixed|GatewayInterface $gateway
      *

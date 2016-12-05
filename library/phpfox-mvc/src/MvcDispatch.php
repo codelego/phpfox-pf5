@@ -87,9 +87,17 @@ class MvcDispatch
 
     public function forward($controller, $action)
     {
-        $this->setController($controller)->setAction($action);
+        $this->dispatched = false;
 
-        return false;
+        if(null != $controller){
+            $this->controller = $controller;
+        }
+
+        if(null != $action){
+            $this->action = $action;
+        }
+
+        return true;
     }
 
     public function run()
