@@ -3,7 +3,7 @@
 namespace Phpfox\Form;
 
 
-class SubmitRender extends ButtonRenderer
+class SubmitRender extends ButtonRender
 {
     protected $type = 'submit';
 }

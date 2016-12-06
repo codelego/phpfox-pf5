@@ -7,7 +7,7 @@ namespace Phpfox\Form;
  *
  * @package Phpfox\Form
  */
-class ResetRenderer extends ButtonRenderer
+class ResetRenderer extends ButtonRender
 {
     protected $type = 'reset';
 }

@@ -2,7 +2,7 @@
 
 namespace Phpfox\Form;
 
-class MultiCheckboxRenderer implements RendererInterface
+class MultiCheckboxRender implements RenderInterface
 {
     /**
      * @param MultiCheckbox $element

@@ -2,7 +2,7 @@
 
 namespace Phpfox\Form;
 
-class ButtonRenderer implements RendererInterface
+class ButtonRender implements RenderInterface
 {
     /**
      * @var string
