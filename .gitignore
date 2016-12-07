@@ -1,6 +1,4 @@
-/data/log/*
-/data/cache/*
-/data/temp/*
+/data/*/*
 /vendor/
 /static/node_modules/
 /config/*.local.php
