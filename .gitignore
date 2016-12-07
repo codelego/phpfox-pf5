@@ -1,6 +1,9 @@
-/data/*/*
+/data/cache/*
+/data/session/*
+/data/log/*
+/data/package/*
+/data/temp/*
 /vendor/
 /static/node_modules/
 /config/*.local.php
-/package/user/
 /public/*
