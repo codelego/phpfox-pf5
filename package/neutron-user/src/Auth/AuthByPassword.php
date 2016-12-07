@@ -91,7 +91,7 @@ class AuthByPassword implements AuthInterface
      */
     private function getPasswordChecker($id)
     {
-        $driver = \Phpfox::getConfig('auth.passwords', $id);
+        $driver = \Phpfox::getParam('auth.passwords', $id);
 
         if (!$driver) {
             return null;

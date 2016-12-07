@@ -14,7 +14,10 @@ class FormBootstrapRender implements RenderInterface
 
         $facades = \Phpfox::get('form.render');
 
-        $result = array_map(function (ElementInterface $v) use ($facades, $id) {
+        $result = array_map(function (ElementInterface $v) use (
+            $facades,
+            &$id
+        ) {
             $name = $v->getName();
             $label = $v->noLabel()
                 ? ''
@@ -24,6 +27,6 @@ class FormBootstrapRender implements RenderInterface
                 . $facades->render($v) . '</div>';
         }, $form->getElements());
 
-        return $form->open() .implode(PHP_EOL, $result) . $form->close();
+        return $form->open() . implode(PHP_EOL, $result) . $form->close();
     }
 }

@@ -33,18 +33,10 @@ final class MvcConfig
         return $this->data[$key][$item];
     }
 
-    public function get($key, $item = null)
+    public function get($key)
     {
         if (!isset($this->data[$key])) {
             return null;
-        }
-
-        if (null !== $item and !isset($this->data[$key][$item])) {
-            return null;
-        }
-
-        if (null !== $item) {
-            return $this->data[$key][$item];
         }
 
         return $this->data[$key];

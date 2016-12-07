@@ -3,7 +3,7 @@
 namespace Phpfox\Form;
 
 
-interface RepeaterInterface extends FieldsetInterface
+interface RepeaterInterface
 {
     public function getRepeat();
 

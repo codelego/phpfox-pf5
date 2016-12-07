@@ -9,7 +9,7 @@ namespace PHPSTORM_META {
     override(\Phpfox::get(0), map([
         'commands'             => \Phpfox\Command\CommandManager::class,
         'session'              => \Phpfox\Session\SessionManager::class,
-        'session.save_handler' => \Phpfox\Session\SessionHandlerInterface::class,
+        'session.save_handler' => \Phpfox\Session\SessionInterface::class,
         'mvc.response'         => \Phpfox\Mvc\MvcResponse::class,
         'mvc.request'          => \Phpfox\Mvc\MvcRequest::class,
         'mvc.dispatch'         => \Phpfox\Mvc\MvcDispatch::class,

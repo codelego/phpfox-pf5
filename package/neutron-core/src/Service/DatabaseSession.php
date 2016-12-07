@@ -5,10 +5,11 @@ namespace Neutron\Core\Service;
 
 use Phpfox\Db\DbAdapterInterface;
 use Phpfox\Db\SqlLiteral;
-use Phpfox\Session\SessionHandlerInterface;
+use Phpfox\Session\SessionInterface;
 
-class DatabaseSessionHandler
-    implements SessionHandlerInterface, \SessionHandlerInterface
+/** @noinspection PhpUndefinedClassInspection */
+class DatabaseSession
+    implements SessionInterface, \SessionHandlerInterface
 {
     /**
      * @var string

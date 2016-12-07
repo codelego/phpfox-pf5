@@ -13,18 +13,16 @@ class DbAdapterFactory
      */
     public function factory($class = null, $key = null)
     {
-        if (!$class) {
-            ;
-        }
-
         if (!$key) {
             $key = 'default';
         }
 
-        $adapters = \Phpfox::getParams('db.adapters');
-        $drivers = \Phpfox::getParams('db.drivers');
-        $adapter = $adapters[$key];
-        $constructor = $drivers[$adapter['driver']];
-        return new $constructor($adapter);
+        $params = \Phpfox::getParam('db.adapters', $key);
+
+        if (!$class) {
+            $class = \Phpfox::getParam('db.drivers', $params['driver']);
+        }
+
+        return new $class($params);
     }
 }

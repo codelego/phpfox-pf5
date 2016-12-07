@@ -122,7 +122,7 @@ return [
         'mailer.factory'       => [null, Service\MailTransportFactory::class],
         'storage.factory'      => [null, Service\FileStorageFactory::class],
         'package.loader'       => [null, Service\PackageLoader::class,],
-        'session.save_handler' => [Service\SessionSaveHandlerFactory::class,],
+        'session.save_handler' => [Service\SessionFactory::class,],
 
     ],
     'views.map'       => _get_view_map([
@@ -130,7 +130,7 @@ return [
         'layout' => 'neutron-core/layout',
     ]),
     'session.drivers' => [
-        'database' => Service\DatabaseSessionHandler::class,
+        'database' => Service\DatabaseSession::class,
     ],
     'models'          => [
     ],

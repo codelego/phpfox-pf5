@@ -14,7 +14,7 @@ namespace Phpfox\Storage {
             'ssh2'  => Ssh2FileStorage::class,
         ],
         'service.map'     => [
-            'storage.manager'   => [FileStorageManagerFactory::class],
+            'storage.manager'   => [null, FileStorageManager::class],
             'storage.file_name' => [null, FileNameSupport::class],
             'storage.factory'   => null,
         ],

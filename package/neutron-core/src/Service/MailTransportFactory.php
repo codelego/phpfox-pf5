@@ -43,7 +43,7 @@ class MailTransportFactory implements MailTransportFactoryInterface
         }
 
         $driver = $this->map[$id]['driver'];
-        $class = \Phpfox::getConfig('mailer.transports', $driver);
+        $class = \Phpfox::getParam('mailer.transports', $driver);
 
         return new $class($this->map[$id]['configs']);
     }

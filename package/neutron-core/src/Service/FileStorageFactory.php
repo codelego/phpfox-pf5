@@ -45,7 +45,7 @@ class FileStorageFactory implements FileStorageFactoryInterface
         }
 
         $driver = $this->map[$id]['driver'];
-        $class = \Phpfox::getConfig('storage.drivers', $driver);
+        $class = \Phpfox::getParam('storage.drivers', $driver);
 
         return new $class($this->map[$id]['configs']);
 

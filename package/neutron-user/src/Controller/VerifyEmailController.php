@@ -41,5 +41,7 @@ class VerifyEmailController extends MvcController
         if (!$user['is_verified']) { // is user verified
 
         }
+
+        return null;
     }
 }

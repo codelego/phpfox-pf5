@@ -3,14 +3,14 @@
 namespace Neutron\Core\Service;
 
 
-use Phpfox\Session\SessionHandlerFactoryInterface;
+use Phpfox\Session\SessionFactoryInterface;
 
-class SessionSaveHandlerFactory implements SessionHandlerFactoryInterface
+class SessionFactory implements SessionFactoryInterface
 {
     public function factory()
     {
         $ref = $this->getConfigs();
-        $class = \Phpfox::getConfig('session.drivers', $ref['driver']);
+        $class = \Phpfox::getParam('session.drivers', $ref['driver']);
 
         return new $class($ref['configs']);
     }
