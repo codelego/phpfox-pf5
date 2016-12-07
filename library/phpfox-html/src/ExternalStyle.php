@@ -21,7 +21,7 @@ class ExternalStyle implements HtmlElementInterface
     public function add($key, $path = null, $props = [])
     {
         if (!$path) {
-            $path = \Phpfox::getConfig('static.css', $key);
+            $path = \Phpfox::getParam('static.css', $key);
         }
 
         if ($this->ensureKey($path)) {
@@ -52,7 +52,7 @@ class ExternalStyle implements HtmlElementInterface
     public function prepend($key, $path = null, $props = [])
     {
         if (!$path) {
-            $path = \Phpfox::getConfig('static.css', $key);
+            $path = \Phpfox::getParam('static.css', $key);
         }
 
         if ($this->ensureKey($path)) {

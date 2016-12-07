@@ -3,13 +3,6 @@
 namespace Phpfox\Payments;
 
 
-/**
- * Cart Item
- *
- * This class defines a single cart item in the Omnipay system.
- *
- * @see ItemInterface
- */
 class Item implements ItemInterface
 {
     /**

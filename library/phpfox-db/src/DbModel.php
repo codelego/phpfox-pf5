@@ -121,6 +121,8 @@ abstract class DbModel implements ModelInterface
         // reset status
         $this->_saved = true;
         $this->_changed = [];
+
+        return $this;
     }
 
     protected function beforeUpdate()

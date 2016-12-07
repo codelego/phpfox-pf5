@@ -3,20 +3,16 @@
 namespace Phpfox\Payments;
 
 
-/**
- * Request Interface
- *
- * This interface class defines the standard functions that any Omnipay request
- * interface needs to be able to provide.  It is an extension of MessageInterface.
- *
- * @see MessageInterface
- */
 interface RequestInterface extends MessageInterface
 {
     /**
      * Initialize request with parameters
+     *
+     * @param array $parameters
+     *
+     * @return
      */
-    public function initialize(array $parameters = array());
+    public function initialize($parameters = []);
 
     /**
      * Get all request parameters
@@ -42,9 +38,9 @@ interface RequestInterface extends MessageInterface
     /**
      * Send the request with specified data
      *
-     * @param  mixed             $data The data to send
+     * @param  mixed $data The data to send
      *
-*@return ResponseInterface
+     * @return ResponseInterface
      */
     public function sendData($data);
 }

@@ -50,7 +50,7 @@ class MailFacades
      * @param string $name
      *
      * @return array
-     * Result is associate array containt
+     * Result is associate array contain
      * - subject
      * - body_html
      * - body_text

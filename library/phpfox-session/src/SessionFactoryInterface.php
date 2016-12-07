@@ -3,10 +3,10 @@
 namespace Phpfox\Session;
 
 
-interface SessionHandlerFactoryInterface
+interface SessionFactoryInterface
 {
     /**
-     * @return SessionHandlerInterface
+     * @return SessionInterface
      */
     public function factory();
 }

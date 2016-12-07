@@ -23,7 +23,7 @@ class ExternalScript implements HtmlElementInterface
     public function add($key, $path, $props = [])
     {
         if (!$path) {
-            $path = Phpfox::getConfig('static.js', $key);
+            $path = Phpfox::getParam('static.js', $key);
         }
 
         $path = $this->getUrl($path);
@@ -52,7 +52,7 @@ class ExternalScript implements HtmlElementInterface
     public function prepend($key, $path, $props = [])
     {
         if (!$path) {
-            $path = \Phpfox::getConfig('static.js', $key);
+            $path = \Phpfox::getParam('static.js', $key);
         }
 
         if ($this->ensureKey($path)) {

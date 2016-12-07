@@ -10,9 +10,9 @@ return [
         ],
     ],
     'session.drivers' => [
-        'files'    => FilesSessionHandler::class,
-        'redis'    => RedisSessionHandler::class,
-        'memcache' => MemcacheSessionHandler::class,
+        'files'    => FilesSession::class,
+        'redis'    => RedisSession::class,
+        'memcache' => MemcacheSession::class,
     ],
     'service.map'     => [
         'session'              => [null, SessionManager::class],

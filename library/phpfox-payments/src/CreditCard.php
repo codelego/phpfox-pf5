@@ -100,6 +100,8 @@ class CreditCard
     /**
      * Get one parameter.
      *
+     * @param string $key
+     *
      * @return mixed A single parameter value.
      */
     protected function getParameter($key)
@@ -1348,6 +1350,8 @@ class CreditCard
 
     /**
      * Get the cardholder's birthday.
+     *
+     * @param string $format
      *
      * @return string
      */

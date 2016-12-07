@@ -1,7 +1,7 @@
 <?php
 namespace Phpfox\Session;
 
-class FilesSessionHandler implements SessionHandlerInterface
+class FilesSession implements SessionInterface
 {
     public function register()
     {

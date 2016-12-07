@@ -3,7 +3,7 @@
 namespace Phpfox\Session;
 
 
-class NullSessionHandler implements SessionHandlerInterface, \SessionHandlerInterface
+class NullSession implements SessionInterface, SessionSaveHander
 {
     public function register()
     {

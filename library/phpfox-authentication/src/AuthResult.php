@@ -64,8 +64,6 @@ class AuthResult
 
     /**
      * @param int $identity
-     *
-     * @return $this
      */
     public function setIdentity($identity)
     {

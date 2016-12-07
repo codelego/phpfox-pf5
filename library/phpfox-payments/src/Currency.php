@@ -51,6 +51,7 @@ class Currency
             return new static($code, $currencies[$code]['numeric'],
                 $currencies[$code]['decimals']);
         }
+        return null;
     }
 
     /**

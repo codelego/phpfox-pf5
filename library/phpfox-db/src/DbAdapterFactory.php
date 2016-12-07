@@ -21,8 +21,8 @@ class DbAdapterFactory
             $key = 'default';
         }
 
-        $adapters = \Phpfox::getConfig('db.adapters');
-        $drivers = \Phpfox::getConfig('db.drivers');
+        $adapters = \Phpfox::getParams('db.adapters');
+        $drivers = \Phpfox::getParams('db.drivers');
         $adapter = $adapters[$key];
         $constructor = $drivers[$adapter['driver']];
         return new $constructor($adapter);

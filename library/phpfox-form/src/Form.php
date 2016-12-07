@@ -1,7 +1,7 @@
 <?php
 namespace Phpfox\Form;
 
-class Form extends Element implements CollectionInterface
+class Form extends Element implements ElementInterface, CollectionInterface
 {
     use CollectionTrait;
 

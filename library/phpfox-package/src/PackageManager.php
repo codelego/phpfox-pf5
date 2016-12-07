@@ -192,8 +192,6 @@ class PackageManager
     }
 
     /**
-     * For performance, please ensure $pathname and $rootpath is result of
-     *
      * @param string $pathname
      *
      * @return string

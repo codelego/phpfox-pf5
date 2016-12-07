@@ -2,7 +2,7 @@
 
 namespace Phpfox\Session;
 
-interface SessionHandlerInterface
+interface SessionInterface
 {
     public function register();
 }

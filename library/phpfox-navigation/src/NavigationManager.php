@@ -28,7 +28,7 @@ class NavigationManager
         $level = 1,
         $context = []
     ) {
-        $class = \Phpfox::getConfig('navigation.decorators', $decorator);
+        $class = \Phpfox::getParam('navigation.decorators', $decorator);
 
         if (!$class) {
             throw new \InvalidArgumentException("Oops! Navigation decorator '{$decorator}' does not exists.");

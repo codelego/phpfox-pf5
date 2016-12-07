@@ -45,8 +45,8 @@ class RouteManager
     public function reset()
     {
         $this->byNames = [];
-        $routes = \Phpfox::getConfig('router.routes');
-        $this->phrases = \Phpfox::getConfig('router.phrases');
+        $routes = \Phpfox::getParams('router.routes');
+        $this->phrases = \Phpfox::getParams('router.phrases');
 
         foreach ($routes as $k => $v) {
             $this->byNames[$k] = $this->build($v);

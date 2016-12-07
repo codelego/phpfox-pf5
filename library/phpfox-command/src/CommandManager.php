@@ -25,6 +25,6 @@ class CommandManager
      */
     public function factory($id)
     {
-        return _factory(\Phpfox::getConfig('commands', $id));
+        return _factory(\Phpfox::getParam('commands', $id));
     }
 }

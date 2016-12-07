@@ -2,7 +2,7 @@
 
 namespace Phpfox\Session;
 
-class MemcacheSessionHandler implements SessionHandlerInterface
+class MemcacheSession implements SessionInterface
 {
     /**
      * @link http://php.net/manual/en/memcached.sessions.php

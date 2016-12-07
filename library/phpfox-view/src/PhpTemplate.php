@@ -31,7 +31,7 @@ class PhpTemplate implements ViewTemplateInterface
      */
     public function __construct()
     {
-        $this->preferThemes(\Phpfox::getConfig('views', 'prefer_themes'));
+        $this->preferThemes(\Phpfox::getParam('views', 'prefer_themes'));
         $this->reset();
     }
 
@@ -80,7 +80,7 @@ class PhpTemplate implements ViewTemplateInterface
 
     public function reset()
     {
-        $this->map = \Phpfox::getConfig('views.map');
+        $this->map = \Phpfox::getParams('views.map');
         $this->cached = [];
     }
 

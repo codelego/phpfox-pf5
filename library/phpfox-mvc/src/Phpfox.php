@@ -64,16 +64,28 @@ class Phpfox
     }
 
     /**
-     * @see MvcConfig::get()
+     * @see MvcConfig::getItem()
      *
      * @param string $section
      * @param string $item
      *
      * @return mixed|null
      */
-    public static function getConfig($section, $item = null)
+    public static function getParam($section, $item)
     {
-        return self::$_config->get($section, $item);
+        return self::$_config->getItem($section, $item);
+    }
+
+    /**
+     * @see \Phpfox\Mvc\MvcConfig::getItem()
+     *
+     * @param string $section
+     *
+     * @return array
+     */
+    public static function getParams($section)
+    {
+        return self::$_config->get($section);
     }
 
     /**
