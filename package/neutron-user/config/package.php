@@ -79,9 +79,9 @@ return [
         ],
     ],
     'controller.map'  => [
-        'user.auth'     => [null, Controller\AuthController::class],
-        'user.register' => [null, Controller\RegisterController::class,],
-        'user.settings' => [null, Controller\SettingsController::class,],
+        'user.auth'     => Controller\AuthController::class,
+        'user.register' => Controller\RegisterController::class,
+        'user.settings' => Controller\SettingsController::class,
     ],
     'event.listeners' => [
         'user.callback' => ['onMemberLoginBefore', 'onMemberLoginAfter'],
@@ -91,5 +91,5 @@ return [
         'user.verify_email' => [null, Service\VerifyEmail::class],
         'user.browse'       => [null, Service\BrowseUser::class],
     ],
-    'view.map'        => _get_view_map(['user' => 'neutron-user/view',]),
+    'views.map'        => _get_view_map(['user' => 'neutron-user/view',]),
 ];

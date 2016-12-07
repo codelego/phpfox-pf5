@@ -2,14 +2,22 @@
 
 namespace Phpfox\Form;
 
-class Textarea implements FieldInterface
+class MultiChoice implements ElementInterface
 {
     use ElementTrait;
 
-    protected $value;
+    /**
+     * @var array
+     */
+    protected $value = [];
 
     /**
-     * @return mixed
+     * @var array
+     */
+    protected $options = [];
+
+    /**
+     * @return array
      */
     public function getValue()
     {
@@ -17,7 +25,7 @@ class Textarea implements FieldInterface
     }
 
     /**
-     * @param mixed $value
+     * @param array $value
      *
      * @return $this
      */

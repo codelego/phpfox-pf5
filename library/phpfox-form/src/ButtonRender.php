@@ -2,13 +2,9 @@
 
 namespace Phpfox\Form;
 
+
 class ButtonRender implements RenderInterface
 {
-    /**
-     * @var string
-     */
-    protected $type = 'button';
-
     /**
      * @param Button $element
      *
@@ -16,11 +12,19 @@ class ButtonRender implements RenderInterface
      */
     public function render($element)
     {
-        return _sprintf('<button name="$2" $3>$4</button>', [
-            $this->type,
-            $element->getName(),
-            _attrize($element->getAttributes()),
-            $element->getOption('label'),
-        ]);
+        $href = $element->getParam('href');
+        $attributes = $element->getAttributes();
+
+        if ($href) {
+            return '<a href="' . $href . '" '
+                . _attrize($attributes) . '>'
+                . $element->getLabel() . '</a>';
+        }
+
+        $attributes['value'] = $element->getValue();
+
+        return '<button ' . _attrize($attributes) . '>' . $element->getLabel()
+            . '</button>';
     }
+
 }

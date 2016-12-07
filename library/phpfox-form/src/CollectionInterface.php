@@ -2,7 +2,7 @@
 
 namespace Phpfox\Form;
 
-interface CollectionInterface extends FieldInterface
+interface CollectionInterface
 {
     /**
      * @var FieldInterface[]
@@ -10,9 +10,16 @@ interface CollectionInterface extends FieldInterface
     public function getElements();
 
     /**
-     * @param array $params
+     * @param ElementInterface $element
      *
      * @return $this
      */
-    public function addElement($params);
+    public function addElement(ElementInterface $element);
+
+    /**
+     * @param string $name
+     *
+     * @return ElementInterface|FieldInterface|null
+     */
+    public function getElement($name);
 }

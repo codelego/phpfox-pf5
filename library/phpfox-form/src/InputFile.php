@@ -3,15 +3,14 @@
 namespace Phpfox\Form;
 
 
-class FileUpload extends Element implements FieldInterface
+class InputFile implements FieldInterface
 {
-    /**
-     * @var string
-     */
-    protected $value = '';
+    use ElementTrait;
+
+    protected $value;
 
     /**
-     * @inheritdoc
+     * @return mixed
      */
     public function getValue()
     {
@@ -19,10 +18,13 @@ class FileUpload extends Element implements FieldInterface
     }
 
     /**
-     * @inheritdoc
+     * @param mixed $value
+     *
+     * @return $this
      */
     public function setValue($value)
     {
         $this->value = $value;
+        return $this;
     }
 }

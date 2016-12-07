@@ -82,7 +82,7 @@ class MvcDispatch
             throw new \InvalidArgumentException("There are no controller object");
         }
 
-        return new $class();
+        return new $class;
     }
 
     public function forward($controller, $action)

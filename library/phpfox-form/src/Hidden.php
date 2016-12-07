@@ -5,13 +5,21 @@ namespace Phpfox\Form;
 
 class Hidden extends Element implements FieldInterface
 {
-    /**
-     * @inheritdoc
-     */
+    protected $value;
+
+    public function getValue()
+    {
+        return $this->value;
+    }
+
     public function setValue($value)
     {
-        $this->setAttribute('value', (string)$value);
         $this->value = $value;
         return $this;
+    }
+
+    public function noLabel()
+    {
+        return $this->getParam('noLabel', true);
     }
 }

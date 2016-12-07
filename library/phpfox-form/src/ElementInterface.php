@@ -5,12 +5,37 @@ namespace Phpfox\Form;
 
 interface ElementInterface
 {
+
+    /**
+     * @return string
+     */
+    public function getName();
+
+    /**
+     * @param string $name
+     *
+     * @return $this
+     */
+    public function setName($name);
+
+    /**
+     * @return string
+     */
+    public function getRender();
+
+    /**
+     * @param $render
+     *
+     * @return $this
+     */
+    public function setRender($render);
+
     /**
      * @param string $name
      *
      * @return mixed
      */
-    public function getOption($name);
+    public function getParam($name);
 
     /**
      *
@@ -19,19 +44,19 @@ interface ElementInterface
      *
      * @return $this
      */
-    public function setOption($name, $value);
+    public function setParam($name, $value);
 
     /**
      * @return array
      */
-    public function getOptions();
+    public function getParams();
 
     /**
-     * @param string $options
+     * @param string $params
      *
      * @return $this
      */
-    public function setOptions($options);
+    public function setParams($params);
 
     /**
      * @return array
@@ -60,4 +85,40 @@ interface ElementInterface
      * @return string
      */
     public function getAttribute($name);
+
+    /**
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function hasAttribute($name);
+
+    /**
+     * @return CollectionInterface
+     */
+    public function getParent();
+
+    /**
+     * @param CollectionInterface $parent
+     *
+     * @return $this
+     */
+    public function setParent($parent);
+
+    /**
+     * @return string
+     */
+    public function getLabel();
+
+    /**
+     * @param string $label
+     *
+     * @return $this
+     */
+    public function setLabel($label);
+
+    /**
+     * @return bool
+     */
+    public function noLabel();
 }

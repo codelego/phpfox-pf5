@@ -29,6 +29,8 @@ namespace PHPSTORM_META {
         'models.factory'       => \Phpfox\Db\DbTableGatewayFactory::class,
         'package.loader'       => \Phpfox\Package\PackageLoaderInterface::class,
         'package'              => \Phpfox\Package\PackageManager::class,
+        'form.render'          => \Phpfox\Form\RenderFacades::class,
+
         // log section
         'main.log'             => \Phpfox\Logger\LogContainer::class,
         'dev.log'              => \Phpfox\Logger\LogContainer::class,

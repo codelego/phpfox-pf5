@@ -2,20 +2,29 @@
 
 namespace Phpfox\Form;
 
-/**
- * Class Text
- *
- * @package Phpfox\Form
- */
 class Text extends Element implements FieldInterface
 {
+
+    protected $value;
+
     /**
-     * @inheritdoc
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * @param mixed $value
+     *
+     * @return $this
      */
     public function setValue($value)
     {
-        $this->setAttribute('value', (string)$value);
         $this->value = $value;
         return $this;
     }
+
+
 }

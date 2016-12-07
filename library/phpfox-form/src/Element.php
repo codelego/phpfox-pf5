@@ -2,32 +2,23 @@
 
 namespace Phpfox\Form;
 
-/**
- * Class AbstractElement
- *
- * @package Phpfox\Form
- */
-class Element implements ElementInterface
+
+class Element
 {
     /**
-     * @var CollectionInterface
+     * @var ElementInterface|null
      */
     protected $parent = null;
 
     /**
      * @var string
      */
-    protected $name = '';
-
-    /**
-     * @var mixed
-     */
-    protected $value;
+    protected $name;
 
     /**
      * @var array
      */
-    protected $options = [];
+    protected $params = [];
 
     /**
      * @var array
@@ -35,38 +26,56 @@ class Element implements ElementInterface
     protected $attributes = [];
 
     /**
-     * Element constructor.
+     * @var string
      */
-    public function __construct()
+    protected $render;
+
+    /**
+     * @var string
+     */
+    protected $label;
+
+    /**
+     * @var bool
+     */
+    protected $required;
+
+    /**
+     * Element constructor.
+     *
+     * @param array $data
+     */
+    public function __construct($data = [])
     {
+        foreach ($data as $k => $v) {
+            if (method_exists($this, $method = 'set' . ucfirst($k))) {
+                $this->{$method}($v);
+            } else {
+                $this->setParam($k, $v);
+            }
+        }
         $this->initialize();
     }
 
+    public function setParam($name, $value)
+    {
+        $this->params[$name] = $value;
+        return $this;
+    }
 
     protected function initialize()
     {
 
     }
 
-    public function getOption($name)
+    public function getParams()
     {
-        return isset($this->options[$name]) ? $this->options[$name] : null;
+        return $this->params;
     }
 
-    public function setOption($name, $value)
+    public function setParams($params)
     {
-        $this->options[$name] = $value;
-        return $this;
-    }
-
-    public function getOptions()
-    {
-        return $this->options;
-    }
-
-    public function setOptions($options)
-    {
-        $this->options = $options;
+        $this->params = $params;
         return $this;
     }
 
@@ -118,20 +127,69 @@ class Element implements ElementInterface
         return $this;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function getValue()
+    public function getRender()
     {
-        return $this->value;
+        return $this->render;
+    }
+
+    public function setRender($render)
+    {
+        $this->render = $render;
+        return $this;
+    }
+
+    public function hasAttribute($name)
+    {
+        return !empty($this->attributes[$name]);
     }
 
     /**
-     * @inheritdoc
+     * @return string
      */
-    public function setValue($value)
+    public function getLabel()
     {
-        $this->value = $value;
+        return $this->label;
+    }
+
+    /**
+     * @param string $label
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isRequired()
+    {
+        return $this->required;
+    }
+
+    /**
+     * @param boolean $required
+     *
+     * @return $this
+     */
+    public function setRequired($required)
+    {
+        $this->required = $required;
         return $this;
+    }
+
+    public function noLabel()
+    {
+        return $this->getParam('noLabel', false);
+    }
+
+    public function getParam($name, $default = null)
+    {
+        return isset($this->params[$name]) ? $this->params[$name] : $default;
+    }
+
+    public function noWrap()
+    {
+        return $this->getParam('noWrap', false);
     }
 }
