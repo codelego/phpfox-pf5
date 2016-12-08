@@ -107,7 +107,7 @@ return [
             ],
         ],
         'profile'                     => [
-            'route'    => '[:name](/.*)',
+            'route'    => '[:name]',
             'filter'   => '@profile',
             'defaults' => [
                 'controller' => 'core.index',
