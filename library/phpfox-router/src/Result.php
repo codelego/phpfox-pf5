@@ -1,7 +1,7 @@
 <?php
 namespace Phpfox\Router;
 
-class Result implements \ArrayAccess
+class Result
 {
     /**
      * @var array

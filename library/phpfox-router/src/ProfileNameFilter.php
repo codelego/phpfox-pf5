@@ -24,9 +24,9 @@ class ProfileNameFilter implements FilterInterface
         return $this;
     }
 
-    public function filter($parameters)
+    public function filter($result)
     {
-        $name = $parameters['name'];
+        $name = $result->get('name');
 
         if (!$name) {
             return false;
@@ -36,7 +36,7 @@ class ProfileNameFilter implements FilterInterface
             return $this->cached[$name];
         }
 
-        $response = \Phpfox::emit('onFilterProfileName', $parameters);
+        $response = \Phpfox::emit('onFilterProfileName', $result);
 
         if (!$response) {
             return $this->cached[$name] = false;

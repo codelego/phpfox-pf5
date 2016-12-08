@@ -10,10 +10,10 @@ class Callback
 {
     public function onFilterProfileName(Event $event)
     {
-        /** @var Result $parameters */
-        $parameters = $event->getTarget();
+        /** @var Result $result */
+        $result = $event->getTarget();
 
-        $name = $parameters->get('name');
+        $name = $result->get('name');
 
         if (!$name) {
             $event->stop(true);
@@ -26,10 +26,6 @@ class Callback
         if (!$user) {
             return false;
         }
-
-        $parameters->setController('user.profile');
-        $parameters->setAction('index');
-
         return true;
     }
 

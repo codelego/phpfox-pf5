@@ -5,5 +5,10 @@ namespace Phpfox\Router;
 
 interface FilterInterface
 {
-    public function filter($parameters);
+    /**
+     * @param Result $result
+     *
+     * @return bool
+     */
+    public function filter($result);
 }

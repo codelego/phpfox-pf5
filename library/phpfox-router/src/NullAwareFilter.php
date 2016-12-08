@@ -9,7 +9,7 @@ namespace Phpfox\Router;
  */
 class NullAwareFilter implements FilterInterface
 {
-    public function filter($parameters)
+    public function filter($result)
     {
         return true;
     }
