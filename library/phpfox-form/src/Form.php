@@ -22,11 +22,25 @@ class Form extends Element implements ElementInterface, CollectionInterface
 
     public function bind($data)
     {
-
+        foreach ($this->byNames as $name => $element) {
+            if (isset($data[$name]) && $element instanceof FieldInterface) {
+                $element->setValue($data[$name]);
+            }
+        }
     }
 
     public function getData()
     {
+
+        $data = [];
+
+        foreach ($this->byNames as $name => $element) {
+            if($element instanceof FieldInterface){
+                $data[$name] = $element->getValue();
+            }
+        }
+
+        return $data;
 
     }
 }

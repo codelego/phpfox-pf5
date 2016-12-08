@@ -79,7 +79,9 @@ class DatabaseSession
     {
         $db = $this->getDb();
         $exists = $db->select('id')->from(':core_session')
-                ->where('id=?', $session_id)->limit(1, 0)->execute()->all()
+                ->where('id=?', $session_id)
+                ->execute()
+                ->first()
             != null;
 
         if ($exists) {

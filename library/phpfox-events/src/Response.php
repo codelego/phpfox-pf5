@@ -1,10 +1,10 @@
 <?php
 
-namespace Phpfox\Mvc;
+namespace Phpfox\Event;
 
 use SplStack;
 
-class MvcEventResponse extends SplStack
+class Response extends SplStack
 {
     /**
      * @var bool

@@ -3,13 +3,13 @@
 namespace Neutron\User;
 
 return [
-    'psr4'            => [
+    'psr4'           => [
         'Neutron\\User\\' => [
             'package/neutron-user/src',
             'package/neutron-user/test',
         ],
     ],
-    'router.routes'   => [
+    'router.routes'  => [
         'login'           => [
             'route'    => '{login}',
             'defaults' => [
@@ -40,19 +40,20 @@ return [
         ],
         'profile.members' => [
             'route'    => '[:name]/members',
+            'filter'   => '@profile',
             'defaults' => [
                 'controller' => 'user.profile',
                 'action'     => 'index',
             ],
         ],
     ],
-    'auth.passwords'  => [
+    'auth.passwords' => [
         'pf5' => Auth\Pf5PasswordCompatible::class,
         'pf4' => Auth\Pf4PasswordCompatible::class,
         'se'  => Auth\SePasswordCompatible::class,
         'ow'  => Auth\OwPasswordCompatible::class,
     ],
-    'models'          => [
+    'models'         => [
         'user'          => [
             'table_factory',
             ':user',
@@ -68,28 +69,27 @@ return [
         'auth_password' => [
             'table_factory',
             ':user_auth_password',
-            Model\AuthToken::class,
+            Model\AuthPassword::class,
             'neutron-user/config/.meta.auth_password.php',
         ],
         'auth_remote'   => [
             'table_factory',
             ':user_auth_remote',
-            Model\AuthToken::class,
+            Model\AuthRemote::class,
             'neutron-user/config/.meta.auth_remote.php',
         ],
     ],
-    'controller.map'  => [
+    'controller.map' => [
         'user.auth'     => Controller\AuthController::class,
         'user.register' => Controller\RegisterController::class,
         'user.settings' => Controller\SettingsController::class,
+        'user.profile'  => Controller\ProfileController::class,
     ],
-    'event.listeners' => [
-        'user.callback' => ['onMemberLoginBefore', 'onMemberLoginAfter'],
-    ],
-    'service.map'     => [
-        'user.callback'     => [null, Package::class,],
+    'service.map'    => [
+        'user.callback'     => [null, Callback::class,],
         'user.verify_email' => [null, Service\VerifyEmail::class],
         'user.browse'       => [null, Service\BrowseUser::class],
+        'auth.factory'      => [null, Service\AuthFactory::class],
     ],
-    'views.map'        => _get_view_map(['user' => 'neutron-user/view',]),
+    'views.map'      => _get_view_map(['user' => 'neutron-user/view',]),
 ];

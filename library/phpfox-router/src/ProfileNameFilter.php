@@ -24,12 +24,9 @@ class ProfileNameFilter implements FilterInterface
         return $this;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function filter(RouteResult $result)
+    public function filter($parameters)
     {
-        $name = $result->getParam('name');
+        $name = $parameters['name'];
 
         if (!$name) {
             return false;
@@ -39,7 +36,7 @@ class ProfileNameFilter implements FilterInterface
             return $this->cached[$name];
         }
 
-        $response = \Phpfox::emit('onFilterProfileName', $result);
+        $response = \Phpfox::emit('onFilterProfileName', $parameters);
 
         if (!$response) {
             return $this->cached[$name] = false;

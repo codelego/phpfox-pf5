@@ -2,7 +2,7 @@
 
 namespace Phpfox\Router;
 
-class RouteManager
+class Router
 {
     /**
      * router by name
@@ -30,6 +30,11 @@ class RouteManager
     protected $fallbackId;
 
     /**
+     * @var bool
+     */
+    protected $stopped = false;
+
+    /**
      * RouteManager constructor.
      */
     public function __construct()
@@ -45,8 +50,8 @@ class RouteManager
     public function reset()
     {
         $this->byNames = [];
-        $routes = \Phpfox::getParams('router.routes');
-        $this->phrases = \Phpfox::getParams('router.phrases');
+        $routes = \Phpfox::getParam('router.routes');
+        $this->phrases = \Phpfox::getParam('router.phrases');
 
         foreach ($routes as $k => $v) {
             $this->byNames[$k] = $this->build($v);
@@ -63,7 +68,7 @@ class RouteManager
     protected function build($params)
     {
         if (empty($params['type'])) {
-            $params['type'] = StandardRoute::class;
+            $params['type'] = Route::class;
         }
 
         $params['route'] = str_replace(['{', '}'], ['', ''],
@@ -112,7 +117,7 @@ class RouteManager
      * @param  string $id
      *
      * @return RouteInterface
-     * @throws RouteException
+     * @throws InvalidArgumentException
      */
     public function get($id)
     {
@@ -125,7 +130,7 @@ class RouteManager
             return $this->byNames[$this->fallbackId];
         }
 
-        throw new RouteException("Unexpected route '{$id}'");
+        throw new InvalidArgumentException("Unexpected route '{$id}'");
     }
 
     /**
@@ -134,23 +139,35 @@ class RouteManager
      * @param string $method
      * @param string $protocol
      *
-     * @return RouteResult
+     * @return Result
      */
-    public function resolve($path, $host, $method, $protocol)
+    public function run($path, $host, $method, $protocol)
     {
-        $result = new RouteResult();
+        $this->stopped = false;
+        $lastResult = new Result();
 
         foreach ($this->byNames as $id => $route) {
-            if (!$route->match($path, $host, $method, $protocol, $result)) {
-                $result->reset();
+            if (!$route->match($path, $host, $method, $protocol,
+                $lastResult)
+            ) {
                 continue;
             }
-            break;
+            $lastResult->set('route', $id);
+
+            if ($this->stopped) {
+                break;
+            }
         }
 
-        $result->ensure();
+        return $lastResult;
+    }
 
-        return $result;
+    /**
+     * @param bool $flag
+     */
+    public function stop($flag)
+    {
+        $this->stopped = (bool)$flag;
     }
 
     /**

@@ -22,4 +22,18 @@ class BrowseUser
             ->setPrototype(User::class)
             ->first();
     }
+
+    /**
+     * @param $name
+     *
+     * @return User
+     */
+    public function findByUsername($name)
+    {
+        return \Phpfox::getModel('user')
+            ->select()
+            ->where('username=?', (string)$name)
+            ->execute()
+            ->first();
+    }
 }

@@ -9,6 +9,39 @@ namespace Phpfox\Session;
  */
 class SessionManager
 {
+    protected $started = false;
+
+    public function __construct()
+    {
+        $this->start();
+    }
+
+    /**
+     * Start session manager
+     *
+     * @see session_start
+     *
+     * @return bool
+     */
+    public function start()
+    {
+        if ($this->started) {
+            return false;
+        }
+
+        $this->started = true;
+
+        if (session_id()) {
+            return false;
+        }
+
+        \Phpfox::get('session.save_handler')->register();
+
+        @session_start();
+
+        return true;
+    }
+
     /**
      * @see session_destroy
      */
@@ -28,22 +61,28 @@ class SessionManager
     }
 
     /**
-     * Start session manager
+     * @param string $key
+     * @param mixed  $default
      *
-     * @see session_start
-     *
-     * @return bool
+     * @return mixed
      */
-    public function start()
+    public function get($key, $default = null)
     {
-        if (session_id()) {
-            return false;
-        }
+        return isset($_SESSION[$key]) ? $_SESSION[$key] : $default;
+    }
 
-        \Phpfox::get('session.save_handler')->register();
+    public function set($key, $value)
+    {
+        $_SESSION[$key] = $value;
+    }
 
-        @session_start();
+    public function delete($key)
+    {
+        unset($_SESSION[$key]);
+    }
 
-        return true;
+    public function remember()
+    {
+        // how to implement remember me ?
     }
 }

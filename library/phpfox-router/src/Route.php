@@ -2,7 +2,7 @@
 
 namespace Phpfox\Router;
 
-class StandardRoute implements RouteInterface
+class Route implements RouteInterface
 {
     /**
      * regular methods
@@ -164,7 +164,7 @@ class StandardRoute implements RouteInterface
         $this->defaults = $defaults;
     }
 
-    public function match($uri, $host, $method, $protocol, &$result)
+    public function match($uri, $host, $method, $protocol, &$parameters)
     {
         $params = [];
 
@@ -204,19 +204,25 @@ class StandardRoute implements RouteInterface
             }
         }
 
-        $result->setParams($params);
+        // implements as the same events, do not pass response to filter
+        // instead if match result, we push result to the response.
+        // when route moving to stop, we catch the last result.
+        // OK :D
+        // feel happy.
+
+        $parameters->add($params);
 
         if (null != $this->filter) {
             if (is_string($this->filter)) {
                 if (!\Phpfox::get('router.filters')->get($this->filter)
-                    ->filter($result)
+                    ->filter($parameters)
                 ) {
                     return false;
                 }
             } elseif (is_array($this->filter)) {
                 foreach ($this->filter as $v) {
                     if (!\Phpfox::get('router.filters')->get($v)
-                        ->filter($result)
+                        ->filter($parameters)
                     ) {
                         return false;
                     }
@@ -313,7 +319,7 @@ class StandardRoute implements RouteInterface
 
             if ($required AND $missing) {
                 $missing = implode(',', $missing);
-                throw new RouteException("Unexpected params {$missing}");
+                throw new InvalidArgumentException("Unexpected params {$missing}");
             }
 
             return [$result, $usages, $required,];

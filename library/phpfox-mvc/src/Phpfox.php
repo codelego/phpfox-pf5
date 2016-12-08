@@ -59,33 +59,7 @@ class Phpfox
 
     public static function bootstrap()
     {
-
-
-    }
-
-    /**
-     * @see MvcConfig::getItem()
-     *
-     * @param string $section
-     * @param string $item
-     *
-     * @return mixed|null
-     */
-    public static function getParam($section, $item)
-    {
-        return self::$_config->getItem($section, $item);
-    }
-
-    /**
-     * @see \Phpfox\Mvc\MvcConfig::getItem()
-     *
-     * @param string $section
-     *
-     * @return array
-     */
-    public static function getParams($section)
-    {
-        return self::$_config->get($section);
+        Phpfox::get('mvc.events')->initialize();
     }
 
     /**
@@ -98,6 +72,19 @@ class Phpfox
     public static function get($id)
     {
         return self::$_service->get($id);
+    }
+
+    /**
+     * @see \Phpfox\Mvc\MvcConfig::get()
+     *
+     * @param string $section
+     * @param null   $item
+     *
+     * @return array
+     */
+    public static function getParam($section, $item = null)
+    {
+        return self::$_config->get($section, $item);
     }
 
     /**
@@ -150,23 +137,18 @@ class Phpfox
     }
 
     /**
-     * @param \Phpfox\Mvc\MvcEvent $event
+     * @param \Phpfox\Event\Event $event
      *
-     * @return \Phpfox\Mvc\MvcEventResponse|null
+     * @return \Phpfox\Event\Response|null
      */
     public static function trigger($event)
     {
         return self::$_service->get('mvc.events')->trigger($event);
     }
 
-    public static function isUser()
-    {
-        return self::$_service->get('auth')->isUser();
-    }
-
     public static function getUserId()
     {
-        return self::$_service->get('auth')->getUserId();
+        return self::$_service->get('auth')->getLoginId();
     }
 
     public static function isLoggedIn()
@@ -194,7 +176,7 @@ class Phpfox
     }
 
     /**
-     * @see RouteManager::getUrl()
+     * @see Router::getUrl()
      *
      * @param string $id
      * @param array  $argv
@@ -238,40 +220,9 @@ class Phpfox
         return self::$_service->get('authorization');
     }
 
-    /**
-     * @return \Phpfox\Mvc\MvcRequest
-     */
-    public static function mvcRequest()
-    {
-        return self::$_service->get('mvc.request');
-    }
 
     /**
-     * @return \Phpfox\Mvc\MvcResponse
-     */
-    public static function mvcResponse()
-    {
-        return self::$_service->get('mvc.response');
-    }
-
-    /**
-     * @return \Phpfox\Mvc\MvcDispatch
-     */
-    public static function mvcDispatch()
-    {
-        return self::$_service->get('mvc.dispatch');
-    }
-
-    /**
-     * @return \Phpfox\Mvc\MvcEventManager
-     */
-    public static function mvcEvents()
-    {
-        return self::$_service->get('mvc.events');
-    }
-
-    /**
-     * @return \Phpfox\Router\RouteManager
+     * @return \Phpfox\Router\Router
      */
     public static function router()
     {
@@ -290,14 +241,6 @@ class Phpfox
     public static function translator()
     {
         return self::$_service->get('translator');
-    }
-
-    /**
-     * @return \Phpfox\Mailer\MailFacades
-     */
-    public static function mailer()
-    {
-        return self::$_service->get('mail.transport');
     }
 
     /**

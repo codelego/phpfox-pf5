@@ -1,7 +1,7 @@
 <?php
 namespace Phpfox\Form;
 
-class RenderFacades
+class FormFacades
 {
     /**
      * @var array

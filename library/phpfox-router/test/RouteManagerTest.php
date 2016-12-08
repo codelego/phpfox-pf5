@@ -17,7 +17,7 @@ class RouteManagerTest extends \PHPUnit_Framework_TestCase
     {
         $routing = \Phpfox::get('router');
 
-        $result = $routing->resolve('login', null, null, null);
+        $result = $routing->run('login', null, null, null);
 
         $this->assertNotNull($result);
 
@@ -30,8 +30,8 @@ class RouteManagerTest extends \PHPUnit_Framework_TestCase
         \Phpfox::get('router.filters')->get('@profile')
             ->cache('nam-ngvan', true);
 
-        /** @var RouteResult $result */
-        $result = $routing->resolve('nam.ngvan/members', null, null, null);
+        /** @var Result $result */
+        $result = $routing->run('nam.ngvan/members', null, null, null);
 
         $this->assertEquals('user.profile', $result->getController());
     }

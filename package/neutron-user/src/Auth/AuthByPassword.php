@@ -3,6 +3,7 @@ namespace Neutron\User\Auth;
 
 
 use Neutron\User\Model\AuthPassword;
+use Neutron\User\Model\User;
 use Phpfox\Authentication\AuthInterface;
 use Phpfox\Authentication\AuthResult;
 use Phpfox\Authentication\PasswordCompatibleInterface;
@@ -15,41 +16,49 @@ class AuthByPassword implements AuthInterface
         $user = $this->findUser($identity);
 
         if (!$user) {
-            $result->setCode(AuthResult::INVALID_IDENTITY);
+            $result->setResult(AuthResult::INVALID_IDENTITY, null);
             return $result;
         }
 
-        $userId = $user['user_id'];
+
+
+        $userId = $user->getId();
         $result->setIdentity($userId);
 
-        $isValid = $this->checkPasswordCompatible($credential, $userId);
+        $isValid = $this->checkPassword($credential, $userId);
 
         if (!$isValid) {
-            $result->setCode(AuthResult::INVALID_CREDENTIAL);
+            $result->setResult(AuthResult::INVALID_CREDENTIAL, null);
             return $result;
         }
 
-        $result->setCode(AuthResult::SUCCESS);
+        $result->setResult(AuthResult::SUCCESS, null);
         return $result;
     }
 
     /**
      * @param $identity
      *
-     * @return array
+     * @return User
      */
     private function findUser($identity)
     {
         if (strpos($identity, '@') !== false) {// check is email
             return \Phpfox::getDb()->select('user_id')->from(':user')
-                ->where('email=?', $identity)->execute()->first();
+                ->where('email=?', $identity)
+                ->execute()
+                ->setPrototype(User::class)
+                ->first();
 
         } elseif (false) {// check is phone number
             // todo implement find by phone number
         }
 
         return \Phpfox::getDb()->select('user_id')->from(':user')
-            ->where('username=?', $identity)->execute()->first();
+            ->where('username=?', $identity)
+            ->execute()
+            ->setPrototype(User::class)
+            ->first();
     }
 
     /**
@@ -58,7 +67,7 @@ class AuthByPassword implements AuthInterface
      *
      * @return bool
      */
-    private function checkPasswordCompatible($credential, $userId)
+    private function checkPassword($credential, $userId)
     {
 
         /** @var AuthPassword[] $candidates */

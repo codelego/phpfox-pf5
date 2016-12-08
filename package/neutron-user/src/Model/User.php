@@ -2,18 +2,29 @@
 namespace Neutron\User\Model;
 
 use Phpfox\Db\DbModel;
+use Phpfox\Support\UserInterface;
 
-class User extends DbModel
+class User extends DbModel implements UserInterface
 {
-
-    public function getModelId()
+    public function getUrl()
     {
-        return 'user';
+        return \Phpfox::get('router')
+            ->getUrl('profile', ['name' => $this->getUsername()]);
     }
 
     public function getUsername()
     {
         return @$this->_data['username'];
+    }
+
+    public function isUser()
+    {
+        return true;
+    }
+
+    public function getModelId()
+    {
+        return 'user';
     }
 
     public function getName()

@@ -16,8 +16,20 @@ trait CollectionTrait
         return $this->byNames;
     }
 
-    public function addElement(ElementInterface $element)
+    public function addElements($elements)
     {
+        foreach ($elements as $element) {
+            $this->addElement($element);
+        }
+        return $this;
+    }
+
+    public function addElement($element)
+    {
+        if (!$element instanceof ElementInterface) {
+            $element = \Phpfox::get('form.factory')->factory($element);
+        }
+
         $this->byNames[$element->getName()] = $element->setParent($this);
 
         return $this;

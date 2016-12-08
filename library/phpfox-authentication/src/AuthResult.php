@@ -27,6 +27,10 @@ class AuthResult
 
     const UN_CATEGORIZE = 4;
 
+    const MISSING_IDENTITY = 8;
+
+    const MISSING_CREDENTIAL = 16;
+
     /**
      * @var int
      */
@@ -38,20 +42,46 @@ class AuthResult
     private $identity = 0;
 
     /**
-     * @return int
+     * @var string
      */
+    private $message;
+
+    /**
+     * @param int $code
+     * @param     $message
+     */
+    public function setResult($code, $message)
+    {
+        $this->code = $code;
+        $this->message = $message;
+    }
+
     public function getCode()
     {
         return $this->code;
     }
 
-    /**
-     * @param int $code
-     *
-     */
-    public function setCode($code)
+    public function getMessage()
     {
-        $this->code = $code;
+        if (null == $this->message) {
+            $this->message = $this->getDefaultMessage();
+        }
+        return $this->message;
+    }
+
+    protected function getDefaultMessage()
+    {
+        $defaults = [
+            self::SUCCESS            => 'Logged in successful.',
+            self::INVALID_CREDENTIAL => 'Incorrect password.',
+            self::INVALID_IDENTITY   => 'Invalid login information.',
+            self::UN_CATEGORIZE      => 'Invalid login information.',
+            self::MISSING_IDENTITY   => 'Missing login information.',
+            self::MISSING_CREDENTIAL => 'Missing login information.',
+            'default'                => 'Invalid login information.',
+        ];
+        return _text($defaults[isset($defaults[$this->code]) ? $this->code
+            : 'default']);
     }
 
     /**

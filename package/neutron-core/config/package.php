@@ -106,6 +106,14 @@ return [
                 'action'     => 'index',
             ],
         ],
+        'profile'                     => [
+            'route'    => '[:name]',
+            'filter'   => '@profile',
+            'defaults' => [
+                'controller' => 'core.index',
+                'action'     => 'index',
+            ],
+        ],
     ],
     'controller.map'  => [
         'core.index'                => Controller\IndexController::class,
@@ -123,6 +131,7 @@ return [
         'storage.factory'      => [null, Service\FileStorageFactory::class],
         'package.loader'       => [null, Service\PackageLoader::class,],
         'session.save_handler' => [Service\SessionFactory::class,],
+        'mvc.events.loader'    => [null, Service\EventLoader::class],
 
     ],
     'views.map'       => _get_view_map([

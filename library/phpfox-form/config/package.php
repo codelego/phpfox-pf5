@@ -10,9 +10,10 @@ namespace Phpfox\Form {
             ],
         ],
         'form.renders'  => [
-            'input'           => InputRender::class,
+            'input'          => InputRender::class,
             'form_bootstrap' => FormBootstrapRender::class,
             'button'         => ButtonRender::class,
+            'checkbox'       => CheckboxRender::class,
         ],
         'form.elements' => [
             'color_picker' => ColorPicker::class,
@@ -27,7 +28,8 @@ namespace Phpfox\Form {
             'form'         => Form::class,
         ],
         'service.map'   => [
-            'form.render' => [null, RenderFacades::class],
+            'form.render'  => [null, FormFacades::class],
+            'form.factory' => [null, FormFactory::class],
         ],
     ];
 }

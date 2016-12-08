@@ -87,7 +87,7 @@ class MvcRequest
      */
     public function setMethod($method)
     {
-        $this->method = $method;
+        $this->method = ucfirst($method);
     }
 
     /**

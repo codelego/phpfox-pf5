@@ -18,7 +18,7 @@ class InputRender implements RenderInterface
             $attributes['type'] = 'text';
         }
         $attributes['value'] = $element->getValue();
-
+        $attributes['name'] = $element->getName();
         if (!$element->isRequired()) {
             unset($attributes['required']);
         } else {

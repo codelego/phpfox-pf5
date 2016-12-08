@@ -28,7 +28,7 @@ class Element
     /**
      * @var string
      */
-    protected $render;
+    protected $render = 'text';
 
     /**
      * @var string
@@ -191,5 +191,17 @@ class Element
     public function noWrap()
     {
         return $this->getParam('noWrap', false);
+    }
+
+    public function setElements($elements)
+    {
+        if (!is_array($elements)) {
+            return $this;
+        }
+
+        if ($this instanceof CollectionInterface) {
+            $this->addElements($elements);
+        }
+        return $this;
     }
 }

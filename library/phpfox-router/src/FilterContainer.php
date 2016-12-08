@@ -21,7 +21,7 @@ class FilterContainer
      */
     public function __construct()
     {
-        $this->map = \Phpfox::getParams('router.filters');
+        $this->map = \Phpfox::getParam('router.filters');
     }
 
     /**
@@ -39,7 +39,7 @@ class FilterContainer
      * @param string $id
      *
      * @return FilterInterface
-     * @throws RouteException
+     * @throws InvalidArgumentException
      */
     public function build($id)
     {

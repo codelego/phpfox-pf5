@@ -80,7 +80,7 @@ class PhpTemplate implements ViewTemplateInterface
 
     public function reset()
     {
-        $this->map = \Phpfox::getParams('views.map');
+        $this->map = \Phpfox::getParam('views.map');
         $this->cached = [];
     }
 

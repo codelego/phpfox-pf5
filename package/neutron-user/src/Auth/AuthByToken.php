@@ -15,13 +15,13 @@ class AuthByToken implements AuthInterface
         $token = \Phpfox::findById('auth_token', $identity);
 
         if (!$token) {
-            $result->setCode(AuthResult::INVALID_CREDENTIAL);
+            $result->setResult(AuthResult::INVALID_CREDENTIAL, null);
             return $result;
         }
 
         if (!$token['user_id']) { // delete dirty value
             $token->delete();
-            $result->setCode(AuthResult::INVALID_CREDENTIAL);
+            $result->setResult(AuthResult::INVALID_CREDENTIAL, null);
             return $result;
         }
 
@@ -30,7 +30,7 @@ class AuthByToken implements AuthInterface
 
         if (!$user) {
             $token->delete();
-            $result->setCode(AuthResult::INVALID_CREDENTIAL);
+            $result->setResult(AuthResult::INVALID_CREDENTIAL, null);
             return $result;
         }
 

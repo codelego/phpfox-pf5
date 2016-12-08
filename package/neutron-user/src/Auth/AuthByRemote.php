@@ -21,7 +21,7 @@ class AuthByRemote implements AuthInterface
             ->first();
 
         if (!$remote) {
-            $result->setCode(AuthResult::INVALID_CREDENTIAL);
+            $result->setResult(AuthResult::INVALID_CREDENTIAL,null);
             return $result;
         }
 
@@ -30,7 +30,7 @@ class AuthByRemote implements AuthInterface
         if (!$userId) {
             // validate remote user id is exists
             $remote->delete();
-            $result->setCode(AuthResult::INVALID_CREDENTIAL);
+            $result->setResult(AuthResult::INVALID_CREDENTIAL, null);
             return $result;
         }
 
@@ -38,12 +38,12 @@ class AuthByRemote implements AuthInterface
 
         if (!$user) {
             $remote->delete();
-            $result->setCode(AuthResult::INVALID_CREDENTIAL);
+            $result->setResult(AuthResult::INVALID_CREDENTIAL, null);
             return $result;
         }
 
         $result->setIdentity($userId);
-        $result->setCode(AuthResult::SUCCESS);
+        $result->setResult(AuthResult::SUCCESS,null);
         return $result;
     }
 

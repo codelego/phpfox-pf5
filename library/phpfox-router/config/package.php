@@ -30,7 +30,7 @@ namespace Phpfox\Router {
         'router.phrases' => [],
         'router.routes'  => [],
         'service.map'    => [
-            'router'         => [null, RouteManager::class,],
+            'router'         => [null, Router::class,],
             'router.filters' => [null, FilterContainer::class],
         ],
     ];

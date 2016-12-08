@@ -1,12 +1,7 @@
 <?php
 namespace Phpfox\Router;
 
-/**
- * Class RouteResult
- *
- * @package Phpfox\Router
- */
-class RouteResult
+class Result implements \ArrayAccess
 {
     /**
      * @var array
@@ -18,7 +13,7 @@ class RouteResult
      */
     public function getAction()
     {
-        return $this->getParam('action');
+        return $this->get('action');
     }
 
     /**
@@ -27,7 +22,7 @@ class RouteResult
      *
      * @return mixed|null
      */
-    public function getParam($key, $default = null)
+    public function get($key, $default = null)
     {
         return isset($this->params[$key]) ? $this->params[$key] : $default;
     }
@@ -35,7 +30,7 @@ class RouteResult
     /**
      * @return array
      */
-    public function getParams()
+    public function all()
     {
         return $this->params;
     }
@@ -43,13 +38,16 @@ class RouteResult
     /**
      * This method clear old params and set by new params.
      *
-     * @param array $params
+     * @param array $data
      *
      * @return $this
      */
-    public function setParams($params)
+    public function add($data)
     {
-        $this->params = $params;
+        foreach ($data as $k => $v) {
+            $this->params[$k] = $v;
+        }
+        $this->params = $data;
         return $this;
     }
 
@@ -59,7 +57,7 @@ class RouteResult
      *
      * @return $this
      */
-    public function setParam($key, $value)
+    public function set($key, $value)
     {
         $this->params[$key] = $value;
         return $this;
@@ -87,7 +85,7 @@ class RouteResult
      */
     public function getController()
     {
-        return $this->getParam('controller');
+        return $this->get('controller');
     }
 
     /**
@@ -110,5 +108,25 @@ class RouteResult
     {
         $this->params['action'] = $value;
         return $this;
+    }
+
+    public function offsetExists($offset)
+    {
+        return isset($this->params[$offset]);
+    }
+
+    public function offsetGet($offset)
+    {
+        return isset($this->params[$offset]) ? $this->params[$offset] : null;
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        $this->params[$offset] = $value;
+    }
+
+    public function offsetUnset($offset)
+    {
+        unset($this->params[$offset]);
     }
 }

@@ -2,9 +2,11 @@
 
 namespace Phpfox\Form;
 
-class Checkbox implements FieldInterface
+class Checkbox extends Element implements FieldInterface
 {
-    use ElementTrait;
+
+
+    protected $render = 'checkbox';
 
     protected $value;
 
@@ -25,5 +27,15 @@ class Checkbox implements FieldInterface
     {
         $this->value = $value;
         return $this;
+    }
+
+    public function isChecked()
+    {
+        return $this->value == $this->getParam('checkedValue', 1);
+    }
+
+    public function noLabel()
+    {
+        return $this->getParam('noRender', true);
     }
 }

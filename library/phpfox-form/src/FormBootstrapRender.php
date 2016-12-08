@@ -12,12 +12,14 @@ class FormBootstrapRender implements RenderInterface
     {
         static $id = 0;
 
+
         $facades = \Phpfox::get('form.render');
 
         $result = array_map(function (ElementInterface $v) use (
             $facades,
             &$id
         ) {
+
             $name = $v->getName();
             $label = $v->noLabel()
                 ? ''
@@ -27,6 +29,6 @@ class FormBootstrapRender implements RenderInterface
                 . $facades->render($v) . '</div>';
         }, $form->getElements());
 
-        return $form->open() . implode(PHP_EOL, $result) . $form->close();
+        return implode(PHP_EOL, $result);
     }
 }

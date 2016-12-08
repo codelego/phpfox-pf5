@@ -10,11 +10,18 @@ interface CollectionInterface
     public function getElements();
 
     /**
-     * @param ElementInterface $element
+     * @param ElementInterface|array $element
      *
      * @return $this
      */
-    public function addElement(ElementInterface $element);
+    public function addElement($element);
+
+    /**
+     * @param array|ElementInterface[] $elements
+     *
+     * @return mixed
+     */
+    public function addElements($elements);
 
     /**
      * @param string $name

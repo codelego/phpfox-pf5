@@ -1,42 +1,51 @@
 <?php
 namespace Neutron\User\Form;
 
-use Phpfox\Form\Button;
 use Phpfox\Form\Form;
-use Phpfox\Form\Text;
 
 class AccountSettings extends Form
 {
     protected function initialize()
     {
-        $this->addElement(new Text([
-            'name'       => 'username',
-            'label'      => 'Username',
-            'required'   => true,
-            'attributes' => [
-                'placeholder' => 'username',
-                'class'       => 'form-control username',
-            ],
-        ]));
+        $texts = [
+            'username' => _text('Username'),
+            'password' => _text('Password'),
+            'login'    => _text('Login'),
+        ];
 
-        $this->addElement(new Text([
-            'name'       => 'password',
-            'label'      => 'Password',
-            'required'   => true,
-            'attributes' => [
-                'type'        => 'password',
-                'placeholder' => 'password',
-                'class'       => 'form-control password',
+        $this->addElements([
+            [
+                'factory'    => 'text',
+                'name'       => 'username',
+                'label'      => $texts['username'],
+                'required'   => true,
+                'attributes' => [
+                    'placeholder' => $texts['username'],
+                    'class'       => 'form-control username',
+                ],
             ],
-        ]));
+            [
+                'factory'    => 'text',
+                'name'       => 'password',
+                'label'      => $texts['password'],
+                'required'   => true,
+                'attributes' => [
+                    'type'        => 'password',
+                    'placeholder' => $texts['password'],
+                    'class'       => 'form-control password',
+                ],
+            ],
+            [
+                'factory'    => 'button',
+                'name'       => '_submit',
+                'label'      => $texts['login'],
+                'required'   => true,
+                'attributes' => [
+                    'class' => 'btn btn-primary',
+                ],
+            ],
+        ]);
 
-        $this->addElement(new Button([
-            'name'       => '_submit',
-            'label'      => 'Login',
-            'required'   => true,
-            'attributes' => [
-                'class' => 'btn btn-primary',
-            ],
-        ]));
+
     }
 }

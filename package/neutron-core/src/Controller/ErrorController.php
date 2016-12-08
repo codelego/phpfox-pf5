@@ -9,7 +9,10 @@ class ErrorController extends MvcController
 {
     public function actionIndex()
     {
-        return new ViewModel('core.error.index');
+        $lastException = \Phpfox::get('mvc.dispatch')->getLastException();
+
+        return new ViewModel('core.error.index',
+            ['lastException' => $lastException->getTraceAsString()]);
     }
 
     public function action404()

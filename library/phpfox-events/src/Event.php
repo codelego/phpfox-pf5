@@ -1,8 +1,8 @@
 <?php
 
-namespace Phpfox\Mvc;
+namespace Phpfox\Event;
 
-class MvcEvent
+class Event
 {
     /**
      * @var string
@@ -80,7 +80,7 @@ class MvcEvent
         return $this->stopped;
     }
 
-    public function stopPropagation($flag)
+    public function stop($flag)
     {
         return $this->stopped = (bool)$flag;
     }

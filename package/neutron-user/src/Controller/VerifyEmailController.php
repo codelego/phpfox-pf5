@@ -14,7 +14,7 @@ class VerifyEmailController extends MvcController
      */
     public function actionIndex()
     {
-        $request = \Phpfox::mvcRequest();
+        $request = \Phpfox::get('mvc.request');
         $tokenId = $request->getParam('token', null);
 
         $verifyService = \Phpfox::get('user.verify_email');

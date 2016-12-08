@@ -1,13 +1,18 @@
 <?php
 
-namespace Phpfox\Mvc;
+namespace Phpfox\Event;
 
-class MvcEventManager
+class EventManager
 {
     /**
      * @var array[]
      */
     protected $events = [];
+
+    /**
+     * @var bool
+     */
+    protected $initialized = false;
 
     public function emit($name, $target = null, $params = [])
     {
@@ -15,31 +20,23 @@ class MvcEventManager
             return null;
         }
 
-        return $this->trigger(new MvcEvent($name, $target, $params));
+        return $this->trigger(new Event($name, $target, $params));
     }
 
-    public function callback($name, $target = null, $params = [])
-    {
-        if (empty($this->events[$name])) {
-            return null;
-        }
-
-        return \Phpfox::get($this->events[0])->{$name}(new MvcEvent($name, $target,
-            $params));
-    }
-
-    public function trigger(MvcEvent $event)
+    public function trigger(Event $event)
     {
         $name = $event->getName();
 
         // Initial value of stop propagation flag should be false
-        $event->stopPropagation(false);
+        $event->stop(false);
 
-        $response = new MvcEventResponse();
+        $response = new Response();
         try {
             foreach ($this->events[$name] as $listener) {
 
-                \Phpfox::get($listener)->{$name}($event, $response);
+                $result = \Phpfox::get($listener)->{$name}($event);
+
+                $response->push($result);
 
                 // If the event was asked to stop propagating, do so
                 if ($event->isStopped()) {
@@ -53,6 +50,17 @@ class MvcEventManager
         }
 
         return $response;
+    }
+
+    public function callback($name, $target = null, $params = [])
+    {
+        if (empty($this->events[$name])) {
+            return null;
+        }
+
+        return \Phpfox::get($this->events[0])->{$name}(new Event($name,
+            $target,
+            $params));
     }
 
     public function attach($eventName, $listener, $priority = 1)
@@ -72,5 +80,14 @@ class MvcEventManager
             unset($this->events[$eventName]);
         }
         return $this;
+    }
+
+    public function initialize()
+    {
+        if ($this->initialized) {
+            return;
+        }
+        $this->initialized = true;
+        $this->events = \Phpfox::factory('mvc.events.loader')->load();
     }
 }

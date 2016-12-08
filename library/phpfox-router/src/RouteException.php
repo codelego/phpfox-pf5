@@ -2,7 +2,8 @@
 
 namespace Phpfox\Router;
 
-class RouteException extends \InvalidArgumentException
+
+interface RouteException
 {
 
 }
