@@ -4,7 +4,7 @@ namespace Phpfox\Assets;
 
 use Phpfox;
 
-class HtmlFacades
+class AssetsFacades
 {
     public function __construct()
     {

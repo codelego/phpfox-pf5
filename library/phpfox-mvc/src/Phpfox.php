@@ -157,11 +157,11 @@ class Phpfox
     }
 
     /**
-     * @return \Phpfox\Assets\HtmlFacades
+     * @return \Phpfox\Assets\AssetsFacades
      */
-    public static function html()
+    public static function assets()
     {
-        return self::$_service->get('html');
+        return self::$_service->get('assets');
     }
 
     public static function trans($id, $domain, $locale, $context = [])

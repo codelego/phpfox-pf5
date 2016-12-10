@@ -23,7 +23,7 @@ class ViewLayout extends ViewModel
             $this->template = 'layout.master.default';
         }
 
-        \Phpfox::html()->addScripts('require', null)
+        \Phpfox::assets()->addScripts('require', null)
             ->addStyle('bootstrap', null);
 
         \Phpfox::emit('onViewLayoutPrepare', $this);

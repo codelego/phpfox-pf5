@@ -7,6 +7,7 @@ namespace PHPSTORM_META {
     ]));
 
     override(\Phpfox::get(0), map([
+        'assets'               => \Phpfox\Assets\AssetsFacades::class,
         'commands'             => \Phpfox\Command\CommandManager::class,
         'router'               => \Phpfox\Router\Router::class,
         'router.filters'       => \Phpfox\Router\FilterContainer::class,
@@ -49,6 +50,7 @@ namespace PHPSTORM_META {
     ]));
 
     override(\Phpfox::factory(0), map([
+        'assets'               => \Phpfox\Assets\AssetsFacades::class,
         'commands'             => \Phpfox\Command\CommandManager::class,
         'router'               => \Phpfox\Router\Router::class,
         'session'              => \Phpfox\Session\SessionManager::class,

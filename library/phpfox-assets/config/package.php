@@ -3,14 +3,14 @@
 namespace Phpfox\Assets;
 
 return [
-    'psr4' => [
+    'psr4'     => [
         'Phpfox\\Assets\\' => [
             'library/phpfox-assets/src',
             'library/phpfox-assets/test',
         ],
     ],
-    'services'   => [
-        'html'                        => [null, HtmlFacades::class, null],
+    'services' => [
+        'assets'                      => [null, AssetsFacades::class, null],
         'breadcrumb'                  => [null, Breadcrumb::class,],
         'require_js'                  => [null, RequireJs::class,],
         'require_css'                 => [null, RequireCss::class,],
