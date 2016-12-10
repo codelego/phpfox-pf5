@@ -12,8 +12,8 @@ include __DIR__ . '/constants.php';
 include __DIR__ . '/functions.php';
 
 $cacheFiles = [
-    'service.init' => PHPFOX_DIR . '/data/cache/service.init.php',
-    'psr4.init'    => PHPFOX_DIR . '/data/cache/psr4.init.php',
+    'package.config.php' => PHPFOX_DIR . '/data/cache/package.config.php.php',
+    'psr4.config'    => PHPFOX_DIR . '/data/cache/psr4.config.php',
 ];
 
 $shouldGenerate = PHPFOX_ENV != 'production';
@@ -44,12 +44,12 @@ $autoloader->addClassMap([
 
 
 if (!$shouldGenerate) {
-    _autoload_psr4($autoloader, include $cacheFiles['psr4.init']);
+    _autoload_psr4($autoloader, include $cacheFiles['psr4.config']);
 
     \Phpfox::init();
 
     $configContainer = \Phpfox::mvcConfig();
-    $configContainer->merge(include $cacheFiles['service.init']);
+    $configContainer->merge(include $cacheFiles['package.config.php']);
 
 } else {
 
@@ -81,7 +81,8 @@ if (!$shouldGenerate) {
      */
     foreach ($rows as $row) {
         _array_merge_recursive($packageVariables,
-            include PHPFOX_DIR . '/' . $row['path'] . '/config/package.php');
+            include PHPFOX_DIR . '/' . $row['path']
+                . '/config/package.config.php');
 
     }
     $configContainer->merge($packageVariables);
@@ -123,11 +124,11 @@ if (!$shouldGenerate) {
     $all = $configContainer->all();
     _autoload_psr4($autoloader, $all['psr4']);
 
-    _file_export($cacheFiles['psr4.init'], $all['psr4']);
+    _file_export($cacheFiles['psr4.config'], $all['psr4']);
     unset($all['psr4']);
 
     ksort($all);
-    _file_export($cacheFiles['service.init'], $all);
+    _file_export($cacheFiles['package.config.php'], $all);
 
     unset($all);
 }

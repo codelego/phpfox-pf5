@@ -112,5 +112,5 @@ return [
         'user.browse'       => [null, Service\Browse::class],
         'auth.factory'       => [null, Service\AuthFactory::class],
     ],
-    'views.map'      => _get_view_map(['user' => 'neutron-users/view',]),
+    'templates'      => _get_view_map(['user' => 'neutron-users/view',]),
 ];

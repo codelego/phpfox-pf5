@@ -129,7 +129,7 @@ return [
         'core.callback'        => [null, EventListener::class],
 
     ],
-    'views.map'       => _get_view_map([
+    'templates'       => _get_view_map([
         'core'   => 'neutron-core/view',
         'layout' => 'neutron-core/layout',
     ]),

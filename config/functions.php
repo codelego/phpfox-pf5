@@ -142,7 +142,7 @@ namespace {
 
                 $path = $entry->getPath() . '/' . $entry->getFilename();
 
-                if (!strpos($path, 'package.php')) {
+                if (!strpos($path, 'package.config.php')) {
                     continue;
                 }
                 $paths[] = $path;
