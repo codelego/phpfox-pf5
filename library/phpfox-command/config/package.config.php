@@ -3,13 +3,13 @@
 namespace Phpfox\Command;
 
 return [
-    'psr4'        => [
+    'psr4'     => [
         'Phpfox\\Command\\' => [
             'library/phpfox-command/src',
             'library/phpfox-command/test',
         ],
     ],
-    'commands'    => [
+    'commands' => [
         'update-package-info' => UpdatePackageInformation::class,
     ],
     'services' => [

@@ -146,7 +146,7 @@ class MysqliDbAdapter implements DbAdapterInterface
         $host = $hosts[$offset];
 
         $result = $mysqli->real_connect($host, $params['user'],
-            $params['password'], $params['database'], $port,$socket);
+            $params['password'], $params['database'], $port, $socket);
 
         if (!$result) {
             throw new DbConnectException('Could not connect database '

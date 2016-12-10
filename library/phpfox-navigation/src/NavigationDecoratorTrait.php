@@ -5,7 +5,7 @@ namespace Phpfox\Navigation;
 
 trait NavigationDecoratorTrait
 {
-    protected $max_level =3;
+    protected $max_level = 3;
     /**
      * @var array
      */

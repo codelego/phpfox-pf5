@@ -181,7 +181,8 @@ class Ssh2FileStorage implements FileStorageInterface
 
 
         if (!function_exists('ssh2_connect')) {
-            throw new \InvalidArgumentException(_sprintf('"libssh2" extension required by {0}.', [__CLASS__]));
+            throw new \InvalidArgumentException(_sprintf('"libssh2" extension required by {0}.',
+                [__CLASS__]));
         }
         if (($this->publicKey and $this->privateKey and $this->hostKey)) {
 

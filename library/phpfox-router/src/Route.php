@@ -40,6 +40,11 @@ class Route implements RouteInterface
     protected $onMatch;
 
     /**
+     * @var string
+     */
+    protected $onCompile;
+
+    /**
      * @var  array
      */
     protected $defaults = [];

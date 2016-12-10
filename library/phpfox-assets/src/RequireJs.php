@@ -290,7 +290,8 @@ class RequireJs
             //            'waitSeconds' => 15,
         ];
 
-        return 'requirejs.config(' . json_encode($config, JSON_PRETTY_PRINT) . ');';
+        return 'requirejs.config(' . json_encode($config, JSON_PRETTY_PRINT)
+            . ');';
     }
 
     /**

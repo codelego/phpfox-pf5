@@ -27,7 +27,7 @@ namespace Phpfox\Form {
             'textarea'     => Textarea::class,
             'form'         => Form::class,
         ],
-        'services'   => [
+        'services'      => [
             'form.render'  => [null, FormFacades::class],
             'form.factory' => [null, FormFactory::class],
         ],

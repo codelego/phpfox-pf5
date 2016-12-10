@@ -28,12 +28,12 @@ class ViewLayout extends ViewModel
 
         \Phpfox::emit('onViewLayoutPrepare', $this);
 
-        $content  = '';
+        $content = '';
 
         $data = \Phpfox::get('mvc.response')->getData();
 
-        if($data instanceof ViewModel){
-            $content  = $data->render();
+        if ($data instanceof ViewModel) {
+            $content = $data->render();
         }
 
         $this->assign([

@@ -14,32 +14,30 @@ class ServiceManager
      */
     public function __construct()
     {
-        $this->container['self'] = $this;
-    }
-
-    /**
-     * @param string $id
-     * @param mixed  $service
-     *
-     * @return $this
-     */
-    public function set($id, $service)
-    {
-        $this->container[$id] = $service;
-
-        return $this;
+        $this->container['services'] = $this;
     }
 
     /**
      * Has service associate with "id"?
      *
-     * @param string $id
+     * @param string $key
      *
      * @return bool
      */
-    public function has($id)
+    public function has($key)
     {
-        return \Phpfox::getParam('services', $id) != null;
+        return \Phpfox::getParam('services', $key) != null;
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return mixed
+     */
+    public function get($key)
+    {
+        return isset($this->container[$key]) ? $this->container[$key]
+            : $this->container[$key] = $this->build($key);
     }
 
     /**
@@ -47,18 +45,7 @@ class ServiceManager
      *
      * @return mixed
      */
-    public function get($id)
-    {
-        return isset($this->container[$id]) ? $this->container[$id]
-            : $this->container[$id] = $this->factory($id);
-    }
-
-    /**
-     * @param string $id
-     *
-     * @return mixed
-     */
-    public function factory($id)
+    public function build($id)
     {
         $ref = \Phpfox::getParam('services', $id);
 
@@ -91,22 +78,18 @@ class ServiceManager
     /**
      * @link http://php.net/manual/en/language.oop5.magic.php#object.sleep
      * @return array
+     * Do not storage data to serialization, all service will be re-init
      */
     public function __sleep()
     {
-        return ['configs'];
+        return [];
     }
 
     /**
-     * Support magic way to call $service($id) as $service->get($id)
-     *
-     * @param string $id
-     *
-     * @return mixed
+     * @return array
      */
-    public function __invoke($id)
+    public function __debugInfo()
     {
-        return isset($this->container[$id]) ? $this->container[$id]
-            : $this->container[$id] = $this->factory($id);
+        return array_keys($this->container);
     }
 }

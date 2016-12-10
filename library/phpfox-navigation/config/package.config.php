@@ -7,7 +7,7 @@ return [
         'navbar' => NavbarNavDecorator::class,
         'tab'    => TabNavDecorator::class,
     ],
-    'services'           => [
+    'services'              => [
         'navigation' => [null, NavigationManager::class],
     ],
 ];

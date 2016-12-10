@@ -4,7 +4,7 @@ namespace Phpfox\Messaging {
     use Phpfox\Logger\LogContainerFactory;
 
     return [
-        'psr4' => [
+        'psr4'          => [
             'Phpfox\\Jobs\\' => [
                 'library/phpfox-jobs/src',
                 'library/phpfox-jobs/test',
@@ -22,7 +22,7 @@ namespace Phpfox\Messaging {
             // class map
             'sample' => SampleJobHandler::class,
         ],
-        'services'   => [
+        'services'      => [
             'log.jobs'  => [LogContainerFactory::class, null,],
             'queues'    => [null, 'LocalQueueClass', 'queues'],
             'queues.01' => [null, 'AwsSQS', 'queue.01'],

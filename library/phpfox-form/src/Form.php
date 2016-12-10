@@ -35,7 +35,7 @@ class Form extends Element implements ElementInterface, CollectionInterface
         $data = [];
 
         foreach ($this->byNames as $name => $element) {
-            if($element instanceof FieldInterface){
+            if ($element instanceof FieldInterface) {
                 $data[$name] = $element->getValue();
             }
         }

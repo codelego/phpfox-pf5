@@ -15,7 +15,7 @@ return [
     'log.containers' => [
         'log.auth' => [],
     ],
-    'services'    => [
+    'services'       => [
         'auth'         => [null, AuthFacades::class],
         'auth.factory' => null,
         'auth.log'     => [LogContainerFactory::class, null, 'log.auth'],

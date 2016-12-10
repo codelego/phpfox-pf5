@@ -21,7 +21,6 @@ class AuthByPassword implements AuthInterface
         }
 
 
-
         $userId = $user->getId();
         $result->setIdentity($userId);
 

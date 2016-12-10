@@ -80,9 +80,9 @@ interface FileStorageInterface
 
 
     /**
-     * Force release resource, this method is very helpful when you are using a file for a short time
-     * when your process is running longer,
-     * Do not forget call this method whenever you put/get/delete remote resource.
+     * Force release resource, this method is very helpful when you are using a
+     * file for a short time when your process is running longer, Do not forget
+     * call this method whenever you put/get/delete remote resource.
      *
      * Connection resource to remote service.
      */

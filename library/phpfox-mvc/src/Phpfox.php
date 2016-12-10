@@ -1,39 +1,40 @@
 <?php
 
+namespace {
 
-class Phpfox
-{
-    /**
-     * @var \Phpfox\Mvc\ServiceManager
-     */
-    protected static $_service;
-
-    /**
-     * @var \Phpfox\Mvc\MvcConfig
-     */
-    protected static $_config;
-
-    /**
-     * @var bool
-     */
-    protected static $_initialized = false;
-
-    /**
-     * Initialize method
-     */
-    public static function init()
+    class Phpfox
     {
-        if (self::$_initialized) {
-            return;
-        }
+        /**
+         * @var \Phpfox\Mvc\ServiceManager
+         */
+        private static $service;
 
-        ini_set('display_startup_errors', 1);
-        ini_set('display_errors', 1);
-        error_reporting(E_ALL);
+        /**
+         * @var \Phpfox\Mvc\MvcConfig
+         */
+        private static $config;
 
-        self::$_initialized = true;
-        self::$_service = new \Phpfox\Mvc\ServiceManager();
-        self::$_config = new \Phpfox\Mvc\MvcConfig();
+        /**
+         * @var bool
+         */
+        private static $initialized = false;
+
+        /**
+         * Initialize method
+         */
+        public static function init()
+        {
+            if (self::$initialized) {
+                return;
+            }
+
+            ini_set('display_startup_errors', 1);
+            ini_set('display_errors', 1);
+            error_reporting(E_ALL);
+
+            self::$initialized = true;
+            self::$service = new \Phpfox\Mvc\ServiceManager();
+            self::$config = new \Phpfox\Mvc\MvcConfig();
 
 //        set_error_handler(function ($num, $msg, $file, $line, $context) {
 //
@@ -41,213 +42,215 @@ class Phpfox
 //        set_exception_handler(function ($exception) {
 //            var_dump($exception);
 //        });
-    }
+        }
 
-    /**
-     * @return \Phpfox\Mvc\MvcConfig
-     */
-    public static function mvcConfig()
-    {
-        return self::$_config;
-    }
-
-
-    public static function bootstrap()
-    {
-        Phpfox::get('mvc.events')->initialize();
-    }
-
-    /**
-     * @see ServiceManager::get()
-     *
-     * @param string $id
-     *
-     * @return mixed
-     */
-    public static function get($id)
-    {
-        return self::$_service->get($id);
-    }
-
-    /**
-     * @see \Phpfox\Mvc\MvcConfig::get()
-     *
-     * @param string $section
-     * @param null   $item
-     *
-     * @return array
-     */
-    public static function getParam($section, $item = null)
-    {
-        return self::$_config->get($section, $item);
-    }
-
-    /**
-     * @see ServiceManager::factory()
-     *
-     * @param string $id
-     *
-     * @return mixed
-     */
-    public static function factory($id)
-    {
-        return self::$_service->factory($id);
-    }
-
-    /**
-     * @see ServiceManager::has()
-     *
-     * @param string $id
-     *
-     * @return bool
-     */
-    public static function has($id)
-    {
-        return self::$_service->has($id);
-    }
+        /**
+         * @return \Phpfox\Mvc\MvcConfig
+         */
+        public static function mvcConfig()
+        {
+            return self::$config;
+        }
 
 
-    /**
-     * @see GatewayManager::get()
-     *
-     * @param string $id
-     *
-     * @return \Phpfox\Model\GatewayInterface|\Phpfox\Db\DbTableGateway
-     */
-    public static function getModel($id)
-    {
-        return self::$_service->get('models')->get($id);
-    }
+        public static function bootstrap()
+        {
+            Phpfox::get('mvc.events')->initialize();
+        }
 
-    /**
-     * @param string      $name
-     * @param object|null $target
-     * @param array|null  $argv
-     *
-     * @return mixed
-     */
-    public static function emit($name, $target = null, $argv = [])
-    {
-        return self::$_service->get('mvc.events')->emit($name, $target, $argv);
-    }
+        /**
+         * @see ServiceManager::get()
+         *
+         * @param string $id
+         *
+         * @return mixed
+         */
+        public static function get($id)
+        {
+            return self::$service->get($id);
+        }
 
-    /**
-     * @param \Phpfox\Event\Event $event
-     *
-     * @return \Phpfox\Event\Response|null
-     */
-    public static function trigger($event)
-    {
-        return self::$_service->get('mvc.events')->trigger($event);
-    }
+        /**
+         * @see \Phpfox\Mvc\MvcConfig::get()
+         *
+         * @param string $section
+         * @param null   $item
+         *
+         * @return array
+         */
+        public static function getParam($section, $item = null)
+        {
+            return self::$config->get($section, $item);
+        }
 
-    public static function getUserId()
-    {
-        return self::$_service->get('auth')->getLoginId();
-    }
+        /**
+         * @see ServiceManager::build()
+         *
+         * @param string $id
+         *
+         * @return mixed
+         */
+        public static function build($id)
+        {
+            return self::$service->build($id);
+        }
 
-    public static function isLoggedIn()
-    {
-        return self::$_service->get('auth')->isLoggedIn();
-    }
-
-    public static function membersOnly()
-    {
-        return self::$_service->get('auth')->isUser();
-    }
-
-    /**
-     * @return \Phpfox\Assets\AssetsFacades
-     */
-    public static function assets()
-    {
-        return self::$_service->get('assets');
-    }
-
-    public static function trans($id, $domain, $locale, $context = [])
-    {
-        return self::$_service->get('translator')
-            ->translate($id, $domain, $locale, $context);
-    }
-
-    /**
-     * @see Router::getUrl()
-     *
-     * @param string $id
-     * @param array  $argv
-     *
-     * @return string
-     */
-    public static function getUrl($id, $argv = [])
-    {
-        return self::$_service->get('router')->getUrl($id, $argv);
-    }
-
-    /**
-     * @return \Phpfox\Mvc\MvcResponse
-     */
-    public static function getResponse()
-    {
-        return self::$_service->get('mvc.response');
-    }
-
-    /**
-     * @return \Phpfox\View\PhpTemplate
-     */
-    public static function getTemplate()
-    {
-        return self::$_service->get('view.template');
-    }
-
-    /**
-     * @return \Phpfox\Db\DbAdapterInterface
-     */
-    public static function getDb()
-    {
-        return self::$_service->get('db');
-    }
-
-    /**
-     * @return \Phpfox\Authorization\AuthorizationManager
-     */
-    public static function getAcl()
-    {
-        return self::$_service->get('authorization');
-    }
+        /**
+         * @see ServiceManager::has()
+         *
+         * @param string $id
+         *
+         * @return bool
+         */
+        public static function has($id)
+        {
+            return self::$service->has($id);
+        }
 
 
-    /**
-     * @return \Phpfox\Router\Router
-     */
-    public static function router()
-    {
-        return self::$_service->get('router');
-    }
+        /**
+         * @see GatewayManager::get()
+         *
+         * @param string $id
+         *
+         * @return \Phpfox\Model\GatewayInterface|\Phpfox\Db\DbTableGateway
+         */
+        public static function getModel($id)
+        {
+            return self::$service->get('models')->get($id);
+        }
 
-    public static function callback($name, $target = null, $context = [])
-    {
-        return self::$_service->get('mvc.event')
-            ->callback($name, $target, $context);
-    }
+        /**
+         * @param string      $name
+         * @param object|null $target
+         * @param array|null  $argv
+         *
+         * @return mixed
+         */
+        public static function emit($name, $target = null, $argv = [])
+        {
+            return self::$service->get('mvc.events')
+                ->emit($name, $target, $argv);
+        }
 
-    /**
-     * @return \Phpfox\I18n\Translator
-     */
-    public static function translator()
-    {
-        return self::$_service->get('translator');
-    }
+        /**
+         * @param \Phpfox\Event\Event $event
+         *
+         * @return \Phpfox\Event\Response|null
+         */
+        public static function trigger($event)
+        {
+            return self::$service->get('mvc.events')->trigger($event);
+        }
 
-    /**
-     * @see GatewayInterface::findById()
-     *
-     * @param string $model
-     * @param mixed  $id
-     *
-     * @return \Phpfox\Model\ModelInterface
-     */
-    public static function findById($model, $id)
-    {
-        return self::$_service->get('models')->findById($model, $id);
+        public static function getUserId()
+        {
+            return self::$service->get('auth')->getLoginId();
+        }
+
+        public static function isLoggedIn()
+        {
+            return self::$service->get('auth')->isLoggedIn();
+        }
+
+        public static function membersOnly()
+        {
+            return self::$service->get('auth')->isUser();
+        }
+
+        /**
+         * @return \Phpfox\Assets\AssetsFacades
+         */
+        public static function assets()
+        {
+            return self::$service->get('assets');
+        }
+
+        public static function trans($id, $domain, $locale, $context = [])
+        {
+            return self::$service->get('translator')
+                ->translate($id, $domain, $locale, $context);
+        }
+
+        /**
+         * @see Router::getUrl()
+         *
+         * @param string $id
+         * @param array  $argv
+         *
+         * @return string
+         */
+        public static function getUrl($id, $argv = [])
+        {
+            return self::$service->get('router')->getUrl($id, $argv);
+        }
+
+        /**
+         * @return \Phpfox\Mvc\MvcResponse
+         */
+        public static function getResponse()
+        {
+            return self::$service->get('mvc.response');
+        }
+
+        /**
+         * @return \Phpfox\View\PhpTemplate
+         */
+        public static function getTemplate()
+        {
+            return self::$service->get('view.template');
+        }
+
+        /**
+         * @return \Phpfox\Db\DbAdapterInterface
+         */
+        public static function getDb()
+        {
+            return self::$service->get('db');
+        }
+
+        /**
+         * @return \Phpfox\Authorization\AuthorizationManager
+         */
+        public static function getAcl()
+        {
+            return self::$service->get('authorization');
+        }
+
+
+        /**
+         * @return \Phpfox\Router\Router
+         */
+        public static function router()
+        {
+            return self::$service->get('router');
+        }
+
+        public static function callback($name, $target = null, $context = [])
+        {
+            return self::$service->get('mvc.event')
+                ->callback($name, $target, $context);
+        }
+
+        /**
+         * @return \Phpfox\I18n\Translator
+         */
+        public static function translator()
+        {
+            return self::$service->get('translator');
+        }
+
+        /**
+         * @see GatewayInterface::findById()
+         *
+         * @param string $model
+         * @param mixed  $id
+         *
+         * @return \Phpfox\Model\ModelInterface
+         */
+        public static function findById($model, $id)
+        {
+            return self::$service->get('models')->findById($model, $id);
+        }
     }
 }

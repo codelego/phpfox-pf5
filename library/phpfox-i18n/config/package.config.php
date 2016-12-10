@@ -3,13 +3,13 @@
 namespace Phpfox\I18n {
 
     return [
-        'psr4' => [
+        'psr4'     => [
             'Phpfox\\I18n\\' => [
                 'library/phpfox-i18n/src',
                 'library/phpfox-i18n/test',
             ],
         ],
-        'services'   => [
+        'services' => [
             'translator' => [null, Translator::class,],
         ],
     ];

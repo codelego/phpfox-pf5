@@ -57,8 +57,8 @@ namespace Phpfox\Router {
             ],
         ],
         'router.phrases' => [],
-        'routes'  => [],
-        'services'    => [
+        'routes'         => [],
+        'services'       => [
             'router' => [null, Router::class,],
         ],
     ];

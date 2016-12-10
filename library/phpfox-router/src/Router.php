@@ -66,7 +66,7 @@ class Router
 
         // init empty chain at last
         $this->chains[''] = new RouteChain('');
-        $this->chains['']->addChain('', new Route(['route'=>'(<any>)']));
+        $this->chains['']->addChain('', new Route(['route' => '(<any>)']));
 
         foreach ($routes as $k => $v) {
             $group = '';

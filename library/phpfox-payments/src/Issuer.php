@@ -34,7 +34,8 @@ class Issuer
      *
      * @param string      $id            The identifier of this issuer
      * @param string      $name          The name of this issuer
-     * @param string|null $paymentMethod The ID of a payment method this issuer belongs to
+     * @param string|null $paymentMethod The ID of a payment method this issuer
+     *                                   belongs to
      */
     public function __construct($id, $name, $paymentMethod = null)
     {

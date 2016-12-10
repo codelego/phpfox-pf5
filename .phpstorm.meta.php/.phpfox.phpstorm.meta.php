@@ -49,7 +49,7 @@ namespace PHPSTORM_META {
         'user.browse'          => \Neutron\User\Service\Browse::class,
     ]));
 
-    override(\Phpfox::factory(0), map([
+    override(\Phpfox::build(0), map([
         'assets'               => \Phpfox\Assets\AssetsFacades::class,
         'commands'             => \Phpfox\Command\CommandManager::class,
         'router'               => \Phpfox\Router\Router::class,

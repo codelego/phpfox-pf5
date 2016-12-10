@@ -21,7 +21,7 @@ class AuthByRemote implements AuthInterface
             ->first();
 
         if (!$remote) {
-            $result->setResult(AuthResult::INVALID_CREDENTIAL,null);
+            $result->setResult(AuthResult::INVALID_CREDENTIAL, null);
             return $result;
         }
 
@@ -43,7 +43,7 @@ class AuthByRemote implements AuthInterface
         }
 
         $result->setIdentity($userId);
-        $result->setResult(AuthResult::SUCCESS,null);
+        $result->setResult(AuthResult::SUCCESS, null);
         return $result;
     }
 

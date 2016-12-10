@@ -3,7 +3,7 @@
 namespace Phpfox\Event;
 
 return [
-    'psr4'        => [
+    'psr4'     => [
         'Phpfox\\Event\\' => [
             'library/phpfox-events/src',
             'library/phpfox-events/test',

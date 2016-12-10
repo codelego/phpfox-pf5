@@ -10,5 +10,5 @@ interface AuthInterface
      *
      * @return AuthResult
      */
-    public function authenticate($identity, $credential, $options=null);
+    public function authenticate($identity, $credential, $options = null);
 }

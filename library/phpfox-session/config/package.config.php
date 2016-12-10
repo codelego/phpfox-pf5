@@ -14,7 +14,7 @@ return [
         'redis'    => RedisSession::class,
         'memcache' => MemcacheSession::class,
     ],
-    'services'     => [
+    'services'        => [
         'session'              => [null, SessionManager::class],
         'session.save_handler' => null,
     ],

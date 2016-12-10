@@ -7,7 +7,7 @@ interface NavigationLoaderInterface
 {
     /**
      * @param string $menu
-     * @param string  $section
+     * @param string $section
      *
      * @return mixed
      */

@@ -203,7 +203,8 @@ class FtpFileStorage implements FileStorageInterface
             $this->password);
 
         if (!$return) {
-            throw new FileStorageException(_sprintf('Login FTP failed {0}:{1}.',[$this->username, $this->password]));
+            throw new FileStorageException(_sprintf('Login FTP failed {0}:{1}.',
+                [$this->username, $this->password]));
         }
 
         return $this->ftpStream;

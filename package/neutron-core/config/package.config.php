@@ -42,7 +42,7 @@ return [
     ],
     'router.chains'   => [
     ],
-    'routes'   => [
+    'routes'          => [
         'home'                        => [
             'route'    => '/',
             'wheres'   => [],
@@ -109,7 +109,7 @@ return [
             ],
         ],
     ],
-    'controllers'  => [
+    'controllers'     => [
         'core.index'                => Controller\IndexController::class,
         'core.admin-dashboard'      => Controller\AdminDashboardController::class,
         'core.admin-language'       => Controller\AdminLanguageController::class,
@@ -119,7 +119,7 @@ return [
         'core.admin-mail-transport' => Controller\AdminMailTransportController::class,
         'core.error'                => Controller\ErrorController::class,
     ],
-    'services'     => [
+    'services'        => [
         'i18n.loader'          => [null, Service\I18nMessageLoader::class],
         'mailer.factory'       => [null, Service\MailTransportFactory::class],
         'storage.factory'      => [null, Service\FileStorageFactory::class],

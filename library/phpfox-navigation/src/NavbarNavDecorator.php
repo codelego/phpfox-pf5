@@ -71,7 +71,9 @@ class NavbarNavDecorator implements NavigationDecoratorInterface
     {
         foreach ($this->items as $offset => $item) {
             if ($item['acl']) {
-                if (false == \Phpfox::getAcl()->hasPermission(null, $item['acl'])) {
+                if (false == \Phpfox::getAcl()
+                        ->hasPermission(null, $item['acl'])
+                ) {
                     unset($this->items[$offset]);
                     continue;
                 }
@@ -150,8 +152,9 @@ class NavbarNavDecorator implements NavigationDecoratorInterface
             $params = $item['params'];
             foreach ($params as $k => $v) {
                 if (substr($v, 0, 1) == '$') {
-                    $params[$k] = \Phpfox::get('mvc.request')->getParam(substr($v,
-                        1));
+                    $params[$k] = \Phpfox::get('mvc.request')
+                        ->getParam(substr($v,
+                            1));
                 }
             }
         }

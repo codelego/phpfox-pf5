@@ -57,7 +57,7 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase
 
         $sqlUpdate = new SqlUpdate($adapter);
 
-        $username =  'namnv';
+        $username = 'namnv';
         $result = $sqlUpdate->update('phpfox_user')
             ->values(['user_name' => $username])->where(['user_id=?' => 1])
             ->execute(); // do not forget execute for that trim.

@@ -3,7 +3,7 @@
 namespace Neutron\Message;
 
 return [
-    'psr4'        => [
+    'psr4'     => [
         'Neutron\\Message\\' => [
             'library/neutron-messages/src',
             'library/neutron-messages/test',

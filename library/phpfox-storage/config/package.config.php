@@ -13,7 +13,7 @@ namespace Phpfox\Storage {
             'ftp'   => FtpFileStorage::class,
             'ssh2'  => Ssh2FileStorage::class,
         ],
-        'services'     => [
+        'services'        => [
             'storage.manager'   => [null, FileStorageManager::class],
             'storage.file_name' => [null, FileNameSupport::class],
             'storage.factory'   => null,

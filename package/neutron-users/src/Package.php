@@ -4,7 +4,6 @@ namespace Neutron\User;
 
 
 use Phpfox\Mvc\MvcEvent;
-use Phpfox\Router\Result;
 
 class Package
 {

@@ -3,13 +3,13 @@
 namespace Neutron\Pages;
 
 return [
-    'psr4'           => [
+    'psr4'        => [
         'Neutron\\Pages\\' => [
             'package/neutron-pages/src',
             'package/neutron-pages/test',
         ],
     ],
-    'routes'  => [
+    'routes'      => [
         'profile:pages' => [
             'route'    => 'pages',
             'defaults' => [
@@ -18,7 +18,7 @@ return [
             ],
         ],
     ],
-    'models'         => [
+    'models'      => [
         'pages' => [
             'table_factory',
             ':pages',
