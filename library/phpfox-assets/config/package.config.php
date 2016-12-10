@@ -28,6 +28,5 @@ return [
         'html.shutdown.script'        => [null, ExternalScript::class],
         'html.shutdown.inline_script' => [null, InlineScript::class],
         'html.shutdown.static_html'   => [null, StaticHtml::class],
-
     ],
 ];

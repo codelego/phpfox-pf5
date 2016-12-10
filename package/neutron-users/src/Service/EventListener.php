@@ -1,6 +1,6 @@
 <?php
 
-namespace Neutron\User;
+namespace Neutron\User\Service;
 
 use Phpfox\Event\EventListenerInterface;
 

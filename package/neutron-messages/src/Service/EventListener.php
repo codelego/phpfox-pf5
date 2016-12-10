@@ -1,13 +1,13 @@
 <?php
 
-namespace Neutron\Video;
+namespace Neutron\Message\Service;
 
 
 use Phpfox\Event\EventListenerInterface;
 
 class EventListener implements EventListenerInterface
 {
-    public function __call($name, $arguments)
+    function __call($name, $arguments)
     {
         // do nothing
     }

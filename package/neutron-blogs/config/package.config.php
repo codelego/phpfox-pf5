@@ -28,6 +28,6 @@ return [
         'blog.profile' => Controller\ProfileController::class,
     ],
     'services'      => [
-        'blog.callback' => [null, EventListener::class],
+        'blog.callback' => [null, Service\EventListener::class],
     ],
 ];

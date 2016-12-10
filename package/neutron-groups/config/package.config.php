@@ -22,6 +22,6 @@ return [
         'group.profile' => Controller\ProfileController::class,
     ],
     'services'    => [
-        'group.callback' => [null, EventListener::class],
+        'group.callback' => [null, Service\EventListener::class],
     ],
 ];

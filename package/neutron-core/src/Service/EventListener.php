@@ -1,13 +1,12 @@
 <?php
 
-namespace Neutron\Message;
-
+namespace Neutron\Core\Service;
 
 use Phpfox\Event\EventListenerInterface;
 
 class EventListener implements EventListenerInterface
 {
-    function __call($name, $arguments)
+    public function __call($name, $arguments)
     {
         // do nothing
     }

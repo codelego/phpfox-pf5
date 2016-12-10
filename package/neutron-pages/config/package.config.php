@@ -30,7 +30,7 @@ return [
         'pages.profile' => Controller\ProfileController::class,
     ],
     'services'    => [
-        'pages.callback' => EventListener::class,
+        'pages.callback' => Service\EventListener::class,
         'pages.browse'   => Service\Browse::class,
     ],
 ];

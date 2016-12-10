@@ -126,7 +126,7 @@ return [
         'package.loader'       => [null, Service\PackageLoader::class,],
         'session.save_handler' => [Service\SessionFactory::class,],
         'mvc.events.loader'    => [null, Service\EventLoader::class],
-        'core.callback'        => [null, EventListener::class],
+        'core.callback'        => [null, Service\EventListener::class],
 
     ],
     'templates'       => _get_view_map([

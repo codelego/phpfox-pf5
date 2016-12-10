@@ -9,7 +9,7 @@ return [
             'package/neutron-users/test',
         ],
     ],
-    'routes'  => [
+    'routes'         => [
         'login'           => [
             'route'    => '{login}',
             'defaults' => [
@@ -100,17 +100,17 @@ return [
             'neutron-users/config/.meta.auth_remote.php',
         ],
     ],
-    'controllers' => [
+    'controllers'    => [
         'user.auth'     => Controller\AuthController::class,
         'user.register' => Controller\RegisterController::class,
         'user.settings' => Controller\SettingsController::class,
         'user.profile'  => Controller\ProfileController::class,
     ],
-    'services'    => [
-        'user.callback'     => [null, EventListener::class,],
+    'services'       => [
+        'user.callback'     => [null, Service\EventListener::class,],
         'user.verify_email' => [null, Service\VerifyEmail::class],
         'user.browse'       => [null, Service\Browse::class],
-        'auth.factory'       => [null, Service\AuthFactory::class],
+        'auth.factory'      => [null, Service\AuthFactory::class],
     ],
     'templates'      => _get_view_map(['user' => 'neutron-users/view',]),
 ];

@@ -10,6 +10,6 @@ return [
         ],
     ],
     'services' => [
-        'cms.callback' => [null, EventListener::class],
+        'cms.callback' => [null, Service\EventListener::class],
     ],
 ];
