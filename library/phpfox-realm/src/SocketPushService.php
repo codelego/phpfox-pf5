@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Phpfox\Realm;
+namespace Phpfox\Realm;
 
 class SocketPushService
 {

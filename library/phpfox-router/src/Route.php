@@ -22,27 +22,27 @@ class Route implements RouteInterface
     /**
      * @var  string
      */
-    protected $routeExpression;
+    protected $route_expr;
 
     /**
      * @var array
      */
-    protected $hostExpression = [];
+    protected $host_expr;
 
     /**
      * @var string
      */
-    protected $protocol = 'http://';
+    protected $protocol;
 
     /**
      * @var string
      */
-    protected $onMatch;
+    protected $filter;
 
     /**
      * @var string
      */
-    protected $onCompile;
+    protected $compiler;
 
     /**
      * @var  array
@@ -60,32 +60,27 @@ class Route implements RouteInterface
     public function __construct($params)
     {
         $wheres = array_merge([
-            'any' => '.+',
+            'retain' => '.+',
         ], isset($params['wheres']) ? $params['wheres'] : []);
 
-        if (!empty($params['onMatch'])) {
-            $this->onMatch = $params['onMatch'];
+        if (!empty($params['filter'])) {
+            $this->filter = $params['filter'];
         }
 
-        if (!empty($params['route'])) {
-            $this->route = strtr(preg_replace('/\/<([\w+\_\-]+)>\?/', '(/<$1>)',
-                $params['route']), ['/*' => '(/<any>)',]);
-        }
-
-        if (!empty($params['host'])) {
-            $this->host = $params['host'];
-        }
 
         if (!empty($params['defaults'])) {
             $this->defaults = $params['defaults'];
         }
 
-        if ($this->route) {
-            $this->routeExpression = $this->compile($this->route, $wheres);
+        if (!empty($params['route'])) {
+            $this->route = strtr(preg_replace('/\/<([\w+\_\-]+)>\?/', '(/<$1>)',
+                $params['route']), ['/*' => '(/<any>)',]);
+            $this->route_expr = $this->compile($this->route, $wheres);
         }
 
-        if ($this->host) {
-            $this->hostExpression = $this->compile($this->host, $wheres);
+        if (!empty($params['host'])) {
+            $this->host = $params['host'];
+            $this->host_expr = $this->compile($this->host, $wheres);
         }
     }
 
@@ -125,7 +120,7 @@ class Route implements RouteInterface
         $params = $this->defaults;
 
         if ($host && $this->host) {
-            if (!preg_match($this->hostExpression, $host, $matches)) {
+            if (!preg_match($this->host_expr, $host, $matches)) {
                 return false;
             }
 
@@ -138,7 +133,7 @@ class Route implements RouteInterface
         }
 
         if ($path && $this->route) {
-            if (!preg_match($this->routeExpression, $path, $matches)) {
+            if (!preg_match($this->route_expr, $path, $matches)) {
                 return false;
             }
 
@@ -149,12 +144,12 @@ class Route implements RouteInterface
             }
         }
 
-        if (!$this->onMatch) {
+        if (!$this->filter) {
             $parameters->add($params);
             return true;
         }
 
-        list($service, $method) = explode('@', $this->onMatch);
+        list($service, $method) = explode('@', $this->filter);
 
         if (false == \Phpfox::get($service)->{$method}($params)) {
             return false;
@@ -165,16 +160,7 @@ class Route implements RouteInterface
         return true;
     }
 
-    /**
-     * Generates a URI for the current route based on the parameters given.
-     *
-     * @param   array $params URI parameters
-     *
-     * @return  string
-     * @uses    Route::REGEX_GROUP
-     * @uses    Route::REGEX_KEY
-     */
-    public function getUrl($params = [])
+    public function getUrl($key, $params = [])
     {
         if (!is_array($params)) {
             $params = [];
@@ -307,13 +293,11 @@ class Route implements RouteInterface
             'methods'         => $this->methods,
             'host'            => $this->host,
             'route'           => $this->route,
-            'hostExpression'  => $this->hostExpression,
-            'routeExpression' => $this->routeExpression,
+            'hostExpression'  => $this->host_expr,
+            'routeExpression' => $this->route_expr,
             'defaults'        => $this->defaults,
-            'callback'        => $this->onMatch,
+            'filter'          => $this->filter,
             'protocol'        => $this->protocol,
         ];
     }
-
-
 }

@@ -1,13 +1,10 @@
 <?php
 
-namespace Phpfox\Phpfox\Realm {
+namespace Phpfox\Realm;
 
-    return [
-        'psr4' => [
-            'Phpfox\\Realm\\' => [
-                'library/phpfox-realm/src',
-                'library/phpfox-realm/test',
-            ],
-        ],
-    ];
-}
+return [
+    __NAMESPACE__ => [
+        'library/phpfox-realm/src',
+        'library/phpfox-realm/test',
+    ],
+];

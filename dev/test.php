@@ -1,10 +1,7 @@
 <?php
 
-$mem = memory_get_peak_usage();
+namespace Test{
 
-require_once '../config/bootstrap.php';
+    echo __NAMESPACE__;
 
-
-$model = Phpfox::findById('pages',1);
-
-var_dump($model);
+}

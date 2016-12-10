@@ -63,3 +63,38 @@ Chains = [
 ]
 
 Chain in list of rule/match/exits.
+
+
+#Route naming convention
+
+By simple
+
+package.controller.action
+`user.auth.login`
+
+By Group for Chain
+
+`group:features`
+
+profile:event_home => [
+    'events/<name>/*'=>['event.profile','home'],
+]
+
+'events/*' =[search,edit,delete, create,manage,delete,...]
+'event/<action>/<id>/*'=>[view, edit,delete,invite, etc....]
+
+events:search,
+
+events:edit
+
+
+events.admin:edit_delete
+
+event: =>[
+    'chains'=>['route'=>'event/<action>/<id>',]
+    'children'=>[
+        'edit'=>'
+    ]
+]
+
+\Phpfox::get('router')->getUrl('edit:event',[id=>1]);

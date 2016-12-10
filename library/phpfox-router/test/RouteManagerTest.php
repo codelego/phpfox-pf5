@@ -30,14 +30,14 @@ class RouteManagerTest extends \PHPUnit_Framework_TestCase
     public function testRun($url, $controller, $action)
     {
         $routing = \Phpfox::get('router');
-        /** @var Result $result */
+        /** @var Parameters $result */
         $result = $routing->run($url, null, null, null);
 
-        $this->assertEquals($controller, $result->getController(),
+        $this->assertEquals($controller, $result->get('controller'),
             $url . PHP_EOL .
             var_export($result->all(), 1));
 
-        $this->assertEquals($action, $result->getAction(), $url . PHP_EOL);
+        $this->assertEquals($action, $result->get('action'), $url . PHP_EOL);
     }
 
     public function testMatchAny()
@@ -46,7 +46,7 @@ class RouteManagerTest extends \PHPUnit_Framework_TestCase
             'route' => 'profile/<name>/*',
         ]);
 
-        $result = new Result();
+        $result = new Parameters();
 
         $url = 'profile/namnv';
         $value = $route->match($url, null, null, null, $result);

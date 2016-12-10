@@ -1,7 +1,5 @@
 <?php
-namespace Phpfox\Authentication;
-
-use Phpfox\Authorization\AuthorizationManager;
+namespace Phpfox\Authorization;
 
 return [
     'services' => [

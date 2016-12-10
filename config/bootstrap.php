@@ -12,8 +12,13 @@ include __DIR__ . '/constants.php';
 include __DIR__ . '/functions.php';
 
 $cacheFiles = [
-    'package.config.php' => PHPFOX_DIR . '/data/cache/package.config.php.php',
-    'psr4.config'    => PHPFOX_DIR . '/data/cache/psr4.config.php',
+    'package.config'  => PHPFOX_DIR . 'data/cache/package.config.php',
+    'autoload.config' => PHPFOX_DIR . 'data/cache/autoload.config.php',
+];
+
+$configFiles = [
+    'package.config'  => PHPFOX_DIR . 'config/package.config.php',
+    'autoload.config' => PHPFOX_DIR . 'config/autoload.config.php',
 ];
 
 $shouldGenerate = PHPFOX_ENV != 'production';
@@ -44,93 +49,62 @@ $autoloader->addClassMap([
 
 
 if (!$shouldGenerate) {
-    _autoload_psr4($autoloader, include $cacheFiles['psr4.config']);
+    _autoload_psr4($autoloader, include $cacheFiles['autoload.config']);
 
     \Phpfox::init();
 
     $configContainer = \Phpfox::mvcConfig();
-    $configContainer->merge(include $cacheFiles['package.config.php']);
+    $configContainer->merge(include $cacheFiles['package.config']);
 
 } else {
 
-    $packageVariables = _merge_library_config([PHPFOX_DIR . '/library']);
-    $settingVariables = [];
+    $packageVariables = _merge_configs_recursive([PHPFOX_DIR . '/library',],
+        'package.config.php');
 
-    _autoload_psr4($autoloader, $packageVariables['psr4']);
+
+    $autoloadConfigs = _merge_configs([PHPFOX_DIR . '/library',],
+        'autoload.config.php');
+
+    unset($autoloadConfigs['']);
+
+
+    _file_export($configFiles['package.config'], $packageVariables);
+    _file_export($configFiles['autoload.config'], $autoloadConfigs);
+
+    _autoload_psr4($autoloader, $autoloadConfigs);
     \Phpfox::init();
 
-    /** @var \Phpfox\Mvc\MvcConfig $configContainer */
     $configContainer = \Phpfox::mvcConfig();
 
     $packageVariables['db.adapters']['default'] = include PHPFOX_DIR
         . '/config/db.init.php';
 
+    /**
+     * Kernel's ready, getting started config extension packages.
+     */
     $configContainer->merge($packageVariables);
 
-    /** @var \Phpfox\Mysqli\MysqliDbAdapter $db */
-    $db = \Phpfox::get('db');
 
+    /**
+     * load extension package
+     */
+    $packageLoader = Phpfox::get('package.loader');
 
-    $rows = $db->select('*')->from(':core_package')->where('is_active=?', 1)
-        ->order('priority', 1)->execute()->all();
+    $paths = $packageLoader->loadEnablePaths();
 
     $packageVariables = [];
 
-    /**
-     * fetch package variables from package.php
-     */
-    foreach ($rows as $row) {
-        _array_merge_recursive($packageVariables,
-            include PHPFOX_DIR . '/' . $row['path']
-                . '/config/package.config.php');
 
-    }
-    $configContainer->merge($packageVariables);
-    unset($rows, $packageVariables);
+    $autoloadConfigs = array_merge($autoloadConfigs,
+        Phpfox::get('package.loader')->loadAutoloadConfigs());
 
 
-    /**
-     * fetch setting variables from table ':core_setting'
-     */
-    $rows = $db->select('group_id, var_name, value_actual, is_active, priority')
-        ->from(':core_setting')->where('is_active=?', 1)->order('priority', 1)
-        ->execute()->all();
+    _autoload_psr4($autoloader, $autoloadConfigs);
 
+    _file_export($cacheFiles['autoload.config'], $autoloadConfigs);
+    $configContainer->merge($packageLoader->loadPackageConfigs());
 
-    foreach ($rows as $row) {
-        $key = $row['var_name'];
-        $group = $row['group_id'];
-        if (!$group) {
-            $group = 'global';
-        }
-
-        if (!isset($settingVariables[$group])) {
-            $settingVariables[$group] = [];
-        }
-
-        $val = json_decode($row['value_actual'], true);
-        if (isset($val['val'])) {
-            $val = $val['val'];
-        } else {
-            continue;
-        }
-
-        $settingVariables[$group][$key] = $val;
-    }
-
-    $configContainer->merge($settingVariables);
-    unset($rows, $settingVariables);
-
-    $all = $configContainer->all();
-    _autoload_psr4($autoloader, $all['psr4']);
-
-    _file_export($cacheFiles['psr4.config'], $all['psr4']);
-    unset($all['psr4']);
-
-    ksort($all);
-    _file_export($cacheFiles['package.config.php'], $all);
-
-    unset($all);
+    _file_export($cacheFiles['package.config'], $configContainer->all());
 }
 
 \Phpfox::bootstrap();

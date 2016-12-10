@@ -3,10 +3,6 @@
 namespace PHPSTORM_META {
 
     override(\Phpfox::get(0), map([
-        'user.verify_email' => \Neutron\User\Service\VerifyEmail::class,
-    ]));
-
-    override(\Phpfox::get(0), map([
         'assets'               => \Phpfox\Assets\AssetsFacades::class,
         'commands'             => \Phpfox\Command\CommandManager::class,
         'router'               => \Phpfox\Router\Router::class,
@@ -38,6 +34,9 @@ namespace PHPSTORM_META {
         'auth.factory'         => \Phpfox\Authentication\AuthFactoryInterface::class,
         'form.render'          => \Phpfox\Form\FormFacades::class,
         'form.factory'         => \Phpfox\Form\FormFactory::class,
+
+        // package
+        'package.loader'       => \Phpfox\Package\PackageLoaderInterface::class,
 
         // log section
         'main.log'             => \Phpfox\Logger\LogContainer::class,

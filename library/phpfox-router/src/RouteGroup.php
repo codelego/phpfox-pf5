@@ -1,12 +1,12 @@
 <?php
 namespace Phpfox\Router;
 
-class RouteChain implements RouteInterface
+class RouteGroup implements RouteGroupInterface
 {
     /**
-     * @var RouteInterface[]
+     * @var RouteGroupInterface[]
      */
-    protected $rules = [];
+    protected $chains = [];
 
     /**
      * @var array
@@ -21,7 +21,7 @@ class RouteChain implements RouteInterface
     /**
      * @var bool
      */
-    protected $debug = false;
+    protected $debug = true;
 
     public function __construct($name)
     {
@@ -34,16 +34,12 @@ class RouteChain implements RouteInterface
      */
     public function addChain($id, $chain)
     {
-        $this->rules[$id] = $chain;
+        $this->chains[$id] = $chain;
     }
 
-    /**
-     * @param string         $id
-     * @param RouteInterface $route
-     */
-    public function addChild($id, $route)
+    public function add($key, RouteInterface $route)
     {
-        $this->children[$id] = $route;
+        $this->children[$key] = $route;
     }
 
     /**
@@ -51,23 +47,22 @@ class RouteChain implements RouteInterface
      */
     public function all()
     {
-        return $this->rules;
+        return $this->chains;
     }
 
     /**
-     * @param string $path
-     * @param string $host
-     * @param string $method
-     * @param string $protocol
-     * @param Result $parameters
+     * @param string     $path
+     * @param string     $host
+     * @param string     $method
+     * @param string     $protocol
+     * @param Parameters $parameters
      *
      * @return bool
      */
     public function match($path, $host, $method, $protocol, &$parameters)
     {
-        $matched = empty($this->rules);
-
-        foreach ($this->rules as $key => $rule) {
+        $matched = false;
+        foreach ($this->chains as $key => $rule) {
             if ($this->debug) {
                 echo 'checked rule "', $key, '" ~ ', '"', $path, '"', PHP_EOL;
             }
@@ -80,11 +75,12 @@ class RouteChain implements RouteInterface
             }
         }
 
-        if (!$matched and !empty($this->rules)) {
+        if (!$matched) {
             return false;
         }
 
-        $end = trim($parameters->get('any'), '/');
+
+        $end = trim($parameters->get('retain'), '/');
         if (!$end) {
             $end = '/';
         }
@@ -97,7 +93,7 @@ class RouteChain implements RouteInterface
                 if ($this->debug) {
                     echo "matched route " . $id, PHP_EOL;
                 }
-                $parameters->set('@rule', $id);
+                $parameters->set('info.rule', $id);
                 if ($parameters->isValid()) {
                     return true;
                 }
@@ -106,7 +102,7 @@ class RouteChain implements RouteInterface
         return $parameters->isValid();
     }
 
-    public function getUrl($params = [])
+    public function getUrl($key, $params = [])
     {
         return '';
     }

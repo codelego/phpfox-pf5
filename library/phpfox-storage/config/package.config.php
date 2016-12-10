@@ -2,12 +2,6 @@
 namespace Phpfox\Storage {
 
     return [
-        'psr4'            => [
-            'Phpfox\\Storage\\' => [
-                'library/phpfox-storage/src',
-                'library/phpfox-storage/test',
-            ],
-        ],
         'storage.drivers' => [
             'local' => LocalFileStorage::class,
             'ftp'   => FtpFileStorage::class,

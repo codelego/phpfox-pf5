@@ -10,9 +10,10 @@ namespace PHPSTORM_META {
     ]));
 
     override(\Phpfox::get(0), map([
-        'pages.browse'   => \Neutron\Pages\Service\Browse::class,
-        'pages.callback' => \Neutron\Pages\Service\Callback::class,
-        'user.browse'    => \Neutron\User\Service\Browse::class,
-        'user.callback'  => \Neutron\User\Service\Callback::class,
+        'user.verify_email' => \Neutron\User\Service\VerifyEmail::class,
+        'pages.browse'      => \Neutron\Pages\Service\Browse::class,
+        'pages.callback'    => \Neutron\Pages\Service\Callback::class,
+        'user.browse'       => \Neutron\User\Service\Browse::class,
+        'user.callback'     => \Neutron\User\Service\Callback::class,
     ]));
 }

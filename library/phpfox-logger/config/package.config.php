@@ -3,12 +3,6 @@
 namespace Phpfox\Logger;
 
 return [
-    'psr4'           => [
-        'Phpfox\\Logger\\' => [
-            'library/phpfox-logger/src',
-            'library/phpfox-logger/test',
-        ],
-    ],
     'log.drivers'    => [
         'files' => FilesLogger::class,
         'db'    => DbLogger::class,

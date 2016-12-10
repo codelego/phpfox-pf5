@@ -3,12 +3,6 @@
 namespace Phpfox\Cache;
 
 return [
-    'psr4'           => [
-        'Phpfox\\Cache\\' => [
-            'library/phpfox-cache/src',
-            'library/phpfox-cache/test',
-        ],
-    ],
     'cache.drivers'  => [
         'filesystem' => FilesCacheStorage::class,
         'apc'        => ApcuCacheStorage::class,

@@ -5,6 +5,6 @@ namespace Phpfox\Package;
 return [
     'services' => [
         'package'        => PackageManager::class,
-        'package.loader' => null,
+        'package.loader' => [null, PackageLoader::class],
     ],
 ];

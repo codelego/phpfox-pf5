@@ -12,9 +12,14 @@ class Router
     protected $byNames = [];
 
     /**
-     * @var RouteChain[]
+     * @var RouteGroup[]
      */
-    protected $chains = [];
+    protected $groups = [];
+
+    /**
+     * @var RouteMain
+     */
+    protected $main;
 
     /**
      * @var array
@@ -27,54 +32,51 @@ class Router
     protected $fallbackId;
 
     /**
-     * @var bool
-     */
-    protected $stopped = false;
-
-    /**
      * RouteManager constructor.
      */
     public function __construct()
     {
-        $this->reset();
+        $this->initialize();
     }
 
     /**
      * Start to build routing
      * todo: add new route group to fast filter for a large group.
      */
-    public function reset()
+    public function initialize()
     {
-        $this->byNames = [];
-        $this->phrases = \Phpfox::getParam('router.phrases');
-        $routes = \Phpfox::getParam('routes');
-        $groups = \Phpfox::getParam('router.chains');
+        $configs = \Phpfox::get('package.loader')
+            ->loadRouterConfigs();
 
-        foreach ($groups as $k => $v) {
+        $this->byNames = [];
+        $this->phrases = $configs['phrases'];
+
+        $this->main = new RouteMain();
+
+        foreach ($configs['chains'] as $key => $v) {
             if (empty($v['route'])) {
                 continue;
             }
-            $name = $k;
-            if (strpos($k, ':') > 0) {
-                list($name) = explode(':', $k);
+
+            if (strpos($key, ':') == false) {
+                continue;
             }
-            if (!isset($this->chains[$name])) {
-                $this->chains[$name] = new RouteChain($name);
+
+            list($name) = explode(':', $key);
+
+            if (!isset($this->groups[$name])) {
+                $this->groups[$name] = new RouteGroup($name);
             }
-            $this->chains[$name]->addChain($k, $this->build($v));
+            $this->groups[$name]->addChain($key, $this->build($v));
         }
 
-        // init empty chain at last
-        $this->chains[''] = new RouteChain('');
-        $this->chains['']->addChain('', new Route(['route' => '(<any>)']));
-
-        foreach ($routes as $k => $v) {
-            $group = '';
-            if (strpos($k, ':') > 0) {
-                list($group) = explode(':', $k);
+        foreach ($configs['routes'] as $key => $v) {
+            if (strpos($key, ':') > 0) {
+                list($group) = explode(':', $key);
+                $this->groups[$group]->add($key, $this->build($v));
+            } else {
+                $this->main->add($key, $this->build($v));
             }
-            $route = $this->build($v);
-            $this->chains[$group]->addChild($k, $route);
         }
     }
 
@@ -160,31 +162,22 @@ class Router
      * @param string $method
      * @param string $protocol
      *
-     * @return Result
+     * @return Parameters
      */
-    public function run($path, $host, $method, $protocol)
+    public function run($path, $host = null, $method = null, $protocol = null)
     {
-        $this->stopped = false;
-        $parameters = new Result();
+        $parameters = new Parameters();
 
-        foreach ($this->chains as $id => $route) {
+        foreach ($this->groups as $key => $group) {
 //            echo 'chain ', $id, PHP_EOL;
-            if ($route->match($path, $host, $method, $protocol, $parameters)) {
+            if ($group->match($path, $host, $method, $protocol, $parameters)) {
                 if ($parameters->isValid()) {
-                    $parameters->set('@chain', $id);
+                    $parameters->set('info.chain', $key);
                     break;
                 }
             }
         }
         return $parameters;
-    }
-
-    /**
-     * @param bool $flag
-     */
-    public function stop($flag)
-    {
-        $this->stopped = (bool)$flag;
     }
 
     /**
@@ -196,16 +189,5 @@ class Router
     {
         $this->fallbackId = $fallbackId;
     }
-
-    public function __sleep()
-    {
-        return ['routes', 'fallbackId'];
-    }
-
-    public function __wakeup()
-    {
-
-    }
-
 
 }

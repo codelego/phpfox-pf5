@@ -3,7 +3,7 @@
 namespace Neutron\Core;
 
 
-use Phpfox\Router\Result;
+use Phpfox\Router\Parameters;
 
 class PackageTest extends \PHPUnit_Framework_TestCase
 {
@@ -32,10 +32,10 @@ class PackageTest extends \PHPUnit_Framework_TestCase
      */
     public function testRoute($url, $controller, $action)
     {
-        /** @var Result $result */
+        /** @var Parameters $result */
         $result = \Phpfox::get('router')->run($url, null, null, null);
 
-        $this->assertEquals($result->getController(), $controller);
-        $this->assertEquals($result->getAction(), $action);
+        $this->assertEquals($result->get('controller'), $controller);
+        $this->assertEquals($result->get('action'), $action);
     }
 }

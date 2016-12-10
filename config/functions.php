@@ -29,10 +29,10 @@ namespace {
             }
         }
 
-        if($identity){
+        if ($identity) {
             $queryId = $identity;
-        }elseif (count($primary) == 1){
-            $queryId =  array_keys($primary)[0];
+        } elseif (count($primary) == 1) {
+            $queryId = array_keys($primary)[0];
         }
 
 
@@ -100,8 +100,8 @@ namespace {
         if (file_exists($file)) {
             @unlink($file);
         }
-        if(!is_dir($dir = dirname($file)) && !@mkdir($dir,0777, true)){
-            exit('Can not open '. $dir .' to write export');
+        if (!is_dir($dir = dirname($file)) && !@mkdir($dir, 0777, true)) {
+            exit('Can not open ' . $dir . ' to write export');
         }
         file_put_contents($file,
             '<?php return ' . var_export($data, true) . ';');
@@ -115,14 +115,17 @@ namespace {
      */
     function _autoload_psr4($autoloader, $array)
     {
+
         foreach ($array as $k => $vs) {
+            if(!$k)
+                continue;
             foreach ($vs as $v) {
-                $autoloader->addPsr4($k, PHPFOX_DIR . '/' . $v);
+                $autoloader->addPsr4($k . '\\', PHPFOX_DIR . '/' . $v);
             }
         }
     }
 
-    function _merge_library_config($dirs = [])
+    function _merge_configs($dirs = [], $finder)
     {
         $paths = [];
         $merged = [];
@@ -142,7 +145,7 @@ namespace {
 
                 $path = $entry->getPath() . '/' . $entry->getFilename();
 
-                if (!strpos($path, 'package.config.php')) {
+                if (!strpos($path, $finder)) {
                     continue;
                 }
                 $paths[] = $path;
@@ -155,7 +158,50 @@ namespace {
                 continue;
             }
 
-            $merged = _array_merge_recursive($merged, include $path);
+            $merged = array_merge($merged, include $path);
+
+        }
+
+        ksort($merged);
+
+        return $merged;
+    }
+
+    function _merge_configs_recursive($dirs = [], $finder)
+    {
+        $paths = [];
+        $merged = [];
+
+        foreach ($dirs as $libraryDir) {
+            $directoryIterator
+                = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($libraryDir,
+                RecursiveDirectoryIterator::SKIP_DOTS),
+                RecursiveIteratorIterator::SELF_FIRST,
+                RecursiveIteratorIterator::CATCH_GET_CHILD // Ignore "Permission denied"
+            );
+
+            foreach ($directoryIterator as $path => $entry) {
+                if ($entry->isDir()) {
+                    continue;
+                }
+
+                $path = $entry->getPath() . '/' . $entry->getFilename();
+
+                if (!strpos($path, $finder)) {
+                    continue;
+                }
+                $paths[] = $path;
+            }
+
+        }
+
+        foreach ($paths as $path) {
+            if (!file_exists($path)) {
+                continue;
+            }
+
+            $merged = _array_merge_recursive_from_file($merged, str_replace(PHPFOX_DIR,
+                '', $path));
 
         }
 
@@ -324,12 +370,13 @@ namespace {
 
     /**
      * @param $base
-     * @param $array
+     * @string $file
      *
      * @return mixed
      */
-    function _array_merge_recursive(&$base, $array)
+    function _array_merge_recursive_from_file(&$base, $file)
     {
+        $array  =  include PHPFOX_DIR. $file;
         if (is_array($array)) {
             foreach ($array as $k => $v) {
                 if (!isset($base[$k])) {
@@ -342,6 +389,17 @@ namespace {
             }
         }
         return $base;
+    }
+
+    /**
+     * @param array $base
+     * @param string $file
+     */
+    function _array_merge_from_file(&$base, $file){
+        $array  = include PHPFOX_DIR.$file;
+        if(is_array($array)){
+            $base =  array_merge($base, $array);
+        }
     }
 
     function _url($id, $context = [])

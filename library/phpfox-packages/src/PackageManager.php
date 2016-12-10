@@ -29,7 +29,7 @@ class PackageManager
     {
         $this->initialized = true;
 
-        $this->data = \Phpfox::get('package.loader')->loadEnabledPackages();
+        $this->data = \Phpfox::get('package.loader')->loadEnablePaths();
     }
 
     public function get($id)

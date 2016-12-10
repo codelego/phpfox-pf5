@@ -1,20 +1,12 @@
 <?php
 namespace Phpfox\Router;
 
-class Result
+class Parameters
 {
     /**
      * @var array
      */
     protected $params = [];
-
-    /**
-     * @return string
-     */
-    public function getAction()
-    {
-        return $this->get('action');
-    }
 
     /**
      * @param string     $key
@@ -68,45 +60,6 @@ class Result
     public function reset()
     {
         $this->params = [];
-    }
-
-    public function ensure()
-    {
-        if (null == $this->getController()) {
-            $this->setController('core.error');
-            $this->setAction('404');
-        }
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getController()
-    {
-        return $this->get('controller');
-    }
-
-    /**
-     * @param string $value
-     *
-     * @return $this
-     */
-    public function setController($value)
-    {
-        $this->params['controller'] = $value;
-        return $this;
-    }
-
-    /**
-     * @param string $value
-     *
-     * @return $this
-     */
-    public function setAction($value)
-    {
-        $this->params['action'] = $value;
-        return $this;
     }
 
     public function isValid()

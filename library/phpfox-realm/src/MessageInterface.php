@@ -1,5 +1,5 @@
 <?php
-namespace Phpfox\Phpfox\Realm;
+namespace Phpfox\Realm;
 
 interface MessageInterface
 {

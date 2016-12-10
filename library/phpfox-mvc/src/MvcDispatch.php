@@ -2,9 +2,6 @@
 
 namespace Phpfox\Mvc;
 
-use Phpfox\Router\Result;
-use Phpfox\Router\Router;
-
 class MvcDispatch
 {
     /**
@@ -15,33 +12,23 @@ class MvcDispatch
     /**
      * @var bool
      */
-    protected $dispatched = false;
+    protected $completed = false;
 
     /**
      * @var string
      */
-    protected $controller = '';
+    protected $controller;
 
     /**
      * @var string
      */
-    protected $action = 'index';
+    protected $action;
 
     /**
      * @var \Exception
+     * Last exception
      */
     protected $lastException;
-
-    public function isDispatched()
-    {
-        return $this->dispatched;
-    }
-
-    public function setDispatched($flag)
-    {
-        $this->dispatched = (bool)$flag;
-        return $this;
-    }
 
     public function getFullActionName()
     {
@@ -73,50 +60,49 @@ class MvcDispatch
 
     public function run()
     {
-        $loop = self::FORWARD_LIMIT;
-        $lastDispatchResult = null;
+        $runCounter = 0;
+        $lastResult = null;
 
-        /** @var MvcRequest $request */
-        $request = \Phpfox::get('mvc.request');
-
-        /** @var Router $router */
+        $mvcRequest = \Phpfox::get('mvc.request');
         $router = \Phpfox::get('router');
 
-        /** @var Result $parameters */
-        $parameters = $router->run($request->getUri(), $request->getHost(),
-            $request->getMethod(), $request->getProtocol());
-
-
-        $parameters->ensure();
+        $parameters = $router->run($mvcRequest->getUri(),
+            $mvcRequest->getHost(),
+            $mvcRequest->getMethod(), $mvcRequest->getProtocol());
 
         $this->controller = $parameters->get('controller');
         $this->action = $parameters->get('action');
 
-        $request->addParams($parameters->all());
+        if (empty($this->controller) || empty($this->action)) {
+            $this->controller = 'core.error';
+            $this->action = '404';
+        } else {
+            $mvcRequest->addParams($parameters->all());
+        }
 
         do {
             try {
-                $this->dispatched = true;
+                $this->completed = true;
 
-                $lastDispatchResult = $this->createController()
+                $lastResult = $this->createController()
                     ->resolve($this->action);
 
                 // continue if forward
-                if (!$this->dispatched) {
+                if (!$this->completed) {
                     continue;
                 }
 
                 \Phpfox::get('mvc.response')
-                    ->setData($lastDispatchResult)
+                    ->setData($lastResult)
                     ->terminate();
 
             } catch (\Exception $exception) {
                 $this->lastException = $exception;
                 $this->forward('core.error', 'index');
             }
-        } while ($this->dispatched == false and --$loop > 0);
+        } while (!$this->completed and ++$runCounter < self::FORWARD_LIMIT);
 
-        if (!$this->dispatched) {
+        if (!$this->completed) {
             exit("Can not pass thought");
         }
 
@@ -131,7 +117,7 @@ class MvcDispatch
         $class = \Phpfox::getParam('controllers', $this->controller);
 
         if (null == $class) {
-            throw new \InvalidArgumentException("There are no controller object");
+            throw new \InvalidArgumentException("Unexpected controller '{$this->controller}'");
         }
 
         return new $class;
@@ -139,7 +125,7 @@ class MvcDispatch
 
     public function forward($controller, $action)
     {
-        $this->dispatched = false;
+        $this->completed = false;
 
         if (null != $controller) {
             $this->controller = $controller;
@@ -155,10 +141,5 @@ class MvcDispatch
     public function getLastException()
     {
         return $this->lastException;
-    }
-
-    public function setLastException($lastException)
-    {
-        $this->lastException = $lastException;
     }
 }

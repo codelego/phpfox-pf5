@@ -11,7 +11,7 @@ class EventListener implements EventListenerInterface
      *
      * @return bool
      */
-    public function onMatchProfileName(&$params)
+    public function onFilterProfileName(&$params)
     {
         $id = isset($params['name']) ? $params['name'] : null;
 
