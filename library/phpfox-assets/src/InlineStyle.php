@@ -1,16 +1,15 @@
 <?php
 
-namespace Phpfox\Html;
+namespace Phpfox\Assets;
 
 /**
- * Class InlineScript
+ * Class InlineStyle
  *
  * @package Phpfox\Html
  */
-class InlineScript implements HtmlElementInterface
+class InlineStyle implements HtmlElementInterface
 {
     use HtmlSimpleTrait;
-
 
     /**
      * Append inline scripts to header
@@ -20,7 +19,7 @@ class InlineScript implements HtmlElementInterface
      *
      * @return $this
      */
-    public function add($key, $script)
+    public function append($key, $script)
     {
         if ($this->ensureKey($script)) {
             return $this;
@@ -56,10 +55,9 @@ class InlineScript implements HtmlElementInterface
         if (!$this->data) {
             return '';
         }
-
         return _sprintf('<{0} type="{1}">{2}</{0}>', [
             'script',
-            'text/javascript',
+            'text/css',
             implode(';', $this->data),
         ]);
     }

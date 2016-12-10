@@ -157,7 +157,7 @@ class Phpfox
     }
 
     /**
-     * @return \Phpfox\Html\HtmlFacades
+     * @return \Phpfox\Assets\HtmlFacades
      */
     public static function html()
     {

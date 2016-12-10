@@ -1,5 +1,5 @@
 <?php
-namespace Phpfox\Html;
+namespace Phpfox\Assets;
 
 
 class RequireCss

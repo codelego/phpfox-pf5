@@ -1,14 +1,10 @@
 <?php
 
-namespace Phpfox\Html;
+namespace Phpfox\Assets;
 
-/**
- * Class HeadKeyword
- *
- * @package Phpfox\Html
- */
-class HeadKeyword implements HtmlElementInterface
+class HeadDescription implements HtmlElementInterface
 {
+
     /**
      * @var array
      */
@@ -26,14 +22,6 @@ class HeadKeyword implements HtmlElementInterface
     }
 
     /**
-     * @return array
-     */
-    public function get()
-    {
-        return $this->data;
-    }
-
-    /**
      * @return $this
      */
     public function clear()
@@ -47,14 +35,8 @@ class HeadKeyword implements HtmlElementInterface
      */
     public function getHtml()
     {
-        return '<meta name="keywords" content="' . $this->__toString() . '"/>';
+        return '<meta name="description" content="' . htmlentities(implode(',',
+                $this->data)) . '"/>';
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return htmlentities(implode(', ', $this->data));
-    }
 }

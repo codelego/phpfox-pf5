@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Html;
+namespace Phpfox\Assets;
 
 
 interface HtmlElementInterface

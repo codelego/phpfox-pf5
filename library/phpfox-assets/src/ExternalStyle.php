@@ -1,15 +1,13 @@
 <?php
 
-namespace Phpfox\Html;
-
-use Phpfox;
+namespace Phpfox\Assets;
 
 /**
- * Class ExternalScript
+ * Class ExternalStyle
  *
  * @package Phpfox\Html
  */
-class ExternalScript implements HtmlElementInterface
+class ExternalStyle implements HtmlElementInterface
 {
     use HtmlSimpleTrait;
 
@@ -20,22 +18,24 @@ class ExternalScript implements HtmlElementInterface
      *
      * @return $this
      */
-    public function add($key, $path, $props = [])
+    public function add($key, $path = null, $props = [])
     {
         if (!$path) {
-            $path = Phpfox::getParam('static.js', $key);
+            $path = \Phpfox::getParam('static.css', $key);
         }
-
-        $path = $this->getUrl($path);
 
         if ($this->ensureKey($path)) {
             return $this;
         }
 
+        $url = $this->getUrl($path);
+
         $props = array_merge([
-            'type' => 'text/javascript',
-            'src'  => $path,
+            'type' => 'text/css',
+            'rel'  => 'stylesheet',
+            'href' => $url,
         ], $props);
+
 
         $this->_append($key, $props);
 
@@ -49,10 +49,10 @@ class ExternalScript implements HtmlElementInterface
      *
      * @return $this
      */
-    public function prepend($key, $path, $props = [])
+    public function prepend($key, $path = null, $props = [])
     {
         if (!$path) {
-            $path = \Phpfox::getParam('static.js', $key);
+            $path = \Phpfox::getParam('static.css', $key);
         }
 
         if ($this->ensureKey($path)) {
@@ -62,8 +62,9 @@ class ExternalScript implements HtmlElementInterface
         $url = $this->getUrl($path);
 
         $props = array_merge([
-            'type' => 'text/javascript',
-            'src'  => $url,
+            'type' => 'text/css',
+            'rel'  => 'stylesheet',
+            'href' => $url,
         ], $props);
 
         $this->_prepend($key, $props);
@@ -74,7 +75,7 @@ class ExternalScript implements HtmlElementInterface
     public function getHtml()
     {
         return implode(PHP_EOL, array_map(function ($v) {
-            return _sprintf('<{0} {1}/></{0}>', ['script', _attrize($v)]);
+            return _sprintf('<{0} {1}/>', ['link', _attrize($v)]);
         }, $this->data));
     }
 }

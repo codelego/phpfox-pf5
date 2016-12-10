@@ -1,12 +1,12 @@
 <?php
 
-namespace Phpfox\Html;
+namespace Phpfox\Assets;
 
 return [
     'psr4' => [
-        'Phpfox\\Html\\' => [
-            'library/phpfox-html/src',
-            'library/phpfox-html/test',
+        'Phpfox\\Assets\\' => [
+            'library/phpfox-assets/src',
+            'library/phpfox-assets/test',
         ],
     ],
     'services'   => [
