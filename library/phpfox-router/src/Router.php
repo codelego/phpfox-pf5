@@ -47,7 +47,7 @@ class Router
     {
         $this->byNames = [];
         $this->phrases = \Phpfox::getParam('router.phrases');
-        $routes = \Phpfox::getParam('router.routes');
+        $routes = \Phpfox::getParam('routes');
         $groups = \Phpfox::getParam('router.chains');
 
         foreach ($groups as $k => $v) {

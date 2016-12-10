@@ -8,7 +8,7 @@ return [
             'library/phpfox-models/test',
         ],
     ],
-    'service.map' => [
+    'services' => [
         'models'         => [null, GatewayManager::class],
     ],
 ];

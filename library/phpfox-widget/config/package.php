@@ -8,7 +8,7 @@ namespace Phpfox\Widget {
                 'library/phpfox-widget/test',
             ],
         ],
-        'service.map'   => [
+        'services'   => [
             'widgets' => [null, WidgetManager::class,],
         ],
     ];

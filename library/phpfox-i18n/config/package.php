@@ -9,7 +9,7 @@ namespace Phpfox\I18n {
                 'library/phpfox-i18n/test',
             ],
         ],
-        'service.map'   => [
+        'services'   => [
             'translator' => [null, Translator::class,],
         ],
     ];

@@ -37,7 +37,7 @@ class Route implements RouteInterface
     /**
      * @var string
      */
-    protected $callback;
+    protected $onMatch;
 
     /**
      * @var  array
@@ -58,8 +58,8 @@ class Route implements RouteInterface
             'any' => '.+',
         ], isset($params['wheres']) ? $params['wheres'] : []);
 
-        if (!empty($params['callback'])) {
-            $this->callback = $params['callback'];
+        if (!empty($params['onMatch'])) {
+            $this->onMatch = $params['onMatch'];
         }
 
         if (!empty($params['route'])) {
@@ -144,12 +144,12 @@ class Route implements RouteInterface
             }
         }
 
-        if (!$this->callback) {
+        if (!$this->onMatch) {
             $parameters->add($params);
             return true;
         }
 
-        list($service, $method) = explode('@', $this->callback);
+        list($service, $method) = explode('@', $this->onMatch);
 
         if (false == \Phpfox::get($service)->{$method}($params)) {
             return false;
@@ -305,7 +305,7 @@ class Route implements RouteInterface
             'hostExpression'  => $this->hostExpression,
             'routeExpression' => $this->routeExpression,
             'defaults'        => $this->defaults,
-            'callback'        => $this->callback,
+            'callback'        => $this->onMatch,
             'protocol'        => $this->protocol,
         ];
     }

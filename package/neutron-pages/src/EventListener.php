@@ -1,7 +1,9 @@
 <?php
 namespace Neutron\Pages;
 
-class Callback
+use Phpfox\Event\EventListenerInterface;
+
+class EventListener implements EventListenerInterface
 {
 
     /**
@@ -9,7 +11,7 @@ class Callback
      *
      * @return bool
      */
-    public function checkProfileId(&$params)
+    public function onMatchProfileName(&$params)
     {
         $id = isset($params['name']) ? $params['name'] : null;
 

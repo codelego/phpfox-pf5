@@ -21,7 +21,7 @@ return [
             ['driver' => 'files', 'filename' => 'dev.log',],
         ],
     ],
-    'service.map'    => [
+    'services'    => [
         'main.log' => [LogContainerFactory::class, null, 'main.log'],
         'dev.log'  => [LogContainerFactory::class, null, 'dev.log'],
     ],

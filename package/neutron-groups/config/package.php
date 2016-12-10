@@ -1,6 +1,6 @@
 <?php
 
-namespace Neutron\Pages;
+namespace Neutron\Group;
 
 return [
     'psr4'           => [
@@ -9,7 +9,7 @@ return [
             'package/neutron-groups/test',
         ],
     ],
-    'router.routes'  => [
+    'routes'  => [
         'profile.pages' => [
             'route'    => '<name>/groups',
             'defaults' => [
@@ -18,7 +18,10 @@ return [
             ],
         ],
     ],
-    'controller.map' => [
+    'controllers' => [
         'group.profile' => Controller\ProfileController::class,
+    ],
+    'services'    => [
+        'group.callback' => [null, EventListener::class],
     ],
 ];

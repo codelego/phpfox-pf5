@@ -42,7 +42,7 @@ return [
     ],
     'router.chains'   => [
     ],
-    'router.routes'   => [
+    'routes'   => [
         'home'                        => [
             'route'    => '/',
             'wheres'   => [],
@@ -105,11 +105,11 @@ return [
         'profile:index'               => [
             'route'    => '/',
             'defaults' => [
-                'action'     => 'index',
+                'action' => 'index',
             ],
         ],
     ],
-    'controller.map'  => [
+    'controllers'  => [
         'core.index'                => Controller\IndexController::class,
         'core.admin-dashboard'      => Controller\AdminDashboardController::class,
         'core.admin-language'       => Controller\AdminLanguageController::class,
@@ -119,13 +119,14 @@ return [
         'core.admin-mail-transport' => Controller\AdminMailTransportController::class,
         'core.error'                => Controller\ErrorController::class,
     ],
-    'service.map'     => [
+    'services'     => [
         'i18n.loader'          => [null, Service\I18nMessageLoader::class],
         'mailer.factory'       => [null, Service\MailTransportFactory::class],
         'storage.factory'      => [null, Service\FileStorageFactory::class],
         'package.loader'       => [null, Service\PackageLoader::class,],
         'session.save_handler' => [Service\SessionFactory::class,],
         'mvc.events.loader'    => [null, Service\EventLoader::class],
+        'core.callback'        => [null, EventListener::class],
 
     ],
     'views.map'       => _get_view_map([

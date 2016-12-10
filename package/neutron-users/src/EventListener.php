@@ -2,8 +2,9 @@
 
 namespace Neutron\User;
 
+use Phpfox\Event\EventListenerInterface;
 
-class Callback
+class EventListener implements EventListenerInterface
 {
 
     /**
@@ -11,7 +12,7 @@ class Callback
      *
      * @return bool
      */
-    public function checkProfileName(&$params)
+    public function onMatchProfileName(&$params)
     {
         static $cached = [];
 

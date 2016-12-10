@@ -4,7 +4,7 @@ namespace Phpfox\Authentication;
 use Phpfox\Authorization\AuthorizationManager;
 
 return [
-    'service.map' => [
+    'services' => [
         'authorization' => [null, AuthorizationManager::class],
     ],
 ];

@@ -22,12 +22,12 @@ namespace Phpfox\Router {
                 'route' => '{ajax}/*',
             ],
             'profile:general' => [
-                'route'  => '<name>/*',
-                'callback' => 'user.callback@checkProfileName',
+                'route'   => '<name>/*',
+                'onMatch' => 'user.callback@onMatchProfileName',
             ],
             'profile:user'    => [
                 'route'    => '{profile}/<name>/*',
-                'callback'   => 'user.callback@checkProfileName',
+                'onMatch'  => 'user.callback@onMatchProfileName',
                 'defaults' => [
                     'controller' => 'user.profile',
                     'action'     => 'index',
@@ -35,7 +35,7 @@ namespace Phpfox\Router {
             ],
             'profile:pages'   => [
                 'route'    => '{pages}/<name>/*',
-                'callback'   => 'pages.callback@checkProfileId',
+                'onMatch'  => 'pages.callback@onMatchProfileName',
                 'defaults' => [
                     'controller' => 'pages.profile',
                     'action'     => 'index',
@@ -43,13 +43,13 @@ namespace Phpfox\Router {
             ],
             'profile:groups'  => [
                 'route'    => '{groups}/<name>/*',
-                'callback'   => 'user.callback@checkProfileName',
+                'onMatch'  => 'group.callback@onMatchProfileName',
                 'defaults' => [
                 ],
             ],
             'profile:events'  => [
                 'route'    => '{events}/<name>/*',
-                'callback'   => 'user.callback@checkProfileName',
+                'onMatch'  => 'event.callback@onMatchProfileName',
                 'defaults' => [
                     'controller' => 'pages.profile',
                     'action'     => 'index',
@@ -57,9 +57,9 @@ namespace Phpfox\Router {
             ],
         ],
         'router.phrases' => [],
-        'router.routes'  => [],
-        'service.map'    => [
-            'router'         => [null, Router::class,],
+        'routes'  => [],
+        'services'    => [
+            'router' => [null, Router::class,],
         ],
     ];
 }

@@ -39,7 +39,7 @@ class ServiceManager
      */
     public function has($id)
     {
-        return \Phpfox::getParam('service.map', $id) != null;
+        return \Phpfox::getParam('services', $id) != null;
     }
 
     /**
@@ -60,7 +60,7 @@ class ServiceManager
      */
     public function factory($id)
     {
-        $ref = \Phpfox::getParam('service.map', $id);
+        $ref = \Phpfox::getParam('services', $id);
 
         if (!$ref) {
             throw new \InvalidArgumentException("There are no service identity '{$id}'");

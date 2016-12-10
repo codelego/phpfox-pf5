@@ -9,7 +9,7 @@ return [
             'library/phpfox-db/test',
         ],
     ],
-    'service.map' => [
+    'services' => [
         'db'            => [DbAdapterFactory::class, null, 'default'],
         'table_factory' => [null, DbTableGatewayFactory::class],
     ],

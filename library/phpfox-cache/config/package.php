@@ -34,7 +34,7 @@ return [
             'cache.files',
         ],
     ],
-    'service.map'    => [
+    'services'    => [
         'cache.local' => [
             CacheStorageFactory::class,
             null,

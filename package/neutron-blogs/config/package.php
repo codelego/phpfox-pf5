@@ -2,13 +2,13 @@
 namespace Neutron\Blog;
 
 return [
-    'psr4'           => [
+    'psr4'          => [
         'Neutron\\Blog\\' => [
             'package/neutron-blogs/src',
             'package/neutron-blogs/test',
         ],
     ],
-    'router.routes'  => [
+    'routes' => [
         'profile:blogs'     => [
             'route'    => '{blogs}',
             'defaults' => [
@@ -24,7 +24,10 @@ return [
             ],
         ],
     ],
-    'controller.map' => [
+    'controllers'   => [
         'blog.profile' => Controller\ProfileController::class,
+    ],
+    'services'      => [
+        'blog.callback' => [null, EventListener::class],
     ],
 ];

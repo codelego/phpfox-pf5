@@ -12,7 +12,7 @@ return [
     'commands'    => [
         'update-package-info' => UpdatePackageInformation::class,
     ],
-    'service.map' => [
+    'services' => [
         'commands' => [null, CommandManager::class,],
     ],
 ];

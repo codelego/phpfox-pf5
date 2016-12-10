@@ -22,7 +22,7 @@ namespace Phpfox\Messaging {
             // class map
             'sample' => SampleJobHandler::class,
         ],
-        'service.map'   => [
+        'services'   => [
             'log.jobs'  => [LogContainerFactory::class, null,],
             'queues'    => [null, 'LocalQueueClass', 'queues'],
             'queues.01' => [null, 'AwsSQS', 'queue.01'],

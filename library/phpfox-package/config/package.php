@@ -3,7 +3,7 @@
 namespace Phpfox\Package;
 
 return [
-    'service.map' => [
+    'services' => [
         'package'        => PackageManager::class,
         'package.loader' => null,
     ],

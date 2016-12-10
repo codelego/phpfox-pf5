@@ -8,7 +8,7 @@ return [
             'library/phpfox-view/test',
         ],
     ],
-    'service.map'   => [
+    'services'   => [
         'view.template' => [null, PhpTemplate::class],
         'view.layout' => [null, ViewLayout::class],
     ],

@@ -9,7 +9,7 @@ return [
             'library/phpfox-events/test',
         ],
     ],
-    'service.map' => [
+    'services' => [
         'mvc.events'        => [null, EventManager::class],
         'mvc.events.loader' => null,
     ],

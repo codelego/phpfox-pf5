@@ -13,7 +13,7 @@ return [
         'smtp'   => SmtpMailTransport::class,
         'system' => SystemMailTransport::class,
     ],
-    'service.map'    => [
+    'services'    => [
         'mailer'         => [null, MailFacades::class,],
         'mailer.factory' => null,
     ],

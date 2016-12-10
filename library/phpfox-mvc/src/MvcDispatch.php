@@ -128,7 +128,7 @@ class MvcDispatch
      */
     protected function createController()
     {
-        $class = \Phpfox::getParam('controller.map', $this->controller);
+        $class = \Phpfox::getParam('controllers', $this->controller);
 
         if (null == $class) {
             throw new \InvalidArgumentException("There are no controller object");

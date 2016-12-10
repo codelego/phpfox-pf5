@@ -9,7 +9,7 @@ return [
             'library/phpfox-html/test',
         ],
     ],
-    'service.map'   => [
+    'services'   => [
         'html'                        => [null, HtmlFacades::class, null],
         'breadcrumb'                  => [null, Breadcrumb::class,],
         'require_js'                  => [null, RequireJs::class,],

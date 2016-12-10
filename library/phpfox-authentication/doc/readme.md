@@ -61,7 +61,7 @@ Phpfox_Auth::instance()
 namespace YouNet\Store;
 
 return [
-    'router.routes'=>[
+    'routes'=>[
         ....
     ],
     'events'=>[
@@ -70,7 +70,7 @@ return [
     'controllers'=>[
     
     ],
-    'factories'=> [
+    'models'=> [
         'product'=>ProductService:class,
         ....
     ]

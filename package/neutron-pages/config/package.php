@@ -9,7 +9,7 @@ return [
             'package/neutron-pages/test',
         ],
     ],
-    'router.routes'  => [
+    'routes'  => [
         'profile:pages' => [
             'route'    => 'pages',
             'defaults' => [
@@ -26,11 +26,11 @@ return [
             'neutron-pages/config/.meta.pages.php',
         ],
     ],
-    'controller.map' => [
+    'controllers' => [
         'pages.profile' => Controller\ProfileController::class,
     ],
-    'service.map'    => [
-        'pages.callback' => Callback::class,
+    'services'    => [
+        'pages.callback' => EventListener::class,
         'pages.browse'   => Service\Browse::class,
     ],
 ];
