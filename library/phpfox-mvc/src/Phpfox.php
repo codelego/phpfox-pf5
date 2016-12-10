@@ -43,11 +43,6 @@ class Phpfox
 //        });
     }
 
-    public static function getServiceContainer()
-    {
-        return self::$_service;
-    }
-
     /**
      * @return \Phpfox\Mvc\MvcConfig
      */

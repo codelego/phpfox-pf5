@@ -46,7 +46,7 @@ class EventManager
             }
 
         } catch (\Exception $exception) {
-            \Phpfox::get('events.log')->error($exception->getMessage());
+            \Phpfox::get('main.log')->error($exception->getMessage());
         }
 
         return $response;

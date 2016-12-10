@@ -37,7 +37,7 @@ class Route implements RouteInterface
     /**
      * @var string
      */
-    protected $filter;
+    protected $callback;
 
     /**
      * @var  array
@@ -46,16 +46,25 @@ class Route implements RouteInterface
 
     /**
      * @param array $params
+     * - wheres
+     * - callback
+     * - route
+     * - host
+     * - defaults
      */
     public function __construct($params)
     {
-        if (!empty($params['filter'])) {
-            $this->filter = $params['filter'];
+        $wheres = array_merge([
+            'any' => '.+',
+        ], isset($params['wheres']) ? $params['wheres'] : []);
+
+        if (!empty($params['callback'])) {
+            $this->callback = $params['callback'];
         }
 
         if (!empty($params['route'])) {
-            $this->route = str_replace(['[:', ']'], ['<', '>'],
-                $params['route']);
+            $this->route = strtr(preg_replace('/\/<([\w+\_\-]+)>\?/', '(/<$1>)',
+                $params['route']), ['/*' => '(/<any>)',]);
         }
 
         if (!empty($params['host'])) {
@@ -67,27 +76,26 @@ class Route implements RouteInterface
         }
 
         if ($this->route) {
-            $this->routeExpression = $this->compile($this->route,
-                isset($params['wheres']) ? $params['wheres'] : []);
+            $this->routeExpression = $this->compile($this->route, $wheres);
         }
 
         if ($this->host) {
-            $this->hostExpression = $this->compile($this->host,
-                isset($params['wheres']) ? $params['wheres'] : []);
+            $this->hostExpression = $this->compile($this->host, $wheres);
         }
     }
 
     /**
      * Compile uri
      *
-     * @param string $uri
-     * @param array  $regex
+     * @param string $rule
+     * @param array  $wheres
      *
      * @return string
+     * @ignore
      */
-    public function compile($uri, $regex = [])
+    protected function compile($rule, $wheres = [])
     {
-        $return = preg_replace('#[.\\+*?[^\\]${}=!|]#', '\\\\$0', $uri);
+        $return = preg_replace('#[.\\+*?[^\\]${}=!|]#', '\\\\$0', $rule);
 
         if (strpos($return, '(') !== false) {
             $return = str_replace(['(', ')',], ['(?:', ')?',], $return);
@@ -96,140 +104,59 @@ class Route implements RouteInterface
         // Insert default regex for keys
         $return = str_replace(['<', '>',], ['(?P<', '>[^/]++)',], $return);
 
-        if ($regex) {
-            $search = $replace = [];
-            foreach ($regex as $key => $value) {
-                $search[] = "<$key>" . '[^/]++';
-                $replace[] = "<$key>$value";
-            }
-            $return = str_replace($search, $replace, $return);
+
+        $replace = [];
+        foreach ($wheres as $key => $value) {
+            $replace["<$key>" . '[^/]++'] = "<$key>$value";
         }
+        $return = strtr($return, $replace);
 
         return '#^' . $return . '$#u';
     }
 
-    /**
-     * @param string $routeExpression
-     */
-    public function setRouteExpression($routeExpression)
+    public function match($path, $host, $method, $protocol, &$parameters)
     {
-        $this->routeExpression = $routeExpression;
-    }
-
-    /**
-     * @param mixed $methods
-     */
-    public function setMethods($methods)
-    {
-        $this->methods = $methods;
-    }
-
-    /**
-     * @return string
-     */
-    public function getProtocol()
-    {
-        return $this->protocol;
-    }
-
-    /**
-     * @return string
-     */
-    public function getHost()
-    {
-        return $this->host;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRoute()
-    {
-        return $this->route;
-    }
-
-    /**
-     * @return array
-     */
-    public function getDefaults()
-    {
-        return $this->defaults;
-    }
-
-    /**
-     * @param array $defaults
-     */
-    function setDefaults($defaults)
-    {
-        $this->defaults = $defaults;
-    }
-
-    public function match($uri, $host, $method, $protocol, &$parameters)
-    {
-        $params = [];
+        // param by defaults value
+        $params = $this->defaults;
 
         if ($host && $this->host) {
             if (!preg_match($this->hostExpression, $host, $matches)) {
                 return false;
             }
 
+            // Set the value for all matched keyss
             foreach ($matches as $key => $value) {
-                if (is_int($key)) {
-                    continue;
+                if (!is_int($key)) {
+                    $params[$key] = $value;
                 }
-                // Set the value for all matched keys
-                $params[$key] = $value;
             }
         }
 
-        if ($uri && $this->route) {
-            if (!preg_match($this->routeExpression, $uri, $matches)) {
+        if ($path && $this->route) {
+            if (!preg_match($this->routeExpression, $path, $matches)) {
                 return false;
             }
 
             foreach ($matches as $key => $value) {
-                if (is_int($key)) {
-                    continue;
+                if (!is_int($key)) {
+                    $params[$key] = $value;
                 }
-
-                // Set the value for all matched keys
-                $params[$key] = $value;
             }
         }
 
-        foreach ($this->defaults as $key => $value) {
-            if (!isset($params[$key]) OR $params[$key] === '') {
-                // Set default values for any key that was not matched
-                $params[$key] = $value;
-            }
+        if (!$this->callback) {
+            $parameters->add($params);
+            return true;
         }
 
-        // implements as the same events, do not pass response to filter
-        // instead if match result, we push result to the response.
-        // when route moving to stop, we catch the last result.
-        // OK :D
-        // feel happy.
+        list($service, $method) = explode('@', $this->callback);
+
+        if (false == \Phpfox::get($service)->{$method}($params)) {
+            return false;
+        }
 
         $parameters->add($params);
 
-        if (null != $this->filter) {
-            if (is_string($this->filter)) {
-                if (!\Phpfox::get('router.filters')->get($this->filter)
-                    ->filter($parameters)
-                ) {
-                    return false;
-                }
-            } elseif (is_array($this->filter)) {
-                foreach ($this->filter as $v) {
-                    if (!\Phpfox::get('router.filters')->get($v)
-                        ->filter($parameters)
-                    ) {
-                        return false;
-                    }
-                }
-            }
-
-        }
         return true;
     }
 
@@ -364,4 +291,24 @@ class Route implements RouteInterface
     {
         return isset($this->defaults['host']) && $this->defaults['host'];
     }
+
+    /**
+     * @return array
+     * @ignore
+     */
+    function __debugInfo()
+    {
+        return [
+            'methods'         => $this->methods,
+            'host'            => $this->host,
+            'route'           => $this->route,
+            'hostExpression'  => $this->hostExpression,
+            'routeExpression' => $this->routeExpression,
+            'defaults'        => $this->defaults,
+            'callback'        => $this->callback,
+            'protocol'        => $this->protocol,
+        ];
+    }
+
+
 }

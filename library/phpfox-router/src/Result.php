@@ -47,7 +47,6 @@ class Result
         foreach ($data as $k => $v) {
             $this->params[$k] = $v;
         }
-        $this->params = $data;
         return $this;
     }
 
@@ -110,23 +109,9 @@ class Result
         return $this;
     }
 
-    public function offsetExists($offset)
+    public function isValid()
     {
-        return isset($this->params[$offset]);
-    }
-
-    public function offsetGet($offset)
-    {
-        return isset($this->params[$offset]) ? $this->params[$offset] : null;
-    }
-
-    public function offsetSet($offset, $value)
-    {
-        $this->params[$offset] = $value;
-    }
-
-    public function offsetUnset($offset)
-    {
-        unset($this->params[$offset]);
+        return !empty($this->params['action'])
+            and !empty($this->params['controller']);
     }
 }

@@ -4,12 +4,12 @@ namespace Neutron\User\Service;
 
 use Neutron\User\Model\User;
 
-class BrowseUser
+class Browse
 {
     /**
      * @param $userId
      *
-     * @return User
+     * @return User|mixed
      */
     public function findUserById($userId)
     {
@@ -26,9 +26,9 @@ class BrowseUser
     /**
      * @param $name
      *
-     * @return User
+     * @return User|mixed
      */
-    public function findByUsername($name)
+    public function findByProfileName($name)
     {
         return \Phpfox::getModel('user')
             ->select()

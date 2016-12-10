@@ -9,7 +9,7 @@ namespace PHPSTORM_META {
     override(\Phpfox::get(0), map([
         'commands'             => \Phpfox\Command\CommandManager::class,
         'router'               => \Phpfox\Router\Router::class,
-        'router.filters'        => \Phpfox\Router\FilterContainer::class,
+        'router.filters'       => \Phpfox\Router\FilterContainer::class,
         'session'              => \Phpfox\Session\SessionManager::class,
         'session.save_handler' => \Phpfox\Session\SessionInterface::class,
         'mvc.response'         => \Phpfox\Mvc\MvcResponse::class,
@@ -41,10 +41,11 @@ namespace PHPSTORM_META {
         // log section
         'main.log'             => \Phpfox\Logger\LogContainer::class,
         'dev.log'              => \Phpfox\Logger\LogContainer::class,
+        'db'                   => \Phpfox\Db\DbAdapterInterface::class,
 
         // user
         'user.verify_email'    => \Neutron\User\Service\VerifyEmail::class,
-        'user.browse'          => \Neutron\User\Service\BrowseUser::class,
+        'user.browse'          => \Neutron\User\Service\Browse::class,
     ]));
 
     override(\Phpfox::factory(0), map([
@@ -84,6 +85,6 @@ namespace PHPSTORM_META {
 
         // user
         'user.verify_email'    => \Neutron\User\Service\VerifyEmail::class,
-        'user.browse'          => \Neutron\User\Service\BrowseUser::class,
+        'user.browse'          => \Neutron\User\Service\Browse::class,
     ]));
 }

@@ -1,37 +1,65 @@
 <?php
 
 namespace Phpfox\Router {
+
     return [
-        'psr4'  => [
+        'psr4'           => [
             'Phpfox\\Router\\' => [
                 'library/phpfox-router/src',
                 'library/phpfox-router/test',
             ],
         ],
-        'router.groups'  => [
-            '@admincp' => [
-                'route'    => '{admincp}',
+        'router.chains'  => [
+            'admincp'         => [
+                'route'    => '{admincp}/*',
                 'defaults' => [],
             ],
-            '@rest'    => [
-                'route'    => '{rest}',
+            'rest'            => [
+                'route'    => '{rest}/*',
                 'defaults' => [],
             ],
-            '@ajax'    => [
-                'route' => '{ajax}',
+            'ajax'            => [
+                'route' => '{ajax}/*',
             ],
-            '@'        => [
-                'route' => '',
+            'profile:general' => [
+                'route'  => '<name>/*',
+                'callback' => 'user.callback@checkProfileName',
             ],
-        ],
-        'router.filters' => [
-            '@profile' => [null, ProfileNameFilter::class],
+            'profile:user'    => [
+                'route'    => '{profile}/<name>/*',
+                'callback'   => 'user.callback@checkProfileName',
+                'defaults' => [
+                    'controller' => 'user.profile',
+                    'action'     => 'index',
+                ],
+            ],
+            'profile:pages'   => [
+                'route'    => '{pages}/<name>/*',
+                'callback'   => 'pages.callback@checkProfileId',
+                'defaults' => [
+                    'controller' => 'pages.profile',
+                    'action'     => 'index',
+                ],
+            ],
+            'profile:groups'  => [
+                'route'    => '{groups}/<name>/*',
+                'callback'   => 'user.callback@checkProfileName',
+                'defaults' => [
+                ],
+            ],
+            'profile:events'  => [
+                'route'    => '{events}/<name>/*',
+                'callback'   => 'user.callback@checkProfileName',
+                'defaults' => [
+                    'controller' => 'pages.profile',
+                    'action'     => 'index',
+                ],
+            ],
         ],
         'router.phrases' => [],
         'router.routes'  => [],
         'service.map'    => [
             'router'         => [null, Router::class,],
-            'router.filters' => [null, FilterContainer::class],
         ],
     ];
 }

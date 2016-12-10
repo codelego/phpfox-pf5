@@ -40,6 +40,8 @@ return [
             'exports' => '_',
         ],
     ],
+    'router.chains'   => [
+    ],
     'router.routes'   => [
         'home'                        => [
             'route'    => '/',
@@ -49,68 +51,60 @@ return [
                 'action'     => 'index',
             ],
         ],
-        'rest.menus'                  => [
+        'rest:menus'                  => [
             'route'    => 'menus',
             'method'   => 'GET',
-            'group'    => '@rest',
+            'group'    => 'rest',
             'defaults' => [
                 'controller' => 'RestfulMenuController',
                 'action'     => 'listing',
             ],
         ],
-        'rest.menu.item'              => [
-            'route'    => 'menu/[:id]',
-            'group'    => '@rest',
+        'rest:menu.item'              => [
+            'route'    => 'menu/<id>',
             'defaults' => [
                 'controller' => 'RestfulMenuController',
                 'action'     => 'view',
             ],
         ],
-        'admincp.core.dashboard'      => [
+        'admincp:core.dashboard'      => [
             'route'    => '{admincp}',
-            'group'    => '@admincp',
             'defaults' => [
                 'controller' => 'core.admin-dashboard',
                 'action'     => 'index',
             ],
         ],
-        'admincp.core.theme'          => [
-            'route'    => '{admincp}/core/theme(/[:action])',
-            'group'    => '@admincp',
+        'admincp:core.theme'          => [
+            'route'    => '{admincp}/core/theme/<action>?',
             'defaults' => [
                 'controller' => 'core.admin-theme',
                 'action'     => 'index',
             ],
         ],
-        'admincp.core.package'        => [
-            'route'    => '{admincp}/core/package(/[:action])',
-            'group'    => '@admincp',
+        'admincp:core.package'        => [
+            'route'    => '{admincp}/core/package/<action>?',
             'defaults' => [
                 'controller' => 'core.admin-package',
                 'action'     => 'index',
             ],
         ],
-        'admincp.core.settings'       => [
-            'route'    => '{admincp}/core/settings(/[:action])',
-            'group'    => '@admincp',
+        'admincp:core.settings'       => [
+            'route'    => '{admincp}/core/settings/<action>?',
             'defaults' => [
                 'controller' => 'core.admin-settings',
                 'action'     => 'index',
             ],
         ],
-        'admincp.core.mail-transport' => [
-            'route'    => '{admincp}/core/mail-transport(/[:action])',
-            'group'    => '@admincp',
+        'admincp:core.mail-transport' => [
+            'route'    => '{admincp}/core/mail-transport/<action>?',
             'defaults' => [
                 'controller' => 'core.admin-mail-transport',
                 'action'     => 'index',
             ],
         ],
-        'profile'                     => [
-            'route'    => '[:name]',
-            'filter'   => '@profile',
+        'profile:index'               => [
+            'route'    => '/',
             'defaults' => [
-                'controller' => 'core.index',
                 'action'     => 'index',
             ],
         ],

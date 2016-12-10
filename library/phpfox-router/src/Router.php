@@ -12,12 +12,9 @@ class Router
     protected $byNames = [];
 
     /**
-     * @var array
+     * @var RouteChain[]
      */
-    protected $byGroups = [];
-
-
-    protected $groups = [];
+    protected $chains = [];
 
     /**
      * @var array
@@ -44,17 +41,40 @@ class Router
 
     /**
      * Start to build routing
-     * todo: change route pattern from <action> to [:action]
      * todo: add new route group to fast filter for a large group.
      */
     public function reset()
     {
         $this->byNames = [];
-        $routes = \Phpfox::getParam('router.routes');
         $this->phrases = \Phpfox::getParam('router.phrases');
+        $routes = \Phpfox::getParam('router.routes');
+        $groups = \Phpfox::getParam('router.chains');
+
+        foreach ($groups as $k => $v) {
+            if (empty($v['route'])) {
+                continue;
+            }
+            $name = $k;
+            if (strpos($k, ':') > 0) {
+                list($name) = explode(':', $k);
+            }
+            if (!isset($this->chains[$name])) {
+                $this->chains[$name] = new RouteChain($name);
+            }
+            $this->chains[$name]->addChain($k, $this->build($v));
+        }
+
+        // init empty chain at last
+        $this->chains[''] = new RouteChain('');
+        $this->chains['']->addChain('', new Route(['route'=>'(<any>)']));
 
         foreach ($routes as $k => $v) {
-            $this->byNames[$k] = $this->build($v);
+            $group = '';
+            if (strpos($k, ':') > 0) {
+                list($group) = explode(':', $k);
+            }
+            $route = $this->build($v);
+            $this->chains[$group]->addChild($k, $route);
         }
     }
 
@@ -63,10 +83,11 @@ class Router
      *
      * @param array $params
      *
-     * @return RouteInterface
+     * @return RouteInterface|Route
      */
-    protected function build($params)
+    private function build($params)
     {
+
         if (empty($params['type'])) {
             $params['type'] = Route::class;
         }
@@ -144,22 +165,18 @@ class Router
     public function run($path, $host, $method, $protocol)
     {
         $this->stopped = false;
-        $lastResult = new Result();
+        $parameters = new Result();
 
-        foreach ($this->byNames as $id => $route) {
-            if (!$route->match($path, $host, $method, $protocol,
-                $lastResult)
-            ) {
-                continue;
-            }
-            $lastResult->set('route', $id);
-
-            if ($this->stopped) {
-                break;
+        foreach ($this->chains as $id => $route) {
+//            echo 'chain ', $id, PHP_EOL;
+            if ($route->match($path, $host, $method, $protocol, $parameters)) {
+                if ($parameters->isValid()) {
+                    $parameters->set('@chain', $id);
+                    break;
+                }
             }
         }
-
-        return $lastResult;
+        return $parameters;
     }
 
     /**
@@ -189,4 +206,6 @@ class Router
     {
 
     }
+
+
 }

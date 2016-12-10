@@ -9,4 +9,10 @@ namespace PHPSTORM_META {
         'auth_remote'   => \Neutron\User\Model\AuthRemote::class,
     ]));
 
+    override(\Phpfox::get(0), map([
+        'pages.browse'   => \Neutron\Pages\Service\Browse::class,
+        'pages.callback' => \Neutron\Pages\Service\Callback::class,
+        'user.browse'    => \Neutron\User\Service\Browse::class,
+        'user.callback'  => \Neutron\User\Service\Callback::class,
+    ]));
 }

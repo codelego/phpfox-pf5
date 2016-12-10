@@ -2,8 +2,8 @@
 
 include '../config/bootstrap.php';
 
-echo json_encode([
-    'basePath'   => PHPFOX_DIR . 'public',
-    'baseUrl'    => PHPFOX_BASE_URL,
-    'baseCdnUrl' => 'http:///example.max-cdn.com/',
-]);
+
+$result  = preg_match("#^pages/(?P<name>[^/]++)(?:/(?P<any>.+))?$#u", 'pages/2');
+
+var_dump($result);
+

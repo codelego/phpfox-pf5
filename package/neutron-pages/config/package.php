@@ -10,15 +10,27 @@ return [
         ],
     ],
     'router.routes'  => [
-        'profile.pages' => [
-            'route'    => '[:name]/pages',
+        'profile:pages' => [
+            'route'    => 'pages',
             'defaults' => [
                 'controller' => 'pages.profile',
                 'action'     => 'browse',
             ],
         ],
     ],
+    'models'         => [
+        'pages' => [
+            'table_factory',
+            ':pages',
+            Model\Pages::class,
+            'neutron-pages/config/.meta.pages.php',
+        ],
+    ],
     'controller.map' => [
         'pages.profile' => Controller\ProfileController::class,
+    ],
+    'service.map'    => [
+        'pages.callback' => Callback::class,
+        'pages.browse'   => Service\Browse::class,
     ],
 ];

@@ -5,8 +5,8 @@ namespace Neutron\User;
 return [
     'psr4'           => [
         'Neutron\\User\\' => [
-            'package/neutron-user/src',
-            'package/neutron-user/test',
+            'package/neutron-users/src',
+            'package/neutron-users/test',
         ],
     ],
     'router.routes'  => [
@@ -25,25 +25,46 @@ return [
             ],
         ],
         'register'        => [
-            'route'    => '{register}(/[:action])',
+            'route'    => '{register}/<action>?',
             'defaults' => [
-                'controller' => 'user.auth',
+                'controller' => 'user.register',
                 'action'     => 'index',
             ],
         ],
         'settings'        => [
-            'route'    => '{settings}(/[:action])',
+            'route'    => '{settings}/<action>?',
             'defaults' => [
-                'controller' => 'user.settings',
-                'action'     => 'index',
+                'action' => 'index',
             ],
         ],
-        'profile.members' => [
-            'route'    => '[:name]/members',
-            'filter'   => '@profile',
+        'profile:members' => [
+            'route'    => 'members',
             'defaults' => [
+                'action'     => 'members',
                 'controller' => 'user.profile',
-                'action'     => 'index',
+            ],
+        ],
+        'profile:groups'  => [
+            'route'    => 'groups',
+            'group'    => 'profile',
+            'defaults' => [
+                'action'     => 'groups',
+                'controller' => 'group.profile',
+            ],
+        ],
+        'profile:events'  => [
+            'route'    => 'events',
+            'group'    => 'profile',
+            'defaults' => [
+                'action'     => 'events',
+                'controller' => 'events.profile',
+            ],
+        ],
+        'profile:pages'   => [
+            'route'    => 'pages',
+            'defaults' => [
+                'action'     => 'pages',
+                'controller' => 'pages.profile',
             ],
         ],
     ],
@@ -58,25 +79,25 @@ return [
             'table_factory',
             ':user',
             Model\User::class,
-            'neutron-user/config/.meta.user.php',
+            'neutron-users/config/.meta.user.php',
         ],
         'auth_token'    => [
             'table_factory',
             ':user_auth_token',
             Model\AuthToken::class,
-            'neutron-user/config/.meta.auth_token.php',
+            'neutron-users/config/.meta.auth_token.php',
         ],
         'auth_password' => [
             'table_factory',
             ':user_auth_password',
             Model\AuthPassword::class,
-            'neutron-user/config/.meta.auth_password.php',
+            'neutron-users/config/.meta.auth_password.php',
         ],
         'auth_remote'   => [
             'table_factory',
             ':user_auth_remote',
             Model\AuthRemote::class,
-            'neutron-user/config/.meta.auth_remote.php',
+            'neutron-users/config/.meta.auth_remote.php',
         ],
     ],
     'controller.map' => [
@@ -88,8 +109,8 @@ return [
     'service.map'    => [
         'user.callback'     => [null, Callback::class,],
         'user.verify_email' => [null, Service\VerifyEmail::class],
-        'user.browse'       => [null, Service\BrowseUser::class],
+        'user.browse'       => [null, Service\Browse::class],
         'auth.factory'      => [null, Service\AuthFactory::class],
     ],
-    'views.map'      => _get_view_map(['user' => 'neutron-user/view',]),
+    'views.map'      => _get_view_map(['user' => 'neutron-users/view',]),
 ];

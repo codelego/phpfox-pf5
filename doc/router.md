@@ -47,12 +47,19 @@ jobs
 = how to implements
 
 ```php
-    '<type>/<name>?/'=> filter profile in events,
-    'groups/<name>?/'=> filter profile in events,
-    'events/<name>?/'=> filter profile in events,
-    'profile/<name>?/'=> filter profile in events,
-    '[:name]'
+    '<type>/<name>?'=> filter profile in events,
+    'groups/<name>?'=> filter profile in events,
+    'events/<name>?'=> filter profile in events,
+    'profile/<name>?'=> filter profile in events,
+    '<name>'
 ```
 
+process using all in RouteChain, 
 
+Chains = [
+    ''=>[RouteLogin,RouteBlog, EventEdit, ]
+    'profile'=>[],
+    'Blog'=>[],
+]
 
+Chain in list of rule/match/exits.
