@@ -89,7 +89,7 @@ class Router
         if (strpos($id, ':') !== false) {
             list($id, $group) = explode(':', $id);
         }
-        return PHPFOX_BASE_URL .$this->get($group)->getUri($id, $params);
+        return PHPFOX_BASE_URL . $this->get($group)->getUri($id, $params);
     }
 
     /**
@@ -120,7 +120,6 @@ class Router
         $parameters = new Parameters();
 
         foreach ($this->groups as $key => $group) {
-//            echo 'chain ', $id, PHP_EOL;
             if ($group->match($path, $host, $method, $protocol, $parameters)) {
                 if ($parameters->isValid()) {
                     $parameters->set('info.chain', $key);

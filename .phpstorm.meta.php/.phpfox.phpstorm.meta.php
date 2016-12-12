@@ -47,6 +47,8 @@ namespace PHPSTORM_META {
         'dev.log'             => \Phpfox\Logger\LogContainer::class,
         'db'                  => \Phpfox\Db\DbAdapterInterface::class,
 
+        'image' => \Intervention\Image\ImageManager::class,
+
         // user
         'user.verify_email'   => \Neutron\User\Service\VerifyEmail::class,
         'user.browse'         => \Neutron\User\Service\Browse::class,

@@ -2,13 +2,6 @@
 
 return [
     'chains' => [
-        'user_settings' => [
-            'route'    => '{settings}/*',
-            'defaults' => [
-                'controller' => 'user.settings',
-                'action'     => 'index',
-            ],
-        ],
         'profile'       => [
             [
                 'route'    => '<name>/*',
@@ -53,37 +46,12 @@ return [
                 'action' => 'index',
             ],
         ],
-        'browse_members:profile' => [
+        'members.profile' => [
             'route'    => 'members',
             'defaults' => [
                 'action'     => 'members',
                 'controller' => 'user.profile',
             ],
-        ],
-        'browse_groups:profile'  => [
-            'route'    => 'groups',
-            'defaults' => [
-                'action'     => 'browse',
-                'controller' => 'group.profile',
-            ],
-        ],
-        'browse_events:profile'  => [
-            'route'    => 'events',
-            'defaults' => [
-                'action'     => 'browse',
-                'controller' => 'events.profile',
-            ],
-        ],
-        'browse_pages:profile'   => [
-            'route'    => 'pages',
-            'defaults' => [
-                'action'     => 'browse',
-                'controller' => 'pages.profile',
-            ],
-        ],
-        'account:user_settings'  => [
-            'route'    => '{account}',
-            'defaults' => ['action' => 'account'],
         ],
     ],
 ];

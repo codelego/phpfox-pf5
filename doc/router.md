@@ -6,95 +6,46 @@ Requirements
 - Url friendly
 - Simple integration
 
-Concepts
-- Route
-- Token
-- Filter
-- Group
-- Target
+Route, RouteGroups
 
-Example a groups has following role match assertion '.profiles';
+admincp=> router
+admincp.events=>router
+admincp.events.blogs=>routes
 
-namnv
-profile/1
-pages/2
-pages/google-api
+profile
+profile
+profile 
+if one match=>return profiles.
 
-# Groups masters
+return uri path?
+how about host?
+how about conditions?
 
-event/:name
-events/:name
-groups/:name
-pages/:name
-:name/
+only the first group has host.
 
-is consistent in group `profile`
+router
+   router
+      router
+          router 
+   router
+         router
+             router
+             
+             
+events.edit
+events.delete
+events.blogs
+events.data
+profile.events
 
-in group profile
-we can continue run a routing to test (after strip matched part)
-
-members
-blogs
-pages
-groups
-photos
-albums
-videos
-jobs
-=> will fill action or profile to theme.
-=> if not match any, it will fill to groups.
-
-= how to implements
-
-```php
-    '<type>/<name>?'=> filter profile in events,
-    'groups/<name>?'=> filter profile in events,
-    'events/<name>?'=> filter profile in events,
-    'profile/<name>?'=> filter profile in events,
-    '<name>'
-```
-
-process using all in RouteChain, 
-
-Chains = [
-    ''=>[RouteLogin,RouteBlog, EventEdit, ]
-    'profile'=>[],
-    'Blog'=>[],
-]
-
-Chain in list of rule/match/exits.
+profiles
+=> match all data in the facy terms.
 
 
-#Route naming convention
-
-By simple
-
-package.controller.action
-`user.auth.login`
-
-By Group for Chain
-
-`group:features`
-
-profile:event_home => [
-    'events/<name>/*'=>['event.profile','home'],
-]
-
-'events/*' =[search,edit,delete, create,manage,delete,...]
-'event/<action>/<id>/*'=>[view, edit,delete,invite, etc....]
-
-events:search,
-
-events:edit
+admincp:test the database
+admincp. => group
+admincp.events.browse
+admincp.events.blogs
+admincp.events.blogs
 
 
-admincp=module/controller/action
-
-event: =>[
-    'chains'=>['route'=>'event/<action>/<id>',]
-    'children'=>[
-        'edit'=>'
-    ]
-]
-
-\Phpfox::get('router')->getUrl('edit:event',[id=>1]);

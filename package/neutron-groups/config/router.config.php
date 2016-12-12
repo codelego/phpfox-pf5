@@ -7,4 +7,13 @@ return [
             'filter' => 'group.callback@filterProfileName',
         ],
     ],
+    'routers'=>[
+        'profile.groups'  => [
+            'route'    => 'groups',
+            'defaults' => [
+                'action'     => 'browse',
+                'controller' => 'group.profile',
+            ],
+        ]
+    ]
 ];

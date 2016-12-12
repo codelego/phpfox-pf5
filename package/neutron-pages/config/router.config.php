@@ -8,7 +8,7 @@ return [
         ],
     ],
     'routes' => [
-        'browse_pages:profile' => [
+        'profile.pages' => [
             'route'    => 'pages',
             'defaults' => [
                 'controller' => 'pages.profile',
