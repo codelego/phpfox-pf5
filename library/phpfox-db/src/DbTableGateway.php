@@ -86,11 +86,6 @@ class DbTableGateway implements GatewayInterface
 
     }
 
-    /**
-     * @param array $values
-     *
-     * @return mixed
-     */
     public function insert($values)
     {
         $temp = array_intersect_key($values,
@@ -126,11 +121,6 @@ class DbTableGateway implements GatewayInterface
         return $this->_table;
     }
 
-    /**
-     * @param mixed $values
-     *
-     * @return bool|mixed
-     */
     public function update($values)
     {
         // update changed values, not all ?
@@ -167,11 +157,6 @@ class DbTableGateway implements GatewayInterface
         return new $this->_prototype($values, false);
     }
 
-    /**
-     * @param  array $values
-     *
-     * @return mixed
-     */
     public function delete($values)
     {
         $wheres = [];
@@ -198,11 +183,14 @@ class DbTableGateway implements GatewayInterface
 
     /**
      *
+     * @param string $columns
+     *
      * @return SqlSelect
      */
-    public function select()
+    public function select($columns='*')
     {
         return (new SqlSelect($this->adapter()))
+            ->select($columns)
             ->setPrototype($this->_prototype)
             ->from($this->_table);
     }

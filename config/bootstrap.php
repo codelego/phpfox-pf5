@@ -12,13 +12,13 @@ include __DIR__ . '/constants.php';
 include __DIR__ . '/functions.php';
 
 $cacheFiles = [
-    'package.config'  => PHPFOX_DIR . 'data/cache/package.config.php',
-    'autoload.config' => PHPFOX_DIR . 'data/cache/autoload.config.php',
+    'package'  => PHPFOX_DIR . 'data/cache/package.config.php',
+    'autoload' => PHPFOX_DIR . 'data/cache/autoload.config.php',
 ];
 
 $configFiles = [
-    'package.config'  => PHPFOX_DIR . 'config/package.config.php',
-    'autoload.config' => PHPFOX_DIR . 'config/autoload.config.php',
+    'package'  => PHPFOX_DIR . 'config/package.config.php',
+    'autoload' => PHPFOX_DIR . 'config/autoload.config.php',
 ];
 
 $shouldGenerate = PHPFOX_ENV != 'production';
@@ -49,30 +49,30 @@ $autoloader->addClassMap([
 
 
 if (!$shouldGenerate) {
-    _autoload_psr4($autoloader, include $cacheFiles['autoload.config']);
+    _autoload_psr4($autoloader, include $cacheFiles['autoload']);
 
     \Phpfox::init();
 
     $configContainer = \Phpfox::mvcConfig();
-    $configContainer->merge(include $cacheFiles['package.config']);
+    $configContainer->merge(include $cacheFiles['package']);
 
 } else {
 
     // load library data
-    if (file_exists($configFiles['autoload.config'])) {
-        $autoloadConfigs = include $configFiles['autoload.config'];
+    if (file_exists($configFiles['autoload'])) {
+        $autoloadConfigs = include $configFiles['autoload'];
     } else {
         $autoloadConfigs = _merge_configs(PHPFOX_DIR . 'library',
             'autoload.config.php');
         _file_export($configFiles['autoload.config'], $autoloadConfigs);
     }
 
-    if (file_exists($configFiles['package.config'])) {
-        $packageConfigs = include $configFiles['package.config'];
+    if (file_exists($configFiles['package'])) {
+        $packageConfigs = include $configFiles['package'];
     } else {
         $packageConfigs = _merge_configs_recursive(PHPFOX_DIR . 'library',
             'package.config.php');
-        _file_export($configFiles['package.config'], $packageConfigs);
+        _file_export($configFiles['package'], $packageConfigs);
     }
 
     _autoload_psr4($autoloader, $autoloadConfigs);
@@ -83,7 +83,7 @@ if (!$shouldGenerate) {
     $configContainer = \Phpfox::mvcConfig();
 
     $packageConfigs['db.adapters']['default'] = include PHPFOX_DIR
-        . '/config/db.init.php';
+        . '/config/database.config.php';
 
 
     /**
@@ -108,10 +108,10 @@ if (!$shouldGenerate) {
 
     _autoload_psr4($autoloader, $autoloadConfigs);
 
-    _file_export($cacheFiles['autoload.config'], $autoloadConfigs);
+    _file_export($cacheFiles['autoload'], $autoloadConfigs);
 
     $configContainer->merge($packageLoader->loadPackageConfigs());
-    _file_export($cacheFiles['package.config'], $configContainer->all());
+    _file_export($cacheFiles['package'], $configContainer->all());
 }
 
 \Phpfox::bootstrap();

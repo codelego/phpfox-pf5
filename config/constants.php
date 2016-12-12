@@ -46,16 +46,30 @@ defined('PHPFOX_LIBRARY_DIR') or define('PHPFOX_LIBRARY_DIR',
 defined('PHPFOX_PACKAGE_DIR') or define('PHPFOX_PACKAGE_DIR',
     PHPFOX_DIR . 'package' . DS);
 
+
+/**
+ * string
+ */
+defined('PHPFOX_CONFIG_DIR') or define('PHPFOX_CONFIG_DIR',
+    PHPFOX_DIR . 'config' . DS);
+
+/**
+ * string
+ */
+defined('PHPFOX_STATIC_DIR') or define('PHPFOX_STATIC_DIR',
+    PHPFOX_DIR . 'static' . DS);
+
+/**
+ * string
+ */
+defined('PHPFOX_DATA_DIR') or define('PHPFOX_DATA_DIR',
+    PHPFOX_DIR . 'data' . DS);
+
 /**
  * string
  *
  */
 defined('PHPFOX_TABLE_PREFIX') or define('PHPFOX_TABLE_PREFIX', 'pf5_');
-
-/**
- * string
- */
-defined('PHPFOX_NO_SESSION') or define('PHPFOX_NO_SESSION', false);
 
 /**
  *
