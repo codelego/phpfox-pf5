@@ -14,7 +14,10 @@ return [
         'require' => 'jscript/requirejs/require.js',
     ],
     'static.css'      => [
-        'bootstrap' => 'theme/default/stylesheets/bundle.css',
+        'bootstrap'   => 'theme/default/css/bootstrap.css',
+        'font'        => '//fonts.googleapis.com/css?family=Roboto',
+        'custom'      => 'theme/default/css/custom.css',
+        'admin.login' => 'theme/default/css/admin-login.css',
     ],
     'requirejs.shim'  => [
         'bootstrap'  => [
@@ -38,7 +41,6 @@ return [
         'i18n.loader'          => [null, Service\I18nMessageLoader::class],
         'mailer.factory'       => [null, Service\MailTransportFactory::class],
         'storage.factory'      => [null, Service\FileStorageFactory::class],
-        'package.loader'       => [null, Service\PackageLoader::class,],
         'session.save_handler' => [Service\SessionFactory::class,],
         'mvc.events.loader'    => [null, Service\EventLoader::class],
         'core.callback'        => [null, Service\EventListener::class],
@@ -49,7 +51,5 @@ return [
     ]),
     'session.drivers' => [
         'database' => Service\DatabaseSession::class,
-    ],
-    'models'          => [
     ],
 ];

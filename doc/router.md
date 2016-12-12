@@ -88,7 +88,7 @@ events:search,
 events:edit
 
 
-events.admin:edit_delete
+admincp=module/controller/action
 
 event: =>[
     'chains'=>['route'=>'event/<action>/<id>',]

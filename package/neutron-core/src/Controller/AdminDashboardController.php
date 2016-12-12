@@ -12,6 +12,6 @@ class AdminDashboardController extends MvcController
      */
     public function actionIndex()
     {
-        return new ViewModel('core');
+        return new ViewModel('core.admin-dashboard.index');
     }
 }

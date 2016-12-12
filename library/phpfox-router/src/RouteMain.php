@@ -8,11 +8,6 @@ class RouteMain implements RouteGroupInterface
      */
     protected $children = [];
 
-    /**
-     * @var bool
-     */
-    protected $debug = false;
-
     protected $name = '';
 
     public function add($key, RouteInterface $route)
@@ -23,13 +18,7 @@ class RouteMain implements RouteGroupInterface
     public function match($path, $host, $method, $protocol, &$parameters)
     {
         foreach ($this->children as $id => $child) {
-            if ($this->debug) {
-                echo 'checked route "', $id, '" ~ ', '"', $path, '"', PHP_EOL;
-            }
             if ($child->match($path, $host, $method, $protocol, $parameters)) {
-                if ($this->debug) {
-                    echo "matched route " . $id, PHP_EOL;
-                }
                 $parameters->set('info.rule', $id);
                 if ($parameters->isValid()) {
                     return true;
@@ -39,12 +28,18 @@ class RouteMain implements RouteGroupInterface
         return $parameters->isValid();
     }
 
-    public function getUrl($key, $params = [])
+    public function compileUri($params)
+    {
+        return '#';
+    }
+
+    public function getUri($key, $params)
     {
         if (!isset($this->children[$key])) {
             throw new \InvalidArgumentException("Unexpected route '{$key}'");
         }
 
-        return $this->children[$key]->getUrl($params);
+        return $this->children[$key]->getUri($key, $params);
     }
+
 }

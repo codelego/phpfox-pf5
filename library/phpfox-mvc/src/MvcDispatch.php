@@ -85,7 +85,7 @@ class MvcDispatch
                 $this->completed = true;
 
                 $lastResult = $this->createController()
-                    ->resolve($this->action);
+                    ->run($this->action);
 
                 // continue if forward
                 if (!$this->completed) {
@@ -111,10 +111,12 @@ class MvcDispatch
 
     /**
      * @ignore
+     * @return MvcController
      */
     protected function createController()
     {
-        $class = \Phpfox::getParam('controllers', $this->controller);
+        $class = \Phpfox::get('controller.provider')
+            ->get($this->controller);
 
         if (null == $class) {
             throw new \InvalidArgumentException("Unexpected controller '{$this->controller}'");
@@ -131,9 +133,7 @@ class MvcDispatch
             $this->controller = $controller;
         }
 
-        if (null != $action) {
-            $this->action = $action;
-        }
+        $this->action = $action;
 
         return true;
     }

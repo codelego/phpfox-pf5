@@ -10,4 +10,9 @@ class Pages extends DbModel
     {
         return 'pages';
     }
+
+    public function getProfileName()
+    {
+        return $this->__get('profile_name');
+    }
 }

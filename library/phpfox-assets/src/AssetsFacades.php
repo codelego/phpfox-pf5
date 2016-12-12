@@ -93,9 +93,24 @@ class AssetsFacades
      *
      * @return $this
      */
-    public function addStyle($key, $path, $props = [])
+    public function addStyle($key, $path = null, $props = [])
     {
         Phpfox::get('html.start.style')->add($key, $path, $props);
+        return $this;
+    }
+
+    /**
+     * @see ExternalStyle::add()
+     *
+     * @param string      $key
+     * @param string|null $path
+     * @param array       $props
+     *
+     * @return $this
+     */
+    public function prependStyle($key, $path = null, $props = [])
+    {
+        Phpfox::get('html.start.style')->prepend($key, $path, $props);
         return $this;
     }
 

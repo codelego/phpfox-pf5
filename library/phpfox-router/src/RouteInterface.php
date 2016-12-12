@@ -18,7 +18,15 @@ interface RouteInterface
      * @param string $key default is null
      * @param array  $params
      *
+     * @return string|false
+     */
+    public function getUri($key, $params);
+
+
+    /**
+     * @param array $params
+     *
      * @return string
      */
-    public function getUrl($key, $params = []);
+    public function compileUri($params);
 }

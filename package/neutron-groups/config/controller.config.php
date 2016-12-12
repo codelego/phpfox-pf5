@@ -1,8 +1,6 @@
 <?php
-namespace Neutron\Group;
+namespace Neutron\Group\Controller;
 
 return [
-    'controllers' => [
-        'group.profile' => Controller\ProfileController::class,
-    ],
+    'group.profile' => ProfileController::class,
 ];

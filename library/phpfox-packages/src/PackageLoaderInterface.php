@@ -23,16 +23,6 @@ interface PackageLoaderInterface
     /**
      * @return array
      */
-    public function loadControllerConfigs();
-
-    /**
-     * @return array
-     */
-    public function loadModelConfigs();
-
-    /**
-     * @return array
-     */
     public function loadPackageConfigs();
 
     /**

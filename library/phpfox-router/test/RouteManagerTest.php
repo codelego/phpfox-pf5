@@ -6,6 +6,11 @@ namespace Phpfox\Router;
 class RouteManagerTest extends \PHPUnit_Framework_TestCase
 {
 
+    public function testGetUrl()
+    {
+
+    }
+
     public function provideUrl()
     {
         return [
@@ -13,7 +18,8 @@ class RouteManagerTest extends \PHPUnit_Framework_TestCase
             ['namnv/members', 'user.profile', 'members'],
             ['namnv/blogs', 'blog.profile', 'browse'],
             ['pages/2', 'pages.profile', 'index'],
-            ['pages/1/blog/1', 'blog.profile', 'view'],
+            ['pages/2/blog/1', 'blog.profile', 'view'],
+            ['pages/Sapiente/blog/1', 'blog.profile', 'view'],
             ['namnv/blog/1', 'blog.profile', 'view'],
             ['login', 'user.auth', 'login'],
             ['register', 'user.register', 'index'],

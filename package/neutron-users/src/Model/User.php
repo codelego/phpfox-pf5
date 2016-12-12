@@ -17,6 +17,11 @@ class User extends DbModel implements UserInterface
         return @$this->_data['username'];
     }
 
+    public function getProfileName()
+    {
+        return $this->__get('username');
+    }
+
     public function isUser()
     {
         return true;

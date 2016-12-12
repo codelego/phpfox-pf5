@@ -50,7 +50,7 @@ class ServiceManager
         $ref = \Phpfox::getParam('services', $id);
 
         if (!$ref) {
-            throw new \InvalidArgumentException("There are no service identity '{$id}'");
+            throw new \InvalidArgumentException("Unexpected '{$id}'");
         }
 
         if (is_string($ref)) {

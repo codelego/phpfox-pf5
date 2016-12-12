@@ -1,3 +1,4 @@
 <?php
-//namespace Neutron\Package;
+namespace Neutron\Cms;
+
 return [];

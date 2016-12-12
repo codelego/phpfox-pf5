@@ -19,6 +19,10 @@ interface UserInterface extends ResourceInterface
     public function getUsername();
 
     /**
+     * @return string
+     */
+    public function getProfileName();
+    /**
      * @return bool
      */
     public function isUser();

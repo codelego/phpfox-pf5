@@ -46,30 +46,38 @@ class PackageLoader implements PackageLoaderInterface
 
     public function loadRouterConfigs()
     {
-        $based = [];
-        /**
-         * fetch package variables from package.php
-         */
+        $result = ['chains' => [], 'routes' => [], 'phrases' => []];
         foreach ($this->loadEnablePaths() as $path) {
-            _array_merge_recursive_from_file($based,
-                $path . '/config/router.config.php');
+            $data = include PHPFOX_DIR . $path . '/config/router.config.php';
+            if (isset($data['chains'])) {
+                foreach ($data['chains'] as $key => $values) {
+                    if (!isset($result['chains'][$key])) {
+                        $result['chains'][$key] = [];
+                    }
+                    if (isset($values['route'])) {
+                        $result['chains'][$key][] = $values;
+                    } else {
+                        foreach ($values as $value) {
+                            $result['chains'][$key][] = $value;
+                        }
+                    }
+                }
+            }
+
+            if (isset($data['routes'])) {
+                foreach ($data['routes'] as $name => $value) {
+                    $result['routes'][$name] = $value;
+                }
+            }
+
+            if (isset($data['phrases'])) {
+                foreach ($data['phrases'] as $name => $value) {
+                    $result['phrases'][$name] = $value;
+                }
+            }
         }
 
-        return $based;
-    }
-
-    public function loadControllerConfigs()
-    {
-        $based = [];
-        /**
-         * fetch package variables from package.php
-         */
-        foreach ($this->loadEnablePaths() as $path) {
-            _array_merge_from_file($based,
-                $path . '/config/controller.config.php');
-        }
-
-        return $based;
+        return $result;
     }
 
     public function loadModelConfigs()
@@ -79,10 +87,12 @@ class PackageLoader implements PackageLoaderInterface
          * fetch package variables from package.php
          */
         foreach ($this->loadEnablePaths() as $path) {
-            _array_merge_from_file($based,
-                $path . '/config/models.config.php');
-        }
+            $data = include PHPFOX_DIR . $path . '/config/models.config.php';
 
+            foreach ($data as $name => $value) {
+                $based[$name] = $value;
+            }
+        }
         return $based;
     }
 

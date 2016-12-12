@@ -34,7 +34,7 @@ class GatewayManager implements GatewayManagerInterface
 
     public function factory($id)
     {
-        $ref = \Phpfox::getParam('models', $id);
+        $ref = \Phpfox::get('models.provider')->get($id);
 
         if (!$ref) {
             throw new GatewayException("gateway `$id` does not exists");

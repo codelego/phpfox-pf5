@@ -8,23 +8,24 @@ class Browse
 {
 
     /**
-     * @param  string $name
+     * @param  string $id
      *
      * @return Pages|mixed
      */
-    public function findById($name)
+    public function findById($id)
     {
         $browse = \Phpfox::getModel('pages');
         $pages = null;
 
-        if (substr($name, 0, 1) > '9') {
+        if (substr($id, 0, 1) > '9') {
+
             $pages = $browse->select()
-                ->where('profile_name=?', (string)$name)
+                ->where('profile_name=?', (string)$id)
                 ->execute()
                 ->first();
         } else {
             $pages = $browse->select()
-                ->where('pages_id=?', (int)$name)
+                ->where('page_id=?', (int)$id)
                 ->execute()
                 ->first();
         }

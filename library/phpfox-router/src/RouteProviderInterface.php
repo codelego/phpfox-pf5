@@ -2,7 +2,7 @@
 
 namespace Phpfox\Router;
 
-interface RouteLoaderInterface
+interface RouteProviderInterface
 {
     /**
      * @return array

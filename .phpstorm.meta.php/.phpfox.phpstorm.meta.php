@@ -35,17 +35,21 @@ namespace PHPSTORM_META {
         'form.render'          => \Phpfox\Form\FormFacades::class,
         'form.factory'         => \Phpfox\Form\FormFactory::class,
 
+        'view.template' => \Phpfox\View\PhpTemplate::class,
+        'view.layout'   => \Phpfox\View\ViewLayout::class,
+
+        'controller.provider' => \Phpfox\Mvc\ControllerProviderInterface::class,
         // package
-        'package.loader'       => \Phpfox\Package\PackageLoaderInterface::class,
+        'package.loader'      => \Phpfox\Package\PackageLoaderInterface::class,
 
         // log section
-        'main.log'             => \Phpfox\Logger\LogContainer::class,
-        'dev.log'              => \Phpfox\Logger\LogContainer::class,
-        'db'                   => \Phpfox\Db\DbAdapterInterface::class,
+        'main.log'            => \Phpfox\Logger\LogContainer::class,
+        'dev.log'             => \Phpfox\Logger\LogContainer::class,
+        'db'                  => \Phpfox\Db\DbAdapterInterface::class,
 
         // user
-        'user.verify_email'    => \Neutron\User\Service\VerifyEmail::class,
-        'user.browse'          => \Neutron\User\Service\Browse::class,
+        'user.verify_email'   => \Neutron\User\Service\VerifyEmail::class,
+        'user.browse'         => \Neutron\User\Service\Browse::class,
     ]));
 
     override(\Phpfox::build(0), map([

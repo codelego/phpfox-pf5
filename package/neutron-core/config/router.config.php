@@ -3,54 +3,20 @@
 return [
     'phrases' => [],
     'chains'  => [
-        'admincp'         => [
-            'route'    => '{admincp}/*',
-            'defaults' => [],
+        'admincp' => [
+            'route'    => 'admincp/*',
+            'filter'   => 'core.callback@onRouteAdminFilter',
+            'compiler' => 'core.callback@onRouteAdminCompile',
         ],
-        'rest'            => [
-            'route'    => '{rest}/*',
-            'defaults' => [],
+        'api'     => [
+            'route' => 'api/*',
         ],
-        'ajax'            => [
-            'route' => '{ajax}/*',
-        ],
-        'profile:general' => [
-            'route'  => '<name>/*',
-            'filter' => 'user.callback@filterProfileName',
-        ],
-        'profile:user'    => [
-            'route'    => '{profile}/<name>/*',
-            'filter'   => 'user.callback@filterProfileName',
-            'defaults' => [
-                'controller' => 'user.profile',
-                'action'     => 'index',
-            ],
-        ],
-        'profile:pages'   => [
-            'route'    => '{pages}/<name>/*',
-            'filter'   => 'pages.callback@filterProfileName',
-            'defaults' => [
-                'controller' => 'pages.profile',
-                'action'     => 'index',
-            ],
-        ],
-        'profile:groups'  => [
-            'route'    => '{groups}/<name>/*',
-            'filter'   => 'group.callback@filterProfileName',
-            'defaults' => [
-            ],
-        ],
-        'profile:events'  => [
-            'route'    => '{events}/<name>/*',
-            'filter'   => 'event.callback@filterProfileName',
-            'defaults' => [
-                'controller' => 'pages.profile',
-                'action'     => 'index',
-            ],
+        'ajax'    => [
+            'route' => 'ajax/*',
         ],
     ],
     'routes'  => [
-        'home'                        => [
+        'home'          => [
             'route'    => '/',
             'wheres'   => [],
             'defaults' => [
@@ -58,7 +24,7 @@ return [
                 'action'     => 'index',
             ],
         ],
-        'rest:menus'                  => [
+        'menus:api'     => [
             'route'    => 'menus',
             'method'   => 'GET',
             'group'    => 'rest',
@@ -67,49 +33,14 @@ return [
                 'action'     => 'listing',
             ],
         ],
-        'rest:menu.item'              => [
+        'menu.item:api' => [
             'route'    => 'menu/<id>',
             'defaults' => [
                 'controller' => 'RestfulMenuController',
                 'action'     => 'view',
             ],
         ],
-        'admincp:core.dashboard'      => [
-            'route'    => '{admincp}',
-            'defaults' => [
-                'controller' => 'core.admin-dashboard',
-                'action'     => 'index',
-            ],
-        ],
-        'admincp:core.theme'          => [
-            'route'    => '{admincp}/core/theme/<action>?',
-            'defaults' => [
-                'controller' => 'core.admin-theme',
-                'action'     => 'index',
-            ],
-        ],
-        'admincp:core.package'        => [
-            'route'    => '{admincp}/core/package/<action>?',
-            'defaults' => [
-                'controller' => 'core.admin-package',
-                'action'     => 'index',
-            ],
-        ],
-        'admincp:core.settings'       => [
-            'route'    => '{admincp}/core/settings/<action>?',
-            'defaults' => [
-                'controller' => 'core.admin-settings',
-                'action'     => 'index',
-            ],
-        ],
-        'admincp:core.mail-transport' => [
-            'route'    => '{admincp}/core/mail-transport/<action>?',
-            'defaults' => [
-                'controller' => 'core.admin-mail-transport',
-                'action'     => 'index',
-            ],
-        ],
-        'profile:index'               => [
+        'index:profile' => [
             'route'    => '/',
             'defaults' => [
                 'action' => 'index',

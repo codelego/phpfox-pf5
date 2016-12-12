@@ -9,7 +9,7 @@ class RouteGroup implements RouteGroupInterface
     protected $chains = [];
 
     /**
-     * @var array
+     * @var RouteInterface[]
      */
     protected $children = [];
 
@@ -18,23 +18,17 @@ class RouteGroup implements RouteGroupInterface
      */
     protected $name;
 
-    /**
-     * @var bool
-     */
-    protected $debug = true;
-
     public function __construct($name)
     {
         $this->name = $name;
     }
 
     /**
-     * @param string         $id
      * @param RouteInterface $chain
      */
-    public function addChain($id, $chain)
+    public function chain($chain)
     {
-        $this->chains[$id] = $chain;
+        $this->chains[] = $chain;
     }
 
     public function add($key, RouteInterface $route)
@@ -63,14 +57,8 @@ class RouteGroup implements RouteGroupInterface
     {
         $matched = false;
         foreach ($this->chains as $key => $rule) {
-            if ($this->debug) {
-                echo 'checked rule "', $key, '" ~ ', '"', $path, '"', PHP_EOL;
-            }
             if ($rule->match($path, $host, $method, $protocol, $parameters)) {
                 $matched = true;
-                if ($this->debug) {
-                    echo "matched rule $key", PHP_EOL;
-                }
                 break;
             }
         }
@@ -79,20 +67,13 @@ class RouteGroup implements RouteGroupInterface
             return false;
         }
 
-
         $end = trim($parameters->get('retain'), '/');
         if (!$end) {
             $end = '/';
         }
 
         foreach ($this->children as $id => $child) {
-            if ($this->debug) {
-                echo 'checked route "', $id, '" ~ ', '"', $end, '"', PHP_EOL;
-            }
             if ($child->match($end, $host, $method, $protocol, $parameters)) {
-                if ($this->debug) {
-                    echo "matched route " . $id, PHP_EOL;
-                }
                 $parameters->set('info.rule', $id);
                 if ($parameters->isValid()) {
                     return true;
@@ -102,8 +83,28 @@ class RouteGroup implements RouteGroupInterface
         return $parameters->isValid();
     }
 
-    public function getUrl($key, $params = [])
+    public function compileUri($params)
     {
         return '';
+    }
+
+    public function getUri($key, $params = [])
+    {
+        $result = null;
+        foreach ($this->chains as $chain) {
+            if (false !== ($result = $chain->getUri($key, $params))) {
+                break;
+            }
+        }
+
+        if (false == $result) {
+            return false;
+        }
+
+        if (!isset($this->children[$key])) {
+            return $result;
+        }
+
+        return $result .'/'. $this->children[$key]->getUri($key, $params);
     }
 }

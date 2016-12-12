@@ -8,10 +8,12 @@ return [
         'form_bootstrap' => FormBootstrapRender::class,
         'button'         => ButtonRender::class,
         'checkbox'       => CheckboxRender::class,
+        'select'         => SelectRender::class,
     ],
     'form.elements' => [
         'color_picker' => ColorPicker::class,
         'editor'       => Textarea::class,
+        'choice'       => Choice::class,
         'checkbox'     => Checkbox::class,
         'select_multi' => MultiChoice::class,
         'button'       => Button::class,

@@ -2,16 +2,19 @@
 
 namespace Phpfox\Form;
 
-class Choice implements FieldInterface
+class Choice extends Element implements FieldInterface
 {
-    use ElementTrait;
-
     protected $value;
 
     /**
      * @var array
      */
     protected $options = [];
+
+    /**
+     * @var string
+     */
+    protected $render = 'select';
 
     /**
      * @return mixed

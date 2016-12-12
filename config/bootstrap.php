@@ -58,31 +58,38 @@ if (!$shouldGenerate) {
 
 } else {
 
-    $packageVariables = _merge_configs_recursive([PHPFOX_DIR . '/library',],
-        'package.config.php');
+    // load library data
+    if (file_exists($configFiles['autoload.config'])) {
+        $autoloadConfigs = include $configFiles['autoload.config'];
+    } else {
+        $autoloadConfigs = _merge_configs(PHPFOX_DIR . 'library',
+            'autoload.config.php');
+        _file_export($configFiles['autoload.config'], $autoloadConfigs);
+    }
 
-
-    $autoloadConfigs = _merge_configs([PHPFOX_DIR . '/library',],
-        'autoload.config.php');
-
-    unset($autoloadConfigs['']);
-
-
-    _file_export($configFiles['package.config'], $packageVariables);
-    _file_export($configFiles['autoload.config'], $autoloadConfigs);
+    if (file_exists($configFiles['package.config'])) {
+        $packageConfigs = include $configFiles['package.config'];
+    } else {
+        $packageConfigs = _merge_configs_recursive(PHPFOX_DIR . 'library',
+            'package.config.php');
+        _file_export($configFiles['package.config'], $packageConfigs);
+    }
 
     _autoload_psr4($autoloader, $autoloadConfigs);
+
     \Phpfox::init();
+
 
     $configContainer = \Phpfox::mvcConfig();
 
-    $packageVariables['db.adapters']['default'] = include PHPFOX_DIR
+    $packageConfigs['db.adapters']['default'] = include PHPFOX_DIR
         . '/config/db.init.php';
+
 
     /**
      * Kernel's ready, getting started config extension packages.
      */
-    $configContainer->merge($packageVariables);
+    $configContainer->merge($packageConfigs);
 
 
     /**
@@ -92,7 +99,7 @@ if (!$shouldGenerate) {
 
     $paths = $packageLoader->loadEnablePaths();
 
-    $packageVariables = [];
+    $packageConfigs = [];
 
 
     $autoloadConfigs = array_merge($autoloadConfigs,
@@ -102,8 +109,8 @@ if (!$shouldGenerate) {
     _autoload_psr4($autoloader, $autoloadConfigs);
 
     _file_export($cacheFiles['autoload.config'], $autoloadConfigs);
-    $configContainer->merge($packageLoader->loadPackageConfigs());
 
+    $configContainer->merge($packageLoader->loadPackageConfigs());
     _file_export($cacheFiles['package.config'], $configContainer->all());
 }
 

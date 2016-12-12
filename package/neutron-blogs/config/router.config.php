@@ -2,14 +2,14 @@
 
 return [
     'routes' => [
-        'profile:blogs'     => [
+        'browse_blogs:profile' => [
             'route'    => '{blogs}',
             'defaults' => [
                 'controller' => 'blog.profile',
                 'action'     => 'browse',
             ],
         ],
-        'profile:view_blog' => [
+        'view_blog:profile'    => [
             'route'    => '{blog}/<id>',
             'defaults' => [
                 'controller' => 'blog.profile',

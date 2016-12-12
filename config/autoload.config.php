@@ -1,4 +1,7 @@
 <?php return array (
+  '' => 
+  array (
+  ),
   'Phpfox\\Assets' => 
   array (
     0 => 'library/phpfox-assets/src',

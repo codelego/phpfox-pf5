@@ -5,31 +5,14 @@ namespace Phpfox\Router;
 class Router
 {
     /**
-     * router by name
-     *
-     * @var RouteInterface[]
-     */
-    protected $byNames = [];
-
-    /**
      * @var RouteGroup[]
      */
     protected $groups = [];
 
     /**
-     * @var RouteMain
-     */
-    protected $main;
-
-    /**
      * @var array
      */
     protected $phrases = [];
-
-    /**
-     * @var string
-     */
-    protected $fallbackId;
 
     /**
      * RouteManager constructor.
@@ -47,36 +30,30 @@ class Router
     {
         $configs = \Phpfox::get('package.loader')
             ->loadRouterConfigs();
-
-        $this->byNames = [];
         $this->phrases = $configs['phrases'];
 
-        $this->main = new RouteMain();
-
         foreach ($configs['chains'] as $key => $v) {
-            if (empty($v['route'])) {
-                continue;
+            if (!isset($this->groups[$key])) {
+                $this->groups[$key] = new RouteGroup($key);
             }
-
-            if (strpos($key, ':') == false) {
-                continue;
+            foreach ($v as $cfg) {
+                $this->groups[$key]->chain($this->build($cfg));
             }
-
-            list($name) = explode(':', $key);
-
-            if (!isset($this->groups[$name])) {
-                $this->groups[$name] = new RouteGroup($name);
-            }
-            $this->groups[$name]->addChain($key, $this->build($v));
         }
+        // append main route
+        $this->groups[''] = new RouteMain();
 
         foreach ($configs['routes'] as $key => $v) {
-            if (strpos($key, ':') > 0) {
-                list($group) = explode(':', $key);
-                $this->groups[$group]->add($key, $this->build($v));
+            if (strpos($key, ':')) {
+                list($key, $group) = explode(':', $key, 2);
             } else {
-                $this->main->add($key, $this->build($v));
+                $group = '';
             }
+
+            if (!isset($this->groups[$group])) {
+                continue;
+            }
+            $this->groups[$group]->add($key, $this->build($v));
         }
     }
 
@@ -101,31 +78,6 @@ class Router
     }
 
     /**
-     * has router
-     *
-     * @param string $id
-     *
-     * @return bool
-     */
-    public function has($id)
-    {
-        return isset($this->byNames[$id]);
-    }
-
-    /**
-     * @param string $id
-     * @param array  $params
-     *
-     * @return $this
-     */
-    public function add($id, $params)
-    {
-        $this->byNames[$id] = $this->build($params);
-
-        return $this;
-    }
-
-    /**
      * @param string $id
      * @param array  $params
      *
@@ -133,7 +85,11 @@ class Router
      */
     public function getUrl($id, $params = [])
     {
-        return $this->get($id)->getUrl($params);
+        $group = '';
+        if (strpos($id, ':') !== false) {
+            list($id, $group) = explode(':', $id);
+        }
+        return PHPFOX_BASE_URL .$this->get($group)->getUri($id, $params);
     }
 
     /**
@@ -144,13 +100,8 @@ class Router
      */
     public function get($id)
     {
-        if (isset($this->byNames[$id])) {
-            return $this->byNames[$id];
-        }
-
-        // todo use production/development to control
-        if (null != $this->fallbackId) {
-            return $this->byNames[$this->fallbackId];
+        if (isset($this->groups[$id])) {
+            return $this->groups[$id];
         }
 
         throw new InvalidArgumentException("Unexpected route '{$id}'");
@@ -173,21 +124,11 @@ class Router
             if ($group->match($path, $host, $method, $protocol, $parameters)) {
                 if ($parameters->isValid()) {
                     $parameters->set('info.chain', $key);
-                    break;
+                    return $parameters;
                 }
             }
         }
+
         return $parameters;
     }
-
-    /**
-     * Be careful that $fallbackId exists.
-     *
-     * @param string $fallbackId
-     */
-    public function setFallback($fallbackId)
-    {
-        $this->fallbackId = $fallbackId;
-    }
-
 }

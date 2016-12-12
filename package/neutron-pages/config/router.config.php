@@ -1,8 +1,14 @@
 <?php
 
 return [
+    'chains' => [
+        'profile' => [
+            'route'  => 'pages/<name>/*',
+            'filter' => 'pages.callback@onRouteFilter',
+        ],
+    ],
     'routes' => [
-        'profile:pages' => [
+        'browse_pages:profile' => [
             'route'    => 'pages',
             'defaults' => [
                 'controller' => 'pages.profile',

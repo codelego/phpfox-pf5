@@ -1,8 +1,6 @@
 <?php
-namespace Neutron\Blog;
+namespace Neutron\Blog\Controller;
 
 return [
-    'controllers' => [
-        'blog.profile' => Controller\ProfileController::class,
-    ],
+    'blog.profile' => ProfileController::class,
 ];

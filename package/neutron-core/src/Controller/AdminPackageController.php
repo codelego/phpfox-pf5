@@ -14,7 +14,9 @@ class AdminPackageController extends MvcController
 
         $packages = $db->select('*')
             ->from(':core_package')
-            ->order('is_core, package_type', 1)
+            ->order('package_type', -1)
+            ->where('package_type<?',32)
+            ->where('package_type>=?',16)
             ->execute()
             ->all();
 

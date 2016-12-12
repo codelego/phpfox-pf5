@@ -1,9 +1,7 @@
 <?php
 
-namespace Neutron\Pages;
+namespace Neutron\Pages\Controller;
 
 return [
-    'controllers' => [
-        'pages.profile' => Controller\ProfileController::class,
-    ],
+    'pages.profile' => ProfileController::class,
 ];

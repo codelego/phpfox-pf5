@@ -2,11 +2,6 @@
 
 namespace Phpfox\View;
 
-/**
- * Class ViewLayout
- *
- * @package Phpfox\View
- */
 class ViewLayout extends ViewModel
 {
     /**
@@ -23,8 +18,11 @@ class ViewLayout extends ViewModel
             $this->template = 'layout.master.default';
         }
 
-        \Phpfox::assets()->addScripts('require', null)
-            ->addStyle('bootstrap', null);
+        \Phpfox::assets()
+            ->addScripts('require', null)
+            ->prependStyle('custom', null)
+            ->prependStyle('bootstrap', null)
+            ->prependStyle('font', null);
 
         \Phpfox::emit('onViewLayoutPrepare', $this);
 

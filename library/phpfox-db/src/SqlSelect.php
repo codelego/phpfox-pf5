@@ -433,7 +433,7 @@ class SqlSelect
         $group = empty($this->_group) ? '' : ' GROUP BY ' . $this->_group;
 
         return 'SELECT count(*) as ' . self::COUNT_NAME . ' FROM ' . $tables
-            . $join . $where . $group . $having;
+            . $join . $where . $group . $having . PHP_EOL;
     }
 
     /**
@@ -478,7 +478,7 @@ class SqlSelect
 
 
         return 'SELECT ' . $columns . ' FROM ' . $tables . $join . $where
-            . $group . $having . $order . $limit . $forUpdate;
+            . $group . $having . $order . $limit . $forUpdate . PHP_EOL;
     }
 
     /**

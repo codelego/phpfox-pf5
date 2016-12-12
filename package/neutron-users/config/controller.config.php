@@ -1,11 +1,9 @@
 <?php
-namespace Neutron\User;
+namespace Neutron\User\Controller;
 
 return [
-    'controllers' => [
-        'user.auth'     => Controller\AuthController::class,
-        'user.register' => Controller\RegisterController::class,
-        'user.settings' => Controller\SettingsController::class,
-        'user.profile'  => Controller\ProfileController::class,
-    ],
+    'user.auth'     => AuthController::class,
+    'user.register' => RegisterController::class,
+    'user.settings' => SettingsController::class,
+    'user.profile'  => ProfileController::class,
 ];

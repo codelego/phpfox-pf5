@@ -28,12 +28,14 @@ class ExternalStyle implements HtmlElementInterface
             return $this;
         }
 
-        $url = $this->getUrl($path);
+        if(substr($path,0,2) != '//'){
+            $path =  $this->getUrl($path);
+        }
 
         $props = array_merge([
             'type' => 'text/css',
             'rel'  => 'stylesheet',
-            'href' => $url,
+            'href' => $path,
         ], $props);
 
 
@@ -59,12 +61,14 @@ class ExternalStyle implements HtmlElementInterface
             return $this;
         }
 
-        $url = $this->getUrl($path);
+        if(substr($path,0,2) != '//'){
+            $path =  $this->getUrl($path);
+        }
 
         $props = array_merge([
             'type' => 'text/css',
             'rel'  => 'stylesheet',
-            'href' => $url,
+            'href' => $path,
         ], $props);
 
         $this->_prepend($key, $props);

@@ -11,11 +11,13 @@ class EventListener implements EventListenerInterface
      *
      * @return bool
      */
-    public function onFilterProfileName(&$params)
+    public function onRouteFilter(&$params)
     {
         $id = isset($params['name']) ? $params['name'] : null;
 
-        $item = \Phpfox::findById('pages', $id);
+
+        // is digit
+        $item = \Phpfox::get('pages.browse')->findById($id);
 
         if (!$item) {
             return false;
