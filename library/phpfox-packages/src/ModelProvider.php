@@ -43,4 +43,16 @@ class ModelProvider implements GatewayProviderInterface
 
         return @$this->data[$id];
     }
+
+    /**
+     * @return array
+     */
+    public function all()
+    {
+        if (!$this->initialized) {
+            $this->initialize();
+        }
+
+        return $this->data;
+    }
 }

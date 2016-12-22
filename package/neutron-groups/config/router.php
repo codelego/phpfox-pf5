@@ -1,19 +1,18 @@
 <?php
 
 return [
-    'chains' => [
-        'profile' => [
-            'route'  => '{groups}/<name>/*',
-            'filter' => 'group.callback@filterProfileName',
-        ],
+    'chains'  => [
+        ['chain'  => 'profile',
+         'route'  => '{groups}/<name>/*',
+         'filter' => 'group.profile_filter',]
     ],
-    'routers'=>[
-        'profile.groups'  => [
+    'routers' => [
+        'profile.groups' => [
             'route'    => 'groups',
             'defaults' => [
                 'action'     => 'browse',
                 'controller' => 'group.profile',
             ],
-        ]
-    ]
+        ],
+    ],
 ];

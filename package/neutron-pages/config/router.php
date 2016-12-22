@@ -2,10 +2,9 @@
 
 return [
     'chains' => [
-        'profile' => [
-            'route'  => 'pages/<name>/*',
-            'filter' => 'pages.callback@onRouteFilter',
-        ],
+        ['chain'  => 'profile',
+         'route'  => 'pages/<name>/*',
+         'filter' => 'pages.profile_filter',]
     ],
     'routes' => [
         'profile.pages' => [

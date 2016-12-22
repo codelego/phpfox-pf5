@@ -28,8 +28,8 @@ class ExternalStyle implements HtmlElementInterface
             return $this;
         }
 
-        if(substr($path,0,2) != '//'){
-            $path =  $this->getUrl($path);
+        if (substr($path, 0, 2) != '//') {
+            $path = $this->getUrl($path);
         }
 
         $props = array_merge([
@@ -61,8 +61,8 @@ class ExternalStyle implements HtmlElementInterface
             return $this;
         }
 
-        if(substr($path,0,2) != '//'){
-            $path =  $this->getUrl($path);
+        if (substr($path, 0, 2) != '//') {
+            $path = $this->getUrl($path);
         }
 
         $props = array_merge([

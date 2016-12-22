@@ -3,44 +3,57 @@
 return [
     'phrases' => [],
     'chains'  => [
-        'admincp' => [
-            'route'    => 'admincp/*',
-            'filter'   => 'core.callback@onRouteAdminFilter',
-            'compiler' => 'core.callback@onRouteAdminCompile',
-        ],
-        'api'     => [
-            'route' => 'api/*',
-        ],
-        'ajax'    => [
-            'route' => 'ajax/*',
-        ],
+
     ],
     'routes'  => [
-        'home'          => [
+        'admin'                     => [
+            'route'    => 'admincp/*',
+            'defaults' => [
+                'controller' => 'core.admin.index',
+                'action'     => 'dashboard',
+            ],
+        ],
+        'admin.core.i18n'           => [
+            'route'    => 'core/i18n/*',
+            'defaults' => [
+                'controller' => 'core.admin.i18n',
+                'action'     => 'index',
+            ],
+        ],
+        'admin.core.i18n.languages' => [
+            'route'    => 'languages',
+            'defaults' => [
+                'action' => 'languages',
+            ],
+        ],
+        'api'                       => [
+            'route' => 'api/*',
+        ],
+        'ajax'                      => [
+            'route' => 'ajax/*',
+        ],
+        'home'                      => [
             'route'    => '/',
-            'wheres'   => [],
             'defaults' => [
                 'controller' => 'core.index',
                 'action'     => 'index',
             ],
         ],
-        'menus:api'     => [
-            'route'    => 'menus',
-            'method'   => 'GET',
-            'group'    => 'rest',
+        'api.menu'                  => [
+            'route'    => 'menu',
             'defaults' => [
-                'controller' => 'RestfulMenuController',
+                'controller' => 'MenuApiController',
                 'action'     => 'listing',
             ],
         ],
-        'menu.item:api' => [
-            'route'    => 'menu/<id>',
+        'api.menu.item'             => [
+            'route'    => '<id>',
             'defaults' => [
-                'controller' => 'RestfulMenuController',
+                'controller' => 'MenuApiController',
                 'action'     => 'view',
             ],
         ],
-        'index:profile' => [
+        'profile.index'             => [
             'route'    => '/',
             'defaults' => [
                 'action' => 'index',

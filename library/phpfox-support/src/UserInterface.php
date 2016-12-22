@@ -22,6 +22,7 @@ interface UserInterface extends ResourceInterface
      * @return string
      */
     public function getProfileName();
+
     /**
      * @return bool
      */

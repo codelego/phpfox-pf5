@@ -50,17 +50,8 @@ class PackageLoader implements PackageLoaderInterface
         foreach ($this->loadEnablePaths() as $path) {
             $data = include PHPFOX_DIR . $path . '/config/router.php';
             if (isset($data['chains'])) {
-                foreach ($data['chains'] as $key => $values) {
-                    if (!isset($result['chains'][$key])) {
-                        $result['chains'][$key] = [];
-                    }
-                    if (isset($values['route'])) {
-                        $result['chains'][$key][] = $values;
-                    } else {
-                        foreach ($values as $value) {
-                            $result['chains'][$key][] = $value;
-                        }
-                    }
+                foreach ($data['chains'] as $value) {
+                    $result['chains'][] = $value;
                 }
             }
 

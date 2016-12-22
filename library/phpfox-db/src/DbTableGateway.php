@@ -187,7 +187,7 @@ class DbTableGateway implements GatewayInterface
      *
      * @return SqlSelect
      */
-    public function select($columns='*')
+    public function select($columns = '*')
     {
         return (new SqlSelect($this->adapter()))
             ->select($columns)

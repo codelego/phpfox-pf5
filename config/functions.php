@@ -106,7 +106,7 @@ namespace {
         }
 
 
-        if(is_writable($file)){
+        if (is_writable($file)) {
             file_put_contents($file,
                 '<?php return ' . var_export($data, true) . ';');
             @chmod($file, 0777);
@@ -383,9 +383,16 @@ namespace {
         }
     }
 
-    function _url($id, $context = [])
+    /**
+     * @param string $key
+     * @param array  $context
+     * @param null   $query
+     *
+     * @return string
+     */
+    function _url($key, $context = [], $query = null)
     {
-        return \Phpfox::getUrl($id, $context);
+        return \Phpfox::get('router')->getUrl($key, $context, $query);
     }
 
     /**
@@ -400,5 +407,14 @@ namespace {
     {
         return \Phpfox::get('translator')
             ->trans($id, $domain, $locale, $context);
+    }
+
+    /**
+     * @param       $message
+     * @param array $context
+     */
+    function _println($message, $context = [])
+    {
+        echo PHP_EOL, _sprintf($message, $context);
     }
 }

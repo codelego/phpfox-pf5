@@ -173,19 +173,6 @@ namespace {
         }
 
         /**
-         * @see Router::getUrl()
-         *
-         * @param string $id
-         * @param array  $argv
-         *
-         * @return string
-         */
-        public static function getUrl($id, $argv = [])
-        {
-            return self::$service->get('router')->getUrl($id, $argv);
-        }
-
-        /**
          * @return \Phpfox\Mvc\MvcResponse
          */
         public static function getResponse()
@@ -219,7 +206,7 @@ namespace {
 
 
         /**
-         * @return \Phpfox\Router\Router
+         * @return \Phpfox\Routing\Router
          */
         public static function router()
         {

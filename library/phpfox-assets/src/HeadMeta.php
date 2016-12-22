@@ -15,8 +15,9 @@ class HeadMeta implements HtmlElementInterface
     public function __construct()
     {
         $this->data[] = ['charset' => 'utf-8'];
-        $this->data[] = ['name'    => 'viewport',
-                         'content' => 'width=device-width, initial-scale=1.0 user-scalable=yes',
+        $this->data[] = [
+            'name'    => 'viewport',
+            'content' => 'width=device-width, initial-scale=1.0 user-scalable=yes',
         ];
     }
 

@@ -14,6 +14,13 @@ class EventManager
      */
     protected $initialized = false;
 
+    /**
+     * @param string      $name
+     * @param null|object $target
+     * @param array|null  $params
+     *
+     * @return null|Response
+     */
     public function emit($name, $target = null, $params = [])
     {
         if (empty($this->events[$name])) {
@@ -23,6 +30,11 @@ class EventManager
         return $this->trigger(new Event($name, $target, $params));
     }
 
+    /**
+     * @param Event $event
+     *
+     * @return Response
+     */
     public function trigger(Event $event)
     {
         $name = $event->getName();
@@ -52,6 +64,13 @@ class EventManager
         return $response;
     }
 
+    /**
+     * @param       $name
+     * @param null  $target
+     * @param array $params
+     *
+     * @return mixed
+     */
     public function callback($name, $target = null, $params = [])
     {
         if (empty($this->events[$name])) {

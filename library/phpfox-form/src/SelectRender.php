@@ -15,7 +15,7 @@ class SelectRender implements RenderInterface
         $attributes = $element->getAttributes();
         $attributes['name'] = $element->getName();
 
-        return '<select '._attrize($attributes).'></select>';
+        return '<select ' . _attrize($attributes) . '></select>';
     }
 
 }

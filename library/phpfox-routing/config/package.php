@@ -1,3 +1,9 @@
 <?php
 
-return [];
+namespace Phpfox\Routing;
+
+return [
+    'services' => [
+        'router' => [null, Router::class,],
+    ],
+];

@@ -63,10 +63,6 @@ class Route implements RouteInterface
             $this->filter = $params['filter'];
         }
 
-        if (!empty($params['compiler'])) {
-            $this->compiler = $params['compiler'];
-        }
-
         if (!empty($params['defaults'])) {
             $this->defaults = $params['defaults'];
         }
@@ -253,6 +249,10 @@ class Route implements RouteInterface
         }
 
         list($uri, $usages) = $this->compileUri($params);
+
+        if ($usages) {
+            ;
+        }
 
         $uri = preg_replace('#//+#', '/', rtrim($uri, '/'));
 

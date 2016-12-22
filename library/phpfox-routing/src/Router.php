@@ -1,125 +1,141 @@
 <?php
+
 namespace Phpfox\Routing;
 
 
 class Router
 {
     /**
-     * @var string
+     * @var Routing[]
      */
-    protected $key;
+    protected $routes = [];
 
     /**
-     * @var Route
+     * @var array
      */
-    protected $route;
+    protected $phrases = [];
 
     /**
-     * @var Route[]
+     * RouteManager constructor.
      */
-    protected $chains = [];
-
-    /**
-     * @var Router[]
-     */
-    protected $children = [];
-
-    public function __construct($key, $route = null)
+    public function __construct()
     {
-        $this->key = $key;
-        $this->route = $route;
+        $this->initialize();
     }
 
     /**
-     * @param string     $path
-     * @param string     $host
-     * @param Parameters $parameters
+     * Start to build routing
+     * todo: add new route group to fast filter for a large group.
+     */
+    public function initialize()
+    {
+        $configs = \Phpfox::get('package.loader')
+            ->loadRouterConfigs();
+
+        $this->phrases = $configs['phrases'];
+
+        foreach ($configs['chains'] as $v) {
+
+            if (!isset($v['chain'])) {
+                throw new InvalidArgumentException(var_export($v, 1));
+            }
+            $key = $v['chain'];
+            unset($v['chain']);
+            if (!isset($this->routes[$key])) {
+                $this->routes[$key] = new Routing($key, null);
+            }
+            $this->routes[$key]->chain($this->build($v));
+        }
+
+        foreach ($configs['routes'] as $key => $v) {
+            if (strpos($key, '.')) {
+                list($group) = explode('.', $key, 2);
+                $this->routes[$group]->add(new Routing($key, $this->build($v)));
+            } else {
+                $this->routes[$key] = new Routing($key, $this->build($v));
+            }
+        }
+    }
+
+
+    /**
+     * @ignore
      *
-     * @return bool
+     * @param array $params
+     *
+     * @return RouteInterface|Route
      */
-    public function match($path, $host, &$parameters)
+    private function build($params)
     {
-        $result = false;
+        $params['route'] = str_replace(['{', '}'], ['', ''],
+            strtr($params['route'], $this->phrases));
 
-        if ($this->route) {
-            $result = $this->route->match($path, $host, $parameters);
-        }else{
-            foreach ($this->chains as $chain) {
-                if ($chain->match($path, $host, $parameters)) {
-                    $result = true;
-                    break;
-                }
-            }
-        }
-
-        if (false == $result) {
-            return false;
-        }
-
-        if ($parameters->get('retain')) {
-            $path = $parameters->get('retain');
-        }
-
-        if ($this->children) {
-            foreach ($this->children as $child) {
-                if ($child->match($path, $host, $parameters)) {
-                    return true;
-                }
-            }
-        }
-
-        return $result;
+        return new Route($params);
     }
 
+    /**
+     * @param string       $key
+     * @param array        $params
+     * @param array|string $query
+     *
+     * @return string
+     */
+    public function getUrl($key, $params = [], $query = null)
+    {
+        if ($query) {
+            ;
+        }
+
+        return PHPFOX_BASE_URL . $this->getUri($key, $params);
+
+    }
+
+    /**
+     * @param string $key
+     * @param array  $params
+     *
+     * @return bool|mixed|string
+     */
     public function getUri($key, $params)
     {
-        $result = '';
-        if ($this->route) {
-            $result = $this->route->getUri($params);
-        } else {
-            foreach ($this->chains as $chain) {
-                if (false !== ($result = $chain->getUri($params))) {
-                    break;
+        if (strpos($key, '.') !== false) {
+            list($group) = explode('.', $key, 2);
+            return $this->routes[$group]->getUri($key, $params);
+        } elseif (isset($this->routes[$key])) {
+            return $this->routes[$key]->getUri($key, $params);
+        }
+
+        return '';
+    }
+
+    /**
+     * @param string $path
+     * @param string $host
+     * @param string $method
+     * @param string $protocol
+     *
+     * @return Parameters
+     */
+    public function run($path, $host = null, $method = null, $protocol = null)
+    {
+        $parameters = new Parameters();
+
+        if (!$method) {
+            ;
+        }
+        if (!$protocol) {
+            ;
+        }
+
+        foreach ($this->routes as $key => $group) {
+            if ($group->match($path, $host, $parameters)) {
+                if ($parameters->isValid()) {
+                    $parameters->set('info.chain', $key);
+                    return $parameters;
                 }
             }
         }
 
-        if (empty($key) || $this->key == $key) {
-            return $result;
-        }
-
-        $c = $this;
-
-        while ($pos = strpos($key, '.')) {
-            $key = substr($key, $pos + 1);
-
-            list($test) = explode('.', $key);
-
-            if (isset($c->children[$test])) {
-                $c = $c->children[$test];
-                $result .= '/' . $c->getUri($test, $params);
-            }
-        }
-        return $result;
-    }
-
-    public function add(Router $route)
-    {
-        $c = $this;
-        $arr = explode('.', $route->key);
-        $test = array_shift($arr);
-
-        while ($arr) {
-            if (isset($c->children[$test])) {
-                $c = $c->children[$test];
-            }
-            $test = array_shift($arr);
-        }
-        $c->children[$test] = $route;
-    }
-
-    public function chain(Route $route)
-    {
-        $this->chains[] = $route;
+        return $parameters;
     }
 }

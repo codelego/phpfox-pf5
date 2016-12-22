@@ -2,51 +2,50 @@
 
 return [
     'chains' => [
-        'profile'       => [
-            [
-                'route'    => '<name>/*',
-                'filter'   => 'user.callback@onRouteFilter',
-                'compiler' => 'user.callback@onRouteCompile',
-            ],
-            [
-                'route'    => '{profile}/<name>/*',
-                'filter'   => 'user.callback@onRouteFilter',
-                'defaults' => [
-                    'controller' => 'user.profile',
-                    'action'     => 'index',
-                ],
+        [
+            'chain'  => 'profile',
+            'route'  => '<name>/*',
+            'filter' => 'user.profile_filter',
+        ],
+        [
+            'chain'    => 'profile',
+            'route'    => '{profile}/<name>/*',
+            'filter'   => 'user.profile_filter',
+            'defaults' => [
+                'controller' => 'user.profile',
+                'action'     => 'index',
             ],
         ],
     ],
     'routes' => [
-        'login'                  => [
+        'login'           => [
             'route'    => '{login}',
             'defaults' => [
                 'controller' => 'user.auth',
                 'action'     => 'login',
             ],
         ],
-        'logout'                 => [
+        'logout'          => [
             'route'    => '{logout}',
             'defaults' => [
                 'controller' => 'user.auth',
                 'action'     => 'logout',
             ],
         ],
-        'register'               => [
-            'route'    => '{register}/<action>?',
+        'register'        => [
+            'route'    => '{register}/<action>',
             'defaults' => [
                 'controller' => 'user.register',
                 'action'     => 'index',
             ],
         ],
-        'settings'               => [
-            'route'    => '{settings}/<action>?',
+        'settings'        => [
+            'route'    => '{settings}/<action>',
             'defaults' => [
                 'action' => 'index',
             ],
         ],
-        'members.profile' => [
+        'profile.members' => [
             'route'    => 'members',
             'defaults' => [
                 'action'     => 'members',

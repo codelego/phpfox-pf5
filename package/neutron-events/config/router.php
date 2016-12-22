@@ -2,9 +2,10 @@
 
 return [
     'chains'  => [
-        'profile' => [
+        [
+            'chain'    => 'profile',
             'route'    => '{events}/<name>/*',
-            'filter'   => 'event.callback@filterProfileName',
+            'filter'   => 'event.profile_filter',
             'defaults' => [
                 'controller' => 'pages.profile',
                 'action'     => 'index',
