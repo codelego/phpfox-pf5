@@ -1,7 +1,7 @@
 Write Your Own Driver
 ====================================
 
-Edit module.config.php
+Edit package.php
 
 ```php
     return [

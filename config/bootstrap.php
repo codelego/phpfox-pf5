@@ -12,13 +12,13 @@ include __DIR__ . '/constants.php';
 include __DIR__ . '/functions.php';
 
 $cacheFiles = [
-    'package'  => PHPFOX_DIR . 'data/cache/package.config.php',
-    'autoload' => PHPFOX_DIR . 'data/cache/autoload.config.php',
+    'package'  => PHPFOX_DIR . 'data/cache/package.php',
+    'autoload' => PHPFOX_DIR . 'data/cache/autoload.php',
 ];
 
 $configFiles = [
-    'package'  => PHPFOX_DIR . 'config/package.config.php',
-    'autoload' => PHPFOX_DIR . 'config/autoload.config.php',
+    'package'  => PHPFOX_DIR . 'config/package.php',
+    'autoload' => PHPFOX_DIR . 'config/autoload.php',
 ];
 
 $shouldGenerate = PHPFOX_ENV != 'production';
@@ -63,15 +63,15 @@ if (!$shouldGenerate) {
         $autoloadConfigs = include $configFiles['autoload'];
     } else {
         $autoloadConfigs = _merge_configs(PHPFOX_DIR . 'library',
-            'autoload.config.php');
-        _file_export($configFiles['autoload.config'], $autoloadConfigs);
+            'autoload.php');
+        _file_export($configFiles['autoload'], $autoloadConfigs);
     }
 
     if (file_exists($configFiles['package'])) {
         $packageConfigs = include $configFiles['package'];
     } else {
         $packageConfigs = _merge_configs_recursive(PHPFOX_DIR . 'library',
-            'package.config.php');
+            'package.php');
         _file_export($configFiles['package'], $packageConfigs);
     }
 
@@ -83,7 +83,7 @@ if (!$shouldGenerate) {
     $configContainer = \Phpfox::mvcConfig();
 
     $packageConfigs['db.adapters']['default'] = include PHPFOX_DIR
-        . '/config/database.config.php';
+        . '/config/database.php';
 
 
     /**

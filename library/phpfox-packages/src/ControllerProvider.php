@@ -25,7 +25,7 @@ class ControllerProvider implements ControllerProviderInterface
         foreach ($paths as $path) {
 
             $data = include PHPFOX_DIR . $path
-                . '/config/controller.config.php';
+                . '/config/controller.php';
 
             foreach ($data as $k => $v) {
                 $this->data[$k] = $v;

@@ -32,7 +32,7 @@ class CustomPassword implement AuthPasswordInterface
 }
 ```
 
-Add custom validator to password chain in module.config.php
+Add custom validator to password chain in package.php
 
 ```php
 

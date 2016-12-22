@@ -38,7 +38,7 @@ class PackageLoader implements PackageLoaderInterface
          */
         foreach ($this->loadEnablePaths() as $path) {
             _array_merge_recursive_from_file($based,
-                $path . '/config/autoload.config.php');
+                $path . '/config/autoload.php');
         }
 
         return $based;
@@ -48,7 +48,7 @@ class PackageLoader implements PackageLoaderInterface
     {
         $result = ['chains' => [], 'routes' => [], 'phrases' => []];
         foreach ($this->loadEnablePaths() as $path) {
-            $data = include PHPFOX_DIR . $path . '/config/router.config.php';
+            $data = include PHPFOX_DIR . $path . '/config/router.php';
             if (isset($data['chains'])) {
                 foreach ($data['chains'] as $key => $values) {
                     if (!isset($result['chains'][$key])) {
@@ -87,7 +87,7 @@ class PackageLoader implements PackageLoaderInterface
          * fetch package variables from package.php
          */
         foreach ($this->loadEnablePaths() as $path) {
-            $data = include PHPFOX_DIR . $path . '/config/models.config.php';
+            $data = include PHPFOX_DIR . $path . '/config/models.php';
 
             foreach ($data as $name => $value) {
                 $based[$name] = $value;
@@ -104,7 +104,7 @@ class PackageLoader implements PackageLoaderInterface
          */
         foreach ($this->loadEnablePaths() as $path) {
             _array_merge_recursive_from_file($based,
-                $path . '/config/package.config.php');
+                $path . '/config/package.php');
         }
 
         /**

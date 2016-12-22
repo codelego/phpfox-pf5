@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Router;
+namespace Phpfox\Routing;
 
 class Route implements RouteInterface
 {
@@ -39,10 +39,6 @@ class Route implements RouteInterface
      */
     protected $filter;
 
-    /**
-     * @var string
-     */
-    protected $compiler;
 
     /**
      * @var  array
@@ -117,8 +113,10 @@ class Route implements RouteInterface
         return '#^' . $return . '$#u';
     }
 
-    public function match($path, $host, $method, $protocol, &$parameters)
+    public function match($path, $host, &$parameters)
     {
+
+
         // param by defaults value
         $params = $this->defaults;
 
@@ -127,7 +125,7 @@ class Route implements RouteInterface
                 return false;
             }
 
-            // Set the value for all matched keyss
+            // Set the value for all matched keys
             foreach ($matches as $key => $value) {
                 if (!is_int($key)) {
                     $params[$key] = $value;
@@ -135,26 +133,25 @@ class Route implements RouteInterface
             }
         }
 
-        if ($path && $this->route) {
+        if ($path and $this->route) {
+
             if (!preg_match($this->route_expr, $path, $matches)) {
                 return false;
             }
-
             foreach ($matches as $key => $value) {
                 if (!is_int($key)) {
                     $params[$key] = $value;
                 }
             }
         }
+
 
         if (!$this->filter) {
             $parameters->add($params);
             return true;
         }
 
-        list($service, $method) = explode('@', $this->filter);
-
-        if (false == \Phpfox::get($service)->{$method}($params)) {
+        if (false == \Phpfox::get($this->filter)->onMatch($params)) {
             return false;
         }
 
@@ -165,6 +162,7 @@ class Route implements RouteInterface
 
     public function compileUri($params)
     {
+
         $defaults = $this->defaults;
         $usages = [];
         /**
@@ -234,7 +232,7 @@ class Route implements RouteInterface
 
             if ($required AND $missing) {
                 $missing = implode(',', $missing);
-                throw new InvalidArgumentException("Unexpected params {$missing}");
+                throw new \InvalidArgumentException("Unexpected params {$missing}");
             }
 
             return [$result, $usages, $required,];
@@ -243,53 +241,22 @@ class Route implements RouteInterface
         return $compile($this->route, true, $usages);
     }
 
-    public function getUri($key, $params)
+    public function getUri($params)
     {
-        if ($this->compiler) {
-            list($service, $method) = explode('@', $this->compiler);
-            $uri = \Phpfox::get($service)->{$method}($params);
+        if ($this->filter) {
+            $uri = \Phpfox::get($this->filter)->onCompile($params);
             if (false === $uri) {
                 return false;
-            } else {
-                if (is_string($uri)) {
-                    return $uri;
-                }
+            } elseif (is_string($uri)) {
+                return $uri;
             }
         }
 
-
         list($uri, $usages) = $this->compileUri($params);
 
-
-        $queryString = '';
-        $query = array_diff_key($params, $usages);
-
-        if (!empty($query)) {
-            $queryString = '?' . http_build_query($query, null, '&');
-        }
-
-
-        // Trim all extra slashes from the URI
         $uri = preg_replace('#//+#', '/', rtrim($uri, '/'));
 
         return $uri;
-
-
-
-//        if ($this->isExternal()) {
-//            // Need to add the host to the URI
-//            $host = $this->defaults['host'];
-//
-//            if (strpos($host, '://') === false) {
-//                // Use the default defined protocol
-//                $host = $this->protocol . $host;
-//            }
-//
-//            // Clean up the host and prepend it to the URI
-//            $uri = rtrim($host, '/') . '/' . PHPFOX_BASE_DIR . $uri
-//                . $queryString;
-//        }
-//        return PHPFOX_BASE_URL . $uri . $queryString;
     }
 
     /**
@@ -310,14 +277,14 @@ class Route implements RouteInterface
     function __debugInfo()
     {
         return [
-            'methods'         => $this->methods,
-            'host'            => $this->host,
-            'route'           => $this->route,
-            'hostExpression'  => $this->host_expr,
-            'routeExpression' => $this->route_expr,
-            'defaults'        => $this->defaults,
-            'filter'          => $this->filter,
-            'protocol'        => $this->protocol,
+            'methods'    => $this->methods,
+            'host'       => $this->host,
+            'route'      => $this->route,
+            'host_expr'  => $this->host_expr,
+            'route_expr' => $this->route_expr,
+            'defaults'   => $this->defaults,
+            'filter'     => $this->filter,
+            'protocol'   => $this->protocol,
         ];
     }
 }

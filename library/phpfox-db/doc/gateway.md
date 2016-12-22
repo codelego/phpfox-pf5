@@ -9,7 +9,7 @@ Database Table Gateway
 
 ### Configuration
 
-In module.config.php
+In package.php
 
 ```php
 return [

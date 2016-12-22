@@ -23,7 +23,7 @@ class ModelProvider implements GatewayProviderInterface
         foreach ($paths as $path) {
 
             $data = include PHPFOX_DIR . $path
-                . '/config/models.config.php';
+                . '/config/models.php';
 
             if (!is_array($data)) {
                 continue;

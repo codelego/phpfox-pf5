@@ -10,10 +10,11 @@ return [
         'ow'  => Auth\OwPasswordCompatible::class,
     ],
     'services'       => [
-        'user.callback'     => [null, Service\EventListener::class,],
-        'user.verify_email' => [null, Service\VerifyEmail::class],
-        'user.browse'       => [null, Service\Browse::class],
-        'auth.factory'      => [null, Service\AuthFactory::class],
+        'user.callback'       => [null, Service\EventListener::class,],
+        'user.verify_email'   => [null, Service\VerifyEmail::class],
+        'user.browse'         => [null, Service\Browse::class],
+        'auth.factory'        => [null, Service\AuthFactory::class],
+        'user.profile_filter' => [null, Service\ProfileNameFilter::class],
     ],
     'templates'      => _get_view_map(['user' => 'neutron-users/view',]),
 ];
