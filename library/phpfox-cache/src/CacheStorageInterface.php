@@ -26,11 +26,11 @@ interface CacheStorageInterface
     public function setItem($key, $value, $ttl = 0);
 
     /**
-     * @param array $keyValues
+     * @param array $keys
      *
      * @return mixed
      */
-    public function getItems($keyValues = []);
+    public function getItems($keys = []);
 
     /**
      * @param string $key
@@ -42,7 +42,7 @@ interface CacheStorageInterface
     /**
      * @return mixed
      */
-    public function clear();
+    public function flush();
 
     /**
      * @param $key
@@ -52,7 +52,7 @@ interface CacheStorageInterface
     public function deleteItem($key);
 
     /**
-     * @param string $keys
+     * @param array $keys
      *
      * @return mixed
      */

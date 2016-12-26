@@ -34,7 +34,7 @@ $autoloader = include __DIR__ . '/../vendor/autoload.php';
 
 // this wrapper is not belong to namespace.
 $autoloader->addClassMap([
-    'Phpfox' => __DIR__ . '/../library/phpfox-mvc/src/Phpfox.php',
+    'Phpfox' => __DIR__ . '/../library/phpfox-support/src/Phpfox.php',
 ]);
 
 //if (PHP_SAPI == "cli") {

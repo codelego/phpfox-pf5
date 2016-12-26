@@ -31,15 +31,15 @@ class SqlJoin
     }
 
     /**
-     * @param $type
-     * @param $table
-     * @param $alias
-     * @param $expression
-     * @param $value
+     * @param string     $type
+     * @param string     $table
+     * @param string     $alias
+     * @param string     $expression
+     * @param array|null $value
      *
      * @return $this
      */
-    public function join($type, $table, $alias, $expression, $value)
+    public function join($type, $table, $alias, $expression, $value = null)
     {
 
         if (is_string($table) && substr($table, 0, 1) == ':') {

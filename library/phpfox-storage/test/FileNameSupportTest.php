@@ -19,8 +19,10 @@ class FileNameSupportTest extends \PHPUnit_Framework_TestCase
             $fileName->getBaseName('abc-test.txt'));
         $this->assertEquals('abc-test',
             $fileName->getBaseName('abc-test/abc-test/abc-test'));
-        echo $fileName->createName(null, null, '.txt'), PHP_EOL;
-        echo $fileName->createName('profile', null, '.JPG'), PHP_EOL;
-        echo $fileName->createName('profile', '{0}x{1}x{2}', '.png'), PHP_EOL;
+
+        $this->assertNotNull($fileName->createName(null, null, '.txt'));
+        $this->assertNotNull($fileName->createName('profile', null, '.JPG'));
+        $this->assertNotNull($fileName->createName('profile', '{0}x{1}x{2}',
+            '.png'));
     }
 }

@@ -2,10 +2,8 @@
 
 namespace Phpfox\Form;
 
-class MultiChoice implements ElementInterface
+class MultiChoice extends Element implements FieldInterface
 {
-    use ElementTrait;
-
     /**
      * @var array
      */
@@ -24,14 +22,24 @@ class MultiChoice implements ElementInterface
         return $this->value;
     }
 
-    /**
-     * @param array $value
-     *
-     * @return $this
-     */
     public function setValue($value)
     {
         $this->value = $value;
-        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param array $options
+     */
+    public function setOptions($options)
+    {
+        $this->options = $options;
     }
 }

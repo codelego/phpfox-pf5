@@ -9,6 +9,5 @@ class InterventionFactory
     public function factory()
     {
         return new ImageManager();
-
     }
 }

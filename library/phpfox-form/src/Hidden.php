@@ -5,6 +5,9 @@ namespace Phpfox\Form;
 
 class Hidden extends Element implements FieldInterface
 {
+    /**
+     * @var mixed
+     */
     protected $value;
 
     public function getValue()
@@ -15,7 +18,6 @@ class Hidden extends Element implements FieldInterface
     public function setValue($value)
     {
         $this->value = $value;
-        return $this;
     }
 
     public function noLabel()

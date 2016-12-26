@@ -2,28 +2,20 @@
 
 namespace Phpfox\Form;
 
-class Textarea implements FieldInterface
+class Textarea extends Element implements FieldInterface
 {
-    use ElementTrait;
-
+    /**
+     * @var mixed
+     */
     protected $value;
 
-    /**
-     * @return mixed
-     */
     public function getValue()
     {
         return $this->value;
     }
 
-    /**
-     * @param mixed $value
-     *
-     * @return $this
-     */
     public function setValue($value)
     {
         $this->value = $value;
-        return $this;
     }
 }

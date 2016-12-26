@@ -1,12 +1,6 @@
 <?php
 namespace Phpfox\View;
 
-
-/**
- * Class PhpTemplate
- *
- * @package Phpfox\Mvc
- */
 class PhpTemplate implements ViewTemplateInterface
 {
     /**
@@ -17,7 +11,7 @@ class PhpTemplate implements ViewTemplateInterface
     /**
      * @var array
      */
-    protected $fallback = [];
+    protected $prefers = [];
 
     /**
      * @var array
@@ -56,6 +50,10 @@ class PhpTemplate implements ViewTemplateInterface
     }
 
     /**
+     * <code>
+     *  $template->preferThemes([galaxy,default]);
+     * </code>
+     *
      * @param  array|string $themes
      *
      * @return $this
@@ -64,13 +62,13 @@ class PhpTemplate implements ViewTemplateInterface
     {
         $this->cached = [];
         if (empty($themes)) {
-            $this->fallback = [];
+            $this->prefers = [];
         } elseif (is_string($themes)) {
-            $this->fallback = array_map(function ($v) {
+            $this->prefers = array_map(function ($v) {
                 return trim($v) . '@';
             }, explode(',', $themes));
         } else {
-            $this->fallback = array_map(function ($v) {
+            $this->prefers = array_map(function ($v) {
                 return $v . '@';
             }, $themes);
         }
@@ -90,7 +88,7 @@ class PhpTemplate implements ViewTemplateInterface
             return $this->cached[$name];
         }
 
-        foreach ($this->fallback as $k) {
+        foreach ($this->prefers as $k) {
             if (isset($this->map[$k . $name])) {
                 return $this->cached[$name] = $this->map[$k . $name];
             }
@@ -100,7 +98,8 @@ class PhpTemplate implements ViewTemplateInterface
             return $this->cached[$name] = $this->map[$name];
         }
 
-        trigger_error("template not found '{$name}'");
-        return null;
+        if (PHPFOX_ENV == 'development') {
+            throw new InvalidArgumentException("template not found '{$name}'");
+        }
     }
 }

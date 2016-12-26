@@ -7,6 +7,6 @@ class AuthorizationManager
 {
     public function hasPermission($roleId, $action)
     {
-
+        return null;
     }
 }

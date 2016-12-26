@@ -2,32 +2,24 @@
 
 namespace Phpfox\Assets;
 
-/**
- * Class HeadLink
- *
- * @package Phpfox\Html
- */
 class HeadLink implements HtmlElementInterface
 {
-    use HtmlSimpleTrait;
+    /**
+     * @var array
+     */
+    private $data = [];
 
     /**
-     * @param string $key
-     * @param string $href
-     * @param array  $props
-     *
-     * @return $this
+     * @param array $props
      */
-    public function add($key, $href, $props = [])
+    public function add($props = [])
     {
-        if ($this->ensureKey($href)) {
-            return $this;
-        }
+        $this->data[] = $props;
+    }
 
-        $props['href'] = $href;
-        $this->_append($key, $props);
-
-        return $this;
+    public function clear()
+    {
+        $this->data = [];
     }
 
     /**
@@ -40,7 +32,7 @@ class HeadLink implements HtmlElementInterface
             if (empty($attributes)) {
                 continue;
             }
-            $response[] = '<link ' . _attrize($attributes) . '/>';
+            $response[] = '<link ' . _attrize($attributes) . ' />';
         }
 
         return implode(PHP_EOL, $response);

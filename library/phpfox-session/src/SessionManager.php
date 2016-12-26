@@ -47,7 +47,9 @@ class SessionManager
      */
     public function destroy()
     {
-        session_destroy();
+        if (session_id()) {
+            session_destroy();
+        }
     }
 
     /**
@@ -57,7 +59,9 @@ class SessionManager
      */
     public function close()
     {
-        session_commit();
+        if(session_id()){
+            session_commit();
+        }
     }
 
     /**

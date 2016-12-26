@@ -12,7 +12,7 @@ class SqlSelect
     /**
      *
      */
-    const COUNT_NAME = 'total_rows';
+    const COUNT_NAME = '_COUNT_TOTAL_';
     /**
      *
      */
@@ -251,7 +251,7 @@ class SqlSelect
         if (null == $this->_having) {
             $this->_having = new SqlCondition($this->adapter);
         }
-        $this->_having->where($expression, $data);
+        $this->_having->orWhere($expression, $data);
 
         return $this;
     }
@@ -356,7 +356,7 @@ class SqlSelect
             $this->_join = new SqlJoin($this->adapter);
         }
 
-        $this->_join->join(self::LEFT_JOIN, $table, $alias, $expression, $data);
+        $this->_join->join(self::RIGHT_JOIN, $table, $alias, $expression, $data);
 
         if (null != $columns) {
             $this->select($columns);
@@ -408,15 +408,9 @@ class SqlSelect
 
         $result = $this->adapter->execute($sql, $this->_useMaster);
 
-        $rows = $result->all();
+        $row = $result->first();
 
-        if (empty($rows)) {
-            return 0;
-        }
-
-        $row = array_shift($rows);
-
-        return (int)array_shift($row);
+        return (int)$row['_COUNT_TOTAL_'];
     }
 
     /**
@@ -451,6 +445,10 @@ class SqlSelect
         $result = $this->adapter->execute($sql, $this->_useMaster);
 
         $result->setPrototype($this->_prototype);
+
+        if(!$result->isValid()){
+            throw new SqlException($result->error());
+        }
 
         return $result;
     }

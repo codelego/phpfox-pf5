@@ -10,7 +10,7 @@ class I18nMessageLoader implements I18nMessageLoaderInterface
         $result = [];
         $stmt = \Phpfox::getDb()
             ->select('is_json, var_name, text_value, lang, domain')
-            ->from(':core_phrase')
+            ->from(':i18n_phrase')
             ->where('lang in ?', ['', $locale])
             ->where('domain=?', (string)$domain)
             ->order('lang', 1)

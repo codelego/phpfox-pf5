@@ -34,4 +34,14 @@ interface SqlResultInterface
      * @return bool
      */
     public function isValid();
+
+    /**
+     * @return string|null
+     */
+    public function error();
+
+    /**
+     * @return int|null
+     */
+    public function lastId();
 }

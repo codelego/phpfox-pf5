@@ -25,7 +25,7 @@ class MemcacheCacheStorage implements CacheStorageInterface
      *
      * @param $configs
      */
-    public function __construct($configs)
+    public function __construct($configs = [])
     {
         $this->configs = array_merge([
             'port'           => 11211,
@@ -33,7 +33,7 @@ class MemcacheCacheStorage implements CacheStorageInterface
             'persistent'     => true,
             'retry_interval' => 15,
             'servers'        => ['127.0.0.1'],
-        ], $configs);
+        ], (array)$configs);
 
     }
 
@@ -41,7 +41,20 @@ class MemcacheCacheStorage implements CacheStorageInterface
     {
         $this->ready();
 
-        $this->memcache->set($key, $value, MEMCACHE_COMPRESSED, $ttl);
+        return $this->memcache->set($key, $value, MEMCACHE_COMPRESSED, $ttl);
+
+    }
+
+
+    public function setItems($keyValues, $ttl = 0)
+    {
+        $this->ready();
+
+        foreach ($keyValues as $key => $value) {
+            $this->memcache->set($key, $value, MEMCACHE_COMPRESSED, $ttl);
+        }
+
+        return true;
     }
 
     public function ready()
@@ -54,12 +67,23 @@ class MemcacheCacheStorage implements CacheStorageInterface
         $v = $this->configs;
 
         foreach ($v['servers'] as $a) {
+            if (is_string($a)) {
+                $a = ['host' => $a];
+            }
             if (!isset($a['timeout'])) {
                 $a['timeout'] = $v['timeout'];
             }
 
+            if (!isset($a['port'])) {
+                $a['port'] = $v['port'];
+            }
+
             if (!isset($a['persistent'])) {
                 $a['persistent'] = $v['persistent'];
+            }
+
+            if (!isset($a['weight'])) {
+                $a['weight'] = 1;
             }
 
             if (!isset($a['retry_interval'])) {
@@ -72,13 +96,13 @@ class MemcacheCacheStorage implements CacheStorageInterface
 
     }
 
-    public function getItems($keyValues = [])
+    public function getItems($keys = [])
     {
         $this->ready();
 
         $result = [];
-        foreach ($keyValues as $k => $v) {
-            $result[$k] = $this->getItem($v);
+        foreach ($keys as $k) {
+            $result[$k] = $this->getItem($k);
         }
 
         return $result;
@@ -88,7 +112,13 @@ class MemcacheCacheStorage implements CacheStorageInterface
     {
         $this->ready();
 
-        return $this->memcache->get($key);
+        $result = $this->memcache->get($key);
+
+        if ($result === false) {
+            return null;
+        }
+
+        return $result;
     }
 
     public function hasItem($key)
@@ -98,7 +128,7 @@ class MemcacheCacheStorage implements CacheStorageInterface
         return null != $this->memcache->get($key);
     }
 
-    public function clear()
+    public function flush()
     {
         $this->ready();
 
@@ -122,17 +152,15 @@ class MemcacheCacheStorage implements CacheStorageInterface
         });
     }
 
+    /**
+     * @return array
+     * @codeCoverageIgnore
+     */
     function __sleep()
     {
         $this->memcache->close();
         $this->connected = false;
         return [];
     }
-
-    function __wakeup()
-    {
-        // TODO: Implement __wakeup() method.
-    }
-
 
 }

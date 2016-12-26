@@ -13,12 +13,9 @@ class FormBootstrapRender implements RenderInterface
         static $id = 0;
 
 
-        $facades = \Phpfox::get('form.render');
+        $fc = \Phpfox::get('form.render');
 
-        $result = array_map(function (ElementInterface $v) use (
-            $facades,
-            &$id
-        ) {
+        $result = array_map(function (ElementInterface $v) use ($fc, &$id) {
 
             $name = $v->getName();
             $label = $v->noLabel()
@@ -26,7 +23,7 @@ class FormBootstrapRender implements RenderInterface
                 : '<label for="_' . ($id++) . '">' . $v->getLabel()
                 . '</label>';
             return '<div class="form-group input-' . $name . '">' . $label
-                . $facades->render($v) . '</div>';
+                . $fc->render($v) . '</div>';
         }, $form->getElements());
 
         return implode(PHP_EOL, $result);

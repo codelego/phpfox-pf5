@@ -10,10 +10,19 @@ class ApcuCacheStorage implements CacheStorageInterface
         return true;
     }
 
-    public function getItems($keyValues = [])
+    public function setItems($keyValues, $ttl = 0)
+    {
+        foreach ($keyValues as $k => $v) {
+            apcu_store($k, $v, $ttl);
+        }
+        return true;
+
+    }
+
+    public function getItems($keys = [])
     {
         $success = false;
-        $data = apcu_fetch($keyValues, $success);
+        $data = apcu_fetch($keys, $success);
 
         if (!$success) {
             return null;
@@ -43,7 +52,7 @@ class ApcuCacheStorage implements CacheStorageInterface
      *
      * @return bool
      */
-    public function clear()
+    public function flush()
     {
         return apcu_clear_cache();
     }

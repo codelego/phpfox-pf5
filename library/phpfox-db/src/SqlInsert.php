@@ -108,12 +108,11 @@ class SqlInsert
 
     /**
      * @param null $sql
-     * @param bool $return_last_val
      *
-     * @return bool|int
+     * @return SqlResultInterface
      * @throws SqlException
      */
-    public function execute($sql = null, $return_last_val = false)
+    public function execute($sql = null)
     {
 
         if (null == $sql) {
@@ -122,16 +121,12 @@ class SqlInsert
 
         $result = $this->adapter->execute($sql, true);
 
-        if (false === $result) {
+        if (!$result->isValid()) {
             throw new SqlException($this->adapter->error(true) . PHP_EOL
                 . $sql);
         }
 
-        if ($return_last_val) {
-            return $this->adapter->lastId();
-        }
-
-        return true;
+        return $result;
     }
 
     /**
@@ -147,7 +142,7 @@ class SqlInsert
             $values[] = $this->adapter->quoteValue($value);
         }
 
-        $delay = $this->_delay ? ' DELAY ' : '';
+        $delay = $this->_delay ? ' DELAYED ' : '';
         $ignore = $this->_ignoreOnDuplicate ? ' IGNORE ' : '';
 
         return 'INSERT ' . $delay . $ignore . ' INTO ' . $this->table . '('

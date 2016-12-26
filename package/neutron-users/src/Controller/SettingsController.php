@@ -4,10 +4,10 @@ namespace Neutron\User\Controller;
 
 
 use Neutron\User\Form\AccountSettings;
-use Phpfox\Mvc\MvcController;
+use Phpfox\Action\ActionController;
 use Phpfox\View\ViewModel;
 
-class SettingsController extends MvcController
+class SettingsController extends ActionController
 {
     public function actionIndex()
     {

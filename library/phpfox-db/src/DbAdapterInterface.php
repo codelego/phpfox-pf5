@@ -15,7 +15,7 @@ interface DbAdapterInterface
     public function getSlave();
 
     /**
-     * @throws DbException
+     * @throws DbConnectException
      */
     public function connect();
 
@@ -32,14 +32,14 @@ interface DbAdapterInterface
     /**
      * @param $value
      *
-     * @return mixed
+     * @return string
      */
     public function quoteValue($value);
 
     /**
      * @param string $value
      *
-     * @return string mixed
+     * @return string strings
      */
     public function quoteIdentifier($value);
 
@@ -106,21 +106,17 @@ interface DbAdapterInterface
     /**
      * Start a new transaction
      *
-     * @return $this
+     * @return true
      */
     public function begin();
 
     /**
      * commit current transaction
-     *
-     * @return $this
      */
     public function commit();
 
     /**
      * roll back current transaction
-     *
-     * @return $this
      */
     public function rollback();
 
@@ -128,5 +124,4 @@ interface DbAdapterInterface
      * @return bool
      */
     public function inTransaction();
-
 }

@@ -2,9 +2,9 @@
 
 namespace Neutron\User\Controller;
 
-use Phpfox\Mvc\MvcController;
+use Phpfox\Action\ActionController;
 
-class RegisterController extends MvcController
+class RegisterController extends ActionController
 {
 
 }

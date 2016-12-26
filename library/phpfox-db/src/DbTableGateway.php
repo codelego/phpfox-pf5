@@ -94,12 +94,12 @@ class DbTableGateway implements GatewayInterface
         $result = (new SqlInsert($this->adapter()))
             ->insert($this->_table)
             ->values($temp)
-            ->execute(null, $this->_identity != null);
+            ->execute();
 
         if ($this->_identity and $values instanceof ModelInterface and $result
             && !$values->__get($this->_identity)
         ) {
-            $values->__set($this->_identity, $result);
+            $values->__set($this->_identity, $result->lastId());
         }
 
         return $result;

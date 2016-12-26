@@ -32,15 +32,12 @@ Trait HtmlSimpleTrait
 
     /**
      * Clear all data
-     *
-     * @return $this
      */
     public function clear()
     {
         $this->increment = 0;
         $this->keys = [];
         $this->data = [];
-        return $this;
     }
 
     /**

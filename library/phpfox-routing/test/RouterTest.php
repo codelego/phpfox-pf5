@@ -9,6 +9,8 @@ class RouterTest extends \PHPUnit_Framework_TestCase
         $router = new Router();
 
         $router->initialize();
+
+        $this->assertNotEmpty($router);
     }
 
     public function testRunAdmin()

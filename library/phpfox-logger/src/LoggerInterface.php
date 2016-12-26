@@ -2,20 +2,11 @@
 
 namespace Phpfox\Logger;
 
-/**
- * Interface LoggerInterface
- *
- * http://www.php-fig.org/psr/psr-3/#3-psr-log-loggerinterface
- *
- * @package Phpfox\Log
- */
 interface LoggerInterface
 {
     /**
      * @param string $message
      * @param array  $context
-     *
-     * @return $this
      */
     public function emergency($message, $context = []);
 
@@ -24,8 +15,6 @@ interface LoggerInterface
      *
      * @param string $message
      * @param array  $context
-     *
-     * @return $this
      */
     public function alert($message, $context = []);
 
@@ -44,8 +33,6 @@ interface LoggerInterface
      *
      * @param string $message
      * @param array  $context
-     *
-     * @return $this
      */
     public function error($message, $context = []);
 
@@ -54,8 +41,6 @@ interface LoggerInterface
      *
      * @param string $message
      * @param array  $context
-     *
-     * @return $this
      */
     public function warning($message, $context = []);
 
@@ -64,8 +49,6 @@ interface LoggerInterface
      *
      * @param string $message
      * @param array  $context
-     *
-     * @return $this
      */
     public function notice($message, $context = []);
 
@@ -74,8 +57,6 @@ interface LoggerInterface
      *
      * @param string $message
      * @param array  $context
-     *
-     * @return $this
      */
     public function info($message, $context = []);
 
@@ -85,8 +66,6 @@ interface LoggerInterface
      *
      * @param string $message
      * @param array  $context
-     *
-     * @return $this
      */
     public function debug($message, $context = []);
 
@@ -97,8 +76,6 @@ interface LoggerInterface
      * @param mixed  $level
      * @param string $message
      * @param array  $context
-     *
-     * @return $this
      */
     public function log($level, $message, $context = []);
 }

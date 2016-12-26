@@ -4,11 +4,6 @@ namespace Phpfox\Assets;
 
 use Phpfox;
 
-/**
- * Class ExternalScript
- *
- * @package Phpfox\Html
- */
 class ExternalScript implements HtmlElementInterface
 {
     use HtmlSimpleTrait;
@@ -17,8 +12,6 @@ class ExternalScript implements HtmlElementInterface
      * @param string $key
      * @param string $path
      * @param array  $props
-     *
-     * @return $this
      */
     public function add($key, $path, $props = [])
     {
@@ -26,10 +19,12 @@ class ExternalScript implements HtmlElementInterface
             $path = Phpfox::getParam('static.js', $key);
         }
 
-        $path = $this->getUrl($path);
+        if(substr($path, 0,2) != '//'){
+            $path = $this->getUrl($path);
+        }
 
         if ($this->ensureKey($path)) {
-            return $this;
+            return;
         }
 
         $props = array_merge([
@@ -38,8 +33,6 @@ class ExternalScript implements HtmlElementInterface
         ], $props);
 
         $this->_append($key, $props);
-
-        return $this;
     }
 
     /**
@@ -47,7 +40,6 @@ class ExternalScript implements HtmlElementInterface
      * @param string $path
      * @param array  $props
      *
-     * @return $this
      */
     public function prepend($key, $path, $props = [])
     {
@@ -56,25 +48,26 @@ class ExternalScript implements HtmlElementInterface
         }
 
         if ($this->ensureKey($path)) {
-            return $this;
+            return;
         }
 
-        $url = $this->getUrl($path);
+        if(substr($path, 0,2) != '//'){
+            $path = $this->getUrl($path);
+        }
 
         $props = array_merge([
             'type' => 'text/javascript',
-            'src'  => $url,
+            'src'  => $path,
         ], $props);
 
         $this->_prepend($key, $props);
 
-        return $this;
     }
 
     public function getHtml()
     {
         return implode(PHP_EOL, array_map(function ($v) {
-            return _sprintf('<{0} {1}/></{0}>', ['script', _attrize($v)]);
+            return _sprintf('<{0} {1}></{0}>', ['script', _attrize($v)]);
         }, $this->data));
     }
 }

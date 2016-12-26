@@ -87,7 +87,7 @@ class SqlDelete
     /**
      * @param null $sql
      *
-     * @return bool|int
+     * @return SqlResultInterface
      * @throws SqlException
      */
     public function execute($sql = null)
@@ -98,11 +98,11 @@ class SqlDelete
 
         $result = $this->adapter->execute($sql);
 
-        if (false === $result) {
-            throw new SqlException($this->adapter->error());
+        if (!$result->isValid()) {
+            throw new SqlException($result->error());
         }
 
-        return true;
+        return $result;
     }
 
     /**
@@ -113,6 +113,6 @@ class SqlDelete
         $where = empty($this->sqlCondition) ? ''
             : ' WHERE ' . $this->sqlCondition->prepare();
 
-        return 'delete from ' . $this->table . $where;
+        return 'DELETE FROM ' . $this->table . $where;
     }
 }

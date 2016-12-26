@@ -7,7 +7,7 @@ class ViewModel
     /**
      * @var string
      */
-    public $template = '';
+    public $template;
 
     /**
      * @var array
@@ -20,7 +20,7 @@ class ViewModel
      * @param string $template
      * @param array  $variables
      */
-    public function __construct($template = '', $variables = [])
+    public function __construct($template = null, $variables = [])
     {
         $this->template = $template;
         $this->variables = $variables;
@@ -87,6 +87,9 @@ class ViewModel
             ->render($this->template, $this->variables);
     }
 
+    /**
+     * @return void
+     */
     public function terminate()
     {
     }

@@ -3,10 +3,10 @@
 namespace Neutron\Core\Controller;
 
 use Neutron\Core\Form\FilterI18nPhrase;
-use Phpfox\Mvc\MvcController;
+use Phpfox\Action\ActionController;
 use Phpfox\View\ViewModel;
 
-class AdminI18nController extends MvcController
+class AdminI18nController extends ActionController
 {
     public function actionIndex()
     {

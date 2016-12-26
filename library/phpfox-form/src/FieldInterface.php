@@ -12,8 +12,6 @@ interface FieldInterface extends ElementInterface
 
     /**
      * @param mixed $value
-     *
-     * @return $this
      */
     public function setValue($value);
 }

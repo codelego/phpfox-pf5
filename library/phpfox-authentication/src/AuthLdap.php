@@ -2,7 +2,9 @@
 
 namespace Phpfox\Authentication;
 
-
+/**
+ * @codeCoverageIgnore
+ */
 class AuthLdap implements AuthInterface
 {
     /**

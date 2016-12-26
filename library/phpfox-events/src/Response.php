@@ -7,37 +7,15 @@ use SplStack;
 class Response extends SplStack
 {
     /**
-     * @var bool
-     */
-    protected $stopped = false;
-
-    /**
-     * Did the last response provided trigger a short circuit of the stack?
-     *
-     * @return bool
-     */
-    public function stopped()
-    {
-        return $this->stopped;
-    }
-
-    /**
-     * Mark the collection as stopped (or its opposite)
-     *
-     * @param  bool $flag
-     */
-    public function setStopped($flag)
-    {
-        $this->stopped = (bool)$flag;
-    }
-
-    /**
      * Convenient access to the first handler return value.
      *
      * @return mixed The first handler return value
      */
     public function first()
     {
+        if (count($this) == 0) {
+            return null;
+        }
         return parent::bottom();
     }
 
@@ -51,7 +29,7 @@ class Response extends SplStack
      */
     public function last()
     {
-        if (count($this) === 0) {
+        if (count($this) == 0) {
             return null;
         }
         return parent::top();

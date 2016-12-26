@@ -13,6 +13,6 @@ class PluralRule
      */
     public function evaluate($number)
     {
-        return $number == 0 ? 0 : ($number == 1 ? 1 : 2);
+        return abs((int)$number) == 1 ? 0 : 1;
     }
 }

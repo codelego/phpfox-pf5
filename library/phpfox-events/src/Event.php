@@ -48,27 +48,11 @@ class Event
         return $this->target;
     }
 
-    public function setTarget($target)
-    {
-        $this->target = $target;
-        return $this;
-    }
-
     public function getParams()
     {
         return $this->params;
     }
 
-    public function setParams($params)
-    {
-        $this->params = $params;
-        return $this;
-    }
-
-    public function isStopPropagation()
-    {
-        return $this->stopped;
-    }
 
     public function getParam($name)
     {
@@ -93,11 +77,5 @@ class Event
     public function getName()
     {
         return $this->name;
-    }
-
-    public function setName($name)
-    {
-        $this->name = $name;
-        return $this;
     }
 }

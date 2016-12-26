@@ -3,13 +3,12 @@
 namespace Neutron\User;
 
 
-use Phpfox\Mvc\MvcEvent;
+use Phpfox\Action\MvcEvent;
 
 class Package
 {
 
-    public function __call()
+    function __call($name, $arguments)
     {
-        // do nothing
     }
 }

@@ -288,11 +288,11 @@ class Message
             return false;
         }
 
-        if (!$this->to) {
+        if (empty($this->to)) {
             return false;
         }
 
-        if (empty($this->subject) || empty($this->body)) {
+        if (empty($this->subject) or empty($this->body)) {
             return false;
         }
 

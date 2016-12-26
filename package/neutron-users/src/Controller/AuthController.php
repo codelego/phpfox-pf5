@@ -3,10 +3,10 @@
 namespace Neutron\User\Controller;
 
 use Neutron\User\Form\UserLogin;
-use Phpfox\Mvc\MvcController;
+use Phpfox\Action\ActionController;
 use Phpfox\View\ViewModel;
 
-class AuthController extends MvcController
+class AuthController extends ActionController
 {
     public function actionLogin()
     {
@@ -24,14 +24,14 @@ class AuthController extends MvcController
         $message = null;
 
         if ($request->isPost()) {
-            $form->bind($request->getParams());
+            $form->populate($request->getParams());
             $data = $form->getData();
 
 
             $result = $auth->authenticate('password', $data['username'],
                 $data['password'], null);
 
-            if ($result->isSuccess()) {
+            if ($result->isValid()) {
                 $user = \Phpfox::findById('user', $result->getIdentity());
                 $auth->login($user, true, !!$data['remember']);
             } else {

@@ -5,7 +5,6 @@ namespace Phpfox\Mysqli;
 use Phpfox\Db\DbAdapterInterface;
 use Phpfox\Db\DbConnectException;
 use Phpfox\Db\SqlAdapterTrait;
-use Phpfox\Db\SqlException;
 
 /**
  * Class MysqliAdapter
@@ -61,7 +60,7 @@ class MysqliDbAdapter implements DbAdapterInterface
             'slaves'   => [],
         ], $params);
 
-        if (empty($this->params['masters'])) {
+        if (empty($this->params['masters']) && $this->params['host']) {
             $this->params['masters'] = [$this->params['host']];
         }
     }
@@ -83,19 +82,17 @@ class MysqliDbAdapter implements DbAdapterInterface
     public function disconnect()
     {
         if ($this->master instanceof \mysqli) {
-            $this->master->close();
-            $this->master = null;
+            @$this->master->close();
         }
 
         if ($this->slave instanceof \mysqli) {
-            $this->slave->close();
-            $this->slave = null;
+            @$this->slave->close();
         }
 
         $this->master = null;
         $this->slave = null;
         $this->lastUsage = null;
-        $this->_inTransaction = null;
+        $this->_inTransaction = false;
     }
 
     public function connect()
@@ -145,7 +142,7 @@ class MysqliDbAdapter implements DbAdapterInterface
         $offset = mt_rand(0, count($hosts) - 1);
         $host = $hosts[$offset];
 
-        $result = $mysqli->real_connect($host, $params['user'],
+        $result = @$mysqli->real_connect($host, $params['user'],
             $params['password'], $params['database'], $port, $socket);
 
         if (!$result) {
@@ -234,26 +231,19 @@ class MysqliDbAdapter implements DbAdapterInterface
     public function begin()
     {
         if ($this->_inTransaction) {
-            return $this;
+            return false;
         }
-
         $this->execute('START TRANSACTION', true);
 
         $this->_inTransaction = true;
-        return $this;
+
+        return true;
     }
 
     public function execute($sql, $master = true)
     {
         $this->lastUsage = $master ? $this->getMaster() : $this->getSlave();
-
-        $result = $this->lastUsage->query($sql);
-
-        if (false === $result || null === $result) {
-            throw new SqlException($this->error() . PHP_EOL . $sql);
-        }
-
-        return new MysqliSqlResult($result);
+        return new MysqliSqlResult($this, $this->lastUsage->query($sql));
     }
 
     public function error($master = true)
@@ -261,7 +251,7 @@ class MysqliDbAdapter implements DbAdapterInterface
         if ($this->lastUsage instanceof \mysqli) {
             return $this->lastUsage->error;
         }
-        return '';
+        return null;
     }
 
     public function commit()
@@ -272,15 +262,13 @@ class MysqliDbAdapter implements DbAdapterInterface
 
         $this->execute('COMMIT', true);
         $this->_inTransaction = false;
-
-        return $this;
     }
 
     public function rollback()
     {
         $this->execute('ROLLBACK', true);
         $this->_inTransaction = false;
-
-        return $this;
     }
+
+
 }

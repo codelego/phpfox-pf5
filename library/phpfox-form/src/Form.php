@@ -3,9 +3,39 @@ namespace Phpfox\Form;
 
 class Form extends Element implements ElementInterface, CollectionInterface
 {
-    use CollectionTrait;
+    /**
+     * @var ElementInterface[]
+     */
+    protected $byNames = [];
 
     protected $render = 'form_bootstrap';
+
+    public function getElements()
+    {
+        return $this->byNames;
+    }
+
+    public function addElements($elements)
+    {
+        foreach ($elements as $element) {
+            $this->addElement($element);
+        }
+    }
+
+    public function addElement($element)
+    {
+        if (!$element instanceof ElementInterface) {
+            $element = \Phpfox::get('form.factory')->factory($element);
+        }
+
+        $element->setParent($this);
+        $this->byNames[$element->getName()] = $element;
+    }
+
+    public function getElement($name)
+    {
+        return isset($this->byNames[$name]) ? $this->byNames[$name] : null;
+    }
 
     public function open()
     {
@@ -20,7 +50,7 @@ class Form extends Element implements ElementInterface, CollectionInterface
         return '</form>';
     }
 
-    public function bind($data)
+    public function populate($data)
     {
         foreach ($this->byNames as $name => $element) {
             if (isset($data[$name]) && $element instanceof FieldInterface) {

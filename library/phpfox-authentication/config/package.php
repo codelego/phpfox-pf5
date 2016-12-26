@@ -11,7 +11,7 @@ return [
     ],
     'services'       => [
         'auth'         => [null, AuthFacades::class],
-        'auth.factory' => null,
+        'auth.factory' => [null, AuthFactoryInterface::class],
         'auth.log'     => [LogContainerFactory::class, null, 'log.auth'],
     ],
 ];

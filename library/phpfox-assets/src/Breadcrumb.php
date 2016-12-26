@@ -8,18 +8,16 @@ class Breadcrumb implements HtmlElementInterface
     /**
      * @var array
      */
-    protected $elements = [];
+    protected $data = [];
 
-    public function prepend($item)
+    public function add($item)
     {
-        array_unshift($this->elements, $item);
-        return $this;
+        array_unshift($this->data, $item);
     }
 
     public function append($item)
     {
-        $this->elements[] = $item;
-        return $this;
+        $this->data[] = $item;
     }
 
     public function getHtml()
@@ -29,6 +27,14 @@ class Breadcrumb implements HtmlElementInterface
 
     public function clear()
     {
-        $this->elements = [];
+        $this->data = [];
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return empty($this->data);
     }
 }

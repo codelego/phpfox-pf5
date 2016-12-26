@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/5.7/phpunit.xsd"
+         bootstrap="bootstrap.phpunit.php"
+         backupGlobals="false"
+         processIsolation="false"
+         stopOnError="false"
+         stopOnFailure="false"
+         stopOnIncomplete="false"
+         stopOnSkipped="false"
+         stopOnRisky="false"
+         beStrictAboutCoversAnnotation="true"
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutTestsThatDoNotTestAnything="true"
+         beStrictAboutTodoAnnotatedTests="true"
+         verbose="true">
+    <testsuite>
+        <directory suffix="Test.php">/Users/namnv/Sites/pf5/package</directory>
+        <directory suffix="Test.php">/Users/namnv/Sites/pf5/library</directory>
+        <exclude>/Users/namnv/Sites/pf5/library/phpfox-mailer</exclude>
+        <exclude>/Users/namnv/Sites/pf5/library/phpfox-storage</exclude>
+    </testsuite>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-assets/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-authentication/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-authorization/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-cache/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-command/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-db/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-events/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-form/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-i18n/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-image/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-jobs/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-logger/src</directory>
+            <!--<directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-mailer/src</directory>-->
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-models/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-actions/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-mysqli/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-navigation/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-paging/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-payments/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-realm/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-routing/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-session/src</directory>
+            <!--<directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-storage/src</directory>-->
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-support/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-view/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-widget/src</directory>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-html" target="coverage/" lowUpperBound="35"
+             highLowerBound="70"/>
+    </logging>
+</phpunit>

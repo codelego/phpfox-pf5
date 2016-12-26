@@ -4,7 +4,12 @@ namespace Phpfox\Logger;
 
 class FilesLogger implements LoggerInterface
 {
-    use LoggerTrait;
+    /**
+     * Default accept level is maximum
+     *
+     * @var
+     */
+    protected $accept = 4;
 
     /**
      * @var string
@@ -33,10 +38,7 @@ class FilesLogger implements LoggerInterface
             'level'    => 'debug',
         ], (array)$config);
 
-        $directory = realpath(__DIR__ . '/../../../data');
-
-
-        $this->filename = $directory . DS . 'log' . DS . $config['filename'];
+        $this->filename = PHPFOX_DIR . 'data/log' . DS . $config['filename'];
 
         if (!file_exists($this->filename)) {
             if (!is_dir($dir = dirname($this->filename))
@@ -48,7 +50,18 @@ class FilesLogger implements LoggerInterface
             }
         }
 
-        $this->setLevel($config['level']);
+        $this->accept = LogLevel::getNumber(strtolower($config['level']));
+    }
+
+
+    public function emergency($message, $context = [])
+    {
+        $this->write($this->format(LogLevel::EMERGENCY, $message, $context));
+    }
+
+    protected function write($message)
+    {
+        file_put_contents($this->filename, (string)$message, FILE_APPEND);
     }
 
     /**
@@ -67,8 +80,74 @@ class FilesLogger implements LoggerInterface
             . PHP_EOL . PHP_EOL . PHP_EOL;
     }
 
-    protected function write($message)
+    /**
+     * @param string $message
+     * @param array  $context
+     *
+     * @return string
+     */
+    protected function interpolate($message, $context = [])
     {
-        file_put_contents($this->filename, (string)$message, FILE_APPEND);
+        $replace = [];
+        foreach ($context as $key => $val) {
+            $replace['{' . $key . '}'] = $val;
+        }
+        return strtr($message, $replace);
+    }
+
+    public function alert($message, $context = [])
+    {
+        if (LogLevel::ALERT_NUMBER <= $this->accept) {
+            $this->write($this->format(LogLevel::ALERT, $message, $context));
+        }
+    }
+
+    public function critical($message, $context = [])
+    {
+        if (LogLevel::CRITICAL_NUMBER <= $this->accept) {
+            $this->write($this->format(LogLevel::CRITICAL, $message, $context));
+        }
+    }
+
+    public function error($message, $context = [])
+    {
+        if (LogLevel::ERROR_NUMBER <= $this->accept) {
+            $this->write($this->format(LogLevel::ERROR, $message, $context));
+        }
+    }
+
+    public function warning($message, $context = [])
+    {
+        if (LogLevel::WARNING_NUMBER <= $this->accept) {
+            $this->write($this->format(LogLevel::WARNING, $message, $context));
+        }
+    }
+
+    public function notice($message, $context = [])
+    {
+        if (LogLevel::CRITICAL_NUMBER <= $this->accept) {
+            $this->write($this->format(LogLevel::CRITICAL, $message, $context));
+        }
+    }
+
+    public function info($message, $context = [])
+    {
+        if (LogLevel::INFO_NUMBER <= $this->accept) {
+            $this->write($this->format(LogLevel::INFO, $message, $context));
+        }
+    }
+
+    public function debug($message, $context = [])
+    {
+        if (LogLevel::DEBUG_NUMBER <= $this->accept) {
+            $this->write($this->format(LogLevel::DEBUG, $message, $context));
+        }
+    }
+
+    public function log($level, $message, $context = [])
+    {
+        if (LogLevel::getNumber($level) <= $this->accept) {
+            $this->write($this->format($level, $message, $context));
+        }
     }
 }

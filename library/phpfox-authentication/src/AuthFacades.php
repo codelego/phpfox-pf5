@@ -117,8 +117,12 @@ class AuthFacades
      * @param UserInterface|null $user
      * @param bool               $persistent
      */
-    public function loginAs(UserInterface $user, $persistent)
+    public function loginAs($user, $persistent)
     {
+
+        if (!$this->loginUser) {
+            throw new \InvalidArgumentException("Can not login as before login");
+        }
 
         $this->loginAsUser = $user;
 
@@ -150,7 +154,7 @@ class AuthFacades
     /**
      * @return UserInterface
      */
-    public function getLogin()
+    public function getLoginUser()
     {
         return $this->loginUser;
     }
@@ -158,16 +162,6 @@ class AuthFacades
     public function isLoggedIn()
     {
         return $this->loginUser != null;
-    }
-
-    public function __sleep()
-    {
-        return ['userKey', 'loginUserKey'];
-    }
-
-    public function __wakeup()
-    {
-        $this->initialize();
     }
 
     public function getLoginId()
@@ -178,4 +172,24 @@ class AuthFacades
 
         return $this->loginUser->getId();
     }
+
+
+    /**
+     * @return array
+     * @codeCoverageIgnore
+     */
+    public function __sleep()
+    {
+        return ['userKey', 'loginKey'];
+    }
+
+    /**
+     * @return array
+     * @codeCoverageIgnore
+     */
+    public function __wakeup()
+    {
+        $this->initialize();
+    }
+
 }

@@ -2,50 +2,37 @@
 
 namespace Phpfox\Assets;
 
-/**
- * Class InlineScript
- *
- * @package Phpfox\Html
- */
 class InlineScript implements HtmlElementInterface
 {
-    use HtmlSimpleTrait;
+
+    /**
+     * @var string[]
+     */
+    private $data = [];
 
 
     /**
      * Append inline scripts to header
      *
-     * @param string $key
      * @param string $script
-     *
-     * @return $this
      */
-    public function add($key, $script)
+    public function add($script)
     {
-        if ($this->ensureKey($script)) {
-            return $this;
-        }
-
-        $this->_append($key, $script);
-
-        return $this;
+        $this->data[] = $script;
     }
 
     /**
-     * @param string $key
      * @param string $script
      *
-     * @return $this
      */
-    public function prepend($key, $script)
+    public function prepend($script)
     {
-        if ($this->ensureKey($script)) {
-            return $this;
-        }
+        array_unshift($this->data, $script);
+    }
 
-        $this->_prepend($key, $script);
-
-        return $this;
+    public function clear()
+    {
+        $this->data = [];
     }
 
     /**

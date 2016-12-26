@@ -3,30 +3,20 @@
 namespace Phpfox\Form;
 
 
-class StaticText implements FieldInterface
+class StaticText extends Element implements FieldInterface
 {
-    use ElementTrait;
-
+    /**
+     * @var mixed
+     */
     protected $value;
 
-    /**
-     * @return mixed
-     */
     public function getValue()
     {
         return $this->value;
     }
 
-    /**
-     * @param mixed $value
-     *
-     * @return $this
-     */
     public function setValue($value)
     {
         $this->value = $value;
-        return $this;
     }
-
-
 }

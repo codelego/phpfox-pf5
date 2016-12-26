@@ -2,10 +2,10 @@
 
 namespace Neutron\Core\Controller;
 
-use Phpfox\Mvc\MvcController;
+use Phpfox\Action\ActionController;
 use Phpfox\View\ViewModel;
 
-class AdminMailTransportController extends MvcController
+class AdminMailTransportController extends ActionController
 {
     public function actionIndex()
     {

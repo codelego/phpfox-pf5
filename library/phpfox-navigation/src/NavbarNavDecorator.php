@@ -11,9 +11,7 @@ class NavbarNavDecorator implements NavigationDecoratorInterface
 
     public function render()
     {
-        /** @var NavigationLoaderInterface $loader */
-        $loader = \Phpfox::get('navigation.loader');
-        $this->data = $loader->load($this->menu, $this->section);
+        $this->data = \Phpfox::get('navigation.loader')->load($this->menu);
     }
 
     /**

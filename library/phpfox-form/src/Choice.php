@@ -4,6 +4,9 @@ namespace Phpfox\Form;
 
 class Choice extends Element implements FieldInterface
 {
+    /**
+     * @var mixed
+     */
     protected $value;
 
     /**
@@ -26,13 +29,10 @@ class Choice extends Element implements FieldInterface
 
     /**
      * @param mixed $value
-     *
-     * @return $this
      */
     public function setValue($value)
     {
         $this->value = $value;
-        return $this;
     }
 
     /**

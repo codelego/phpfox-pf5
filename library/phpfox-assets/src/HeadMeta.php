@@ -2,35 +2,26 @@
 
 namespace Phpfox\Assets;
 
-/**
- * Class HeadMeta
- *
- * @package Phpfox\Html
- */
 class HeadMeta implements HtmlElementInterface
 {
 
-    use HtmlSimpleTrait;
-
-    public function __construct()
-    {
-        $this->data[] = ['charset' => 'utf-8'];
-        $this->data[] = [
-            'name'    => 'viewport',
-            'content' => 'width=device-width, initial-scale=1.0 user-scalable=yes',
-        ];
-    }
+    /**
+     * @var array
+     */
+    protected $data = [];
 
     /**
      * @param string $name
      * @param array  $props
-     *
-     * @return $this
      */
     public function add($name, $props = [])
     {
         $this->data[$name] = $props;
-        return $this;
+    }
+
+    public function clear()
+    {
+        $this->data = [];
     }
 
 
@@ -39,6 +30,9 @@ class HeadMeta implements HtmlElementInterface
      */
     public function getHtml()
     {
+        if (!$this->data) {
+            return '';
+        }
         return implode(PHP_EOL, array_map(function ($v) {
             return '<meta ' . _attrize($v) . '/>';
         }, $this->data));

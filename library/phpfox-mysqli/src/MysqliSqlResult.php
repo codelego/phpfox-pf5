@@ -13,6 +13,11 @@ class MysqliSqlResult implements SqlResultInterface
 {
 
     /**
+     * @var MysqliDbAdapter
+     */
+    private $adapter;
+
+    /**
      * @var \mysqli_result
      */
     private $resource;
@@ -22,8 +27,9 @@ class MysqliSqlResult implements SqlResultInterface
      */
     private $prototype;
 
-    public function __construct($resource)
+    public function __construct($adapter, $resource)
     {
+        $this->adapter = $adapter;
         $this->resource = $resource;
     }
 
@@ -35,7 +41,17 @@ class MysqliSqlResult implements SqlResultInterface
 
     public function isValid()
     {
-        return $this->resource !== false;
+        return $this->resource != false;
+    }
+
+    public function error()
+    {
+        return $this->adapter->error();
+    }
+
+    public function lastId()
+    {
+        return $this->adapter->lastId();
     }
 
     public function all()

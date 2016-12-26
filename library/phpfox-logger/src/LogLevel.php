@@ -4,10 +4,6 @@ namespace Phpfox\Logger;
 
 /**
  * Describe log levels
- *
- * http://www.php-fig.org/psr/psr-3/#5-psr-log-loglevel
- *
- * Define log level
  * emergency, alert, critical, error, warning, notice, info, debug
  * code number:
  * - emergency: 1
@@ -32,55 +28,53 @@ final class LogLevel
     const INFO      = 'info';
     const DEBUG     = 'debug';
 
-    const NUMBER_EMERGENCY = 1;
-    const NUMBER_ALERT     = 2;
-    const NUMBER_CRITICAL  = 3;
-    const NUMBER_ERROR     = 4;
-    const NUMBER_WARNING   = 5;
-    const NUMBER_NOTICE    = 6;
-    const NUMBER_INFO      = 7;
-    const NUMBER_DEBUG     = 8;
+    const EMERGENCY_NUMBER = 1;
+    const ALERT_NUMBER     = 2;
+    const CRITICAL_NUMBER  = 3;
+    const ERROR_NUMBER     = 4;
+    const WARNING_NUMBER   = 5;
+    const NOTICE_NUMBER    = 6;
+    const INFO_NUMBER      = 7;
+    const DEBUG_NUMBER     = 8;
 
     public static function getNumber($level)
     {
         switch ($level) {
             case self::EMERGENCY:
-            case self::NUMBER_EMERGENCY:
-                return self::NUMBER_EMERGENCY;
+            case self::EMERGENCY_NUMBER:
+                return self::EMERGENCY_NUMBER;
 
             case self::ALERT:
-            case self::NUMBER_ALERT:
-                return self::NUMBER_ALERT;
+            case self::ALERT_NUMBER:
+                return self::ALERT_NUMBER;
 
             case self::CRITICAL:
-            case self::NUMBER_CRITICAL:
-                return self::NUMBER_CRITICAL;
+            case self::CRITICAL_NUMBER:
+                return self::CRITICAL_NUMBER;
 
             case self::ERROR:
-            case self::NUMBER_ERROR:
-                return self::NUMBER_ERROR;
+            case self::ERROR_NUMBER:
+                return self::ERROR_NUMBER;
 
             case self::WARNING:
-            case self::NUMBER_WARNING:
-                return self::NUMBER_WARNING;
+            case self::WARNING_NUMBER:
+                return self::WARNING_NUMBER;
 
             case self::NOTICE:
-            case self::NUMBER_NOTICE:
-                return self::NUMBER_NOTICE;
+            case self::NOTICE_NUMBER:
+                return self::NOTICE_NUMBER;
 
             case self::INFO:
-            case self::NUMBER_INFO:
-                return self::NUMBER_INFO;
+            case self::INFO_NUMBER:
+                return self::INFO_NUMBER;
 
             case self::DEBUG:
-            case self::NUMBER_DEBUG:
-                return self::NUMBER_DEBUG;
+            case self::DEBUG_NUMBER:
+                return self::DEBUG_NUMBER;
 
             default:
-                return self::NUMBER_ERROR;
+                return self::ERROR_NUMBER;
         }
 
     }
-
-
 }

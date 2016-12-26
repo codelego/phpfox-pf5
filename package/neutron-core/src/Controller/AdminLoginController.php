@@ -1,9 +1,9 @@
 <?php
 namespace Neutron\Core\Controller;
 
-use Phpfox\Mvc\MvcController;
+use Phpfox\Action\ActionController;
 
-class AdminLoginController extends MvcController
+class AdminLoginController extends ActionController
 {
     public function actionIndex()
     {

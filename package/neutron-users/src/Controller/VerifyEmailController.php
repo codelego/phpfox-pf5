@@ -1,10 +1,10 @@
 <?php
 namespace Neutron\User\Controller;
 
-use Phpfox\Mvc\MvcController;
+use Phpfox\Action\ActionController;
 use Phpfox\View\ViewModel;
 
-class VerifyEmailController extends MvcController
+class VerifyEmailController extends ActionController
 {
     /**
      * This action process user verify email action by a token send via email

@@ -49,10 +49,7 @@ class EventManager
                 $result = \Phpfox::get($listener)->{$name}($event);
 
                 $response->push($result);
-
-                // If the event was asked to stop propagating, do so
                 if ($event->isStopped()) {
-                    $response->setStopped(true);
                     break;
                 }
             }
@@ -82,31 +79,19 @@ class EventManager
             $params));
     }
 
-    public function attach($eventName, $listener, $priority = 1)
+    public function clearListeners($name)
     {
-        $this->events[$eventName][((int)$priority) . '.0'][] = $listener;
-        return $this;
-    }
-
-    public function detach($listener, $eventName = null)
-    {
-        // TODO: Implement detach() method.
-    }
-
-    public function clearListeners($eventName)
-    {
-        if (isset($this->events[$eventName])) {
-            unset($this->events[$eventName]);
-        }
-        return $this;
+        unset($this->events[$name]);
     }
 
     public function initialize()
     {
         if ($this->initialized) {
-            return;
+            return false;
         }
         $this->initialized = true;
         $this->events = \Phpfox::build('mvc.events.loader')->load();
+
+        return true;
     }
 }

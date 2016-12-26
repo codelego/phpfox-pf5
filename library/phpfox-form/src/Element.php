@@ -3,7 +3,7 @@
 namespace Phpfox\Form;
 
 
-class Element
+class Element implements ElementInterface
 {
     /**
      * @var ElementInterface|null
@@ -51,7 +51,7 @@ class Element
             if (method_exists($this, $method = 'set' . ucfirst($k))) {
                 $this->{$method}($v);
             } else {
-                $this->setParam($k, $v);
+                $this->params[$k] = $v;
             }
         }
         $this->initialize();
@@ -60,7 +60,6 @@ class Element
     public function setParam($name, $value)
     {
         $this->params[$name] = $value;
-        return $this;
     }
 
     protected function initialize()
@@ -75,8 +74,9 @@ class Element
 
     public function setParams($params)
     {
-        $this->params = $params;
-        return $this;
+        foreach ($params as $k => $v) {
+            $this->params[$k] = $v;
+        }
     }
 
     public function getAttributes()
@@ -87,19 +87,17 @@ class Element
     public function setAttributes($attributes)
     {
         $this->attributes = $attributes;
-        return $this;
     }
 
     public function setAttribute($name, $value)
     {
         $this->attributes[$name] = $value;
-
-        return $this;
     }
 
     public function getAttribute($name)
     {
-        return $this->attributes[$name];
+        return isset($this->attributes[$name])
+            ? $this->attributes[$name] : null;
     }
 
     /**
@@ -113,7 +111,6 @@ class Element
     public function setName($name)
     {
         $this->name = $name;
-        return $this;
     }
 
     public function getParent()
@@ -124,7 +121,6 @@ class Element
     public function setParent($parent)
     {
         $this->parent = $parent;
-        return $this;
     }
 
     public function getRender()
@@ -135,7 +131,6 @@ class Element
     public function setRender($render)
     {
         $this->render = $render;
-        return $this;
     }
 
     public function hasAttribute($name)
@@ -175,7 +170,6 @@ class Element
     public function setRequired($required)
     {
         $this->required = $required;
-        return $this;
     }
 
     public function noLabel()
@@ -195,13 +189,8 @@ class Element
 
     public function setElements($elements)
     {
-        if (!is_array($elements)) {
-            return $this;
-        }
-
         if ($this instanceof CollectionInterface) {
             $this->addElements($elements);
         }
-        return $this;
     }
 }

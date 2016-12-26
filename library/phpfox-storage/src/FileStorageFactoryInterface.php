@@ -4,9 +4,9 @@ namespace Phpfox\Storage;
 interface FileStorageFactoryInterface
 {
     /**
-     * @param array $options
+     * @param string $id
      *
      * @throws FileStorageException
      */
-    public function factory($options);
+    public function factory($id);
 }

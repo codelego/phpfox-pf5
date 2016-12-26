@@ -2,39 +2,32 @@
 
 namespace Phpfox\Assets;
 
-/**
- * Class HeadTitle
- *
- * Control content of &gt;title&lt; tag.
- *
- * @package Phpfox\Html
- */
 class HeadTitle implements HtmlElementInterface
 {
-
     /**
      * @var array
      */
-    protected $data = [];
+    private $data = [];
 
     /**
      * @var string
      */
-    protected $separator = ' &raquo; ';
+    private $separator = ' &raquo; ';
 
     /**
-     * @param string|array $title
-     *
-     * @return $this
+     * @param string $title
      */
     public function set($title)
     {
-        if (is_string($title)) {
-            $this->data = [$title];
-        } else {
-            $this->data [] = $title;
-        }
-        return $this;
+        $this->data = [$title];
+    }
+
+    /**
+     * @param string $title
+     */
+    public function add($title)
+    {
+        $this->data[] = $title;
     }
 
     /**
@@ -45,7 +38,6 @@ class HeadTitle implements HtmlElementInterface
     public function clear()
     {
         $this->data = [];
-        return $this;
     }
 
     /**
@@ -53,6 +45,10 @@ class HeadTitle implements HtmlElementInterface
      */
     public function getHtml()
     {
+        if (empty($this->data)) {
+            return '';
+        }
+
         return '<title>' . $this->__toString() . '</title>';
     }
 
@@ -61,13 +57,7 @@ class HeadTitle implements HtmlElementInterface
      */
     public function __toString()
     {
-        $response = [];
-
-        foreach ($this->data as $string) {
-            $response[] = $string;
-        }
-
-        return implode($this->separator, $response);
+        return implode($this->separator, $this->data);
     }
 
     /**

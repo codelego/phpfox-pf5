@@ -1,10 +1,10 @@
 <?php
 namespace Neutron\Core\Controller;
 
-use Phpfox\Mvc\MvcController;
+use Phpfox\Action\ActionController;
 use Phpfox\View\ViewModel;
 
-class AdminSettingsController extends MvcController
+class AdminSettingsController extends ActionController
 {
     public function actionIndex()
     {

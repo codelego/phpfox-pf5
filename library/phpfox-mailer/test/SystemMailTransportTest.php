@@ -12,11 +12,10 @@ class SystemMailTransportTest extends \PHPUnit_Framework_TestCase
 
         $msg = new Message();
         $msg->exchangeArray([
-            'fromAddress' => 'nam.ngvan@gmail.com',
-            'fromName'    => 'nam nguyen',
-            'subject'     => 'test subject',
-            'body'        => 'test body',
-            'altBody'     => 'test alt body',
+            'from'    => ['nam.ngvan@gmail.com', 'nam nguyen'],
+            'subject' => 'test subject',
+            'body'    => 'test body',
+            'altBody' => 'test alt body',
         ]);
         $msg->addTo('namnv@younetco.com', 'Nam Nguyen');
         $transport->send($msg);

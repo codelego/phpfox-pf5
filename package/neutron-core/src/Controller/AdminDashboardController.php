@@ -2,10 +2,10 @@
 
 namespace Neutron\Core\Controller;
 
-use Phpfox\Mvc\MvcController;
+use Phpfox\Action\ActionController;
 use Phpfox\View\ViewModel;
 
-class AdminDashboardController extends MvcController
+class AdminDashboardController extends ActionController
 {
     /**
      * @return ViewModel

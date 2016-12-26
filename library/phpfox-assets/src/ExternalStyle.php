@@ -2,11 +2,6 @@
 
 namespace Phpfox\Assets;
 
-/**
- * Class ExternalStyle
- *
- * @package Phpfox\Html
- */
 class ExternalStyle implements HtmlElementInterface
 {
     use HtmlSimpleTrait;
@@ -15,8 +10,6 @@ class ExternalStyle implements HtmlElementInterface
      * @param string $key
      * @param string $path
      * @param array  $props
-     *
-     * @return $this
      */
     public function add($key, $path = null, $props = [])
     {
@@ -25,7 +18,7 @@ class ExternalStyle implements HtmlElementInterface
         }
 
         if ($this->ensureKey($path)) {
-            return $this;
+            return;
         }
 
         if (substr($path, 0, 2) != '//') {
@@ -40,16 +33,12 @@ class ExternalStyle implements HtmlElementInterface
 
 
         $this->_append($key, $props);
-
-        return $this;
     }
 
     /**
      * @param string $key
      * @param string $path
      * @param array  $props
-     *
-     * @return $this
      */
     public function prepend($key, $path = null, $props = [])
     {
@@ -58,7 +47,7 @@ class ExternalStyle implements HtmlElementInterface
         }
 
         if ($this->ensureKey($path)) {
-            return $this;
+            return;
         }
 
         if (substr($path, 0, 2) != '//') {
@@ -73,7 +62,6 @@ class ExternalStyle implements HtmlElementInterface
 
         $this->_prepend($key, $props);
 
-        return $this;
     }
 
     public function getHtml()

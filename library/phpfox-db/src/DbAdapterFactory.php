@@ -2,7 +2,6 @@
 
 namespace Phpfox\Db;
 
-
 class DbAdapterFactory
 {
     /**

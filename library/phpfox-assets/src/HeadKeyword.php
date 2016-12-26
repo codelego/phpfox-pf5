@@ -2,44 +2,29 @@
 
 namespace Phpfox\Assets;
 
-/**
- * Class HeadKeyword
- *
- * @package Phpfox\Html
- */
 class HeadKeyword implements HtmlElementInterface
 {
     /**
      * @var array
      */
-    protected $data = [];
+    private $data = [];
 
     /**
-     * @param string|array $data
-     *
-     * @return $this
+     * @param string $keyword
      */
-    public function set($data)
+    public function set($keyword)
     {
-        $this->data = is_string($data) ? [$data] : $data;
-        return $this;
+        $this->data = [$keyword];
     }
 
-    /**
-     * @return array
-     */
-    public function get()
+    public function add($keyword)
     {
-        return $this->data;
+        $this->data[] = $keyword;
     }
 
-    /**
-     * @return $this
-     */
     public function clear()
     {
         $this->data = [];
-        return $this;
     }
 
     /**
@@ -47,6 +32,10 @@ class HeadKeyword implements HtmlElementInterface
      */
     public function getHtml()
     {
+        if (empty($this->data)) {
+            return '';
+        }
+
         return '<meta name="keywords" content="' . $this->__toString() . '"/>';
     }
 

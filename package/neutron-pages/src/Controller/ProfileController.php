@@ -2,9 +2,9 @@
 
 namespace Neutron\Pages\Controller;
 
-use Phpfox\Mvc\MvcController;
+use Phpfox\Action\ActionController;
 
-class ProfileController extends MvcController
+class ProfileController extends ActionController
 {
     public function actionIndex()
     {

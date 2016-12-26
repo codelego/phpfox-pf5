@@ -7,6 +7,9 @@
 /data/package/*
 /data/temp/*
 /vendor/
+/tests/vendor
+/tests/coverage/*
+
 /static/node_modules/
 
 /public/*

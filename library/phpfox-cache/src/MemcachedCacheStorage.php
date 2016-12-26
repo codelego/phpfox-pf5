@@ -43,6 +43,18 @@ class MemcachedCacheStorage implements CacheStorageInterface
         $this->ready();
 
         $this->memcached->set($key, $value, $ttl);
+
+        return true;
+    }
+
+    public function setItems($keyValues, $ttl = 0)
+    {
+        $this->ready();
+
+        foreach ($keyValues as $key => $value) {
+            $this->memcached->set($key, $value, $ttl);
+        }
+        return true;
     }
 
     public function ready()
@@ -55,8 +67,14 @@ class MemcachedCacheStorage implements CacheStorageInterface
         $v = $this->configs;
 
         foreach ($v['servers'] as $a) {
+            if (is_string($a)) {
+                $a = ['host' => $a];
+            }
             if (!isset($a['timeout'])) {
                 $a['timeout'] = $v['timeout'];
+            }
+            if (!isset($a['port'])) {
+                $a['port'] = $v['port'];
             }
 
             if (!isset($a['persistent'])) {
@@ -67,6 +85,10 @@ class MemcachedCacheStorage implements CacheStorageInterface
                 $a['retry_interval'] = $v['retry_interval'];
             }
 
+            if (!isset($a['weight'])) {
+                $a['weight'] = 1;
+            }
+
             $this->memcached->addServer($a['host'], $a['port'], $a['weight']);
         }
 
@@ -74,13 +96,13 @@ class MemcachedCacheStorage implements CacheStorageInterface
 
     }
 
-    public function getItems($keyValues = [])
+    public function getItems($keys = [])
     {
         $this->ready();
 
         $result = [];
-        foreach ($keyValues as $k => $v) {
-            $result[$k] = $this->getItem($v);
+        foreach ($keys as $k) {
+            $result[$k] = $this->getItem($k);
         }
 
         return $result;
@@ -90,7 +112,13 @@ class MemcachedCacheStorage implements CacheStorageInterface
     {
         $this->ready();
 
-        return $this->memcached->get($key);
+        $result = $this->memcached->get($key);
+
+        if (false === $result) {
+            return null;
+        }
+
+        return $result;
     }
 
     public function hasItem($key)
@@ -100,7 +128,7 @@ class MemcachedCacheStorage implements CacheStorageInterface
         return null != $this->memcached->get($key);
     }
 
-    public function clear()
+    public function flush()
     {
         $this->ready();
 
@@ -124,10 +152,15 @@ class MemcachedCacheStorage implements CacheStorageInterface
         });
     }
 
+    /**
+     * @return array
+     * @codeCoverageIgnore
+     */
     function __sleep()
     {
         $this->memcached = null;
         $this->connected = false;
         return [];
     }
+
 }

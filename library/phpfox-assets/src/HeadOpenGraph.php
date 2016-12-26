@@ -2,23 +2,18 @@
 
 namespace Phpfox\Assets;
 
-/**
- * Class HeadOpenGraph
- *
- * @package Phpfox\Html
- */
 class HeadOpenGraph implements HtmlElementInterface
 {
     /**
      * @var array
      */
-    protected $data = [];
+    private $data = [];
 
     /**
      * @param string $property
      * @param string $value
      */
-    public function set($property, $value)
+    public function add($property, $value)
     {
         $this->data[$property] = $value;
     }
@@ -26,28 +21,17 @@ class HeadOpenGraph implements HtmlElementInterface
     /**
      * @param string $property
      *
-     * @return $this
      */
     public function remove($property)
     {
-        if (isset($this->data[$property])) {
-            unset($this->data[$property]);
-        }
-        return $this;
+        unset($this->data[$property]);
     }
 
-    /**
-     * @return $this
-     */
     public function clear()
     {
         $this->data = [];
-        return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getHtml()
     {
         if (empty($this->data)) {

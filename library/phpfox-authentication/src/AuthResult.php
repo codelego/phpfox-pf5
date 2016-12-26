@@ -47,12 +47,26 @@ class AuthResult
     private $message;
 
     /**
-     * @param int $code
-     * @param     $message
+     * @param int         $code
+     * @param string|null $message
+     *
+     * @throws \InvalidArgumentException
      */
-    public function setResult($code, $message)
+    public function setResult($code, $message = null)
     {
-        $this->code = $code;
+        switch ($code) {
+            case self::SUCCESS:
+            case self::INVALID_CREDENTIAL:
+            case self::INVALID_IDENTITY:
+            case self::MISSING_CREDENTIAL:
+            case self::MISSING_IDENTITY:
+            case self::UN_CATEGORIZE:
+                $this->code = $code;
+                break;
+            default :
+                throw new \InvalidArgumentException("Invalid Auth Result");
+
+        }
         $this->message = $message;
     }
 
@@ -100,8 +114,8 @@ class AuthResult
         $this->identity = $identity;
     }
 
-    public function isSuccess()
+    public function isValid()
     {
-        return $this->code == self::SUCCESS;
+        return $this->code == self::SUCCESS && $this->identity > 0;
     }
 }

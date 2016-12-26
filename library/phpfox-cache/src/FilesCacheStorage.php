@@ -18,21 +18,25 @@ class FilesCacheStorage implements CacheStorageInterface
      */
     protected $directory;
 
-    public function __construct($configs)
+    protected $directoryPermission = 0777;
+
+    protected $filePermission = 0777;
+
+    public function __construct($configs = [])
     {
         $configs = array_merge([
             'directory' => 'cache',
             'debug'     => false,
         ], (array)$configs);
 
-        $this->directory = PHPFOX_DIR . '/data/' . $configs['directory'];
+        $this->directory = PHPFOX_DIR . 'data/' . $configs['directory'];
         $this->debug = (bool)$configs['debug'];
     }
 
-    public function getItems($keyValues = [])
+    public function getItems($keys = [])
     {
         $result = [];
-        foreach ($keyValues as $key => $value) {
+        foreach ($keys as $key) {
             $result[$key] = $this->getItem($key);
         }
         return $result;
@@ -81,6 +85,17 @@ class FilesCacheStorage implements CacheStorageInterface
         ) {
             return false;
         }
+
+        @chmod($filename,$this->filePermission);
+
+        return true;
+    }
+
+    public function setItems($keyValues, $ttl = 0)
+    {
+        foreach ($keyValues as $key => $value) {
+            $this->setItem($key, $value, $ttl);
+        }
         return true;
     }
 
@@ -92,7 +107,7 @@ class FilesCacheStorage implements CacheStorageInterface
     private function ensureFilename($filename)
     {
         $dir = dirname($filename);
-        if (!is_dir($dir) && !@mkdir($dir, 0777, true)) {
+        if (!is_dir($dir) && !@mkdir($dir, $this->directoryPermission, true)) {
             return false;
         }
         return true;
@@ -103,7 +118,7 @@ class FilesCacheStorage implements CacheStorageInterface
         return file_exists($this->getFilename($key));
     }
 
-    public function clear()
+    public function flush()
     {
         $files
             = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->directory,
@@ -136,11 +151,7 @@ class FilesCacheStorage implements CacheStorageInterface
             if (@unlink($filename)) {
                 return true;
             }
-            if (!$this->debug) {
-                return false;
-            } else {
-                throw new InvalidArgumentException("Can not delete item '{$key}'");
-            }
+            return false;
         }
 
         return true;

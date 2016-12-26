@@ -13,14 +13,14 @@ class LocalFileStorageTest extends \PHPUnit_Framework_TestCase
             [3],
         ];
     }
-
+/**/
     /**
      *
      * @dataProvider provideConstructor
      *
      * @param mixed $id
      */
-    public function testConstructor($id)
+    public function testBase($id)
     {
         $fileStorage = \Phpfox::get('storage.manager')->get($id);
         $this->assertEquals(PHPFOX_BASE_URL . 'public/path/to/url.png',
@@ -35,17 +35,17 @@ class LocalFileStorageTest extends \PHPUnit_Framework_TestCase
         $local = PHPFOX_DIR . 'data/temp/temp.txt';
 
         if (file_exists($local)) {
-            unlink($local);
+            @unlink($local);
         }
 
-        file_put_contents($local, '200 0k' . PHP_EOL . get_class($fileStorage));
+        @file_put_contents($local, '200 0k' . PHP_EOL . get_class($fileStorage));
 
         $name = \Phpfox::get('storage.file_name')
             ->createName(null, null, '.txt');
 
         $fileStorage->putFile($local, $name);
 
-        unlink($local);
+        @unlink($local);
 
         $this->assertFileNotExists($local);
 

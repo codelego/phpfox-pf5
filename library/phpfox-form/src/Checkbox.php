@@ -4,10 +4,11 @@ namespace Phpfox\Form;
 
 class Checkbox extends Element implements FieldInterface
 {
-
-
     protected $render = 'checkbox';
 
+    /**
+     * @var mixed
+     */
     protected $value;
 
     /**
@@ -20,15 +21,15 @@ class Checkbox extends Element implements FieldInterface
 
     /**
      * @param mixed $value
-     *
-     * @return $this
      */
     public function setValue($value)
     {
         $this->value = $value;
-        return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function isChecked()
     {
         return $this->value == $this->getParam('checkedValue', 1);

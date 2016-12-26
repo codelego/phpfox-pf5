@@ -62,7 +62,8 @@ abstract class DbModel implements ModelInterface
 
     public function offsetSet($offset, $value)
     {
-        $this->_data[] = $value;
+        $this->_data[$offset] = $value;
+        $this->_changed[$offset] = 1;
     }
 
     public function offsetUnset($offset)
@@ -102,7 +103,7 @@ abstract class DbModel implements ModelInterface
     public function save()
     {
 
-        if (empty($this->_changed)) {
+        if ($this->_saved and empty($this->_changed)) {
             return false;
         }
 
@@ -146,10 +147,5 @@ abstract class DbModel implements ModelInterface
     public function getChanged()
     {
         return array_intersect_key($this->_data, $this->_changed);
-    }
-
-    public function __sleep()
-    {
-        return ['_data', '_changed', '_saved'];
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Phpfox\Package;
 
-use Phpfox\Mvc\ControllerProviderInterface;
+use Phpfox\Action\ControllerProviderInterface;
 
 class ControllerProvider implements ControllerProviderInterface
 {

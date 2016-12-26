@@ -7,12 +7,17 @@ class Translator
     /**
      * @var string
      */
-    protected $locale = 'en';
+    public $locale = 'en';
 
     /**
      * @var MessageDomain[]
      */
-    protected $messages = [];
+    public $messages = [];
+
+    /**
+     * @var array
+     */
+    protected $plurals = [];
 
     /**
      * @param string      $id
@@ -24,49 +29,60 @@ class Translator
      */
     public function trans($id, $domain, $locale, $context)
     {
-        $domain = $domain ? $domain : '';
-        $locale = $locale ? $locale : $this->locale;
-        $key = $locale . '_n_' . $domain;
+        $message = $this->get($locale, $domain)->get($id);
 
-        if (!isset($this->messages[$key])) {
-            $this->messages[$key] = new MessageDomain($locale, $domain);
+        if (null === $message && $domain != '') {
+            $message = $this->get($locale, '')->get($id);
         }
 
-        $id = $this->messages[$key]->trans($id);
+        if (null === $message) {
+            $message = $id;
+        }
 
         if (!$context) {
-            return $id;
+            return $message;
         }
 
-        return _sprintf($id, $context);
+        return _sprintf($message, $context);
+    }
+
+    protected function get($locale, $domain)
+    {
+        return isset($this->messages[$key = ($locale ? $locale
+                    : $this->locale) . '/' . ($domain ? $domain : '')])
+            ? $this->messages[$key]
+            : $this->messages[$key] = new MessageDomain($locale,
+                $domain);
     }
 
     /**
-     * @param string $id
-     * @param string $number
-     * @param string $domain
-     * @param string $locale
-     * @param string $context
+     * @param string        $id
+     * @param number|string $number
+     * @param string|null   $domain
+     * @param string|null   $locale
+     * @param array|null    $context
      *
      * @return mixed|string
      */
     public function choice($id, $number, $domain, $locale, $context)
     {
-        $domain = $domain ? $domain : '';
-        $locale = $locale ? $locale : $this->locale;
-        $key = $locale . '_n_' . $domain;
+        $choice = $this->plural($locale)->evaluate($number);
 
-        if (!isset($this->messages[$key])) {
-            $this->messages[$key] = new MessageDomain($locale, $domain);
+        $message = $this->get($locale, $domain)->choice($id, $choice);
+
+        if (null === $message and $domain != '') {
+            $message = $this->get($locale, '')->choice($id, $choice);
         }
 
-        $id = $this->messages[$key]->choice($id, $number);
+        if (null === $message) {
+            $message = $id;
+        }
 
         if (!$context) {
-            return $id;
+            return $message;
         }
 
-        return _sprintf($id, $context);
+        return _sprintf($message, $context);
     }
 
     public function getLocale()
@@ -77,6 +93,13 @@ class Translator
     public function setLocale($locale)
     {
         $this->locale = $locale;
-        return $this;
+    }
+
+    public function plural($locale)
+    {
+        if ($locale) {
+            ;
+        }
+        return new PluralRule();
     }
 }

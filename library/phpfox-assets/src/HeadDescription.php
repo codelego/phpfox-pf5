@@ -8,33 +8,34 @@ class HeadDescription implements HtmlElementInterface
     /**
      * @var array
      */
-    protected $data = [];
+    private $data = [];
 
     /**
-     * @param string|array $data
-     *
-     * @return $this
+     * @param string $description
      */
-    public function set($data)
+    public function set($description)
     {
-        $this->data = is_string($data) ? [$data] : $data;
-        return $this;
+        $this->data = [$description];
     }
 
     /**
-     * @return $this
+     * @param string $description
      */
+    public function add($description)
+    {
+        $this->data[] = $description;
+    }
+
     public function clear()
     {
         $this->data = [];
-        return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getHtml()
     {
+        if (empty($this->data)) {
+            return '';
+        }
         return '<meta name="description" content="' . htmlentities(implode(',',
                 $this->data)) . '"/>';
     }

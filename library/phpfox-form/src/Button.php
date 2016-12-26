@@ -5,7 +5,7 @@ namespace Phpfox\Form;
 class Button extends Element implements FieldInterface
 {
     /**
-     * @var
+     * @var mixed
      */
     protected $value;
 
@@ -24,13 +24,10 @@ class Button extends Element implements FieldInterface
 
     /**
      * @param mixed $value
-     *
-     * @return $this
      */
     public function setValue($value)
     {
         $this->value = $value;
-        return $this;
     }
 
     public function noLabel()

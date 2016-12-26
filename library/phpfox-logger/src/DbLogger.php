@@ -5,7 +5,6 @@ namespace Phpfox\Logger;
 
 class DbLogger implements LoggerInterface
 {
-    use LoggerTrait;
 
     /**
      * @var string
@@ -13,7 +12,17 @@ class DbLogger implements LoggerInterface
     protected $model;
 
     /**
+     * Default accept level is maximum
+     *
+     * @var
+     */
+    protected $accept = 4;
+
+    /**
      * DbLogger constructor.
+     *
+     * - model: log to table string
+     * - level:  debug, info, ...
      *
      * @param $config
      */
@@ -22,10 +31,20 @@ class DbLogger implements LoggerInterface
         $config = array_merge([
             'model' => '',
             'level' => 'debug',
-        ], (array)$config);
+        ], $config);
 
         $this->model = $config['model'];
-        $this->setLevel($config['level']);
+        $this->accept = LogLevel::getNumber(strtolower($config['level']));
+    }
+
+    public function emergency($message, $context = [])
+    {
+        $this->write($this->format(LogLevel::EMERGENCY, $message, $context));
+    }
+
+    protected function write($data)
+    {
+        return \Phpfox::getDb()->insert($this->model, $data)->execute();
     }
 
     /**
@@ -52,9 +71,76 @@ class DbLogger implements LoggerInterface
         ];
     }
 
-    protected function write($data)
+    /**
+     * @param string $message
+     * @param array  $context
+     *
+     * @return string
+     */
+    protected function interpolate($message, $context = [])
     {
-        \Phpfox::get('models')->get($this->model)->insert($data);
+        $replace = [];
+        foreach ($context as $key => $val) {
+            $replace['{' . $key . '}'] = $val;
+        }
+        return strtr($message, $replace);
     }
 
+    public function alert($message, $context = [])
+    {
+        if (LogLevel::ALERT_NUMBER <= $this->accept) {
+            $this->write($this->format(LogLevel::ALERT, $message, $context));
+        }
+
+
+    }
+
+    public function critical($message, $context = [])
+    {
+        if (LogLevel::CRITICAL_NUMBER <= $this->accept) {
+            $this->write($this->format(LogLevel::CRITICAL, $message, $context));
+        }
+    }
+
+    public function error($message, $context = [])
+    {
+        if (LogLevel::ERROR_NUMBER <= $this->accept) {
+            $this->write($this->format(LogLevel::ERROR, $message, $context));
+        }
+    }
+
+    public function warning($message, $context = [])
+    {
+        if (LogLevel::WARNING_NUMBER <= $this->accept) {
+            $this->write($this->format(LogLevel::WARNING, $message, $context));
+        }
+    }
+
+    public function notice($message, $context = [])
+    {
+        if (LogLevel::CRITICAL_NUMBER <= $this->accept) {
+            $this->write($this->format(LogLevel::CRITICAL, $message, $context));
+        }
+    }
+
+    public function info($message, $context = [])
+    {
+        if (LogLevel::INFO_NUMBER <= $this->accept) {
+            $this->write($this->format(LogLevel::INFO, $message, $context));
+        }
+    }
+
+    public function debug($message, $context = [])
+    {
+        if (LogLevel::DEBUG_NUMBER <= $this->accept) {
+            $this->write($this->format(LogLevel::DEBUG, $message, $context));
+        }
+    }
+
+    public function log($level, $message, $context = [])
+    {
+        if (LogLevel::getNumber($level) <= $this->accept) {
+            $this->write($this->format($level, $message, $context));
+        }
+    }
 }
