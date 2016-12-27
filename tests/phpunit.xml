@@ -22,7 +22,17 @@
     </testsuite>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">/Users/namnv/Sites/pf5/package</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/neutron-core/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/neutron-events/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/neutron-users/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/neutron-videos/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/neutron-pages/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/neutron-groups/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/neutron-messages/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/neutron-cms/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/neutron-blogs/src</directory>
+        </whitelist>
+        <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-assets/src</directory>
             <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-authentication/src</directory>
             <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-authorization/src</directory>

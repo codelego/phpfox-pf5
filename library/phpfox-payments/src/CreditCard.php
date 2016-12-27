@@ -2,6 +2,7 @@
 
 namespace Phpfox\Payments;
 
+use Phpfox\Support\Parameters;
 
 class CreditCard
 {
@@ -21,34 +22,31 @@ class CreditCard
     /**
      * Internal storage of all of the card parameters.
      *
-     * @var ParameterBag
+     * @var Parameters
      */
     protected $parameters;
 
     /**
      * Create a new CreditCard object using the specified parameters
      *
-     * @param array $parameters An array of parameters to set on the new object
+     * @param array $params An array of parameters to set on the new object
      */
-    public function __construct($parameters = null)
+    public function __construct($params = null)
     {
-        $this->initialize($parameters);
+        $this->parameters = new Parameters($params);
+
+        if(is_array($params)){
+            $this->initialize($params);
+        }
     }
 
-    /**
-     * Initialize the object with parameters.
-     *
-     * If any unknown parameters passed, they will be ignored.
-     *
-     * @param array $parameters An associative array of parameters
-     *
-     * @return CreditCard provides a fluent interface.
-     */
-    public function initialize($parameters = null)
+    public function initialize($params)
     {
-        $this->parameters = new ParameterBag($parameters);
-
-        return $this;
+        foreach ($params as $k => $v) {
+            if (method_exists($this, $method = 'set' . ucfirst($k))) {
+                $this->{$method}($v);
+            }
+        }
     }
 
     /**

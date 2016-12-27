@@ -2,16 +2,70 @@
 
 namespace Phpfox\Navigation;
 
-
+/**
+ * @codeCoverageIgnore
+ */
 class NavbarNavDecorator implements NavigationDecoratorInterface
 {
-    use NavigationDecoratorTrait;
+    /**
+     * render from section
+     *
+     * @var string
+     */
+    protected $section;
 
+    /**
+     * @var NavigationItem[]
+     */
     protected $items = [];
+
+    /**
+     * Menu name
+     *
+     * @var string
+     */
+    protected $menu;
+
+    /**
+     * List of active items
+     *
+     * @var array|string
+     */
+    protected $active;
+
+    /**
+     * max number to render
+     *
+     * @var number
+     */
+    protected $level;
+
+    /**
+     * @var array
+     */
+    protected $context;
+
+
+    public function __construct(
+        $menu,
+        $parentId,
+        $active,
+        $level,
+        $context
+    ) {
+
+        $this->menu = $menu;
+        $this->section = $parentId;
+        $this->active = $active;
+        $this->level = $level;
+        $this->context = $context;
+
+    }
+
 
     public function render()
     {
-        $this->data = \Phpfox::get('navigation.loader')->load($this->menu);
+        $this->items = \Phpfox::get('navigation.loader')->load($this->menu);
     }
 
     /**
@@ -62,92 +116,29 @@ class NavbarNavDecorator implements NavigationDecoratorInterface
         return '<ul class="' . $class . '">' . implode('', $content) . '</ul>';
     }
 
-    /**
-     * prepare items
-     */
     public function prepareItems()
     {
-        foreach ($this->items as $offset => $item) {
-            if ($item['acl']) {
-                if (false == \Phpfox::getAcl()
-                        ->hasPermission(null, $item['acl'])
-                ) {
-                    unset($this->items[$offset]);
-                    continue;
-                }
-            }
 
-            if ($item['type'] == 'event') {
-                if (false == ($item = \Phpfox::callback($item['event'],
-                        $item))
-                ) {
-                    unset($this->items[$offset]);
-                } else {
-                    $this->items[$offset] = $item;
-                }
-            }
-        }
-
-        $this->items = array_values($this->items);
-
-        if ($this->level == 1 && count($this->items) > $this->defaults['max']) {
-            // rebuild items by the next
-            $items = array_slice($this->items, 0, $this->defaults['max'] - 1);
-
-            $items[] = [
-                'name'     => 'more',
-                'label'    => $this->defaults['moreLabel'],
-                'type'     => 'static',
-                'href'     => '#',
-                'acl'      => '',
-                'active'   => 0,
-                'children' => [
-                    'level' => 1,
-                    'items' => array_slice($this->items,
-                        $this->defaults['max'] - 1),
-                ],
-            ];
-            $this->items = $items;
-        }
     }
 
-    /**
-     *
-     */
     public function prepareActiveItems()
     {
-        foreach ($this->items as $index => $item) {
-            if (in_array($item['name'], $this->active)) {
-                $this->items[$index]['active'] = 1;
-            }
-            if (!empty($item['children'])) {
-                foreach ($item['children']['items'] as $sub => $cat) {
-                    if (in_array($cat['name'], $this->active)) {
-                        $this->items[$index]['children']['items'][$sub]['active']
-                            = 1;
-                    }
-                }
-            }
-        }
+
     }
 
     /**
-     * @param int   $level
-     * @param array $item
+     * @param int            $level
+     * @param NavigationItem $item
      *
      * @return string
      */
     public function renderItem($level, $item)
     {
-        if (is_string($item)) {
-            return $item;
-        }
-
         $href = null;
-
         $params = [];
-        if (!empty($item['params'])) {
-            $params = $item['params'];
+
+        if (!empty($item->params)) {
+            $params = $item->params;
             foreach ($params as $k => $v) {
                 if (substr($v, 0, 1) == '$') {
                     $params[$k] = \Phpfox::get('mvc.request')
@@ -157,28 +148,24 @@ class NavbarNavDecorator implements NavigationDecoratorInterface
             }
         }
 
-        if ($item['type'] == 'separator') {
+        if ($item->type == 'separator') {
             return '<li class="divider"></li>';
         } else {
-            if ($item['type'] == 'route') {
-                $item['href'] = \Phpfox::router()
+            if ($item->type == 'route') {
+                $href = \Phpfox::router()
                     ->getUrl($item['route'], $params);
             }
         }
 
-        if (is_string($item)) {
-            return $item;
-        }
-
-        if (empty($item['href'])) {
-            if (!empty($item['route'])) {
+        if ($href) {
+            if (!empty($item->route)) {
                 $href = \Phpfox::router()->getUrl($item['route'], $params);
             }
         } else {
-            $href = $item['href'];
+            $href = $item->href;
         }
 
-        $label = _text($item['label'], 'navigation');
+        $label = _text($item->label, 'menu');
 
         // process plugin but return false.
         if (!$item) {
@@ -186,23 +173,23 @@ class NavbarNavDecorator implements NavigationDecoratorInterface
         }
 
         $extra = '';
-        $cls = 'ni-' . $item['name'];
+        $cls = 'ni-' . $item->name;
 
-        if (!empty($item['class'])) {
-            $cls = $item['class'];
+        if (!empty($item->class)) {
+            $cls = $item->class;
         }
 
-        if ($item['active']) {
+        if ($item->active) {
             $cls .= ' active';
         }
 
-        if (!empty($item['extra'])) {
+        if (!empty($item->extra)) {
             $extra = _attrize($item['extra']);
         }
 
-        if (!empty($item['children']) && $level < $this->level) {
-            $childrenHtml = $this->renderChildren($item['children']['level'],
-                $item['children']['items']);
+        if (!empty($item->children) && $level < $this->level) {
+            $childrenHtml = $this->renderChildren($level,
+                $item->children);
 
             return '<li class="dropdown ' . $cls . '">'
                 . '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">'

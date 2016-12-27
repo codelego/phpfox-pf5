@@ -9,6 +9,11 @@ class Parameters
      */
     private $data = [];
 
+    public function __construct($data = [])
+    {
+        $this->data = $data;
+    }
+
     public function all()
     {
         return $this->data;

@@ -63,7 +63,7 @@ if (true) {
 
     _println('Generate services map...');
 
-    $configs = Phpfox::mvcConfig()->get('services');
+    $configs = Phpfox::configs()->get('services');
 
     $array = [];
 

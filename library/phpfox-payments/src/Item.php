@@ -2,25 +2,33 @@
 
 namespace Phpfox\Payments;
 
+use Phpfox\Support\Parameters;
 
 class Item implements ItemInterface
 {
     /**
-     * @var ParameterBag
+     * @var Parameters
      */
     protected $parameters;
 
-    public function __construct($parameters = null)
+
+    public function __construct($params = [])
     {
-        $this->initialize($parameters);
+        $this->parameters = new Parameters($params);
+        if(is_array($params)){
+            $this->initialize($params);
+        }
     }
 
-    public function initialize($parameters = null)
+    public function initialize($params)
     {
-        $this->parameters = new ParameterBag($parameters);
-
-        return $this;
+        foreach ($params as $k => $v) {
+            if (method_exists($this, $method = 'set' . ucfirst($k))) {
+                $this->{$method}($v);
+            }
+        }
     }
+
 
     public function getParameters()
     {
@@ -88,4 +96,5 @@ class Item implements ItemInterface
     {
         $this->parameters->set('code', $value);
     }
+
 }

@@ -1,49 +1,61 @@
 <?php
 namespace Phpfox\Navigation;
 
-
+/**
+ * @property string $id
+ * @property string $name
+ * @property string $href
+ * @property string $route
+ * @property string $event
+ * @property string $extra
+ * @property string $class
+ * @property bool   $active
+ * @property string $acl
+ * @property string $menu
+ * @property string $section
+ * @property string $label
+ * @property string $parent
+ * @property string $packageId
+ * @property string $type
+ * @property array  $params
+ */
 class NavigationItem
 {
-    /**
-     * @var string
-     */
-    public $id, $name, $section, $menu, $acl, $event, $packageId, $label, $type, $route, $url;
+
+    public $data;
 
     /**
-     * @var array
-     */
-    public $params = [];
-
-    /**
-     * @var array
-     */
-    public $extra = [];
-
-    /**
-     * @var bool
-     */
-    public $active = false;
-
-    /**
-     * @var NavigationItem
+     * @var NavigationItem[]
+     *
      */
     public $children = [];
 
-    public function exchangeArray($data)
+    public function __construct($data = [])
     {
-        $this->id = @$data['id'];
-        $this->section = @$data['parent'];
-        $this->menu = @$data['menu'];
-        $this->name = @$data['name'];
-        $this->acl = @$data['acl'];
-        $this->event = @$data['event'];
-        $this->packageId = @$data['module'];
-        $this->route = @$data['route'];
-        $this->extra = @$data['extra'];
-        $this->label = @$data['label'];
-        $this->type = @$data['type'];
-        $this->params = @$data['params'];
-        $this->active = @$data['active'];
-        $this->children = [];
+        foreach ($data as $k => $v) {
+            if (method_exists($this, $method = 'set' . ucfirst($k))) {
+                $this->{$method}($v);
+            } else {
+                $this->data[$k] = $v;
+            }
+        }
+    }
+
+    public function setParams($value)
+    {
+        if (is_string($value)) {
+            $value = (array)json_decode($value, true);
+        }
+        $this->params = $value;
+    }
+
+    public function __get($name)
+    {
+        return isset($this->data[$name]) ? $this->data[$name] : null;
+    }
+
+    function __set($name, $value)
+    {
+        $this->data[$name] = $value;
     }
 }

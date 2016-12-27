@@ -3,6 +3,7 @@
 namespace Neutron\Core\Service;
 
 
+use Phpfox\Navigation\NavigationItem;
 use Phpfox\Navigation\NavigationLoaderInterface;
 
 class NavigationLoader implements NavigationLoaderInterface
@@ -44,21 +45,10 @@ class NavigationLoader implements NavigationLoaderInterface
             $module = (string)$row['package_id'];
             $navId = (string)$row['menu'];
 
-            $rows[$name] = [
-                'id'       => $id,
-                'parent'   => (string)$row['parent_name'],
-                'name'     => $name,
-                'navId'    => $navId,
-                'acl'      => (string)$row['acl'],
-                'event'    => (string)$row['event'],
-                'module'   => $module,
-                'label'    => (string)$row['label'],
-                'type'     => (string)$row['menu_type'],
-                'params'   => $params,
-                'route'    => (string)$row['route'],
-                'children' => [],
-                'active'   => 0,
-            ];
+            $item = new NavigationItem($row);
+
+
+            $rows[$name] = $item;
         }
 
         for ($level = self::MAX_LEVEL; $level > 0; --$level) {
@@ -68,7 +58,7 @@ class NavigationLoader implements NavigationLoaderInterface
                 }
 
                 $isValid = true;
-                $parent = $row['parent'];
+                $parent = $row->parent;
 
                 if ($parent == $parentId) {
                     continue;
@@ -90,16 +80,16 @@ class NavigationLoader implements NavigationLoaderInterface
                     }
                 }
                 if ($isValid && $nextParent == $parentId && $i == $level) {
-                    $rows[$parent]['children']['level'] = $level - 1;
-                    $rows[$parent]['children']['items'][$index] = $row;
+//                    $rows[$parent]['children']['level'] = $level - 1;
+                    $rows[$parent]['children'][] = $row;
                     unset($rows[$index]);
                 }
             }
         }
 
         foreach ($rows as $index => $row) {
-            if (!empty($row) && $row['parent'] == $parentId) {
-                $items[$row['name']] = $row;
+            if (!empty($row) && $row->parent == $parentId) {
+                $items[$row->name] = $row;
             }
         }
 

@@ -1,12 +1,6 @@
 <?php
-
 namespace Phpfox\Widget;
 
-/**
- * Interface WidgetInterface
- *
- * @package Phpfox\Widget
- */
 interface WidgetInterface
 {
     /**
@@ -47,5 +41,5 @@ interface WidgetInterface
     /**
      * @return mixed
      */
-    public function resolve();
+    public function run();
 }

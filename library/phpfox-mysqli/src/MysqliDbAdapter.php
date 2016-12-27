@@ -4,7 +4,10 @@ namespace Phpfox\Mysqli;
 
 use Phpfox\Db\DbAdapterInterface;
 use Phpfox\Db\DbConnectException;
-use Phpfox\Db\SqlAdapterTrait;
+use Phpfox\Db\SqlDelete;
+use Phpfox\Db\SqlInsert;
+use Phpfox\Db\SqlSelect;
+use Phpfox\Db\SqlUpdate;
 
 /**
  * Class MysqliAdapter
@@ -13,28 +16,22 @@ use Phpfox\Db\SqlAdapterTrait;
  */
 class MysqliDbAdapter implements DbAdapterInterface
 {
-    use SqlAdapterTrait;
-
     /**
      * @var \mysqli|null
      */
     protected $master;
-
     /**
      * @var \mysqli|null
      */
     protected $slave;
-
     /**
      * @var \mysqli|null
      */
     protected $lastUsage;
-
     /**
      * @var array
      */
     protected $params = [];
-
     /**
      * @var bool
      */
@@ -63,6 +60,66 @@ class MysqliDbAdapter implements DbAdapterInterface
         if (empty($this->params['masters']) && $this->params['host']) {
             $this->params['masters'] = [$this->params['host']];
         }
+    }
+
+    /**
+     * @param string     $table
+     * @param array|null $data
+     *
+     * @return SqlInsert
+     */
+    public function insert($table, $data = null)
+    {
+        return (new SqlInsert($this))->insert($table, $data);
+    }
+
+    /**
+     * @param string $argv
+     *
+     * @return SqlSelect
+     */
+    public function select($argv = '*')
+    {
+        return (new SqlSelect($this))->select($argv);
+    }
+
+    /**
+     * @param string     $table
+     * @param array|null $data
+     * @param array|null $where
+     *
+     * @return SqlUpdate
+     */
+    public function update($table, $data = null, $where = null)
+    {
+        $sql = (new SqlUpdate($this))->update($table);
+
+        if (!empty($data)) {
+            $sql->values($data);
+        }
+
+        if (!empty($where)) {
+            $sql->where($where);
+        }
+
+        return $sql;
+    }
+
+    /**
+     * @param string     $table
+     * @param null|array $where
+     *
+     * @return SqlDelete
+     */
+    public function delete($table, $where = null)
+    {
+        $sql = (new SqlDelete($this))->from($table);
+
+        if (!empty($where)) {
+            $sql->where($where);
+        }
+
+        return $sql;
     }
 
     /**

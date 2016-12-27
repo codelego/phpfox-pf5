@@ -11,7 +11,6 @@ class NavigationLoaderTest extends \PHPUnit_Framework_TestCase
         $loader = new NavigationLoader();
 
         $data = $loader->load('mini');
-
         $this->assertArrayHasKey('core_mini_admin', $data);
         $this->assertArrayHasKey('core_mini_profile', $data);
         $this->assertArrayHasKey('core_mini_settings', $data);
@@ -35,6 +34,7 @@ class NavigationLoaderTest extends \PHPUnit_Framework_TestCase
         $loader = new NavigationLoader();
 
         $data = $loader->load('admin');
+
         $this->assertArrayHasKey('core_admin_main_home', $data);
         $this->assertArrayHasKey('core_admin_main_home', $data);
         $this->assertArrayHasKey('core_admin_main_settings', $data);

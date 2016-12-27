@@ -50,7 +50,7 @@ namespace {
         /**
          * @return \Phpfox\Support\Configs
          */
-        public static function mvcConfig()
+        public static function configs()
         {
             return self::$config;
         }

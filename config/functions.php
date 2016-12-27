@@ -106,11 +106,9 @@ namespace {
         }
 
 
-        if (is_writable($file)) {
-            file_put_contents($file,
-                '<?php return ' . var_export($data, true) . ';');
-            @chmod($file, 0777);
-        }
+        file_put_contents($file,
+            '<?php return ' . var_export($data, true) . ';');
+        @chmod($file, 0777);
     }
 
     /**

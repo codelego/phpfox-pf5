@@ -53,7 +53,7 @@ if (!$shouldGenerate) {
 
     \Phpfox::init();
 
-    $configContainer = \Phpfox::mvcConfig();
+    $configContainer = \Phpfox::configs();
     $configContainer->merge(include $cacheFiles['package']);
 
 } else {
@@ -80,7 +80,7 @@ if (!$shouldGenerate) {
     \Phpfox::init();
 
 
-    $configContainer = \Phpfox::mvcConfig();
+    $configContainer = \Phpfox::configs();
 
     $packageConfigs['db.adapters']['default'] = include PHPFOX_DIR
         . '/config/database.php';
