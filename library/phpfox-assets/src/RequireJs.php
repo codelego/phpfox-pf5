@@ -39,7 +39,7 @@ class RequireJs
     /**
      * @var array
      */
-    protected $_deps = ['jquery', 'bootstrap'];
+    protected $_deps = ['jquery', 'bootstrap', 'main'];
 
     /**
      * @var array
@@ -199,7 +199,6 @@ class RequireJs
     }
 
 
-
     /**
      * @return string
      */
@@ -266,7 +265,7 @@ class RequireJs
      */
     public function renderConfig()
     {
-        \Phpfox::emit('onBeforeJavascriptRender', $this);
+        _emit('onBeforeJavascriptRender', $this);
 
         $config = [
             'baseUrl'     => $this->getBaseUrl(),

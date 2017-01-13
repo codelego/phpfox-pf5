@@ -22,17 +22,24 @@ class FilterI18nPhrase extends Form
             [
                 'factory'    => 'choice',
                 'name'       => 'domain',
+                'render'     => 'select',
                 'attributes' => [
                     'placeholder' => 'domain',
                     'class'       => 'form-control',
+                ],
+                'options'    => [
+                    ['value' => '', 'label' => 'default'],
                 ],
             ],
             [
                 'factory'    => 'choice',
                 'name'       => 'lang',
+                'render'     => 'select',
                 'attributes' => [
                     'class' => 'form-control',
                 ],
+                'options'    => \Phpfox::get('core.i18n_language')
+                    ->getActiveOptions(),
             ],
             [
                 'factory'    => 'button',

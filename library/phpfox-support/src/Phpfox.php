@@ -40,7 +40,7 @@ namespace {
             self::$config = new \Phpfox\Support\Configs();
 
 //        set_error_handler(function ($num, $msg, $file, $line, $context) {
-//
+//            var_dump(debug_backtrace(1));exit;
 //        });
 //        set_exception_handler(function ($exception) {
 //            var_dump($exception);
@@ -123,29 +123,6 @@ namespace {
             return self::$service->get('models')->get($id);
         }
 
-        /**
-         * @param string      $name
-         * @param object|null $target
-         * @param array|null  $argv
-         *
-         * @return mixed
-         */
-        public static function emit($name, $target = null, $argv = [])
-        {
-            return self::$service->get('mvc.events')
-                ->emit($name, $target, $argv);
-        }
-
-        /**
-         * @param \Phpfox\Event\Event $event
-         *
-         * @return \Phpfox\Event\Response|null
-         */
-        public static function trigger($event)
-        {
-            return self::$service->get('mvc.events')->trigger($event);
-        }
-
         public static function getUserId()
         {
             return self::$service->get('auth')->getLoginId();
@@ -176,7 +153,7 @@ namespace {
         }
 
         /**
-         * @return \Phpfox\Action\ActionResponse
+         * @return \Phpfox\Action\Response
          */
         public static function getResponse()
         {
@@ -194,7 +171,7 @@ namespace {
         /**
          * @return \Phpfox\Db\DbAdapterInterface
          */
-        public static function getDb()
+        public static function db()
         {
             return self::$service->get('db');
         }

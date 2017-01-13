@@ -12,18 +12,16 @@ class ViewModel
     /**
      * @var array
      */
-    public $variables = [];
+    public $data = [];
 
     /**
      * ViewModel constructor.
      *
-     * @param string $template
-     * @param array  $variables
+     * @param array $data
      */
-    public function __construct($template = null, $variables = [])
+    public function __construct($data = [])
     {
-        $this->template = $template;
-        $this->variables = $variables;
+        $this->data = $data;
     }
 
     /**
@@ -48,33 +46,28 @@ class ViewModel
     /**
      * @return array
      */
-    public function getVariables()
+    public function all()
     {
-        return $this->variables;
+        return $this->data;
     }
 
     /**
-     * @param array $variables
-     *
-     * @return $this
+     * @param string $key
+     * @param string $value
      */
-    public function setVariables($variables)
+    public function set($key, $value)
     {
-        $this->variables = $variables;
-        return $this;
+        $this->data[$key] = $value;
     }
 
     /**
      * @param array $variables
-     *
-     * @return $this
      */
     public function assign($variables)
     {
         foreach ($variables as $name => $value) {
-            $this->variables[$name] = $value;
+            $this->data[$name] = $value;
         }
-        return $this;
     }
 
     public function render()
@@ -84,7 +77,7 @@ class ViewModel
         }
 
         return \Phpfox::getTemplate()
-            ->render($this->template, $this->variables);
+            ->render($this->template, $this->data);
     }
 
     /**

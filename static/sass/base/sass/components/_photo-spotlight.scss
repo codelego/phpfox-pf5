@@ -1,0 +1,156 @@
+$zindex-spotlight: 1001;
+$spotlight-color: rgba(255, 255, 255, 0.7);
+$spotlight-color-hover: rgba(255, 255, 255, 1);
+
+.spotlight-dialog {
+  position:     fixed;
+  left:         0;
+  top:          0;
+  right:        0;
+  z-index:      $zindex-spotlight;
+  width:        100% !important;
+  height:       100% !important;
+  min-height:   100%;
+  min-width:    100%;
+  display:      table;
+  table-layout: fixed;
+
+  .spotlight-overlay {
+    background: rgba(0, 0, 0, .9);
+    position:   fixed;
+    left:       0;
+    right:      0;
+    bottom:     0;
+    top:        0;
+  }
+
+  .spotlight-stageout {
+    display:        table-cell;
+    text-align:     center;
+    vertical-align: middle;
+    width:          100%;
+  }
+
+  .spotlight-stagein {
+    display:    inline-block;
+    margin:     20px;
+    position:   relative;
+    text-align: left;
+  }
+
+  .spotlight-content {
+    min-width:  400px;
+    min-height: 200px;
+    display:    block;
+    position:   relative;
+  }
+
+  .spotlight-content-iw {
+    width:  100%;
+    height: 100%;
+  }
+
+  .spotlight-left,
+  .spotlight-right {
+    float:      left;
+    box-sizing: border-box;
+    display:    block;
+    height:     100%;
+    position:   relative;
+  }
+  .spotlight-left {
+    &:hover {
+      .spotlight-pager {
+        opacity: 1;
+      }
+    }
+    .footer-ow {
+      position: absolute;
+      left:     0;
+      right:    0;
+      bottom:   0;
+    }
+    .footer-iw {
+      padding-top: 20px;
+      position:    relative;
+      background:  -webkit-linear-gradient(top, rgba(76, 76, 76, 0) 0%, rgba(43, 43, 43, 0.76) 100%);
+    }
+    .info-title {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding:       5px $padding-base-horizontal;
+      color:         white;
+      @include textTruncate(1, $font-size-h5, $line-height-base);
+    }
+    .info-cmds {
+      padding:     5px $padding-base-horizontal;
+      line-height: $line-height-base;
+      color:       $spotlight-color;
+      @include clearAfter();
+      a {
+        color: $spotlight-color;
+        &:hover {
+          color: $spotlight-color-hover;
+        }
+      }
+    }
+    .cmds-left, .cmds-right {
+      float:      left;
+      display:    block;
+      box-sizing: border-box;
+      width:      50%;
+    }
+    .cmds-left {
+      text-align: left;
+    }
+    .cmds-right {
+      text-align: right;
+    }
+  }
+  .spotlight-right {
+    width:            350px;
+    background-color: $body-bg;
+    padding:          $padding-base-horizontal;
+    overflow-y:       auto;
+    .header-ow {
+      position:         absolute;
+      background-color: $body-bg;
+      left:             0;
+      top:              0;
+      right:            0;
+      height:           30px;
+      text-align:       right;
+      a {
+        color:   $text-color;
+        padding: $padding-xs-horizontal;
+        cursor:  pointer;
+      }
+    }
+  }
+
+  .spotlight-stage-ow {
+    background-color: rgba(0, 0, 0, 0.9);
+    position:         relative;
+    text-align:       center;
+    height:           100%;
+    @include userSelect(none);
+  }
+  .spotlight-pager {
+    position:   absolute;
+    width:      30px;
+    height:     100%;
+    top:        0;
+    color:      white;
+    font-size:  200%;
+    display:    block;
+    text-align: center;
+    cursor:     pointer;
+    opacity:    0;
+
+    &.next {
+      right: 0;
+    }
+    &.prev {
+      left: 0;
+    }
+  }
+}

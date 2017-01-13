@@ -1,0 +1,62 @@
+a.btn-social {
+  display:          inline-block;
+  background-color: transparent;
+  border:           #999999 1px none;
+  line-height:      $btn-social-size;
+  color:            white;
+  text-shadow:      none;
+  letter-spacing:   0 !important;
+  width:            $btn-social-size;
+  height:           $btn-social-size;
+  vertical-align:   middle;
+  margin-bottom:    $padding-small-vertical;
+  text-align:       center;
+  padding:          0;
+  i {
+    font-size: $btn-social-icon;
+  }
+
+  @include border-radius($border-radius-base);
+
+  @if $use-circle-btn-social {
+    @include border-radius(50%);
+  }
+}
+
+.btn-social-sm {
+  width:  $input-height-small;
+  height: $input-height-small;
+}
+
+.btn-social {
+  &.facebook {
+    background-color: #3b5998;
+  }
+  &.twitter {
+    background-color: #00acee;
+  }
+  &.instagram {
+    background-color: #446a89;
+  }
+  &.google {
+    background-color: #ca3523;
+  }
+  &.youtube {
+    background-color: #dd4b39;
+  }
+  &.linkedin {
+    background-color: #0e76a8;
+  }
+  &.rss {
+    background-color: #ee802f;
+  }
+  &.window {
+    background-color: cadetblue;
+  }
+  &.pinterest {
+    background-color: #cb2027;
+  }
+  &.dribbble {
+    background-color: #c93764;
+  }
+}

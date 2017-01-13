@@ -43,7 +43,7 @@ class AuthByPassword implements AuthInterface
     private function findUser($identity)
     {
         if (strpos($identity, '@') !== false) {// check is email
-            return \Phpfox::getDb()->select('user_id')->from(':user')
+            return \Phpfox::db()->select('user_id')->from(':user')
                 ->where('email=?', $identity)
                 ->execute()
                 ->setPrototype(User::class)
@@ -53,7 +53,7 @@ class AuthByPassword implements AuthInterface
             // todo implement find by phone number
         }
 
-        return \Phpfox::getDb()->select('user_id')->from(':user')
+        return \Phpfox::db()->select('user_id')->from(':user')
             ->where('username=?', $identity)
             ->execute()
             ->setPrototype(User::class)

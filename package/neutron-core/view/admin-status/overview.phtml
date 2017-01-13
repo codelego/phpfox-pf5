@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <tbody>
+            <?php foreach ($status as $row): ?>
+                <tr>
+                    <td><?= $row['label'] ?></td>
+                    <td><?= $row['value'] ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

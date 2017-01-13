@@ -53,7 +53,7 @@ class MailTransportFactory implements MailTransportFactoryInterface
         $this->initialized = true;
 
 
-        $rows = \Phpfox::getDb()->select('*')->from(':core_mail_driver')
+        $rows = \Phpfox::db()->select('*')->from(':core_mail_driver')
             ->where('is_active=?', 1)->execute()->all();
 
         foreach ($rows as $row) {

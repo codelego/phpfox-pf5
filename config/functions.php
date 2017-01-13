@@ -2,12 +2,25 @@
 
 namespace {
 
+    /**
+     * @param string      $name
+     * @param object|null $target
+     * @param array|null  $argv
+     *
+     * @return \Phpfox\Event\Response
+     */
+    function _emit($name, $target = null, $argv = [])
+    {
+        return Phpfox::get('mvc.events')
+            ->emit($name, $target, $argv);
+    }
+
     function _describe_table($table)
     {
         if (substr($table, 0, 1) == ':') {
             $table = PHPFOX_TABLE_PREFIX . substr($table, 1);
         }
-        $rows = Phpfox::getDb()
+        $rows = Phpfox::db()
             ->execute('describe ' . $table)
             ->all();
 
@@ -106,9 +119,12 @@ namespace {
         }
 
 
-        file_put_contents($file,
-            '<?php return ' . var_export($data, true) . ';');
-        @chmod($file, 0777);
+        file_put_contents($file, '<?php return ' . var_export($data, true) . ';');
+
+        if(file_exists($file)){
+            @chmod($file, 0777);
+        }
+
     }
 
     /**
@@ -405,6 +421,10 @@ namespace {
     {
         return \Phpfox::get('translator')
             ->trans($id, $domain, $locale, $context);
+    }
+
+    function _yesno($flag){
+        return _text($flag? 'Yes': 'No');
     }
 
     /**

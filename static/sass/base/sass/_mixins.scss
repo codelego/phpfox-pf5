@@ -1,0 +1,50 @@
+@function em($px, $base: $font-size-base) {
+  @return ($px / $base) * 1em;
+}
+
+@mixin border-radius($radius) {
+  border-radius:         $radius;
+  -webkit-border-radius: $radius;
+  -moz-border-radius:    $radius;
+}
+
+@mixin clearAfter() {
+  &:after {
+    clear:   both;
+    content: " ";
+    display: table;
+  }
+}
+
+@mixin userSelect($type) {
+  -webkit-user-select: $type;
+  -moz-user-select:    $type;
+  -ms-user-select:     $type;
+  user-select:         $type;
+}
+
+@mixin textTruncate($lines, $fontsize, $lineheight) {
+  font-size:          $fontsize;
+  line-height:        ceil($lineheight * $fontsize);
+  max-height:         ceil($fontsize*$lineheight*$lines);
+  overflow:           hidden;
+  text-overflow:      ellipsis;
+  display:            block;
+  display:            -webkit-box;
+  box-sizing:         border-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+}
+
+@mixin textTruncateFixHeight($lines, $fontsize, $lineheight) {
+  font-size:          $fontsize;
+  line-height:        ceil($lineheight * $fontsize);
+  height:             ceil($fontsize*$lineheight*$lines);
+  overflow:           hidden;
+  text-overflow:      ellipsis;
+  display:            block;
+  display:            -webkit-box;
+  box-sizing:         border-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+}

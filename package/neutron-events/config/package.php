@@ -1,4 +1,8 @@
 <?php
 namespace Neutron\Event;
 
-return [];
+return [
+    'services' => [
+        'event.profile_filter' => Service\ProfileNameFilter::class,
+    ],
+];

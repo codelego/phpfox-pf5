@@ -9,6 +9,7 @@ return [
         'jqueryui'   => 'jscript/jquery-ui/jqueryui',
         'underscore' => 'jscript/underscore/underscore.min',
         'tiny_mce'   => 'jscript/tinymce/jquery.tinymce.min',
+        'main'       => 'package/core/main',
     ],
     'static.js'       => [
         'require' => 'jscript/requirejs/require.js',
@@ -45,6 +46,7 @@ return [
         'mvc.events.loader'    => [null, Service\EventLoader::class],
         'core.callback'        => [null, Service\EventListener::class],
         'navigation.loader'    => [null, Service\NavigationLoader::class],
+        'core.i18n_language'   => [null, Service\I18nLanguage::class],
     ],
     'templates'       => _get_view_map([
         'core'   => 'neutron-core/view',

@@ -12,7 +12,7 @@ class VerifyEmail
      */
     public function findTokenById($tokenId)
     {
-        return \Phpfox::getDb()
+        return \Phpfox::db()
             ->select('*')
             ->from(':user_verify_email')
             ->where('id=?', (string)$tokenId)

@@ -4,8 +4,8 @@ namespace Phpfox\Navigation;
 
 return [
     'navigation.decorators' => [
-        'navbar' => NavbarNavDecorator::class,
-        'tab'    => TabNavDecorator::class,
+        'navbar' => NavbarDecorator::class,
+        'nav'    => NavDecorator::class,
     ],
     'services'              => [
         'navigation' => [null, NavigationManager::class],

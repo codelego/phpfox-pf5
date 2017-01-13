@@ -170,7 +170,7 @@ class AuthFacadesTest extends \PHPUnit_Framework_TestCase
         $auth->login($user, false, 1);
 
         $this->assertEquals($user, $auth->getUser());
-        $this->assertEquals($user, $auth->getLoginUser());
+        $this->assertEquals($user, $auth->getLogin());
         $this->assertEquals($user->getUserId(), $auth->getLoginId());
         $this->assertTrue($auth->isLoggedIn());
 
@@ -179,22 +179,11 @@ class AuthFacadesTest extends \PHPUnit_Framework_TestCase
         $auth->logout();
 
         $this->assertNull($auth->getUser());
-        $this->assertNull($auth->getLoginUser());
+        $this->assertNull($auth->getLogin());
         $this->assertEquals(0, $auth->getLoginId());
 
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testAuth2()
-    {
-        $auth = new AuthFacades();
-
-        $auth->logout();
-
-        $auth->loginAs(new MockExampleUser(1000), null, null);
-    }
 
     public function testAuth3()
     {
@@ -204,10 +193,10 @@ class AuthFacadesTest extends \PHPUnit_Framework_TestCase
 
         $loginUser = new MockExampleUser(1000);
         $loginAsUser = new MockExampleUser(10001);
-        $auth->login($loginUser, true, true);
-        $auth->loginAs($loginAsUser, true, true);
+        $auth->login($loginUser, true);
+        $auth->loginAs($loginAsUser, true);
 
-        $this->assertEquals($loginUser, $auth->getLoginUser());
+        $this->assertEquals($loginUser, $auth->getLogin());
         $this->assertEquals($loginAsUser, $auth->getUser());
         $this->assertEquals(true, $auth->isLoggedIn());
         $this->assertEquals(1000, $auth->getLoginId());
@@ -221,10 +210,10 @@ class AuthFacadesTest extends \PHPUnit_Framework_TestCase
 
         $loginUser = new MockExampleUser(1000);
         $loginAsUser = new MockExampleUser(10001);
-        $auth->login($loginUser, true, true);
-        $auth->loginAs($loginAsUser, false, true);
+        $auth->login($loginUser, true);
+        $auth->loginAs($loginAsUser, true);
 
-        $this->assertEquals($loginUser, $auth->getLoginUser());
+        $this->assertEquals($loginUser, $auth->getLogin());
         $this->assertEquals($loginAsUser, $auth->getUser());
         $this->assertEquals(true, $auth->isLoggedIn());
         $this->assertEquals(1000, $auth->getLoginId());
@@ -237,11 +226,10 @@ class AuthFacadesTest extends \PHPUnit_Framework_TestCase
         $auth->logout();
 
         $loginUser = new MockExampleUser(1000);
-        $auth->login($loginUser, true, true);
-        $auth->loginAs(null, true, true);
+        $auth->login($loginUser, true);
 
-        $this->assertEquals($loginUser, $auth->getLoginUser());
-        $this->assertEquals($loginUser,$auth->getUser());
+        $this->assertEquals($loginUser, $auth->getLogin());
+        $this->assertEquals($loginUser, $auth->getUser());
         $this->assertEquals(true, $auth->isLoggedIn());
         $this->assertEquals(1000, $auth->getLoginId());
     }

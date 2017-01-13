@@ -1,1 +1,24 @@
-form.form-inline .form-group{display: inline-block}
+form.form-inline .form-group {
+    display: inline-block
+}
+
+#toast-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    margin-left: -150px;
+    margin-top: -100px;
+}
+
+.toast {
+    position: relative;
+    text-align: center;
+    display: block;
+}
+
+.toast-success {
+    background-color: rgba(0, 166, 90, 0.8);
+    color: white;
+    padding: 1.0em;
+}

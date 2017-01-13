@@ -9,6 +9,10 @@ class IndexController extends ActionController
 {
     public function actionIndex()
     {
-        return new ViewModel('core.index.index');
+        $vm = new ViewModel();
+
+        $vm->setTemplate('core.index.index');
+
+        return $vm;
     }
 }

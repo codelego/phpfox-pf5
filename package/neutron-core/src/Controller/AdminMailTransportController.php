@@ -10,15 +10,19 @@ class AdminMailTransportController extends ActionController
     public function actionIndex()
     {
 
-        $items = \Phpfox::getDb()
+        $items = \Phpfox::db()
             ->select('*')
             ->from(':core_package')
             ->order('is_core, package_type', 1)
             ->execute()
             ->all();
 
-        return new ViewModel('core.admin-mail-transport.index', [
+        $vm = new ViewModel([
             'items' => $items,
         ]);
+
+        $vm->setTemplate('core.admin-mail-transport.index');
+
+        return $vm;
     }
 }

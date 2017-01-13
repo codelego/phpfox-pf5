@@ -1,8 +1,7 @@
 <?php
 
-include __DIR__ . '/c3.php';
-
 define('PHPFOX_NO_CACHE', 1);
+
 include __DIR__ . '/config/bootstrap.php';
 
 register_shutdown_function(function () {

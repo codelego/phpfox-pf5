@@ -1,0 +1,452 @@
+.media-ratio-11 .card-img, .attachment-ratio-11 .attachment-img {
+  padding-bottom: 100%;
+}
+
+.media-ratio-43 .card-img, .attachment-ratio-43 .attachment-img {
+  padding-bottom: 75%;
+}
+
+.media-ratio-169 .card-img, .attachment-ratio-169 .attachment-img {
+  padding-bottom: 56.25%;
+}
+
+.media-ratio-159 .card-img, .attachment-ratio-159 .attachment-img {
+  padding-bottom: 60%;
+}
+
+.media-ratio-85 .card-img, .attachment-ratio-85 .attachment-img {
+  padding-bottom: 62.5%;
+}
+
+.media-ratio-21 .card-img, .attachment-ratio-21 .attachment-img {
+  padding-bottom: 50%;
+}
+
+.card-wrap, .card-avatar, .card-media, .card-stage, .card-content, .card-content-stage, .card-body, .card-body-stage {
+  position: relative;
+}
+
+.card-stage, .card-content, .card-content-stage {
+  border-color: $border-color;
+  border-style: solid;
+  border-width: 0;
+}
+
+.card-content {
+  @include clearfix();
+
+  .card-body {
+    overflow:  hidden;
+    max-width: 100%;
+  }
+  .card-title {
+    margin:    0;
+    padding:   0;
+    max-width: 100%;
+  }
+  .card-title-stage {
+    color:       $text-color;
+    font-weight: 500;
+    @include textTruncateFixHeight(1, $font-size-h5, $line-height-base);
+  }
+  .card-desc {
+    display: block;
+  }
+  .card-desc-stage {
+    margin:  0;
+    padding: 0;
+    @include textTruncateFixHeight(3, $font-size-base, $line-height-base);
+  }
+}
+
+.card-media {
+  .card-thumb {
+    display: block;
+  }
+  .card-extra {
+    a {
+      color: inherit;
+    }
+  }
+  .card-img {
+    background-size:     cover;
+    background-position: center;
+    background-repeat:   no-repeat;
+    background-color:    black;
+    position:            relative;
+    display:             block;
+  }
+  .card-mask {
+    position:            absolute;
+    left:                0;
+    top:                 0;
+    bottom:              0;
+    right:               0;
+    background-position: 50%;
+    background-repeat:   no-repeat;
+    background-size:     20%;
+    background-image:    url(../img/bigplay.svg);
+  }
+  .card-duration {
+    position:         absolute;
+    left:             0;
+    bottom:           0;
+    background-color: black;
+    color:            white;
+    padding:          5px 10px;
+    opacity:          0.7;
+  }
+  .item-options {
+    top:   0;
+    right: 0;
+  }
+}
+
+.media-aside-left {
+  .card-thumb {
+    width: 100%;
+    float: left;
+  }
+  .card-body {
+    float: left;
+  }
+  .item-options {
+    right: 0;
+    top:   0;
+  }
+}
+
+.media-top {
+  .card-thumb {
+    width: 100%;
+  }
+  .card-body {
+    float:       left;
+    padding-top: $padding-base-vertical;
+  }
+  .card-title {
+    padding-top: $padding-small-vertical;
+  }
+  .card-desc {
+    @include textTruncateFixHeight(3, $font-size-base, $line-height-base)
+  }
+}
+
+.media-overlay {
+  .card-body {
+    position:      absolute;
+    display:       block;
+    color:         white;
+    bottom:        0;
+    left:          0;
+    right:         0;
+    text-overflow: ellipsis;
+    text-shadow:   0 0 3px rgba(0, 0, 0, .75);
+    font-size:     90%;
+    background:    -webkit-linear-gradient(top, rgba(76, 76, 76, 0) 0%, rgba(43, 43, 43, 0.76) 100%);
+    padding-top:   10px;
+  }
+  .card-title {
+    padding:       5px;
+    font-size:     100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    display:       block;
+    color:         white;
+  }
+  .card-desc {
+    display: none !important;
+    color:   white;
+  }
+  .card-extra {
+    padding: 3px 5px;
+    color:   white;
+  }
+  .item-options {
+    > div > a > i:before {
+      color: white;
+    }
+  }
+  .card-duration {
+    left:   0;
+    top:    0;
+    bottom: auto;
+    right:  auto;
+  }
+}
+
+.media-only {
+  .card-thumb {
+    width: 100%;
+  }
+  .card-title, .card-desc, .card-extra, .item-options {
+    display: none !important;
+  }
+}
+
+.card-border-all {
+  .card-content {
+    border-width: 1px;
+  }
+  &.media-top {
+    .card-body {
+      padding: $padding-base-vertical $padding-base-horizontal $padding-base-horizontal;
+    }
+  }
+  &.card-avatar {
+    .card-thumb {
+      border-width:  0;
+      border-radius: 0;
+      span {
+        border-width:  0;
+        border-radius: 0;
+      }
+    }
+  }
+  .card-body-right {
+    padding-right: $padding-base-horizontal;
+  }
+}
+
+.card-border-bottom {
+  .card-stage {
+    border-bottom-width: 1px;
+  }
+}
+
+.card-body-right {
+  float:        right;
+  display:      table;
+  padding-left: $padding-base-horizontal;
+}
+
+.card-body-left {
+  overflow: hidden;
+  display:  block;
+  zoom:     1;
+}
+
+.card-cell {
+  display:        table-cell;
+  vertical-align: middle;
+  height:         100px;
+}
+
+.card-space-md {
+  .card-stage {
+    padding: $padding-base-horizontal 0;
+  }
+  .card-border-bottom .card-content {
+    padding: $padding-base-horizontal 0;
+  }
+}
+
+.card-space-sm {
+  .card-stage {
+    padding: $padding-small-horizontal 0;
+  }
+  .card-border-bottom .card-content {
+    padding: $padding-small-horizontal 0;
+  }
+}
+
+.card-space-xs {
+  .card-stage {
+    padding: $padding-xs-horizontal 0;
+  }
+  .card-border-bottom .card-content {
+    padding: $padding-xs-horizontal 0;
+  }
+}
+
+.card-space-xxs {
+  .card-stage {
+    padding: $padding-xxs-horizontal 0;
+  }
+  .card-border-bottom .card-content {
+    padding: $padding-xxs-horizontal 0;
+  }
+}
+
+.card-space-sm {
+}
+
+.card-media.video {
+  .card-extra {
+    @include textTruncateFixHeight(1, $font-size-base, $line-height-base);
+    font-size: 0.9em;
+  }
+}
+
+.card-avatar {
+  .card-thumb {
+    margin-right: $padding-base-horizontal;
+    float:        left;
+  }
+  .card-body {
+  }
+  .card-extra {
+    font-size: 0.925em;
+  }
+  .card-title {
+    color:          $text-color;
+    text-transform: capitalize;
+    font-weight:    500;
+  }
+  .card-extra {
+    a, a:hover {
+      color: inherit;
+    }
+  }
+  .card-desc {
+    @include textTruncate(3, $font-size-base, $line-height-base);
+  }
+}
+
+.card-avatar.no-avatar {
+  .avatar {
+    display: none
+  }
+}
+
+.card-activity {
+  .card-stage {
+    padding-top: $padding-base-horizontal;
+  }
+  .card-content-stage {
+  }
+
+  .card-body {
+    padding-top: $padding-base-vertical;
+  }
+
+  .card-extra {
+    padding-top: $padding-base-vertical;
+  }
+
+  .card-footer {
+    padding-top: $padding-base-vertical;
+  }
+
+  .card-footer-stage {
+    padding:          0 $padding-base-horizontal;
+    background-color: darken($body-bg, 2%);
+    //border-top: 1px solid #E1E2E3;
+  }
+
+  .fs-footer-row {
+    padding:    9px 0 8px 0;
+    margin-top: -1px;
+    position:   relative;
+  }
+
+  .fs-footer-row + .fs-footer-row {
+    border-top: 1px solid $border-color;
+  }
+
+  /* activity stream comment view more */
+  .fs-cm-vm {
+    .cm-pager-info {
+      float: right;
+      color: $brand-note;
+    }
+  }
+
+  .cmt-att-ow {
+    &:before {
+      clear:   both;
+      content: " ";
+      display: block;
+    }
+    margin: 10px 0;
+  }
+
+  /*attachment areara*/
+  .fs-att-ow {
+    padding-top: $padding-base-vertical;
+  }
+
+  .fs-headline-ow {
+    margin-bottom: 6px;
+  }
+
+  .fs-headline-msg {
+    padding-left: ($avatar-md  + $padding-base-horizontal)
+  }
+
+  .fs-headline-ua {
+    display:       inline-block;
+    border:        1px solid #dddddd;
+    border-radius: $border-radius-small;
+    box-shadow:    0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  .fs-headline-ua i {
+    margin: 1px;
+  }
+
+  .fs-cm-ua {
+    display: inline-block;
+  }
+
+  .fs-cm-ua img {
+    width:  32px;
+    height: 32px;
+  }
+
+  /*comment story*/
+  .fs-cm-st,
+  .fs-cmf-iaw {
+    padding-left: ($avatar-sm + $padding-base-horizontal);
+  }
+
+  .fs-cmf-as {
+    background-color: #ffffff;
+    border:           1px solid #bdc7d8;
+  }
+
+  .fs-cmf-input {
+    width:   100%;
+    border:  none;
+    margin:  0;
+    outline: none;
+    resize:  none;
+  }
+
+  .fs-cmf-sb {
+    margin-top: 10px;
+    text-align: right;
+  }
+
+  /*comment engage*/
+  .fs-cm-asset {
+  }
+
+  .item-options {
+    right: ($padding-base-horizontal/-1) + 5;
+    top:   ($padding-base-horizontal/-1) + 5;
+  }
+}
+
+.card-activity.activity-stream {
+  .card-content {
+    border:           1px solid $border-color;
+    border-radius:    $border-radius-base;
+    background-color: $body-bg;
+    padding:          $padding-base-horizontal;
+  }
+  .card-footer-stage {
+    margin: 0 (-$padding-base-horizontal) (-$padding-base-horizontal) (-$padding-base-horizontal);
+  }
+}
+
+@media (min-width: 480px) {
+  .media-aside-left {
+    .card-thumb {
+      width:        200px;
+      margin-right: $padding-base-horizontal;
+    }
+    .card-body {
+      float: none;
+    }
+  }
+}

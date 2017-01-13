@@ -2,12 +2,17 @@
 
 namespace Neutron\Core\Controller;
 
+use Neutron\Core\Form\AddNewPhrase;
 use Neutron\Core\Form\FilterI18nPhrase;
-use Phpfox\Action\ActionController;
 use Phpfox\View\ViewModel;
 
-class AdminI18nController extends ActionController
+class AdminI18nController extends AdminController
 {
+    public function actionLanguages()
+    {
+
+    }
+
     public function actionIndex()
     {
         $items = \Phpfox::getModel('i18n_language')
@@ -15,12 +20,35 @@ class AdminI18nController extends ActionController
             ->execute()
             ->all();
 
-        return new ViewModel('core.admin-i18n.index', ['items' => $items]);
+        $vm = new ViewModel(['items' => $items]);
+
+        $vm->setTemplate('core.admin-i18n.index');
+
+        return $vm;
     }
 
-    public function actionBrowsePhrase()
+    public function actionAddPhrase()
     {
+        $vm = new ViewModel();
+
+        $form = new AddNewPhrase();
+
+        $vm->assign(['form'=>$form,'heading'=>'Add New Phrase',]);
+
+        $vm->setTemplate('layout.admin.edit');
+
+        return $vm;
+
+    }
+
+    public function actionPhrases()
+    {
+
         $form = new FilterI18nPhrase([]);
+
+        \Phpfox::get('require_js')
+            ->deps('package/core/admin-i18n');
+
 
         $items = \Phpfox::getModel('i18n_phrase')
             ->select()
@@ -28,7 +56,10 @@ class AdminI18nController extends ActionController
             ->execute()
             ->all();
 
-        return new ViewModel('core.admin-i18n.browse-phrase',
-            ['items' => $items, 'form' => $form]);
+        $vm = new ViewModel(['items' => $items, 'form' => $form]);
+
+        $vm->setTemplate('core.admin-i18n.phrases');
+
+        return $vm;
     }
 }

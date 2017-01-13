@@ -9,6 +9,9 @@ return [
         'button'         => ButtonRender::class,
         'checkbox'       => CheckboxRender::class,
         'select'         => SelectRender::class,
+        'radio'          => RadioRender::class,
+        'file_upload'    => FileUploadRender::class,
+        'textarea'       => TextareaRender::class,
     ],
     'form.elements' => [
         'color_picker' => ColorPicker::class,

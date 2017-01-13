@@ -1,6 +1,6 @@
 <?php
 
-namespace Neutron\Package;
+namespace Neutron\Group;
 
 return [
     __NAMESPACE__ => [

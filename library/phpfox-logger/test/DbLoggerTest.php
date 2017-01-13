@@ -57,7 +57,7 @@ class DbLoggerTest extends \PHPUnit_Framework_TestCase
 
     function totalRows()
     {
-        return \Phpfox::getDb()
+        return \Phpfox::db()
             ->select('*')
             ->from(':core_log')
             ->count();

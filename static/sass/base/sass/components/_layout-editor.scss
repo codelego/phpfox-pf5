@@ -1,0 +1,96 @@
+#layouteditor {
+  .location {
+    padding-top:    20px;
+    padding-bottom: 40px;
+    border-width:   1px;
+    border-color:   #dddddd;
+    border-style:   dotted;
+    &.leaf {
+      padding-top:    10px;
+      padding-bottom: 20px;
+    }
+  }
+  .section {
+    margin-bottom: $padding-large-horizontal;
+  }
+  .dragable-element-header {
+    .options {
+      display: block;
+    }
+  }
+  .section-header {
+    display:          block;
+    @include clearfix();
+    margin:           0 -($grid-gutter-width/2);
+    padding:          5px;
+    background-color: #f1cebc;
+  }
+}
+
+.dragable-element {
+  &.dragable-container {
+    border: 1px solid #f1cebc;
+    > .dragable-element-header {
+      background-color: lighten($brand-warning, 10%);
+    }
+  }
+  margin-bottom: 5px;
+  .dragable-element-header {
+    background-color: $brand-success;
+  }
+
+  .options {
+    float:   right;
+    display: none;
+  }
+}
+
+.pisite {
+  > .row {
+    background: #fafafa;
+  }
+  .element-container {
+    min-height: 120px;
+    border:     1px solid #f0f0f0;
+    position:   relative;
+  }
+  .element-container-config {
+    font-size:  12px;
+    text-align: right;
+    position:   absolute;
+    right:      0;
+    top:        0;
+  }
+}
+
+.dragable-element {
+  margin-bottom: 5px;
+}
+
+.dragable-element-header {
+  padding: 5px;
+}
+
+.dragable-element-content {
+  background: #ffffff;
+  padding:    5px;
+}
+
+.dragable-element-config {
+  float:   right;
+  display: none;
+}
+
+.pisite .dragable-element-config {
+  display: block;
+}
+
+.ablh-hd {
+  background-color: lighten($brand-primary, 10%);
+  padding:          5px;
+  margin-bottom:    5px;
+}
+
+div#layouteditor {
+  background-color: #f4f4f4;
+}

@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $rows): ?>
+                <?php foreach($rows as $item): ?>
+                    <tr class="">
+                        <td><?= $item['label'] ?></td>
+                        <td><?= $item['value'] ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

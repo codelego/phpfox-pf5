@@ -44,7 +44,7 @@ class DbLogger implements LoggerInterface
 
     protected function write($data)
     {
-        return \Phpfox::getDb()->insert($this->model, $data)->execute();
+        return \Phpfox::db()->insert($this->model, $data)->execute();
     }
 
     /**

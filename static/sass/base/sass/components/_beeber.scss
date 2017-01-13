@@ -1,0 +1,177 @@
+// define beeber box
+
+// Prevent the focus on the dropdown toggle when closing dropdowns
+.beeber:focus {
+  outline: 0;
+}
+
+.options-menu,
+.beeber-menu {
+  list-style: none;
+  margin:     0;
+  padding:    5px 0;
+
+  > li > a {
+    display:     block;
+    padding:     3px $padding-large-horizontal;
+    clear:       both;
+    font-weight: normal;
+    line-height: $line-height-base;
+    color:       $dropdown-link-color;
+    white-space: nowrap; // prevent links from randomly breaking onto new lines
+  }
+
+  > li > a > i {
+    &:before {
+      width:      14px;
+      text-align: center;
+    }
+  }
+  > li > a {
+    &:hover,
+    &:focus {
+      text-decoration:  none;
+      color:            $dropdown-link-hover-color;
+      background-color: $dropdown-link-hover-bg;
+    }
+  }
+
+  > .active > a {
+    &,
+    &:hover,
+    &:focus {
+      color:            $dropdown-link-active-color;
+      text-decoration:  none;
+      outline:          0;
+      background-color: $dropdown-link-active-bg;
+    }
+  }
+
+  > .disable > a {
+    &,
+    &:hover,
+    &:focus {
+      color: $dropdown-link-disabled-color;
+    }
+
+    // Nuke hover/focus effects
+    &:hover,
+    &:focus {
+      text-decoration:  none;
+      background-color: transparent;
+      background-image: none; // Remove CSS gradient
+      @include reset-filter;
+      cursor:           $cursor-disabled;
+    }
+  }
+  > li.divider {
+    @include nav-divider($dropdown-divider-bg);
+    margin: $padding-xs-horizontal $padding-small-horizontal;
+  }
+}
+
+// The dropdown menu (ul)
+.options-dialog.for-header {
+  margin-top: -10px;
+}
+
+.options-dialog.for-beeber {
+  &.fixed {
+    position: fixed;
+  }
+  .options-content {
+    width: $beeber-top-width;
+  }
+
+  .card-beeber-header {
+    border-bottom:   1px solid $dropdown-border;
+    line-height:     $input-height-base;
+    height:          $input-height-base;
+    overflow:        hidden;
+    padding:         0 $padding-base-horizontal;
+    background-clip: padding-box;
+    background:      $dropdown-header-bg;
+  }
+
+  .card-beeber-footer {
+    border-top:       1px solid $dropdown-border;
+    background-color: $dropdown-header-bg;
+    line-height:      $input-height-base;
+    height:           $input-height-base;
+    overflow:         hidden;
+    padding:          0 $padding-base-horizontal;
+    background-clip:  padding-box;
+  }
+
+  .card-beeber-content {
+    min-height: 100px;
+    > div > a {
+      display:     block;
+      padding:     3px 20px;
+      clear:       both;
+      font-weight: normal;
+      line-height: $line-height-base;
+      color:       $dropdown-link-color;
+      white-space: nowrap; // prevent links from randomly breaking onto new lines
+    }
+  }
+
+  .tail {
+    position:     absolute;
+    top:          -20px;
+    left:         $beeber-top-left + 5px;
+    width:        0;
+    height:       0;
+    border-color: transparent transparent $dropdown-border transparent;
+    border-width: 10px;
+    border-style: solid;
+
+    div {
+      position:     absolute;
+      top:          -9px;
+      left:         -10px;
+      width:        0;
+      height:       0;
+      border-color: transparent transparent white transparent;
+      border-width: 10px;
+      border-style: solid;
+    }
+  }
+}
+
+// Dropdown section headers
+.card-beeber-header {
+  display:     block;
+  padding:     3px 20px;
+  font-size:   $font-size-small;
+  line-height: $line-height-base;
+  color:       $dropdown-header-color;
+  white-space: nowrap; // as with > li > a
+}
+
+// Component alignment
+//
+// Reiterate per navbar.less and the modified component alignment there.
+
+@media (min-width: $grid-float-breakpoint) {
+  .navbar-right {
+    .card-beeber {
+      right: 0;
+      left:  auto;
+    }
+    // Necessary for overrides of the default right aligned menu.
+    // Will remove come v4 in all likelihood.
+    .card-beeber-left {
+      left:  0;
+      right: auto;
+    }
+  }
+}
+
+@media (min-width: 767px) {
+  .options-dialog.for-beeber {
+    .options-content {
+      width: 380px;
+    }
+  }
+}

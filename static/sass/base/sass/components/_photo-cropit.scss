@@ -1,0 +1,50 @@
+.cropit-container {
+  display: block;
+}
+
+.cropit-overlay {
+  background: #f2f2f2;
+  overflow:   hidden;
+  padding:    40px 30px;
+  position:   relative;
+  display:    block;
+}
+
+.cropit-overlay-stage {
+  height:   320px;
+  width:    320px;
+  position: relative;
+  margin:   0 auto;
+  display:  block;
+}
+
+.cropit-content {
+  box-shadow: 0 0 2px rgba(255, 255, 255, .5);
+  overflow:   hidden;
+  position:   relative;
+  display:    block;
+  height:     320px;
+  width:      320px;
+}
+
+.cropit-thumbnail {
+  width:      50px;
+  height:     50px;
+  position:   relative;
+  display:    block;
+  overflow:   hidden;
+  margin:     10px auto;
+  box-shadow: 0 0 2px rgba(0, 0, 0, .5);
+}
+
+.cropit-img {
+  cursor:   move;
+  position: absolute;
+  border:   0;
+  left:     0;
+  top:      0
+}
+
+.cropit-draggable-img {
+  opacity: 0.3;
+}

@@ -6,8 +6,19 @@ use Phpfox\Event\EventListenerInterface;
 
 class EventListener implements EventListenerInterface
 {
+    public function onSiteStatistics()
+    {
+        $totalUser = \Phpfox::getModel('user')
+            ->select()
+            ->count();
 
-
+        return [
+            [
+                'label' => _text('Total Member'),
+                'value' => $totalUser,
+            ],
+        ];
+    }
 
     public function __call($method, $args)
     {

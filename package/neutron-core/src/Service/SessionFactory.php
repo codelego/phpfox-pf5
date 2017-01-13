@@ -21,7 +21,7 @@ class SessionFactory implements SessionFactoryInterface
      */
     protected function getConfigs()
     {
-        $row = \Phpfox::getDb()->select('*')
+        $row = \Phpfox::db()->select('*')
             ->from(':core_session_driver')
             ->where('is_default=?', 1)
             ->limit(1, 0)

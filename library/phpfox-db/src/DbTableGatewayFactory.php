@@ -49,7 +49,7 @@ class DbTableGatewayFactory
         if (substr($table, 0, 1) == ':') {
             $table = PHPFOX_TABLE_PREFIX . substr($table, 1);
         }
-        $rows = \Phpfox::getDb()
+        $rows = \Phpfox::db()
             ->execute('describe ' . $table)
             ->all();
 

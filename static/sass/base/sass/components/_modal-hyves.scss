@@ -1,0 +1,158 @@
+//
+// Modals
+// --------------------------------------------------
+
+// .hyves-open      - body class for killing the scroll
+// .hyves-dialog          - container to scroll within
+// .hyves-stageout    - positioning shell for the actual modal
+// .hyves-stagein   - actual modal w/ bg and corners and shit
+
+// Kill the scroll on the body
+.hyves-open {
+  overflow: hidden;
+}
+
+// Container that the modal scrolls within
+.hyves-dialog {
+  overflow:                   hidden;
+  position:                   fixed;
+  top:                        0;
+  right:                      0;
+  bottom:                     0;
+  left:                       0;
+  z-index:                    $zindex-modal;
+  -webkit-overflow-scrolling: touch;
+
+  // Prevent Chrome on Windows from adding a focus outline. For details, see
+  // https://github.com/twbs/bootstrap/pull/10951.
+  outline:                    0;
+
+  // When fading in the modal, animate it to slide down
+  &.fade .hyves-stageout {
+    @include translate(0, -25%);
+    @include transition-transform(0.3s ease-out);
+  }
+  &.in .hyves-stageout { @include translate(0, 0) }
+
+  //reset
+  form {
+    margin:  0;
+    padding: 0;
+    border:  0;
+  }
+}
+
+.hyves-open .hyves-dialog {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+// Shell div to position the modal with bottom padding
+.hyves-stageout {
+  position: relative;
+  width:    auto;
+  margin:   10px;
+}
+
+// Actual modal
+.hyves-stagein {
+  position:         relative;
+  background-color: $modal-content-bg;
+  border:           1px solid $modal-content-fallback-border-color; //old browsers fallback (ie8 etc)
+  border:           1px solid $modal-content-border-color;
+  border-radius:    $border-radius-large;
+  @include box-shadow(0 3px 9px rgba(0, 0, 0, .5));
+  background-clip:  padding-box;
+  // Remove focus outline from opened modal
+  outline:          0;
+}
+
+// Modal background
+.hyves-overlay {
+  position:         fixed;
+  top:              0;
+  right:            0;
+  bottom:           0;
+  left:             0;
+  background-color: rgba(0, 0, 0, 0.2);
+  // Fade for backdrop
+}
+
+// Modal header
+// Top section of the modal w/ title and dismiss
+.hyves-header {
+  padding:       $modal-title-padding;
+  border-bottom: 1px solid $modal-header-border-color;
+  min-height:    ($modal-title-padding + $modal-title-line-height);
+}
+
+// Close icon
+.hyves-header .close {
+  margin-top: -2px;
+}
+
+// Title text within header
+.hyves-title {
+  margin:      0;
+  line-height: $modal-title-line-height;
+}
+
+// Modal body
+// Where all modal content resides (sibling of .hyves-header and .hyves-footer)
+.hyves-body {
+  position:   relative;
+  padding:    $modal-inner-padding;
+  overflow-x: hidden;
+  overflow-y: auto;
+  @include clearfix;
+}
+
+// Footer (for actions)
+.hyves-footer {
+  padding:    $modal-inner-padding;
+  text-align: right; // right align buttons
+  border-top: 1px solid $modal-footer-border-color;
+  @include clearfix; // clear it in case folks use .pull-* classes on buttons
+
+  // Properly space out buttons
+  .btn + .btn {
+    margin-left:   5px;
+    margin-bottom: 0; // account for input[type="submit"] which gets the bottom margin like all other inputs
+  }
+  // but override that for button groups
+  .btn-group .btn + .btn {
+    margin-left: -1px;
+  }
+  // and override it for block buttons as well
+  .btn-block + .btn-block {
+    margin-left: 0;
+  }
+}
+
+// Measure scrollbar width for padding body during modal show/hide
+.hyves-scrollbar-measure {
+  position: absolute;
+  top:      -9999px;
+  width:    50px;
+  height:   50px;
+  overflow: scroll;
+}
+
+// Scale up the modal
+@media (min-width: $screen-sm-min) {
+  // Automatically set modal's width for larger viewports
+  .hyves-stageout {
+    width:  $modal-md;
+    margin: 30px auto;
+  }
+  .hyves-stagein {
+    @include box-shadow(0 5px 15px rgba(0, 0, 0, .5));
+  }
+
+  // Modal sizes
+  .hyves-sm { width: $modal-sm; }
+}
+
+@media (min-width: $screen-md-min) {
+  .hyves-lg { width: $modal-lg; }
+}

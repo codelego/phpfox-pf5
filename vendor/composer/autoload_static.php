@@ -246,13 +246,6 @@ class ComposerStaticInitab905c08dec802c625496f344bf1ded8
         'SessionHandlerInterface' => __DIR__ . '/..' . '/symfony/polyfill-php54/Resources/stubs/SessionHandlerInterface.php',
         'ntlm_sasl_client_class' => __DIR__ . '/..' . '/phpmailer/phpmailer/extras/ntlm_sasl_client.php',
         'phpmailerException' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmailer.php',
-        'scss_formatter' => __DIR__ . '/..' . '/leafo/scssphp/classmap.php',
-        'scss_formatter_compressed' => __DIR__ . '/..' . '/leafo/scssphp/classmap.php',
-        'scss_formatter_crunched' => __DIR__ . '/..' . '/leafo/scssphp/classmap.php',
-        'scss_formatter_nested' => __DIR__ . '/..' . '/leafo/scssphp/classmap.php',
-        'scss_parser' => __DIR__ . '/..' . '/leafo/scssphp/classmap.php',
-        'scss_server' => __DIR__ . '/..' . '/leafo/scssphp/classmap.php',
-        'scssc' => __DIR__ . '/..' . '/leafo/scssphp/classmap.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

@@ -1,0 +1,37 @@
+// letter spacing
+@for $i from 0 through 10 {
+  .letter-spacing-#{$i} { letter-spacing: 1em * $i/10; }
+}
+
+@each $i in uppercase, lowercase, capitalize {
+  .#{$i} {
+    text-transform: $i;
+  }
+}
+
+@for $i from 0 through 10 {
+  .overlay.dark-#{$i} {
+    @include opacity($i/10);
+  }
+}
+
+@each $i in justify, left, right {
+  .txt-align-#{$i} { text-align: justify !important; }
+}
+
+.fix-3-lines {
+  @include textTruncateFixHeight(3, $font-size-base, $line-height-base);
+}
+
+._pv-large {
+  padding-bottom: $padding-large-vertical;
+  padding-top:    $padding-large-vertical;
+}
+
+._pt-large {
+  padding-top: $padding-large-vertical;
+}
+
+._pb-large {
+  padding-bottom: $padding-large-vertical;
+}

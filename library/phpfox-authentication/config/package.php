@@ -13,5 +13,6 @@ return [
         'auth'         => [null, AuthFacades::class],
         'auth.factory' => [null, AuthFactoryInterface::class],
         'auth.log'     => [LogContainerFactory::class, null, 'log.auth'],
+        'auth.storage' => [null, AuthStorageSession::class],
     ],
 ];

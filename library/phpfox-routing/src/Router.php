@@ -29,8 +29,7 @@ class Router
      */
     public function initialize()
     {
-        $configs = \Phpfox::get('package.loader')
-            ->loadRouterConfigs();
+        $configs = \Phpfox::get('router.provider')->loadConfigs();
 
         $this->phrases = $configs['phrases'];
 
@@ -75,13 +74,17 @@ class Router
 
     /**
      * @param string       $key
-     * @param array        $params
+     * @param array|string $params
      * @param array|string $query
      *
      * @return string
      */
     public function getUrl($key, $params = [], $query = null)
     {
+        if (null == $key) {
+            return PHPFOX_BASE_URL . $params;
+        }
+
         if ($query) {
             ;
         }
@@ -118,6 +121,12 @@ class Router
      */
     public function run($path, $host = null, $method = null, $protocol = null)
     {
+
+        $path = trim($path, '/');
+        if (empty($path)) {
+            $path = '/';
+        }
+
         $parameters = new Parameters();
 
         if (!$method) {

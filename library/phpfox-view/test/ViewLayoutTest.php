@@ -16,20 +16,20 @@ class ViewLayoutTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNull($vl->getTemplate());
 
-        $this->assertEmpty($vl->getVariables());
+        $this->assertEmpty($vl->all());
 
         $vl->setTemplate('template1');
 
         $this->assertEquals('template1', $vl->getTemplate());
 
-        $vl->setVariables(['k1' => 'v1', 'k2' => 'v2']);
+        $vl->assign(['k1' => 'v1', 'k2' => 'v2']);
 
-        $this->assertEquals(['k1' => 'v1', 'k2' => 'v2'], $vl->getVariables());
+        $this->assertEquals(['k1' => 'v1', 'k2' => 'v2'], $vl->all());
 
         $vl->assign(['k2' => 'v2.', 'k3' => 'v3']);
 
         $this->assertEquals(['k1' => 'v1', 'k2' => 'v2.', 'k3' => 'v3'],
-            $vl->getVariables());
+            $vl->all());
 
         $vl->setTemplate('');
 

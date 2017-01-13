@@ -1,0 +1,194 @@
+$cardhover-bg: #f6f7f8;
+$cardhover-border-color: rgba(0, 0, 0, .1);
+$cardhover-cover-height: 150px;
+$cardhover-profile-height: 110px;
+
+.cardhover-dialog {
+  position: absolute;
+  z-index:  1999;
+  zoom:     1;
+
+  &.up {
+    .cardhover-overlay {
+      padding-bottom: 10px;
+      bottom:         -1px;
+    }
+    .cardhover-tailer {
+      bottom:       -9px;
+      left:         auto;
+      right:        15px;
+      border-color: $cardhover-border-color transparent transparent transparent;
+      border-width: 10px;
+      border-style: solid;
+      div {
+        top:          -11px;
+        left:         auto;
+        right:        -10px;
+        border-color: $cardhover-bg transparent transparent transparent;
+        border-width: 10px;
+        border-style: solid;
+      }
+    }
+  }
+  &.down {
+    .cardhover-overlay {
+      padding-top: 10px;
+      top:         -1px;
+    }
+    .cardhover-tailer {
+      top:          -10px;
+      left:         auto;
+      right:        15px;
+      border-color: transparent transparent $cardhover-border-color transparent;
+      border-width: 10px;
+      border-style: solid;
+      div {
+        top:          -9px;
+        left:         auto;
+        right:        -10px;
+        border-color: transparent transparent $body-bg transparent;
+        border-width: 10px;
+        border-style: solid;
+      }
+    }
+  }
+  &.left {
+    .cardhover-overlay {
+      right: 0px;
+    }
+    .cardhover-tailer {
+      right: 15px;
+    }
+  }
+  &.right {
+    .cardhover-overlay {
+      left: 0px;
+    }
+    .cardhover-tailer {
+      left: 15px;
+    }
+  }
+
+  .cardhover-overlay {
+    position: absolute;
+  }
+  .cardhover-stageout {
+    border-radius:   2px;
+    background-clip: border-box;
+    background:      #ffffff;
+    border:          1px solid $cardhover-border-color;
+    box-shadow:      0 6px 12px rgba(0, 0, 0, .175);
+    position:        relative;
+    overflow:        visible;
+  }
+
+  .cardhover-content {
+    min-width: 293px;
+    position:  relative;
+  }
+
+  .cardhover-header {
+    overflow: hidden;
+    position: relative;
+  }
+  .cardhover-body {
+    padding:  10px;
+    position: relative;
+  }
+  .cardhover-footer {
+    position:   relative;
+    background: $cardhover-bg;
+    border-top: 1px solid $cardhover-border-color;
+    padding:    5px 10px;
+    text-align: right;
+  }
+  .cardhover-tailer {
+    position:      absolute;
+    width:         0;
+    height:        0;
+    border-bottom: 10px solid $cardhover-border-color;
+    div {
+      position: absolute;
+      width:    0;
+      height:   0;
+    }
+  }
+  .cardhover-body {
+    padding:  10px;
+    position: relative;
+  }
+  .cardhover-cover {
+    position:            relative;
+    display:             block;
+    overflow:            hidden;
+    height:              $cardhover-cover-height;
+    margin:              -10px -10px 0 -10px;
+    background-color:    #f0f0f0;
+    background-position: 0 0;
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    div {
+      height: $cardhover-cover-height - ($cardhover-profile-height/2);
+    }
+  }
+  .cardhover-headline {
+    display:      block;
+    height:       ($cardhover-profile-height/2);
+    overflow:     hidden;
+    padding-top:  10px;
+    box-sizing:   border-box;
+    padding-left: $cardhover-profile-height + 20px;
+    text-shadow:  0 0 3px rgba(0, 0, 0, .75);
+    background:   -webkit-linear-gradient(top, rgba(76, 76, 76, 0) 0%, rgba(43, 43, 43, 0.76) 100%);
+  }
+  .cardhover-title {
+    display:   block;
+    font-size: $font-size-h4;
+    color:     $body-bg;
+  }
+
+  .cardhover-profile-photo {
+    float:         left;
+    width:         $cardhover-profile-height;
+    height:        $cardhover-profile-height;
+    position:      absolute;
+    overflow:      hidden;
+    left:          10px;
+    top:           $cardhover-cover-height - ($cardhover-profile-height/2);
+    border:        1px solid $cardhover-border-color;
+    padding:       2px;
+    border-radius: 2px;
+    background:    $body-bg;
+    a {
+      overflow: hidden;
+      display:  block;
+    }
+    img {
+      width: 100%;
+    }
+  }
+
+  .cardhover-main {
+    position:     relative;
+    min-height:   $cardhover-profile-height/2;
+    padding-left: $cardhover-profile-height;
+    padding-top:  10px;
+    &:after {
+      content: " ";
+      clear:   both;
+      display: table;
+    }
+  }
+
+  .cardhover-info {
+    padding-left: 10px;
+    overflow:     hidden;
+  }
+
+}
+
+.cardhover-dialog {
+  .user-cardhover {
+    width: 400px;
+  }
+}

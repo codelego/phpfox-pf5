@@ -33,10 +33,6 @@ class PhpTemplate implements ViewTemplateInterface
     {
         $__template_ = $this->load($__name_);
 
-        if (!$__template_) {
-            return '';
-        }
-
         ob_start();
 
         extract($__vars_, EXTR_OVERWRITE);

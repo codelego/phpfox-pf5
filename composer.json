@@ -12,10 +12,10 @@
   "minimum-stability": "dev",
   "target-dir": "",
   "require": {
-    "intervention/image": "^2.3",
-    "leafo/scssphp": "^0.3",
-    "colinmollenhour/credis": "^1.7",
-    "phpmailer/phpmailer": "^5.2",
+    "intervention/image": "^2",
+    "leafo/scssphp": "^0.6",
+    "colinmollenhour/credis": "^1",
+    "phpmailer/phpmailer": "^5",
     "omnipay/omnipay": "^2.3"
   }
 }

@@ -11,16 +11,22 @@ class FilesCacheStorage implements CacheStorageInterface
     /**
      * @var bool
      */
-    protected $debug = false;
+    private $debug = false;
 
     /**
      * @var string
      */
-    protected $directory;
+    private $directory;
 
-    protected $directoryPermission = 0777;
+    /**
+     * @var int
+     */
+    private $directoryPermission = 0777;
 
-    protected $filePermission = 0777;
+    /**
+     * @var int
+     */
+    private $filePermission = 0777;
 
     public function __construct($configs = [])
     {

@@ -1,0 +1,53 @@
+/* jquery auto complete*/
+
+.autocomplete-suggestions {
+  text-align:              left;
+  cursor:                  default;
+  border:                  1px solid $border-color;
+  background:              $input-bg;
+  margin-top:              -2px;
+  border-radius:           $border-radius-base;
+  border-top-right-radius: 0;
+  border-top-left-radius:  0;
+  box-shadow:              0 2px 5px rgba(0, 0, 0, 0.148438);
+  /* core styles should not be changed */
+  position:                absolute;
+  display:                 none;
+  z-index:                 9999;
+  max-height:              254px;
+  overflow:                hidden;
+  overflow-y:              auto;
+  box-sizing:              border-box;
+}
+
+.autocomplete-stages {
+  position: relative;
+}
+
+.autocomplete-suggestion {
+  position:    relative;
+  padding:     .3em;
+  line-height: 23px;
+  white-space: nowrap;
+  overflow:    hidden;
+  font-size:   1.02em;
+  color:       #333333;
+}
+
+.autocomplete-suggestion b {
+  font-weight: normal;
+  color:       #1f8dd6;
+}
+
+.autocomplete-suggestion.selected {
+  background: #f0f0f0;
+}
+
+.autocomplete-suggestion img {
+  width:  32px;
+  height: 32px;
+}
+
+.autocomplete-suggestion span {
+  padding-left: 0.6em;
+}

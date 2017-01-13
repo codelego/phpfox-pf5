@@ -10,57 +10,24 @@ class AuthFacades
     /**
      * @var User
      */
-    protected $loginAsUser;
+    private $user;
+
     /**
      * @var UserInterface
      */
-    protected $loginUser;
-
-    /**
-     * @var string
-     */
-    private $loginKey = 'LOGIN_USER_ID_';
-
-    /**
-     * @var string
-     */
-    private $userKey = 'LOGIN_AS_INFO_';
+    private $loginUser;
 
     /**
      * AuthFacades constructor.
      */
     public function __construct()
     {
-        $this->initialize();
+        \Phpfox::get('auth.storage')->initialize($this);
     }
 
-    private function initialize()
+    protected function initialize()
     {
-        $session = \Phpfox::get('session');
-
-        $loginInfo = $session->get($this->loginKey);
-
-        if ($loginInfo) {
-            $login = \Phpfox::findById('user', $loginInfo);
-
-            if (!$login || !$login instanceof User) {
-                $session->delete($this->loginKey);
-                return;
-            }
-
-            $this->loginUser = $login;
-            $userInfo = $session->get($this->userKey);
-
-            if ($userInfo) {
-                $user = \Phpfox::findById($userInfo[0], $userInfo[1]);
-
-                if ($user) {
-                    $this->loginAsUser = $user;
-                }
-            } elseif (!$this->loginAsUser) {
-                $this->loginAsUser = $this->loginUser;
-            }
-        }
+        _emit('onAuthInit', $this);
     }
 
     /**
@@ -81,63 +48,56 @@ class AuthFacades
      * We can login as any terms
      * User / Pages/ Events/ Business ?
      *
-     * @param User $user
-     *
-     * @param bool $persistent
-     * @param bool $remember
+     * @param UserInterface|mixed $user
+     * @param bool                $remember
      */
-    public function login($user, $persistent, $remember)
+    public function login($user, $remember)
     {
+        $this->user = $user;
         $this->loginUser = $user;
-        $this->loginAsUser = $user;
 
-        if (!$persistent) {
-            return;
+        $this->remember($remember);
+
+    }
+
+    protected function remember($remember)
+    {
+        $loginId = $this->getLoginId();
+
+        $userType = 'user';
+        $userId = $loginId;
+        $user = $this->getUser();
+
+        if ($user) {
+            $userType = $user->getModelId();
+            $userId = $user->getId();
         }
 
-        $session = \Phpfox::get('session');
+        \Phpfox::get('auth.storage')
+            ->remember($loginId, $userType, $userId, $remember);
+    }
 
-        // clear login as status
-        $session->delete($this->userKey);
-        $session->set($this->loginKey, $user->getId());
-
-        if ($remember) {
-            $session->remember();
-        }
+    protected function forgot()
+    {
+        \Phpfox::get('auth.storage')->forgot();
     }
 
     public function logout()
     {
-        $this->loginAsUser = null;
+        $this->user = null;
         $this->loginUser = null;
-        \Phpfox::get('session')->destroy();
+        \Phpfox::get('auth.storage')->forgot();
     }
 
     /**
-     * @param UserInterface|null $user
-     * @param bool               $persistent
+     * @param UserInterface|mixed $user
+     * @param bool                $remember
      */
-    public function loginAs($user, $persistent)
+    public function loginAs($user, $remember)
     {
+        $this->user = $user;
 
-        if (!$this->loginUser) {
-            throw new \InvalidArgumentException("Can not login as before login");
-        }
-
-        $this->loginAsUser = $user;
-
-        if (!$persistent) {
-            return;
-        }
-
-        $session = \Phpfox::get('session');
-
-        if ($user == null) {
-            $session->delete($this->userKey);
-            return;
-        }
-
-        $session->set($this->userKey, [$user->getModelId(), $user->getId()]);
+        $this->remember($remember);
     }
 
     /**
@@ -145,18 +105,31 @@ class AuthFacades
      */
     public function getUser()
     {
-        if (null == $this->loginAsUser) {
-            return $this->loginUser;
-        }
-        return $this->loginAsUser;
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
     }
 
     /**
      * @return UserInterface
      */
-    public function getLoginUser()
+    public function getLogin()
     {
         return $this->loginUser;
+    }
+
+    /**
+     * @param UserInterface $loginUser
+     */
+    public function setLoginUser($loginUser)
+    {
+        $this->loginUser = $loginUser;
     }
 
     public function isLoggedIn()
@@ -172,24 +145,4 @@ class AuthFacades
 
         return $this->loginUser->getId();
     }
-
-
-    /**
-     * @return array
-     * @codeCoverageIgnore
-     */
-    public function __sleep()
-    {
-        return ['userKey', 'loginKey'];
-    }
-
-    /**
-     * @return array
-     * @codeCoverageIgnore
-     */
-    public function __wakeup()
-    {
-        $this->initialize();
-    }
-
 }

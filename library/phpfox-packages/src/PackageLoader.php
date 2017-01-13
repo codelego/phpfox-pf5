@@ -57,7 +57,18 @@ class PackageLoader implements PackageLoaderInterface
 
             if (isset($data['routes'])) {
                 foreach ($data['routes'] as $name => $value) {
+                    $children = null;
+                    if (isset($value['children'])) {
+                        $children = $value['children'];
+                    }
+                    unset($value['children']);
                     $result['routes'][$name] = $value;
+
+                    if(is_array($children)){
+                        foreach ($children as $k=>$v){
+                            $result['routes'][$name.'.'. $k] = $v;
+                        }
+                    }
                 }
             }
 

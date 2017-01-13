@@ -1,0 +1,81 @@
+<div class="container">
+    <h1>Languages
+        <div class="pull-right">
+            <a class="btn btn-link"
+               href="<?= _url('admin.core.i18n.languages') ?>"><?= _text('Languages') ?></a>
+            <a class="btn btn-link"
+               href="<?= _url('admin.core.i18n.phrases') ?>"><?= _text('Translation') ?></a>
+            <a class="btn btn-link"
+               href="<?= _url('admin.core.i18n.add-phrase') ?>">+ <?= _text('Add') ?></a>
+        </div>
+    </h1>
+    <a target="_blank" class="sr-only"
+       href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">language
+        code defined</a>
+</div>
+<div class="container">
+    <form class="form-inline">
+        <?= Phpfox::get('form.render')->render($form) ?>
+    </form>
+    <br/>
+</div>
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-bordered table-admin">
+            <thead>
+            <tr>
+                <th>Edit</th>
+                <th>Value</th>
+                <th>Language</th>
+                <th>Domain</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item): ?>
+                <tr>
+                    <td>
+                        <a data-cmd="toggle" data-rel="tr|form" role="button">edit</a>
+                    </td>
+                    <td>
+                        <p class="text-danger"><?= $item->getName() ?></p>
+                        <p class="text-value"><?= $item->getTextValue() ?></p>
+                        <form method="post" class="form hide"
+                              data-submit="admin.i18n.phrase.save"
+                              data-url="<?= _url(null, 'ajax/i18n/save') ?>">
+                            <input type="hidden" name="text_domain"
+                                   value="<?= $item->getDomain() ?>"/>
+                            <input type="hidden" name="text_key"
+                                   value="<?= $item->getName() ?>"/>
+                            <input type="hidden" name="text_id"
+                                   value="<?= $item->getId() ?>"/>
+                            <div class="form-group">
+                                <textarea class="form-control"
+                                          name="text_value"><?= $item->getTextValue() ?></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-sm btn-save"
+                                        data-cmd="form.cmd"
+                                        data-rel="save"
+                                        type="button">Save
+                                </button>
+                                <button type="button"
+                                        data-cmd="form.confirm"
+                                        data-rel="delete"
+                                        class="btn btn-sm btn-danger">Delete
+                                </button>
+                                <button class="btn btn-sm btn-cancel"
+                                        type="button" data-cmd="toggle"
+                                        data-rel="tr|form">Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </td>
+                    <td><?= $item->getLanguageId() ?></td>
+                    <td><?= $item->getDomain() ?></td>
+
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

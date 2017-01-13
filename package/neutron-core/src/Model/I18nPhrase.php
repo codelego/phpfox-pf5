@@ -11,14 +11,21 @@ class I18nPhrase extends DbModel
         return 'i18n_phrase';
     }
 
+    public function getId()
+    {
+        return $this->__get('id');
+    }
+
     public function getLanguageId()
     {
-        return $this->__get('lang');
+        $lang =  $this->__get('lang');
+        return $lang ? $lang : 'n/a';
     }
 
     public function getDomain()
     {
-        return $this->__get('domain');
+        $domain = $this->__get('domain');
+        return $domain ? $domain : 'n/a';
     }
 
     public function getName()

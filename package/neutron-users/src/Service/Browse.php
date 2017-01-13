@@ -13,7 +13,7 @@ class Browse
      */
     public function findUserById($userId)
     {
-        return \Phpfox::getDb()
+        return \Phpfox::db()
             ->select('*')
             ->from(':user')
             ->where('user_id=?', (int)$userId)

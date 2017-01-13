@@ -13,7 +13,7 @@ class NavigationManager
     /**
      * @param string $decorator
      * @param string $menu
-     * @param string $parentId
+     * @param string $section
      * @param array  $active
      * @param int    $level
      * @param array  $context
@@ -23,7 +23,7 @@ class NavigationManager
     public function render(
         $decorator,
         $menu,
-        $parentId = null,
+        $section = null,
         $active = [],
         $level = 1,
         $context = []
@@ -34,7 +34,10 @@ class NavigationManager
             throw new \InvalidArgumentException("Oops! Navigation decorator '{$decorator}' does not exists.");
         }
 
-        return (new \ReflectionClass($class))->newInstanceArgs(func_get_args())
+        $arguments = func_get_args();
+        array_shift($arguments);
+        
+        return (new \ReflectionClass($class))->newInstanceArgs($arguments)
             ->render();
 
     }

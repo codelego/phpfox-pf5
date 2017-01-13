@@ -24,7 +24,7 @@ class ViewLayout extends ViewModel
             ->prependStyle('bootstrap', null)
             ->prependStyle('font', null);
 
-        \Phpfox::emit('onViewLayoutPrepare', $this);
+        _emit('onViewLayoutPrepare', $this);
 
         $content = '';
 

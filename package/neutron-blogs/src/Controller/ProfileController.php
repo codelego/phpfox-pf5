@@ -10,7 +10,10 @@ class ProfileController extends ActionController
 {
     public function actionIndex()
     {
-        exit('blog.profile');
-        return new ViewModel('blog.profile.index');
+        $viewModel = new ViewModel();
+
+        $viewModel->setTemplate('blog.profile.index');
+
+        return $viewModel;
     }
 }

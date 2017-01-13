@@ -13,8 +13,11 @@ class SettingsController extends ActionController
     {
         $form = new AccountSettings([]);
 
-        return new ViewModel('user.settings.index', [
+        $vm = new ViewModel([
             'form' => $form,
         ]);
+        $vm->setTemplate('user.settings.index');
+
+        return $vm;
     }
 }

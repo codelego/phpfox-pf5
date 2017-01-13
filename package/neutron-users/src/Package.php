@@ -2,9 +2,6 @@
 
 namespace Neutron\User;
 
-
-use Phpfox\Action\MvcEvent;
-
 class Package
 {
 

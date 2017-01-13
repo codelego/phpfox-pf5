@@ -8,7 +8,7 @@ class EventLoader implements EventLoaderInterface
 {
     public function load()
     {
-        $rows = \Phpfox::getDb()
+        $rows = \Phpfox::db()
             ->select('*')
             ->from(':core_event')
             ->where('1')

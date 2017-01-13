@@ -1,0 +1,125 @@
+.rangeslider-container {
+  display:       block;
+  position:      relative;
+  @include border-radius(15px);
+  background:    rgba(0, 0, 0, 0.5);
+  width:         320px;
+  margin:        10px auto;
+  text-align:    center;
+  padding-left:  30px;
+  padding-right: 30px;
+}
+
+.rangeslider {
+  position: relative;
+}
+
+.rangeslider-control {
+  position:  absolute;
+  color:     white;
+  top:       8px;
+  font-size: 11px;
+}
+
+.rangeslider-control-left {
+  left: 11px;
+}
+
+.rangeslider-control-right {
+  right: 11px;
+}
+
+.rangeslider__seek {
+  background-color: rgba(255, 255, 255, 0.6);
+  right:            0;
+}
+
+.rangeslider__fill,
+.rangeslider__seek {
+  display:  block;
+  position: absolute;
+  overflow: hidden;
+  @include border-radius(2px);
+}
+
+.rangeslider--horizontal {
+  .rangeslider__fill,
+  .rangeslider__seek {
+    left:   0;
+    top:    13px;
+    height: 4px;
+  }
+}
+
+.rangeslider--horizontal {
+  height: 30px;
+  width:  100%;
+}
+
+.rangeslider--vertical {
+  width:      30px;
+  min-height: 150px;
+  max-height: 100%;
+}
+
+.rangeslider--disabled {
+  filter:  progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+  opacity: 0.4;
+}
+
+.rangeslider__fill {
+  background: white;
+  position:   absolute;
+}
+
+.rangeslider--vertical .rangeslider__fill {
+  bottom: 0;
+  width:  100%;
+}
+
+.rangeslider__handle {
+  background:            white;
+  border:                1px solid #cccccc;
+  cursor:                pointer;
+  display:               inline-block;
+  width:                 22px;
+  height:                22px;
+  position:              absolute;
+  background-size:       100%;
+  background-image:      -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(0, 0, 0, 0.1)));
+  background-image:      -moz-linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
+  background-image:      -webkit-linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
+  background-image:      linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
+  -moz-box-shadow:       0 0 8px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow:    0 0 8px rgba(0, 0, 0, 0.3);
+  box-shadow:            0 0 8px rgba(0, 0, 0, 0.3);
+  -moz-border-radius:    50%;
+  -webkit-border-radius: 50%;
+  border-radius:         50%;
+}
+
+.rangeslider__handle:active {
+  background-size:  100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(0, 0, 0, 0.1)), color-stop(100%, rgba(0, 0, 0, 0.12)));
+  background-image: -moz-linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.12));
+  background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.12));
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.12));
+}
+
+.rangeslider--horizontal .rangeslider__handle {
+  top:              4px;
+  touch-action:     pan-y;
+  -ms-touch-action: pan-y;
+}
+
+.rangeslider--vertical .rangeslider__handle {
+  left:             4px;
+  touch-action:     pan-x;
+  -ms-touch-action: pan-x;
+}
+
+input[type="range"]:focus + .rangeslider .rangeslider__handle {
+  -moz-box-shadow:    0 0 8px rgba(255, 0, 255, 0.9);
+  -webkit-box-shadow: 0 0 8px rgba(255, 0, 255, 0.9);
+  box-shadow:         0 0 8px rgba(255, 0, 255, 0.9);
+}

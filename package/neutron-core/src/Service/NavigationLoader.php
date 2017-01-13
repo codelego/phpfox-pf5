@@ -12,7 +12,7 @@ class NavigationLoader implements NavigationLoaderInterface
 
     public function loadFromRepository($menu)
     {
-        return \Phpfox::getDb()->select('*')
+        return \Phpfox::db()->select('*')
             ->from(':core_menu')
             ->where('menu=?', trim($menu))
             ->where('is_active=?', 1)
@@ -39,16 +39,7 @@ class NavigationLoader implements NavigationLoaderInterface
 
         // prepare item data
         foreach ($temp as $row) {
-            $id = (int)$row['id'];
-            $name = $row['name'];
-            $params = (array)json_decode($row['params'], true);
-            $module = (string)$row['package_id'];
-            $navId = (string)$row['menu'];
-
-            $item = new NavigationItem($row);
-
-
-            $rows[$name] = $item;
+            $rows[$row['name']] = new NavigationItem($row);
         }
 
         for ($level = self::MAX_LEVEL; $level > 0; --$level) {
@@ -58,7 +49,7 @@ class NavigationLoader implements NavigationLoaderInterface
                 }
 
                 $isValid = true;
-                $parent = $row->parent;
+                $parent = $row->parent_name;
 
                 if ($parent == $parentId) {
                     continue;
@@ -76,12 +67,12 @@ class NavigationLoader implements NavigationLoaderInterface
                     if (!isset($rows[$nextParent])) {
                         $isValid = false;
                     } else {
-                        $nextParent = $rows[$nextParent]['parent'];
+                        $nextParent = $rows[$nextParent]->parent_name;
                     }
                 }
                 if ($isValid && $nextParent == $parentId && $i == $level) {
 //                    $rows[$parent]['children']['level'] = $level - 1;
-                    $rows[$parent]['children'][] = $row;
+                    $rows[$parent]->children[] = $row;
                     unset($rows[$index]);
                 }
             }

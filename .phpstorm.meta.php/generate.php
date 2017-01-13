@@ -1,5 +1,8 @@
 <?php
 
+@unlink(__DIR__ . '/../config/package.php');
+@unlink(__DIR__ . '/../config/autoload.php.php');
+
 include __DIR__ . '/../config/bootstrap.php';
 
 

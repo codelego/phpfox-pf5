@@ -33,18 +33,27 @@ class AuthController extends ActionController
 
             if ($result->isValid()) {
                 $user = \Phpfox::findById('user', $result->getIdentity());
-                $auth->login($user, true, !!$data['remember']);
+                $auth->login($user, !!$data['remember']);
             } else {
                 $message = $result->getMessage();
             }
         }
 
-        return new ViewModel('user.auth.login',
-            ['form' => $form, 'message' => $message]);
+        $vm = new ViewModel(['form' => $form, 'message' => $message]);
+
+        $vm->setTemplate('user.auth.login');
+
+        return $vm;
     }
 
     public function actionLogout()
     {
-        return new ViewModel('user.auth.logout');
+        \Phpfox::get('auth')->logout();
+
+        $vm = new ViewModel();
+
+        $vm->setTemplate('user.auth.logout');
+
+        return $vm;
     }
 }

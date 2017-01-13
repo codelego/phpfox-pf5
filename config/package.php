@@ -69,6 +69,9 @@
     'button' => 'Phpfox\\Form\\ButtonRender',
     'checkbox' => 'Phpfox\\Form\\CheckboxRender',
     'select' => 'Phpfox\\Form\\SelectRender',
+    'radio' => 'Phpfox\\Form\\RadioRender',
+    'file_upload' => 'Phpfox\\Form\\FileUploadRender',
+    'textarea' => 'Phpfox\\Form\\TextareaRender',
   ),
   'job.handlers' => 
   array (
@@ -119,25 +122,35 @@
   ),
   'navigation.decorators' => 
   array (
-    'navbar' => 'Phpfox\\Navigation\\NavbarNavDecorator',
-    'tab' => 'Phpfox\\Navigation\\TabNavDecorator',
+    'navbar' => 'Phpfox\\Navigation\\NavbarDecorator',
+    'nav' => 'Phpfox\\Navigation\\NavDecorator',
   ),
   'services' => 
   array (
     'mvc.dispatch' => 
     array (
       0 => NULL,
-      1 => 'Phpfox\\Action\\ActionDispatch',
+      1 => 'Phpfox\\Action\\Dispatcher',
     ),
     'mvc.request' => 
     array (
-      0 => 'Phpfox\\Action\\ActionRequestFactory',
+      0 => 'Phpfox\\Action\\RequestFactory',
       1 => NULL,
     ),
     'mvc.response' => 
     array (
-      0 => 'Phpfox\\Action\\ActionResponseFactory',
+      0 => 'Phpfox\\Action\\ResponseFactory',
       1 => NULL,
+    ),
+    'mvc.response.ajax' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Action\\AjaxResponse',
+    ),
+    'mvc.response.html' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Action\\HtmlResponse',
     ),
     'assets' => 
     array (
@@ -245,6 +258,11 @@
       0 => 'Phpfox\\Logger\\LogContainerFactory',
       1 => NULL,
       2 => 'log.auth',
+    ),
+    'auth.storage' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Authentication\\AuthStorageSession',
     ),
     'authorization' => 
     array (
@@ -355,12 +373,17 @@
     'controller.provider' => 
     array (
       0 => NULL,
-      1 => 'Phpfox\\Package\\ControllerProvider',
+      1 => 'Phpfox\\Package\\ActionProvider',
     ),
     'models.provider' => 
     array (
       0 => NULL,
       1 => 'Phpfox\\Package\\ModelProvider',
+    ),
+    'router.provider' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Package\\RouterProvider',
     ),
     'router' => 
     array (

@@ -10,6 +10,8 @@ class InputFile extends Element implements FieldInterface
      */
     protected $value;
 
+    protected $render = 'file_upload';
+
     public function getValue()
     {
         return $this->value;

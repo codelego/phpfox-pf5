@@ -67,6 +67,14 @@ class Route implements RouteInterface
             $this->defaults = $params['defaults'];
         }
 
+        if(!empty($params['action'])){
+            $this->defaults['action'] = $params['action'];
+        }
+
+        if(!empty($params['controller'])){
+            $this->defaults['controller'] = $params['controller'];
+        }
+
         if (!empty($params['route'])) {
             $this->route = strtr(preg_replace('/\/<([\w+\_\-]+)>\?/', '(/<$1>)',
                 $params['route']), ['/*' => '(/<retain>)',]);

@@ -1,0 +1,53 @@
+$padding-xxs-horizontal: 2px;
+
+.paging-loading-more {
+  .paging-indicator {
+    background-position: center;
+    background-repeat:   no-repeat;
+    background-image:    url("#{$static-common-url}/images/ajax-loader.gif");
+    background-size:     20px;
+    display:             block;
+    height:              30px;
+  }
+}
+
+.pager-more {
+  @extend .btn, .btn-default;
+}
+
+.paging-content {
+  @include clearfix;
+
+  &.card-space-md {
+    margin: 0 ($padding-base-horizontal / -1);
+    > div {
+      padding: 0 $padding-base-horizontal;
+    }
+  }
+
+  &.card-space-sm {
+    margin: ($padding-small-horizontal / -1);
+    > div {
+      padding: 0 $padding-small-horizontal;
+    }
+  }
+
+  &.card-space-xs {
+    margin: 0 ($padding-xs-horizontal / -1);
+    > div {
+      padding: 0 $padding-xs-horizontal;
+    }
+  }
+
+  &.card-space-xxs {
+    margin: 0 ($padding-xxs-horizontal / -1);
+    > div {
+      padding: 0 $padding-xxs-horizontal;
+    }
+  }
+}
+
+.clear-gutter {
+  margin-left:  ($grid-gutter-width / -2);
+  margin-right: ($grid-gutter-width / -2);
+}

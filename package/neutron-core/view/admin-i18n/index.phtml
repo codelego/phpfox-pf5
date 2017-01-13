@@ -1,47 +1,39 @@
 <div class="container">
-    <div class="btn-group pull-right">
-        <a class="btn btn-default btn-dropdown" data-toggle="dropdown" href="#">Settings</a>
-        <ul class="dropdown-menu dropdown-menu-right">
-            <li>
-                <a href="<?= _url(':admincp', ['core/i18n/browse-phrase']) ?>">
-                    Browse Phrases</a></li>
-            <li>
-                <a href="<?= _url(':admincp', ['core/i18n/add-phrase']) ?>">
-                    Add Phrases</a></li>
-            <li><a href="<?= _url(':admincp', ['core/i18n/add-phrase']) ?>">Find
-                    Missing
-                    Phrases</a></li>
-            <li><a href="<?= _url(':admincp',
-                    ['core/i18n/import-language']) ?>">
-                    Import Language
-                </a></li>
-            <li><a href="<?= _url(':admincp',
-                    ['core/i18n/import-language']) ?>">
-                    Import Phrase
-                </a></li>
-        </ul>
-    </div>
-    <h1>Languages</h1>
-
+    <h1>Languages
+        <div class="pull-right">
+            <a class="btn btn-link"
+               href="<?= _url('admin.core.i18n.languages') ?>"><?= _text('Languages') ?></a>
+            <a class="btn btn-link"
+               href="<?= _url('admin.core.i18n.phrases') ?>"><?= _text('Translation') ?></a>
+            <a class="btn btn-link"
+               href="<?= _url('admin.core.i18n.add-phrase') ?>">+ <?= _text('Add') ?></a>
+        </div>
+    </h1>
     <a target="_blank" class="sr-only"
        href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">language
         code defined</a>
 </div>
 <div class="container">
-    <table class="table table-admin">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Native Name</th>
-            <th>Author</th>
-        </tr>
-        <?php foreach ($items as $item): ?>
+    <div class="table table-responsive">
+        <table class="table table-admin">
+            <thead>
             <tr>
-                <td><?= $item['language_id'] ?></td>
-                <td><?= $item['name'] ?></td>
-                <td><?= $item['native_name'] ?></td>
-                <td><?= $item['code_6391'] ?></td>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Native Name</th>
+                <th>Author</th>
             </tr>
-        <?php endforeach; ?>
-    </table>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item): ?>
+                <tr>
+                    <td><?= $item['id'] ?></td>
+                    <td><?= $item['name'] ?></td>
+                    <td><?= $item['native_name'] ?></td>
+                    <td><?= $item['code_6391'] ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 </div>

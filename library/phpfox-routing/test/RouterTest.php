@@ -21,15 +21,15 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 
         $parameters = $router->run('admincp');
 
-        $this->assertEquals('core.admin.index', $parameters->get('controller'));
+        $this->assertEquals('core.admin-index', $parameters->get('controller'));
 
-        $this->assertEquals('dashboard', $parameters->get('action'));
+        $this->assertEquals('index', $parameters->get('action'));
 
         $this->assertEquals('admincp', $router->getUri('admin', []));
 
         $parameters = $router->run('admincp/core/i18n');
 
-        $this->assertEquals('core.admin.i18n', $parameters->get('controller'));
+        $this->assertEquals('core.admin-i18n', $parameters->get('controller'));
         $this->assertEquals('index', $parameters->get('action'));
 
         $this->assertEquals('admincp/core/i18n',
@@ -37,7 +37,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 
         $parameters = $router->run('admincp/core/i18n/languages');
 
-        $this->assertEquals('core.admin.i18n', $parameters->get('controller'));
+        $this->assertEquals('core.admin-i18n', $parameters->get('controller'));
         $this->assertEquals('languages', $parameters->get('action'));
 
         $this->assertEquals('admincp/core/i18n/languages',

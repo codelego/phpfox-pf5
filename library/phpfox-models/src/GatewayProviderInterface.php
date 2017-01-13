@@ -11,4 +11,9 @@ interface GatewayProviderInterface
      * @return array|null
      */
     public function get($id);
+
+    /**
+     * @return array
+     */
+    public function all();
 }

@@ -43,12 +43,14 @@ class EventManager
         $event->stop(false);
 
         $response = new Response();
-        try {
-            foreach ($this->events[$name] as $listener) {
 
-                $result = \Phpfox::get($listener)->{$name}($event);
+        try {
+            foreach ($this->events[$name] as $key) {
+
+                $result = \Phpfox::get($key)->{$name}($event);
 
                 $response->push($result);
+
                 if ($event->isStopped()) {
                     break;
                 }
