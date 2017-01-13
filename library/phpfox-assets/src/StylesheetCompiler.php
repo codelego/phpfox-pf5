@@ -44,7 +44,8 @@ class StylesheetCompiler
 
         $content = $this->compile($source, $variables, $paths);
 
-        $outputFilename = sprintf(PHPFOX_DIR . '/static/theme/%s/stylesheets/bundle.css', $themeId);
+        $outputFilename = sprintf(PHPFOX_DIR . '/static/%s/css/main.css',
+            $themeId);
 
         $dir = dirname($outputFilename);
 
@@ -58,13 +59,13 @@ class StylesheetCompiler
         $fp = fopen($outputFilename, 'w');
 
         if (!$fp) {
-            throw new \InvalidArgumentException("Could not write to file [$outputFilename]");
+            throw new \InvalidArgumentException("Oops! Could not write to file [$outputFilename]");
         }
 
         fwrite($fp, $content);
         fclose($fp);
 
-        chmod($outputFilename, 0644); // change correct permissions.
+        @chmod($outputFilename, 0777); // change correct permissions.
 
         return true;
     }
@@ -80,7 +81,8 @@ class StylesheetCompiler
     {
         try {
 
-            $paths[] = PHPFOX_DIR .'static/theme/base/sass';
+            $paths[] = PHPFOX_DIR . 'static/base/sass';
+            $paths[] = PHPFOX_DIR;
 
             $compiler = new Compiler();
 
@@ -92,7 +94,7 @@ class StylesheetCompiler
                 $compiler->setImportPaths($paths);
             }
 
-            if(is_array($source)){
+            if (is_array($source)) {
                 $source = implode(PHP_EOL, $source);
             }
 

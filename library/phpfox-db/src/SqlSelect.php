@@ -263,12 +263,12 @@ class SqlSelect
     }
 
     /**
-     * @param $limit
-     * @param $offset
+     * @param int $limit
+     * @param int $offset optional default "0"
      *
      * @return SqlSelect
      */
-    public function limit($limit, $offset)
+    public function limit($limit, $offset = 0)
     {
         $this->_limit = (int)$limit;
         $this->_offset = (int)$offset;
@@ -356,7 +356,8 @@ class SqlSelect
             $this->_join = new SqlJoin($this->adapter);
         }
 
-        $this->_join->join(self::RIGHT_JOIN, $table, $alias, $expression, $data);
+        $this->_join->join(self::RIGHT_JOIN, $table, $alias, $expression,
+            $data);
 
         if (null != $columns) {
             $this->select($columns);
@@ -446,7 +447,7 @@ class SqlSelect
 
         $result->setPrototype($this->_prototype);
 
-        if(!$result->isValid()){
+        if (!$result->isValid()) {
             throw new SqlException($result->error());
         }
 

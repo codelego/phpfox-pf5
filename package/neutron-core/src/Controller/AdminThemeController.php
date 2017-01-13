@@ -5,6 +5,7 @@ namespace Neutron\Core\Controller;
 
 use Neutron\Core\Form\ThemeEditor;
 use Phpfox\Action\ActionController;
+use Phpfox\Assets\StylesheetCompiler;
 use Phpfox\View\ViewModel;
 
 class AdminThemeController extends ActionController
@@ -34,22 +35,22 @@ class AdminThemeController extends ActionController
     public function actionEdit()
     {
         $vm = new ViewModel();
-        $form  = new ThemeEditor();
-        $request =  \Phpfox::get('mvc.request');
+        $form = new ThemeEditor();
+        $request = \Phpfox::get('mvc.request');
 
         $id = $request->get('id');
 
 
-        $params  =  [];
-        $custom  =  \Phpfox::get('db')
+        $params = [];
+        $custom = \Phpfox::get('db')
             ->select('*')
             ->from(':core_theme_setting')
-            ->where('theme_id=?',$id)
+            ->where('theme_id=?', $id)
             ->execute()
             ->first();
 
-        if($custom){
-            $params  = json_decode($custom['params'], true);
+        if ($custom) {
+            $params = json_decode($custom['params'], true);
         }
 
         $form->populate($params);
@@ -62,5 +63,16 @@ class AdminThemeController extends ActionController
         $vm->setTemplate('layout.admin.edit');
 
         return $vm;
+    }
+
+    public function actionRebuild()
+    {
+
+        $request = \Phpfox::get('mvc.request');
+        $id = $request->get('id');
+        $name = $request->get('name');
+
+        $compiler = new StylesheetCompiler();
+        $compiler->rebuild($name);
     }
 }

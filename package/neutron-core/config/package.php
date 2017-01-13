@@ -15,10 +15,10 @@ return [
         'require' => 'jscript/requirejs/require.js',
     ],
     'static.css'      => [
-        'bootstrap'   => 'theme/default/css/bootstrap.css',
+        'main'        => 'theme-default/css/main.css',
         'font'        => '//fonts.googleapis.com/css?family=Roboto',
-        'custom'      => 'theme/default/css/custom.css',
-        'admin.login' => 'theme/default/css/admin-login.css',
+        'custom'      => 'theme-default/css/custom.css',
+        'admin.login' => 'theme-default/css/admin-login.css',
     ],
     'requirejs.shim'  => [
         'bootstrap'  => [

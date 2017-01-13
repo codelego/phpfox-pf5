@@ -9,6 +9,7 @@
                     <th>Version</th>
                     <th>Author</th>
                     <th>Active</th>
+                    <th>Action</th>
                 </tr>
                 <?php foreach ($items as $item): ?>
                     <tr>
@@ -25,7 +26,9 @@
                                     ? 'checked' : '' ?>
                                        value="<?= $item['id'] ?>"/>
                             </label>
-
+                        </td>
+                        <td>
+                            <a href="<?= _url('admin.core.theme.rebuild',['id'=>$item['id'],'name'=>$item['package_name']])?>" role="button" class=""><?= _text('Rebuild','admincp') ?></a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

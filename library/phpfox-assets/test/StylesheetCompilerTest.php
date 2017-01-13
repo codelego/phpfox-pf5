@@ -13,11 +13,8 @@ class StylesheetCompilerTest extends \PHPUnit_Framework_TestCase
 {
     public function testBundle()
     {
-
-        $compiler =  new StylesheetCompiler();
-
-        $result  =  $compiler->rebuild('default');
-
+        $compiler = new StylesheetCompiler();
+        $result = $compiler->rebuild('theme-default');
         $this->assertTrue($result);
     }
 }

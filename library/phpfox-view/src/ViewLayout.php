@@ -21,7 +21,7 @@ class ViewLayout extends ViewModel
         \Phpfox::assets()
             ->addScripts('require', null)
             ->prependStyle('custom', null)
-            ->prependStyle('bootstrap', null)
+            ->prependStyle('main', null)
             ->prependStyle('font', null);
 
         _emit('onViewLayoutPrepare', $this);

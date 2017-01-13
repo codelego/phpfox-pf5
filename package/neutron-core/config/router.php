@@ -51,6 +51,10 @@ return [
                     'route'    => 'edit/<id>',
                     'action'=>'edit',
                 ],
+                'rebuild' => [
+                    'route'    => 'rebuild/<id>/<name>',
+                    'action'=>'rebuild',
+                ],
             ],
         ],
         'admin.core.i18n'        => [
