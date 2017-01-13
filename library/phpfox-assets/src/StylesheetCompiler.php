@@ -65,6 +65,8 @@ class StylesheetCompiler
         fclose($fp);
 
         chmod($outputFilename, 0644); // change correct permissions.
+
+        return true;
     }
 
     /**
@@ -78,7 +80,7 @@ class StylesheetCompiler
     {
         try {
 
-            $paths[] = PHPFOX_DIR .'static/sass/base/sass';
+            $paths[] = PHPFOX_DIR .'static/theme/base/sass';
 
             $compiler = new Compiler();
 

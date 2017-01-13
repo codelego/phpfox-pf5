@@ -16,6 +16,8 @@ class StylesheetCompilerTest extends \PHPUnit_Framework_TestCase
 
         $compiler =  new StylesheetCompiler();
 
-        $compiler->rebuild('default');
+        $result  =  $compiler->rebuild('default');
+
+        $this->assertTrue($result);
     }
 }
