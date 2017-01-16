@@ -9,10 +9,10 @@ class StylesheetCompiler
 {
 
     /**
-     * @param $input
-     * @param $output
-     * @param $variables
-     * @param $paths
+     * @param string $input     input file name
+     * @param string $output    output file name
+     * @param array  $variables sass variables
+     * @param array  $paths     import paths
      *
      * @return bool
      */
@@ -24,6 +24,8 @@ class StylesheetCompiler
     }
 
     /**
+     * Rebuild main css
+     *
      * @param string $output
      * @param array  $variables
      * @param array  $paths
@@ -34,7 +36,7 @@ class StylesheetCompiler
     {
         $container = new \ArrayObject();
 
-        $response = _emit('onStylesheetRebuild', $container);
+        $response = _emit('onRebuildMain', $container);
 
         $source[] = '@import "main";';
 
@@ -57,6 +59,18 @@ class StylesheetCompiler
         return $this->rebuild($source, $output, $variables, $paths);
     }
 
+    /**
+     * Rebuild sass
+     *
+     * @param string $source
+     * @param string $output    output filename
+     * @param array  $variables sass variable array
+     * @param array  $paths     import paths
+     *
+     * @return bool
+     *
+     * todo improve chmod method
+     */
     public function rebuild($source, $output, $variables, $paths)
     {
         $dir = dirname($output);
@@ -95,15 +109,15 @@ class StylesheetCompiler
         fwrite($fp, $content);
         fclose($fp);
 
-        @chmod($output, 0644);
+//        @chmod($output, 0644);
 
         return true;
     }
 
     /**
-     * @param string $source
-     * @param array  $variables
-     * @param array  $paths
+     * @param string $source    sass source
+     * @param array  $variables sass variables
+     * @param array  $paths     sass import paths
      *
      * @return string
      */
