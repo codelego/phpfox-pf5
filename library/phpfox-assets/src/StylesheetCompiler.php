@@ -9,40 +9,32 @@ class StylesheetCompiler
 {
 
     /**
+     * @param $input
+     * @param $output
+     * @param $variables
+     * @param $paths
+     *
+     * @return bool
+     */
+    public function rebuildFile($input, $output, $variables, $paths)
+    {
+        $source = file_get_contents($input);
+
+        return $this->rebuild($source, $output, $variables, $paths);
+    }
+
+    /**
      * @param string $output
      * @param array  $variables
      * @param array  $paths
      *
      * @return bool
      */
-    public function rebuild($output, $variables = [], $paths = [])
+    public function rebuildMain($output, $variables = [], $paths = [])
     {
-
-        // validate permission
-        $dir = dirname($output);
-
-        if (!is_dir($dir)) {
-            if (!@mkdir($dir, 0755, 1)) {
-                throw new \RuntimeException("Can not write to $dir");
-            }
-            if (!chmod($dir, 0755)) {
-                throw new \RuntimeException("Can not write to $dir");
-            }
-        }
-
-        if (file_exists($output) and !is_writeable($output)) {
-            throw new \InvalidArgumentException("Oops! Could not write to file [$output]");
-        }
-
         $container = new \ArrayObject();
+
         $response = _emit('onStylesheetRebuild', $container);
-        $source = [
-            '@import "user-variables";',
-            '@import "variables";',
-            '@import "config-variables";',
-            '@import "bootstrap/mixins";',
-            '@import "mixins";',
-        ];
 
         $source[] = '@import "main";';
 
@@ -59,6 +51,38 @@ class StylesheetCompiler
                 }
             }
         }
+
+        $source = implode(PHP_EOL, $source);
+
+        return $this->rebuild($source, $output, $variables, $paths);
+    }
+
+    public function rebuild($source, $output, $variables, $paths)
+    {
+        $dir = dirname($output);
+
+        if (!is_dir($dir)) {
+            if (!@mkdir($dir, 0755, 1)) {
+                throw new \RuntimeException("Can not write to $dir");
+            }
+            if (!chmod($dir, 0755)) {
+                throw new \RuntimeException("Can not write to $dir");
+            }
+        }
+
+        if (file_exists($output) and !is_writeable($output)) {
+            throw new \InvalidArgumentException("Oops! Could not write to file [$output]");
+        }
+
+        $initial = [
+            '@import "user-variables";',
+            '@import "variables";',
+            '@import "config-variables";',
+            '@import "bootstrap/mixins";',
+            '@import "mixins";',
+        ];
+
+        $source = implode(PHP_EOL, $initial) . PHP_EOL . $source;
 
         $content = $this->compile($source, $variables, $paths);
 
@@ -99,10 +123,6 @@ class StylesheetCompiler
 
             if (!empty($paths)) {
                 $compiler->setImportPaths($paths);
-            }
-
-            if (is_array($source)) {
-                $source = implode(PHP_EOL, $source);
             }
 
             $compiler->setFormatter('Leafo\ScssPhp\Formatter\Compressed');

@@ -187,11 +187,7 @@ class Themes
 
         $output = $this->getMainCssPath($id);
 
-        if(!is_writeable($output)){
-            throw new \InvalidArgumentException(_sprintf('Oops! an not open {0} to write',[$output]));
-        }
-
-        $compiler->rebuild($output, $this->getSassVariables($id),
+        $compiler->rebuildMain($output, $this->getSassVariables($id),
             $this->getSassPaths($id));
     }
 
