@@ -1,0 +1,65 @@
+<div class="container">
+    <form class="form-inline">
+        <?= Phpfox::get('form.render')->render($filter) ?>
+    </form>
+    <br/>
+</div>
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-admin">
+            <thead>
+            <tr>
+                <th style="width: 30px;">
+                    <input type="checkbox" name="check_all"/>
+                </th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Option</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item): ?>
+                <tr>
+                    <td>
+                        <input type="checkbox" name="cb[]"
+                               value="<?= $item->getId() ?>"/>
+                    </td>
+                    <td><?= $item->getId(); ?></td>
+                    <td>
+                        <a href="<?= $item->getUrl() ?>"><?= $item->getName(); ?></a>
+                    </td>
+                    <td><?= $item->getEmail(); ?></td>
+                    <td><?= $item->getRoleId(); ?></td>
+                    <td>
+                        <a href=""><?= _text('edit') ?></a>
+                        &middot;
+                        <a href=""><?= _text('delete') ?></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <div class="dropup">
+        <a class="btn btn-default btn-dropdown" data-toggle="dropdown">With Selected</a>
+        <ul class="dropdown-menu">
+            <li role="presentation">
+                <a class="danger">Delete</a>
+            </li>
+            <li role="presentation">
+                <a>Approve</a>
+            </li>
+            <li role="presentation">
+                <a>Verify</a>
+            </li>
+            <li role="presentation">
+                <a>Block</a>
+            </li>
+            <li role="presentation">
+                <a>Un-Block</a>
+            </li>
+        </ul>
+    </div>
+</div>

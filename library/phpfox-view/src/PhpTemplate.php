@@ -11,7 +11,7 @@ class PhpTemplate implements ViewTemplateInterface
     /**
      * @var array
      */
-    protected $prefers = [];
+    protected $prefers = ['default/'];
 
     /**
      * @var array
@@ -25,8 +25,8 @@ class PhpTemplate implements ViewTemplateInterface
      */
     public function __construct()
     {
-        $this->preferThemes(\Phpfox::getParam('views', 'prefer_themes'));
-        $this->reset();
+        $this->map = \Phpfox::getParam('templates');
+        $this->cached = [];
     }
 
     public function render($__name_, $__vars_)
@@ -57,25 +57,22 @@ class PhpTemplate implements ViewTemplateInterface
     public function preferThemes($themes)
     {
         $this->cached = [];
-        if (empty($themes)) {
-            $this->prefers = [];
-        } elseif (is_string($themes)) {
-            $this->prefers = array_map(function ($v) {
-                return trim($v) . '@';
-            }, explode(',', $themes));
-        } else {
-            $this->prefers = array_map(function ($v) {
-                return $v . '@';
-            }, $themes);
+
+        if (is_string($themes)) {
+            $themes = ['themes'];
         }
 
-        return $this;
-    }
+        if (empty($themes)) {
+            $themes = ['default'];
+        }else{
+            $themes[] =  'default';
+        }
 
-    public function reset()
-    {
-        $this->map = \Phpfox::getParam('templates');
-        $this->cached = [];
+        $this->prefers = array_map(function ($v) {
+            return $v . '/';
+        }, $themes);
+
+        return $this;
     }
 
     public function load($name)
@@ -90,9 +87,7 @@ class PhpTemplate implements ViewTemplateInterface
             }
         }
 
-        if (isset($this->map[$name])) {
-            return $this->cached[$name] = $this->map[$name];
-        }
+        echo $name;
 
         if (PHPFOX_ENV == 'development') {
             throw new InvalidArgumentException("template not found '{$name}'");

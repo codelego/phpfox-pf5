@@ -7,6 +7,12 @@ use Phpfox\Event\EventListenerInterface;
 class EventListener implements EventListenerInterface
 {
 
+    public function onBootstrap()
+    {
+        \Phpfox::get('view.template')
+            ->preferThemes('default');
+    }
+
     public function onSystemHealthCheck()
     {
         return [

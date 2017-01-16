@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="row">
+        <h1><?= _text('Manage Themes', 'admincp') ?></h1>
+        <div class="table-responsive">
+            <table class="table table-admin">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Version</th>
+                    <th>Author</th>
+                    <th>Active?</th>
+                    <th>Default?</th>
+                    <th>Action</th>
+                </tr>
+                <?php foreach ($items as $item): ?>
+                    <tr>
+                        <td>
+                            <?= $item['id'] ?>
+                        </td>
+                        <td><a href="<?= _url('admin.core.theme.edit',['id'=>$item->getId()]) ?>"><?= $item->getName() ?></a></td>
+                        <td><?= $item['version'] ?></td>
+                        <td><?= $item['author'] ?></td>
+                        <td>
+                            <?= _yesno($item->isActive()) ?>
+                        </td>
+                        <td>
+                            <?= _yesno($item->isDefault()) ?>
+                        </td>
+                        <td class="cmds">
+                           <?php if($item->isDefault()): ?>
+                               <?php else: ?>
+                               <a href="<?= _url('admin.core.theme',null,['cmd'=>'default','id'=>$item->getId()])?>" role="button" class=""><?= _text('Default') ?></a>
+                               <?php if($item->isActive()): ?>
+                                   <a href="<?= _url('admin.core.theme',null,['cmd'=>'inactive','id'=>$item->getId()])?>" role="button" class=""><?= _text('In-Active') ?></a>
+                               <?php else: ?>
+                                   <a href="<?= _url('admin.core.theme',null,['cmd'=>'active','id'=>$item->getId()])?>" role="button" class=""><?= _text('Active') ?></a>
+                               <?php endif;?>
+                            <?php endif;?>
+                            <a href="<?= _url('admin.core.theme.rebuild',['id'=>$item->getId(),'name'=>$item->getId()])?>" role="button" class=""><?= _text('Rebuild','admincp') ?></a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </div>
+</div>

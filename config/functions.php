@@ -59,6 +59,64 @@ namespace {
      *
      * @return array
      */
+    function _view_map($dir)
+    {
+        $map = [];
+        $extension = '.phtml';
+        $packageDir = realpath(PHPFOX_PACKAGE_DIR);
+
+        $directory = realpath(PHPFOX_PACKAGE_DIR . DS . $dir);
+
+        if (!$directory || !is_dir($directory)) {
+            return [];
+        }
+        $startCharacter = strlen($directory);
+
+        $directoryIterator
+            = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory,
+            RecursiveDirectoryIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::SELF_FIRST,
+            RecursiveIteratorIterator::CATCH_GET_CHILD // Ignore "Permission denied"
+        );
+
+        foreach ($directoryIterator as $path => $entry) {
+            if ($entry->isDir()) {
+                continue;
+            }
+
+            $path = $entry->getPath() . '/' . $entry->getFilename();
+
+            if (!strpos($path, $extension)) {
+                continue;
+            }
+
+            $prepare = str_replace($extension, '',
+                substr($path, $startCharacter + 1));
+
+            $id = str_replace(['//', '/', '\\'],
+                ['.', '.', '.'], _deflect($prepare));
+
+            list($layout, $id) = explode('.', $id,2);
+
+            $id =  $layout .'/'. $id;
+
+
+            $value = str_replace($extension, '',
+                trim(str_replace($packageDir, '', $path), DS));
+
+            $map[$id] = $value;
+        }
+
+        return $map;
+    }
+
+    /**
+     * @param array|string $array ['core'=> PHPFOX_DIR
+     *                            .'/package/neutron-core/view',...]
+     * @param string|null  $dir
+     *
+     * @return array
+     */
     function _get_view_map($array, $dir = null)
     {
         $map = [];
@@ -119,9 +177,10 @@ namespace {
         }
 
 
-        file_put_contents($file, '<?php return ' . var_export($data, true) . ';');
+        file_put_contents($file,
+            '<?php return ' . var_export($data, true) . ';');
 
-        if(file_exists($file)){
+        if (file_exists($file)) {
             @chmod($file, 0777);
         }
 
@@ -423,8 +482,9 @@ namespace {
             ->trans($id, $domain, $locale, $context);
     }
 
-    function _yesno($flag){
-        return _text($flag? 'Yes': 'No');
+    function _yesno($flag)
+    {
+        return _text($flag ? 'Yes' : 'No');
     }
 
     /**

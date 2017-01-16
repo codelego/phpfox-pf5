@@ -2,10 +2,9 @@
 namespace Neutron\Core\Controller;
 
 use Neutron\Core\Form\GeneralSettings;
-use Phpfox\Action\ActionController;
 use Phpfox\View\ViewModel;
 
-class AdminSettingsController extends ActionController
+class AdminSettingsController extends AdminController
 {
     public function actionIndex()
     {

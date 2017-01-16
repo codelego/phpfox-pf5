@@ -14,16 +14,31 @@ class SelectRender implements RenderInterface
     {
         $attributes = $element->getAttributes();
         $attributes['name'] = $element->getName();
-
+        $value = $element->getValue();
         $optionHtml = [];
-        foreach ($element->getOptions() as $option) {
-            $optionHtml[] = _sprintf('<option value="{value}">{label}</option>',
-                $option);
+        $options = $element->getOptions();
+
+
+        if (!$element->isRequired()) {
+            array_unshift($options, [
+                'value' => '',
+                'label' => $element->getAttribute('placeholder'),
+            ]);
+        }
+        foreach ($options as $option) {
+            $optionHtml[]
+                = _sprintf('<option value="{value}" {selected}>{label}</option>',
+                [
+                    'label'    => $option['label'],
+                    'value'    => $option['value'],
+                    'selected' => ($value == $option['value']) ? 'selected' : '',
+                ]);
         }
 
         $optionHtml = implode('', $optionHtml);
 
-        return '<select ' . _attrize($attributes) . '>'.$optionHtml.'</select>';
+        return '<select ' . _attrize($attributes) . '>' . $optionHtml
+            . '</select>';
     }
 
 }

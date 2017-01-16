@@ -44,32 +44,32 @@ class User extends DbModel implements UserInterface
 
     public function getLocaleId()
     {
-        return @$this->_data['locale_id'];
+        return $this->__get('locale_id');
     }
 
     public function getTimezone()
     {
-        return @$this->_data['timezone'];
+        return $this->__get('timezone');
     }
 
     public function getCreated()
     {
-        return @$this->_data['created'];
+        return $this->__get('created');
     }
 
     public function getRoleId()
     {
-        return @$this->_data['role_id'];
+        return $this->__get('role_id');
     }
 
     public function getGenderId()
     {
-        return @$this->_data['gender_id'];
+        return $this->__get('gender_id');
     }
 
     public function getId()
     {
-        return @$this->_data['user_id'];
+        return $this->__get('user_id');
     }
 
 }

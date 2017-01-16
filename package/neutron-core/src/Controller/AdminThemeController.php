@@ -4,26 +4,44 @@ namespace Neutron\Core\Controller;
 
 
 use Neutron\Core\Form\ThemeEditor;
-use Phpfox\Action\ActionController;
 use Phpfox\Assets\StylesheetCompiler;
 use Phpfox\View\ViewModel;
 
-class AdminThemeController extends ActionController
+class AdminThemeController extends AdminController
 {
     public function actionIndex()
     {
-        $db = \Phpfox::get('db');
+        $request = \Phpfox::get('mvc.request');
 
-        $packages = $db->select('*')
-            ->from(':core_package')
-            ->where('is_theme=1')
-            ->order('is_core', -1)
+        $cmd = $request->get('cmd');
+        $id = $request->get('id');
+
+        if($id){
+            switch($cmd){
+                case 'default':
+                    \Phpfox::get('core.themes')
+                        ->setDefault($id);
+                    break;
+                case 'active':
+                    \Phpfox::get('core.themes')
+                        ->active($id);
+                    break;
+                case 'inactive':
+                    \Phpfox::get('core.themes')
+                        ->inactive($id);
+                    break;
+            }
+        }
+
+        $items = \Phpfox::getModel('core_theme')
+            ->select('*')
             ->execute()
             ->all();
 
         $vm = new ViewModel([
-            'items' => $packages,
+            'items' => $items,
         ]);
+
         $vm->setTemplate('core.admin-theme.index');
 
         return $vm;
@@ -37,7 +55,6 @@ class AdminThemeController extends ActionController
         $vm = new ViewModel();
         $form = new ThemeEditor();
         $request = \Phpfox::get('mvc.request');
-
         $id = $request->get('id');
 
 

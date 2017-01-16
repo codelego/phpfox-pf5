@@ -16,5 +16,5 @@ return [
         'auth.factory'        => [null, Service\AuthFactory::class],
         'user.profile_filter' => [null, Service\ProfileNameFilter::class],
     ],
-    'templates'      => _get_view_map(['user' => 'neutron-users/view',]),
+    'templates'      => _view_map('neutron-users/view'),
 ];

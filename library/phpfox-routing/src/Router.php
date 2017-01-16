@@ -74,22 +74,28 @@ class Router
 
     /**
      * @param string       $key
-     * @param array|string $params
+     * @param array|string $context
      * @param array|string $query
      *
      * @return string
      */
-    public function getUrl($key, $params = [], $query = null)
+    public function getUrl($key, $context = [], $query = null)
     {
         if (null == $key) {
-            return PHPFOX_BASE_URL . $params;
+            return PHPFOX_BASE_URL . $context;
         }
 
-        if ($query) {
-            ;
+        if (empty($query)) {
+            $query = '';
+        } elseif (is_string($query)) {
+            $query = '?' . $query;
+        } elseif (is_array($query)) {
+            $query = '?' . http_build_query($query);
+        }else {
+            $query =  '';
         }
 
-        return PHPFOX_BASE_URL . $this->getUri($key, $params);
+        return PHPFOX_BASE_URL . $this->getUri($key, $context) . $query;
 
     }
 

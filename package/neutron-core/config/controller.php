@@ -14,4 +14,5 @@ return [
     'core.ajax-i18n'            => AjaxI18nController::class,
     'core.admin-maintenance'    => AdminMaintenanceController::class,
     'core.admin-status'         => AdminStatusController::class,
+    'core.admin-authorization'  => AdminAuthorizationController::class,
 ];

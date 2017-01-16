@@ -22,3 +22,10 @@ form.form-inline .form-group {
     color: white;
     padding: 1.0em;
 }
+
+.cmds > a+a:before,
+.cmds >span+span:before
+{
+    content: "\0b7\0A0";
+    display: inline-block;
+}

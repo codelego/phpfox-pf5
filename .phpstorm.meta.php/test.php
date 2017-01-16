@@ -1,5 +1,7 @@
 <?php
 
-var_dump(function_exists('ssh2_sftp'));
+include '../config/bootstrap.php';
 
-_url('admin.core.i18n');
+$data = _view_map('neutron-core/view');
+
+var_export($data);

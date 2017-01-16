@@ -52,5 +52,10 @@ return [
                 'controller' => 'user.profile',
             ],
         ],
+        'admin.user'      => [
+            'route'      => 'users/*',
+            'controller' => 'user.admin-manage',
+            'action'     => 'index',
+        ],
     ],
 ];

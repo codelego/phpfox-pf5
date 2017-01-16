@@ -13,6 +13,17 @@ return [
                 'action'     => 'index',
             ],
         ],
+        'admin.core.authorization'     => [
+            'route'    => 'core/authorizations/*',
+            'controller' => 'core.admin-authorization',
+            'action'     => 'index',
+            'children' => [
+                'edit'=>['route'=>'edit/<id>','action'=>'edit'],
+                'settings'=>['route'=>'settings/<id>','action'=>'settings'],
+                'add'=>['route'=>'add','action'=>'add'],
+                'delete'=>['route'=>'delete','action'=>'delete'],
+            ],
+        ],
         'admin.core.package'     => [
             'route'    => 'core/package/*',
             'defaults' => [
@@ -20,22 +31,6 @@ return [
                 'action'     => 'index',
             ],
             'children' => [
-                'apps'      => [
-                    'route'    => 'apps',
-                    'defaults' => ['action' => 'apps'],
-                ],
-                'themes'    => [
-                    'route'    => 'themes',
-                    'defaults' => ['action' => 'themes'],
-                ],
-                'languages' => [
-                    'route'    => 'languages',
-                    'defaults' => ['action' => 'languages'],
-                ],
-                'libraries' => [
-                    'route'    => 'libraries',
-                    'defaults' => ['action' => 'libraries'],
-                ],
                 'add'       => [
                     'route'    => 'add',
                     'defaults' => ['action' => 'add'],

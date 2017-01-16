@@ -8,7 +8,14 @@ use Leafo\ScssPhp\Compiler;
 class StylesheetCompiler
 {
 
-    public function rebuild($themeId)
+    /**
+     * @param string $themeId
+     * @param array  $variables
+     * @param array  $paths
+     *
+     * @return bool
+     */
+    public function rebuild($themeId, $variables = [], $paths = [])
     {
         $container = new \ArrayObject();
 
@@ -37,14 +44,9 @@ class StylesheetCompiler
             }
         }
 
-        $variables = [];
-        $paths = [
-
-        ];
-
         $content = $this->compile($source, $variables, $paths);
 
-        $outputFilename = sprintf(PHPFOX_DIR . '/static/%s/css/main.css',
+        $outputFilename = sprintf(PHPFOX_DIR . '/static/theme-%s/css/main.css',
             $themeId);
 
         $dir = dirname($outputFilename);

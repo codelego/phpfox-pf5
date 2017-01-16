@@ -47,11 +47,10 @@ return [
         'core.callback'        => [null, Service\EventListener::class],
         'navigation.loader'    => [null, Service\NavigationLoader::class],
         'core.i18n_language'   => [null, Service\I18nLanguage::class],
+        'core.packages'        => [null, Service\Packages::class],
+        'core.themes'          => [null, Service\Themes::class],
     ],
-    'templates'       => _get_view_map([
-        'core'   => 'neutron-core/view',
-        'layout' => 'neutron-core/layout',
-    ]),
+    'templates'       => _view_map('neutron-core/view'),
     'session.drivers' => [
         'database' => Service\DatabaseSession::class,
     ],

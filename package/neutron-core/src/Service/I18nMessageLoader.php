@@ -21,7 +21,7 @@ class I18nMessageLoader implements I18nMessageLoaderInterface
                 $result[$row['var_name']]
                     = array_values(json_decode($row['text_value'], 1));
             } else {
-                $result[$row['var_name']] = [$row['text_value']];
+                $result[$row['var_name']] = $row['text_value'];
             }
         }
         return $result;
