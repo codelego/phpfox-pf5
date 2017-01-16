@@ -31,4 +31,10 @@ class CoreTheme extends DbModel
     {
         return (bool)$this->__get('is_active');
     }
+
+    public function getParentId()
+    {
+        return (bool)$this->__get('parent_id');
+    }
+
 }

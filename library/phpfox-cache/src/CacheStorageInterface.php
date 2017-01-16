@@ -12,7 +12,7 @@ interface CacheStorageInterface
     /**
      * @param string $key
      *
-     * @return mixed
+     * @return mixed|null
      */
     public function getItem($key);
 

@@ -6,53 +6,51 @@ return [
 
     ],
     'routes'  => [
-        'admin'                  => [
+        'admin'                    => [
             'route'    => 'admincp/*',
             'defaults' => [
                 'controller' => 'core.admin-index',
                 'action'     => 'index',
             ],
         ],
-        'admin.core.authorization'     => [
-            'route'    => 'core/authorizations/*',
+        'admin.core.authorization' => [
+            'route'      => 'core/authorizations/*',
             'controller' => 'core.admin-authorization',
             'action'     => 'index',
-            'children' => [
-                'edit'=>['route'=>'edit/<id>','action'=>'edit'],
-                'settings'=>['route'=>'settings/<id>','action'=>'settings'],
-                'add'=>['route'=>'add','action'=>'add'],
-                'delete'=>['route'=>'delete','action'=>'delete'],
+            'children'   => [
+                'edit'     => ['route' => 'edit/<id>', 'action' => 'edit'],
+                'settings' => ['route'  => 'settings/<id>',
+                               'action' => 'settings',
+                ],
+                'add'      => ['route' => 'add', 'action' => 'add'],
+                'delete'   => ['route' => 'delete', 'action' => 'delete'],
             ],
         ],
-        'admin.core.package'     => [
+        'admin.core.package'       => [
             'route'    => 'core/package/*',
             'defaults' => [
                 'controller' => 'core.admin-package',
                 'action'     => 'index',
             ],
             'children' => [
-                'add'       => [
+                'add' => [
                     'route'    => 'add',
                     'defaults' => ['action' => 'add'],
                 ],
             ],
         ],
-        'admin.core.theme'       => [
-            'route'    => 'core/themes/*',
+        'admin.core.theme'         => [
+            'route'      => 'core/themes/*',
             'controller' => 'core.admin-theme',
             'action'     => 'index',
-            'children' => [
+            'children'   => [
                 'edit' => [
-                    'route'    => 'edit/<id>',
-                    'action'=>'edit',
-                ],
-                'rebuild' => [
-                    'route'    => 'rebuild/<id>/<name>',
-                    'action'=>'rebuild',
+                    'route'  => 'edit/<id>',
+                    'action' => 'edit',
                 ],
             ],
         ],
-        'admin.core.i18n'        => [
+        'admin.core.i18n'          => [
             'route'    => 'core/i18n/*',
             'defaults' => [
                 'controller' => 'core.admin-i18n',
@@ -79,7 +77,7 @@ return [
                 ],
             ],
         ],
-        'admin.core.status'      => [
+        'admin.core.status'        => [
             'route'    => 'core/status/*',
             'defaults' => [
                 'controller' => 'core.admin-status',
@@ -113,7 +111,7 @@ return [
                 ],
             ],
         ],
-        'admin.core.settings'    => [
+        'admin.core.settings'      => [
             'route'    => 'core/settings/*',
             'defaults' => [
                 'controller' => 'core.admin-settings',
@@ -127,52 +125,52 @@ return [
                 ],
             ],
         ],
-        'admin.core.maintenance' => [
+        'admin.core.maintenance'   => [
             'route'    => 'core/maintenance/*',
             'defaults' => [
                 'controller' => 'core.admin-maintenance',
                 'action'     => 'index',
             ],
         ],
-        'admin.login'            => [
+        'admin.login'              => [
             'route'    => 'login',
             'defaults' => [
                 'controller' => 'core.admin-auth',
                 'action'     => 'login',
             ],
         ],
-        'api'                    => [
+        'api'                      => [
             'route' => 'api/*',
         ],
-        'ajax'                   => [
+        'ajax'                     => [
             'route' => 'ajax/*',
         ],
-        'ajax.i18n'              => [
+        'ajax.i18n'                => [
             'route'    => 'i18n/<action>',
             'defaults' => ['controller' => 'core.ajax-i18n'],
         ],
-        'home'                   => [
+        'home'                     => [
             'route'    => '/',
             'defaults' => [
                 'controller' => 'core.index',
                 'action'     => 'index',
             ],
         ],
-        'api.menu'               => [
+        'api.menu'                 => [
             'route'    => 'menu',
             'defaults' => [
                 'controller' => 'MenuApiController',
                 'action'     => 'listing',
             ],
         ],
-        'api.menu.item'          => [
+        'api.menu.item'            => [
             'route'    => '<id>',
             'defaults' => [
                 'controller' => 'MenuApiController',
                 'action'     => 'view',
             ],
         ],
-        'profile.index'          => [
+        'profile.index'            => [
             'route'    => '/',
             'defaults' => [
                 'action' => 'index',

@@ -96,9 +96,9 @@ namespace {
             $id = str_replace(['//', '/', '\\'],
                 ['.', '.', '.'], _deflect($prepare));
 
-            list($layout, $id) = explode('.', $id,2);
+            list($layout, $id) = explode('.', $id, 2);
 
-            $id =  $layout .'/'. $id;
+            $id = $layout . '/' . $id;
 
 
             $value = str_replace($extension, '',
@@ -466,6 +466,29 @@ namespace {
     function _url($key, $context = [], $query = null)
     {
         return \Phpfox::get('router')->getUrl($key, $context, $query);
+    }
+
+    /**
+     * @param string|array $key
+     * @param \Closure     $callback
+     * @param int          $ttl
+     *
+     * @return mixed|null
+     */
+    function _from_local_cache($key, $callback, $ttl = 0)
+    {
+        if (is_array($key)) {
+            $key = implode('_', $key);
+        }
+        $item = Phpfox::get('cache.local')
+            ->getItem($key);
+
+        if (null === $item) {
+            $item = $callback();
+
+            Phpfox::get('cache.local')->setItem($key, $item, $ttl);
+        }
+        return $item;
     }
 
     /**

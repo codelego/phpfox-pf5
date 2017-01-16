@@ -30,6 +30,9 @@ class AdminThemeController extends AdminController
                     \Phpfox::get('core.themes')
                         ->inactive($id);
                     break;
+                case 'rebuild':
+                    \Phpfox::get('core.themes')
+                        ->rebuild($id);
             }
         }
 
@@ -80,16 +83,5 @@ class AdminThemeController extends AdminController
         $vm->setTemplate('layout.admin.edit');
 
         return $vm;
-    }
-
-    public function actionRebuild()
-    {
-
-        $request = \Phpfox::get('mvc.request');
-        $id = $request->get('id');
-        $name = $request->get('name');
-
-        $compiler = new StylesheetCompiler();
-        $compiler->rebuild($name);
     }
 }

@@ -26,7 +26,7 @@ interface SqlResultInterface
     /**
      * Fetch the first record as association array
      *
-     * @return array
+     * @return array|mixed
      */
     public function first();
 

@@ -9,16 +9,32 @@ class StylesheetCompiler
 {
 
     /**
-     * @param string $themeId
+     * @param string $output
      * @param array  $variables
      * @param array  $paths
      *
      * @return bool
      */
-    public function rebuild($themeId, $variables = [], $paths = [])
+    public function rebuild($output, $variables = [], $paths = [])
     {
-        $container = new \ArrayObject();
 
+        // validate permission
+        $dir = dirname($output);
+
+        if (!is_dir($dir)) {
+            if (!@mkdir($dir, 0755, 1)) {
+                throw new \RuntimeException("Can not write to $dir");
+            }
+            if (!chmod($dir, 0755)) {
+                throw new \RuntimeException("Can not write to $dir");
+            }
+        }
+
+        if (file_exists($output) and !is_writeable($output)) {
+            throw new \InvalidArgumentException("Oops! Could not write to file [$output]");
+        }
+
+        $container = new \ArrayObject();
         $response = _emit('onStylesheetRebuild', $container);
         $source = [
             '@import "user-variables";',
@@ -46,28 +62,16 @@ class StylesheetCompiler
 
         $content = $this->compile($source, $variables, $paths);
 
-        $outputFilename = sprintf(PHPFOX_DIR . '/static/theme-%s/css/main.css',
-            $themeId);
-
-        $dir = dirname($outputFilename);
-
-        if (!is_dir($dir)) {
-            if (!@mkdir($dir, 0755, 1)) {
-                throw new \RuntimeException("Can not write to $dir");
-            }
-            @chmod($dir, 0755);
-        }
-
-        $fp = fopen($outputFilename, 'w');
+        $fp = fopen($output, 'w');
 
         if (!$fp) {
-            throw new \InvalidArgumentException("Oops! Could not write to file [$outputFilename]");
+            throw new \InvalidArgumentException("Oops! Could not write to file [$output]");
         }
 
         fwrite($fp, $content);
         fclose($fp);
 
-        @chmod($outputFilename, 0777); // change correct permissions.
+        @chmod($output, 0644);
 
         return true;
     }
@@ -83,6 +87,7 @@ class StylesheetCompiler
     {
         try {
 
+            // push more paths
             $paths[] = PHPFOX_DIR . 'static/base/sass';
             $paths[] = PHPFOX_DIR;
 

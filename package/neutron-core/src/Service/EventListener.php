@@ -6,11 +6,10 @@ use Phpfox\Event\EventListenerInterface;
 
 class EventListener implements EventListenerInterface
 {
-
     public function onBootstrap()
     {
         \Phpfox::get('view.template')
-            ->preferThemes('default');
+            ->preferThemes(\Phpfox::get('core.themes')->preferThemes());
     }
 
     public function onSystemHealthCheck()
