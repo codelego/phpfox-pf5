@@ -10,20 +10,23 @@ class FormBootstrapRender implements RenderInterface
      */
     public function render($form)
     {
-        static $id = 0;
-
-
         $fc = \Phpfox::get('form.render');
 
-        $result = array_map(function (ElementInterface $v) use ($fc, &$id) {
-
+        $result = array_map(function (ElementInterface $v) use ($fc) {
             $name = $v->getName();
+            $note = $v->getParam('note', '');
+            if ($note) {
+                $note = '<p class="help-block">' . $note . '</p>';
+            }
+
             $label = $v->noLabel()
                 ? ''
-                : '<label for="_' . ($id++) . '">' . $v->getLabel()
+                : '<label>' . $v->getLabel()
                 . '</label>';
+
+
             return '<div class="form-group input-' . $name . '">' . $label
-                . $fc->render($v) . '</div>';
+                . $note .$fc->render($v) .  '</div>';
         }, $form->getElements());
 
         return implode(PHP_EOL, $result);

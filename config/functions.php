@@ -15,6 +15,12 @@ namespace {
             ->emit($name, $target, $argv);
     }
 
+    function _pass($action, $roleId = null)
+    {
+        return \Phpfox::get('authorization')
+            ->pass($roleId, $action);
+    }
+
     function _describe_table($table)
     {
         if (substr($table, 0, 1) == ':') {
@@ -55,57 +61,58 @@ namespace {
     /**
      * @param array|string $array ['core'=> PHPFOX_DIR
      *                            .'/package/neutron-core/view',...]
-     * @param string|null  $dir
+     * @param string|null  $config
      *
      * @return array
      */
-    function _view_map($dir)
+    function _view_map($config)
     {
         $map = [];
         $extension = '.phtml';
-        $packageDir = realpath(PHPFOX_PACKAGE_DIR);
+        foreach ($config as $template => $items) {
+            foreach ($items as $name => $folder) {
+                $directory = realpath(PHPFOX_DIR . $folder);
 
-        $directory = realpath(PHPFOX_PACKAGE_DIR . DS . $dir);
+                if (!$directory || !is_dir($directory)) {
+                    return [];
+                }
 
-        if (!$directory || !is_dir($directory)) {
-            return [];
-        }
-        $startCharacter = strlen($directory);
+                $startCharacter = strlen($directory);
 
-        $directoryIterator
-            = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory,
-            RecursiveDirectoryIterator::SKIP_DOTS),
-            RecursiveIteratorIterator::SELF_FIRST,
-            RecursiveIteratorIterator::CATCH_GET_CHILD // Ignore "Permission denied"
-        );
+                $directoryIterator
+                    = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory,
+                    RecursiveDirectoryIterator::SKIP_DOTS),
+                    RecursiveIteratorIterator::SELF_FIRST,
+                    RecursiveIteratorIterator::CATCH_GET_CHILD // Ignore "Permission denied"
+                );
 
-        foreach ($directoryIterator as $path => $entry) {
-            if ($entry->isDir()) {
-                continue;
+                foreach ($directoryIterator as $path => $entry) {
+                    if ($entry->isDir()) {
+                        continue;
+                    }
+
+                    $path = $entry->getPath() . '/' . $entry->getFilename();
+
+                    if (!strpos($path, $extension)) {
+                        continue;
+                    }
+
+                    $prepare = str_replace($extension, '',
+                        substr($path, $startCharacter + 1));
+
+                    $id = $template . '/' . $name . '.' . str_replace([
+                            '//',
+                            '/',
+                            '\\',
+                        ],
+                            ['.', '.', '.'], _deflect($prepare));
+
+                    $map[$id] = str_replace([PHPFOX_DIR, $extension], ['', ''],
+                        $path);
+                }
             }
-
-            $path = $entry->getPath() . '/' . $entry->getFilename();
-
-            if (!strpos($path, $extension)) {
-                continue;
-            }
-
-            $prepare = str_replace($extension, '',
-                substr($path, $startCharacter + 1));
-
-            $id = str_replace(['//', '/', '\\'],
-                ['.', '.', '.'], _deflect($prepare));
-
-            list($layout, $id) = explode('.', $id, 2);
-
-            $id = $layout . '/' . $id;
-
-
-            $value = str_replace($extension, '',
-                trim(str_replace($packageDir, '', $path), DS));
-
-            $map[$id] = $value;
         }
+
 
         return $map;
     }
@@ -466,29 +473,6 @@ namespace {
     function _url($key, $context = [], $query = null)
     {
         return \Phpfox::get('router')->getUrl($key, $context, $query);
-    }
-
-    /**
-     * @param string|array $key
-     * @param \Closure     $callback
-     * @param int          $ttl
-     *
-     * @return mixed|null
-     */
-    function _from_local_cache($key, $callback, $ttl = 0)
-    {
-        if (is_array($key)) {
-            $key = implode('_', $key);
-        }
-        $item = Phpfox::get('cache.local')
-            ->getItem($key);
-
-        if (null === $item) {
-            $item = $callback();
-
-            Phpfox::get('cache.local')->setItem($key, $item, $ttl);
-        }
-        return $item;
     }
 
     /**

@@ -13,11 +13,6 @@ class StylesheetCompilerTest extends \PHPUnit_Framework_TestCase
 {
     public function testBundle()
     {
-        $compiler = new StylesheetCompiler();
-        $output =  PHPFOX_DIR .'/static/theme-test/css/main.css';
-        $result = $compiler->rebuildMain($output);
-        $this->assertTrue($result);
 
-        unlink($output);
     }
 }

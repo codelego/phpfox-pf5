@@ -28,5 +28,10 @@ interface UserInterface extends ResourceInterface
      */
     public function isUser();
 
+    /**
+     * @return mixed
+     */
+    public function getRoleId();
+
     public function getUrl();
 }

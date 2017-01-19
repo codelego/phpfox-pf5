@@ -37,12 +37,33 @@ class MemcacheCacheStorage implements CacheStorageInterface
 
     }
 
-    public function setItem($key, $value, $ttl = 0)
+    public function with($key, $fallback, $ttl = 0)
+    {
+        if (is_array($key)) {
+            $key = implode('_', $key);
+        }
+
+        $item = $this->getItem($key);
+
+        if (null == $item) {
+            $this->saveItem($item = new CacheItem($key, $fallback(), $ttl));
+        }
+
+        return $item->value;
+    }
+
+    public function saveItem(CacheItem $item)
     {
         $this->ready();
 
-        return $this->memcache->set($key, $value, MEMCACHE_COMPRESSED, $ttl);
+        return $this->memcache->set($item->key, $item, MEMCACHE_COMPRESSED,
+            $item->ttl);
+    }
 
+
+    public function setItem($key, $value, $ttl = 0)
+    {
+        return $this->saveItem(new CacheItem($key, $value, $ttl));
     }
 
 
@@ -51,7 +72,7 @@ class MemcacheCacheStorage implements CacheStorageInterface
         $this->ready();
 
         foreach ($keyValues as $key => $value) {
-            $this->memcache->set($key, $value, MEMCACHE_COMPRESSED, $ttl);
+            $this->saveItem(new CacheItem($key, $value, $ttl));
         }
 
         return true;

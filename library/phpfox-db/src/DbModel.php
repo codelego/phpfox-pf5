@@ -34,6 +34,13 @@ abstract class DbModel implements ModelInterface
         return $this->_data;
     }
 
+    public function fromArray($data)
+    {
+        foreach ($data as $k => $v) {
+            $this->__set($k, $v);
+        }
+    }
+
     public function exchangeArray($array)
     {
         $this->_data = $array;

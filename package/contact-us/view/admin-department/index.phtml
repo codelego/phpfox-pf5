@@ -1,0 +1,36 @@
+<div class="container text-right">
+    <a href="<?= _url('admin.contact-us.settings') ?>" class="btn btn-link"><?= _text('Settings') ?></a>
+    <a href="<?= _url('admin.contact-us.permissions') ?>" class="btn btn-link"><?= _text('Permissions') ?></a>
+    <a href="<?= _url('admin.contact-us.add') ?>" class="btn btn-link"><?= _text('Add Department') ?></a>
+</div>
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-admin">
+            <thead>
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Active</td>
+                <td>Default?</td>
+                <td>Message?</td>
+                <td>Option</td>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item): ?>
+                <tr>
+                    <td><?= $item->getId() ?></td>
+                    <td><?= $item->getName() ?></td>
+                    <td><?= _yesno($item->isActive()) ?></td>
+                    <td><?= _yesno($item->isDefault()) ?></td>
+                    <td><?= $item->getMessageCount() ?></td>
+                    <td>
+                        <a href="<?= _url('admin.contact-us.department.edit',
+                            ['id' => $item->getId()]) ?>"><?= _text('edit') ?></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

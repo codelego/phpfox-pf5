@@ -15,12 +15,11 @@ class ViewLayout extends ViewModel
     public function prepare()
     {
         if (!$this->template) {
-            $this->template = 'layout.master.default';
+            $this->template = 'layout.default';
         }
 
         \Phpfox::assets()
             ->addScripts('require', null)
-            ->prependStyle('custom', null)
             ->prependStyle('main', null)
             ->prependStyle('font', null);
 

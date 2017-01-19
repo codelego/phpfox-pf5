@@ -21,10 +21,6 @@ class ExternalStyle implements HtmlElementInterface
             return;
         }
 
-        if (substr($path, 0, 2) != '//') {
-            $path = $this->getUrl($path);
-        }
-
         $props = array_merge([
             'type' => 'text/css',
             'rel'  => 'stylesheet',
@@ -50,10 +46,6 @@ class ExternalStyle implements HtmlElementInterface
             return;
         }
 
-        if (substr($path, 0, 2) != '//') {
-            $path = $this->getUrl($path);
-        }
-
         $props = array_merge([
             'type' => 'text/css',
             'rel'  => 'stylesheet',
@@ -66,7 +58,10 @@ class ExternalStyle implements HtmlElementInterface
 
     public function getHtml()
     {
-        return implode(PHP_EOL, array_map(function ($v) {
+        $base = \Phpfox::get('core.themes')->getCssBaseUrl();
+
+        return implode(PHP_EOL, array_map(function ($v) use ($base) {
+            $v['href'] = str_replace('@css', $base, $v['href']);
             return _sprintf('<{0} {1}/>', ['link', _attrize($v)]);
         }, $this->data));
     }

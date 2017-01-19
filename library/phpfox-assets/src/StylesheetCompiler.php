@@ -7,56 +7,20 @@ use Leafo\ScssPhp\Compiler;
 
 class StylesheetCompiler
 {
-
     /**
-     * @param string $input     input file name
-     * @param string $output    output file name
-     * @param array  $variables sass variables
-     * @param array  $paths     import paths
-     *
-     * @return bool
+     * @return string
      */
-    public function rebuildFile($input, $output, $variables, $paths)
+    public function getInitial()
     {
-        $source = file_get_contents($input);
+        $initial = [
+            '@import "user-variables";',
+            '@import "variables";',
+            '@import "config-variables";',
+            '@import "bootstrap/mixins";',
+            '@import "mixins";',
+        ];
 
-        return $this->rebuild($source, $output, $variables, $paths);
-    }
-
-    /**
-     * Rebuild main css
-     *
-     * @param string $output
-     * @param array  $variables
-     * @param array  $paths
-     *
-     * @return bool
-     */
-    public function rebuildMain($output, $variables = [], $paths = [])
-    {
-        $container = new \ArrayObject();
-
-        $response = _emit('onRebuildMain', $container);
-
-        $source[] = '@import "main";';
-
-        if ($response) {
-            foreach ($response as $item) {
-                if (is_array($item)) {
-                    foreach ($item as $v) {
-                        $source[] = sprintf('@import "%s";', $v);
-                    }
-                } else {
-                    if (is_string($item)) {
-                        $source[] = sprintf('@import "%s";', $item);
-                    }
-                }
-            }
-        }
-
-        $source = implode(PHP_EOL, $source);
-
-        return $this->rebuild($source, $output, $variables, $paths);
+        return implode(PHP_EOL, $initial);
     }
 
     /**
@@ -88,15 +52,8 @@ class StylesheetCompiler
             throw new \InvalidArgumentException("Oops! Could not write to file [$output]");
         }
 
-        $initial = [
-            '@import "user-variables";',
-            '@import "variables";',
-            '@import "config-variables";',
-            '@import "bootstrap/mixins";',
-            '@import "mixins";',
-        ];
 
-        $source = implode(PHP_EOL, $initial) . PHP_EOL . $source;
+        $source = $this->getInitial() . PHP_EOL . $source;
 
         $content = $this->compile($source, $variables, $paths);
 
@@ -124,11 +81,7 @@ class StylesheetCompiler
     public function compile($source, $variables, $paths)
     {
         try {
-
             // push more paths
-            $paths[] = PHPFOX_DIR . 'static/base/sass';
-            $paths[] = PHPFOX_DIR;
-
             $compiler = new Compiler();
 
             if (!empty($variables)) {
@@ -142,6 +95,8 @@ class StylesheetCompiler
             $compiler->setFormatter('Leafo\ScssPhp\Formatter\Compressed');
 
             $compiler->setIgnoreErrors(false);
+
+            $compiler->getVariables();
 
             return $compiler->compile($source);
 

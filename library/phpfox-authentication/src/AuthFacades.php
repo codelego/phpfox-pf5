@@ -56,6 +56,8 @@ class AuthFacades
         $this->user = $user;
         $this->loginUser = $user;
 
+        _emit('onUserLogin', $user);
+
         $this->remember($remember);
 
     }
@@ -130,6 +132,8 @@ class AuthFacades
     public function setLoginUser($loginUser)
     {
         $this->loginUser = $loginUser;
+
+        _emit('onLoginUser', $loginUser);
     }
 
     public function isLoggedIn()

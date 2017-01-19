@@ -39,7 +39,7 @@ class PhpTemplate implements ViewTemplateInterface
 
         unset($__vars_);
 
-        include PHPFOX_PACKAGE_DIR . DS . $__template_ . '.phtml';
+        include PHPFOX_DIR . $__template_ . '.phtml';
 
         return ob_get_clean();
 
@@ -64,8 +64,8 @@ class PhpTemplate implements ViewTemplateInterface
 
         if (empty($themes)) {
             $themes = ['default'];
-        }else{
-            $themes[] =  'default';
+        } else {
+            $themes[] = 'default';
         }
 
         $this->prefers = array_map(function ($v) {

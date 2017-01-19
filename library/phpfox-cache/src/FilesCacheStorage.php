@@ -39,6 +39,20 @@ class FilesCacheStorage implements CacheStorageInterface
         $this->debug = (bool)$configs['debug'];
     }
 
+    public function with($key, $fallback, $ttl = 0)
+    {
+        if (is_array($key)) {
+            $key = implode('_', $key);
+        }
+        $item = $this->getItem($key);
+
+        if (null == $item) {
+            $this->saveItem($item = new CacheItem($key, $fallback(), $ttl));
+        }
+
+        return $item->value;
+    }
+
     public function getItems($keys = [])
     {
         $result = [];
@@ -56,10 +70,15 @@ class FilesCacheStorage implements CacheStorageInterface
             return null;
         }
 
-        $data = unserialize(file_get_contents($filename));
+        /** @var CacheItem $item */
+        $item = unserialize(file_get_contents($filename));
 
-        if ($data['lifetime'] == 0 || $data['lifetime'] > time()) {
-            return $data['val'];
+        if (!$item) {
+            return null;
+        }
+
+        if ($item->ttl == 0 || $item->ttl > time()) {
+            return $item;
         }
 
         return null;
@@ -77,24 +96,27 @@ class FilesCacheStorage implements CacheStorageInterface
         return $this->directory . DIRECTORY_SEPARATOR . $path;
     }
 
-    public function setItem($key, $value, $ttl = 0)
+    public function saveItem(CacheItem $item)
     {
-        $filename = $this->getFilename($key);
+        $filename = $this->getFilename($item->key);
 
         if (!$this->ensureFilename($filename)) {
             return false;
         }
-        if (!file_put_contents($filename, serialize([
-            'val'      => $value,
-            'lifetime' => $ttl > 0 ? $ttl + time() : 0,
-        ]))
+
+        if (!file_put_contents($filename, serialize($item))
         ) {
             return false;
         }
 
-        @chmod($filename,$this->filePermission);
+        @chmod($filename, $this->filePermission);
 
         return true;
+    }
+
+    public function setItem($key, $value, $ttl = 0)
+    {
+        return $this->saveItem(new CacheItem($key, $value, $ttl));
     }
 
     public function setItems($keyValues, $ttl = 0)
@@ -133,7 +155,7 @@ class FilesCacheStorage implements CacheStorageInterface
 
         foreach ($files as $splInfo) {
             if ($splInfo->isDir()) {
-                rmdir($splInfo->getRealpath());
+                @rmdir($splInfo->getRealpath());
             }
 
             if ($splInfo->isFile()) {

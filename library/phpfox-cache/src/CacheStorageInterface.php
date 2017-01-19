@@ -2,17 +2,21 @@
 
 namespace Phpfox\Cache;
 
-/**
- * Interface CacheStorageInterface
- *
- * @package Phpfox\Cache
- */
 interface CacheStorageInterface
 {
     /**
+     * @param string   $key
+     * @param \Closure $fallback
+     * @param int      $ttl
+     *
+     * @return mixed
+     */
+    public function with($key, $fallback, $ttl = 0);
+
+    /**
      * @param string $key
      *
-     * @return mixed|null
+     * @return CacheItem|null
      */
     public function getItem($key);
 
@@ -26,9 +30,16 @@ interface CacheStorageInterface
     public function setItem($key, $value, $ttl = 0);
 
     /**
+     * @param CacheItem $item
+     *
+     * @return bool
+     */
+    public function saveItem(CacheItem $item);
+
+    /**
      * @param array $keys
      *
-     * @return mixed
+     * @return CacheItem[]
      */
     public function getItems($keys = []);
 

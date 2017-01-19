@@ -3,7 +3,7 @@
 namespace Phpfox\Navigation;
 
 
-class NavbarDecorator implements NavigationDecoratorInterface
+class NavbarDecorator implements DecoratorInterface
 {
     /**
      * render from section
@@ -38,33 +38,11 @@ class NavbarDecorator implements NavigationDecoratorInterface
      */
     protected $level;
 
-    /**
-     * @var array
-     */
-    protected $context;
-
-
-    public function __construct(
-        $menu,
-        $section =null,
-        $active = [],
-        $level = 1,
-        $context =[]
-    ) {
-
-        $this->menu = $menu;
-        $this->section = $section;
-        $this->active = $active;
-        $this->level = $level;
-        $this->context = $context;
-
-    }
-
 
     /**
      * @var array
      */
-    protected $defaults
+    protected $context
         = [
             'level0'       => 'nav navbar-nav',
             'level1'       => 'dropdown-menu',
@@ -75,6 +53,24 @@ class NavbarDecorator implements NavigationDecoratorInterface
             'dropdownIcon' => '&nbsp;<span class="caret"></span>',
             'moreLabel'    => 'More',
         ];
+
+
+    public function __construct(
+        $menu,
+        $section = null,
+        $active = [],
+        $level = 1,
+        $context = []
+    ) {
+
+        $this->menu = $menu;
+        $this->section = $section;
+        $this->active = $active;
+        $this->level = $level;
+        $this->context = array_merge($this->context, $context);
+
+    }
+
 
     public function render()
     {
@@ -99,11 +95,11 @@ class NavbarDecorator implements NavigationDecoratorInterface
             }
         }
 
-        if (count($content) > $this->defaults['max']) {
+        if (count($content) > $this->context['max']) {
             // re-process content for the level of now and how to process it as the main feature
         }
 
-        $class = $this->defaults['level0'];
+        $class = $this->context['level0'];
 
         return '<ul class="' . $class . '">' . implode('', $content) . '</ul>';
     }
@@ -128,6 +124,11 @@ class NavbarDecorator implements NavigationDecoratorInterface
     {
         $href = null;
         $params = [];
+
+        // validate passed acl
+        if ($item->acl and !_pass($item->acl)) {
+            return '';
+        }
 
         if (!empty($item->params)) {
             $params = $item->params;
@@ -178,11 +179,11 @@ class NavbarDecorator implements NavigationDecoratorInterface
         }
 
         if (!empty($item->children) && $level < $this->level) {
-            $childrenHtml = $this->renderChildren($level+1, $item->children);
+            $childrenHtml = $this->renderChildren($level + 1, $item->children);
 
             return '<li class="dropdown ' . $cls . '">'
                 . '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">'
-                . $label . $this->defaults['dropdownIcon'] . '</a>'
+                . $label . $this->context['dropdownIcon'] . '</a>'
                 . $childrenHtml . '</li>';
         } else {
             return '<li class="' . $cls . '"><a ' . $extra . ' href="' . $href
@@ -210,7 +211,7 @@ class NavbarDecorator implements NavigationDecoratorInterface
 //            $suffix = '<li class="tail"><div></div></li>';
         }
 
-        $class = $this->defaults[sprintf('level%d', $level)];
+        $class = $this->context[sprintf('level%d', $level)];
 
         return '<ul class="' . $class . '" role="menu">' . implode('', $content)
             . $suffix . '</ul>';

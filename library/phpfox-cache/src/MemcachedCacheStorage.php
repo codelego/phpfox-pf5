@@ -38,13 +38,31 @@ class MemcachedCacheStorage implements CacheStorageInterface
 
     }
 
-    public function setItem($key, $value, $ttl = 0)
+    public function with($key, $fallback, $ttl = 0)
+    {
+        if (is_array($key)) {
+            $key = implode('_', $key);
+        }
+        
+        $item = $this->getItem($key);
+
+        if (null == $item) {
+            $this->saveItem($item = new CacheItem($key, $fallback(), $ttl));
+        }
+
+        return $item->value;
+    }
+
+    public function saveItem(CacheItem $item)
     {
         $this->ready();
+        return $this->memcached->set($item->key, $item, $item->ttl);
+    }
 
-        $this->memcached->set($key, $value, $ttl);
 
-        return true;
+    public function setItem($key, $value, $ttl = 0)
+    {
+        return $this->saveItem(new CacheItem($key, $value, $ttl));
     }
 
     public function setItems($keyValues, $ttl = 0)
@@ -52,7 +70,7 @@ class MemcachedCacheStorage implements CacheStorageInterface
         $this->ready();
 
         foreach ($keyValues as $key => $value) {
-            $this->memcached->set($key, $value, $ttl);
+            $this->saveItem(new CacheItem($key, $value, $ttl));
         }
         return true;
     }
@@ -101,6 +119,7 @@ class MemcachedCacheStorage implements CacheStorageInterface
         $this->ready();
 
         $result = [];
+
         foreach ($keys as $k) {
             $result[$k] = $this->getItem($k);
         }

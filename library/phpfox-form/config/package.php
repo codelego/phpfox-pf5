@@ -12,6 +12,7 @@ return [
         'radio'          => RadioRender::class,
         'file_upload'    => FileUploadRender::class,
         'textarea'       => TextareaRender::class,
+        'yesno'          => YesnoRender::class,
     ],
     'form.elements' => [
         'color_picker' => ColorPicker::class,

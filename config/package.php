@@ -72,6 +72,7 @@
     'radio' => 'Phpfox\\Form\\RadioRender',
     'file_upload' => 'Phpfox\\Form\\FileUploadRender',
     'textarea' => 'Phpfox\\Form\\TextareaRender',
+    'yesno' => 'Phpfox\\Form\\YesnoRender',
   ),
   'job.handlers' => 
   array (
@@ -268,6 +269,11 @@
     array (
       0 => NULL,
       1 => 'Phpfox\\Authorization\\AuthorizationManager',
+    ),
+    'authorization.provider' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Authorization\\PermissionProviderInterface',
     ),
     'cache.local' => 
     array (

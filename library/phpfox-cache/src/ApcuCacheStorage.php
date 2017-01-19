@@ -4,16 +4,36 @@ namespace Phpfox\Cache;
 
 class ApcuCacheStorage implements CacheStorageInterface
 {
+    public function with($key, $fallback, $ttl = 0)
+    {
+        if (is_array($key)) {
+            $key = implode('_', $key);
+        }
+
+        $item = $this->getItem($key);
+
+        if (null == $item) {
+            $this->saveItem($item = new CacheItem($key, $fallback(), $ttl));
+        }
+
+        return $item->value;
+    }
+
+    public function saveItem(CacheItem $item)
+    {
+        apcu_store($item->key, $item, $item->ttl);
+        return true;
+    }
+
     public function setItem($key, $value, $ttl = 0)
     {
-        apcu_store($key, $value, $ttl);
-        return true;
+        return $this->saveItem(new CacheItem($key, $value, $ttl));
     }
 
     public function setItems($keyValues, $ttl = 0)
     {
         foreach ($keyValues as $k => $v) {
-            apcu_store($k, $v, $ttl);
+            $this->saveItem(new CacheItem($k, $v, $ttl));
         }
         return true;
 
@@ -21,13 +41,11 @@ class ApcuCacheStorage implements CacheStorageInterface
 
     public function getItems($keys = [])
     {
-        $success = false;
-        $data = apcu_fetch($keys, $success);
-
-        if (!$success) {
-            return null;
+        $result = [];
+        foreach ($keys as $key) {
+            $result[$key] = $this->getItem($key);
         }
-        return $data;
+        return $result;
     }
 
     public function getItem($key)

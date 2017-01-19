@@ -32,10 +32,11 @@ interface ElementInterface
 
     /**
      * @param string $name
+     * @param mixed   $default
      *
      * @return mixed
      */
-    public function getParam($name);
+    public function getParam($name, $default = null);
 
     /**
      *

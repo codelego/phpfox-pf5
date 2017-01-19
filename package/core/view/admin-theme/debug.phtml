@@ -1,0 +1,49 @@
+<div class="container">
+    <h3># Main Source</h3>
+    <div class="alert alert-info"><?= nl2br($main); ?></div>
+
+    <h3># Import Paths</h3>
+    <div class="alert alert-info">
+        <?php foreach ($paths as $path): ?>
+            <?= $path; ?> <br/>
+        <?php endforeach; ?>
+    </div>
+    <h3># Variables</h3>
+    <div class="table-responsive">
+        <table class="table table-admin">
+            <thead>
+            <tr>
+                <td>Name</td>
+                <td>Value</td>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($variables as $input => $output): ?>
+                <tr>
+                    <td><?= $input ?></td>
+                    <td><?= $output ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <h3># Map Files</h3>
+    <div class="table-responsive">
+        <table class="table table-admin">
+            <thead>
+            <tr>
+                <td>Input</td>
+                <td>Output</td>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($files as $input => $output): ?>
+                <tr>
+                    <td><?= $input ?></td>
+                    <td><?= $output ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

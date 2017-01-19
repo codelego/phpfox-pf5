@@ -17,7 +17,7 @@ class RadioRender implements RenderInterface
         $optionHtml = [];
         foreach ($element->getOptions() as $option) {
             $selected = $option['value'] == $value;
-            $optionHtml[] = _sprintf('<div class="radio"><label><input {selected} type="radio" name="{name}" value="{value}" />{label}</input></label></div>',
+            $optionHtml[] = _sprintf('<div class="radio"><label><input {selected} type="radio" name="{name}" value="{value}" />{label}</label></div>',
                 ['name'=>$name,
                 'label'=>$option['label'],
                 'value'=>$option['value'],

@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-admin">
+            <thead>
+            <tr>
+                <th width="30px">ID</th>
+                <th>Name</th>
+                <th>Active?</th>
+                <th>Option</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item): ?>
+                <tr>
+                    <td><?= $item->getId() ?></td>
+                    <td><?= $item->getTitle() ?></td>
+                    <td><?= _yesno($item->isActive()) ?></td>
+                    <td>
+                        <a href="<?= _url('admin.abuse-report.category.edit',
+                            ['id' => $item->getId()]) ?>"><?= _text('edit') ?></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

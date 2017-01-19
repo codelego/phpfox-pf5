@@ -121,10 +121,8 @@ class NavDecorator
             ;
         }
 
-        if ($item->acl) {
-            if (false == \Phpfox::getAcl()->hasPermission(null, $item['acl'])) {
-                return '';
-            }
+        if ($item->acl and !_pass($item->acl)) {
+            return '';
         }
 
         $href = null;
@@ -175,7 +173,7 @@ class NavDecorator
         }
 
         if (!empty($item->children)) {
-            $childrenHtml = $this->renderChildren($level +1, $item->children);
+            $childrenHtml = $this->renderChildren($level + 1, $item->children);
 
             return '<li class="dropdown">'
                 . '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">'

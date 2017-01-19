@@ -19,12 +19,12 @@ class EventManager
      * @param null|object $target
      * @param array|null  $params
      *
-     * @return null|Response
+     * @return Response
      */
     public function emit($name, $target = null, $params = [])
     {
         if (empty($this->events[$name])) {
-            return null;
+            return new Response();
         }
 
         return $this->trigger(new Event($name, $target, $params));
@@ -43,6 +43,10 @@ class EventManager
         $event->stop(false);
 
         $response = new Response();
+
+        if (empty($this->events[$event->getName()])) {
+            return $response;
+        }
 
         try {
             foreach ($this->events[$name] as $key) {
@@ -64,9 +68,9 @@ class EventManager
     }
 
     /**
-     * @param       $name
-     * @param null  $target
-     * @param array $params
+     * @param string       $name
+     * @param mixed|object $target
+     * @param array        $params
      *
      * @return mixed
      */

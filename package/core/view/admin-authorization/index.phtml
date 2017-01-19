@@ -1,0 +1,59 @@
+<div class="container">
+    <h1>Manage Roles</h1>
+    <div class="btn-group">
+        <a class="btn btn-link"
+           href="<?= _url('admin.core.authorization.add') ?>">+ <?= _text('Add Role',
+                'admin') ?></a>
+    </div>
+</div>
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-admin">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Inherit</th>
+                <th>User</th>
+                <th>Special</th>
+                <th>Super</th>
+                <th>Admin</th>
+                <th>Moderator</th>
+                <th>Staff</th>
+                <th>Registered</th>
+                <th>Banned</th>
+                <th>Guest</th>
+                <th>Option</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item): ?>
+                <tr>
+                    <td><?php echo $item->getId() ?></td>
+                    <td><?php echo $item->getName() ?></td>
+                    <td><?php echo $item->getInheritId() ?></td>
+                    <td><?php echo $item->getUserCount() ?></td>
+                    <td><?= _yesno($item->isSpecial()) ?></td>
+                    <td><?= _yesno($item->isSuper()) ?></td>
+                    <td><?= _yesno($item->isAdmin()) ?></td>
+                    <td><?= _yesno($item->isModerator()) ?></td>
+                    <td><?= _yesno($item->isStaff()) ?></td>
+                    <td><?= _yesno($item->isRegistered()) ?></td>
+                    <td><?= _yesno($item->isBanned()) ?></td>
+                    <td><?= _yesno($item->isGuest()) ?></td>
+                    <td>
+                        <a href="<?= _url('admin.core.authorization.edit',
+                            ['id' => $item->getId()]) ?>"><?= _text('edit') ?></a>
+                        &middot;
+                        <a href="<?= _url('admin.core.authorization.delete',
+                            ['id' => $item->getId()]) ?>"><?= _text('delete') ?></a>
+                        &middot;
+                        <a href="<?= _url('admin.core.authorization.settings',
+                            ['id' => $item->getId()]) ?>"><?= _text('settings') ?></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
