@@ -13,7 +13,7 @@ class LocalFileStorageTest extends \PHPUnit_Framework_TestCase
             [3],
         ];
     }
-/**/
+    /**/
     /**
      *
      * @dataProvider provideConstructor
@@ -38,7 +38,8 @@ class LocalFileStorageTest extends \PHPUnit_Framework_TestCase
             @unlink($local);
         }
 
-        @file_put_contents($local, '200 0k' . PHP_EOL . get_class($fileStorage));
+        @file_put_contents($local,
+            '200 0k' . PHP_EOL . get_class($fileStorage));
 
         $name = \Phpfox::get('storage.file_name')
             ->createName(null, null, '.txt');

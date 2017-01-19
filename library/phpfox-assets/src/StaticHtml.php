@@ -20,8 +20,6 @@ class StaticHtml implements HtmlElementInterface
 
     /**
      * Clear all contents
-     *
-     * @return $this
      */
     public function clear()
     {

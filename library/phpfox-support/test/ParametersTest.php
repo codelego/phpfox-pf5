@@ -30,9 +30,9 @@ class ParametersTest extends \PHPUnit_Framework_TestCase
         $params->add(['key1' => 'value1']);
 
         $this->assertEquals('value1', $params->get('key1'));
-        
+
         $params->reset();
-        
+
         $this->assertNull($params->get('key1'));
     }
 }

@@ -91,8 +91,8 @@ class Router
             $query = '?' . $query;
         } elseif (is_array($query)) {
             $query = '?' . http_build_query($query);
-        }else {
-            $query =  '';
+        } else {
+            $query = '';
         }
 
         return PHPFOX_BASE_URL . $this->getUri($key, $context) . $query;

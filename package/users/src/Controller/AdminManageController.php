@@ -15,7 +15,7 @@ class AdminManageController extends AdminController
 
         $filter = new AdminFilterUser();
 
-        if(!empty($_GET)){
+        if (!empty($_GET)) {
             $filter->populate($_GET);
         }
 

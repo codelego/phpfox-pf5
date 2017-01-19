@@ -115,14 +115,13 @@ class AssetsFacades
     }
 
     /**
-     * @param string $title
-     * @param string $href
+     * @param mixed $item
      *
      * @return $this
      */
-    public function addBreadcrumb($title, $href)
+    public function addBreadcrumb($item)
     {
-        Phpfox::get('breadcrumb')->add($title, $href);
+        Phpfox::get('breadcrumb')->add($item);
         return $this;
     }
 
@@ -147,15 +146,13 @@ class AssetsFacades
     }
 
     /**
-     * @param string $key
-     * @param string $href
-     * @param array  $props
+     * @param array $props
      *
      * @return $this
      */
-    public function addLink($key, $href, $props = [])
+    public function addLink($props = [])
     {
-        Phpfox::get('html.link')->add($key, $href, $props);
+        Phpfox::get('html.link')->add($props);
         return $this;
     }
 

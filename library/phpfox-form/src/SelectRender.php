@@ -31,7 +31,8 @@ class SelectRender implements RenderInterface
                 [
                     'label'    => $option['label'],
                     'value'    => $option['value'],
-                    'selected' => ($value == $option['value']) ? 'selected' : '',
+                    'selected' => ($value == $option['value']) ? 'selected'
+                        : '',
                 ]);
         }
 

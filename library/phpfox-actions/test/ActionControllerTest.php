@@ -37,7 +37,7 @@ class ActionControllerTest extends \PHPUnit_Framework_TestCase
         $controller = new ExampleActionController();
 
         $result = $controller->run('no-action-name');
-        
+
         $this->assertFalse($result);
     }
 

@@ -64,9 +64,9 @@ class PackageLoader implements PackageLoaderInterface
                     unset($value['children']);
                     $result['routes'][$name] = $value;
 
-                    if(is_array($children)){
-                        foreach ($children as $k=>$v){
-                            $result['routes'][$name.'.'. $k] = $v;
+                    if (is_array($children)) {
+                        foreach ($children as $k => $v) {
+                            $result['routes'][$name . '.' . $k] = $v;
                         }
                     }
                 }

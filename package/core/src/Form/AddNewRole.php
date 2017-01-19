@@ -3,7 +3,6 @@
 namespace Neutron\Core\Form;
 
 
-use Neutron\Core\Model\AuthorizationRole;
 use Neutron\Core\Model\CoreRole;
 use Phpfox\Form\Form;
 

@@ -16,8 +16,8 @@ class UploadPackage extends Form
                 'name'       => 'package',
                 'label'      => 'Upload Package',
                 'attributes' => [
-                    'class'=>'form-control upload',
-                    'accept'=>'application/zip',
+                    'class'  => 'form-control upload',
+                    'accept' => 'application/zip',
                 ],
             ],
         ]);

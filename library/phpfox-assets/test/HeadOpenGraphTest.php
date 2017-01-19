@@ -16,11 +16,14 @@ class HeadOpenGraphTest extends \PHPUnit_Framework_TestCase
         $obj->add('og:image', 'http://sample image url');
 
 
-        $this->assertNotFalse(strpos($obj->getHtml(), '<meta property="og:title" content="sample title" />'));
-        $this->assertNotFalse(strpos($obj->getHtml(), '<meta property="og:image" content="http://sample image url" />'));
+        $this->assertNotFalse(strpos($obj->getHtml(),
+            '<meta property="og:title" content="sample title" />'));
+        $this->assertNotFalse(strpos($obj->getHtml(),
+            '<meta property="og:image" content="http://sample image url" />'));
 
         $obj->remove('og:title');
-        $this->assertFalse(strpos($obj->getHtml(), '<meta property="og:title" content="sample title" />'));
+        $this->assertFalse(strpos($obj->getHtml(),
+            '<meta property="og:title" content="sample title" />'));
 
         $obj->clear();
 

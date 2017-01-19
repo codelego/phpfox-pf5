@@ -36,7 +36,7 @@ class NavigationManager
 
         $arguments = func_get_args();
         array_shift($arguments);
-        
+
         return (new \ReflectionClass($class))->newInstanceArgs($arguments)
             ->render();
 

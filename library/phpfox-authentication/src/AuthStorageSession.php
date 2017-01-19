@@ -52,6 +52,7 @@ class AuthStorageSession implements AuthStorageInterface
         } else {
             $this->forgot();
         }
+        return true;
     }
 
     public function remember($userId, $loginAs, $loginAsId, $remember)

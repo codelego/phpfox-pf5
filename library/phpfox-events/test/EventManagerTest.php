@@ -33,7 +33,8 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
     {
         $mn = new EventManager();
 
-        $response = $mn->emit('onExampleEvent', new \stdClass(), ['key1' => 'value1']);
+        $response = $mn->emit('onExampleEvent', new \stdClass(),
+            ['key1' => 'value1']);
 
 
         $this->assertNull($response);

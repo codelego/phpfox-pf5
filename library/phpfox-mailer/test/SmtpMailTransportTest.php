@@ -68,7 +68,7 @@ class SmtpMailTransportTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $msg->addTo('namnv@younetco.com', 'Nam Nguyen');
-        $result  = $transport->send($msg);
+        $result = $transport->send($msg);
 
         $this->assertTrue($result);
     }

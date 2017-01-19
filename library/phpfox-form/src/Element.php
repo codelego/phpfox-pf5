@@ -164,8 +164,6 @@ class Element implements ElementInterface
 
     /**
      * @param boolean $required
-     *
-     * @return $this
      */
     public function setRequired($required)
     {
@@ -174,7 +172,7 @@ class Element implements ElementInterface
 
     public function noLabel()
     {
-        return $this->getParam('noLabel', false);
+        return (bool)$this->getParam('noLabel', false);
     }
 
     public function getParam($name, $default = null)

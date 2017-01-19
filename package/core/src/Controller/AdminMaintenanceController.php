@@ -13,8 +13,9 @@ class AdminMaintenanceController extends AdminController
 
         $form = new MaintenanceSettings([]);
 
-        $vm->assign(['form'    => $form,
-                     'heading' => _text('Maintenance Settings'),
+        $vm->assign([
+            'form'    => $form,
+            'heading' => _text('Maintenance Settings'),
         ]);
 
         $vm->setTemplate('layout.admin-edit');

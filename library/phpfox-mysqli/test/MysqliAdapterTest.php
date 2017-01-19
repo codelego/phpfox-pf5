@@ -176,15 +176,16 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase
         $db->commit();
 
         $db->commit();
-        
+
         $this->assertEquals('`id`', $db->quoteIdentifier('id'));
-        
+
         $this->assertEquals('1', $db->quoteValue(true));
         $this->assertEquals('0', $db->quoteValue(false));
 
         $this->assertEquals('NULL', $db->quoteValue(null));
-        $this->assertEquals('1, 2, 3', $db->quoteValue([1,2,3]));
-        
-        $this->assertEquals('test literal', $db->quoteValue(new SqlLiteral('test literal')));
+        $this->assertEquals('1, 2, 3', $db->quoteValue([1, 2, 3]));
+
+        $this->assertEquals('test literal',
+            $db->quoteValue(new SqlLiteral('test literal')));
     }
 }

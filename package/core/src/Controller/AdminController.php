@@ -9,7 +9,7 @@ class AdminController extends ActionController
     protected function initialize()
     {
         \Phpfox::get('auth');
-        
+
         \Phpfox::get('view.template')
             ->preferThemes(['admin']);
 

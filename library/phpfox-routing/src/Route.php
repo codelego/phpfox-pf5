@@ -67,11 +67,11 @@ class Route implements RouteInterface
             $this->defaults = $params['defaults'];
         }
 
-        if(!empty($params['action'])){
+        if (!empty($params['action'])) {
             $this->defaults['action'] = $params['action'];
         }
 
-        if(!empty($params['controller'])){
+        if (!empty($params['controller'])) {
             $this->defaults['controller'] = $params['controller'];
         }
 

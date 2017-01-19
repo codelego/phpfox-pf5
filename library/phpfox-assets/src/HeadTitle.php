@@ -32,8 +32,6 @@ class HeadTitle implements HtmlElementInterface
 
     /**
      * Empty title string
-     *
-     * @return $this
      */
     public function clear()
     {

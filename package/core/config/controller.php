@@ -8,7 +8,7 @@ return [
     'core.admin-theme'          => AdminThemeController::class,
     'core.admin-settings'       => AdminSettingsController::class,
     'core.admin-package'        => AdminPackageController::class,
-    'core.admin-mail-transport' => AdminMailTransportController::class,
+    'core.admin-mail-transport' => AdminMailController::class,
     'core.error'                => ErrorController::class,
     'core.admin-auth'           => AdminAuthController::class,
     'core.ajax-i18n'            => AjaxI18nController::class,

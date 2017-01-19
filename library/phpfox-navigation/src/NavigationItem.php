@@ -7,7 +7,7 @@ namespace Phpfox\Navigation;
  * @property string $href
  * @property string $route
  * @property string $event
- * @property array $extra
+ * @property array  $extra
  * @property string $class
  * @property bool   $active
  * @property string $acl

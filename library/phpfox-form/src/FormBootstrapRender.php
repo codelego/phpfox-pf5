@@ -26,7 +26,7 @@ class FormBootstrapRender implements RenderInterface
 
 
             return '<div class="form-group input-' . $name . '">' . $label
-                . $note .$fc->render($v) .  '</div>';
+                . $note . $fc->render($v) . '</div>';
         }, $form->getElements());
 
         return implode(PHP_EOL, $result);

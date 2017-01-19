@@ -2,9 +2,11 @@
 
 return [
     'chains'  => [
-        ['chain'  => 'profile',
-         'route'  => '{groups}/<name>/*',
-         'filter' => 'group.profile_filter',]
+        [
+            'chain'  => 'profile',
+            'route'  => '{groups}/<name>/*',
+            'filter' => 'group.profile_filter',
+        ],
     ],
     'routers' => [
         'profile.groups' => [

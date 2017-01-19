@@ -18,7 +18,7 @@ class I18nPhrase extends DbModel
 
     public function getLanguageId()
     {
-        $lang =  $this->__get('lang');
+        $lang = $this->__get('lang');
         return $lang ? $lang : 'n/a';
     }
 

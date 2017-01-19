@@ -37,7 +37,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(null, $request->get('k4'));
 
         $request->addParams(['k3' => 'v3.', 'k4' => 'v4.']);
-        
+
         $this->assertEquals('v3.', $request->get('k3'));
         $this->assertEquals('v4.', $request->get('k4'));
 

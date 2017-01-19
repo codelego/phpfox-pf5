@@ -3,7 +3,7 @@
 return [
     'routes' => [
         'admin.abuse-report' => [
-            'route'      => 'abuse-report/category/*',
+            'route'      => 'abuse-reports/category/*',
             'controller' => 'abuse-report.admin-category',
             'action'     => 'index',
             'children'   => [

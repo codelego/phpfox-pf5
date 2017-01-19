@@ -32,6 +32,6 @@ class YesnoRender implements RenderInterface
                 ]);
         }
 
-        return '<div class="form-radio">'.implode('', $optionHtml)  .'</div>';
+        return '<div class="form-radio">' . implode('', $optionHtml) . '</div>';
     }
 }

@@ -167,7 +167,7 @@ class AuthFacadesTest extends \PHPUnit_Framework_TestCase
         $user = new MockExampleUser(1000);
         $auth = new AuthFacades();
 
-        $auth->login($user, false, 1);
+        $auth->login($user, false);
 
         $this->assertEquals($user, $auth->getUser());
         $this->assertEquals($user, $auth->getLogin());

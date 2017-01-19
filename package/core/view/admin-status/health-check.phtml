@@ -9,10 +9,13 @@
             </thead>
             <tbody>
             <?php foreach ($items as $rows): ?>
-                <?php foreach($rows as $item): ?>
+                <?php foreach ($rows as $item): ?>
                     <tr class="<?= $item['status'] ?>">
                         <td><?= $item['label'] ?>
-                            <?php if($item['note']): ?><p><small><?= $item['note']?></small></p><?php endif; ?>
+                            <?php if ($item['note']): ?>
+                                <p>
+                                <small><?= $item['note'] ?></small>
+                                </p><?php endif; ?>
                         </td>
                         <td><?= $item['value'] ?></td>
                     </tr>

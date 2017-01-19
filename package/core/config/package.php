@@ -15,9 +15,9 @@ return [
         'require' => 'jscript/requirejs/require.js',
     ],
     'static.css'      => [
-        'main'                  => '@css/main.css',
-        'font'                  => '//fonts.googleapis.com/css?family=Roboto',
-        'admin.login'           => '@css/admin-login.css',
+        'main'          => '@css/main.css',
+        'font'          => '//fonts.googleapis.com/css?family=Roboto',
+        'admin.login'   => '@css/admin-login.css',
         'core-test.css' => '@css/core-test.css',
     ],
     'requirejs.shim'  => [

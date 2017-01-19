@@ -105,7 +105,9 @@ class FormFacadesRenderTest extends \PHPUnit_Framework_TestCase
 
         $facades = new FormFacades();
 
-        $this->assertNotFalse(strpos($facades->render($form), 'name="username"'));
-        $this->assertNotFalse(strpos($facades->render($form), 'name="password"'));
+        $this->assertNotFalse(strpos($facades->render($form),
+            'name="username"'));
+        $this->assertNotFalse(strpos($facades->render($form),
+            'name="password"'));
     }
 }

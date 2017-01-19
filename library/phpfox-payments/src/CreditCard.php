@@ -35,7 +35,7 @@ class CreditCard
     {
         $this->parameters = new Parameters($params);
 
-        if(is_array($params)){
+        if (is_array($params)) {
             $this->initialize($params);
         }
     }

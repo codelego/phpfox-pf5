@@ -19,7 +19,7 @@ class ExternalScript implements HtmlElementInterface
             $path = Phpfox::getParam('static.js', $key);
         }
 
-        if(substr($path, 0,2) != '//'){
+        if (substr($path, 0, 2) != '//') {
             $path = $this->getUrl($path);
         }
 
@@ -51,7 +51,7 @@ class ExternalScript implements HtmlElementInterface
             return;
         }
 
-        if(substr($path, 0,2) != '//'){
+        if (substr($path, 0, 2) != '//') {
             $path = $this->getUrl($path);
         }
 

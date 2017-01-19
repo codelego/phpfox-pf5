@@ -9,7 +9,7 @@ class Textarea extends Element implements FieldInterface
      */
     protected $value;
 
-    protected $render =  'textarea';
+    protected $render = 'textarea';
 
     public function getValue()
     {

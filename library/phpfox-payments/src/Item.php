@@ -15,7 +15,7 @@ class Item implements ItemInterface
     public function __construct($params = [])
     {
         $this->parameters = new Parameters($params);
-        if(is_array($params)){
+        if (is_array($params)) {
             $this->initialize($params);
         }
     }

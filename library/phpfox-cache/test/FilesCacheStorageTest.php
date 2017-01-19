@@ -35,7 +35,7 @@ class FilesCacheStorageTest extends \PHPUnit_Framework_TestCase
 
         $cache->setItems($arrays, 0);
 
-        $data =  $cache->getItems(array_keys($arrays));
+        $data = $cache->getItems(array_keys($arrays));
         $this->assertEquals($arrays['key1'], $data['key1']->value);
         $this->assertEquals($arrays['key2'], $data['key2']->value);
 
@@ -59,7 +59,10 @@ class FilesCacheStorageTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNull($cache->getItem('key1'));
 
-        $this->assertEquals("test data", $cache->with('example_key', function(){return 'test data';}));
+        $this->assertEquals("test data",
+            $cache->with('example_key', function () {
+                return 'test data';
+            }));
 
         $this->assertEquals('test data', $cache->getItem('example_key')->value);
     }

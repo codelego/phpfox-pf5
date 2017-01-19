@@ -66,7 +66,7 @@ class SqlTest extends \PHPUnit_Framework_TestCase
             'value'       => 'example value ' . time(),
         ];
         $result = $sqlInsert->insert('pf5_example_item')
-            ->values($data)->execute(null, true);
+            ->values($data)->execute();
 
         $this->assertTrue($result->isValid());
 
@@ -160,7 +160,7 @@ class SqlTest extends \PHPUnit_Framework_TestCase
             'category_id' => 1,
             'value'       => 'example value ' . time(),
         ];
-        $result= $sqlInsert->insert(':example_item')
+        $result = $sqlInsert->insert(':example_item')
             ->values($data)
             ->ignoreOnDuplicate(1)
             ->execute();
@@ -658,7 +658,7 @@ class SqlTest extends \PHPUnit_Framework_TestCase
     {
         $delete = new SqlDelete(self::getAdapter());
 
-        $result  = $delete->from(':example_item')
+        $result = $delete->from(':example_item')
             ->where('aid=?', 1)
             ->execute();
 
@@ -672,32 +672,32 @@ class SqlTest extends \PHPUnit_Framework_TestCase
     {
         $delete = new SqlDelete(self::getAdapter());
 
-        $result  = $delete->from(':example_item')
+        $result = $delete->from(':example_item')
             ->orWhere('aid=?', 1)
             ->execute();
 
-        $this->assertTrue($result);
+        $this->assertTrue($result->isValid());
     }
 
     public function testModels()
     {
-        $actual =  (new SqlSelect(self::getAdapter()))
+        $actual = (new SqlSelect(self::getAdapter()))
             ->select('*')
             ->from(':example_item')
-            ->where('id=?',1)
+            ->where('id=?', 1)
             ->execute()
             ->setPrototype(\stdClass::class)
             ->all();
-        
+
         $this->assertEquals(1, count($actual));
     }
 
     public function testFirstModels()
     {
-        $actual =  (new SqlSelect(self::getAdapter()))
+        $actual = (new SqlSelect(self::getAdapter()))
             ->select('*')
             ->from(':example_item')
-            ->where('id=?',1)
+            ->where('id=?', 1)
             ->execute()
             ->setPrototype(\stdClass::class)
             ->first();

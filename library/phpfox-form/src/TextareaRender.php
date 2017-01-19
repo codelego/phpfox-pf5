@@ -7,6 +7,7 @@ class TextareaRender implements RenderInterface
 {
     /**
      * @param Textarea $element
+     *
      * @return string
      */
     public function render($element)
@@ -20,6 +21,7 @@ class TextareaRender implements RenderInterface
             $attributes['required'] = true;
         }
 
-        return '<textarea ' . _attrize($attributes) . '>'.$element->getValue().'</textarea>';
+        return '<textarea ' . _attrize($attributes) . '>' . $element->getValue()
+            . '</textarea>';
     }
 }

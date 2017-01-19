@@ -8,8 +8,8 @@ class DbLoggerTest extends \PHPUnit_Framework_TestCase
     public function testBase()
     {
         $logger = new DbLogger([
-            'level'    => 'debug',
-            'model'    => PHPFOX_TABLE_PREFIX . 'core_log',
+            'level' => 'debug',
+            'model' => PHPFOX_TABLE_PREFIX . 'core_log',
         ]);
 
         $l1 = $this->totalRows();

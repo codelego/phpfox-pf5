@@ -11,7 +11,9 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <?= \Phpfox::get('navigation')->render('navbar', 'main') ?>
-            <?= \Phpfox::get('navigation')->render('navbar', 'main.mini',null,null,3,['level0'=>'nav navbar-nav navbar-right']) ?>
+            <?= \Phpfox::get('navigation')
+                ->render('navbar', 'main.mini', null, null, 3,
+                    ['level0' => 'nav navbar-nav navbar-right']) ?>
         </div>
     </div>
 </nav>

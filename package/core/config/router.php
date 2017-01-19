@@ -82,6 +82,11 @@ return [
                 ],
             ],
         ],
+        'admin.core.mail'          => [
+            'route'      => 'core/mail/*',
+            'controller' => 'core.admin-mail-transport',
+            'action'     => 'index',
+        ],
         'admin.core.status'        => [
             'route'    => 'core/status/*',
             'defaults' => [

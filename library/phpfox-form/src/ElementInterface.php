@@ -32,7 +32,7 @@ interface ElementInterface
 
     /**
      * @param string $name
-     * @param mixed   $default
+     * @param mixed  $default
      *
      * @return mixed
      */
@@ -53,9 +53,7 @@ interface ElementInterface
     public function getParams();
 
     /**
-     * @param string $params
-     *
-     * @return $this
+     * @param array $params
      */
     public function setParams($params);
 
@@ -113,8 +111,6 @@ interface ElementInterface
 
     /**
      * @param string $label
-     *
-     * @return $this
      */
     public function setLabel($label);
 

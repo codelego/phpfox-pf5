@@ -7,6 +7,6 @@ return [
         'table_factory',
         ':abuse_report_category',
         AbuseReportCategory::class,
-        'abuse-report/config/.meta.abuse_report_category.php',
+        'abuse-reports/config/.meta.abuse_report_category.php',
     ],
 ];

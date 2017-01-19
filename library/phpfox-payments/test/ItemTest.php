@@ -17,20 +17,20 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructWithParams()
     {
-        $item = new Item(array('name' => 'Floppy Disk'));
+        $item = new Item(['name' => 'Floppy Disk']);
         $this->assertSame('Floppy Disk', $item->getName());
     }
 
     public function testInitializeWithParams()
     {
-        $this->item->initialize(array('name' => 'Floppy Disk'));
+        $this->item->initialize(['name' => 'Floppy Disk']);
         $this->assertSame('Floppy Disk', $this->item->getName());
     }
 
     public function testGetParameters()
     {
         $this->item->setName('CD-ROM');
-        $this->assertSame(array('name' => 'CD-ROM'), $this->item->getParameters());
+        $this->assertSame(['name' => 'CD-ROM'], $this->item->getParameters());
     }
 
     public function testName()

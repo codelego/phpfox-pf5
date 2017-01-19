@@ -87,10 +87,10 @@ class PhpTemplate implements ViewTemplateInterface
             }
         }
 
-        echo $name;
-
         if (PHPFOX_ENV == 'development') {
             throw new InvalidArgumentException("template not found '{$name}'");
         }
+
+        return null;
     }
 }

@@ -89,7 +89,8 @@ class AdminAuthorizationController extends AdminController
 
         $vm->assign([
             'form'    => $form,
-            'heading' => _text('#Edit "{0}" Permissions', null, null, [$role->getTitle()]),
+            'heading' => _text('#Edit "{0}" Permissions', null, null,
+                [$role->getTitle()]),
         ]);
 
         $vm->setTemplate('layout.admin-edit');

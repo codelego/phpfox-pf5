@@ -5,7 +5,7 @@ namespace Neutron\Core\Controller;
 use Phpfox\Action\ActionController;
 use Phpfox\View\ViewModel;
 
-class AdminMailTransportController extends ActionController
+class AdminMailController extends ActionController
 {
     public function actionIndex()
     {
@@ -21,7 +21,7 @@ class AdminMailTransportController extends ActionController
             'items' => $items,
         ]);
 
-        $vm->setTemplate('core.admin-mail-transport.index');
+        $vm->setTemplate('core.admin-mail.index');
 
         return $vm;
     }

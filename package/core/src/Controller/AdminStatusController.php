@@ -33,12 +33,12 @@ class AdminStatusController extends AdminController
         $vm = new ViewModel();
 
         $response = _emit('onSystemHealthCheck');
-        
+
 
         $vm->setTemplate('core.admin-status.health-check');
-        
+
         $vm->assign([
-            'items'=>$response
+            'items' => $response,
         ]);
 
         return $vm;

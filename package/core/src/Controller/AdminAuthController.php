@@ -9,7 +9,7 @@ class AdminAuthController extends ActionController
     {
         \Phpfox::get('view.template')
             ->preferThemes(['admin']);
-        
+
         \Phpfox::get('assets')
             ->addStyle('admin.login', null);
 

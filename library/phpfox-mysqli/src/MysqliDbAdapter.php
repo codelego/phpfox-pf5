@@ -319,6 +319,8 @@ class MysqliDbAdapter implements DbAdapterInterface
 
         $this->execute('COMMIT', true);
         $this->_inTransaction = false;
+
+        return true;
     }
 
     public function rollback()

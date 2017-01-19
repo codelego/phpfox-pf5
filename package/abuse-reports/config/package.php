@@ -6,5 +6,5 @@ return [
     'services'  => [
         'abuse_report' => [null, Service\AbuseReport::class],
     ],
-    'templates' => _view_map(['default' => ['abuse-report' => 'package/abuse-report/view']]),
+    'templates' => _view_map(['default' => ['abuse-report' => 'package/abuse-reports/view']]),
 ];

@@ -43,7 +43,7 @@ class MemcachedCacheStorage implements CacheStorageInterface
         if (is_array($key)) {
             $key = implode('_', $key);
         }
-        
+
         $item = $this->getItem($key);
 
         if (null == $item) {

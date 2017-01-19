@@ -2,7 +2,6 @@
 namespace Neutron\Core\Controller;
 
 use Neutron\Core\Form\UploadPackage;
-use Phpfox\Action\ActionController;
 use Phpfox\View\ViewModel;
 
 class AdminPackageController extends AdminController

@@ -59,7 +59,7 @@ class SessionManager
      */
     public function close()
     {
-        if(session_id()){
+        if (session_id()) {
             session_commit();
         }
     }

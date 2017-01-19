@@ -16,12 +16,12 @@ class SessionManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNull($manager->get('example_key'));
 
-        $example_value =['abc'];
+        $example_value = ['abc'];
         $example_key = 'example_key';
-        $manager->set('example_key',$example_value);
-        
+        $manager->set('example_key', $example_value);
+
         $this->assertEquals($example_value, $manager->get('example_key'));
-        
+
         $manager->delete('example_key');
 
 
@@ -32,7 +32,8 @@ class SessionManagerTest extends \PHPUnit_Framework_TestCase
         $manager->close();
     }
 
-    public function testBase2(){
+    public function testBase2()
+    {
         $session = new SessionManager();
 
         session_destroy();

@@ -33,7 +33,7 @@ class AdminI18nController extends AdminController
 
         $form = new AddNewPhrase();
 
-        $vm->assign(['form'=>$form,'heading'=>'Add New Phrase',]);
+        $vm->assign(['form' => $form, 'heading' => 'Add New Phrase',]);
 
         $vm->setTemplate('layout.admin-edit');
 

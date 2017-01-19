@@ -2,6 +2,9 @@
 
 namespace {
 
+    use Phpfox\Support\Configs;
+    use Phpfox\Support\ServiceManager;
+
     /**
      * @codeCoverageIgnore
      */
@@ -36,8 +39,8 @@ namespace {
             error_reporting(E_ALL);
 
             self::$initialized = true;
-            self::$service = new \Phpfox\Support\ServiceManager();
-            self::$config = new \Phpfox\Support\Configs();
+            self::$service = new ServiceManager();
+            self::$config = new Configs();
 
 //        set_error_handler(function ($num, $msg, $file, $line, $context) {
 //            var_dump(debug_backtrace(1));exit;

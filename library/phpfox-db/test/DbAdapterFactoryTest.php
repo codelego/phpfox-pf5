@@ -8,20 +8,20 @@ class DbAdapterFactoryTest extends \PHPUnit_Framework_TestCase
     {
 
         \Phpfox::configs()->set('db.adapters', [
-            'default'=>[
+            'default' => [
                 'user'     => 'root',
                 'password' => 'namnv123',
                 'host'     => '127.0.0.1',
                 'database' => 'phpfox_v5',
                 'driver'   => 'mysqli',
             ],
-            'example'=>[
+            'example' => [
                 'user'     => 'root',
                 'password' => 'namnv123',
                 'host'     => '127.0.0.1',
                 'database' => 'phpfox_v5',
                 'driver'   => 'mysqli',
-            ]
+            ],
         ]);
 
 
