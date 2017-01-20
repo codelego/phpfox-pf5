@@ -18,6 +18,6 @@ class GlobalFunctionTest extends \PHPUnit_Framework_TestCase
 
         var_export($maps);
 
-        $this->assertArrayHasKey('default/core.error.404', $maps);
+        $this->assertArrayHasKey('default:core/error/404', $maps);
     }
 }

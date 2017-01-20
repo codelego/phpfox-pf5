@@ -16,7 +16,7 @@ class AdminAuthController extends ActionController
 
         $layout = \Phpfox::get('view.layout');
 
-        $layout->setTemplate('layout.login');
+        $layout->setTemplate('layout/login');
 
         $request = \Phpfox::get('mvc.request');
 

@@ -18,7 +18,7 @@ class AdminPackageController extends AdminController
         $vm = new ViewModel([
             'items' => $packages,
         ]);
-        $vm->setTemplate('core.admin-package.index');
+        $vm->setTemplate('core/admin-package/index');
 
         return $vm;
     }
@@ -34,7 +34,7 @@ class AdminPackageController extends AdminController
             'form'    => $form,
         ]);
 
-        $vm->setTemplate('layout.admin-edit');
+        $vm->setTemplate('layout/admin-edit');
 
         return $vm;
     }

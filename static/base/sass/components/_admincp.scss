@@ -1,14 +1,18 @@
 .admincp-extension-thumbnail {
-  background-size:     cover;
+  background-size: cover;
   background-position: center;
-  background-repeat:   no-repeat;
-  padding-bottom:      60%;
-  display:             block;
-  max-width:           100%;
-  background-image:    url("#{$static-common-url}/images/addons-puzzle.jpg");
+  background-repeat: no-repeat;
+  padding-bottom: 60%;
+  display: block;
+  max-width: 100%;
+  background-image: url("#{$static-common-url}/images/addons-puzzle.jpg");
 }
 
-.table-admin{
+.table-admin {
   @extend .table-bordered;
   @extend .table-striped;
+}
+
+th.fit, td.fit {
+  width: 30px
 }

@@ -2,14 +2,12 @@
 
 namespace Neutron\Core\Controller;
 
-use Phpfox\Action\ActionController;
 use Phpfox\View\ViewModel;
 
-class AdminMailController extends ActionController
+class AdminMailController extends AdminController
 {
     public function actionIndex()
     {
-
         $items = \Phpfox::db()
             ->select('*')
             ->from(':core_package')
@@ -21,8 +19,79 @@ class AdminMailController extends ActionController
             'items' => $items,
         ]);
 
-        $vm->setTemplate('core.admin-mail.index');
+        $vm->setTemplate('core/admin-mail/index');
 
         return $vm;
+    }
+
+    public function actionTransports()
+    {
+        $items = \Phpfox::getModel('mail_transport')
+            ->select()
+            ->execute()
+            ->all();
+
+        $vm = new ViewModel();
+
+        $vm->setTemplate('core/admin-mail/transports');
+
+        $vm->assign(['items' => $items]);
+
+        return $vm;
+    }
+
+    public function actionAddTransport()
+    {
+        $vm = new ViewModel();
+
+        $request = \Phpfox::get('mvc.request');
+        $driverName = $request->get('driver_name');
+        $vm->setTemplate('core/admin-mail/add-transport');
+        $vm->assign(['driver_name' => $driverName]);
+
+        if (empty($driverName)) {
+            $items = \Phpfox::getModel('mail_driver')
+                ->select()
+                ->execute()
+                ->all();
+
+            $vm->assign(['items' => $items]);
+
+            return $vm;
+        }
+
+        $driver = \Phpfox::getModel('mail_driver')
+            ->findById($driverName);
+
+        $formSettings = $driver->getFormSettings();
+
+        $form = new $formSettings;
+
+        if ($request->isPost()) {
+
+        }
+
+        $vm->assign(['form' => $form, 'driver'=>$driver]);
+        return $vm;
+    }
+
+    public function actionEditTransport()
+    {
+        $request = \Phpfox::get('mvc.request');
+        $id = $request->get('id');
+
+        $item = \Phpfox::getModel('mail_transport')->findById($id);
+
+        if (!$item) {
+
+        }
+
+        if ($request->isGet()) {
+
+        }
+
+        if ($request->isPost()) {
+
+        }
     }
 }

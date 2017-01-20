@@ -45,7 +45,7 @@ class AuthController extends ActionController
 
         $vm = new ViewModel(['form' => $form, 'message' => $message]);
 
-        $vm->setTemplate('user.auth.login');
+        $vm->setTemplate('user/auth/login');
 
         return $vm;
     }
@@ -60,7 +60,7 @@ class AuthController extends ActionController
 
         $vm = new ViewModel();
 
-        $vm->setTemplate('user.auth.logout');
+        $vm->setTemplate('user/auth/logout');
 
         return $vm;
     }

@@ -11,7 +11,7 @@ class IndexController extends ActionController
     {
         $vm = new ViewModel();
 
-        $vm->setTemplate('core.index.index');
+        $vm->setTemplate('core/index/index');
 
         return $vm;
     }

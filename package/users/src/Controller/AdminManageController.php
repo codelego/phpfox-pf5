@@ -27,7 +27,7 @@ class AdminManageController extends AdminController
 
         $vm->assign(['items' => $items, 'filter' => $filter]);
 
-        $vm->setTemplate('user.admin-manage.index');
+        $vm->setTemplate('user/admin-manage/index');
 
         return $vm;
     }

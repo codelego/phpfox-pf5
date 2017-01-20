@@ -12,7 +12,7 @@ class ProfileController extends ActionController
     {
         $viewModel = new ViewModel();
 
-        $viewModel->setTemplate('blog.profile.index');
+        $viewModel->setTemplate('blog/profile/index');
 
         return $viewModel;
     }

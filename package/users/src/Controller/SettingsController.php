@@ -16,7 +16,7 @@ class SettingsController extends ActionController
         $vm = new ViewModel([
             'form' => $form,
         ]);
-        $vm->setTemplate('user.settings.index');
+        $vm->setTemplate('user/settings/index');
 
         return $vm;
     }
@@ -33,7 +33,7 @@ class SettingsController extends ActionController
 
         $vm->assign(['items' => $items]);
 
-        $vm->setTemplate('user.settings.login-history');
+        $vm->setTemplate('user/settings/login-history');
 
         return $vm;
     }

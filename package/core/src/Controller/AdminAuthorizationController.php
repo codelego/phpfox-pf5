@@ -35,7 +35,7 @@ class AdminAuthorizationController extends AdminController
             'counter' => $counter,
         ]);
 
-        $vm->setTemplate('core.admin-authorization.index');
+        $vm->setTemplate('core/admin-authorization/index');
 
         return $vm;
     }
@@ -51,7 +51,7 @@ class AdminAuthorizationController extends AdminController
             'form'    => $form,
         ]);
 
-        $vm->setTemplate('layout.admin-edit');
+        $vm->setTemplate('layout/admin-edit');
 
         return $vm;
     }
@@ -67,7 +67,7 @@ class AdminAuthorizationController extends AdminController
             'form'    => $form,
         ]);
 
-        $vm->setTemplate('layout.admin-edit');
+        $vm->setTemplate('layout/admin-edit');
 
         return $vm;
     }
@@ -93,7 +93,7 @@ class AdminAuthorizationController extends AdminController
                 [$role->getTitle()]),
         ]);
 
-        $vm->setTemplate('layout.admin-edit');
+        $vm->setTemplate('layout/admin-edit');
 
         return $vm;
 

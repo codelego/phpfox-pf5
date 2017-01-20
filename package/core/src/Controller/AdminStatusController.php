@@ -23,7 +23,7 @@ class AdminStatusController extends AdminController
             'form'    => $form,
         ]);
 
-        $vm->setTemplate('layout.admin-edit');
+        $vm->setTemplate('layout/admin-edit');
 
         return $vm;
     }
@@ -35,7 +35,7 @@ class AdminStatusController extends AdminController
         $response = _emit('onSystemHealthCheck');
 
 
-        $vm->setTemplate('core.admin-status.health-check');
+        $vm->setTemplate('core/admin-status/health-check');
 
         $vm->assign([
             'items' => $response,
@@ -50,7 +50,7 @@ class AdminStatusController extends AdminController
 
         $response = _emit('onSiteStatistics');
 
-        $vm->setTemplate('core.admin-status.statistics');
+        $vm->setTemplate('core/admin-status/statistics');
 
         $vm->assign([
             'items' => $response,
@@ -105,7 +105,7 @@ class AdminStatusController extends AdminController
             'status' => $status,
         ]);
 
-        $vm->setTemplate('core.admin-status.overview');
+        $vm->setTemplate('core/admin-status/overview');
 
         return $vm;
     }

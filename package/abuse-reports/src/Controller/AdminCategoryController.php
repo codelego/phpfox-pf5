@@ -16,7 +16,7 @@ class AdminCategoryController extends AdminController
         $vm = new ViewModel();
         $vm->assign(['items' => $items]);
 
-        $vm->setTemplate('abuse-report.admin-category.index');
+        $vm->setTemplate('abuse-report/admin-category/index');
 
         return $vm;
     }

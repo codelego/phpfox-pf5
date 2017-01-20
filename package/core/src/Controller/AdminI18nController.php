@@ -22,7 +22,7 @@ class AdminI18nController extends AdminController
 
         $vm = new ViewModel(['items' => $items]);
 
-        $vm->setTemplate('core.admin-i18n.index');
+        $vm->setTemplate('core/admin-i18n/index');
 
         return $vm;
     }
@@ -35,7 +35,7 @@ class AdminI18nController extends AdminController
 
         $vm->assign(['form' => $form, 'heading' => 'Add New Phrase',]);
 
-        $vm->setTemplate('layout.admin-edit');
+        $vm->setTemplate('layout/admin-edit');
 
         return $vm;
 
@@ -58,7 +58,7 @@ class AdminI18nController extends AdminController
 
         $vm = new ViewModel(['items' => $items, 'form' => $form]);
 
-        $vm->setTemplate('core.admin-i18n.phrases');
+        $vm->setTemplate('core/admin-i18n/phrases');
 
         return $vm;
     }

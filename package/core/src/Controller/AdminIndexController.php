@@ -13,7 +13,7 @@ class AdminIndexController extends AdminController
     {
         $vm = new ViewModel();
 
-        $vm->setTemplate('core.admin-dashboard.index');
+        $vm->setTemplate('core/admin-index/index');
 
         return $vm;
     }

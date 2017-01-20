@@ -101,6 +101,7 @@ class StylesheetCompiler
             return $compiler->compile($source);
 
         } catch (\Exception $ex) {
+            exit($ex->getMessage());
             throw new \InvalidArgumentException($ex->getMessage());
         }
     }

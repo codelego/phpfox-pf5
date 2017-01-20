@@ -268,7 +268,7 @@ class Themes
      */
     private function getSassPath($id)
     {
-        return PHPFOX_THEME_DIR . $id;
+        return PHPFOX_THEME_DIR . $id . '/sass';
     }
 
     /**

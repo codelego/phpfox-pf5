@@ -21,7 +21,7 @@ class AdminDepartmentController extends AdminController
         $vm = new ViewModel();
 
         $vm->assign(['items' => $items]);
-        $vm->setTemplate('contact-us.admin-department.index');
+        $vm->setTemplate('contact-us/admin-department/index');
 
         return $vm;
     }
@@ -58,7 +58,7 @@ class AdminDepartmentController extends AdminController
             'form'    => $form,
         ]);
 
-        $vm->setTemplate('layout.admin-edit');
+        $vm->setTemplate('layout/admin-edit');
 
         return $vm;
     }
@@ -86,7 +86,7 @@ class AdminDepartmentController extends AdminController
             'form'    => $form,
         ]);
 
-        $vm->setTemplate('layout.admin-edit');
+        $vm->setTemplate('layout/admin-edit');
 
         return $vm;
     }

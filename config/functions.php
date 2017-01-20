@@ -3,6 +3,28 @@
 namespace {
 
     /**
+     * @param string $url
+     * @param array  $context
+     * @param array  $params
+     *
+     * @return string
+     */
+    function _http_build_url($url, $context = [], $params = null)
+    {
+        if (empty($params)) {
+            $query = '';
+        } elseif (is_string($params)) {
+            $query = '?' . $params;
+        } elseif (is_array($params)) {
+            $query = '?' . http_build_query($params);
+        } else {
+            $query = '';
+        }
+
+        return _sprintf($url, $context) . $query;
+    }
+
+    /**
      * @param string      $name
      * @param object|null $target
      * @param array|null  $argv
@@ -100,12 +122,12 @@ namespace {
                     $prepare = str_replace($extension, '',
                         substr($path, $startCharacter + 1));
 
-                    $id = $template . '/' . $name . '.' . str_replace([
+                    $id = $template . ':' . $name . '/' . str_replace([
                             '//',
                             '/',
                             '\\',
                         ],
-                            ['.', '.', '.'], _deflect($prepare));
+                            ['/', '/', '/'], _deflect($prepare));
 
                     $map[$id] = str_replace([PHPFOX_DIR, $extension], ['', ''],
                         $path);
@@ -113,62 +135,6 @@ namespace {
             }
         }
 
-
-        return $map;
-    }
-
-    /**
-     * @param array|string $array ['core'=> PHPFOX_DIR
-     *                            .'/package/neutron-core/view',...]
-     * @param string|null  $dir
-     *
-     * @return array
-     */
-    function _get_view_map($array, $dir = null)
-    {
-        $map = [];
-        $extension = '.phtml';
-        $packageDir = realpath(PHPFOX_PACKAGE_DIR);
-
-        if (null != $dir) {
-            $array = [$array => $dir];
-        }
-
-        foreach ($array as $prefix => $directory) {
-            $directory = realpath(PHPFOX_PACKAGE_DIR . DS . $directory);
-            if (!$directory || !is_dir($directory)) {
-                continue;
-            }
-            $startCharacter = strlen($directory);
-            $directoryIterator
-                = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory,
-                RecursiveDirectoryIterator::SKIP_DOTS),
-                RecursiveIteratorIterator::SELF_FIRST,
-                RecursiveIteratorIterator::CATCH_GET_CHILD // Ignore "Permission denied"
-            );
-
-            foreach ($directoryIterator as $path => $entry) {
-                if ($entry->isDir()) {
-                    continue;
-                }
-
-                $path = $entry->getPath() . '/' . $entry->getFilename();
-
-                if (!strpos($path, $extension)) {
-                    continue;
-                }
-                $prepare = str_replace($extension, '',
-                    substr($path, $startCharacter + 1));
-
-                $key = str_replace(['//', '/', '\\', '@.'],
-                    ['.', '.', '.', '@'], _deflect($prefix . DS . $prepare));
-
-                $value = str_replace($extension, '',
-                    trim(str_replace($packageDir, '', $path), DS));
-
-                $map[$key] = $value;
-            }
-        }
 
         return $map;
     }
@@ -285,6 +251,10 @@ namespace {
      */
     function _sprintf($message, $context)
     {
+        if (!is_array($context)) {
+            return $message;
+        }
+
         $replace = [];
         foreach ($context as $key => $val) {
             $replace['{' . $key . '}'] = $val;

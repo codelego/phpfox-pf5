@@ -15,29 +15,34 @@ class AdminThemeController extends AdminController
         $cmd = $request->get('cmd');
         $id = $request->get('id');
 
-        if ($id) {
-            switch ($cmd) {
-                case 'default':
-                    \Phpfox::get('core.themes')
-                        ->setDefault($id);
-                    break;
-                case 'active':
-                    \Phpfox::get('core.themes')
-                        ->active($id);
-                    break;
-                case 'inactive':
-                    \Phpfox::get('core.themes')
-                        ->inactive($id);
-                    break;
-                case 'rebuild-main':
-                    \Phpfox::get('core.themes')
-                        ->rebuildMain($id);
-                    break;
-                case 'rebuild-files':
-                    \Phpfox::get('core.themes')
-                        ->rebuildFiles($id);
+        try {
+            if ($id) {
+                switch ($cmd) {
+                    case 'default':
+                        \Phpfox::get('core.themes')
+                            ->setDefault($id);
+                        break;
+                    case 'active':
+                        \Phpfox::get('core.themes')
+                            ->active($id);
+                        break;
+                    case 'inactive':
+                        \Phpfox::get('core.themes')
+                            ->inactive($id);
+                        break;
+                    case 'rebuild-main':
+                        \Phpfox::get('core.themes')
+                            ->rebuildMain($id);
+                        break;
+                    case 'rebuild-files':
+                        \Phpfox::get('core.themes')
+                            ->rebuildFiles($id);
+                }
             }
+        } catch (\Exception $ex) {
+            exit($ex->getMessage());
         }
+
 
         $items = \Phpfox::getModel('core_theme')
             ->select('*')
@@ -48,7 +53,7 @@ class AdminThemeController extends AdminController
             'items' => $items,
         ]);
 
-        $vm->setTemplate('core.admin-theme.index');
+        $vm->setTemplate('core/admin-theme/index');
 
         return $vm;
     }
@@ -83,7 +88,7 @@ class AdminThemeController extends AdminController
             'form'    => $form,
         ]);
 
-        $vm->setTemplate('layout.admin-edit');
+        $vm->setTemplate('layout/admin-edit');
 
         return $vm;
     }
@@ -95,7 +100,7 @@ class AdminThemeController extends AdminController
         $request = \Phpfox::get('mvc.request');
         $id = $request->get('id');
 
-        $vm->setTemplate('core.admin-theme.debug');
+        $vm->setTemplate('core/admin-theme/debug');
 
         $themes = \Phpfox::get('core.themes');
 

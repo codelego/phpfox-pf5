@@ -3,8 +3,8 @@
   RewriteEngine On
 
   # Get rid of index.php
-  RewriteCond %{REQUEST_URI} /index\.php
-  RewriteRule (.*) index.php [L,QSA]
+  #  RewriteCond %{REQUEST_URI} /index\.php
+  #  RewriteRule (.*) index.php [L,QSA]
 
   # Rewrite all directory-looking urls
   RewriteCond %{REQUEST_URI} /$

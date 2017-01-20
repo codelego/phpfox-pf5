@@ -14,7 +14,7 @@ class ContactUsController extends ActionController
 
         $vm = new ViewModel();
 
-        $vm->setTemplate('contact-us.index.index');
+        $vm->setTemplate('contact-us/index/index');
 
         $vm->assign([
             'form'    => $form,

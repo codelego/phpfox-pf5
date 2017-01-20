@@ -15,7 +15,7 @@ class ViewLayout extends ViewModel
     public function prepare()
     {
         if (!$this->template) {
-            $this->template = 'layout.default';
+            $this->template = 'layout/default';
         }
 
         \Phpfox::assets()

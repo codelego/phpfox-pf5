@@ -11,7 +11,7 @@ class PhpTemplate implements ViewTemplateInterface
     /**
      * @var array
      */
-    protected $prefers = ['default/'];
+    protected $prefers = ['default:'];
 
     /**
      * @var array
@@ -32,6 +32,10 @@ class PhpTemplate implements ViewTemplateInterface
     public function render($__name_, $__vars_)
     {
         $__template_ = $this->load($__name_);
+
+        if (!$__template_) {
+            return '';
+        }
 
         ob_start();
 
@@ -69,7 +73,7 @@ class PhpTemplate implements ViewTemplateInterface
         }
 
         $this->prefers = array_map(function ($v) {
-            return $v . '/';
+            return $v . ':';
         }, $themes);
 
         return $this;

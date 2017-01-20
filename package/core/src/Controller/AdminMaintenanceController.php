@@ -18,7 +18,7 @@ class AdminMaintenanceController extends AdminController
             'heading' => _text('Maintenance Settings'),
         ]);
 
-        $vm->setTemplate('layout.admin-edit');
+        $vm->setTemplate('layout/admin-edit');
 
         return $vm;
     }

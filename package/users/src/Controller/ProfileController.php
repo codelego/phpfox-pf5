@@ -11,7 +11,7 @@ class ProfileController extends ActionController
     {
         $viewModel = new ViewModel();
 
-        $viewModel->setTemplate('user.profile.index');
+        $viewModel->setTemplate('user/profile/index');
 
         return $viewModel;
     }

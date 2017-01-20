@@ -15,7 +15,7 @@ class ErrorController extends ActionController
         $vm
             = new ViewModel(['lastException' => $lastException->getTraceAsString()]);
 
-        $vm->setTemplate('core.error.index');
+        $vm->setTemplate('core/error/index');
 
         return $vm;
     }
@@ -24,7 +24,7 @@ class ErrorController extends ActionController
     {
         $vm = new ViewModel();
 
-        $vm->setTemplate('core.error.404');
+        $vm->setTemplate('core/error/404');
 
         return $vm;
     }
@@ -34,6 +34,6 @@ class ErrorController extends ActionController
     {
         $vm = new ViewModel();
 
-        $vm->setTemplate('core.error.500');
+        $vm->setTemplate('core/error/500');
     }
 }

@@ -9,13 +9,18 @@
       "email": "nam.ngvan@gmail.com"
     }
   ],
-  "minimum-stability": "dev",
-  "target-dir": "",
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "target-dir": "vendor",
   "require": {
+    "php": ">=5.6",
+    "ext-curl": "*",
+    "ext-mbstring": "*",
+    "ext-xml": "*",
+    "ext-mysqli": "*",
     "intervention/image": "^2",
     "leafo/scssphp": "^0.6",
     "colinmollenhour/credis": "^1",
-    "phpmailer/phpmailer": "^5",
-    "omnipay/omnipay": "^2.3"
+    "phpmailer/phpmailer": "^5"
   }
 }
