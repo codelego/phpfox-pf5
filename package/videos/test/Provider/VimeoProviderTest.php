@@ -25,4 +25,10 @@ class VimeoProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('vimeo', $content->getProviderId());
         $this->assertEquals('198108357', $content->getVideoCode());
     }
+
+    public function testEmbedCode()
+    {
+        $provider = new VimeoProvider();
+        $this->assertNotEmpty($provider->getEmbedCode('198108357', []));
+    }
 }

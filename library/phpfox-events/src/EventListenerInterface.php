@@ -2,7 +2,6 @@
 
 namespace Phpfox\Event;
 
-
 interface EventListenerInterface
 {
 

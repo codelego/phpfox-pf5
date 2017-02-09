@@ -8,13 +8,12 @@ class I18nMessageLoader implements I18nMessageLoaderInterface
     public function load($locale, $domain)
     {
         $result = [];
-        $stmt = \Phpfox::db()
-            ->select('is_json, var_name, text_value, lang, domain')
-            ->from(':i18n_phrase')
-            ->where('lang in ?', ['', $locale])
+        $stmt = \Phpfox::get('db')
+            ->select('*')
+            ->from(':i18n_message')
+            ->where('locale in ?', ['', $locale])
             ->where('domain=?', (string)$domain)
-            ->order('lang', 1)
-            ->execute();
+            ->order('locale', 1);
 
         foreach ($stmt->all() as $row) {
             if ($row['is_json']) {

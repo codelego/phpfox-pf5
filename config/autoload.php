@@ -27,6 +27,11 @@
     0 => 'library/phpfox-cache/src',
     1 => 'library/phpfox-cache/test',
   ),
+  'Phpfox\\CurlRequest' => 
+  array (
+    0 => 'library/phpfox-curl/src',
+    1 => 'library/phpfox-curl/test',
+  ),
   'Phpfox\\Db' => 
   array (
     0 => 'library/phpfox-db/src',
@@ -46,11 +51,6 @@
   array (
     0 => 'library/phpfox-i18n/src',
     1 => 'library/phpfox-i18n/test',
-  ),
-  'Phpfox\\Image' => 
-  array (
-    0 => 'library/phpfox-image/src',
-    1 => 'library/phpfox-image/test',
   ),
   'Phpfox\\Logger' => 
   array (

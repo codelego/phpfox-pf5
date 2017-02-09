@@ -10,7 +10,7 @@ class Video extends DbModel
      */
     public function getModelId()
     {
-        return 'video_id';
+        return 'video';
     }
 
     /**
@@ -22,6 +22,14 @@ class Video extends DbModel
     }
 
     /**
+     * @param $value
+     */
+    public function setName($value)
+    {
+        $this->__set('title', (string)$value);
+    }
+
+    /**
      * @return mixed
      */
     public function getTitle()
@@ -30,11 +38,27 @@ class Video extends DbModel
     }
 
     /**
-     * @return mixed
+     * @param $value
+     */
+    public function setTitle($value)
+    {
+        $this->__set('title', (string)$value);
+    }
+
+    /**
+     * @return int
      */
     public function getId()
     {
-        return $this->__get('id');
+        return $this->__get('video_id');
+    }
+
+    /**
+     * @return int
+     */
+    public function getVideoId()
+    {
+        return $this->__get('video_id');
     }
 
     /**
@@ -46,11 +70,27 @@ class Video extends DbModel
     }
 
     /**
+     * @param $value
+     */
+    public function setCategoryId($value)
+    {
+        $this->__set('category_id', (int)$value);
+    }
+
+    /**
      * @return mixed
      */
     public function getCreated()
     {
         return $this->__get('created');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setCreated($value)
+    {
+        $this->__set('created', (string)$value);
     }
 
     /**
@@ -62,6 +102,14 @@ class Video extends DbModel
     }
 
     /**
+     * @param $value
+     */
+    public function setUserId($value)
+    {
+        $this->__set('user_id', (int)$value);
+    }
+
+    /**
      * @return mixed
      */
     public function getPosterId()
@@ -70,11 +118,28 @@ class Video extends DbModel
     }
 
     /**
+     * @param $value
+     */
+    public function setPosterId($value)
+    {
+        $this->__set('poster_id', (int)$value);
+    }
+
+    /**
      * @return mixed
      */
     public function getPosterType()
     {
         return $this->__get('poster_type');
+    }
+
+
+    /**
+     * @param $value
+     */
+    public function setPosterType($value)
+    {
+        $this->__set('poster_type', (string)$value);
     }
 
     /**
@@ -86,11 +151,27 @@ class Video extends DbModel
     }
 
     /**
+     * @param $value
+     */
+    public function setParentId($value)
+    {
+        $this->__set('parent_id', (int)$value);
+    }
+
+    /**
      * @return mixed
      */
     public function getParentType()
     {
         return $this->__get('parent_type');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setParentType($value)
+    {
+        $this->__set('parent_type', (string)$value);
     }
 
     /**
@@ -102,18 +183,58 @@ class Video extends DbModel
     }
 
     /**
-     * @return bool
+     * @param $value
+     */
+    public function setActive($value)
+    {
+        $this->__set('is_active', $value ? 1 : 0);
+    }
+
+    /**
+     * @return int
      */
     public function isApproved()
     {
-        return (bool)$this->__get('is_approved');
+        return $this->__get('is_approved');
+    }
+
+    /**
+     * @param mixed $value
+     */
+    public function setApproved($value)
+    {
+        $this->__set('is_approved', $value ? 1 : 0);
     }
 
     /**
      * @return string
      */
-    public function getDriverId()
+    public function getProviderId()
     {
-        return (string)$this->__get('driver_id');
+        return $this->__get('provider_id');
+    }
+
+    /**
+     * @param string $value
+     */
+    public function setProviderId($value)
+    {
+        $this->__set('provider_id', (string)$value);
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->__get('description');
+    }
+
+    /**
+     * @param string $value
+     */
+    public function setDescription($value)
+    {
+        $this->__set('description', (string)$value);
     }
 }

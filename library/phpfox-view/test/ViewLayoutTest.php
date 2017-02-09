@@ -44,6 +44,6 @@ class ViewLayoutTest extends \PHPUnit_Framework_TestCase
 
         $vl->prepare();
 
-        $this->assertEquals($vl->getTemplate(), 'layout.default');
+        $this->assertEquals($vl->getTemplate(), 'layout/default');
     }
 }

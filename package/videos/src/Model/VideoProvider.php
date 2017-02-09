@@ -19,7 +19,15 @@ class VideoProvider extends DbModel
      */
     public function getName()
     {
-        return $this->__get('driver_name');
+        return $this->__get('name');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setName($value)
+    {
+        $this->__set('name', (string)$value);
     }
 
     /**
@@ -27,15 +35,15 @@ class VideoProvider extends DbModel
      */
     public function getTitle()
     {
-        return $this->__get('driver_name');
+        return $this->__get('name');
     }
 
     /**
-     * @return mixed
+     * @param $value
      */
-    public function getDriverId()
+    public function setTitle($value)
     {
-        return $this->__get('driver_id');
+        $this->__set('name', (string)$value);
     }
 
     /**
@@ -47,18 +55,74 @@ class VideoProvider extends DbModel
     }
 
     /**
-     * @return mixed
+     * @param $value
      */
-    public function getDescription()
+    public function setActive($value)
     {
-        return $this->__get('driver_description');
+        $this->__set('is_active', $value ? 1 : 0);
     }
 
     /**
      * @return mixed
      */
-    public function getFormSettings()
+    public function getDescription()
     {
-        return $this->__get('form_settings');
+        return $this->__get('description');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setDescription($value)
+    {
+        $this->__set('description', (string)$value);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFormName()
+    {
+        return $this->__get('form_name');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setFormName($value)
+    {
+        $this->__set('form_name', (string)$value);
+    }
+
+    /**
+     * @return mixed|null
+     */
+    public function getId()
+    {
+        return $this->__get('provider_id');
+    }
+
+    /**
+     * @return mixed|null
+     */
+    public function getProviderId()
+    {
+        return $this->__get('provider_id');
+    }
+
+    /**
+     * @return mixed|null
+     */
+    public function getProviderClass()
+    {
+        return $this->__get('provider_class');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setProviderClass($value)
+    {
+        $this->__set('provider_class', (string)$value);
     }
 }

@@ -3,6 +3,7 @@
 namespace Neutron\Core\Controller;
 
 use Phpfox\Action\AjaxController;
+use Phpfox\View\ViewModel;
 
 class AjaxI18nController extends AjaxController
 {
@@ -17,13 +18,11 @@ class AjaxI18nController extends AjaxController
 
 
         if ($cmd == 'delete') {
-            \Phpfox::getModel('i18n_phrase')
-                ->sqlDelete()
-                ->where('var_name=?', $key)
-                ->execute();
+            \Phpfox::with('i18n_message')
+                ->delete(['var_name' => $key]);
         }
 
-        return [
+        $vm = new ViewModel([
             'message' => _text('Change Saved!'),
             'cmd'     => $cmd,
             'item'    => [
@@ -32,6 +31,8 @@ class AjaxI18nController extends AjaxController
                 'lang'   => $lang,
                 'domain' => $dm,
             ],
-        ];
+        ]);
+
+        return $vm;
     }
 }

@@ -2,29 +2,49 @@
 
 namespace Neutron\Video\Provider;
 
-use Phpfox\Support\CurlRequest;
 
 class FacebookProvider implements ProviderInterface
 {
+    /**
+     * @var string
+     */
+    protected $accessToken;
+
+    /**
+     * @return string
+     */
+    public function getAccessToken()
+    {
+        return $this->accessToken;
+    }
+
+    /**
+     * @param string $accessToken
+     */
+    public function setAccessToken($accessToken)
+    {
+        $this->accessToken = $accessToken;
+    }
+
+    public function isVideoLink($url)
+    {
+        return $this->extractCode($url) != false;
+    }
+
     public function parseFromUrl($url)
     {
         $code = $this->extractCode($url);
-        $token
-            = 'EAACEdEose0cBAGr88OheXeR9eIn9aOslUkXKw7EfjjMQVre4vVyAxuMPy8AfBctAZBxpCQuZAftpZAw5NgrpLVSBZCUVqZAGnIEA1UcZCOGgzlzgFYItdhk9ZAQS0FiZCK4fWjEqH90LVi5RW3iH7DAhEuNZAMOGNBLsZCCCKeGfSV20D5CA6QcYWSdJbxAZCxdL70ZD';
 
         $endpoint = _http_build_url('https://graph.facebook.com/v2.8/{0}',
             [$code], [
-                'access_token' => $token,
+                'access_token' => $this->getAccessToken(),
                 'fields'       => 'id,title,description,thumbnails,picture,length,captions,embed_html,embeddable',
             ]);
 
-        $info = (new CurlRequest([
-            'format' => 'json',
-            'url'    => $endpoint,
-        ]))->get();
+        $info = \Phpfox::get('curl')->factory($endpoint)->getJSON();
 
         if (empty($info['id'])) {
-            throw new ParseException("Invalid video url");
+            throw new ParseException($info['error']['message']);
         }
 
         $result = new ParseResult();
@@ -41,11 +61,6 @@ class FacebookProvider implements ProviderInterface
         $result->setDefinition('2d');
 
         return $result;
-    }
-
-    public function getEmbedCode($code, $context = [])
-    {
-        // TODO: Implement getEmbedCode() method.
     }
 
     public function getProviderName()
@@ -88,18 +103,12 @@ class FacebookProvider implements ProviderInterface
         return "";
     }
 
-    public function getEmbededCode($code = null)
+    public function getEmbedCode($code, $context = [])
     {
-    }
-
-    public function compileVideo($params)
-    {
-        $video_id = $params['video_id'];
-        $code = $params['code'];
-        $view = $params['view'];
-        $mobile = empty($params['mobile']) ? false : $params['mobile'];
+        $view = isset($context['view']) ? $context['view'] : false;
+        $mobile = empty($context['mobile']) ? false : $context['mobile'];
         $autoplay = !$mobile && $view;
-        $videoFrame = $video_id . "_" . $params['count_video'];
+        $videoFrame = '_' . $code;
         $embedded
             = '
             <iframe

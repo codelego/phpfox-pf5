@@ -12,6 +12,7 @@ class AuthController extends ActionController
     {
         // start session
         $auth = \Phpfox::get('auth');
+        $vm = new ViewModel();
 
         if ($auth->isLoggedIn()) {
             // redirect to logged in user
@@ -43,7 +44,7 @@ class AuthController extends ActionController
             }
         }
 
-        $vm = new ViewModel(['form' => $form, 'message' => $message]);
+        $vm->assign(['form' => $form, 'message' => $message]);
 
         $vm->setTemplate('user/auth/login');
 

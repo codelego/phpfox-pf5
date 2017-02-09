@@ -6,6 +6,9 @@ use Phpfox\Db\DbModel;
 
 class CoreRole extends DbModel
 {
+    /**
+     * @return string
+     */
     public function getModelId()
     {
         return 'core_role';
@@ -48,7 +51,7 @@ class CoreRole extends DbModel
      */
     public function getUserCount()
     {
-        return \Phpfox::getModel('user')
+        return \Phpfox::with('user')
             ->select()
             ->where('role_id=?', $this->getId())
             ->count();
@@ -59,7 +62,7 @@ class CoreRole extends DbModel
      */
     public function isGuest()
     {
-        return (bool)$this->__get('is_guest');
+        return $this->__get('is_guest') ? 1 : 0;
     }
 
     /**
@@ -67,7 +70,7 @@ class CoreRole extends DbModel
      */
     public function isBanned()
     {
-        return (bool)$this->__get('is_banned');
+        return $this->__get('is_banned') ? 1 : 0;
     }
 
     /**
@@ -75,7 +78,7 @@ class CoreRole extends DbModel
      */
     public function isRegistered()
     {
-        return (bool)$this->__get('is_registered');
+        return $this->__get('is_registered') ? 1 : 0;
     }
 
     /**
@@ -83,7 +86,7 @@ class CoreRole extends DbModel
      */
     public function isStaff()
     {
-        return (bool)$this->__get('is_staff');
+        return $this->__get('is_staff') ? 1 : 0;
     }
 
     /**
@@ -91,7 +94,7 @@ class CoreRole extends DbModel
      */
     public function isModerator()
     {
-        return (bool)$this->__get('is_moderator');
+        return $this->__get('is_moderator') ? 1 : 0;
     }
 
     /**
@@ -99,7 +102,7 @@ class CoreRole extends DbModel
      */
     public function isAdmin()
     {
-        return (bool)$this->__get('is_admin');
+        return $this->__get('is_admin') ? 1 : 0;
     }
 
     /**
@@ -107,7 +110,7 @@ class CoreRole extends DbModel
      */
     public function isSuper()
     {
-        return (bool)$this->__get('is_super');
+        return $this->__get('is_super') ? 1 : 0;
     }
 
     /**
@@ -115,7 +118,15 @@ class CoreRole extends DbModel
      */
     public function isSpecial()
     {
-        return (bool)$this->__get('is_special');
+        return $this->__get('is_special') ? 1 : 0;
+    }
+
+    /**
+     * @return mixed|null
+     */
+    public function getRoleId()
+    {
+        return $this->__get('role_id');
     }
 
 }

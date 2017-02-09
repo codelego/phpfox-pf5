@@ -26,7 +26,7 @@ class AdminMailController extends AdminController
 
     public function actionTransports()
     {
-        $items = \Phpfox::getModel('mail_transport')
+        $items = \Phpfox::with('mail_adapter')
             ->select()
             ->execute()
             ->all();
@@ -50,7 +50,7 @@ class AdminMailController extends AdminController
         $vm->assign(['driver_name' => $driverName]);
 
         if (empty($driverName)) {
-            $items = \Phpfox::getModel('mail_driver')
+            $items = \Phpfox::with('mail_driver')
                 ->select()
                 ->execute()
                 ->all();
@@ -60,7 +60,7 @@ class AdminMailController extends AdminController
             return $vm;
         }
 
-        $driver = \Phpfox::getModel('mail_driver')
+        $driver = \Phpfox::with('mail_driver')
             ->findById($driverName);
 
         $formSettings = $driver->getFormSettings();
@@ -80,7 +80,7 @@ class AdminMailController extends AdminController
         $request = \Phpfox::get('mvc.request');
         $id = $request->get('id');
 
-        $item = \Phpfox::getModel('mail_transport')->findById($id);
+        $item = \Phpfox::with('mail_adapter')->findById($id);
 
         if (!$item) {
 
@@ -93,5 +93,7 @@ class AdminMailController extends AdminController
         if ($request->isPost()) {
 
         }
+
+        return null;
     }
 }

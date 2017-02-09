@@ -7,9 +7,12 @@ use Phpfox\Support\CurlRequest;
 
 class VimeoProvider implements ProviderInterface
 {
-    /**
-     * @inheritdoc
-     */
+
+    public function isVideoLink($url)
+    {
+        return $this->extractCode($url) != false;
+    }
+
     public function getEmbedCode($code, $context = [])
     {
         $id = uniqid('_vimeo');
@@ -34,9 +37,6 @@ class VimeoProvider implements ProviderInterface
             ]);
     }
 
-    /**
-     * @inheritdoc
-     */
     public function parseFromUrl($url)
     {
         $code = $this->extractCode($url);
@@ -47,11 +47,8 @@ class VimeoProvider implements ProviderInterface
 
         $url = "http://vimeo.com/api/oembed.json?url=" . rawurlencode($url)
             . '&with=640';
-        $info = (new CurlRequest([
-            'timeout' => 30,
-            'url'     => $url,
-            'format'  => 'json',
-        ]))->get();
+
+        $info = \Phpfox::get('curl')->factory($url)->getJSON();
 
         if (empty($info) or empty($info['title'])) {
             throw new ParseException("Invalid video url");

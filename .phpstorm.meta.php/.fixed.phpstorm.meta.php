@@ -10,5 +10,6 @@ namespace PHPSTORM_META {
         'mvc.response'        => \Phpfox\Action\Response::class,
         'controller.provider' => \Phpfox\Package\ActionProvider::class,
         'db'                  => \Phpfox\Db\DbAdapterInterface::class,
+        'manager'             => \Phpfox\Support\ServiceManager::class,
     ]));
 }

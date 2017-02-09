@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: namnv
- * Date: 1/18/17
- * Time: 11:50 AM
- */
 
 namespace Phpfox\Authorization;
 

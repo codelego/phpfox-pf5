@@ -3,13 +3,10 @@
 namespace Neutron\Core\Service;
 
 
-use Phpfox\Db\DbAdapterInterface;
 use Phpfox\Db\SqlLiteral;
 use Phpfox\Session\SessionInterface;
 
-/** @noinspection PhpUndefinedClassInspection */
-class DatabaseSession
-    implements SessionInterface, \SessionHandlerInterface
+class DatabaseSession implements SessionInterface, \SessionHandlerInterface
 {
     /**
      * @var string
@@ -28,22 +25,16 @@ class DatabaseSession
 
     public function destroy($session_id)
     {
-        $this->getDb()
-            ->delete(':core_session', ['id=?' => (string)$session_id]);
+        \Phpfox::get('db')
+            ->delete(':core_session', ['id=?' => (string)$session_id])
+            ->execute();
         return true;
     }
 
-    /**
-     * @return DbAdapterInterface
-     */
-    private function getDb()
-    {
-        return \Phpfox::get('db');
-    }
 
     public function gc($maxlifetime)
     {
-        $this->getDb()->delete(':core_session',
+        \Phpfox::get('db')->delete(':core_session',
             new SqlLiteral('lifetime + modified < ' . $maxlifetime));
 
         return true;
@@ -59,14 +50,12 @@ class DatabaseSession
 
     public function read($session_id)
     {
-        $row = $this->getDb()->select('*')->from(':core_session')
-            ->where('id=?', $session_id)->limit(1, 0)->execute()->all();
+        $row = \Phpfox::get('db')->select('*')->from(':core_session')
+            ->where('id=?', $session_id)->first();
 
         if (!$row) {
             return '';
         }
-
-        $row = array_shift($row);
 
         if ((int)$row['modified'] + (int)$row['lifetime'] < time()) {
             return '';
@@ -77,7 +66,7 @@ class DatabaseSession
 
     public function write($session_id, $session_data)
     {
-        $db = $this->getDb();
+        $db = \Phpfox::get('db');
         $exists = $db->select('id')->from(':core_session')
                 ->where('id=?', $session_id)
                 ->execute()
@@ -107,5 +96,6 @@ class DatabaseSession
     public function register()
     {
         session_set_save_handler($this);
+        return true;
     }
 }

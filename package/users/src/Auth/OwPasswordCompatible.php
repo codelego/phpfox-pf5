@@ -8,7 +8,7 @@ class OwPasswordCompatible implements PasswordCompatibleInterface
 {
     public function isValid($input, $hashed, $salt, $static)
     {
-        return $this->createHash($input, '') == $hashed;
+        return $this->createHash($input, '', $static) == $hashed;
     }
 
     public function createHash($input, $salt, $static = null)
@@ -26,5 +26,4 @@ class OwPasswordCompatible implements PasswordCompatibleInterface
         }
         return $result;
     }
-
 }

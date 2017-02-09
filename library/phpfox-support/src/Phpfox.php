@@ -121,7 +121,7 @@ namespace {
          *
          * @return \Phpfox\Model\GatewayInterface|\Phpfox\Db\DbTableGateway
          */
-        public static function getModel($id)
+        public static function with($id)
         {
             return self::$service->get('models')->get($id);
         }

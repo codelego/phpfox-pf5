@@ -25,13 +25,13 @@ class AuthHistory
      */
     public function findById($id)
     {
-        return \Phpfox::getModel('user_auth_history')
+        return \Phpfox::with('user_auth_history')
             ->findById((int)$id);
     }
 
     public function log($data)
     {
-        \Phpfox::getModel('user_auth_history')
+        \Phpfox::with('user_auth_history')
             ->insert($data);
     }
 
@@ -42,7 +42,7 @@ class AuthHistory
      */
     public function getByUserId($userId)
     {
-        return \Phpfox::getModel('user_auth_history')
+        return \Phpfox::with('user_auth_history')
             ->select()
             ->where('user_id=?', (int)$userId)
             ->order('created', -1)

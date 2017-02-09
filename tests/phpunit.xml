@@ -22,17 +22,18 @@
     </testsuite>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">/Users/namnv/Sites/pf5/package/neutron-core/src</directory>
-            <directory suffix=".php">/Users/namnv/Sites/pf5/package/neutron-events/src</directory>
-            <directory suffix=".php">/Users/namnv/Sites/pf5/package/neutron-users/src</directory>
-            <directory suffix=".php">/Users/namnv/Sites/pf5/package/neutron-videos/src</directory>
-            <directory suffix=".php">/Users/namnv/Sites/pf5/package/neutron-pages/src</directory>
-            <directory suffix=".php">/Users/namnv/Sites/pf5/package/neutron-groups/src</directory>
-            <directory suffix=".php">/Users/namnv/Sites/pf5/package/neutron-messages/src</directory>
-            <directory suffix=".php">/Users/namnv/Sites/pf5/package/neutron-cms/src</directory>
-            <directory suffix=".php">/Users/namnv/Sites/pf5/package/neutron-blogs/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/core/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/events/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/users/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/videos/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/pages/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/groups/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/messages/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/cms/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/blogs/src</directory>
         </whitelist>
         <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-session/src</directory>
             <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-assets/src</directory>
             <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-authentication/src</directory>
             <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-authorization/src</directory>
@@ -54,7 +55,6 @@
             <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-payments/src</directory>
             <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-realm/src</directory>
             <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-routing/src</directory>
-            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-session/src</directory>
             <!--<directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-storage/src</directory>-->
             <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-support/src</directory>
             <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-view/src</directory>

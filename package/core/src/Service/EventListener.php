@@ -10,6 +10,8 @@ class EventListener implements EventListenerInterface
     {
         \Phpfox::get('view.template')
             ->preferThemes(\Phpfox::get('core.themes')->preferThemes());
+
+        return [];
     }
 
     public function onRebuildFiles()

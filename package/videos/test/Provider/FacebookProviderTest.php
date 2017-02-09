@@ -12,18 +12,27 @@ class FacebookProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('facebook', $provider->getProviderId());
     }
 
+    /**
+     * @expectedException \Exception
+     */
     public function testParser()
     {
 
         $provider = new FacebookProvider();
 
         $url
-            = 'https://www.facebook.com/hocthuthuatexcel/videos/782531485242661/?hc_ref=NEWSFEED';
+            = 'https://www.facebook.com/hocthuthuatexcel/videos/782531485242661';
 
         $content = $provider->parseFromUrl($url);
 
         $this->assertEquals('facebook.com', $content->getProviderName());
         $this->assertEquals('facebook', $content->getProviderId());
         $this->assertEquals('782531485242661', $content->getVideoCode());
+    }
+
+    public function testEmbedCode()
+    {
+        $provider = new FacebookProvider();
+        $this->assertNotEmpty($provider->getEmbedCode('782531485242661', []));
     }
 }

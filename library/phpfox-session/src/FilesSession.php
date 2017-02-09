@@ -14,5 +14,7 @@ class FilesSession implements SessionInterface
 
         ini_set('session.save_handler', 'files');
         ini_set('session.save_path', $save_path);
+
+        return true;
     }
 }

@@ -10,7 +10,7 @@ class AddNewRole extends Form
 {
     protected function initialize()
     {
-        $roles = \Phpfox::getModel('core_role')
+        $roles = \Phpfox::with('core_role')
             ->select()
             ->where('inherit_id=?', 0)
             ->execute()
@@ -32,6 +32,7 @@ class AddNewRole extends Form
             [
                 'factory'    => 'text',
                 'label'      => _text('Name'),
+                'name'=>'name',
                 'required'   => true,
                 'attributes' => [
                     'required'    => true,

@@ -448,7 +448,7 @@ class SqlSelect
         $result->setPrototype($this->_prototype);
 
         if (!$result->isValid()) {
-            throw new SqlException($result->error());
+            throw new SqlException($sql . PHP_EOL. $result->error());
         }
 
         return $result;
@@ -489,5 +489,21 @@ class SqlSelect
     {
         $this->_prototype = $prototype;
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function all()
+    {
+        return $this->execute()->all();
+    }
+
+    /**
+     * @return array|mixed
+     */
+    public function first()
+    {
+        return $this->limit(1,0)->execute()->first();
     }
 }

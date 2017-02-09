@@ -25,7 +25,7 @@ class Themes
      */
     public function findById($id)
     {
-        return \Phpfox::getModel('core_theme')
+        return \Phpfox::with('core_theme')
             ->findById((string)$id);
     }
 
@@ -114,14 +114,14 @@ class Themes
      */
     public function getDefault()
     {
-        $item = \Phpfox::getModel('core_theme')
+        $item = \Phpfox::with('core_theme')
             ->select()
             ->where('is_default=?', 1)
             ->execute()
             ->first();
 
         if (!$item) {
-            $item = \Phpfox::getModel('core_theme')
+            $item = \Phpfox::with('core_theme')
                 ->select()
                 ->where('is_active=?', 1)
                 ->execute()

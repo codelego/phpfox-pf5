@@ -12,8 +12,15 @@ class ErrorController extends ActionController
         $lastException = \Phpfox::get('mvc.dispatch')
             ->getLastException();
 
-        $vm
-            = new ViewModel(['lastException' => $lastException->getTraceAsString()]);
+        $vm = new ViewModel();
+
+        $message = '';
+
+        if($lastException instanceof \Exception){
+            $message = $lastException->getTraceAsString();
+        }
+
+        $vm->assign(['lastException' => $message]);
 
         $vm->setTemplate('core/error/index');
 
@@ -35,5 +42,7 @@ class ErrorController extends ActionController
         $vm = new ViewModel();
 
         $vm->setTemplate('core/error/500');
+
+        return $vm;
     }
 }

@@ -24,8 +24,6 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
         $event = new Event('onExampleEvent', null, ['key1' => 'value1']);
 
         $response = $mn->trigger($event);
-
-
         $this->assertTrue($response->count() == 0);
     }
 
@@ -37,6 +35,6 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
             ['key1' => 'value1']);
 
 
-        $this->assertNull($response);
+        $this->assertTrue($response instanceof Response);
     }
 }

@@ -5,28 +5,91 @@ use Phpfox\Db\DbModel;
 
 class VideoCategory extends DbModel
 {
+    /**
+     * @return string
+     */
     public function getModelId()
     {
         return 'video_category';
     }
 
+    /**
+     * @return int
+     */
     public function getId()
     {
         return $this->__get('category_id');
     }
 
+    /**
+     * @param $value
+     */
+    public function setName($value)
+    {
+        $this->__set('name', (string)$value);
+    }
+
+    /**
+     * @param $value
+     */
+    public function setTitle($value)
+    {
+        $this->__set('name', (string)$value);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategoryId()
+    {
+        return $this->__get('category_id');
+    }
+
+    /**
+     * @return string
+     */
     public function getName()
     {
-        return $this->__get('category_name');
+        return $this->__get('name');
     }
 
+    /**
+     * @return string
+     */
     public function getTitle()
     {
-        return $this->__get('category_name');
+        return $this->__get('name');
     }
 
+    /**
+     * @return int
+     */
     public function isActive()
     {
-        return (bool)$this->__get('is_active');
+        return $this->__get('is_active');
+    }
+
+    /**
+     * @param mixed $value
+     */
+    public function setActive($value)
+    {
+        $this->__set('is_active', $value ? 1 : 0);
+    }
+
+    /**
+     * @param $value
+     */
+    public function setDescription($value)
+    {
+        $this->__set('description', (string)$value);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->__get('description');
     }
 }

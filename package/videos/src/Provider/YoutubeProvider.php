@@ -2,15 +2,17 @@
 
 namespace Neutron\Video\Provider;
 
-
-use Phpfox\Support\CurlRequest;
-
 class YoutubeProvider implements ProviderInterface
 {
     /**
      * @var string
      */
     private $apiKey;
+
+    public function isVideoLink($url)
+    {
+        return $this->extractCode($url) != false;
+    }
 
     public function getEmbedCode($code, $context = [])
     {
@@ -53,18 +55,15 @@ class YoutubeProvider implements ProviderInterface
                 'part' => 'snippet,contentDetails',
             ], '&');
 
-        $videoInfo = (new CurlRequest([
-            'url'    => $url,
-            'format' => 'json',
-        ]))->get();
+        $info = \Phpfox::get('curl')->factory($url)->getJSON();
 
         // validate result
-        if (empty($videoInfo)) {
+        if (empty($info)) {
             throw new \InvalidArgumentException("Invalid YouTube video");
         }
 
-        if (empty($videoInfo['items']) or empty($videoInfo['items'][0])
-            or empty($videoInfo['items'][0]['snippet'])
+        if (empty($info['items']) or empty($info['items'][0])
+            or empty($info['items'][0]['snippet'])
         ) {
             throw new ParseException("Can not parse youtube video");
         }
@@ -74,8 +73,8 @@ class YoutubeProvider implements ProviderInterface
         $result->setProviderId($this->getProviderId());
         $result->setProviderName($this->getProviderName());
         $result->setVideoCode($code);
-        $snippet = $videoInfo['items'][0]['snippet'];
-        $contentDetail = $videoInfo['items'][0]['contentDetails'];
+        $snippet = $info['items'][0]['snippet'];
+        $contentDetail = $info['items'][0]['contentDetails'];
         $result->setTitle($snippet['title']);
         $result->setDescription($snippet['description']);
         $result->setThumbnailUrl($snippet['thumbnails']['high']['url']);
@@ -161,14 +160,6 @@ class YoutubeProvider implements ProviderInterface
         }
 
         return $result;
-    }
-
-    /**
-     * @return bool
-     */
-    public function checkDependencies()
-    {
-        return true;
     }
 
     /**

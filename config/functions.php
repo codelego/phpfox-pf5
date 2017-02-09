@@ -3,6 +3,27 @@
 namespace {
 
     /**
+     * Check directory then create directory if not found.
+     *
+     * @param string $directory
+     * @param int    $permission
+     *
+     * @return bool
+     */
+    function _ensure_directory($directory, $permission = 0755)
+    {
+        if (!is_dir($directory)) {
+            if (!@mkdir($directory, $permission, 1)) {
+                return false;
+            }
+            if (!chmod($directory, $permission)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * @param string $url
      * @param array  $context
      * @param array  $params

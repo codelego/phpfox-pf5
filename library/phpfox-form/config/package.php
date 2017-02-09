@@ -26,6 +26,7 @@ return [
         'text'         => Text::class,
         'textarea'     => Textarea::class,
         'form'         => Form::class,
+        'hidden'       => Hidden::class,
     ],
     'services'      => [
         'form.render'  => [null, FormFacades::class],

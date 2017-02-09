@@ -2,94 +2,18 @@
 
 namespace Phpfox\Authentication;
 
-class MockExampleUser
-{
-    protected $user_id = 1000;
-
-    public function __construct($id)
-    {
-        $this->user_id = $id;
-    }
-
-    public function getId()
-    {
-        return $this->user_id;
-    }
-
-    public function getModelId()
-    {
-        return 'example_user';
-    }
-
-    /**
-     * @return int
-     */
-    public function getUserId()
-    {
-        return $this->user_id;
-    }
-
-    /**
-     * @param int $user_id
-     */
-    public function setUserId($user_id)
-    {
-        $this->user_id = $user_id;
-    }
-}
-
-class MockAuthBaseExample implements AuthInterface
-{
-    public function authenticate($identity, $credential, $options = null)
-    {
-        $authResult = new AuthResult();
-
-        if (!$identity) {
-            $authResult->setResult(AuthResult::MISSING_IDENTITY);
-            return $authResult;
-        }
-
-        if (!$credential) {
-            $authResult->setResult(AuthResult::MISSING_CREDENTIAL);
-            return $authResult;
-        }
-
-        if ($identity != 'jack') {
-            $authResult->setResult(AuthResult::INVALID_IDENTITY);
-            return $authResult;
-        }
-
-        if ($credential != 'jack123') {
-            $authResult->setResult(AuthResult::INVALID_CREDENTIAL);
-            return $authResult;
-        }
-
-        $authResult->setResult(AuthResult::SUCCESS);
-        $authResult->setIdentity(1000);
-        return $authResult;
-    }
-}
-
-class MockAuthFactory implements AuthFactoryInterface
-{
-
-    public function factory($id)
-    {
-        return new MockAuthBaseExample();
-    }
-}
 
 class AuthFacadesTest extends \PHPUnit_Framework_TestCase
 {
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::get('services')->set('auth.factory', new MockAuthFactory());
+        \Phpfox::get('manager')->set('auth.factory', new MockAuthFactory());
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::get('services')->set('auth.factory', null);
+        \Phpfox::get('manager')->set('auth.factory', null);
     }
 
     public function testBase()

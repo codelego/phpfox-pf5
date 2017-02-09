@@ -75,4 +75,20 @@ class AuthorizationManager
             $this->roleId = PHPFOX_GUEST_ID;
         }
     }
+
+    /**
+     * @return int
+     */
+    public function getRoleId()
+    {
+        return $this->roleId;
+    }
+
+    /**
+     * @param int $value
+     */
+    public function setRoleId($value)
+    {
+        $this->roleId = (int)$value;
+    }
 }

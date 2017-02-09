@@ -20,18 +20,6 @@ class NavigationLoaderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Dashboard', $data['dashboard']->label);
         $this->assertEquals('route', $data['dashboard']->type);
 
-        $this->assertTrue($data['packages'] instanceof NavigationItem);
-        $this->assertEquals('packages', $data['packages']->name);
-        $this->assertEquals('core', $data['packages']->package_id);
-        $this->assertEquals('Packages', $data['packages']->label);
-        $this->assertEquals('route', $data['packages']->type);
-
-        $this->assertTrue($data['packages'] instanceof NavigationItem);
-        $this->assertEquals('members', $data['members']->name);
-        $this->assertEquals('core', $data['members']->package_id);
-        $this->assertEquals('Members', $data['members']->label);
-        $this->assertEquals('route', $data['members']->type);
-
         $this->assertTrue($data['settings'] instanceof NavigationItem);
         $this->assertEquals('settings', $data['settings']->name);
         $this->assertEquals('core', $data['settings']->package_id);

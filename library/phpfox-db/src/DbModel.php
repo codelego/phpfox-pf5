@@ -80,7 +80,7 @@ abstract class DbModel implements ModelInterface
 
     function __get($name)
     {
-        return $this->_data[$name];
+        return isset($this->_data[$name])? $this->_data[$name]: null;
     }
 
     function __set($name, $value)
@@ -92,7 +92,7 @@ abstract class DbModel implements ModelInterface
     public function delete()
     {
         $this->beforeDelete();
-        \Phpfox::getModel($this->getModelId())
+        \Phpfox::with($this->getModelId())
             ->delete($this);
         $this->afterDelete();
     }
@@ -114,7 +114,7 @@ abstract class DbModel implements ModelInterface
             return false;
         }
 
-        $gateway = \Phpfox::getModel($this->getModelId());
+        $gateway = \Phpfox::with($this->getModelId());
 
         if ($this->_saved) {
             $this->beforeUpdate();

@@ -5,6 +5,11 @@ namespace Neutron\Video\Provider;
 
 class UploadProvider implements ProviderInterface
 {
+    public function isVideoLink($url)
+    {
+        return false;
+    }
+
     public function getProviderName()
     {
         return '';

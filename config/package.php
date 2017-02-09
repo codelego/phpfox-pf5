@@ -61,6 +61,7 @@
     'text' => 'Phpfox\\Form\\Text',
     'textarea' => 'Phpfox\\Form\\Textarea',
     'form' => 'Phpfox\\Form\\Form',
+    'hidden' => 'Phpfox\\Form\\Hidden',
   ),
   'form.renders' => 
   array (
@@ -293,6 +294,11 @@
       1 => NULL,
       2 => 'cache.files',
     ),
+    'curl' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\CurlRequest\\CurlFactory',
+    ),
     'db' => 
     array (
       0 => 'Phpfox\\Db\\DbAdapterFactory',
@@ -324,11 +330,6 @@
     array (
       0 => NULL,
       1 => 'Phpfox\\I18n\\Translator',
-    ),
-    'image' => 
-    array (
-      0 => NULL,
-      1 => 'Phpfox\\Image\\InterventionFactory',
     ),
     'queues' => 
     array (
@@ -413,6 +414,11 @@
       1 => 'Phpfox\\Storage\\FileNameSupport',
     ),
     'storage.factory' => NULL,
+    'image' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Support\\InterventionImageManager',
+    ),
     'view.template' => 
     array (
       0 => NULL,

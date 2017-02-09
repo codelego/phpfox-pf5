@@ -14,7 +14,7 @@ class ServiceManager
      */
     public function __construct()
     {
-        $this->container['services'] = $this;
+        $this->container['manager'] = $this;
     }
 
     /**

@@ -2,12 +2,10 @@
 
 namespace Neutron\Core\Form;
 
-
 use Phpfox\Form\Form;
 
 class UploadPackage extends Form
 {
-
     protected function initialize()
     {
         $this->addElements([

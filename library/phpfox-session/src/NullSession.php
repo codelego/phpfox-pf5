@@ -7,6 +7,8 @@ class NullSession implements SessionInterface, \SessionHandlerInterface
     public function register()
     {
         session_set_save_handler($this);
+
+        return true;
     }
 
     public function close()

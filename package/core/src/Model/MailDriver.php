@@ -28,7 +28,15 @@ class MailDriver extends DbModel
      */
     public function getName()
     {
-        return $this->__get('driver_id');
+        return $this->__get('name');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setName($value)
+    {
+        $this->__set('name', (string)$value);
     }
 
     /**
@@ -36,7 +44,15 @@ class MailDriver extends DbModel
      */
     public function getDescription()
     {
-        return $this->__get('driver_description');
+        return $this->__get('description');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setDescription($value)
+    {
+        $this->__set('description', (string)$value);
     }
 
     /**
@@ -44,15 +60,31 @@ class MailDriver extends DbModel
      */
     public function getTitle()
     {
-        return $this->__get('driver_title');
+        return $this->__get('name');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setTitle($value)
+    {
+        $this->__set('name', (string)$value);
     }
 
     /**
      * @return mixed
      */
-    public function getFormSettings()
+    public function getFormName()
     {
-        return $this->__get('form_settings');
+        return $this->__get('form_name');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setFormName($value)
+    {
+        $this->__set('form_name', (string)$value);
     }
 
     /**
@@ -60,8 +92,15 @@ class MailDriver extends DbModel
      */
     public function isActive()
     {
-
         return (bool)$this->__get('is_active');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setActive($value)
+    {
+        $this->__set('is_active', $value ? 1 : 0);
     }
 
     /**

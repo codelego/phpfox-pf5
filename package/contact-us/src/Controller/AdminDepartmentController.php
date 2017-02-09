@@ -4,7 +4,7 @@ namespace Neutron\ContactUs\Controller;
 
 
 use Neutron\ContactUs\Form\EditContactDepartment;
-use Neutron\ContactUs\Model\ContactDepartment;
+use Neutron\ContactUs\Model\Department;
 use Neutron\Core\Controller\AdminController;
 use Phpfox\View\ViewModel;
 
@@ -13,7 +13,7 @@ class AdminDepartmentController extends AdminController
 
     public function actionDepartments()
     {
-        $items = \Phpfox::getModel('contact_department')
+        $items = \Phpfox::with('contact_department')
             ->select()
             ->execute()
             ->all();
@@ -42,7 +42,7 @@ class AdminDepartmentController extends AdminController
             }
         } elseif ($request->isPost()) {
             if (!$item) {
-                $item = new ContactDepartment();
+                $item = new Department();
             }
             $item->fromArray($_POST);
             $item->save();
@@ -72,7 +72,7 @@ class AdminDepartmentController extends AdminController
         if ($request->isGet()) {
 
         } elseif ($request->isPost()) {
-            $item = new ContactDepartment();
+            $item = new Department();
             $item->fromArray($_POST);
             $item->save();
 

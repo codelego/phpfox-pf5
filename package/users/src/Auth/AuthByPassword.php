@@ -13,13 +13,23 @@ class AuthByPassword implements AuthInterface
     public function authenticate($identity, $credential, $options = null)
     {
         $result = new AuthResult();
+
+        if (!$identity) {
+            $result->setResult(AuthResult::MISSING_IDENTITY);
+            return $result;
+        }
+
+        if (!$credential) {
+            $result->setResult(AuthResult::MISSING_CREDENTIAL);
+            return $result;
+        }
+
         $user = $this->findUser($identity);
 
         if (!$user) {
             $result->setResult(AuthResult::INVALID_IDENTITY, null);
             return $result;
         }
-
 
         $userId = $user->getId();
         $result->setIdentity($userId);
@@ -43,20 +53,16 @@ class AuthByPassword implements AuthInterface
     private function findUser($identity)
     {
         if (strpos($identity, '@') !== false) {// check is email
-            return \Phpfox::db()->select('user_id')->from(':user')
+            return \Phpfox::with('user')
+                ->select()
                 ->where('email=?', $identity)
-                ->execute()
-                ->setPrototype(User::class)
                 ->first();
 
-        } elseif (false) {// check is phone number
-            // todo implement find by phone number
         }
 
-        return \Phpfox::db()->select('user_id')->from(':user')
+        return \Phpfox::with('user')
+            ->select()
             ->where('username=?', $identity)
-            ->execute()
-            ->setPrototype(User::class)
             ->first();
     }
 
@@ -66,14 +72,13 @@ class AuthByPassword implements AuthInterface
      *
      * @return bool
      */
-    private function checkPassword($credential, $userId)
+    public function checkPassword($credential, $userId)
     {
 
         /** @var AuthPassword[] $candidates */
-        $candidates = \Phpfox::getModel('auth_password')
+        $candidates = \Phpfox::with('auth_password')
             ->select()
             ->where('user_id=?', (int)$userId)
-            ->execute()
             ->all();
 
         foreach ($candidates as $ca) {
@@ -97,7 +102,7 @@ class AuthByPassword implements AuthInterface
      *
      * @return PasswordCompatibleInterface
      */
-    private function getPasswordChecker($id)
+    public function getPasswordChecker($id)
     {
         $driver = \Phpfox::getParam('auth.passwords', $id);
 

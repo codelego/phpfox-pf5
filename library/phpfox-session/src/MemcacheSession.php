@@ -15,6 +15,8 @@ class MemcacheSession implements SessionInterface
     {
         ini_set('session.save_handler', 'memcache');
         ini_set('session.save_path', $this->savePath);
+
+        return true;
     }
 
     /**

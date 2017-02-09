@@ -14,7 +14,7 @@ class Roles
      */
     public function findById($id)
     {
-        return \Phpfox::getModel('core_role')
+        return \Phpfox::with('core_role')
             ->findById((int)$id);
     }
 }

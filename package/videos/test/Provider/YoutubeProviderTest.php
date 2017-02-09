@@ -43,4 +43,10 @@ class YoutubeProviderTest extends \PHPUnit_Framework_TestCase
         $url = 'https://www.youtube.com/watch?v=5vZ4lCKv1ik';
         $provider->parseFromUrl($url);
     }
+
+    public function testEmbedCode()
+    {
+        $provider = new YoutubeProvider();
+        $this->assertNotEmpty($provider->getEmbedCode('5vZ4lCKv1ik', []));
+    }
 }

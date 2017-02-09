@@ -1,0 +1,10 @@
+<div class="container">
+    <?php echo $form->open(); ?>
+    <?php echo Phpfox::get('form.render')->render($form); ?>
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit"
+                name="_submit"><?= _text('Save Changes') ?></button>
+        <a href=".." class="btn btn-link"><?= _text('Cancel') ?></a>
+    </div>
+    <?php echo $form->close(); ?>
+</div>

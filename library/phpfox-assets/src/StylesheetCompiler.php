@@ -27,29 +27,22 @@ class StylesheetCompiler
      * Rebuild sass
      *
      * @param string $source
-     * @param string $output    output filename
-     * @param array  $variables sass variable array
-     * @param array  $paths     import paths
+     * @param string $destination Output filename
+     * @param array  $variables   Sass variable array
+     * @param array  $paths       Import paths
      *
      * @return bool
      *
      * todo improve chmod method
      */
-    public function rebuild($source, $output, $variables, $paths)
+    public function rebuild($source, $destination, $variables, $paths)
     {
-        $dir = dirname($output);
-
-        if (!is_dir($dir)) {
-            if (!@mkdir($dir, 0755, 1)) {
-                throw new \RuntimeException("Can not write to $dir");
-            }
-            if (!chmod($dir, 0755)) {
-                throw new \RuntimeException("Can not write to $dir");
-            }
+        if (!_ensure_directory(dirname($destination))) {
+            throw new \RuntimeException("Oops! Could not write to `$destination`");
         }
 
-        if (file_exists($output) and !is_writeable($output)) {
-            throw new \InvalidArgumentException("Oops! Could not write to file [$output]");
+        if (file_exists($destination) and !is_writeable($destination)) {
+            throw new \InvalidArgumentException("Oops! Could not write to file `$destination`");
         }
 
 
@@ -57,10 +50,10 @@ class StylesheetCompiler
 
         $content = $this->compile($source, $variables, $paths);
 
-        $fp = fopen($output, 'w');
+        $fp = fopen($destination, 'w');
 
         if (!$fp) {
-            throw new \InvalidArgumentException("Oops! Could not write to file [$output]");
+            throw new \InvalidArgumentException("Oops! Could not write to file [$destination]");
         }
 
         fwrite($fp, $content);
@@ -101,7 +94,6 @@ class StylesheetCompiler
             return $compiler->compile($source);
 
         } catch (\Exception $ex) {
-            exit($ex->getMessage());
             throw new \InvalidArgumentException($ex->getMessage());
         }
     }

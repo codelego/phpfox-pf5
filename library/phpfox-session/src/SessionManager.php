@@ -31,13 +31,11 @@ class SessionManager
 
         $this->started = true;
 
-        if (session_id()) {
-            return false;
-        }
-
         \Phpfox::get('session.save_handler')->register();
 
-        @session_start();
+        if (!session_id() and !headers_sent()) {
+            @session_start();
+        }
 
         return true;
     }

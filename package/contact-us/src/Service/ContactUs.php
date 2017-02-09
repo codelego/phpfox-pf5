@@ -2,24 +2,24 @@
 
 namespace Neutron\ContactUs\Service;
 
-use Neutron\ContactUs\Model\ContactDepartment;
+use Neutron\ContactUs\Model\Department;
 
 class ContactUs
 {
     /**
-     * @param $id
+     * @param string $id
      *
-     * @return ContactDepartment
+     * @return Department
      */
     public function findDepartmentById($id)
     {
-        return \Phpfox::getModel('contact_department')
+        return \Phpfox::with('contact_department')
             ->findById((int)$id);
     }
 
     public function getDefaultDepartmentId()
     {
-        $entry = \Phpfox::getModel('contact_department')
+        $entry = \Phpfox::with('contact_department')
             ->select()
             ->where('is_active=?', 1)
             ->order('is_default', -1)
@@ -50,9 +50,9 @@ class ContactUs
      */
     public function _getActiveDepartmentOptions()
     {
-        return array_map(function (ContactDepartment $item) {
+        return array_map(function (Department $item) {
             return ['value' => $item->getId(), 'label' => $item->getTitle()];
-        }, \Phpfox::getModel('contact_department')
+        }, \Phpfox::with('contact_department')
             ->select()
             ->where('is_active=?', 1)
             ->execute()

@@ -16,8 +16,6 @@ class GlobalFunctionTest extends \PHPUnit_Framework_TestCase
             'admin'   => ['layout' => 'package/core/layout/admin'],
         ]);
 
-        var_export($maps);
-
         $this->assertArrayHasKey('default:core/error/404', $maps);
     }
 }

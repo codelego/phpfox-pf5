@@ -30,7 +30,7 @@ class Browse
      */
     public function findByProfileName($name)
     {
-        return \Phpfox::getModel('user')
+        return \Phpfox::with('user')
             ->select()
             ->where('username=?', (string)$name)
             ->execute()

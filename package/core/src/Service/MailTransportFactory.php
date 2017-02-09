@@ -53,29 +53,29 @@ class MailTransportFactory implements MailTransportFactoryInterface
         $this->initialized = true;
 
 
-        $rows = \Phpfox::db()->select('*')->from(':mail_transport')
+        $rows = \Phpfox::db()->select('*')->from(':mail_adapter')
             ->where('is_active=?', 1)
             ->execute()->all();
 
         foreach ($rows as $row) {
             $configs = $row['params'];
 
-            $id = $row['id'];
+            $id = $row['adapter_id'];
 
             if (!empty($configs)) {
                 $configs = json_decode($configs, true);
             }
 
             if ($row['is_default']) {
-                $this->default = $row['id'];
+                $this->default = $row['adapter_id'];
             }
 
             if ($row['is_fallback']) {
-                $this->fallback = $row['id'];
+                $this->fallback = $row['adapter_id'];
             }
 
             $this->map[$id] = [
-                'driver'  => $row['driver'],
+                'driver'  => $row['driver_id'],
                 'configs' => $configs,
             ];
         }

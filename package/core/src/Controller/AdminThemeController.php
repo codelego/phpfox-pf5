@@ -2,7 +2,6 @@
 
 namespace Neutron\Core\Controller;
 
-
 use Neutron\Core\Form\ThemeEditor;
 use Phpfox\View\ViewModel;
 
@@ -44,7 +43,7 @@ class AdminThemeController extends AdminController
         }
 
 
-        $items = \Phpfox::getModel('core_theme')
+        $items = \Phpfox::with('core_theme')
             ->select('*')
             ->execute()
             ->all();
@@ -99,15 +98,23 @@ class AdminThemeController extends AdminController
 
         $request = \Phpfox::get('mvc.request');
         $id = $request->get('id');
+        $theme  = \Phpfox::get('core.themes')
+            ->findById($id);
+
+        if(!$id){
+            $id = 'default';
+            $theme  = \Phpfox::get('core.themes')
+                ->findById($id);
+        }
 
         $vm->setTemplate('core/admin-theme/debug');
 
         $themes = \Phpfox::get('core.themes');
 
-        $tempFiles = $themes->getRebuildFiles($id);
+        $tempFiles = $themes->getRebuildFiles($theme->getId());
         $main = $themes->getMainSource();
-        $paths = $themes->getImportPaths($id);
-        $variables = $themes->getSassVariables($id);
+        $paths = $themes->getImportPaths($theme->getId());
+        $variables = $themes->getSassVariables($theme->getId());
 
         $files = [];
 

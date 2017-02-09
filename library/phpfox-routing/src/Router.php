@@ -27,7 +27,7 @@ class Router
      * Start to build routing
      * todo: add new route group to fast filter for a large group.
      */
-    public function initialize()
+    protected function initialize()
     {
         $configs = \Phpfox::get('router.provider')->loadConfigs();
 

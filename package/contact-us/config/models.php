@@ -6,7 +6,7 @@ return [
     'contact_department' => [
         'table_factory',
         ':contact_department',
-        ContactDepartment::class,
+        Department::class,
         'contact-us/config/.meta.contact_department.php',
     ],
 ];

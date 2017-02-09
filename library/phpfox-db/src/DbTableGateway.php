@@ -88,8 +88,8 @@ class DbTableGateway implements GatewayInterface
 
     public function insert($values)
     {
-        $temp = array_intersect_key($values,
-            $values instanceof ModelInterface ? $values->toArray() : $values);
+        $temp = array_intersect_key(
+            $values instanceof ModelInterface ? $values->toArray() : $values,$this->_columns);
 
         $result = (new SqlInsert($this->adapter()))
             ->insert($this->_table)

@@ -16,7 +16,7 @@ class Packages
      */
     public function findById($id)
     {
-        return \Phpfox::getModel('core_package')
+        return \Phpfox::with('core_package')
             ->findById((int)$id);
     }
 }

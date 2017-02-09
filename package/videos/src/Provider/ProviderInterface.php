@@ -30,4 +30,10 @@ interface ProviderInterface
      */
     public function getProviderId();
 
+    /**
+     * @param string $url
+     *
+     * @return bool
+     */
+    public function isVideoLink($url);
 }

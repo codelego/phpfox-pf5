@@ -12,16 +12,25 @@ class AuthByRemote implements AuthInterface
     {
         $result = new AuthResult();
 
+        if (!$identity) {
+            $result->setResult(AuthResult::MISSING_IDENTITY);
+            return $result;
+        }
+
+        if (!$credential) {
+            $result->setResult(AuthResult::MISSING_CREDENTIAL);
+            return $result;
+        }
+
         /** @var AuthRemote $remote */
-        $remote = \Phpfox::getModel('auth_remote')
+        $remote = \Phpfox::with('auth_remote')
             ->select()
             ->where('remote_id=?', (string)$identity)
             ->where('remote_uid=?', (string)$credential)
-            ->execute()
             ->first();
 
         if (!$remote) {
-            $result->setResult(AuthResult::INVALID_CREDENTIAL, null);
+            $result->setResult(AuthResult::INVALID_IDENTITY, null);
             return $result;
         }
 

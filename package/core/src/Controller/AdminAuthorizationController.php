@@ -11,14 +11,14 @@ class AdminAuthorizationController extends AdminController
 {
     public function actionIndex()
     {
-        $items = \Phpfox::getModel('core_role')
+        $items = \Phpfox::with('core_role')
             ->select()
             ->execute()
             ->all();
 
         $vm = new ViewModel();
 
-        $temp = \Phpfox::getModel('user')
+        $temp = \Phpfox::with('user')
             ->select('role_id, count(*) as user_count')
             ->group('role_id')
             ->execute()
@@ -74,7 +74,18 @@ class AdminAuthorizationController extends AdminController
 
     public function actionEdit()
     {
+        $form = new AddNewRole();
 
+        $vm = new ViewModel();
+
+        $vm->assign([
+            'heading' => '',
+            'form'    => $form,
+        ]);
+
+        $vm->setTemplate('layout/admin-edit');
+
+        return $vm;
     }
 
     public function actionSettings()
@@ -82,7 +93,7 @@ class AdminAuthorizationController extends AdminController
         $vm = new ViewModel();
         $request = \Phpfox::get('mvc.request');
 
-        $id = $request->get('id');
+        $id = $request->get('id',1);
         $role = \Phpfox::get('core.roles')->findById($id);
 
         $form = new AuthorizationSettings();
