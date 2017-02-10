@@ -2,19 +2,18 @@
 
 namespace Neutron\User\Service;
 
-
 use Neutron\User\Model\UserVerification;
 
 class VerifyEmail
 {
     /**
-     * @param string $tokenId
+     * @param string $id
      *
      * @return UserVerification
      */
-    public function findTokenById($tokenId)
+    public function findById($id)
     {
         return \Phpfox::with('user_verification')
-            ->findById((string)$tokenId);
+            ->findById((string)$id);
     }
 }

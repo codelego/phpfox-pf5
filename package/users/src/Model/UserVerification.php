@@ -78,4 +78,20 @@ class UserVerification extends DbModel
     {
         return $this->__set('expires_at', $value);
     }
+
+    /**
+     * @return mixed|null
+     */
+    public function getReason()
+    {
+        return $this->__get('reason');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setReason($value)
+    {
+        $this->__set('reason', (string)$value);
+    }
 }

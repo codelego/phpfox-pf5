@@ -17,11 +17,13 @@ class ViewModel
     /**
      * ViewModel constructor.
      *
-     * @param array $data
+     * @param array  $data
+     * @param string $template
      */
-    public function __construct($data = [])
+    public function __construct($data = [], $template = null)
     {
         $this->data = $data;
+        $this->template = $template;
     }
 
     /**

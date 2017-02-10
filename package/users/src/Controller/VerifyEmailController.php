@@ -8,15 +8,14 @@ class VerifyEmailController extends ActionController
     public function actionIndex()
     {
         $request = \Phpfox::get('mvc.request');
-        $tokenId = $request->get('token', null);
+        $tokenId = $request->get('token');
 
         $verifyService = \Phpfox::get('user.verify_email');
         $browseService = \Phpfox::get('user.browse');
 
-        $token = $verifyService->findTokenById($tokenId);
+        $token = $verifyService->findById($tokenId);
 
-
-        if (!$token) { // token invalid ?
+        if (!$token) { // invalid token
             return $this->forward(null, 'resend');
         }
 
