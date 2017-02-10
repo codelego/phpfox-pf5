@@ -7,7 +7,7 @@ return [
     'services'  => [
         'video.callback' => [null, Service\EventListener::class],
         'video'         => [null, Service\video::class],
-        'video.provider' => [null, Service\Providers::class],
+        'video.provider' => [null, Service\ProviderManager::class],
     ],
     'templates' => _view_map(['default' => ['video' => 'package/video/view']]),
 ];

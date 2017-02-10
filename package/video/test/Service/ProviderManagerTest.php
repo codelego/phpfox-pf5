@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: namnv
- * Date: 1/23/17
- * Time: 6:08 PM
- */
 
 namespace Neutron\Video\Service;
 
@@ -14,11 +8,11 @@ use Neutron\Video\Provider\UploadProvider;
 use Neutron\Video\Provider\VimeoProvider;
 use Neutron\Video\Provider\YoutubeProvider;
 
-class ProvidersTest extends \PHPUnit_Framework_TestCase
+class ProviderManagerTest extends \PHPUnit_Framework_TestCase
 {
     public function testAll()
     {
-        $mn = new Providers();
+        $mn = new ProviderManager();
         $all = $mn->getClasses();
 
         $this->assertArrayHasKey('youtube', $all);
@@ -32,7 +26,7 @@ class ProvidersTest extends \PHPUnit_Framework_TestCase
 
     public function testGet()
     {
-        $mn = new Providers();
+        $mn = new ProviderManager();
 
         $this->assertTrue($mn->get('youtube') instanceof YoutubeProvider);
         $this->assertTrue($mn->get('facebook') instanceof FacebookProvider);
@@ -46,7 +40,7 @@ class ProvidersTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetException()
     {
-        $mn = new Providers();
+        $mn = new ProviderManager();
 
         $mn->get('no-key');
     }

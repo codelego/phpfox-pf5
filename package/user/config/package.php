@@ -15,7 +15,7 @@ return [
         'user.browse'         => [null, Service\Browse::class],
         'auth.factory'        => [null, Service\AuthFactory::class],
         'user.profile_filter' => [null, Service\ProfileNameFilter::class],
-        'user.auth_history'   => [null, Service\AuthHistory::class],
+        'user.auth_history'   => [null, Service\AuthHistoryManager::class],
     ],
     'templates'      => _view_map(['default' => ['user' => 'package/user/view']]),
 ];

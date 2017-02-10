@@ -7,12 +7,12 @@ use Neutron\Video\Provider\FacebookProvider;
 use Neutron\Video\Provider\VimeoProvider;
 use Neutron\Video\Provider\YoutubeProvider;
 
-class videoTest extends \PHPUnit_Framework_TestCase
+class VideoManagerTest extends \PHPUnit_Framework_TestCase
 {
     public function testParseYoutube()
     {
 
-        $mn = new Providers();
+        $mn = new ProviderManager();
 
         /** @var YoutubeProvider $obj */
         $obj = $mn->get('youtube');
@@ -29,7 +29,7 @@ class videoTest extends \PHPUnit_Framework_TestCase
     public function testParseVimeo()
     {
 
-        $mn = new Providers();
+        $mn = new ProviderManager();
 
         /** @var VimeoProvider $obj */
         $obj = $mn->get('vimeo');
@@ -49,7 +49,7 @@ class videoTest extends \PHPUnit_Framework_TestCase
     public function testParseFacebook()
     {
 
-        $mn = new Providers();
+        $mn = new ProviderManager();
 
         /** @var FacebookProvider $obj */
         $obj = $mn->get('facebook');

@@ -5,7 +5,7 @@ use Neutron\Video\Model\Provider;
 use Neutron\Video\Provider\ParseException;
 use Neutron\Video\Provider\ProviderInterface;
 
-class Providers
+class ProviderManager
 {
     /**
      * @var array

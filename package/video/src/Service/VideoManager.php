@@ -2,7 +2,7 @@
 
 namespace Neutron\Video\Service;
 
-class video
+class VideoManager
 {
     public function findVideoById($id)
     {

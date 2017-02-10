@@ -3,12 +3,12 @@
 namespace Neutron\User\Service;
 
 
-class AuthHistoryTest extends \PHPUnit_Framework_TestCase
+class AuthHistoryManagerTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testCleanup()
     {
-        $obj = new AuthHistory();
+        $obj = new AuthHistoryManager();
 
         $this->assertTrue($obj->cleanup()->isValid());
     }

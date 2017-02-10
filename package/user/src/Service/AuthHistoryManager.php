@@ -6,7 +6,7 @@ namespace Neutron\User\Service;
 use Phpfox\Event\Event;
 use Phpfox\Support\UserInterface;
 
-class AuthHistory
+class AuthHistoryManager
 {
     public function cleanup()
     {
