@@ -42,7 +42,9 @@ class AuthByTokenTest extends \PHPUnit_Framework_TestCase
     {
         $obj = new AuthByToken();
 
-        $result = $obj->authenticate('$2y$10$eO/nRD4KPbvtzQJjE26d1OjjXYjQj96pfExn8Gpva5yD/36UsoG2e', '');
+        $result
+            = $obj->authenticate('$2y$10$eO/nRD4KPbvtzQJjE26d1OjjXYjQj96pfExn8Gpva5yD/36UsoG2e',
+            '');
 
         $this->assertSame(true, $result->isValid());
         $this->assertSame(AuthResult::SUCCESS, $result->getCode());
@@ -51,8 +53,9 @@ class AuthByTokenTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::db()->delete(':user_auth_token')
-            ->where('id=?', '$2y$10$eO/nRD4KPbvtzQJjE26d1OjjXYjQj96pfExn8Gpva5yD/36UsoG2e')
+        \Phpfox::db()->delete(':auth_token')
+            ->where('id=?',
+                '$2y$10$eO/nRD4KPbvtzQJjE26d1OjjXYjQj96pfExn8Gpva5yD/36UsoG2e')
             ->execute();
         \Phpfox::db()->delete(':user')
             ->where('email=?', 'auth_token.unitest@example.com')
@@ -87,7 +90,7 @@ class AuthByTokenTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-//        \Phpfox::db()->delete(':user_auth_token')
+//        \Phpfox::db()->delete(':auth_token')
 //            ->where('id=?', '$2y$10$eO/nRD4KPbvtzQJjE26d1OjjXYjQj96pfExn8Gpva5yD/36UsoG2e')
 //            ->execute();
 //        \Phpfox::db()->delete(':user')

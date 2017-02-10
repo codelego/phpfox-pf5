@@ -10,7 +10,7 @@ class Pf5PasswordCompatibleTest extends \PHPUnit_Framework_TestCase
         $obj = new Pf5PasswordCompatible();
         $static = '';
         $input = '123456';
-        $salt  = 'OJ$';
+        $salt = 'OJ$';
         $hashed
             = 'd1398bddd6db7ac7040024d2ee4b0eecc4e86e0f';
 

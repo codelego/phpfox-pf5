@@ -10,7 +10,7 @@
             'user_id'       => 1,
             'role_id'       => 1,
             'user_photo_id' => 1,
-            'gender'        => 1,
+            'gender_id'     => 1,
             'status_id'     => 1,
             'view_id'       => 1,
             'username'      => 1,

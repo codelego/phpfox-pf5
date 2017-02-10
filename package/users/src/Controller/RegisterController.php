@@ -6,5 +6,4 @@ use Phpfox\Action\ActionController;
 
 class RegisterController extends ActionController
 {
-
 }

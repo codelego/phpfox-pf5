@@ -9,10 +9,10 @@ class ProfileController extends ActionController
 {
     public function actionIndex()
     {
-        $viewModel = new ViewModel();
+        $vm = new ViewModel();
 
-        $viewModel->setTemplate('user/profile/index');
+        $vm->setTemplate('user/profile/index');
 
-        return $viewModel;
+        return $vm;
     }
 }

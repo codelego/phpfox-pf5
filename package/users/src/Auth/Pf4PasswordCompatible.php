@@ -10,20 +10,17 @@ class Pf4PasswordCompatible implements PasswordCompatibleInterface
     public function isValid($input, $hashed, $salt, $static)
     {
         if (strlen($hashed) > 32) {
-            if (!function_exists('crypt')) {
-                return false;
-            }
             $ret = crypt($input, $hashed);
             if (!is_string($ret)
-                || $this->check_str_length($ret)
-                != $this->check_str_length($hashed)
-                || $this->check_str_length($ret) <= 13
+                || mb_strlen($ret, '8bit')
+                != mb_strlen($hashed, '8bit')
+                || mb_strlen($ret, '8bit') <= 13
             ) {
                 return false;
             }
 
             $status = 0;
-            for ($i = 0; $i < $this->check_str_length($ret); $i++) {
+            for ($i = 0; $i < mb_strlen($ret, '8bit'); $i++) {
                 $status |= (ord($ret[$i]) ^ ord($hashed[$i]));
             }
 
@@ -31,14 +28,6 @@ class Pf4PasswordCompatible implements PasswordCompatibleInterface
         } else {
             return md5(md5($input) . md5($salt)) == $hashed;
         }
-    }
-
-    function check_str_length($binary_string)
-    {
-        if (function_exists('mb_strlen')) {
-            return mb_strlen($binary_string, '8bit');
-        }
-        return strlen($binary_string);
     }
 
     public function createHash($input, $salt, $static = null)

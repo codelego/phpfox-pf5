@@ -85,7 +85,7 @@ class AuthByRemoteTest extends \PHPUnit_Framework_TestCase
         \Phpfox::db()->delete(':user')
             ->where('email=?', 'auth_remote.unitest@example.com')
             ->execute();
-        
+
         $user = new User([
             'role_id'       => 1,
             'user_photo_id' => 0,

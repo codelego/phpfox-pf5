@@ -11,26 +11,32 @@ return [
     ],
     'auth_token'        => [
         'table_factory',
-        ':user_auth_token',
+        ':auth_token',
         AuthToken::class,
         'users/config/.meta.auth_token.php',
     ],
     'auth_password'     => [
         'table_factory',
-        ':user_auth_password',
+        ':auth_password',
         AuthPassword::class,
         'users/config/.meta.auth_password.php',
     ],
     'auth_remote'       => [
         'table_factory',
-        ':user_auth_remote',
+        ':auth_remote',
         AuthRemote::class,
         'users/config/.meta.auth_remote.php',
     ],
-    'user_auth_history' => [
+    'auth_history'      => [
         'table_factory',
-        ':user_auth_history',
+        ':auth_history',
         AuthHistory::class,
-        'users/config/.meta.user_auth_history.php',
+        'users/config/.meta.auth_history.php',
+    ],
+    'user_verification' => [
+        'table_factory',
+        ':user_verification',
+        UserVerification::class,
+        'users/config/.meta.user_verification.php',
     ],
 ];

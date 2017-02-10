@@ -80,7 +80,9 @@ class SessionManager
 
     public function delete($key)
     {
-        unset($_SESSION[$key]);
+        if (isset($_SESSION)) {
+            unset($_SESSION[$key]);
+        }
     }
 
     public function remember()

@@ -13,7 +13,7 @@ class AuthHistory
         $day = 30;
 
         return \Phpfox::get('db')
-            ->delete(':user_auth_history')
+            ->delete(':auth_history')
             ->where('created<?', date('Y-m-d H:i:s', time() - $day * 86400))
             ->execute();
     }
@@ -25,13 +25,13 @@ class AuthHistory
      */
     public function findById($id)
     {
-        return \Phpfox::with('user_auth_history')
+        return \Phpfox::with('auth_history')
             ->findById((int)$id);
     }
 
     public function log($data)
     {
-        \Phpfox::with('user_auth_history')
+        \Phpfox::with('auth_history')
             ->insert($data);
     }
 
@@ -42,7 +42,7 @@ class AuthHistory
      */
     public function getByUserId($userId)
     {
-        return \Phpfox::with('user_auth_history')
+        return \Phpfox::with('auth_history')
             ->select()
             ->where('user_id=?', (int)$userId)
             ->order('created', -1)

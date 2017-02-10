@@ -1,17 +1,18 @@
 <?php
+
 namespace Neutron\User\Model;
 
 
 use Phpfox\Db\DbModel;
 
-class AuthToken extends DbModel
+class UserVerification extends DbModel
 {
     /**
      * @return string
      */
     public function getModelId()
     {
-        return 'auth_token';
+        return 'user_verification';
     }
 
     /**
@@ -31,7 +32,7 @@ class AuthToken extends DbModel
     }
 
     /**
-     * @return mixed|null
+     * @return int
      */
     public function getUserId()
     {
@@ -47,34 +48,34 @@ class AuthToken extends DbModel
     }
 
     /**
-     * @return mixed|null
-     */
-    public function getCreated()
-    {
-        return (int)$this->__get('created');
-    }
-
-    /**
      * @param $value
      */
     public function setCreated($value)
     {
-        $this->__set('created', (string)$value);
+        return $this->__set('created', (string)$value);
     }
 
     /**
-     * @return int
+     * @return mixed|null
      */
-    public function getLifetime()
+    public function getCreated()
     {
-        return (int)$this->__get('lifetime');
+        return $this->__get('created');
+    }
+
+    /**
+     * @return mixed|null
+     */
+    public function getExpiresAt()
+    {
+        return $this->__get('expires_at');
     }
 
     /**
      * @param $value
      */
-    public function setLifetime($value)
+    public function setExpiresAt($value)
     {
-        $this->__set('lifetime', (int)$value);
+        return $this->__set('expires_at', $value);
     }
 }
