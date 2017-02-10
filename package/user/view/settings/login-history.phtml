@@ -1,0 +1,17 @@
+<div class="container">
+    <?php foreach ($items as $item): ?>
+        <div class="row">
+            <div class="col-xs-3"><?= _text('Device Name') ?></div>
+            <div class="col-xs-9"><?= $item->getDeviceName() ?></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3"><?= _text('Remote Address') ?></div>
+            <div class="col-xs-9"><?= $item->getRemoteAddress() ?></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3"><?= _text('Last Login') ?></div>
+            <div class="col-xs-9"><?= $item->getCreatedAt() ?></div>
+        </div>
+        <hr/>
+    <?php endforeach; ?>
+</div>

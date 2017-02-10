@@ -11,6 +11,29 @@ class AddressBook
     protected $data = [];
 
     /**
+     * AddressBook constructor.
+     *
+     * @param null $data
+     */
+    public function __construct($data = null)
+    {
+        if (is_array($data)) {
+            $this->initialize($data);
+        }
+    }
+
+    public function initialize($data)
+    {
+        foreach ($data as $name => $value) {
+            if (method_exists($this, $method = 'set' . ucfirst($name))) {
+                $this->{$method}($value);
+            } else {
+                $this->data[$name] = $value;
+            }
+        }
+    }
+
+    /**
      * @return mixed
      */
     public function getTitle()

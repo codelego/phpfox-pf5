@@ -80,7 +80,7 @@ namespace {
          * @see \Phpfox\Action\Configs::get()
          *
          * @param string $section
-         * @param null   $item
+         * @param mixed  $item
          *
          * @return array
          */

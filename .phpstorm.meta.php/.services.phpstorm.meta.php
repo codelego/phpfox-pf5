@@ -3,7 +3,7 @@
 namespace PHPSTORM_META {
 
     override(\Phpfox::get(0), map([
-        'abuse_report'                => \Neutron\AbuseReport\Service\Reports::class,
+        'abuse_report'                => \Neutron\Report\Service\ReportManager::class,
         'announcements'               => \Neutron\Announcement\Service\Announcements::class,
         'assets'                      => \Phpfox\Assets\AssetsFacades::class,
         'auth'                        => \Phpfox\Authentication\AuthFacades::class,
@@ -14,7 +14,7 @@ namespace PHPSTORM_META {
         'blog.callback'               => \Neutron\Blog\Service\EventListener::class,
         'breadcrumb'                  => \Phpfox\Assets\Breadcrumb::class,
         'cms.callback'                => \Neutron\Cms\Service\EventListener::class,
-        'contact_us'                  => \Neutron\ContactUs\Service\ContactUs::class,
+        'contact_us'                  => \Neutron\Contact\Service\ContactUs::class,
         'controller.provider'         => \Phpfox\Package\ActionProvider::class,
         'core.callback'               => \Neutron\Core\Service\EventListener::class,
         'core.i18n_language'          => \Neutron\Core\Service\I18nLanguage::class,
@@ -88,7 +88,7 @@ namespace PHPSTORM_META {
     ]));
 
     override(\Phpfox::build(0), map([
-        'abuse_report'                => \Neutron\AbuseReport\Service\Reports::class,
+        'abuse_report'                => \Neutron\Report\Service\ReportManager::class,
         'announcements'               => \Neutron\Announcement\Service\Announcements::class,
         'assets'                      => \Phpfox\Assets\AssetsFacades::class,
         'auth'                        => \Phpfox\Authentication\AuthFacades::class,
@@ -99,7 +99,7 @@ namespace PHPSTORM_META {
         'blog.callback'               => \Neutron\Blog\Service\EventListener::class,
         'breadcrumb'                  => \Phpfox\Assets\Breadcrumb::class,
         'cms.callback'                => \Neutron\Cms\Service\EventListener::class,
-        'contact_us'                  => \Neutron\ContactUs\Service\ContactUs::class,
+        'contact_us'                  => \Neutron\Contact\Service\ContactUs::class,
         'controller.provider'         => \Phpfox\Package\ActionProvider::class,
         'core.callback'               => \Neutron\Core\Service\EventListener::class,
         'core.i18n_language'          => \Neutron\Core\Service\I18nLanguage::class,

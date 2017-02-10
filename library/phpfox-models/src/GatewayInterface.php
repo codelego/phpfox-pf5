@@ -2,6 +2,9 @@
 
 namespace Phpfox\Model;
 
+use Phpfox\Db\SqlDelete;
+use Phpfox\Db\SqlUpdate;
+
 /**
  * Class GatewayInterface
  *
@@ -32,16 +35,26 @@ interface GatewayInterface
     public function insert($values);
 
     /**
-     * @param  array|ModelInterface $values
+     * @param mixed $values
      *
      * @return bool
      */
-    public function update($values);
+    public function updateBy($values);
 
     /**
-     * @param  array|ModelInterface $values
+     * @param mixed $values
      *
      * @return bool
      */
-    public function delete($values);
+    public function deleteBy($values);
+
+    /**
+     * @return SqlDelete
+     */
+    public function delete();
+
+    /**
+     * @return SqlUpdate
+     */
+    public function update();
 }

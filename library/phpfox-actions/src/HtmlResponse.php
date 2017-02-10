@@ -14,6 +14,6 @@ class HtmlResponse implements ResponsePrototypeInterface
             }
         }
 
-        echo \Phpfox::get('view.layout')->prepare()->render();
+        return \Phpfox::get('view.layout')->prepare()->render();
     }
 }

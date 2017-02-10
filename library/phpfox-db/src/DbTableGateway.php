@@ -89,7 +89,8 @@ class DbTableGateway implements GatewayInterface
     public function insert($values)
     {
         $temp = array_intersect_key(
-            $values instanceof ModelInterface ? $values->toArray() : $values,$this->_columns);
+            $values instanceof ModelInterface ? $values->toArray() : $values,
+            $this->_columns);
 
         $result = (new SqlInsert($this->adapter()))
             ->insert($this->_table)
@@ -121,7 +122,7 @@ class DbTableGateway implements GatewayInterface
         return $this->_table;
     }
 
-    public function update($values)
+    public function updateBy($values)
     {
         // update changed values, not all ?
         $temp = array_intersect_key($values instanceof ModelInterface
@@ -147,6 +148,12 @@ class DbTableGateway implements GatewayInterface
             ->execute();
     }
 
+    public function update()
+    {
+        return (new SqlUpdate($this->adapter()))
+            ->update($this->_table);
+    }
+
     /**
      * @param  array|null $values
      *
@@ -157,7 +164,7 @@ class DbTableGateway implements GatewayInterface
         return new $this->_prototype($values, false);
     }
 
-    public function delete($values)
+    public function deleteBy($values)
     {
         $wheres = [];
         foreach (
@@ -205,7 +212,7 @@ class DbTableGateway implements GatewayInterface
     /**
      * @return SqlDelete
      */
-    public function sqlDelete()
+    public function delete()
     {
         return (new SqlDelete($this->adapter()))->from($this->_table);
     }

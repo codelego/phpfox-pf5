@@ -2,6 +2,11 @@
 
 include '../config/bootstrap.php';
 
-$data = _view_map('neutron-core/view');
+$users = Phpfox::with('auth_password')
+    ->select()
+    ->all();
 
-var_export($data);
+foreach($users as $user){
+    $user->setCreatedAt(date('Y-m-d H:i:s', (int) $user->__get('created')));
+    $user->save();
+}
