@@ -75,7 +75,7 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase
         $sqlSelect = new SqlSelect($adapter);
 
         $sqlResult = $sqlSelect->select('*')->select('user_id')
-            ->from('phpfox_user')->where('user_id=1')->execute();
+            ->from('pf5_user')->where('user_id=1')->execute();
 
         $this->assertTrue($sqlResult->isValid());
 
@@ -89,8 +89,8 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase
         $sqlUpdate = new SqlUpdate($adapter);
 
         $username = 'namnv';
-        $result = $sqlUpdate->update('phpfox_user')
-            ->values(['user_name' => $username])->where(['user_id=?' => 1])
+        $result = $sqlUpdate->update('pf5_user')
+            ->values(['username' => $username])->where(['user_id=?' => 1])
             ->execute(); // do not forget execute for that trim.
 
         $this->assertTrue($result->isValid(), 'Can not update user');
