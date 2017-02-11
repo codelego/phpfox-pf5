@@ -22,26 +22,13 @@ class MailAdapter extends DbModel
         return $this->__get('adapter_id');
     }
 
-    /**
-     * @return mixed
-     */
-    public function getAdapterId()
-    {
-        return $this->__get('adapter_id');
-    }
 
     /**
      * @return mixed
      */
     public function getName()
     {
-        $title = $this->__get('name');
-
-        if (!$title) {
-            $title = $this->getDriverId() . ' #' . $this->getId();
-        }
-
-        return $title;
+        return $this->__get('name');
     }
 
     /**

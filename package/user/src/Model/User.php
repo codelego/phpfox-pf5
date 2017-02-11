@@ -9,14 +9,6 @@ class User extends DbModel implements UserInterface
     /**
      * @return string
      */
-    public function getModelId()
-    {
-        return 'user';
-    }
-
-    /**
-     * @return string
-     */
     public function getUrl()
     {
         return \Phpfox::get('router')
@@ -56,83 +48,123 @@ class User extends DbModel implements UserInterface
         return $this->__get('fullname');
     }
 
-    /**
-     * @return mixed|null
-     */
-    public function getEmail()
+    public function getModelId()
     {
-        return $this->__get('email');
+        return 'user';
     }
 
-    /**
-     * @return mixed|null
-     */
-    public function getLocaleId()
+    public function getId()
     {
-        return $this->__get('locale_id');
+        return (int)$this->__get('user_id');
     }
 
-    /**
-     * @return mixed|null
-     */
-    public function getTimezone()
+    public function setId($value)
     {
-        return $this->__get('timezone');
+        $this->__set('user_id', $value);
     }
 
-    /**
-     * @return mixed|null
-     */
-    public function getCreatedAt()
-    {
-        return $this->__get('created_at');
-    }
-
-    /**
-     * @param $value
-     */
-    public function setCreatedAt($value)
-    {
-        $this->__set('created_at', $value);
-    }
-
-    /**
-     * @return mixed|null
-     */
     public function getRoleId()
     {
         return (int)$this->__get('role_id');
     }
 
-    /**
-     * @return mixed|null
-     */
+    public function setRoleId($value)
+    {
+        $this->__set('role_id', $value);
+    }
+
+    public function getUserPhotoId()
+    {
+        return (int)$this->__get('user_photo_id');
+    }
+
+    public function setUserPhotoId($value)
+    {
+        $this->__set('user_photo_id', $value);
+    }
+
     public function getGenderId()
     {
         return (int)$this->__get('gender_id');
     }
 
-    /**
-     * @return mixed|null
-     */
-    public function getId()
+    public function setGenderId($value)
     {
-        return $this->__get('user_id');
+        $this->__set('gender_id', $value);
     }
 
-    /**
-     * @return mixed|null
-     */
-    public function getUserId()
+    public function getStatusId()
     {
-        return $this->__get('user_id');
+        return (int)$this->__get('status_id');
     }
 
-    /**
-     * @return mixed|null
-     */
+    public function setStatusId($value)
+    {
+        $this->__set('status_id', $value);
+    }
+
+    public function getViewId()
+    {
+        return (int)$this->__get('view_id');
+    }
+
+    public function setViewId($value)
+    {
+        $this->__set('view_id', $value);
+    }
+
+    public function setUsername($value)
+    {
+        $this->__set('username', $value);
+    }
+
     public function getFullname()
     {
         return $this->__get('fullname');
+    }
+
+    public function setFullname($value)
+    {
+        $this->__set('fullname', $value);
+    }
+
+    public function getEmail()
+    {
+        return $this->__get('email');
+    }
+
+    public function setEmail($value)
+    {
+        $this->__set('email', $value);
+    }
+
+    public function getLocaleId()
+    {
+        return $this->__get('locale_id');
+    }
+
+    public function setLocaleId($value)
+    {
+        $this->__set('locale_id', $value);
+    }
+
+    public function getTimezone()
+    {
+        return $this->__get('timezone');
+    }
+
+    public function setTimezone($value)
+    {
+        $this->__set('timezone', $value);
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->__get('created_at');
+    }
+
+    public function setCreatedAt($value)
+    {
+        $this->__set('created_at', $value);
     }
 }

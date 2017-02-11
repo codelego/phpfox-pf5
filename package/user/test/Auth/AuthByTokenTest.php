@@ -72,7 +72,7 @@ class AuthByTokenTest extends \PHPUnit_Framework_TestCase
             'email'         => 'auth_token.unitest@example.com',
             'locale_id'     => 'en_US',
             'timezone'      => 'GMT+7',
-            'created'       => 1477389808,
+            'created_at'       => '2016-10-25 12:09:34',
         ]);
         $user->save();
 

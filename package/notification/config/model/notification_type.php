@@ -1,0 +1,1 @@
+<?php return array(0=>NULL,1=>array('type_id'=>1,),2=>'type_id',3=>array('type_id'=>1,'package_id'=>1,'content'=>1,'handler_id'=>1,'is_default'=>1,),4=>array(),);

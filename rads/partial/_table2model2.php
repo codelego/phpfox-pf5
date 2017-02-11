@@ -1,7 +1,7 @@
 <div class="form-group">
     <label>Model Class</label>
     <textarea class="form-control" rows="10" cols="80"
-              onclick="this.select()"><?= $classTemplate ?></textarea>
+              ><?= $classTemplate ?></textarea>
 </div>
 <div class="form-group">
     <label>Test.php Template</label>

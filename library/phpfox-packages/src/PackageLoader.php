@@ -89,7 +89,7 @@ class PackageLoader implements PackageLoaderInterface
          * fetch package variables from package.php
          */
         foreach ($this->loadEnablePaths() as $path) {
-            $data = include PHPFOX_DIR . $path . '/config/models.php';
+            $data = include PHPFOX_DIR . $path . '/config/model.php';
 
             foreach ($data as $name => $value) {
                 $based[$name] = $value;
