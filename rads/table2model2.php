@@ -1,6 +1,6 @@
 <?php
 
-include '../config/bootstrap.php';
+include 'init.php';
 
 $obj = new \Phpfox\Db\DbTableGatewayFactory();
 
@@ -148,9 +148,10 @@ foreach ($columns as $column) {
 }
 
 $replacements = [
-    'getter_and_setter'  => implode(PHP_EOL.'    ', $getterAndSetterMethods),
-    'assert_same_method' => implode(PHP_EOL.'        ', $assertSameMethods),
-    'set_data_methods'   => implode(PHP_EOL.'        ', $setDataMethods),
+
+    'getter_and_setter'  => implode(PHP_EOL . '    ', $getterAndSetterMethods),
+    'assert_same_method' => implode(PHP_EOL . '        ', $assertSameMethods),
+    'set_data_methods'   => implode(PHP_EOL . '        ', $setDataMethods),
     'initial_data'       => $initialData,
     'id_value'           => is_string($id_value) ? "'" . $id_value . "'"
         : $id_value,
@@ -165,47 +166,13 @@ $testTemplate = _sprintf(file_get_contents(__DIR__ . '/assets/model_test.tpl'),
     $replacements);
 $configTemplate = _sprintf(file_get_contents(__DIR__
     . '/assets/model_config.tpl'), $replacements);
-$classTemplate =  _sprintf(file_get_contents(__DIR__
+$classTemplate = _sprintf(file_get_contents(__DIR__
     . '/assets/model_class.tpl'), $replacements);
-?>
-<html>
-<head>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet"
-          href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-          crossorigin="anonymous">
 
-    <!-- Optional theme -->
-    <link rel="stylesheet"
-          href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-          crossorigin="anonymous">
-</head>
-<body>
-<div class="container">
-    <div class="form-group">
-        <h3>Model Getter/Setters</h3>
-        <textarea class="form-control" rows="10" cols="80"
-                  onclick="this.select()"><?= $classTemplate ?></textarea>
-    </div>
-    <div class="form-group">
-        <h3>Template</h3>
-        <textarea class="form-control" rows="10" cols="80"
-                  onclick="this.select()"><?= $testTemplate ?></textarea>
-    </div>
-    <div class="form-group">
-        <h3>Config</h3>
-        <textarea class="form-control" rows="10" cols="80"
-                  onclick="this.select()"><?= $configTemplate ?></textarea>
-    </div>
-    <div class="form-group">
-        <a class="btn btn-danger" href="table2model1.php?<?= $configure_url ?>">Re Configure</a>
-        <a class="btn btn-link" href="table2model1.php">Others</a>
-    </div>
-</div>
-<br />
-<br />
-<br />
-</body>
-</html>
+_rad_view_page('partial/_table2model2.php', [
+    'configure_url'  => $configure_url,
+    'heading'        => 'Convert Table 2 Model',
+    'testTemplate'   => $testTemplate,
+    'configTemplate' => $configTemplate,
+    'classTemplate'  => $classTemplate,
+]);
