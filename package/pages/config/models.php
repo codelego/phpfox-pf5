@@ -7,6 +7,6 @@ return [
         'table_factory',
         ':pages',
         Pages::class,
-        'pages/config/.meta.pages.php',
+        'package/pages/config/model/pages.php',
     ],
 ];

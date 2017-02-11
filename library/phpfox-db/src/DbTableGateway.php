@@ -81,7 +81,7 @@ class DbTableGateway implements GatewayInterface
         if ($meta) {
             list($this->_identity, $this->_primary, $this->_query_id,
                 $this->_columns)
-                = include PHPFOX_PACKAGE_DIR . $meta;
+                = include PHPFOX_DIR . $meta;
         }
 
     }

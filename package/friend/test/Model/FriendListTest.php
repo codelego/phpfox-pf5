@@ -31,7 +31,7 @@ class FriendListTest extends \PHPUnit_Framework_TestCase
         $obj->setName('[example name]');
 
 
-        $this->assertEquals('friend', $obj->getModelId());
+        $this->assertEquals('friend_list', $obj->getModelId());
         $this->assertEquals(12, $obj->getId());
         $this->assertEquals(4, $obj->getUserId());
         $this->assertEquals(3, $obj->getTypeId());

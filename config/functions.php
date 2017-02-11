@@ -170,9 +170,12 @@ namespace {
             exit('Can not open ' . $dir . ' to write export');
         }
 
+        if(!is_string($data)){
+            $data= var_export($data, true);
+        }
 
         file_put_contents($file,
-            '<?php return ' . var_export($data, true) . ';');
+            '<?php return ' . $data . ';');
 
         if (file_exists($file)) {
             @chmod($file, 0777);

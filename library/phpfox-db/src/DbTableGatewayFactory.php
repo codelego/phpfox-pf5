@@ -28,8 +28,8 @@ class DbTableGatewayFactory
         }
 
         if (PHPFOX_ENV == 'development' and $meta != null) {
-            if (!file_exists($filename = PHPFOX_PACKAGE_DIR . $meta)) {
-                _file_export($filename, $this->describe($table));
+            if (!file_exists($filename = PHPFOX_DIR . $meta)) {
+                _file_export($filename, preg_replace('/\s+/', '', var_export($this->describe($table),true)));
             }
         }
 

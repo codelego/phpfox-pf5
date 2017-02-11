@@ -47,7 +47,7 @@ class DbTableGatewayFactoryTest extends \PHPUnit_Framework_TestCase
         self::getAdapter()->execute('DROP TABLE IF EXISTS '
             . PHPFOX_TABLE_PREFIX . 'example_item;');
 
-        @unlink(PHPFOX_PACKAGE_DIR . '.example_item.php');
+        @unlink(PHPFOX_DIR . 'data/cache/model/example_item.php');
     }
 
     public function testBase()
@@ -55,7 +55,7 @@ class DbTableGatewayFactoryTest extends \PHPUnit_Framework_TestCase
         $gateway = (new DbTableGatewayFactory())->factory('example_item',
             ':example_item',
             MockExampleItem::class,
-            '.example_item.php');
+            'data/cache/model/example_item.php');
 
         $result = $gateway->insert([
             'name'        => 'name 1',

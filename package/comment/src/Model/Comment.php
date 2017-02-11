@@ -1,17 +1,19 @@
 <?php
 
-namespace Neutron\Like\Model;
+namespace Neutron\Comment\Model;
+
 
 use Phpfox\Db\DbModel;
 
-class Like extends DbModel
+class Comment extends DbModel
 {
+
     /**
      * @return string
      */
     public function getModelId()
     {
-        return 'like';
+        return 'comment';
     }
 
     /**
@@ -19,7 +21,7 @@ class Like extends DbModel
      */
     public function getId()
     {
-        return $this->__get('like_id');
+        return $this->__get('comment_id');
     }
 
     /**
@@ -27,7 +29,7 @@ class Like extends DbModel
      */
     public function setId($value)
     {
-        $this->__set('like_id', (int)$value);
+        $this->__set('comment_id', (int)$value);
     }
 
     /**
@@ -157,4 +159,21 @@ class Like extends DbModel
     {
         $this->__set('created_at', (string)$value);
     }
+
+    /**
+     * @return mixed|null
+     */
+    public function getContent()
+    {
+        return $this->__get('content');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setContent($value)
+    {
+        $this->__set('content', (string)$value);
+    }
+
 }

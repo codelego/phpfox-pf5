@@ -7,6 +7,6 @@ return [
         'table_factory',
         ':contact_department',
         Department::class,
-        'contact/config/.meta.department.php',
+        'package/contact/config/model/department.php',
     ],
 ];

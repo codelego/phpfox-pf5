@@ -2,4 +2,11 @@
 
 namespace Neutron\Activity\Model;
 
-return [];
+return [
+    'feed' => [
+        'table_factory',
+        ':activity_feed',
+        Feed::class,
+        'package/activity/config/model/feed.php',
+    ],
+];

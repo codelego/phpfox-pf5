@@ -1,14 +1,14 @@
 <?php
 
-namespace Neutron\Like\Model;
+namespace Neutron\Activity\Model;
 
 
-class LikeTest extends \PHPUnit_Framework_TestCase
+class FeedTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new Like([
-            'like_id'          => 33,
+        $obj = new Feed([
+            'feed_id'     => 33,
             'user_id'     => 4,
             'about_id'    => 2,
             'poster_id'   => 33,
@@ -32,7 +32,7 @@ class LikeTest extends \PHPUnit_Framework_TestCase
 
     public function testParameters()
     {
-        $obj = new Like();
+        $obj = new Feed();
 
         $obj->setId(33);
         $obj->setUserId(4);
@@ -57,7 +57,7 @@ class LikeTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new Like();
+        $obj = new Feed();
 
         $obj->setUserId(4);
         $obj->setAboutId(2);
@@ -70,8 +70,8 @@ class LikeTest extends \PHPUnit_Framework_TestCase
 
         $obj->save();
 
-        /** @var Like $obj */
-        $obj = \Phpfox::with('like')
+        /** @var Feed $obj */
+        $obj = \Phpfox::with('feed')
             ->select()
             ->where('poster_id=?', 33)
             ->where('about_id=?', 2)
@@ -80,7 +80,7 @@ class LikeTest extends \PHPUnit_Framework_TestCase
             ->first();
 
         $this->assertNotNull($obj);
-        $this->assertTrue($obj instanceof Like);
+        $this->assertTrue($obj instanceof Feed);
 
         $this->assertSame(4, $obj->getUserId());
         $this->assertSame(2, $obj->getAboutId());
@@ -94,7 +94,7 @@ class LikeTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('like')
+        \Phpfox::with('feed')
             ->delete()
             ->where('poster_id=?', 33)
             ->where('about_id=?', 2)
@@ -105,7 +105,7 @@ class LikeTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('like')
+        \Phpfox::with('feed')
             ->delete()
             ->where('poster_id=?', 33)
             ->where('about_id=?', 2)

@@ -1,14 +1,14 @@
 <?php
 
-namespace Neutron\Like\Model;
+namespace Neutron\Comment\Model;
 
 
-class LikeTest extends \PHPUnit_Framework_TestCase
+class CommentTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new Like([
-            'like_id'          => 33,
+        $obj = new Comment([
+            'comment_id'  => 33,
             'user_id'     => 4,
             'about_id'    => 2,
             'poster_id'   => 33,
@@ -17,6 +17,7 @@ class LikeTest extends \PHPUnit_Framework_TestCase
             'parent_id'   => 44,
             'parent_type' => 'event',
             'created_at'  => '2011-10-09 22:11:00',
+            'content'     => '[example comment content]',
         ]);
 
         $this->assertSame(33, $obj->getId());
@@ -28,11 +29,12 @@ class LikeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('blog_post', $obj->getAboutType());
         $this->assertSame('event', $obj->getParentType());
         $this->assertSame('2011-10-09 22:11:00', $obj->getCreatedAt());
+        $this->assertSame('[example comment content]', $obj->getContent());
     }
 
     public function testParameters()
     {
-        $obj = new Like();
+        $obj = new Comment();
 
         $obj->setId(33);
         $obj->setUserId(4);
@@ -43,6 +45,7 @@ class LikeTest extends \PHPUnit_Framework_TestCase
         $obj->setParentType('event');
         $obj->setAboutType('blog_post');
         $obj->setCreatedAt('2011-10-09 22:11:00');
+        $obj->setContent('[example comment content]');
 
         $this->assertSame(33, $obj->getId());
         $this->assertSame(4, $obj->getUserId());
@@ -53,11 +56,12 @@ class LikeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('blog_post', $obj->getAboutType());
         $this->assertSame('event', $obj->getParentType());
         $this->assertSame('2011-10-09 22:11:00', $obj->getCreatedAt());
+        $this->assertSame('[example comment content]', $obj->getContent());
     }
 
     public function testSave()
     {
-        $obj = new Like();
+        $obj = new Comment();
 
         $obj->setUserId(4);
         $obj->setAboutId(2);
@@ -67,11 +71,12 @@ class LikeTest extends \PHPUnit_Framework_TestCase
         $obj->setParentType('event');
         $obj->setAboutType('blog_post');
         $obj->setCreatedAt('2011-10-09 22:11:00');
+        $obj->setContent('[example comment content]');
 
         $obj->save();
 
-        /** @var Like $obj */
-        $obj = \Phpfox::with('like')
+        /** @var Comment $obj */
+        $obj = \Phpfox::with('comment')
             ->select()
             ->where('poster_id=?', 33)
             ->where('about_id=?', 2)
@@ -80,7 +85,7 @@ class LikeTest extends \PHPUnit_Framework_TestCase
             ->first();
 
         $this->assertNotNull($obj);
-        $this->assertTrue($obj instanceof Like);
+        $this->assertTrue($obj instanceof Comment);
 
         $this->assertSame(4, $obj->getUserId());
         $this->assertSame(2, $obj->getAboutId());
@@ -90,11 +95,12 @@ class LikeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('blog_post', $obj->getAboutType());
         $this->assertSame('event', $obj->getParentType());
         $this->assertSame('2011-10-09 22:11:00', $obj->getCreatedAt());
+        $this->assertSame('[example comment content]', $obj->getContent());
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('like')
+        \Phpfox::with('comment')
             ->delete()
             ->where('poster_id=?', 33)
             ->where('about_id=?', 2)
@@ -105,7 +111,7 @@ class LikeTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('like')
+        \Phpfox::with('comment')
             ->delete()
             ->where('poster_id=?', 33)
             ->where('about_id=?', 2)

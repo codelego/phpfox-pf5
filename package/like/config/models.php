@@ -7,6 +7,6 @@ return [
         'table_factory',
         ':like',
         Like::class,
-        'like/config/.meta.like.php',
+        'package/like/config/model/like.php',
     ],
 ];
