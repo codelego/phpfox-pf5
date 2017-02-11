@@ -2,73 +2,57 @@
 
 namespace Neutron\Friend\Model;
 
-
 class FriendItemTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testBase()
     {
-        $obj = new FriendItem([
-            'list_id'   => 9,
-            'friend_id' => 13,
-        ]);
+        $obj = new FriendItem(['list_id' => 12, 'user_id' => 45,]);
 
-        $this->assertEquals('friend_item', $obj->getModelId());
-        $this->assertEquals(9, $obj->getListId());
-        $this->assertEquals(13, $obj->getFriendId());
-
+        $this->assertSame('friend_item', $obj->getModelId());
+        $this->assertSame(12, $obj->getListId());
+        $this->assertSame(45, $obj->getUserId());
     }
 
-    public function testParameter()
+    public function testParameters()
     {
         $obj = new FriendItem();
 
-        $obj->setListId(9);
-        $obj->setFriendId(13);
+        // set data
+        $obj->setListId(12);
+        $obj->setUserId(45);
 
-        $this->assertEquals('friend_item', $obj->getModelId());
-        $this->assertEquals(9, $obj->getListId());
-        $this->assertEquals(13, $obj->getFriendId());
+        // assert same data
+        $this->assertSame('friend_item', $obj->getModelId());
+        $this->assertSame(12, $obj->getListId());
+        $this->assertSame(45, $obj->getUserId());
     }
 
     public function testSave()
     {
-        $obj = new FriendItem();
-
-        $obj->setListId(9);
-        $obj->setFriendId(13);
+        $obj = new FriendItem(['list_id' => 12, 'user_id' => 45,]);
 
         $obj->save();
 
         /** @var FriendItem $obj */
         $obj = \Phpfox::with('friend_item')
-            ->select()
-            ->where('friend_id=?', 13)
-            ->where('list_id=?', 9)
-            ->first();
+            ->select()->where('list_id=?', 12)->where('user_id=?', 45)->first();
 
-        $this->assertTrue($obj instanceof FriendItem);
-
-        $this->assertEquals('friend_item', $obj->getModelId());
-        $this->assertEquals(9, $obj->getListId());
-        $this->assertEquals(13, $obj->getFriendId());
+        $this->assertSame('friend_item', $obj->getModelId());
+        $this->assertSame(12, $obj->getListId());
+        $this->assertSame(45, $obj->getUserId());
     }
 
     public static function setUpBeforeClass()
     {
         \Phpfox::with('friend_item')
-            ->delete()
-            ->where('friend_id=?', 13)
-            ->where('list_id=?', 9)
+            ->delete()->where('list_id=?', 12)->where('user_id=?', 45)
             ->execute();
     }
 
     public static function tearDownAfterClass()
     {
         \Phpfox::with('friend_item')
-            ->delete()
-            ->where('friend_id=?', 13)
-            ->where('list_id=?', 9)
+            ->delete()->where('list_id=?', 12)->where('user_id=?', 45)
             ->execute();
     }
 }

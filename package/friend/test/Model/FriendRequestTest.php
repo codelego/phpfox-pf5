@@ -2,87 +2,79 @@
 
 namespace Neutron\Friend\Model;
 
-
 class FriendRequestTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
         $obj = new FriendRequest([
-            'id'             => 4,
-            'user_id'        => 22,
-            'friend_id'      => 8,
-            'request_status' => 'sent',
-            'created_at'     => '2014-09-08 22:11:00',
+            'parent_id'  => 12,
+            'user_id'    => 11,
+            'status_id'  => 4,
+            'created_at' => '2012-11-11 00:00:00',
         ]);
 
         $this->assertSame('friend_request', $obj->getModelId());
-        $this->assertSame(4, $obj->getId());
-        $this->assertSame(22, $obj->getUserId());
-        $this->assertSame(8, $obj->getFriendId());
-        $this->assertSame('sent', $obj->getStatus());
-        $this->assertSame('2014-09-08 22:11:00', $obj->getCreatedAt());
+        $this->assertSame(12, $obj->getParentId());
+        $this->assertSame(11, $obj->getUserId());
+        $this->assertSame(4, $obj->getStatusId());
+        $this->assertSame('2012-11-11 00:00:00', $obj->getCreatedAt());
     }
 
     public function testParameters()
     {
         $obj = new FriendRequest();
 
-        $obj->setCreatedAt('2014-09-08 22:11:00');
-        $obj->setStatus('sent');
-        $obj->setUserId(22);
-        $obj->setFriendId(8);
-        $obj->setId(4);
+        // set data
+        $obj->setParentId(12);
+        $obj->setUserId(11);
+        $obj->setStatusId(4);
+        $obj->setCreatedAt('2012-11-11 00:00:00');
 
+        // assert same data
         $this->assertSame('friend_request', $obj->getModelId());
-        $this->assertSame(4, $obj->getId());
-        $this->assertSame(22, $obj->getUserId());
-        $this->assertSame(8, $obj->getFriendId());
-        $this->assertSame('sent', $obj->getStatus());
-        $this->assertSame('2014-09-08 22:11:00', $obj->getCreatedAt());
+        $this->assertSame(12, $obj->getParentId());
+        $this->assertSame(11, $obj->getUserId());
+        $this->assertSame(4, $obj->getStatusId());
+        $this->assertSame('2012-11-11 00:00:00', $obj->getCreatedAt());
     }
 
     public function testSave()
     {
-        $obj = new FriendRequest();
-
-        $obj->setUserId(22);
-        $obj->setFriendId(8);
-        $obj->setStatus('sent');
-        $obj->setCreatedAt('2014-09-08 22:11:00');
+        $obj = new FriendRequest([
+            'parent_id'  => 12,
+            'user_id'    => 11,
+            'status_id'  => 4,
+            'created_at' => '2012-11-11 00:00:00',
+        ]);
 
         $obj->save();
 
         /** @var FriendRequest $obj */
         $obj = \Phpfox::with('friend_request')
-            ->select()
-            ->where('user_id=?', 22)
-            ->where('friend_id=?', 8)
-            ->first();
+            ->select()->where('parent_id=?', 12)->where('user_id=?', 11)
+            ->where('status_id=?', 4)
+            ->where('created_at=?', '2012-11-11 00:00:00')->first();
 
-        $this->assertNotNull($obj);
-        $this->assertTrue($obj instanceof FriendRequest);
         $this->assertSame('friend_request', $obj->getModelId());
-        $this->assertSame(22, $obj->getUserId());
-        $this->assertSame(8, $obj->getFriendId());
-        $this->assertSame('sent', $obj->getStatus());
-        $this->assertSame('2014-09-08 22:11:00', $obj->getCreatedAt());
+        $this->assertSame(12, $obj->getParentId());
+        $this->assertSame(11, $obj->getUserId());
+        $this->assertSame(4, $obj->getStatusId());
+        $this->assertSame('2012-11-11 00:00:00', $obj->getCreatedAt());
     }
 
     public static function setUpBeforeClass()
     {
         \Phpfox::with('friend_request')
-            ->delete()
-            ->where('user_id=?', 22)
-            ->where('friend_id=?', 8)
-            ->execute();
+            ->delete()->where('parent_id=?', 12)->where('user_id=?', 11)
+            ->where('status_id=?', 4)
+            ->where('created_at=?', '2012-11-11 00:00:00')->execute();
     }
 
     public static function tearDownAfterClass()
     {
         \Phpfox::with('friend_request')
-            ->delete()
-            ->where('user_id=?', 22)
-            ->where('friend_id=?', 8)
-            ->execute();
+            ->delete()->where('parent_id=?', 12)->where('user_id=?', 11)
+            ->where('status_id=?', 4)
+            ->where('created_at=?', '2012-11-11 00:00:00')->execute();
     }
 }
