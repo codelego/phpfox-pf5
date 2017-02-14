@@ -4,7 +4,7 @@ namespace PHPSTORM_META {
 
     override(\Phpfox::get(0), map([
         'abuse_report'                => \Neutron\Report\Service\ReportManager::class,
-        'announcements'               => \Neutron\Announcement\Service\Announcements::class,
+        'announcements'               => \Neutron\Announcement\Service\AnnouncementManager::class,
         'assets'                      => \Phpfox\Assets\AssetsFacades::class,
         'auth'                        => \Phpfox\Authentication\AuthFacades::class,
         'auth.factory'                => \Neutron\User\Service\AuthFactory::class,
@@ -89,7 +89,7 @@ namespace PHPSTORM_META {
 
     override(\Phpfox::build(0), map([
         'abuse_report'                => \Neutron\Report\Service\ReportManager::class,
-        'announcements'               => \Neutron\Announcement\Service\Announcements::class,
+        'announcements'               => \Neutron\Announcement\Service\AnnouncementManager::class,
         'assets'                      => \Phpfox\Assets\AssetsFacades::class,
         'auth'                        => \Phpfox\Authentication\AuthFacades::class,
         'auth.factory'                => \Neutron\User\Service\AuthFactory::class,

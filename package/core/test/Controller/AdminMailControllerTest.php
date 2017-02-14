@@ -10,7 +10,8 @@ class AdminMailControllerTest extends \PHPUnit_Framework_TestCase
         $obj = new AdminMailController();
 
         $this->assertInstanceOf('\Phpfox\View\ViewModel', $obj->actionIndex());
-        $this->assertInstanceOf('\Phpfox\View\ViewModel', $obj->actionAddTransport());
+        $this->assertInstanceOf('\Phpfox\View\ViewModel',
+            $obj->actionAddTransport());
         $this->assertNull($obj->actionEditTransport());
         $this->assertInstanceOf('\Phpfox\View\ViewModel',
             $obj->actionTransports());

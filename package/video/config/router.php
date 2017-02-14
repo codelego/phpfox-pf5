@@ -2,7 +2,7 @@
 
 return [
     'routes' => [
-        'video'      => [
+        'video'       => [
             'route'      => 'video',
             'controller' => 'video.index',
             'action'     => 'index',

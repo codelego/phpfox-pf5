@@ -30,6 +30,24 @@ class Request
     protected $host;
 
     /**
+     * @param array $data
+     *
+     * @return Request
+     */
+    public static function factory($data)
+    {
+        $request = new Request();
+        foreach ($data as $key => $value) {
+            if (method_exists($request, $method = 'set' . ucfirst($key))) {
+                $request->{$method}($value);
+            } else {
+                $request->set($key, $value);
+            }
+        }
+        return $request;
+    }
+
+    /**
      * @return string
      */
     public function getHost()

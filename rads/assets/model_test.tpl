@@ -1,3 +1,7 @@
+<?php
+
+namespace {namespace};
+
 class {model_name}Test extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
@@ -26,9 +30,7 @@ class {model_name}Test extends \PHPUnit_Framework_TestCase
 
         /** @var {model_name} $obj */
         $obj = \Phpfox::with('{model_id}')
-            ->select()
-            ->where('{id_key}=?', {id_value})
-            ->first();
+            ->select(){where_condition}->first();
 
         {assert_same_method}
     }
@@ -36,16 +38,12 @@ class {model_name}Test extends \PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         \Phpfox::with('{model_id}')
-            ->delete()
-            ->where('{id_key}=?', {id_value})
-            ->execute();
+            ->delete(){where_condition}->execute();
     }
 
     public static function tearDownAfterClass()
     {
         \Phpfox::with('{model_id}')
-            ->delete()
-            ->where('{id_key}=?', {id_value})
-            ->execute();
+            ->delete(){where_condition}->execute();
     }
 }

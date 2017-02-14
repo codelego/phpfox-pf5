@@ -230,8 +230,10 @@ class FtpFileStorage implements FileStorageInterface
     {
         $path = $this->mapPath($name);
 
+
         // Create stack buffer
         $existed = in_array('stack', stream_get_wrappers());
+
         if ($existed) {
             stream_wrapper_unregister('stack');
         }
@@ -254,15 +256,15 @@ class FtpFileStorage implements FileStorageInterface
 
         // Non-blocking mode
         if (@function_exists('ftp_nb_fput')) {
-            $res = @ftp_nb_fput($this->ftpStream, $path, $handle, FTP_BINARY);
+            $res = @ftp_nb_fput($this->ftpStream, $path, $handle, FTP_TEXT);
             while ($res == FTP_MOREDATA) {
-                //$this->_announce('nb_get');
+//                $this->_announce('nb_get');
                 $res = @ftp_nb_continue($this->ftpStream);
             }
             $return = ($res === FTP_FINISHED);
         } // Blocking mode
         else {
-            $return = @ftp_fput($this->ftpStream, $path, $handle, FTP_BINARY);
+            $return = @ftp_fput($this->ftpStream, $path, $handle, FTP_TEXT);
         }
 
         fclose($handle);
@@ -326,7 +328,7 @@ class FtpFileStorage implements FileStorageInterface
         if (@function_exists('ftp_nb_put')) {
             $res = @ftp_nb_put($this->ftpStream, $path, $local, FTP_BINARY);
             while ($res == FTP_MOREDATA) {
-                //$this->_announce('nb_put');
+//                $this->_announce('nb_put');
                 $res = @ftp_nb_continue($this->ftpStream);
             }
             $return = ($res === FTP_FINISHED);

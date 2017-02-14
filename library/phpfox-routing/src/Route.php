@@ -277,22 +277,4 @@ class Route implements RouteInterface
     {
         return isset($this->defaults['host']) && $this->defaults['host'];
     }
-
-    /**
-     * @return array
-     * @ignore
-     */
-    function __debugInfo()
-    {
-        return [
-            'methods'    => $this->methods,
-            'host'       => $this->host,
-            'route'      => $this->route,
-            'host_expr'  => $this->host_expr,
-            'route_expr' => $this->route_expr,
-            'defaults'   => $this->defaults,
-            'filter'     => $this->filter,
-            'protocol'   => $this->protocol,
-        ];
-    }
 }

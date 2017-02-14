@@ -98,12 +98,12 @@ class AdminThemeController extends AdminController
 
         $request = \Phpfox::get('mvc.request');
         $id = $request->get('id');
-        $theme  = \Phpfox::get('core.themes')
+        $theme = \Phpfox::get('core.themes')
             ->findById($id);
 
-        if(!$id){
+        if (!$id) {
             $id = 'default';
-            $theme  = \Phpfox::get('core.themes')
+            $theme = \Phpfox::get('core.themes')
                 ->findById($id);
         }
 

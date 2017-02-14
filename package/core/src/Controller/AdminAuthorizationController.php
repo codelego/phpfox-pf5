@@ -93,7 +93,7 @@ class AdminAuthorizationController extends AdminController
         $vm = new ViewModel();
         $request = \Phpfox::get('mvc.request');
 
-        $id = $request->get('id',1);
+        $id = $request->get('id', 1);
         $role = \Phpfox::get('core.roles')->findById($id);
 
         $form = new AuthorizationSettings();

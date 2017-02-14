@@ -1,10 +1,10 @@
 <?php
 
-namespace Neutron\Message;
+namespace Neutron\Messages;
 
 return [
     __NAMESPACE__ => [
-        'library/messages/src',
-        'library/messages/test',
+        'package/messages/src',
+        'package/messages/test',
     ],
 ];

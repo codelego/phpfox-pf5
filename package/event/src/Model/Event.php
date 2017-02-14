@@ -16,7 +16,7 @@ class Event extends DbModel
 
     public function getId()
     {
-        return (int) $this->__get('event_id');
+        return (int)$this->__get('event_id');
     }
 
     public function setId($value)
@@ -46,7 +46,7 @@ class Event extends DbModel
 
     public function getPrivacyId()
     {
-        return (int) $this->__get('privacy_id');
+        return (int)$this->__get('privacy_id');
     }
 
     public function setPrivacyId($value)
@@ -66,7 +66,7 @@ class Event extends DbModel
 
     public function getPosterId()
     {
-        return (int) $this->__get('poster_id');
+        return (int)$this->__get('poster_id');
     }
 
     public function setPosterId($value)
@@ -76,7 +76,7 @@ class Event extends DbModel
 
     public function getUserId()
     {
-        return (int) $this->__get('user_id');
+        return (int)$this->__get('user_id');
     }
 
     public function setUserId($value)
@@ -86,7 +86,7 @@ class Event extends DbModel
 
     public function getLocationId()
     {
-        return (int) $this->__get('location_id');
+        return (int)$this->__get('location_id');
     }
 
     public function setLocationId($value)
@@ -96,7 +96,7 @@ class Event extends DbModel
 
     public function getPhotoId()
     {
-        return (int) $this->__get('photo_id');
+        return (int)$this->__get('photo_id');
     }
 
     public function setPhotoId($value)

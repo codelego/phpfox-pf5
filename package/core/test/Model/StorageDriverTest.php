@@ -2,82 +2,85 @@
 
 namespace Neutron\Core\Model;
 
-
 class StorageDriverTest extends \PHPUnit_Framework_TestCase
 {
-    public function testSimple()
+    public function testBase()
     {
         $obj = new StorageDriver([
-            'driver_id'   => 'local',
-            'name'        => 'Local Storage',
-            'form_name'   => '[Local Storage]',
-            'description' => '[Local Description]',
-            'is_active'   => '1',
+            'driver_id'    => '[local]',
+            'driver_name'  => '[Local]',
+            'form_name'    => '[form name]',
+            'description'  => '[description]',
+            'is_active'    => 1,
+            'driver_class' => '[driver class]',
         ]);
 
-        $this->assertEquals('storage_driver', $obj->getModelId());
-        $this->assertEquals('local', $obj->getId());
-        $this->assertEquals('Local Storage', $obj->getName());
-        $this->assertEquals('Local Storage', $obj->getTitle());
-        $this->assertEquals('local', $obj->getDriverId());
-        $this->assertEquals('[Local Storage]', $obj->getFormName());
-        $this->assertEquals('[Local Description]', $obj->getDescription());
-        $this->assertEquals('1', $obj->isActive());
+        $this->assertSame('storage_driver', $obj->getModelId());
+        $this->assertSame('[local]', $obj->getId());
+        $this->assertSame('[Local]', $obj->getDriverName());
+        $this->assertSame('[form name]', $obj->getFormName());
+        $this->assertSame('[description]', $obj->getDescription());
+        $this->assertSame(1, $obj->isActive());
+        $this->assertSame('[driver class]', $obj->getDriverClass());
+    }
 
-        $obj->setName('[local]');
-        $obj->setDescription('[local description]');
-        $obj->setActive('0');
+    public function testParameters()
+    {
+        $obj = new StorageDriver();
+
+        // set data
+        $obj->setId('[local]');
+        $obj->setDriverName('[Local]');
         $obj->setFormName('[form name]');
+        $obj->setDescription('[description]');
+        $obj->setActive(1);
+        $obj->setDriverClass('[driver class]');
 
-        $this->assertEquals('storage_driver', $obj->getModelId());
-        $this->assertEquals('local', $obj->getId());
-        $this->assertEquals('[local]', $obj->getName());
-        $this->assertEquals('[local]', $obj->getTitle());
-        $this->assertEquals('local', $obj->getDriverId());
-        $this->assertEquals('[form name]', $obj->getFormName());
-        $this->assertEquals('[local description]', $obj->getDescription());
-        $this->assertEquals('0', $obj->isActive());
+        // assert same data
+        $this->assertSame('storage_driver', $obj->getModelId());
+        $this->assertSame('[local]', $obj->getId());
+        $this->assertSame('[Local]', $obj->getDriverName());
+        $this->assertSame('[form name]', $obj->getFormName());
+        $this->assertSame('[description]', $obj->getDescription());
+        $this->assertSame(1, $obj->isActive());
+        $this->assertSame('[driver class]', $obj->getDriverClass());
     }
 
     public function testSave()
     {
         $obj = new StorageDriver([
-            'driver_id'   => '[local]',
-            'name'        => '[Local Storage]',
-            'form_name'   => '[local storage form name]',
-            'description' => '[local description]',
-            'is_active'   => '0',
+            'driver_id'    => '[local]',
+            'driver_name'  => '[Local]',
+            'form_name'    => '[form name]',
+            'description'  => '[description]',
+            'is_active'    => 1,
+            'driver_class' => '[driver class]',
         ]);
 
         $obj->save();
 
-        /** @var StorageDriver $obj2 */
-        $obj2 = \Phpfox::with('storage_driver')
-            ->findById('[local]');
+        /** @var StorageDriver $obj */
+        $obj = \Phpfox::with('storage_driver')
+            ->select()->where('driver_id=?', '[local]')->first();
 
-        $this->assertEquals('storage_driver', $obj2->getModelId());
-        $this->assertEquals('[local]', $obj2->getId());
-        $this->assertEquals('[Local Storage]', $obj2->getName());
-        $this->assertEquals('[Local Storage]', $obj2->getTitle());
-        $this->assertEquals('[local]', $obj2->getDriverId());
-        $this->assertEquals('[local storage form name]', $obj2->getFormName());
-        $this->assertEquals('[local description]', $obj2->getDescription());
-        $this->assertEquals('0', $obj2->isActive());
-
-        $obj2->delete();
-    }
-
-    public static function tearDownAfterClass()
-    {
-        \Phpfox::db()->delete(':storage_driver')
-            ->where('driver_id=?', '[local]')
-            ->execute();
+        $this->assertSame('storage_driver', $obj->getModelId());
+        $this->assertSame('[local]', $obj->getId());
+        $this->assertSame('[Local]', $obj->getDriverName());
+        $this->assertSame('[form name]', $obj->getFormName());
+        $this->assertSame('[description]', $obj->getDescription());
+        $this->assertSame(1, $obj->isActive());
+        $this->assertSame('[driver class]', $obj->getDriverClass());
     }
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::db()->delete(':storage_driver')
-            ->where('driver_id=?', '[local]')
-            ->execute();
+        \Phpfox::with('storage_driver')
+            ->delete()->where('driver_id=?', '[local]')->execute();
+    }
+
+    public static function tearDownAfterClass()
+    {
+        \Phpfox::with('storage_driver')
+            ->delete()->where('driver_id=?', '[local]')->execute();
     }
 }

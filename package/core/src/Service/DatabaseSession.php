@@ -26,7 +26,7 @@ class DatabaseSession implements SessionInterface, \SessionHandlerInterface
     public function destroy($session_id)
     {
         \Phpfox::get('db')
-            ->delete(':core_session', ['id=?' => (string)$session_id])
+            ->delete(':session', ['id=?' => (string)$session_id])
             ->execute();
         return true;
     }
@@ -34,7 +34,7 @@ class DatabaseSession implements SessionInterface, \SessionHandlerInterface
 
     public function gc($maxlifetime)
     {
-        \Phpfox::get('db')->delete(':core_session',
+        \Phpfox::get('db')->delete(':session',
             new SqlLiteral('lifetime + modified < ' . $maxlifetime));
 
         return true;
@@ -50,7 +50,7 @@ class DatabaseSession implements SessionInterface, \SessionHandlerInterface
 
     public function read($session_id)
     {
-        $row = \Phpfox::get('db')->select('*')->from(':core_session')
+        $row = \Phpfox::get('db')->select('*')->from(':session')
             ->where('id=?', $session_id)->first();
 
         if (!$row) {
@@ -67,21 +67,21 @@ class DatabaseSession implements SessionInterface, \SessionHandlerInterface
     public function write($session_id, $session_data)
     {
         $db = \Phpfox::get('db');
-        $exists = $db->select('id')->from(':core_session')
+        $exists = $db->select('id')->from(':session')
                 ->where('id=?', $session_id)
                 ->execute()
                 ->first()
             != null;
 
         if ($exists) {
-            $db->update(':core_session', [
+            $db->update(':session', [
                 'data'     => $session_data,
                 'modified' => time(),
             ], [
                 'id=?' => (string)$session_id,
             ])->execute();
         } else {
-            $db->insert(':core_session', [
+            $db->insert(':session', [
                 'id'       => $session_id,
                 'modified' => time(),
                 'lifetime' => 86400,

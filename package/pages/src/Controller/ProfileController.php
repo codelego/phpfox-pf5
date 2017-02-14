@@ -3,11 +3,12 @@
 namespace Neutron\Pages\Controller;
 
 use Phpfox\Action\ActionController;
+use Phpfox\View\ViewModel;
 
 class ProfileController extends ActionController
 {
     public function actionIndex()
     {
-        exit('pages.profile.index');
+        return new ViewModel();
     }
 }

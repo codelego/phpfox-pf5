@@ -8,7 +8,7 @@ class LikeTest extends \PHPUnit_Framework_TestCase
     public function testBase()
     {
         $obj = new Like([
-            'like_id'          => 33,
+            'like_id'     => 33,
             'user_id'     => 4,
             'about_id'    => 2,
             'poster_id'   => 33,

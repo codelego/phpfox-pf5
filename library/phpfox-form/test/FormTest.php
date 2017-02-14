@@ -27,14 +27,14 @@ class FormTest extends \PHPUnit_Framework_TestCase
     public function testBase2()
     {
         $form = new Form();
-        $username = new Text([
+        $username = new TextField([
             'name'     => 'username',
             'type'     => 'input',
             'render'   => 'text',
             'value'    => 'example username',
             'required' => 1,
         ]);
-        $password = new Text([
+        $password = new TextField([
             'name'     => 'password',
             'type'     => 'password',
             'render'   => 'text',
@@ -64,14 +64,14 @@ class FormTest extends \PHPUnit_Framework_TestCase
     public function testBase4()
     {
         $form = new Form();
-        $username = new Text([
+        $username = new TextField([
             'name'     => 'username',
             'type'     => 'input',
             'render'   => 'text',
             'value'    => 'example username',
             'required' => 1,
         ]);
-        $password = new Text([
+        $password = new TextField([
             'name'     => 'password',
             'type'     => 'password',
             'render'   => 'text',

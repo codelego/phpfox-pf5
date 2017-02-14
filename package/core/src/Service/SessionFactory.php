@@ -10,6 +10,7 @@ class SessionFactory implements SessionFactoryInterface
     public function factory()
     {
         $ref = $this->getConfigs();
+
         $class = \Phpfox::getParam('session.drivers', $ref['driver']);
 
         return new $class($ref['configs']);
@@ -22,23 +23,23 @@ class SessionFactory implements SessionFactoryInterface
     protected function getConfigs()
     {
         $row = \Phpfox::db()->select('*')
-            ->from(':core_session_driver')
+            ->from(':session_driver')
             ->where('is_default=?', 1)
             ->limit(1, 0)
             ->execute()
             ->first();
 
-        $configs = [];
+        $params = [];
 
-        if (!empty($row['json_configs'])) {
-            $configs = json_decode($row['json_configs'], true);
+        if (!empty($row['params'])) {
+            $params = json_decode($row['params'], true);
         }
 
-        $driver = $row['driver'];
+        $driver = $row['driver_id'];
 
         return [
             'driver'  => $driver,
-            'configs' => $configs,
+            'configs' => $params,
         ];
     }
 }

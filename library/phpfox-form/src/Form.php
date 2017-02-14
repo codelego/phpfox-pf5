@@ -57,6 +57,7 @@ class Form extends Element implements ElementInterface, CollectionInterface
                 $element->setValue($data[$name]);
             }
         }
+        return true;
     }
 
     public function getData()

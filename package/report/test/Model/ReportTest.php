@@ -2,96 +2,91 @@
 
 namespace Neutron\Report\Model;
 
-
 class ReportTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
         $obj = new Report([
-            'message'    => 'message content',
-            'created_at' => '2016-10-12 00:00:00',
-            'user_id'    => 100,
-            'about_type' => 'user',
-            'about_id'   => 21,
+            'report_id'   => 85,
+            'category_id' => 3,
+            'message'     => 'message content',
+            'user_id'     => 100,
+            'about_id'    => 21,
+            'about_type'  => 'user',
+            'created_at'  => '2012-10-10 00:22:44',
         ]);
 
-        $this->assertEquals('report', $obj->getModelId());
-        $this->assertEquals('message content', $obj->getMessage());
-        $this->assertEquals(100, $obj->getUserId());
-        $this->assertEquals('user', $obj->getAboutType());
-        $this->assertEquals('21', $obj->getAboutId());
-        $this->assertEquals('2016-10-12 00:00:00', $obj->getCreatedAt());
-        $this->assertEquals(0, $obj->getCategoryId());
-        $this->assertFalse($obj->isSaved());
-
+        $this->assertSame('report', $obj->getModelId());
+        $this->assertSame(85, $obj->getId());
+        $this->assertSame(3, $obj->getCategoryId());
+        $this->assertSame('message content', $obj->getMessage());
+        $this->assertSame(100, $obj->getUserId());
+        $this->assertSame(21, $obj->getAboutId());
+        $this->assertSame('user', $obj->getAboutType());
+        $this->assertSame('2012-10-10 00:22:44', $obj->getCreatedAt());
     }
 
-    public function testSetter()
+    public function testParameters()
     {
         $obj = new Report();
 
+        // set data
+        $obj->setId(85);
+        $obj->setCategoryId(3);
         $obj->setMessage('message content');
-        $obj->setCreatedAt('2016-10-12 00:00:00');
         $obj->setUserId(100);
-        $obj->setAboutType('user');
         $obj->setAboutId(21);
+        $obj->setAboutType('user');
+        $obj->setCreatedAt('2012-10-10 00:22:44');
 
-        $this->assertEquals('report', $obj->getModelId());
-        $this->assertEquals('message content', $obj->getMessage());
-        $this->assertEquals(100, $obj->getUserId());
-        $this->assertEquals('user', $obj->getAboutType());
-        $this->assertEquals('21', $obj->getAboutId());
-        $this->assertEquals('2016-10-12 00:00:00', $obj->getCreatedAt());
-        $this->assertEquals(0, $obj->getCategoryId());
-
-        $this->assertFalse($obj->isSaved());
+        // assert same data
+        $this->assertSame('report', $obj->getModelId());
+        $this->assertSame(85, $obj->getId());
+        $this->assertSame(3, $obj->getCategoryId());
+        $this->assertSame('message content', $obj->getMessage());
+        $this->assertSame(100, $obj->getUserId());
+        $this->assertSame(21, $obj->getAboutId());
+        $this->assertSame('user', $obj->getAboutType());
+        $this->assertSame('2012-10-10 00:22:44', $obj->getCreatedAt());
     }
 
     public function testSave()
     {
         $obj = new Report([
-            'message'    => 'message content',
-            'created_at' => '2016-10-12 00:00:00',
-            'user_id'    => 100,
-            'about_type' => 'user',
-            'about_id'   => 21,
+            'report_id'   => 85,
+            'category_id' => 3,
+            'message'     => 'message content',
+            'user_id'     => 100,
+            'about_id'    => 21,
+            'about_type'  => 'user',
+            'created_at'  => '2012-10-10 00:22:44',
         ]);
 
         $obj->save();
 
         /** @var Report $obj */
         $obj = \Phpfox::with('report')
-            ->select()
-            ->where('user_id=?', 100)
-            ->where('created_at=?', '2016-10-12 00:00:00')
-            ->first();
+            ->select()->where('report_id=?', 85)->first();
 
-        $this->assertEquals('report', $obj->getModelId());
-        $this->assertEquals('message content', $obj->getMessage());
-        $this->assertEquals(100, $obj->getUserId());
-        $this->assertEquals('user', $obj->getAboutType());
-        $this->assertEquals('21', $obj->getAboutId());
-        $this->assertEquals('2016-10-12 00:00:00', $obj->getCreatedAt());
-        $this->assertEquals(0, $obj->getCategoryId());
-        $this->assertTrue($obj->isSaved());
-
-        $obj->delete();
-
+        $this->assertSame('report', $obj->getModelId());
+        $this->assertSame(85, $obj->getId());
+        $this->assertSame(3, $obj->getCategoryId());
+        $this->assertSame('message content', $obj->getMessage());
+        $this->assertSame(100, $obj->getUserId());
+        $this->assertSame(21, $obj->getAboutId());
+        $this->assertSame('user', $obj->getAboutType());
+        $this->assertSame('2012-10-10 00:22:44', $obj->getCreatedAt());
     }
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::get('db')->delete(':report')
-            ->where('created_at=?', '2016-10-12 00:00:00')
-            ->where('user_id=?', 100)
-            ->execute();
+        \Phpfox::with('report')
+            ->delete()->where('report_id=?', 85)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::get('db')->delete(':report')
-            ->where('user_id=?', 100)
-            ->where('created_at=?', '2016-10-12 00:00:00')
-            ->execute();
+        \Phpfox::with('report')
+            ->delete()->where('report_id=?', 85)->execute();
     }
 }

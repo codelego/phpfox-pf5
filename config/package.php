@@ -50,6 +50,7 @@
   ),
   'form.elements' => 
   array (
+    'yesno' => 'Phpfox\\Form\\YesnoField',
     'color_picker' => 'Phpfox\\Form\\ColorPicker',
     'editor' => 'Phpfox\\Form\\Textarea',
     'choice' => 'Phpfox\\Form\\Choice',
@@ -58,7 +59,7 @@
     'button' => 'Phpfox\\Form\\Button',
     'static' => 'Phpfox\\Form\\StaticText',
     'file' => 'Phpfox\\Form\\InputFile',
-    'text' => 'Phpfox\\Form\\Text',
+    'text' => 'Phpfox\\Form\\TextField',
     'textarea' => 'Phpfox\\Form\\Textarea',
     'form' => 'Phpfox\\Form\\Form',
     'hidden' => 'Phpfox\\Form\\Hidden',

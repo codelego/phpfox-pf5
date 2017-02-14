@@ -1,1 +1,7 @@
-<?php return array(0=>NULL,1=>array('user_id'=>1,'friend_id'=>1,),2=>NULL,3=>array('user_id'=>1,'friend_id'=>1,),4=>array(),);
+<?php return [
+    0 => null,
+    1 => ['user_id' => 1, 'friend_id' => 1,],
+    2 => null,
+    3 => ['user_id' => 1, 'friend_id' => 1,],
+    4 => [],
+];

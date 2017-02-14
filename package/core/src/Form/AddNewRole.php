@@ -32,7 +32,7 @@ class AddNewRole extends Form
             [
                 'factory'    => 'text',
                 'label'      => _text('Name'),
-                'name'=>'name',
+                'name'       => 'name',
                 'required'   => true,
                 'attributes' => [
                     'required'    => true,

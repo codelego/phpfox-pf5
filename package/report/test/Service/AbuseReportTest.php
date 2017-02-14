@@ -13,7 +13,7 @@ class AbuseReportTest extends \PHPUnit_Framework_TestCase
         /** @var Report $report */
         $report = $obj->addReport([
             'message'    => 'message content',
-            'created_at'    => '2016-10-12 00:00:00',
+            'created_at' => '2016-10-12 00:00:00',
             'user_id'    => 100,
             'about_type' => 'user',
             'about_id'   => 21,
@@ -38,7 +38,7 @@ class AbuseReportTest extends \PHPUnit_Framework_TestCase
 
         $report->fromArray([
             'message'    => 'message content',
-            'created_at'    => '2016-10-12 00:00:00',
+            'created_at' => '2016-10-12 00:00:00',
             'user_id'    => 100,
             'about_type' => 'user',
             'about_id'   => 21,

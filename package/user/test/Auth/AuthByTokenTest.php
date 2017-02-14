@@ -72,15 +72,15 @@ class AuthByTokenTest extends \PHPUnit_Framework_TestCase
             'email'         => 'auth_token.unitest@example.com',
             'locale_id'     => 'en_US',
             'timezone'      => 'GMT+7',
-            'created_at'       => '2016-10-25 12:09:34',
+            'created_at'    => '2016-10-25 12:09:34',
         ]);
         $user->save();
 
         $pwd = new AuthToken([
-            'id'       => '$2y$10$eO/nRD4KPbvtzQJjE26d1OjjXYjQj96pfExn8Gpva5yD/36UsoG2e',
-            'user_id'  => $user->getId(),
-            'updated'  => time(),
-            'lifetime' => 86400,
+            'id'         => '$2y$10$eO/nRD4KPbvtzQJjE26d1OjjXYjQj96pfExn8Gpva5yD/36UsoG2e',
+            'user_id'    => $user->getId(),
+            'expires_at' => '2015-11-11 10:10:20',
+            'created_at' => '2015-11-11 10:10:10',
         ]);
         $pwd->save();
 

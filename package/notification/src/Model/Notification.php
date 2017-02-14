@@ -33,7 +33,7 @@ class Notification extends DbModel
 
     public function getPosterType()
     {
-        return $this->__get('poster_type');
+        return (int)$this->__get('poster_type');
     }
 
     public function setPosterType($value)

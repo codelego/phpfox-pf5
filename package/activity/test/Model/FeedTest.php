@@ -2,115 +2,109 @@
 
 namespace Neutron\Activity\Model;
 
-
 class FeedTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
         $obj = new Feed([
-            'feed_id'     => 33,
+            'feed_id'     => 16,
+            'type_id'     => 4,
             'user_id'     => 4,
-            'about_id'    => 2,
-            'poster_id'   => 33,
-            'about_type'  => 'blog_post',
-            'poster_type' => 'pages',
-            'parent_id'   => 44,
-            'parent_type' => 'event',
-            'created_at'  => '2011-10-09 22:11:00',
+            'about_id'    => 44,
+            'about_type'  => 'user',
+            'poster_id'   => 22,
+            'poster_type' => 'user',
+            'parent_id'   => 52,
+            'parent_type' => 'pages',
+            'created_at'  => '2017-02-11 06:09:04',
         ]);
 
-        $this->assertSame(33, $obj->getId());
+        $this->assertSame('feed', $obj->getModelId());
+        $this->assertSame(16, $obj->getId());
+        $this->assertSame(4, $obj->getTypeId());
         $this->assertSame(4, $obj->getUserId());
-        $this->assertSame(2, $obj->getAboutId());
-        $this->assertSame(33, $obj->getPosterId());
-        $this->assertSame(44, $obj->getParentId());
-        $this->assertSame('pages', $obj->getPosterType());
-        $this->assertSame('blog_post', $obj->getAboutType());
-        $this->assertSame('event', $obj->getParentType());
-        $this->assertSame('2011-10-09 22:11:00', $obj->getCreatedAt());
+        $this->assertSame(44, $obj->getAboutId());
+        $this->assertSame('user', $obj->getAboutType());
+        $this->assertSame(22, $obj->getPosterId());
+        $this->assertSame('user', $obj->getPosterType());
+        $this->assertSame(52, $obj->getParentId());
+        $this->assertSame('pages', $obj->getParentType());
+        $this->assertSame('2017-02-11 06:09:04', $obj->getCreatedAt());
     }
 
     public function testParameters()
     {
         $obj = new Feed();
 
-        $obj->setId(33);
+        // set data
+        $obj->setId(16);
+        $obj->setTypeId(4);
         $obj->setUserId(4);
-        $obj->setAboutId(2);
-        $obj->setPosterId(33);
-        $obj->setParentId(44);
-        $obj->setPosterType('pages');
-        $obj->setParentType('event');
-        $obj->setAboutType('blog_post');
-        $obj->setCreatedAt('2011-10-09 22:11:00');
+        $obj->setAboutId(44);
+        $obj->setAboutType('user');
+        $obj->setPosterId(22);
+        $obj->setPosterType('user');
+        $obj->setParentId(52);
+        $obj->setParentType('pages');
+        $obj->setCreatedAt('2017-02-11 06:09:04');
 
-        $this->assertSame(33, $obj->getId());
+        // assert same data
+        $this->assertSame('feed', $obj->getModelId());
+        $this->assertSame(16, $obj->getId());
+        $this->assertSame(4, $obj->getTypeId());
         $this->assertSame(4, $obj->getUserId());
-        $this->assertSame(2, $obj->getAboutId());
-        $this->assertSame(33, $obj->getPosterId());
-        $this->assertSame(44, $obj->getParentId());
-        $this->assertSame('pages', $obj->getPosterType());
-        $this->assertSame('blog_post', $obj->getAboutType());
-        $this->assertSame('event', $obj->getParentType());
-        $this->assertSame('2011-10-09 22:11:00', $obj->getCreatedAt());
+        $this->assertSame(44, $obj->getAboutId());
+        $this->assertSame('user', $obj->getAboutType());
+        $this->assertSame(22, $obj->getPosterId());
+        $this->assertSame('user', $obj->getPosterType());
+        $this->assertSame(52, $obj->getParentId());
+        $this->assertSame('pages', $obj->getParentType());
+        $this->assertSame('2017-02-11 06:09:04', $obj->getCreatedAt());
     }
 
     public function testSave()
     {
-        $obj = new Feed();
-
-        $obj->setUserId(4);
-        $obj->setAboutId(2);
-        $obj->setPosterId(33);
-        $obj->setParentId(44);
-        $obj->setPosterType('pages');
-        $obj->setParentType('event');
-        $obj->setAboutType('blog_post');
-        $obj->setCreatedAt('2011-10-09 22:11:00');
+        $obj = new Feed([
+            'feed_id'     => 16,
+            'type_id'     => 4,
+            'user_id'     => 4,
+            'about_id'    => 44,
+            'about_type'  => 'user',
+            'poster_id'   => 22,
+            'poster_type' => 'user',
+            'parent_id'   => 52,
+            'parent_type' => 'pages',
+            'created_at'  => '2017-02-11 06:09:04',
+        ]);
 
         $obj->save();
 
         /** @var Feed $obj */
         $obj = \Phpfox::with('feed')
-            ->select()
-            ->where('poster_id=?', 33)
-            ->where('about_id=?', 2)
-            ->where('about_type=?', 'blog_post')
-            ->where('poster_type=?', 'pages')
-            ->first();
+            ->select()->where('feed_id=?', 16)->first();
 
-        $this->assertNotNull($obj);
-        $this->assertTrue($obj instanceof Feed);
-
+        $this->assertSame('feed', $obj->getModelId());
+        $this->assertSame(16, $obj->getId());
+        $this->assertSame(4, $obj->getTypeId());
         $this->assertSame(4, $obj->getUserId());
-        $this->assertSame(2, $obj->getAboutId());
-        $this->assertSame(33, $obj->getPosterId());
-        $this->assertSame(44, $obj->getParentId());
-        $this->assertSame('pages', $obj->getPosterType());
-        $this->assertSame('blog_post', $obj->getAboutType());
-        $this->assertSame('event', $obj->getParentType());
-        $this->assertSame('2011-10-09 22:11:00', $obj->getCreatedAt());
-    }
-
-    public static function tearDownAfterClass()
-    {
-        \Phpfox::with('feed')
-            ->delete()
-            ->where('poster_id=?', 33)
-            ->where('about_id=?', 2)
-            ->where('about_type=?', 'blog_post')
-            ->where('poster_type=?', 'pages')
-            ->execute();
+        $this->assertSame(44, $obj->getAboutId());
+        $this->assertSame('user', $obj->getAboutType());
+        $this->assertSame(22, $obj->getPosterId());
+        $this->assertSame('user', $obj->getPosterType());
+        $this->assertSame(52, $obj->getParentId());
+        $this->assertSame('pages', $obj->getParentType());
+        $this->assertSame('2017-02-11 06:09:04', $obj->getCreatedAt());
     }
 
     public static function setUpBeforeClass()
     {
         \Phpfox::with('feed')
-            ->delete()
-            ->where('poster_id=?', 33)
-            ->where('about_id=?', 2)
-            ->where('about_type=?', 'blog_post')
-            ->where('poster_type=?', 'pages')
-            ->execute();
+            ->delete()->where('feed_id=?', 16)->execute();
+    }
+
+    public static function tearDownAfterClass()
+    {
+        \Phpfox::with('feed')
+            ->delete()->where('feed_id=?', 16)->execute();
     }
 }

@@ -62,4 +62,23 @@ return [
         StorageFile::class,
         'package/core/config/model/storage_file.php',
     ],
+    'session'         => [
+        'table_factory',
+        ':session',
+        Session::class,
+        'package/core/config/model/session.php',
+    ],
+    'session_driver'  => [
+        'table_factory',
+        ':session_driver',
+        SessionDriver::class,
+        'package/core/config/model/session_driver.php',
+    ],
+    'mail_template'   => [
+        'table_factory',
+        ':mail_template',
+        MailTemplate::class,
+        'package/core/config/model/mail_template.php',
+    ],
+
 ];

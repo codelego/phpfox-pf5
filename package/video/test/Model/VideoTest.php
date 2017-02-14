@@ -21,7 +21,7 @@ class VideoTest extends \PHPUnit_Framework_TestCase
             'poster_type' => 'user',
             'description' => '[description]',
         ]);
-    
+
         $this->assertSame('video', $obj->getModelId());
         $this->assertSame(14, $obj->getId());
         $this->assertSame(4, $obj->getCategoryId());
@@ -99,7 +99,7 @@ class VideoTest extends \PHPUnit_Framework_TestCase
         $obj = \Phpfox::with('video')
             ->select()
             ->where('title=?', '[title]')
-            ->where('created_at=?','2017-01-18 08:56:34')
+            ->where('created_at=?', '2017-01-18 08:56:34')
             ->first();
 
         $this->assertNotNull($obj);
@@ -125,7 +125,7 @@ class VideoTest extends \PHPUnit_Framework_TestCase
     {
         \Phpfox::get('db')->delete(':video')
             ->where('title=?', '[title]')
-            ->where('created_at=?','2017-01-18 08:56:34')
+            ->where('created_at=?', '2017-01-18 08:56:34')
             ->execute();
     }
 
@@ -133,7 +133,8 @@ class VideoTest extends \PHPUnit_Framework_TestCase
     {
         \Phpfox::get('db')->delete(':video')
             ->where('title=?', '[title]')
-            ->where('created_at=?','2017-01-18 08:56:34')->where('title=?', '[title]')
+            ->where('created_at=?', '2017-01-18 08:56:34')
+            ->where('title=?', '[title]')
             ->execute();
     }
 

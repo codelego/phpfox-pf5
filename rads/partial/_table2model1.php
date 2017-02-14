@@ -38,6 +38,11 @@
                value="<?= $model_name ?>" class="form-control"/>
     </div>
     <div class="form-group">
+        <label>Namespace (optional) </label>
+        <input type="text" placeholder="" name="namespace"
+               value="<?= $namespace ?>" class="form-control"/>
+    </div>
+    <div class="form-group">
         <button class="btn btn-submit" type="submit">Submit</button>
         <a class="btn btn-link" href="table2model1.php">Others</a>
     </div>

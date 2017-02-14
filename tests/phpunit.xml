@@ -28,14 +28,23 @@
             <directory suffix=".php">/Users/namnv/Sites/pf5/package/video/src</directory>
             <directory suffix=".php">/Users/namnv/Sites/pf5/package/pages/src</directory>
             <directory suffix=".php">/Users/namnv/Sites/pf5/package/group/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/report/src</directory>
             <directory suffix=".php">/Users/namnv/Sites/pf5/package/messages/src</directory>
             <directory suffix=".php">/Users/namnv/Sites/pf5/package/cms/src</directory>
             <directory suffix=".php">/Users/namnv/Sites/pf5/package/blog/src</directory>
             <directory suffix=".php">/Users/namnv/Sites/pf5/package/friend/src</directory>
             <directory suffix=".php">/Users/namnv/Sites/pf5/package/like/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/link/src</directory>
             <directory suffix=".php">/Users/namnv/Sites/pf5/package/comment/src</directory>
             <directory suffix=".php">/Users/namnv/Sites/pf5/package/share/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/request/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/notification/src</directory>
             <directory suffix=".php">/Users/namnv/Sites/pf5/package/activity/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/quiz/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/poll/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/cms/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/friend/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/package/invite/src</directory>
         </whitelist>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-session/src</directory>

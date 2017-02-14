@@ -9,6 +9,6 @@ class AdminAuthControllerTest extends \PHPUnit_Framework_TestCase
     {
         $controller = new AdminAuthController();
 
-        $this->assertNull( $controller->actionLogin());
+        $this->assertNull($controller->actionLogin());
     }
 }

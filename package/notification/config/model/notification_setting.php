@@ -1,1 +1,7 @@
-<?php return array(0=>NULL,1=>array('user_id'=>1,),2=>'user_id',3=>array('user_id'=>1,'params'=>1,),4=>array(),);
+<?php return [
+    0 => null,
+    1 => ['user_id' => 1,],
+    2 => 'user_id',
+    3 => ['user_id' => 1, 'params' => 1,],
+    4 => [],
+];

@@ -4,6 +4,26 @@ namespace Phpfox\Action;
 
 class RequestTest extends \PHPUnit_Framework_TestCase
 {
+    public function testFactory()
+    {
+        $request =  Request::factory([
+            'host'=>'www.example.com',
+            'protocol'=>'https',
+            'uri'=>'blog/post',
+            'm1'=>'v1',
+            'method'=>'post',
+        ]);
+        
+        $this->assertSame('www.example.com', $request->getHost());
+        $this->assertSame('https', $request->getProtocol());
+        $this->assertSame('blog/post', $request->getUri());
+        $this->assertSame('v1', $request->get('m1'));
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame(true, $request->isPost());
+        $this->assertSame(false, $request->isGet());
+
+    }
+
     public function testBase()
     {
         $request = new Request();

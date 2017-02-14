@@ -1,7 +1,7 @@
 <?php
 namespace Neutron\Video\Service;
 
-use Neutron\Video\Model\Provider;
+use Neutron\Video\Model\VideoProvider;
 use Neutron\Video\Provider\ParseException;
 use Neutron\Video\Provider\ProviderInterface;
 
@@ -31,7 +31,7 @@ class ProviderManager
     public function getProviderClasses()
     {
         if (empty($this->classes)) {
-            /** @var Provider[] $items */
+            /** @var VideoProvider[] $items */
             $items = \Phpfox::with('video_provider')
                 ->select()
                 ->where('is_active=1')

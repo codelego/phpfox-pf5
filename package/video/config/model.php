@@ -11,13 +11,13 @@ return [
     'video_provider' => [
         'table_factory',
         ':video_provider',
-        Provider::class,
+        VideoProvider::class,
         'package/video/config/model/video_provider.php',
     ],
     'video_category' => [
         'table_factory',
         ':video_category',
-        Category::class,
+        VideoCategory::class,
         'package/video/config/model/video_category.php',
     ],
 ];

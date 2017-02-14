@@ -1,0 +1,1 @@
+<?php return array(0=>'link_id',1=>array('link_id'=>1,),2=>'link_id',3=>array('link_id'=>1,'url'=>1,'title'=>1,'description'=>1,'user_id'=>1,'photo_file_id'=>1,'parent_type'=>1,'parent_id'=>1,'poster_type'=>1,'poster_id'=>1,'view_count'=>1,'like_count'=>1,'comment_count'=>1,'created_at'=>1,'privacy_id'=>1,),4=>array(),);

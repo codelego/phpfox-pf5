@@ -71,7 +71,7 @@ class AdminMailController extends AdminController
 
         }
 
-        $vm->assign(['form' => $form, 'driver'=>$driver]);
+        $vm->assign(['form' => $form, 'driver' => $driver]);
         return $vm;
     }
 

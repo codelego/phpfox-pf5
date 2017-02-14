@@ -97,7 +97,7 @@ class AuthByRemoteTest extends \PHPUnit_Framework_TestCase
             'email'         => 'auth_remote.unitest@example.com',
             'locale_id'     => 'en_US',
             'timezone'      => 'GMT+7',
-            'created_at'       => '2016-10-25 12:09:34',
+            'created_at'    => '2016-10-25 12:09:34',
         ]);
         $user->save();
 
@@ -107,7 +107,7 @@ class AuthByRemoteTest extends \PHPUnit_Framework_TestCase
             'remote_uid'   => 'example_uid',
             'user_id'      => $user->getId(),
             'remote_token' => 'example_token',
-            'updated'      => 1477389808,
+            'created_at'   => '2015-11-11 10:10:10',
         ]);
         $pwd->save();
 

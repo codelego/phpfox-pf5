@@ -107,7 +107,7 @@ class I18nMessage extends DbModel
      */
     public function setJson($value)
     {
-        $this->__set('is_json', $value ?1:0);
+        $this->__set('is_json', $value ? 1 : 0);
     }
 
     /**
@@ -115,6 +115,6 @@ class I18nMessage extends DbModel
      */
     public function setUpdated($value)
     {
-        $this->__set('is_updated', $value ?1:0);
+        $this->__set('is_updated', $value ? 1 : 0);
     }
 }

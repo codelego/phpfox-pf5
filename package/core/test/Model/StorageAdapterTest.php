@@ -2,101 +2,97 @@
 
 namespace Neutron\Core\Model;
 
-
 class StorageAdapterTest extends \PHPUnit_Framework_TestCase
 {
-    public function testSimple()
+    public function testBase()
     {
         $obj = new StorageAdapter([
-            'adapter_id'  => 1,
-            'name'        => 'Local',
-            'driver_id'   => 'local',
-            'params'      => '[]',
-            'is_active'   => 1,
-            'is_default'  => 1,
-            'is_fallback' => 1,
-            'description' => '[description]',
+            'adapter_id'   => 1,
+            'adapter_name' => 'Local',
+            'driver_id'    => 'local',
+            'params'       => '[]',
+            'is_active'    => 1,
+            'is_default'   => 1,
+            'is_fallback'  => 1,
+            'description'  => '',
         ]);
 
-        $this->assertEquals('storage_adapter', $obj->getModelId());
+        $this->assertSame('storage_adapter', $obj->getModelId());
+        $this->assertSame(1, $obj->getId());
+        $this->assertSame('Local', $obj->getAdapterName());
+        $this->assertSame('local', $obj->getDriverId());
+        $this->assertSame('[]', $obj->getParams());
+        $this->assertSame(1, $obj->isActive());
+        $this->assertSame(1, $obj->isDefault());
+        $this->assertSame(1, $obj->isFallback());
+        $this->assertSame('', $obj->getDescription());
+    }
 
-        $this->assertEquals(1, $obj->getId());
-        $this->assertEquals(1, $obj->getAdapterId());
-        $this->assertEquals('local', $obj->getDriverId());
-        $this->assertEquals('Local', $obj->getName());
-        $this->assertEquals('Local', $obj->getTitle());
-        $this->assertEquals('[]', $obj->getParams());
-        $this->assertEquals('[description]', $obj->getDescription());
-        $this->assertEquals(1, $obj->isActive());
-        $this->assertEquals(1, $obj->isDefault());
-        $this->assertEquals(1, $obj->isFallback());
+    public function testParameters()
+    {
+        $obj = new StorageAdapter();
 
-        $obj->setName('[test adapter]');
-        $obj->setDriverId('[local]');
-        $obj->setParams('[test param]');
-        $obj->setDescription('[test description]');
-        $obj->setParams('[test params]');
-        $obj->setActive(0);
-        $obj->setFallback(0);
-        $obj->setDefault(0);
+        // set data
+        $obj->setId(1);
+        $obj->setAdapterName('Local');
+        $obj->setDriverId('local');
+        $obj->setParams('[]');
+        $obj->setActive(1);
+        $obj->setDefault(1);
+        $obj->setFallback(1);
+        $obj->setDescription('');
 
-        $this->assertEquals(1, $obj->getId());
-        $this->assertEquals(1, $obj->getAdapterId());
-        $this->assertEquals('[local]', $obj->getDriverId());
-        $this->assertEquals('[test adapter]', $obj->getName());
-        $this->assertEquals('[test adapter]', $obj->getTitle());
-        $this->assertEquals('[test params]', $obj->getParams());
-        $this->assertEquals('[test description]', $obj->getDescription());
-        $this->assertEquals(0, $obj->isActive());
-        $this->assertEquals(0, $obj->isDefault());
-        $this->assertEquals(0, $obj->isFallback());
+        // assert same data
+        $this->assertSame('storage_adapter', $obj->getModelId());
+        $this->assertSame(1, $obj->getId());
+        $this->assertSame('Local', $obj->getAdapterName());
+        $this->assertSame('local', $obj->getDriverId());
+        $this->assertSame('[]', $obj->getParams());
+        $this->assertSame(1, $obj->isActive());
+        $this->assertSame(1, $obj->isDefault());
+        $this->assertSame(1, $obj->isFallback());
+        $this->assertSame('', $obj->getDescription());
     }
 
     public function testSave()
     {
         $obj = new StorageAdapter([
-            'name'        => '[test adapter]',
-            'driver_id'   => '[local]',
-            'params'      => '[test param]',
-            'is_active'   => 0,
-            'is_default'  => 0,
-            'is_fallback' => 0,
-            'description' => '[test description]',
+            'adapter_id'   => 1,
+            'adapter_name' => 'Local',
+            'driver_id'    => 'local',
+            'params'       => '[]',
+            'is_active'    => 1,
+            'is_default'   => 1,
+            'is_fallback'  => 1,
+            'description'  => '',
         ]);
 
         $obj->save();
 
-        /** @var StorageAdapter $entry */
-        $entry = \Phpfox::with('storage_adapter')
-            ->select()
-            ->where('driver_id=?', '[local]')
-            ->first();
+        /** @var StorageAdapter $obj */
+        $obj = \Phpfox::with('storage_adapter')
+            ->select()->where('adapter_id=?', 1)->first();
 
-        $this->assertEquals('[local]', $entry->getDriverId());
-        $this->assertEquals('[test adapter]', $entry->getName());
-        $this->assertEquals('[test adapter]', $entry->getTitle());
-        $this->assertEquals('[test param]', $entry->getParams());
-        $this->assertEquals('[test description]', $entry->getDescription());
-        $this->assertEquals(0, $entry->isActive());
-        $this->assertEquals(0, $entry->isDefault());
-        $this->assertEquals(0, $entry->isFallback());
-
-
-    }
-
-    public static function tearDownAfterClass()
-    {
-        \Phpfox::db()
-            ->delete(':storage_adapter')
-            ->where('driver_id=?', '[local]')
-            ->execute();
+        $this->assertSame('storage_adapter', $obj->getModelId());
+        $this->assertSame(1, $obj->getId());
+        $this->assertSame('Local', $obj->getAdapterName());
+        $this->assertSame('local', $obj->getDriverId());
+        $this->assertSame('[]', $obj->getParams());
+        $this->assertSame(1, $obj->isActive());
+        $this->assertSame(1, $obj->isDefault());
+        $this->assertSame(1, $obj->isFallback());
+        $this->assertSame('', $obj->getDescription());
     }
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::db()
-            ->delete(':storage_adapter')
-            ->where('driver_id=?', '[local]')
-            ->execute();
+        \Phpfox::with('storage_adapter')
+            ->delete()->where('adapter_id=?', 1)->execute();
+    }
+
+    public static function tearDownAfterClass()
+    {
+        \Phpfox::with('storage_adapter')
+            ->delete()->where('adapter_id=?', 1)->execute();
     }
 }

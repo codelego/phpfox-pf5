@@ -4,78 +4,82 @@ namespace Neutron\User\Model;
 
 class AuthTokenTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testBase()
     {
-        $obj = new AuthToken([
-            'id'       => '$2y$10$eO/nRD4KPbvtzQJjE26d1OjjXYjQj96pfExn8Gpva5yD/36UsoG2e',
-            'user_id'  => 495,
-            'created_at'  => '2017-01-18 08:48:26',
-            'expires_at' => '2017-01-18 08:48:29',
+        $obj
+            = new AuthToken([
+            'id'         => '$2y$10$eO/nRD4KPbvtzQJjE26d1OjjXYjQj96pfExn8Gpva5yD/36UsoG2e',
+            'user_id'    => 727,
+            'created_at' => '2015-11-11 10:10:10',
+            'expires_at' => '2015-11-11 10:10:20',
         ]);
 
         $this->assertSame('auth_token', $obj->getModelId());
         $this->assertSame('$2y$10$eO/nRD4KPbvtzQJjE26d1OjjXYjQj96pfExn8Gpva5yD/36UsoG2e',
             $obj->getId());
-        $this->assertSame(495, $obj->getUserId());
-        $this->assertSame('2017-01-18 08:48:26', $obj->getCreatedAt());
-        $this->assertSame('2017-01-18 08:48:29', $obj->getExpiresAt());
+        $this->assertSame(727, $obj->getUserId());
+        $this->assertSame('2015-11-11 10:10:10', $obj->getCreatedAt());
+        $this->assertSame('2015-11-11 10:10:20', $obj->getExpiresAt());
     }
 
-    public function testSetter()
+    public function testParameters()
     {
         $obj = new AuthToken();
 
-        $obj->setId('example token');
-        $obj->setUserId('496');
-        $obj->setCreatedAt('2017-01-18 08:48:26');
-        $obj->setExpiresAt('2017-01-18 08:48:29');
+        // set data
+        $obj->setId('$2y$10$eO/nRD4KPbvtzQJjE26d1OjjXYjQj96pfExn8Gpva5yD/36UsoG2e');
+        $obj->setUserId(727);
+        $obj->setCreatedAt('2015-11-11 10:10:10');
+        $obj->setExpiresAt('2015-11-11 10:10:20');
 
+        // assert same data
         $this->assertSame('auth_token', $obj->getModelId());
-        $this->assertSame('example token',
+        $this->assertSame('$2y$10$eO/nRD4KPbvtzQJjE26d1OjjXYjQj96pfExn8Gpva5yD/36UsoG2e',
             $obj->getId());
-        $this->assertSame(496, $obj->getUserId());
-        $this->assertSame('2017-01-18 08:48:26', $obj->getCreatedAt());
-        $this->assertSame('2017-01-18 08:48:29', $obj->getExpiresAt());
+        $this->assertSame(727, $obj->getUserId());
+        $this->assertSame('2015-11-11 10:10:10', $obj->getCreatedAt());
+        $this->assertSame('2015-11-11 10:10:20', $obj->getExpiresAt());
     }
 
     public function testSave()
     {
-        $obj = new AuthToken([
-            'id'       => '[example_token]',
-            'user_id'  => 495,
-            'created_at'  => '2017-01-18 08:48:26',
-            'expires_at' => '2017-01-18 08:48:29',
+        $obj
+            = new AuthToken([
+            'id'         => '$2y$10$eO/nRD4KPbvtzQJjE26d1OjjXYjQj96pfExn8Gpva5yD/36UsoG2e',
+            'user_id'    => 727,
+            'created_at' => '2015-11-11 10:10:10',
+            'expires_at' => '2015-11-11 10:10:20',
         ]);
 
         $obj->save();
 
         /** @var AuthToken $obj */
         $obj = \Phpfox::with('auth_token')
-            ->findById('[example_token]');
+            ->select()->where('id=?',
+                '$2y$10$eO/nRD4KPbvtzQJjE26d1OjjXYjQj96pfExn8Gpva5yD/36UsoG2e')
+            ->first();
 
         $this->assertSame('auth_token', $obj->getModelId());
-        $this->assertSame('[example_token]',
+        $this->assertSame('$2y$10$eO/nRD4KPbvtzQJjE26d1OjjXYjQj96pfExn8Gpva5yD/36UsoG2e',
             $obj->getId());
-        $this->assertSame(495, $obj->getUserId());
-        $this->assertSame('2017-01-18 08:48:26', $obj->getCreatedAt());
-        $this->assertSame('2017-01-18 08:48:29', $obj->getExpiresAt());
-
-    }
-
-    public static function tearDownAfterClass()
-    {
-        \Phpfox::get('db')
-            ->delete(':auth_token')
-            ->where('id=?', '[example_token]')
-            ->execute();
+        $this->assertSame(727, $obj->getUserId());
+        $this->assertSame('2015-11-11 10:10:10', $obj->getCreatedAt());
+        $this->assertSame('2015-11-11 10:10:20', $obj->getExpiresAt());
     }
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::get('db')
-            ->delete(':auth_token')
-            ->where('id=?', '[example_token]')
+        \Phpfox::with('auth_token')
+            ->delete()->where('id=?',
+                '$2y$10$eO/nRD4KPbvtzQJjE26d1OjjXYjQj96pfExn8Gpva5yD/36UsoG2e')
+            ->execute();
+    }
+
+    public static function tearDownAfterClass()
+    {
+        \Phpfox::with('auth_token')
+            ->delete()->where('id=?',
+                '$2y$10$eO/nRD4KPbvtzQJjE26d1OjjXYjQj96pfExn8Gpva5yD/36UsoG2e')
             ->execute();
     }
 }

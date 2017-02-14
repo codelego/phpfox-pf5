@@ -2,106 +2,100 @@
 
 namespace Neutron\Core\Model;
 
-
 class MailAdapterTest extends \PHPUnit_Framework_TestCase
 {
+    public function testBase()
+    {
+        $obj = new MailAdapter([
+            'adapter_id'   => 2,
+            'adapter_name' => 'SMTP',
+            'driver_id'    => 'smtp',
+            'params'       => '{"host":"smtp.sendgrid.net","port":587,"username":"phpfoxdemo","password":"Demo@Fox16","auth":true,"secure":"tls"}',
+            'is_active'    => 1,
+            'is_default'   => 1,
+            'is_fallback'  => 1,
+            'description'  => '',
+        ]);
+
+        $this->assertSame('mail_adapter', $obj->getModelId());
+        $this->assertSame(2, $obj->getId());
+        $this->assertSame('SMTP', $obj->getAdapterName());
+        $this->assertSame('smtp', $obj->getDriverId());
+        $this->assertSame('{"host":"smtp.sendgrid.net","port":587,"username":"phpfoxdemo","password":"Demo@Fox16","auth":true,"secure":"tls"}',
+            $obj->getParams());
+        $this->assertSame(1, $obj->isActive());
+        $this->assertSame(1, $obj->isDefault());
+        $this->assertSame(1, $obj->isFallback());
+        $this->assertSame('', $obj->getDescription());
+    }
+
     public function testParameters()
     {
         $obj = new MailAdapter();
 
-        $this->assertEquals('mail_adapter', $obj->getModelId());
+        // set data
+        $obj->setId(2);
+        $obj->setAdapterName('SMTP');
+        $obj->setDriverId('smtp');
+        $obj->setParams('{"host":"smtp.sendgrid.net","port":587,"username":"phpfoxdemo","password":"Demo@Fox16","auth":true,"secure":"tls"}');
+        $obj->setActive(1);
+        $obj->setDefault(1);
+        $obj->setFallback(1);
+        $obj->setDescription('');
 
-        $obj->setName('[example adapter name]');
-        $this->assertEquals('[example adapter name]', $obj->getName());
-        $this->assertEquals('[example adapter name]', $obj->getTitle());
-
-        $obj->setActive(false);
-        $this->assertEquals(0, $obj->isActive());
-        $obj->setActive(true);
-        $this->assertEquals(1, $obj->isActive());
-        $obj->setActive(null);
-        $this->assertEquals(0, $obj->isActive());
-
-        $obj->setTitle('[example adapter title]');
-        $this->assertEquals('[example adapter title]', $obj->getName());
-        $this->assertEquals('[example adapter title]', $obj->getTitle());
-
-
-        $obj->setDefault(false);
-        $this->assertEquals(0, $obj->isDefault());
-        $obj->setDefault(true);
-        $this->assertEquals(1, $obj->isDefault());
-        $obj->setDefault(null);
-        $this->assertEquals(0, $obj->isDefault());
-
-        $obj->setFallback(false);
-        $this->assertEquals(0, $obj->isFallback());
-        $obj->setFallback(true);
-        $this->assertEquals(1, $obj->isFallback());
-        $obj->setFallback(null);
-        $this->assertEquals(0, $obj->isFallback());
-
-        $obj->setParams('[]');
-        $this->assertEquals('[]', $obj->getParams());
-
-        $obj->setDriverId('[example driver id]');
-        $this->assertEquals('[example driver id]', $obj->getDriverId());
-
-        $obj->setDescription('[example description]');
-        $this->assertEquals('[example description]', $obj->getDescription());
+        // assert same data
+        $this->assertSame('mail_adapter', $obj->getModelId());
+        $this->assertSame(2, $obj->getId());
+        $this->assertSame('SMTP', $obj->getAdapterName());
+        $this->assertSame('smtp', $obj->getDriverId());
+        $this->assertSame('{"host":"smtp.sendgrid.net","port":587,"username":"phpfoxdemo","password":"Demo@Fox16","auth":true,"secure":"tls"}',
+            $obj->getParams());
+        $this->assertSame(1, $obj->isActive());
+        $this->assertSame(1, $obj->isDefault());
+        $this->assertSame(1, $obj->isFallback());
+        $this->assertSame('', $obj->getDescription());
     }
 
     public function testSave()
     {
         $obj = new MailAdapter([
-            'is_active'   => false,
-            'is_fallback' => false,
-            'description' => '[example description]',
-            'name'        => '[example name]',
-            'driver_id'   => 'test',
-            'params'      => '[]',
+            'adapter_id'   => 2,
+            'adapter_name' => 'SMTP',
+            'driver_id'    => 'smtp',
+            'params'       => '{"host":"smtp.sendgrid.net","port":587,"username":"phpfoxdemo","password":"Demo@Fox16","auth":true,"secure":"tls"}',
+            'is_active'    => 1,
+            'is_default'   => 1,
+            'is_fallback'  => 1,
+            'description'  => '',
         ]);
 
         $obj->save();
 
-        $this->assertNotEmpty($obj->getId());
-        $this->assertNotEmpty($obj->getDriverId());
+        /** @var MailAdapter $obj */
+        $obj = \Phpfox::with('mail_adapter')
+            ->select()->where('adapter_id=?', 2)->first();
 
-        /** @var MailAdapter $entry */
-        $entry = \Phpfox::get('db')
-            ->select('*')
-            ->from(':mail_adapter')
-            ->where('adapter_id=?', $obj->getId())
-            ->setPrototype(MailAdapter::class)
-            ->first();
+        $this->assertSame('mail_adapter', $obj->getModelId());
+        $this->assertSame(2, $obj->getId());
+        $this->assertSame('SMTP', $obj->getAdapterName());
+        $this->assertSame('smtp', $obj->getDriverId());
+        $this->assertSame('{"host":"smtp.sendgrid.net","port":587,"username":"phpfoxdemo","password":"Demo@Fox16","auth":true,"secure":"tls"}',
+            $obj->getParams());
+        $this->assertSame(1, $obj->isActive());
+        $this->assertSame(1, $obj->isDefault());
+        $this->assertSame(1, $obj->isFallback());
+        $this->assertSame('', $obj->getDescription());
+    }
 
-        $this->assertEquals($obj->getId(), $entry->getId());
-        $this->assertEquals('0', $entry->isActive());
-        $this->assertEquals('0', $entry->isFallback());
-        $this->assertEquals('0', $entry->isDefault());
-        $this->assertEquals('[example description]', $entry->getDescription());
-        $this->assertEquals('[example name]', $entry->getName());
-        $this->assertEquals('[example name]', $entry->getTitle());
-        $this->assertEquals('[]', $entry->getParams());
-
-        $entry->delete();
-
-        /** @var MailAdapter $entry */
-        $entry = \Phpfox::get('db')
-            ->select('*')
-            ->from(':mail_adapter')
-            ->where('adapter_id=?', $obj->getId())
-            ->setPrototype(MailAdapter::class)
-            ->first();
-
-        $this->assertNull($entry);
+    public static function setUpBeforeClass()
+    {
+        \Phpfox::with('mail_adapter')
+            ->delete()->where('adapter_id=?', 2)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::get('db')
-            ->delete(':mail_adapter')
-            ->where('driver_id=?', 'test')
-            ->execute();
+        \Phpfox::with('mail_adapter')
+            ->delete()->where('adapter_id=?', 2)->execute();
     }
 }

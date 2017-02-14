@@ -48,14 +48,15 @@ class YoutubeProvider implements ProviderInterface
             throw new \InvalidArgumentException("Invalid YouTube video url");
         }
 
-        $url = 'https://www.googleapis.com/youtube/v3/video?'
-            . http_build_query([
+        $url
+            = _sprintf('https://www.googleapis.com/youtube/v3/videos?id={id}&part={part}&key={key}',
+            [
                 'id'   => $code,
                 'key'  => $this->getApiKey(),
                 'part' => 'snippet,contentDetails',
-            ], '&');
+            ]);
 
-        $info = \Phpfox::get('curl')->factory($url)->getJSON();
+        $info = \Phpfox::get('curl')->factory($url, 30)->getJSON();
 
         // validate result
         if (empty($info)) {

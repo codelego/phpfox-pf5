@@ -15,6 +15,7 @@ return [
         'yesno'          => YesnoRender::class,
     ],
     'form.elements' => [
+        'yesno'        => YesnoField::class,
         'color_picker' => ColorPicker::class,
         'editor'       => Textarea::class,
         'choice'       => Choice::class,
@@ -23,7 +24,7 @@ return [
         'button'       => Button::class,
         'static'       => StaticText::class,
         'file'         => InputFile::class,
-        'text'         => Text::class,
+        'text'         => TextField::class,
         'textarea'     => Textarea::class,
         'form'         => Form::class,
         'hidden'       => Hidden::class,

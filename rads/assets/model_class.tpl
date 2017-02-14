@@ -1,3 +1,6 @@
+<?php
+
+namespace {namespace};
 
 use Phpfox\Db\DbModel;
 

@@ -11,7 +11,7 @@ class UserVerificationTest extends \PHPUnit_Framework_TestCase
         $obj = new UserVerification([
             'id'         => 'test_token',
             'user_id'    => 8,
-            'created_at'    => '2017-10-10 08:02:01',
+            'created_at' => '2017-10-10 08:02:01',
             'expires_at' => '2017-01-18 08:48:29',
             'reason'     => 'verify_email',
         ]);
@@ -47,7 +47,7 @@ class UserVerificationTest extends \PHPUnit_Framework_TestCase
         $obj = new UserVerification([
             'id'         => 'test_token',
             'user_id'    => 8,
-            'created_at'    => '2017-10-10 08:02:01',
+            'created_at' => '2017-10-10 08:02:01',
             'expires_at' => '2017-01-18 08:48:29',
             'reason'     => 'verify_email',
         ]);

@@ -6,7 +6,7 @@ return [
     'report_category' => [
         'table_factory',
         ':report_category',
-        Category::class,
+        ReportCategory::class,
         'package/report/config/model/category.php',
     ],
     'report'          => [

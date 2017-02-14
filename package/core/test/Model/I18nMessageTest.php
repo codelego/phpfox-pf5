@@ -15,7 +15,7 @@ class I18nMessageTest extends \PHPUnit_Framework_TestCase
             'var_name'   => 'No',
             'text_value' => '[No]',
             'is_json'    => '0',
-            'is_updated'    => '0',
+            'is_updated' => '0',
         ]);
 
         $this->assertEquals(8, $obj->getId());
@@ -38,9 +38,9 @@ class I18nMessageTest extends \PHPUnit_Framework_TestCase
             'var_name'   => 'No',
             'text_value' => '[No]',
             'is_json'    => '0',
-            'is_updated'    => '0',
+            'is_updated' => '0',
         ]);
-        
+
         $obj->setDomain('domain 1');
         $obj->setLocale('locale 1');
         $obj->setName('No 1');

@@ -7,6 +7,23 @@ use Phpfox\Mailer\MailTransportInterface;
 
 class MailTransportFactoryTest extends \PHPUnit_Framework_TestCase
 {
+    public static function setUpBeforeClass()
+    {
+        \Phpfox::db()
+            ->delete(':mail_adapter')->execute();
+
+        \Phpfox::db()->insert(':mail_adapter', [
+            'adapter_id'   => 1,
+            'adapter_name' => 'SMTP #1',
+            'driver_id'    => 'smtp',
+            'params'       => '[]',
+            'is_active'    => 1,
+            'is_default'   => 1,
+            'is_fallback'  => 1,
+            'description'  => '[]',
+        ])->execute();
+    }
+
     public function testInitialize()
     {
         $obj = new MailTransportFactory();

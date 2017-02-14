@@ -2,101 +2,73 @@
 
 namespace Neutron\Core\Model;
 
-
 use Phpfox\Db\DbModel;
 
 class StorageDriver extends DbModel
 {
-    /**
-     * @return string
-     */
     public function getModelId()
     {
         return 'storage_driver';
     }
 
-    /**
-     * @return mixed|null
-     */
     public function getId()
     {
         return $this->__get('driver_id');
     }
 
-    /**
-     * @return mixed|null
-     */
-    public function getDriverId()
+    public function setId($value)
     {
-        return $this->__get('driver_id');
+        $this->__set('driver_id', $value);
     }
 
-    /**
-     * @param $value
-     */
-    public function setName($value)
+    public function getDriverName()
     {
-        $this->__set('name', (string)$value);
+        return $this->__get('driver_name');
     }
 
-    /**
-     * @return mixed|null
-     */
-    public function getName()
+    public function setDriverName($value)
     {
-        return $this->__get('name');
+        $this->__set('driver_name', $value);
     }
 
-    /**
-     * @return mixed|null
-     */
-    public function getTitle()
-    {
-        return $this->__get('name');
-    }
-
-    /**
-     * @return mixed|null
-     */
-    public function getDescription()
-    {
-        return $this->__get('description');
-    }
-
-    /**
-     * @param $value
-     */
-    public function setDescription($value)
-    {
-        $this->__set('description', (string)$value);
-    }
-
-    /**
-     * @return mixed|null
-     */
     public function getFormName()
     {
         return $this->__get('form_name');
     }
 
-    /**
-     * @param $value
-     */
     public function setFormName($value)
     {
-        $this->__set('form_name', (string)$value);
+        $this->__set('form_name', $value);
     }
 
-    /**
-     * @return mixed|null
-     */
+    public function getDescription()
+    {
+        return $this->__get('description');
+    }
+
+    public function setDescription($value)
+    {
+        $this->__set('description', $value);
+    }
+
     public function isActive()
     {
-        return $this->__get('is_active');
+        return $this->__get('is_active') ? 1 : 0;
     }
 
     public function setActive($value)
     {
-        $this->__set('is_active', $value ? '1' : '0');
+        $this->__set('is_active', $value ? 1 : 0);
     }
+
+    public function getDriverClass()
+    {
+        return $this->__get('driver_class');
+    }
+
+    public function setDriverClass($value)
+    {
+        $this->__set('driver_class', $value);
+    }
+
 }

@@ -14,7 +14,8 @@ class AuthorizationSettingsTest extends \PHPUnit_Framework_TestCase
         $form = new AuthorizationSettings();
 
         $this->assertSame(true,
-            $form->getElement('core__account_deletion') instanceof ElementInterface);
+            $form->getElement('core__account_deletion') instanceof
+            ElementInterface);
 
         $this->assertNotEmpty((new FormBootstrapRender())->render($form));
     }

@@ -14,7 +14,8 @@ class AuthHistoryManager
 
         return \Phpfox::with('auth_history')
             ->delete()
-            ->where('created_at<?', date('Y-m-d H:i:s', time() - (int)$day * 86400))
+            ->where('created_at<?',
+                date('Y-m-d H:i:s', time() - (int)$day * 86400))
             ->execute();
     }
 

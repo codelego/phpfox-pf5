@@ -2,9 +2,6 @@
 
 namespace Neutron\Video\Provider;
 
-
-use Phpfox\Support\CurlRequest;
-
 class VimeoProvider implements ProviderInterface
 {
 
@@ -88,7 +85,7 @@ class VimeoProvider implements ProviderInterface
     {
         $info = parse_url($url);
 
-        $code = trim($info['path'], '/');
+        $code = trim(@$info['path'], '/');
 
         if (preg_match('#^\d+$#', $code, $maches)) {
             return $code;

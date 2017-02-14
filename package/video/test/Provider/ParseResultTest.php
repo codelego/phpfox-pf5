@@ -26,7 +26,8 @@ class ParseResultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('youtube.com', $obj->getProviderName());
         $this->assertEquals('youtube.com', $obj->getProviderName());
         $this->assertEquals('youtube video title', $obj->getTitle());
-        $this->assertEquals('youtube video description', $obj->getDescription());
+        $this->assertEquals('youtube video description',
+            $obj->getDescription());
         $this->assertEquals(1000, $obj->getVideoDuration());
         $this->assertEquals('hq', $obj->getDefinition());
         $this->assertEquals('xs', $obj->getThumbMode());
@@ -67,7 +68,8 @@ class ParseResultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('youtube.com', $obj->getProviderName());
         $this->assertEquals('youtube.com', $obj->getProviderName());
         $this->assertEquals('youtube video title', $obj->getTitle());
-        $this->assertEquals('youtube video description', $obj->getDescription());
+        $this->assertEquals('youtube video description',
+            $obj->getDescription());
         $this->assertEquals(1000, $obj->getVideoDuration());
         $this->assertEquals('hq', $obj->getDefinition());
         $this->assertEquals('xs', $obj->getThumbMode());

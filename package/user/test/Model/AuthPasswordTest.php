@@ -13,7 +13,7 @@ class AuthPasswordTest extends \PHPUnit_Framework_TestCase
             'salt'        => '07W',
             'static_salt' => 'ddd',
             'source_id'   => 'pf4',
-            'created_at'     => '2016-10-25 12:09:34',
+            'created_at'  => '2016-10-25 12:09:34',
         ]);
 
         $this->assertEquals('auth_password', $obj->getModelId());
@@ -38,7 +38,7 @@ class AuthPasswordTest extends \PHPUnit_Framework_TestCase
             'salt'        => '07W',
             'static_salt' => 'ddd',
             'source_id'   => 'test',
-            'created_at'     => '2016-10-25 12:09:34',
+            'created_at'  => '2016-10-25 12:09:34',
         ]);
 
         $obj->save();
@@ -86,7 +86,7 @@ class AuthPasswordTest extends \PHPUnit_Framework_TestCase
             'salt'        => '07W',
             'static_salt' => 'ddd',
             'source_id'   => 'pf4',
-            'created_at'     => '2016-10-25 12:09:34',
+            'created_at'  => '2016-10-25 12:09:34',
         ]);
 
         $obj->setUserId(5);

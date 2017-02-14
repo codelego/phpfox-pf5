@@ -47,7 +47,7 @@ class FormFacadesRenderTest extends \PHPUnit_Framework_TestCase
 
     public function testRenderInput()
     {
-        $checkbox = new Text([
+        $checkbox = new TextField([
             'name'  => 'username',
             'value' => '',
             'label' => 'Username',

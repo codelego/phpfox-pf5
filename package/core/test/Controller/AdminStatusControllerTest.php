@@ -10,9 +10,13 @@ class AdminStatusControllerTest extends \PHPUnit_Framework_TestCase
         $obj = new AdminStatusController();
 
         $this->assertNull($obj->actionCache());
-        $this->assertInstanceOf('\Phpfox\View\ViewModel', $obj->actionHealthCheck());
-        $this->assertInstanceOf('\Phpfox\View\ViewModel', $obj->actionLicense());
-        $this->assertInstanceOf('\Phpfox\View\ViewModel', $obj->actionOverview());
-        $this->assertInstanceOf('\Phpfox\View\ViewModel', $obj->actionStatistics());
+        $this->assertInstanceOf('\Phpfox\View\ViewModel',
+            $obj->actionHealthCheck());
+        $this->assertInstanceOf('\Phpfox\View\ViewModel',
+            $obj->actionLicense());
+        $this->assertInstanceOf('\Phpfox\View\ViewModel',
+            $obj->actionOverview());
+        $this->assertInstanceOf('\Phpfox\View\ViewModel',
+            $obj->actionStatistics());
     }
 }

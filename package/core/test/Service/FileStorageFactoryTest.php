@@ -3,20 +3,42 @@
 namespace Neutron\Core\Service;
 
 
-use Phpfox\Storage\FileStorageInterface;
+use Phpfox\Storage\LocalFileStorage;
 
 class FileStorageFactoryTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testBase()
     {
+        \Phpfox::db()
+            ->delete(':storage_adapter')
+            ->execute();
+
+        \Phpfox::db()->insert(':storage_adapter', [
+            'adapter_id'   => 1,
+            'adapter_name' => 'Local #1',
+            'driver_id'    => 'local',
+            'params'       => '[]',
+            'is_active'    => 1,
+            'is_default'   => 1,
+            'is_fallback'  => 1,
+            'description'  => '[description]',
+        ])->execute();
+
+
         $obj = new FileStorageFactory();
 
-        $this->assertSame(true, $obj->factory(null) instanceof FileStorageInterface);
-        $this->assertSame(true, $obj->factory(0) instanceof FileStorageInterface);
-        $this->assertSame(true, $obj->factory(1) instanceof FileStorageInterface);
-        $this->assertSame(true, $obj->factory('default') instanceof FileStorageInterface);
-        $this->assertSame(true, $obj->factory('fallback') instanceof FileStorageInterface);
+        $this->assertSame(true,
+            $obj->factory(null) instanceof LocalFileStorage);
+
+        $this->assertSame(true,
+            $obj->factory(0) instanceof LocalFileStorage);
+        $this->assertSame(true,
+            $obj->factory(1) instanceof LocalFileStorage);
+        $this->assertSame(true,
+            $obj->factory('default') instanceof LocalFileStorage);
+        $this->assertSame(true,
+            $obj->factory('fallback') instanceof LocalFileStorage);
     }
 
 

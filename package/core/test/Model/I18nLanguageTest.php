@@ -43,7 +43,7 @@ class I18nLanguageTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var I18nLanguage $entry */
-        $entry =  \Phpfox::with('i18n_language')
+        $entry = \Phpfox::with('i18n_language')
             ->findById('test_language');
 
         $this->assertEquals('test_language', $obj->getId());
@@ -75,7 +75,7 @@ class I18nLanguageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('ltr', $entry->getDirection());
 
         /** @var I18nLanguage $entry */
-        $entry =  \Phpfox::with('i18n_language')
+        $entry = \Phpfox::with('i18n_language')
             ->findById('test_language');
 
         $entry->delete();

@@ -6,7 +6,7 @@ namespace Phpfox\Form;
 class InputRender implements RenderInterface
 {
     /**
-     * @param Text $element
+     * @param TextField $element
      *
      * @return string
      */

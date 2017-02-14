@@ -2,8 +2,8 @@
 
 namespace Neutron\Report\Service;
 
-use Neutron\Report\Model\Category;
 use Neutron\Report\Model\Report;
+use Neutron\Report\Model\ReportCategory;
 
 class ReportManager
 {
@@ -11,7 +11,7 @@ class ReportManager
     /**
      * @param mixed $id
      *
-     * @return ReportManager
+     * @return Report
      */
     public function findReportById($id)
     {
@@ -22,7 +22,7 @@ class ReportManager
     /**
      * @param $id
      *
-     * @return Category
+     * @return ReportCategory
      */
     public function findCategoryById($id)
     {
@@ -71,8 +71,8 @@ class ReportManager
 
     public function _getActiveCategoryOptions()
     {
-        return array_map(function (Category $item) {
-            return ['label' => $item->getTitle(), 'value' => $item->getId()];
+        return array_map(function (ReportCategory $item) {
+            return ['label' => $item->getName(), 'value' => $item->getId()];
         }, \Phpfox::with('report_category')->select()
             ->where('is_active=1')->execute()->all());
     }

@@ -180,7 +180,6 @@ namespace {
         if (file_exists($file)) {
             @chmod($file, 0777);
         }
-
     }
 
     /**

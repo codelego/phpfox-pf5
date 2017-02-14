@@ -63,7 +63,6 @@ class FileStorageFactory implements FileStorageFactoryInterface
 
         foreach ($rows as $row) {
             $configs = $row['params'];
-
             $id = $row['adapter_id'];
 
             if (!empty($configs)) {

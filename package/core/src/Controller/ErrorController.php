@@ -16,7 +16,7 @@ class ErrorController extends ActionController
 
         $message = '';
 
-        if($lastException instanceof \Exception){
+        if ($lastException instanceof \Exception) {
             $message = $lastException->getTraceAsString();
         }
 

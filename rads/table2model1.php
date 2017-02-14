@@ -20,6 +20,7 @@ $module_name = isset($_REQUEST['module_name']) ? $_REQUEST['module_name']
     : null;
 $model_id = isset($_REQUEST['model_id']) ? $_REQUEST['model_id'] : null;
 $model_name = isset($_REQUEST['model_name']) ? $_REQUEST['model_name'] : null;
+$namespace =    isset($_REQUEST['namespace']) ? $_REQUEST['namespace'] : null;
 
 _rad_view_page('partial/_table2model1.php', [
     'heading'     => 'Convert Table To Model',
@@ -29,4 +30,5 @@ _rad_view_page('partial/_table2model1.php', [
     'model_id'    => $model_id,
     'packages'    => $packages,
     'tables'      => $tables,
+    'namespace'=> $namespace,
 ]);

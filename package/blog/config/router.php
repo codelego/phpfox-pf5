@@ -9,7 +9,7 @@ return [
                 'action'     => 'browse',
             ],
         ],
-        'view_blog:profile'    => [
+        'view_blog:profile'   => [
             'route'    => '{blog}/<id>',
             'defaults' => [
                 'controller' => 'blog.profile',
