@@ -4,6 +4,12 @@ namespace Neutron\User\Model;
 
 class UserTest extends \PHPUnit_Framework_TestCase
 {
+    protected function setUp()
+    {
+        \Phpfox::db()->delete(':user')->where('email=?', 'vanlk@younetco.com')
+            ->execute();
+    }
+
     public function testBase()
     {
         $obj = new User([
@@ -81,7 +87,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
             'view_id'       => 0,
             'username'      => 'namnv',
             'fullname'      => 'Nam Nguyen',
-            'email'         => 'unitest@younetco.com',
+            'email'         => 'vanlk@younetco.com',
             'locale_id'     => 'en_US',
             'timezone'      => 'GMT+7',
             'created_at'    => '2016-10-25 12:03:28',

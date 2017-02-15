@@ -35,4 +35,41 @@ class FacebookProviderTest extends \PHPUnit_Framework_TestCase
         $provider = new FacebookProvider();
         $this->assertNotEmpty($provider->getEmbedCode('782531485242661', []));
     }
+
+    public function testExtractVideoByEmpty()
+    {
+        $mn = new FacebookProvider();
+
+        $this->assertNotEmpty($mn->extractVideo([]));
+    }
+
+    /**
+     * @return array
+     */
+    public function provideExtractVideoParams()
+    {
+        return [
+            [null, null, null],
+            ['', '', ''],
+            ['', '', true],
+            ['', '', false],
+        ];
+    }
+
+    /**
+     * @param $videoId
+     * @param $code
+     * @param $autoplay
+     * @dataProvider  provideExtractVideoParams
+     */
+    public function testExtractVideoByVideoId($videoId, $code, $autoplay)
+    {
+        $mn = new FacebookProvider();
+
+        $this->assertNotEmpty($mn->extractVideo([
+            'video_id' => $videoId,
+            'code'     => $code,
+            'autoplay' => $autoplay,
+        ]));
+    }
 }

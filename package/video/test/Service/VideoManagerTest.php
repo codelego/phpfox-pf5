@@ -2,12 +2,12 @@
 
 namespace Neutron\Video\Service;
 
-
 use Neutron\Video\Provider\VimeoProvider;
 use Neutron\Video\Provider\YoutubeProvider;
 
 class VideoManagerTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testParseYoutube()
     {
 
@@ -71,6 +71,13 @@ class VideoManagerTest extends \PHPUnit_Framework_TestCase
     {
         $mn = new ProviderManager();
         $mn->parseFromUrl('http://nonevideo.com');
+    }
+
+    public function testFindById()
+    {
+        $obj = new VideoManager();
+
+        $this->assertNull($obj->findVideoById(1));
     }
 
 

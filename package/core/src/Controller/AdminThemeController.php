@@ -23,11 +23,11 @@ class AdminThemeController extends AdminController
                         break;
                     case 'active':
                         \Phpfox::get('core.themes')
-                            ->active($id);
+                            ->setActive($id);
                         break;
                     case 'inactive':
                         \Phpfox::get('core.themes')
-                            ->inactive($id);
+                            ->setInactive($id);
                         break;
                     case 'rebuild-main':
                         \Phpfox::get('core.themes')
@@ -43,18 +43,13 @@ class AdminThemeController extends AdminController
         }
 
 
-        $items = \Phpfox::with('core_theme')
+        $items = \Phpfox::with('theme')
             ->select('*')
-            ->execute()
             ->all();
 
-        $vm = new ViewModel([
+        return new ViewModel([
             'items' => $items,
-        ]);
-
-        $vm->setTemplate('core/admin-theme/index');
-
-        return $vm;
+        ], 'core/admin-theme/index');
     }
 
     /**
@@ -69,12 +64,8 @@ class AdminThemeController extends AdminController
 
 
         $params = [];
-        $custom = \Phpfox::get('db')
-            ->select('*')
-            ->from(':core_theme_setting')
-            ->where('theme_id=?', $id)
-            ->execute()
-            ->first();
+        $custom = \Phpfox::get('core.themes')
+            ->findSettingByThemeId($id);
 
         if ($custom) {
             $params = json_decode($custom['params'], true);

@@ -48,7 +48,7 @@ return [
         'navigation.loader'      => [null, Service\NavigationLoader::class],
         'core.i18n_language'     => [null, Service\I18nLanguage::class],
         'core.packages'          => [null, Service\Packages::class],
-        'core.themes'            => [null, Service\Themes::class],
+        'core.themes'            => [null, Service\ThemeManager::class],
         'core.roles'             => [null, Service\Roles::class],
         'authorization.provider' => [null, Service\PermissionProvider::class],
     ],

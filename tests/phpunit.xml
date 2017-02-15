@@ -16,7 +16,7 @@
          verbose="true">
     <testsuite>
         <directory suffix="Test.php">/Users/namnv/Sites/pf5/package</directory>
-        <directory suffix="Test.php">/Users/namnv/Sites/pf5/library</directory>
+        <!--<directory suffix="Test.php">/Users/namnv/Sites/pf5/library</directory>-->
         <exclude>/Users/namnv/Sites/pf5/library/phpfox-mailer</exclude>
         <exclude>/Users/namnv/Sites/pf5/library/phpfox-storage</exclude>
     </testsuite>

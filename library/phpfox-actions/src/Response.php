@@ -54,9 +54,7 @@ class Response
             header('location: ' . $url);
         }
 
-        if (!PHPFOX_UNIT_TEST) {
-            echo $this->terminate();
-        }
+        echo $this->terminate();
 
         return false;
     }

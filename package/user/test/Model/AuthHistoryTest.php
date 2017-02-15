@@ -56,7 +56,7 @@ class AuthHistoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNotNull($entry);
         $this->assertEquals('auth_history', $entry->getModelId());
-        $this->assertSame('1', $entry->getUserId());
+        $this->assertSame(1, $entry->getUserId());
         $this->assertSame('device name', $entry->getDeviceName());
         $this->assertSame('::0', $entry->getRemoteAddress());
         $this->assertSame('2017-01-18 08:48:26', $entry->getCreatedAt());

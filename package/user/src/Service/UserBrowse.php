@@ -4,7 +4,7 @@ namespace Neutron\User\Service;
 
 use Neutron\User\Model\User;
 
-class Browse
+class UserBrowse
 {
     /**
      * @param $userId
@@ -13,14 +13,8 @@ class Browse
      */
     public function findUserById($userId)
     {
-        return \Phpfox::db()
-            ->select('*')
-            ->from(':user')
-            ->where('user_id=?', (int)$userId)
-            ->limit(1, 0)
-            ->execute()
-            ->setPrototype(User::class)
-            ->first();
+        return \Phpfox::with('user')
+            ->findById($userId);
     }
 
     /**

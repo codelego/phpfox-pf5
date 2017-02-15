@@ -13,7 +13,6 @@ class AdminAuthController extends ActionController
         \Phpfox::get('assets')
             ->addStyle('admin.login', null);
 
-
         $layout = \Phpfox::get('view.layout');
 
         $layout->setTemplate('layout/login');

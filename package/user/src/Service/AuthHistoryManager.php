@@ -3,6 +3,7 @@
 namespace Neutron\User\Service;
 
 
+use Neutron\User\Model\AuthHistory;
 use Phpfox\Event\Event;
 use Phpfox\Support\UserInterface;
 
@@ -30,10 +31,22 @@ class AuthHistoryManager
             ->findById((int)$id);
     }
 
+    /**
+     * @param array $data
+     *
+     * @return AuthHistory
+     */
     public function log($data)
     {
-        \Phpfox::with('auth_history')
-            ->insert($data);
+        $obj = new AuthHistory(array_merge([
+            'created_at'     => date('Y-m-d H:i:s'),
+            'device_name'    => '',
+            'remote_address' => '::0',
+        ], $data));
+
+        $obj->save();
+
+        return $obj;
     }
 
     /**
@@ -59,12 +72,16 @@ class AuthHistoryManager
             return;
         }
 
+        $address = isset($_SERVER['REMOTE_ADDR'])
+            ? $_SERVER['REMOTE_ADDR'] : 'n/a';
+        $agent = isset($_SERVER['HTTP_USER_AGENT'])
+            ? $_SERVER['HTTP_USER_AGENT'] : 'n/a';
+
         $this->log([
             'user_id'        => $target->getId(),
-            'remote_address' => isset($_SERVER['REMOTE_ADDR'])
-                ? $_SERVER['REMOTE_ADDR'] : 'n/a',
-            'device_name'    => $_SERVER['HTTP_USER_AGENT'],
-            'created'        => date('Y-m-d H:i:s'),
+            'remote_address' => $address,
+            'device_name'    => $agent,
+            'created_at'     => date('Y-m-d H:i:s'),
         ]);
     }
 }

@@ -88,21 +88,6 @@ class FacebookProvider implements ProviderInterface
         return null;
     }
 
-    public function getVideoDuration()
-    {
-        return "";
-    }
-
-    public function getVideoTitle()
-    {
-        return "";
-    }
-
-    public function getVideoDescription()
-    {
-        return "";
-    }
-
     public function getEmbedCode($code, $context = [])
     {
         $view = isset($context['view']) ? $context['view'] : false;
@@ -139,13 +124,11 @@ class FacebookProvider implements ProviderInterface
 
     public function extractVideo($params)
     {
-        $video_id = $params['video_id'];
-        $code = $params['code'];
-        $view = $params['view'];
-        $mobile = empty($params['mobile']) ? false : $params['mobile'];
+        $video_id = isset($params['video_id']) ? $params['video_id'] : '';
+        $code = isset($params['code']) ? $params['code'] : '';
+        $autoplay = !empty($params['autoplay']) ? $params['autoplay'] : 'false';
         $embedded
-            = '
-            <video id="player_' . $video_id . '" class="ynultimatevideo-player" data-type="1" width="764" height="426">
+            = '<video id="player_' . $video_id . '" ' . $autoplay . ' class="video-player" data-type="1" width="764" height="426">
                 <source type="video/facebook" src="www.facebook.com/video/embed?video_id='
             . $code . '" />
             </video>';

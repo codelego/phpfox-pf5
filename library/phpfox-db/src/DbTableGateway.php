@@ -183,7 +183,7 @@ class DbTableGateway implements GatewayInterface
     {
         if ($this->_query_id) {
             return $this->select()->where($this->_query_id . '=?', (string)$id)
-                ->execute()->first();
+                ->first();
         }
         throw new GatewayException("Can not use findById");
     }

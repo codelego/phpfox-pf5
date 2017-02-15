@@ -11,8 +11,8 @@ return [
     ],
     'services'       => [
         'user.callback'       => [null, Service\EventListener::class,],
-        'user.verify_email'   => [null, Service\VerifyEmail::class],
-        'user.browse'         => [null, Service\Browse::class],
+        'user.verify_email'   => [null, Service\VerifyTokenManager::class],
+        'user.browse'         => [null, Service\UserBrowse::class],
         'auth.factory'        => [null, Service\AuthFactory::class],
         'user.profile_filter' => [null, Service\ProfileNameFilter::class],
         'user.auth_history'   => [null, Service\AuthHistoryManager::class],

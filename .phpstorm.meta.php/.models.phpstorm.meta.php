@@ -64,7 +64,7 @@ namespace PHPSTORM_META {
         'storage_driver'       => \Neutron\Core\Model\StorageDriver::class,
         'storage_file'         => \Neutron\Core\Model\StorageFile::class,
         'user'                 => \Neutron\User\Model\User::class,
-        'user_verification'    => \Neutron\User\Model\UserVerification::class,
+        'user_verification'    => \Neutron\User\Model\UserVerifyToken::class,
         'video'                => \Neutron\Video\Model\Video::class,
         'video_category'       => \Neutron\Video\Model\VideoCategory::class,
         'video_provider'       => \Neutron\Video\Model\VideoProvider::class,

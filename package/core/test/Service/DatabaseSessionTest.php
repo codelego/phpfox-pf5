@@ -24,4 +24,22 @@ class DatabaseSessionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame(true, $obj->destroy($id));
     }
+
+    public function testExpireSession()
+    {
+        $obj = new DatabaseSession();
+        $id = _random_string(12);
+
+        $obj->write($id, 'example data');
+
+        $this->assertSame('example data', $obj->read($id));
+
+        \Phpfox::db()->update(':session',
+            ['modified' => time() - 86400, 'lifetime' => 3600])
+            ->where('id=?', $id)
+            ->execute();
+
+        $this->assertSame('', $obj->read($id));
+
+    }
 }

@@ -16,12 +16,12 @@ class I18nMessageLoader implements I18nMessageLoaderInterface
             ->order('locale', 1);
 
         foreach ($stmt->all() as $row) {
-            if ($row['is_json']) {
-                $result[$row['var_name']]
-                    = array_values(json_decode($row['text_value'], 1));
-            } else {
-                $result[$row['var_name']] = $row['text_value'];
-            }
+//            if ($row['is_json']) {
+//                $result[$row['var_name']]
+//                    = array_values(json_decode($row['text_value'], 1));
+//            } else {
+            $result[$row['var_name']] = $row['text_value'];
+//            }
         }
         return $result;
     }

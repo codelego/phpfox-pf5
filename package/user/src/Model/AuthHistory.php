@@ -19,7 +19,7 @@ class AuthHistory extends DbModel
      */
     public function getId()
     {
-        return $this->__get('id');
+        return (int)$this->__get('id');
     }
 
     /**
@@ -27,7 +27,7 @@ class AuthHistory extends DbModel
      */
     public function getUserId()
     {
-        return $this->__get('user_id');
+        return (int)$this->__get('user_id');
     }
 
     /**

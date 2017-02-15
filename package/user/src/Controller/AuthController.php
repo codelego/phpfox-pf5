@@ -8,11 +8,14 @@ use Phpfox\View\ViewModel;
 
 class AuthController extends ActionController
 {
+    /**
+     * @return ViewModel
+     */
     public function actionLogin()
     {
         // start session
         $auth = \Phpfox::get('auth');
-        $vm = new ViewModel();
+
 
         if ($auth->isLoggedIn()) {
             // redirect to logged in user
@@ -27,7 +30,6 @@ class AuthController extends ActionController
         if ($request->isPost()) {
             $form->populate($request->all());
             $data = $form->getData();
-
 
             $result = $auth->authenticate('password', $data['username'],
                 $data['password'], null);
@@ -44,25 +46,22 @@ class AuthController extends ActionController
             }
         }
 
-        $vm->assign(['form' => $form, 'message' => $message]);
 
-        $vm->setTemplate('user/auth/login');
-
-        return $vm;
+        return new ViewModel([
+            'form'    => $form,
+            'message' => $message,
+        ], 'user/auth/login');
     }
 
+    /**
+     * @return ViewModel
+     */
     public function actionLogout()
     {
         \Phpfox::get('auth')->logout();
 
-        $url = _url('home');
+        \Phpfox::get('mvc.response')->redirect(_url('home'));
 
-        \Phpfox::get('mvc.response')->redirect($url);
-
-        $vm = new ViewModel();
-
-        $vm->setTemplate('user/auth/logout');
-
-        return $vm;
+        return new ViewModel([], 'user/auth/logout');
     }
 }

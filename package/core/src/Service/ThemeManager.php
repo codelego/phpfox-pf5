@@ -2,10 +2,11 @@
 
 namespace Neutron\Core\Service;
 
-use Neutron\Core\Model\CoreTheme;
+use Neutron\Core\Model\Theme;
+use Neutron\Core\Model\ThemeSetting;
 use Phpfox\Assets\StylesheetCompiler;
 
-class Themes
+class ThemeManager
 {
 
     /**
@@ -21,12 +22,37 @@ class Themes
     /**
      * @param string $id
      *
-     * @return CoreTheme
+     * @return Theme
      */
     public function findById($id)
     {
-        return \Phpfox::with('core_theme')
+        return \Phpfox::with('theme')
             ->findById((string)$id);
+    }
+
+    /**
+     * @param mixed $id
+     *
+     * @return ThemeSetting
+     */
+    public function findSettingById($id)
+    {
+        return \Phpfox::with('theme_setting')
+            ->findById((int)$id);
+    }
+
+    /**
+     * @param mixed $id
+     *
+     * @return ThemeSetting
+     */
+    public function findSettingByThemeId($id)
+    {
+        return \Phpfox::with('theme_setting')
+            ->select()
+            ->where('theme_id=?', (string)$id)
+            ->first();
+
     }
 
     /**
@@ -44,17 +70,17 @@ class Themes
         }
 
         \Phpfox::get('db')
-            ->update(':core_theme')
+            ->update(':theme')
             ->values(['is_default' => 0])
             ->execute();
 
         \Phpfox::get('db')
-            ->update(':core_theme')
+            ->update(':theme')
             ->values([
                 'is_default' => 1,
                 'is_active'  => 1,
             ])
-            ->where('id=?', $id)
+            ->where('theme_id=?', $id)
             ->execute();
 
         $this->updateCache();
@@ -65,7 +91,7 @@ class Themes
      *
      * @param string $id
      */
-    public function active($id)
+    public function setActive($id)
     {
         $theme = $this->findById($id);
 
@@ -75,11 +101,11 @@ class Themes
         }
 
         \Phpfox::get('db')
-            ->update(':core_theme')
+            ->update(':theme')
             ->values([
                 'is_active' => 1,
             ])
-            ->where('id=?', $id)
+            ->where('theme_id=?', $id)
             ->execute();
     }
 
@@ -88,7 +114,7 @@ class Themes
      *
      * @param string $id
      */
-    public function inactive($id)
+    public function setInactive($id)
     {
         $theme = $this->findById($id);
 
@@ -98,11 +124,8 @@ class Themes
         }
 
         \Phpfox::get('db')
-            ->update(':core_theme')
-            ->values([
-                'is_active' => 0,
-            ])
-            ->where('id=?', $id)
+            ->update(':theme', ['is_active' => 0,])
+            ->where('theme_id=?', $id)
             ->where('is_default=?', 0)
             ->execute();
     }
@@ -110,21 +133,19 @@ class Themes
     /**
      * Get default theme entry
      *
-     * @return CoreTheme
+     * @return Theme
      */
     public function getDefault()
     {
-        $item = \Phpfox::with('core_theme')
+        $item = \Phpfox::with('theme')
             ->select()
             ->where('is_default=?', 1)
-            ->execute()
             ->first();
 
         if (!$item) {
-            $item = \Phpfox::with('core_theme')
+            $item = \Phpfox::with('theme')
                 ->select()
                 ->where('is_active=?', 1)
-                ->execute()
                 ->first();
         }
 
@@ -134,6 +155,10 @@ class Themes
     public function _preferThemes()
     {
         $theme = $this->getDefault();
+
+        if (!$theme) {
+            return ['default'];
+        }
 
         $result = [$theme->getId()];
 
@@ -322,6 +347,11 @@ class Themes
         return implode(PHP_EOL, $source);
     }
 
+    /**
+     * @param string $id
+     *
+     * @return array
+     */
     public function getRebuildFiles($id)
     {
         $response = _emit('onRebuildFiles');
@@ -341,6 +371,10 @@ class Themes
     }
 
     /**
+     * Get theme settings and sass variables
+     *
+     * @see table `theme_setting`
+     *
      * @param string $id
      *
      * @return array
@@ -351,13 +385,12 @@ class Themes
         $variables = [];
         $item = \Phpfox::get('db')
             ->select('*')
-            ->from(':core_theme_setting')
+            ->from(':theme_setting')
             ->where('theme_id=?', (string)$id)
-            ->execute()
             ->first();
 
-        if ($item && $item['settings']) {
-            $variables = (array)json_decode($item['settings'], true);
+        if ($item and $item['params']) {
+            $variables = (array)json_decode($item['params'], true);
         }
 
         $variables['theme-url'] = '../../';

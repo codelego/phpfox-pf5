@@ -26,12 +26,6 @@ return [
         CorePackage::class,
         'package/core/config/model/core_package.php',
     ],
-    'core_theme'      => [
-        'table_factory',
-        ':core_theme',
-        CoreTheme::class,
-        'package/core/config/model/core_theme.php',
-    ],
     'mail_adapter'    => [
         'table_factory',
         ':mail_adapter',
@@ -80,5 +74,16 @@ return [
         MailTemplate::class,
         'package/core/config/model/mail_template.php',
     ],
-
+    'theme'           => [
+        'table_factory',
+        ':theme',
+        Theme::class,
+        'package/core/config/model/theme.php',
+    ],
+    'theme_setting'   => [
+        'table_factory',
+        ':theme_setting',
+        ThemeSetting::class,
+        'package/core/config/model/theme_setting.php',
+    ],
 ];

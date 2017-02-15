@@ -8,7 +8,6 @@ use Phpfox\View\ViewModel;
 
 class AdminI18nController extends AdminController
 {
-
     public function actionIndex()
     {
         $items = \Phpfox::with('i18n_language')
@@ -40,17 +39,14 @@ class AdminI18nController extends AdminController
         $vm->setTemplate('layout/admin-edit');
 
         return $vm;
-
     }
 
     public function actionPhrases()
     {
-
         $form = new FilterI18nPhrase([]);
 
         \Phpfox::get('require_js')
             ->deps('package/core/admin-i18n');
-
 
         $items = \Phpfox::with('i18n_message')
             ->select()

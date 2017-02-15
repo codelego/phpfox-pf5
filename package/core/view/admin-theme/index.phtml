@@ -12,7 +12,7 @@
             <?php foreach ($items as $item): ?>
                 <tr>
                     <td>
-                        <?= $item['id'] ?>
+                        <?= $item->getId() ?>
                     </td>
                     <td><a href="<?= _url('admin.core.theme.edit',
                             ['id' => $item->getId()]) ?>"><?= $item->getName() ?></a>

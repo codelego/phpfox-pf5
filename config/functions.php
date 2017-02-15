@@ -3,6 +3,24 @@
 namespace {
 
     /**
+     * Generate random string by length
+     *
+     * @param $length
+     *
+     * @return string Return alpha numeric string.
+     */
+    function _random_string($length)
+    {
+        $result = '';
+        $seeks = '0123456789qwertyuiopasdfghjklzxcvbnm';
+        $max = strlen($seeks) - 1;
+        for ($i = 0; $i < $length; ++$i) {
+            $result .= substr($seeks, mt_rand(0, $max), 1);
+        }
+        return $result;
+    }
+
+    /**
      * Check directory then create directory if not found.
      *
      * @param string $directory
@@ -170,8 +188,8 @@ namespace {
             exit('Can not open ' . $dir . ' to write export');
         }
 
-        if(!is_string($data)){
-            $data= var_export($data, true);
+        if (!is_string($data)) {
+            $data = var_export($data, true);
         }
 
         file_put_contents($file,

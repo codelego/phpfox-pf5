@@ -33,10 +33,10 @@ return [
         AuthHistory::class,
         'package/user/config/model/auth_history.php',
     ],
-    'user_verification' => [
+    'user_verify_token' => [
         'table_factory',
-        ':user_verification',
-        UserVerification::class,
-        'package/user/config/model/user_verification.php',
+        ':user_verify_token',
+        UserVerifyToken::class,
+        'package/user/config/model/user_verify_token.php',
     ],
 ];

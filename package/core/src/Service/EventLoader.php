@@ -11,22 +11,17 @@ class EventLoader implements EventLoaderInterface
         $rows = \Phpfox::db()
             ->select('*')
             ->from(':core_event')
-            ->where('1')
-            ->order('event_name', 'priority')
-            ->execute()
-            ->all();
+            ->order('event_name, priority', 1);
 
         $result = [];
-        foreach ($rows as $row) {
+        foreach ($rows->all() as $row) {
             $name = $row['event_name'];
-
             if (!isset($result[$name])) {
                 $result[$name] = [];
             }
 
             $result[$name][] = $row['listener_name'];
         }
-
         return $result;
     }
 }
