@@ -16,9 +16,10 @@ return [
     ],
     'form.elements' => [
         'yesno'        => YesnoField::class,
+        'select'       => SelectField::class,
         'color_picker' => ColorPicker::class,
         'editor'       => Textarea::class,
-        'choice'       => Choice::class,
+        'choice'       => ChoiceField::class,
         'checkbox'     => Checkbox::class,
         'select_multi' => MultiChoice::class,
         'button'       => Button::class,

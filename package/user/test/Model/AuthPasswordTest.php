@@ -4,6 +4,7 @@ namespace Neutron\User\Model;
 
 class AuthPasswordTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testBase()
     {
         $obj = new AuthPassword([

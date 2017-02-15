@@ -2,7 +2,9 @@
 
 namespace Phpfox\Cache;
 
-
+/**
+ * @requires extension memcached
+ */
 class MemcachedCacheStorageTest extends \PHPUnit_Framework_TestCase
 {
     function setUp()

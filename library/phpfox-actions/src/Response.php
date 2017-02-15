@@ -55,19 +55,20 @@ class Response
         }
 
         if (!PHPFOX_UNIT_TEST) {
-            $this->terminate();
+            echo $this->terminate();
         }
 
         return false;
     }
 
     /**
-     * @codeCoverageIgnore
+     * @return string
      */
     public function terminate()
     {
-        \Phpfox::get($this->prototype)
-            ->run($this);
+        /** @var ResponsePrototypeInterface $obj */
+        $obj = \Phpfox::get($this->prototype);
+        echo $obj->run($this);
     }
 
     public function getCode()

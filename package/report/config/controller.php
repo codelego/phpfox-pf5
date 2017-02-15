@@ -2,5 +2,5 @@
 namespace Neutron\Report\Controller;
 
 return [
-    'abuse-report.admin-category' => AdminCategoryController::class,
+    'report.admin-category' => AdminCategoryController::class,
 ];

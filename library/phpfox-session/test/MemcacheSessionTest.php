@@ -2,7 +2,9 @@
 
 namespace Phpfox\Session;
 
-
+/**
+ * @requires memcache
+ */
 class MemcacheSessionTest extends \PHPUnit_Framework_TestCase
 {
 

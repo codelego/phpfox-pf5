@@ -21,7 +21,7 @@ class AdminManageController extends AdminController
         }
 
         if ($request->isPost()) {
-            $form->populate($request->getParams());
+            $form->populate($request->all());
             $data = $form->getData();
             $obj = new Announcement($data);
             $obj->save();

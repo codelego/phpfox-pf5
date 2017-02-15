@@ -55,7 +55,7 @@ class AuthResult
     public function setResult($code, $message = null)
     {
         $code = intval($code);
-        
+
         switch ($code) {
             case self::SUCCESS:
             case self::INVALID_CREDENTIAL:

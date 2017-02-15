@@ -1,12 +1,6 @@
 <?php
 namespace Phpfox\Session;
 
-
-/**
- * Class SessionManager
- *
- * @package Phpfox\Session
- */
 class SessionManager
 {
     protected $started = false;

@@ -21,7 +21,7 @@ class AdminDepartmentController extends AdminController
         $vm = new ViewModel();
 
         $vm->assign(['items' => $items]);
-        $vm->setTemplate('contact-us/admin-department/index');
+        $vm->setTemplate('contact/admin-department/index');
 
         return $vm;
     }
@@ -47,7 +47,7 @@ class AdminDepartmentController extends AdminController
             $item->fromArray($_POST);
             $item->save();
 
-            \Phpfox::get('mvc.response')->redirect(_url('admin.contact-us'));
+            \Phpfox::get('mvc.response')->redirect(_url('admin.contact'));
         }
 
         $vm = new ViewModel();
@@ -76,7 +76,7 @@ class AdminDepartmentController extends AdminController
             $item->fromArray($_POST);
             $item->save();
 
-            \Phpfox::get('mvc.response')->redirect(_url('admin.contact-us'));
+            \Phpfox::get('mvc.response')->redirect(_url('admin.contact'));
         }
 
         $vm = new ViewModel();

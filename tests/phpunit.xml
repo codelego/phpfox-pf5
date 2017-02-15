@@ -73,6 +73,7 @@
             <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-support/src</directory>
             <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-view/src</directory>
             <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-widget/src</directory>
+            <directory suffix=".php">/Users/namnv/Sites/pf5/library/phpfox-validate/src</directory>
         </whitelist>
     </filter>
     <logging>

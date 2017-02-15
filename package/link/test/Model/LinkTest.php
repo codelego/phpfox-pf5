@@ -6,21 +6,22 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new Link(['link_id'       => 1,
-                         'url'           => 'http://tuoitre.vn/',
-                         'title'         => 'tuoitre.vn',
-                         'description'   => '[description]',
-                         'user_id'       => 22,
-                         'photo_file_id' => 44,
-                         'parent_type'   => 'pages',
-                         'parent_id'     => 12,
-                         'poster_type'   => 'user',
-                         'poster_id'     => 22,
-                         'view_count'    => 44,
-                         'like_count'    => 34,
-                         'comment_count' => 56,
-                         'created_at'    => '2013-11-03 00:00:00',
-                         'privacy_id'    => 26,
+        $obj = new Link([
+            'link_id'       => 1,
+            'url'           => 'http://tuoitre.vn/',
+            'title'         => 'tuoitre.vn',
+            'description'   => '[description]',
+            'user_id'       => 22,
+            'photo_file_id' => 44,
+            'parent_type'   => 'pages',
+            'parent_id'     => 12,
+            'poster_type'   => 'user',
+            'poster_id'     => 22,
+            'view_count'    => 44,
+            'like_count'    => 34,
+            'comment_count' => 56,
+            'created_at'    => '2013-11-03 00:00:00',
+            'privacy_id'    => 26,
         ]);
 
         $this->assertSame('link', $obj->getModelId());
@@ -83,21 +84,22 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new Link(['link_id'       => 1,
-                         'url'           => 'http://tuoitre.vn/',
-                         'title'         => 'tuoitre.vn',
-                         'description'   => '[description]',
-                         'user_id'       => 22,
-                         'photo_file_id' => 44,
-                         'parent_type'   => 'pages',
-                         'parent_id'     => 12,
-                         'poster_type'   => 'user',
-                         'poster_id'     => 22,
-                         'view_count'    => 44,
-                         'like_count'    => 34,
-                         'comment_count' => 56,
-                         'created_at'    => '2013-11-03 00:00:00',
-                         'privacy_id'    => 26,
+        $obj = new Link([
+            'link_id'       => 1,
+            'url'           => 'http://tuoitre.vn/',
+            'title'         => 'tuoitre.vn',
+            'description'   => '[description]',
+            'user_id'       => 22,
+            'photo_file_id' => 44,
+            'parent_type'   => 'pages',
+            'parent_id'     => 12,
+            'poster_type'   => 'user',
+            'poster_id'     => 22,
+            'view_count'    => 44,
+            'like_count'    => 34,
+            'comment_count' => 56,
+            'created_at'    => '2013-11-03 00:00:00',
+            'privacy_id'    => 26,
         ]);
 
         $obj->save();

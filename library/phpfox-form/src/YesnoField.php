@@ -2,7 +2,7 @@
 namespace Phpfox\Form;
 
 
-class YesnoField extends Choice
+class YesnoField extends ChoiceField
 {
     protected $render = 'yesno';
 }

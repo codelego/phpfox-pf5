@@ -4,6 +4,6 @@ namespace Phpfox\Support;
 
 return [
     'services' => [
-        'image'        => [null, InterventionImageManager::class],
+        'image' => [null, InterventionImageManager::class],
     ],
 ];

@@ -3,7 +3,6 @@
 namespace Phpfox\Authentication;
 
 
-
 class MockAuthBaseExample implements AuthInterface
 {
     public function authenticate($identity, $credential, $options = null)

@@ -100,7 +100,7 @@ class ProviderManagerTest extends \PHPUnit_Framework_TestCase
         $mn = new ProviderManager();
 
         $obj->delete();
-        
+
         $mn->build('example');
 
     }

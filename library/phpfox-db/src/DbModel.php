@@ -80,7 +80,7 @@ abstract class DbModel implements ModelInterface
 
     function __get($name)
     {
-        return isset($this->_data[$name])? $this->_data[$name]: null;
+        return isset($this->_data[$name]) ? $this->_data[$name] : null;
     }
 
     function __set($name, $value)

@@ -51,9 +51,10 @@
   'form.elements' => 
   array (
     'yesno' => 'Phpfox\\Form\\YesnoField',
+    'select' => 'Phpfox\\Form\\SelectField',
     'color_picker' => 'Phpfox\\Form\\ColorPicker',
     'editor' => 'Phpfox\\Form\\Textarea',
-    'choice' => 'Phpfox\\Form\\Choice',
+    'choice' => 'Phpfox\\Form\\ChoiceField',
     'checkbox' => 'Phpfox\\Form\\Checkbox',
     'select_multi' => 'Phpfox\\Form\\MultiChoice',
     'button' => 'Phpfox\\Form\\Button',
@@ -420,6 +421,11 @@
       0 => NULL,
       1 => 'Phpfox\\Support\\InterventionImageManager',
     ),
+    'validator' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Validate\\ValidateManager',
+    ),
     'view.template' => 
     array (
       0 => NULL,
@@ -447,5 +453,15 @@
     'local' => 'Phpfox\\Storage\\LocalFileStorage',
     'ftp' => 'Phpfox\\Storage\\FtpFileStorage',
     'ssh2' => 'Phpfox\\Storage\\Ssh2FileStorage',
+  ),
+  'validator_rules' => 
+  array (
+    'required' => 'Phpfox\\Validate\\RequiredValidate',
+    'string' => 'Phpfox\\Validate\\StringValidate',
+    'email' => 'Phpfox\\Validate\\EmailAddressValidate',
+    'int' => 'Phpfox\\Validate\\IntegerValidate',
+    'ip' => 'Phpfox\\Validate\\IpValidate',
+    'url' => 'Phpfox\\Validate\\UrlValidate',
+    'callback' => 'Phpfox\\Validate\\CallbackValidate',
   ),
 );

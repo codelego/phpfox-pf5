@@ -16,7 +16,7 @@
                     <td><?= $item->getName() ?></td>
                     <td><?= _yesno($item->isActive()) ?></td>
                     <td>
-                        <a href="<?= _url('admin.abuse-report.category.edit',
+                        <a href="<?= _url('admin.report.category.edit',
                             ['id' => $item->getId()]) ?>"><?= _text('edit') ?></a>
                     </td>
                 </tr>

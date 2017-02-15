@@ -61,11 +61,11 @@ class RequestFactory
         $path = preg_replace('#(/+)#', '/', '/' . ltrim($path, '/'));
 
         $request = new Request();
-        $request->setUri($path);
+        $request->setPath($path);
         $request->setProtocol($protocol);
         $request->setHost($host);
         $request->setMethod($method);
-        $request->setParams($_GET + $_POST);
+        $request->put($_GET + $_POST);
 
         return $request;
     }

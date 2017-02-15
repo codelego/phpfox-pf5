@@ -3,7 +3,6 @@
 namespace Neutron\Video\Service;
 
 
-use Neutron\Video\Model\VideoProvider;
 use Neutron\Video\Provider\VimeoProvider;
 use Neutron\Video\Provider\YoutubeProvider;
 

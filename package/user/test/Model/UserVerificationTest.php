@@ -6,6 +6,35 @@ namespace Neutron\User\Model;
 class UserVerificationTest extends \PHPUnit_Framework_TestCase
 {
 
+    public function _testABC()
+    {
+        $user = new User([
+            'role_id'       => 1,
+            'user_photo_id' => 0,
+            'gender'        => 0,
+            'status_id'     => 0,
+            'view_id'       => 0,
+            'username'      => 'unit_test',
+            'fullname'      => 'Unit Test',
+            'email'         => 'unitest@example.com',
+            'locale_id'     => 'en_US',
+            'timezone'      => 'GMT+7',
+            'created_at'    => '2016-10-25 12:09:34',
+        ]);
+        $user->save();
+
+        $pwd = new AuthPassword([
+            'user_id'     => $user->getId(),
+            'hashed'      => '$2y$10$eO/nRD4KPbvtzQJjE26d1OjjXYjQj96pfExn8Gpva5yD/36UsoG2e',
+            'salt'        => 'OJ$',
+            'static_salt' => '',
+            'source_id'   => 'pf4',
+            'updated'     => 1477389808,
+        ]);
+        $pwd->save();
+
+    }
+
     public function testBase()
     {
         $obj = new UserVerification([

@@ -2,9 +2,9 @@
 
 return [
     'routes' => [
-        'admin.abuse-report' => [
-            'route'      => 'abuse-report/category/*',
-            'controller' => 'abuse-report.admin-category',
+        'admin.report' => [
+            'route'      => 'report/category/*',
+            'controller' => 'report.admin-category',
             'action'     => 'index',
             'children'   => [
                 'edit'   => ['route' => 'edit/<id>', 'action' => 'edit'],

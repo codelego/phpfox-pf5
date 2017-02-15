@@ -4,9 +4,9 @@
     2 => 'category_id',
     3 => [
         'category_id' => 1,
+        'is_active'   => 1,
         'name'        => 1,
         'description' => 1,
-        'is_active'   => 1,
     ],
     4 => [],
 ];

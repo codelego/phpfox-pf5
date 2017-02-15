@@ -60,7 +60,7 @@ class FormFacadesRenderTest extends \PHPUnit_Framework_TestCase
 
     public function testSelectRender()
     {
-        $checkbox = new Choice([
+        $checkbox = new ChoiceField([
             'render' => 'select',
             'name'   => 'category_id',
             'value'  => '',

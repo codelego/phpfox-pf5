@@ -1,0 +1,31 @@
+<div class="container">
+    <?= $this->render('blog/admin-category/menu', []) ?>
+</div>
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-admin">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Active?</th>
+                <td>Option</td>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item): ?>
+                <tr>
+                    <td><?= $item->getId() ?></td>
+                    <td><?= $item->getName() ?></td>
+                    <td><?= _yesno($item->isActive()) ?></td>
+                    <td class="separate-cmd">
+                        <a href="<?= _url('admin.blog.category.edit',
+                            ['id' => $item->getId()]) ?>"><?= _text('edit') ?></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+

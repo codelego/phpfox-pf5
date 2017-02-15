@@ -117,6 +117,11 @@
     0 => 'library/phpfox-support/src',
     1 => 'library/phpfox-support/test',
   ),
+  'Phpfox\\Validate' => 
+  array (
+    0 => 'library/phpfox-validate/src',
+    1 => 'library/phpfox-validate/test',
+  ),
   'Phpfox\\View' => 
   array (
     0 => 'library/phpfox-view/src',

@@ -2,8 +2,8 @@
 namespace Neutron\Contact\Controller;
 
 return [
-    'contact-us.index'            => ContactUsController::class,
-    'contact-us.admin-department' => AdminDepartmentController::class,
-    'contact-us.admin-settings'   => AdminSettingsController::class,
-    'contact-us.admin-permission' => AdminPermissionController::class,
+    'contact.index'            => ContactUsController::class,
+    'contact.admin-department' => AdminDepartmentController::class,
+    'contact.admin-settings'   => AdminSettingsController::class,
+    'contact.admin-permission' => AdminPermissionController::class,
 ];

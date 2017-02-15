@@ -17,7 +17,7 @@ class AdminManageController extends AdminController
         $filter = new AdminFilterUser();
 
         if ($request->isGet()) {
-            $filter->populate($request->getParams());
+            $filter->populate($request->all());
         }
 
         $items = \Phpfox::with('user')

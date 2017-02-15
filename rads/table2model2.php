@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and !empty($_REQUEST['overwrite'])) {
         $success = false;
     }
 
-    if(!is_writable($dir =  dirname(PHPFOX_DIR  . '/' . $test_path))){
+    if(!is_writable($dir =  dirname(PHPFOX_DIR  . $test_path))){
         echo 'chmod 777 ', $dir, '<br/>';
         $success = false;
     }

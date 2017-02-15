@@ -17,12 +17,12 @@ class Request
     /**
      * @var array
      */
-    protected $params = [];
+    protected $data = [];
 
     /**
      * @var string
      */
-    protected $uri;
+    protected $path;
 
     /**
      * @var string
@@ -66,17 +66,17 @@ class Request
     /**
      * @return string
      */
-    public function getUri()
+    public function getPath()
     {
-        return $this->uri;
+        return $this->path;
     }
 
     /**
-     * @param string $uri
+     * @param string $path
      */
-    public function setUri($uri)
+    public function setPath($path)
     {
-        $this->uri = $uri;
+        $this->path = $path;
     }
 
     /**
@@ -127,17 +127,17 @@ class Request
     /**
      * @return array
      */
-    public function getParams()
+    public function all()
     {
-        return $this->params;
+        return $this->data;
     }
 
     /**
-     * @param array $params
+     * @param array $data
      */
-    public function setParams($params)
+    public function put($data)
     {
-        $this->params = $params;
+        $this->data = $data;
     }
 
     /**
@@ -148,33 +148,48 @@ class Request
      */
     public function get($key, $default = null)
     {
-        return isset($this->params[$key]) ? $this->params[$key] : $default;
+        if (method_exists($this, $method = 'get' . ucfirst($key))) {
+            return $this->{$method}();
+        } else {
+            return isset($this->data[$key]) ? $this->data[$key] : $default;
+        }
     }
 
     /**
      * @param string $key
      * @param mixed  $value
-     *
-     * @return $this
      */
     public function set($key, $value)
     {
-        $this->params[$key] = $value;
-        return $this;
+        if (method_exists($this, $method = 'set' . ucfirst($key))) {
+            $this->{$method}($value);
+        } else {
+            $this->data[$key] = $value;
+        }
     }
+
 
     /**
      * add more params and override if exists.
      *
      * @param array $params
-     *
-     * @return $this
      */
-    public function addParams($params)
+    public function add($params)
     {
         foreach ($params as $k => $v) {
-            $this->params[$k] = $v;
+            if (method_exists($this, $method = 'set' . ucfirst($k))) {
+                $this->{$method}($v);
+            } else {
+                $this->data[$k] = $v;
+            }
         }
-        return $this;
+    }
+
+    /**
+     * Put current object to singleton
+     */
+    public function singleton()
+    {
+        \Phpfox::get('manager')->set('mvc.request', $this);
     }
 }

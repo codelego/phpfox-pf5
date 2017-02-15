@@ -25,7 +25,7 @@ class AuthController extends ActionController
         $message = null;
 
         if ($request->isPost()) {
-            $form->populate($request->getParams());
+            $form->populate($request->all());
             $data = $form->getData();
 
 

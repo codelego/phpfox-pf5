@@ -11,5 +11,6 @@ namespace PHPSTORM_META {
         'controller.provider' => \Phpfox\Package\ActionProvider::class,
         'db'                  => \Phpfox\Db\DbAdapterInterface::class,
         'manager'             => \Phpfox\Support\ServiceManager::class,
+        'validator'           => \Phpfox\Validate\ValidateManager::class,
     ]));
 }

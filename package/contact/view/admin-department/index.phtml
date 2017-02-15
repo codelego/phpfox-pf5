@@ -1,9 +1,9 @@
 <div class="container text-right">
-    <a href="<?= _url('admin.contact-us.settings') ?>"
+    <a href="<?= _url('admin.contact.settings') ?>"
        class="btn btn-link"><?= _text('Settings') ?></a>
-    <a href="<?= _url('admin.contact-us.permissions') ?>"
+    <a href="<?= _url('admin.contact.permissions') ?>"
        class="btn btn-link"><?= _text('Permissions') ?></a>
-    <a href="<?= _url('admin.contact-us.add') ?>"
+    <a href="<?= _url('admin.contact.add') ?>"
        class="btn btn-link"><?= _text('Add Department') ?></a>
 </div>
 <div class="container">
@@ -28,7 +28,7 @@
                     <td><?= _yesno($item->isDefault()) ?></td>
                     <td><?= $item->getMessageCount() ?></td>
                     <td>
-                        <a href="<?= _url('admin.contact-us.department.edit',
+                        <a href="<?= _url('admin.contact.department.edit',
                             ['id' => $item->getId()]) ?>"><?= _text('edit') ?></a>
                     </td>
                 </tr>

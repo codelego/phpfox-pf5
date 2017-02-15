@@ -84,3 +84,18 @@ defined('PHPFOX_TABLE_PREFIX') or define('PHPFOX_TABLE_PREFIX', 'pf5_');
  * @const PHPFOX_DEFAULT_DB db
  */
 defined('PHPFOX_DEFAULT_DB') or define('PHPFOX_DEFAULT_DB', 'db');
+
+/**
+ * @const PHPFOX_DESC_LENGTH 255
+ */
+defined('PHPFOX_DESC_LENGTH') or define('PHPFOX_DESC_LENGTH', 255);
+
+/**
+ * @const PHPFOX_TITLE_LENGTH 50
+ */
+defined('PHPFOX_TITLE_LENGTH') or define('PHPFOX_TITLE_LENGTH', 50);
+
+/**
+ * @const PHPFOX_DESC_ROWS 5
+ */
+defined('PHPFOX_DESC_ROWS') or define('PHPFOX_DESC_ROWS', 5);

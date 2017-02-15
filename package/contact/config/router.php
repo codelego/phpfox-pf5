@@ -2,25 +2,25 @@
 
 return [
     'routes' => [
-        'contact-us'       => [
-            'route'      => '{contact-us}',
-            'controller' => 'contact-us.index',
+        'contact'       => [
+            'route'      => '{contact}',
+            'controller' => 'contact.index',
             'action'     => 'index',
         ],
-        'admin.contact-us' => [
-            'route'      => 'contact-us/*',
-            'controller' => 'contact-us.admin-department',
+        'admin.contact' => [
+            'route'      => 'contact/*',
+            'controller' => 'contact.admin-department',
             'action'     => 'departments',
             'children'   => [
                 'edit'        => ['route' => 'edit/<id>', 'action' => 'edit'],
                 'add'         => ['route' => 'add', 'action' => 'add'],
                 'settings'    => [
                     'route'      => 'settings',
-                    'controller' => 'contact-us.admin-settings',
+                    'controller' => 'contact.admin-settings',
                     'action'     => 'edit',
                 ],
                 'permissions' => [
-                    'controller' => 'contact-us.admin-permission',
+                    'controller' => 'contact.admin-permission',
                     'route'      => 'permissions',
                     'action'     => 'edit',
                 ],

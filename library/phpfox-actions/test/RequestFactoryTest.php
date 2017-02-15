@@ -23,7 +23,7 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($request instanceof Request);
 
         $this->assertEquals('GET', $request->getMethod());
-        $this->assertEquals('/to/any', $request->getUri());
+        $this->assertEquals('/to/any', $request->getPath());
         $this->assertEquals('http://', $request->getProtocol());
         $this->assertEquals('www.example.com', $request->getHost());
 

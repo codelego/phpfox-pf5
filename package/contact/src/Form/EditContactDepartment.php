@@ -12,7 +12,7 @@ class EditContactDepartment extends Form
         $this->addElements([
             [
                 'name'       => 'name',
-                'label'      => _text('Department Name', 'contact-us'),
+                'label'      => _text('Department Name', 'contact'),
                 'factory'    => 'text',
                 'required'   => true,
                 'attributes' => [
@@ -23,7 +23,7 @@ class EditContactDepartment extends Form
             ],
             [
                 'name'       => 'email',
-                'label'      => _text('Department Email', 'contact-us'),
+                'label'      => _text('Department Email', 'contact'),
                 'factory'    => 'text',
                 'required'   => true,
                 'attributes' => [
@@ -34,7 +34,7 @@ class EditContactDepartment extends Form
             ],
             [
                 'name'     => 'is_active',
-                'label'    => _text('Active', 'contact-us'),
+                'label'    => _text('Active', 'contact'),
                 'factory'  => 'choice',
                 'render'   => 'yesno',
                 'required' => true,

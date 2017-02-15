@@ -6,7 +6,7 @@ namespace Phpfox\Form;
 class YesnoRender implements RenderInterface
 {
     /**
-     * @param Choice $element
+     * @param ChoiceField $element
      *
      * @return string
      */

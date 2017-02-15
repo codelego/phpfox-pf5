@@ -2,7 +2,9 @@
 
 namespace Phpfox\Cache;
 
-
+/**
+ * @requires extension apcu
+ */
 class ApcuCacheStorageTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()

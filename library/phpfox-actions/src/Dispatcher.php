@@ -66,7 +66,7 @@ class Dispatcher
         $mvcRequest = \Phpfox::get('mvc.request');
         $router = \Phpfox::get('router');
 
-        $parameters = $router->run($mvcRequest->getUri(),
+        $parameters = $router->run($mvcRequest->getPath(),
             $mvcRequest->getHost(),
             $mvcRequest->getMethod(), $mvcRequest->getProtocol());
 
@@ -78,7 +78,7 @@ class Dispatcher
             $this->controller = 'core.error';
             $this->action = '404';
         } else {
-            $mvcRequest->addParams($parameters->all());
+            $mvcRequest->add($parameters->all());
         }
 
         do {
