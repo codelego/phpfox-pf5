@@ -55,6 +55,7 @@
     'color_picker' => 'Phpfox\\Form\\ColorPicker',
     'editor' => 'Phpfox\\Form\\Textarea',
     'choice' => 'Phpfox\\Form\\ChoiceField',
+    'radio' => 'Phpfox\\Form\\RadioField',
     'checkbox' => 'Phpfox\\Form\\Checkbox',
     'select_multi' => 'Phpfox\\Form\\MultiChoice',
     'button' => 'Phpfox\\Form\\Button',
@@ -65,10 +66,10 @@
     'form' => 'Phpfox\\Form\\Form',
     'hidden' => 'Phpfox\\Form\\Hidden',
   ),
-  'form.renders' => 
+  'form_renders' => 
   array (
     'input' => 'Phpfox\\Form\\InputRender',
-    'form_bootstrap' => 'Phpfox\\Form\\FormBootstrapRender',
+    'form_bootstrap' => 'Phpfox\\Form\\BootstrapFormRender',
     'button' => 'Phpfox\\Form\\ButtonRender',
     'checkbox' => 'Phpfox\\Form\\CheckboxRender',
     'select' => 'Phpfox\\Form\\SelectRender',
@@ -131,27 +132,27 @@
   ),
   'services' => 
   array (
-    'mvc.dispatch' => 
+    'dispatcher' =>
     array (
       0 => NULL,
       1 => 'Phpfox\\Action\\Dispatcher',
     ),
-    'mvc.request' => 
+    'request' =>
     array (
       0 => 'Phpfox\\Action\\RequestFactory',
       1 => NULL,
     ),
-    'mvc.response' => 
+    'response' =>
     array (
       0 => 'Phpfox\\Action\\ResponseFactory',
       1 => NULL,
     ),
-    'mvc.response.ajax' => 
+    'response.ajax' =>
     array (
       0 => NULL,
       1 => 'Phpfox\\Action\\AjaxResponse',
     ),
-    'mvc.response.html' => 
+    'response.html' =>
     array (
       0 => NULL,
       1 => 'Phpfox\\Action\\HtmlResponse',
@@ -312,13 +313,18 @@
       0 => NULL,
       1 => 'Phpfox\\Db\\DbTableGatewayFactory',
     ),
+    'error_formater' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Error\\MessageFormater',
+    ),
     'mvc.events' => 
     array (
       0 => NULL,
       1 => 'Phpfox\\Event\\EventManager',
     ),
     'mvc.events.loader' => NULL,
-    'form.render' => 
+    'form_render' => 
     array (
       0 => NULL,
       1 => 'Phpfox\\Form\\FormFacades',
@@ -344,6 +350,11 @@
       0 => NULL,
       1 => 'AwsSQS',
       2 => 'queue.01',
+    ),
+    'layouts' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Layout\\LayoutManager',
     ),
     'main.log' => 
     array (
@@ -426,15 +437,10 @@
       0 => NULL,
       1 => 'Phpfox\\Validate\\ValidateManager',
     ),
-    'view.template' => 
+    'template' => 
     array (
       0 => NULL,
       1 => 'Phpfox\\View\\PhpTemplate',
-    ),
-    'view.layout' => 
-    array (
-      0 => NULL,
-      1 => 'Phpfox\\View\\ViewLayout',
     ),
     'widgets' => 
     array (
@@ -463,5 +469,6 @@
     'ip' => 'Phpfox\\Validate\\IpValidate',
     'url' => 'Phpfox\\Validate\\UrlValidate',
     'callback' => 'Phpfox\\Validate\\CallbackValidate',
+    'unique' => 'Phpfox\\Validate\\UniqueValidate',
   ),
 );

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <?= Phpfox::assets()->getStartHtml() ?>
+    <?= Phpfox::get('assets')->getStartHtml() ?>
 </head>
 <body class="">
 <header>
@@ -11,6 +11,6 @@
 <footer>
     <?= $this->render('layout/footer', []) ?>
 </footer>
-<?= Phpfox::assets()->getShutdownHtml() ?>
+<?= Phpfox::get('assets')->getShutdownHtml() ?>
 </body>
 </html>

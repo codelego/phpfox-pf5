@@ -15,10 +15,10 @@ class AnnouncementTest extends \PHPUnit_Framework_TestCase
             'is_active'       => 1,
             'type_id'         => 6,
             'content'         => '[content]',
-            'created_at'      => '2012-00-00 00:00:00',
-            'updated_at'      => '2013-00-00 00:00:00',
-            'publish_at'      => '2014-00-00 00:00:00',
-            'expires_at'      => '2015-00-00 00:00:00',
+            'created_at'      => '2012-01-01 00:00:00',
+            'updated_at'      => '2013-01-01 00:00:00',
+            'publish_at'      => '2014-01-01 00:00:00',
+            'expires_at'      => '2015-01-01 00:00:00',
         ]);
 
         $this->assertSame('announcement', $obj->getModelId());
@@ -30,10 +30,10 @@ class AnnouncementTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->isActive());
         $this->assertSame(6, $obj->getTypeId());
         $this->assertSame('[content]', $obj->getContent());
-        $this->assertSame('2012-00-00 00:00:00', $obj->getCreatedAt());
-        $this->assertSame('2013-00-00 00:00:00', $obj->getUpdatedAt());
-        $this->assertSame('2014-00-00 00:00:00', $obj->getPublishAt());
-        $this->assertSame('2015-00-00 00:00:00', $obj->getExpiresAt());
+        $this->assertSame('2012-01-01 00:00:00', $obj->getCreatedAt());
+        $this->assertSame('2013-01-01 00:00:00', $obj->getUpdatedAt());
+        $this->assertSame('2014-01-01 00:00:00', $obj->getPublishAt());
+        $this->assertSame('2015-01-01 00:00:00', $obj->getExpiresAt());
     }
 
     public function testParameters()
@@ -49,10 +49,10 @@ class AnnouncementTest extends \PHPUnit_Framework_TestCase
         $obj->setActive(1);
         $obj->setTypeId(6);
         $obj->setContent('[content]');
-        $obj->setCreatedAt('2012-00-00 00:00:00');
-        $obj->setUpdatedAt('2013-00-00 00:00:00');
-        $obj->setPublishAt('2014-00-00 00:00:00');
-        $obj->setExpiresAt('2015-00-00 00:00:00');
+        $obj->setCreatedAt('2012-01-01 00:00:00');
+        $obj->setUpdatedAt('2013-01-01 00:00:00');
+        $obj->setPublishAt('2014-01-01 00:00:00');
+        $obj->setExpiresAt('2015-01-01 00:00:00');
 
         // assert same data
         $this->assertSame('announcement', $obj->getModelId());
@@ -64,10 +64,10 @@ class AnnouncementTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->isActive());
         $this->assertSame(6, $obj->getTypeId());
         $this->assertSame('[content]', $obj->getContent());
-        $this->assertSame('2012-00-00 00:00:00', $obj->getCreatedAt());
-        $this->assertSame('2013-00-00 00:00:00', $obj->getUpdatedAt());
-        $this->assertSame('2014-00-00 00:00:00', $obj->getPublishAt());
-        $this->assertSame('2015-00-00 00:00:00', $obj->getExpiresAt());
+        $this->assertSame('2012-01-01 00:00:00', $obj->getCreatedAt());
+        $this->assertSame('2013-01-01 00:00:00', $obj->getUpdatedAt());
+        $this->assertSame('2014-01-01 00:00:00', $obj->getPublishAt());
+        $this->assertSame('2015-01-01 00:00:00', $obj->getExpiresAt());
     }
 
     public function testSave()
@@ -81,10 +81,10 @@ class AnnouncementTest extends \PHPUnit_Framework_TestCase
             'is_active'       => 1,
             'type_id'         => 6,
             'content'         => '[content]',
-            'created_at'      => '2012-00-00 00:00:00',
-            'updated_at'      => '2013-00-00 00:00:00',
-            'publish_at'      => '2014-00-00 00:00:00',
-            'expires_at'      => '2015-00-00 00:00:00',
+            'created_at'      => '2012-01-01 00:00:00',
+            'updated_at'      => '2013-01-01 00:00:00',
+            'publish_at'      => '2014-01-01 00:00:00',
+            'expires_at'      => '2015-01-01 00:00:00',
         ]);
 
         $obj->save();
@@ -102,10 +102,10 @@ class AnnouncementTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->isActive());
         $this->assertSame(6, $obj->getTypeId());
         $this->assertSame('[content]', $obj->getContent());
-        $this->assertSame('2012-00-00 00:00:00', $obj->getCreatedAt());
-        $this->assertSame('2013-00-00 00:00:00', $obj->getUpdatedAt());
-        $this->assertSame('2014-00-00 00:00:00', $obj->getPublishAt());
-        $this->assertSame('2015-00-00 00:00:00', $obj->getExpiresAt());
+        $this->assertSame('2012-01-01 00:00:00', $obj->getCreatedAt());
+        $this->assertSame('2013-01-01 00:00:00', $obj->getUpdatedAt());
+        $this->assertSame('2014-01-01 00:00:00', $obj->getPublishAt());
+        $this->assertSame('2015-01-01 00:00:00', $obj->getExpiresAt());
     }
 
     public static function setUpBeforeClass()

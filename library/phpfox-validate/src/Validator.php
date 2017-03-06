@@ -2,17 +2,14 @@
 
 namespace Phpfox\Validate;
 
-class Validator
+use Phpfox\Error\MessageContainer;
+
+class Validator implements \ArrayAccess
 {
     /**
-     * @var ValidateInterface[][]
+     * @var ValidateGroup[]
      */
-    protected $elements = [];
-
-    /**
-     * @var array
-     */
-    protected $errors = [];
+    protected $groups = [];
 
     /**
      * Validator constructor.
@@ -32,8 +29,11 @@ class Validator
      */
     public function configure($config)
     {
-        foreach ($config as $key => $typeParams) {
-            $this->add($key, $typeParams);
+        foreach ($config as $group => $typeParams) {
+            if ($typeParams == 'label') {
+                continue;
+            }
+            $this->add($group, $typeParams);
         }
     }
 
@@ -48,116 +48,108 @@ class Validator
     /**
      * Add new validate rule
      *
-     * @param string $key        Check on data key
-     * @param array  $typeParams Validate rule type
+     * @param string $group      Check on data key
+     * @param array  $nameParams Validate rule type
      */
-    public function add($key, $typeParams)
+    public function add($group, $nameParams)
     {
-        foreach ($typeParams as $type => $params) {
-            $this->elements[$key][$type] = \Phpfox::get('validator')
-                ->make($type, $params);
+        if (!isset($this->groups[$group])) {
+            $this->groups[$group] = new ValidateGroup($group, []);
         }
+
+        $this->groups[$group]->add($nameParams);
     }
 
     /**
-     * @param array $data
+     * @param array            $group
+     * @param MessageContainer $messages
      *
      * @return bool
      */
-    public function isValid($data)
+    public function isValid($group, $messages = null)
     {
         $isValid = true;
 
-        // reset errors
-        $this->errors = [];
-
-        foreach ($this->elements as $name => $elements) {
-            $value = isset($data[$name]) ? $data[$name] : null;
-            foreach ($elements as $element) {
-                if (false == $element->isValid($value)) {
-                    $this->addError($name, $element->getMessage());
-                    $isValid = false;
-
-                    if ($element->isSkipAll()) {
-                        return false;
-                    }
-                    if ($element->isSkip()) {
-                        break;
-                    }
-                }
+        foreach ($this->groups as $name => $element) {
+            $value = isset($group[$name]) ? $group[$name] : null;
+            if (false == $element->isValid($value, $messages)) {
+                $isValid = false;
             }
         }
         return $isValid;
     }
 
     /**
-     * @param string $key
-     * @param string $message
-     */
-    public function addError($key, $message)
-    {
-        $this->errors[$key][] = $message;
-    }
-
-    /**
-     * @param string $key
-     *
-     * @return array
-     */
-    public function getErrors($key = null)
-    {
-        if ($key == null) {
-            return $this->errors;
-        }
-        return isset($this->errors[$key]) ? $this->errors[$key] : [];
-    }
-
-    /**
-     * @param string $key
+     * @param string $group
+     * @param string $name
      *
      * @return bool
      */
-    public function hasErrors($key = null)
+    public function has($group, $name)
     {
-        if (null == $key) {
-            return !empty($this->errors);
-        }
-        return !empty($this->errors[$key]);
-    }
-
-    /**
-     * @param string $key
-     * @param string $type
-     *
-     * @return bool
-     */
-    public function has($key, $type)
-    {
-        if (!isset($this->elements[$key])) {
+        if (!isset($this->groups[$group])) {
             return false;
         }
-        if (!isset($this->elements[$key][$type])) {
+        if (!isset($this->groups[$group][$name])) {
             return false;
         }
-
         return true;
     }
 
     /**
-     * @param string $key
-     * @param string $type
+     * @param string $group
+     * @param string $name
      *
      * @return ValidateInterface|null
      */
-    public function get($key, $type)
+    public function get($group, $name)
     {
-        if (!isset($this->elements[$key])) {
+        if (!isset($this->groups[$group])) {
             return null;
         }
-        if (!isset($this->elements[$key][$type])) {
+        if (!isset($this->groups[$group][$name])) {
             return null;
         }
+        return $this->groups[$group][$name];
+    }
 
-        return $this->elements[$key][$type];
+    /**
+     * This method is helpful to inject params to any rule.
+     * <code>
+     * $this->setParam('name','callback','id',12);
+     * </code>
+     *
+     * @param string $group Data key
+     * @param string $name  Rule type
+     * @param string $key   Parameter name
+     * @param string $value Parameter value
+     */
+    public function setParam($group, $name, $key, $value)
+    {
+        $field = $this->get($group, $name);
+        if (!$field) {
+            return;
+        }
+        $field->set($key, $value);
+    }
+
+    public function offsetExists($offset)
+    {
+        return isset($this->groups[$offset]);
+    }
+
+    public function offsetGet($offset)
+    {
+        return $this->groups[$offset];
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        $this->groups[$offset] = $value;
+    }
+
+    public function offsetUnset($offset)
+    {
+        unset($this->groups);
     }
 }

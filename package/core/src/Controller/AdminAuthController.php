@@ -7,17 +7,17 @@ class AdminAuthController extends ActionController
 {
     public function actionLogin()
     {
-        \Phpfox::get('view.template')
+        \Phpfox::get('template')
             ->preferThemes(['admin']);
 
         \Phpfox::get('assets')
             ->addStyle('admin.login', null);
 
-        $layout = \Phpfox::get('view.layout');
+        $layout = \Phpfox::get('layouts');
 
         $layout->setTemplate('layout/login');
 
-        $request = \Phpfox::get('mvc.request');
+        $request = \Phpfox::get('request');
 
         if ($request->isPost()) {
             $email = $request->get('email');
@@ -30,7 +30,7 @@ class AdminAuthController extends ActionController
                 $user = \Phpfox::findById('user', $result->getIdentity());
                 \Phpfox::get('auth')->login($user, true);
 
-                \Phpfox::get('mvc.response')->redirect(_url('admin'));
+                \Phpfox::get('response')->redirect(_url('admin'));
 
             } else {
                 $layout->assign([

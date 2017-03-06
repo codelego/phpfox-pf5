@@ -37,6 +37,11 @@
     0 => 'library/phpfox-db/src',
     1 => 'library/phpfox-db/test',
   ),
+  'Phpfox\\Error' => 
+  array (
+    0 => 'library/phpfox-errors/src',
+    1 => 'library/phpfox-errors/test',
+  ),
   'Phpfox\\Event' => 
   array (
     0 => 'library/phpfox-events/src',
@@ -51,6 +56,11 @@
   array (
     0 => 'library/phpfox-i18n/src',
     1 => 'library/phpfox-i18n/test',
+  ),
+  'Phpfox\\Layout' => 
+  array (
+    0 => 'library/phpfox-layouts/src',
+    1 => 'library/phpfox-layouts/test',
   ),
   'Phpfox\\Logger' => 
   array (

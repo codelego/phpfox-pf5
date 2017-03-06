@@ -10,9 +10,7 @@ class IndexController extends ActionController
 {
     public function actionIndex()
     {
-        $vm = new ViewModel([], 'blog/index/index');
-
-        return $vm;
+        return new ViewModel([], 'blog/index/index');
     }
 
     public function actionAdd()
@@ -22,6 +20,6 @@ class IndexController extends ActionController
         return new ViewModel([
             'form'    => $form,
             'heading' => _text('Add New Post'),
-        ], 'layout/admin-edit');
+        ], 'layout/form-edit');
     }
 }

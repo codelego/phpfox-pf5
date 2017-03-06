@@ -6,8 +6,6 @@ class IntegerValidate extends Validate
 {
     public function isValid($value)
     {
-        $this->setValue($value);
-
         if (is_integer($value)) {
             return true;
         }

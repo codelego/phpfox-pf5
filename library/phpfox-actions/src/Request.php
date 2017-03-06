@@ -190,6 +190,6 @@ class Request
      */
     public function singleton()
     {
-        \Phpfox::get('manager')->set('mvc.request', $this);
+        \Phpfox::get('manager')->set('request', $this);
     }
 }

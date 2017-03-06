@@ -40,10 +40,10 @@ class FormFacades
      */
     public function factory($id)
     {
-        $ref = \Phpfox::getParam('form.renders', $id);
+        $ref = \Phpfox::getParam('form_renders', $id);
 
         if (!$ref) {
-            $ref = \Phpfox::getParam('form.renders', 'input');
+            $ref = \Phpfox::getParam('form_renders', 'input');
         }
 
         return new $ref();

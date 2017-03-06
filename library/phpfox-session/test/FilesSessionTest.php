@@ -17,20 +17,18 @@ class FilesSessionTest extends \PHPUnit_Framework_TestCase
         $filesSession->register();
 
         $this->assertEquals('files', ini_get('session.save_handler'));
-        $this->assertEquals(PHPFOX_DIR . 'data/session',
-            ini_get('session.save_path'));
+        $this->assertEquals(PHPFOX_SESSION_DIR, ini_get('session.save_path'));
     }
 
     public function testBase2()
     {
-        exec('rm -rf ' . PHPFOX_DIR . 'data/session');
+        exec('rm -rf ' . PHPFOX_SESSION_DIR);
 
         $filesSession = new FilesSession();
 
         $filesSession->register();
 
         $this->assertEquals('files', ini_get('session.save_handler'));
-        $this->assertEquals(PHPFOX_DIR . 'data/session',
-            ini_get('session.save_path'));
+        $this->assertEquals(PHPFOX_SESSION_DIR, ini_get('session.save_path'));
     }
 }

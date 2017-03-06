@@ -30,21 +30,35 @@ class Dispatcher
      */
     protected $lastException;
 
+    /**
+     * Get full action name
+     *
+     * @return string
+     */
     public function getFullActionName()
     {
         return preg_replace('/\W+/', '_', _deflect(str_replace('Controller', '',
             $this->getController() . '.' . $this->getAction())));
     }
 
+    /**
+     * Get controller name
+     *
+     * @return string
+     */
     public function getController()
     {
         return $this->controller;
     }
 
+    /**
+     * Set controller name
+     *
+     * @param $controller
+     */
     public function setController($controller)
     {
         $this->controller = $controller;
-        return $this;
     }
 
     public function getAction()
@@ -52,10 +66,14 @@ class Dispatcher
         return $this->action;
     }
 
+    /**
+     * Set action name
+     *
+     * @param $action
+     */
     public function setAction($action)
     {
         $this->action = $action;
-        return $this;
     }
 
     public function run()
@@ -63,7 +81,7 @@ class Dispatcher
         $runCounter = 0;
         $lastResult = null;
 
-        $mvcRequest = \Phpfox::get('mvc.request');
+        $mvcRequest = \Phpfox::get('request');
         $router = \Phpfox::get('router');
 
         $parameters = $router->run($mvcRequest->getPath(),
@@ -106,7 +124,7 @@ class Dispatcher
                     continue;
                 }
 
-                \Phpfox::get('mvc.response')
+                \Phpfox::get('response')
                     ->setData($lastResult)
                     ->terminate();
 
@@ -123,6 +141,12 @@ class Dispatcher
         return true;
     }
 
+    /**
+     * @param string $controller
+     * @param string $action
+     *
+     * @return bool
+     */
     public function forward($controller, $action)
     {
         $this->completed = false;
@@ -136,6 +160,9 @@ class Dispatcher
         return false;
     }
 
+    /**
+     * @return \Exception|null
+     */
     public function getLastException()
     {
         return $this->lastException;

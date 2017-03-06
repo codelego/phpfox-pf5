@@ -11,7 +11,7 @@ class FilesLoggerTest extends \PHPUnit_Framework_TestCase
             'filename' => '.test.log',
             'level'    => 'debug',
         ]);
-        $filename = PHPFOX_DIR . 'data/log/.test.log';
+        $filename = PHPFOX_LOG_DIR . '.test.log';
 
         if (!file_exists($filename)) {
             $fp = fopen($filename, 'w');

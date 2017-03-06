@@ -80,10 +80,34 @@ return [
         Theme::class,
         'package/core/config/model/theme.php',
     ],
-    'theme_setting'   => [
+    'theme_params'    => [
         'table_factory',
-        ':theme_setting',
-        ThemeSetting::class,
-        'package/core/config/model/theme_setting.php',
+        ':theme_params',
+        ThemeParams::class,
+        'package/core/config/model/theme_params.php',
+    ],
+    'layout_block'    => [
+        'table_factory',
+        ':layout_block',
+        LayoutBlock::class,
+        'package/core/config/model/layout_block.php',
+    ],
+    'layout_element'  => [
+        'table_factory',
+        ':layout_element',
+        LayoutElement::class,
+        'package/core/config/model/layout_element.php',
+    ],
+    'layout_page'     => [
+        'table_factory',
+        ':layout_page',
+        LayoutPage::class,
+        'package/core/config/model/layout_page.php',
+    ],
+    'layout_params'   => [
+        'table_factory',
+        ':layout_params',
+        LayoutParams::class,
+        'package/core/config/model/layout_params.php',
     ],
 ];

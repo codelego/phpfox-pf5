@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <?= Phpfox::assets()->getStartHtml() ?>
+    <?= Phpfox::get('assets')->getStartHtml() ?>
 </head>
 <body class="">
 <header>
     <?= $this->render('layout/header', []) ?>
 </header>
-<?php echo @$layout_content ?>
+<section id="content">
+    <div class="container">
+        <?php echo @$layout_content ?>
+    </div>
+</section>
 <footer>
     <?= $this->render('layout/footer', []) ?>
 </footer>
-<?= Phpfox::assets()->getShutdownHtml() ?>
+<?= Phpfox::get('assets')->getShutdownHtml() ?>
 </body>
 </html>

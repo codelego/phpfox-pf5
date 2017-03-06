@@ -28,7 +28,7 @@ class AdminDepartmentController extends AdminController
 
     public function actionEdit()
     {
-        $request = \Phpfox::get('mvc.request');
+        $request = \Phpfox::get('request');
         $id = $request->get('id');
 
         $item = \Phpfox::get('contact_us')
@@ -47,7 +47,7 @@ class AdminDepartmentController extends AdminController
             $item->fromArray($_POST);
             $item->save();
 
-            \Phpfox::get('mvc.response')->redirect(_url('admin.contact'));
+            \Phpfox::get('response')->redirect(_url('admin.contact'));
         }
 
         $vm = new ViewModel();
@@ -58,14 +58,14 @@ class AdminDepartmentController extends AdminController
             'form'    => $form,
         ]);
 
-        $vm->setTemplate('layout/admin-edit');
+        $vm->setTemplate('layout/form-edit');
 
         return $vm;
     }
 
     public function actionAdd()
     {
-        $request = \Phpfox::get('mvc.request');
+        $request = \Phpfox::get('request');
 
         $form = new EditContactDepartment();
 
@@ -76,7 +76,7 @@ class AdminDepartmentController extends AdminController
             $item->fromArray($_POST);
             $item->save();
 
-            \Phpfox::get('mvc.response')->redirect(_url('admin.contact'));
+            \Phpfox::get('response')->redirect(_url('admin.contact'));
         }
 
         $vm = new ViewModel();
@@ -86,7 +86,7 @@ class AdminDepartmentController extends AdminController
             'form'    => $form,
         ]);
 
-        $vm->setTemplate('layout/admin-edit');
+        $vm->setTemplate('layout/form-edit');
 
         return $vm;
     }

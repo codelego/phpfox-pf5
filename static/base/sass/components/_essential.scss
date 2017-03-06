@@ -19,19 +19,8 @@
   .txt-align-#{$i} { text-align: justify !important; }
 }
 
-.fix-3-lines {
-  @include textTruncateFixHeight(3, $font-size-base, $line-height-base);
-}
-
-._pv-large {
-  padding-bottom: $padding-large-vertical;
-  padding-top:    $padding-large-vertical;
-}
-
-._pt-large {
-  padding-top: $padding-large-vertical;
-}
-
-._pb-large {
-  padding-bottom: $padding-large-vertical;
+ul.errors {
+  list-style: none none outside;
+  background-color: $state-danger-bg;
+  color: $state-danger-text;
 }

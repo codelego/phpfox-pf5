@@ -51,7 +51,7 @@ class AdminAuthorizationController extends AdminController
             'form'    => $form,
         ]);
 
-        $vm->setTemplate('layout/admin-edit');
+        $vm->setTemplate('layout/form-edit');
 
         return $vm;
     }
@@ -67,7 +67,7 @@ class AdminAuthorizationController extends AdminController
             'form'    => $form,
         ]);
 
-        $vm->setTemplate('layout/admin-edit');
+        $vm->setTemplate('layout/form-edit');
 
         return $vm;
     }
@@ -83,7 +83,7 @@ class AdminAuthorizationController extends AdminController
             'form'    => $form,
         ]);
 
-        $vm->setTemplate('layout/admin-edit');
+        $vm->setTemplate('layout/form-edit');
 
         return $vm;
     }
@@ -91,7 +91,7 @@ class AdminAuthorizationController extends AdminController
     public function actionSettings()
     {
         $vm = new ViewModel();
-        $request = \Phpfox::get('mvc.request');
+        $request = \Phpfox::get('request');
 
         $id = $request->get('id', 1);
         $role = \Phpfox::get('core.roles')->findById($id);
@@ -104,7 +104,7 @@ class AdminAuthorizationController extends AdminController
                 [$role->getTitle()]),
         ]);
 
-        $vm->setTemplate('layout/admin-edit');
+        $vm->setTemplate('layout/form-edit');
 
         return $vm;
 

@@ -29,7 +29,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
         $request->singleton();
 
-        $this->assertSame($request, \Phpfox::get('mvc.request'));
+        $this->assertSame($request, \Phpfox::get('request'));
 
     }
 

@@ -9,7 +9,7 @@ class AdminThemeController extends AdminController
 {
     public function actionIndex()
     {
-        $request = \Phpfox::get('mvc.request');
+        $request = \Phpfox::get('request');
 
         $cmd = $request->get('cmd');
         $id = $request->get('id');
@@ -59,7 +59,7 @@ class AdminThemeController extends AdminController
     {
         $vm = new ViewModel();
         $form = new ThemeEditor();
-        $request = \Phpfox::get('mvc.request');
+        $request = \Phpfox::get('request');
         $id = $request->get('id');
 
 
@@ -78,7 +78,7 @@ class AdminThemeController extends AdminController
             'form'    => $form,
         ]);
 
-        $vm->setTemplate('layout/admin-edit');
+        $vm->setTemplate('layout/form-edit');
 
         return $vm;
     }
@@ -87,7 +87,7 @@ class AdminThemeController extends AdminController
     {
         $vm = new ViewModel();
 
-        $request = \Phpfox::get('mvc.request');
+        $request = \Phpfox::get('request');
         $id = $request->get('id');
         $theme = \Phpfox::get('core.themes')
             ->findById($id);

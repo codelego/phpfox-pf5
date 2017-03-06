@@ -20,17 +20,15 @@ class AuthController extends ActionController
         if ($auth->isLoggedIn()) {
             // redirect to logged in user
             $user = $auth->getUser();
-            \Phpfox::get('mvc.response')->redirect($user->getUrl(), 302);
+            \Phpfox::get('response')->redirect($user->getUrl(), 302);
         }
 
-        $request = \Phpfox::get('mvc.request');
+        $request = \Phpfox::get('request');
         $form = new UserLogin([]);
         $message = null;
 
-        if ($request->isPost()) {
-            $form->populate($request->all());
+        if ($request->isPost() and $form->isValid($request->all())) {
             $data = $form->getData();
-
             $result = $auth->authenticate('password', $data['username'],
                 $data['password'], null);
 
@@ -40,16 +38,15 @@ class AuthController extends ActionController
 
                 $url = _url('home');
 
-                \Phpfox::get('mvc.response')->redirect($url);
+                \Phpfox::get('response')->redirect($url);
             } else {
-                $message = $result->getMessage();
+                $form->addError('', $result->getMessage());
             }
         }
 
 
         return new ViewModel([
-            'form'    => $form,
-            'message' => $message,
+            'form' => $form,
         ], 'user/auth/login');
     }
 
@@ -60,7 +57,7 @@ class AuthController extends ActionController
     {
         \Phpfox::get('auth')->logout();
 
-        \Phpfox::get('mvc.response')->redirect(_url('home'));
+        \Phpfox::get('response')->redirect(_url('home'));
 
         return new ViewModel([], 'user/auth/logout');
     }

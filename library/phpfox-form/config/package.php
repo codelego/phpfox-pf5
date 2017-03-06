@@ -3,9 +3,9 @@
 namespace Phpfox\Form;
 
 return [
-    'form.renders'  => [
+    'form_renders'  => [
         'input'          => InputRender::class,
-        'form_bootstrap' => FormBootstrapRender::class,
+        'form_bootstrap' => BootstrapFormRender::class,
         'button'         => ButtonRender::class,
         'checkbox'       => CheckboxRender::class,
         'select'         => SelectRender::class,
@@ -20,6 +20,7 @@ return [
         'color_picker' => ColorPicker::class,
         'editor'       => Textarea::class,
         'choice'       => ChoiceField::class,
+        'radio'        => RadioField::class,
         'checkbox'     => Checkbox::class,
         'select_multi' => MultiChoice::class,
         'button'       => Button::class,
@@ -31,7 +32,7 @@ return [
         'hidden'       => Hidden::class,
     ],
     'services'      => [
-        'form.render'  => [null, FormFacades::class],
+        'form_render'  => [null, FormFacades::class],
         'form.factory' => [null, FormFactory::class],
     ],
 ];

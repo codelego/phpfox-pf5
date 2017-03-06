@@ -12,7 +12,7 @@ class AdminCategoryController extends AdminController
 {
     public function actionAdd()
     {
-        $request = \Phpfox::get('mvc.request');
+        $request = \Phpfox::get('request');
 
         $form = new AddBlogCategory();
 
@@ -20,10 +20,8 @@ class AdminCategoryController extends AdminController
 
         }
 
-        if ($request->isPost()) {
-            $form->populate($request->all());
+        if ($request->isPost() and $form->isValid($request->all())) {
             $data = $form->getData();
-
             $blogCategory = new BlogCategory($data);
             $blogCategory->save();
         }
@@ -31,12 +29,12 @@ class AdminCategoryController extends AdminController
         return new ViewModel([
             'heading' => _text('Add Category'),
             'form'    => $form,
-        ], 'layout/admin-edit');
+        ], 'layout/form-edit');
     }
 
     public function actionEdit()
     {
-        $request = \Phpfox::get('mvc.request');
+        $request = \Phpfox::get('request');
         $id = $request->get('id');
 
         /** @var BlogCategory $obj */
@@ -44,14 +42,15 @@ class AdminCategoryController extends AdminController
 
         $form = new AddBlogCategory();
 
+        $form->getValidator()
+            ->setParam('name', 'unique', 'accept', $id);
+
         if ($request->isGet()) {
             $form->populate($obj);
         }
 
-        if ($request->isPost()) {
-            $form->populate($request->all());
+        if ($request->isPost() and $form->isValid($request->all())) {
             $data = $form->getData();
-
             $obj->fromArray($data);
             $obj->save();
         }
@@ -59,7 +58,7 @@ class AdminCategoryController extends AdminController
         return new ViewModel([
             'heading' => _text('Add Category'),
             'form'    => $form,
-        ], 'layout/admin-edit');
+        ], 'layout/form-edit');
     }
 
     public function actionIndex()

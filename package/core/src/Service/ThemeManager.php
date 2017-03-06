@@ -3,7 +3,7 @@
 namespace Neutron\Core\Service;
 
 use Neutron\Core\Model\Theme;
-use Neutron\Core\Model\ThemeSetting;
+use Neutron\Core\Model\ThemeParams;
 use Phpfox\Assets\StylesheetCompiler;
 
 class ThemeManager
@@ -33,22 +33,22 @@ class ThemeManager
     /**
      * @param mixed $id
      *
-     * @return ThemeSetting
+     * @return ThemeParams
      */
     public function findSettingById($id)
     {
-        return \Phpfox::with('theme_setting')
+        return \Phpfox::with('theme_params')
             ->findById((int)$id);
     }
 
     /**
      * @param mixed $id
      *
-     * @return ThemeSetting
+     * @return ThemeParams
      */
     public function findSettingByThemeId($id)
     {
-        return \Phpfox::with('theme_setting')
+        return \Phpfox::with('theme_params')
             ->select()
             ->where('theme_id=?', (string)$id)
             ->first();
@@ -385,7 +385,7 @@ class ThemeManager
         $variables = [];
         $item = \Phpfox::get('db')
             ->select('*')
-            ->from(':theme_setting')
+            ->from(':theme_params')
             ->where('theme_id=?', (string)$id)
             ->first();
 

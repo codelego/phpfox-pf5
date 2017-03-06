@@ -11,33 +11,25 @@ return [
             'chain'    => 'profile',
             'route'    => '{profile}/<name>/*',
             'filter'   => 'user.profile_filter',
-            'defaults' => [
-                'controller' => 'user.profile',
-                'action'     => 'index',
-            ],
+            'controller' => 'user.profile',
+            'action'     => 'index',
         ],
     ],
     'routes' => [
         'login'           => [
             'route'    => '{login}',
-            'defaults' => [
-                'controller' => 'user.auth',
-                'action'     => 'login',
-            ],
+            'controller' => 'user.auth',
+            'action'     => 'login',
         ],
         'logout'          => [
             'route'    => '{logout}',
-            'defaults' => [
-                'controller' => 'user.auth',
-                'action'     => 'logout',
-            ],
+            'controller' => 'user.auth',
+            'action'     => 'logout',
         ],
         'register'        => [
-            'route'    => '{register}/<action>',
-            'defaults' => [
-                'controller' => 'user.register',
-                'action'     => 'index',
-            ],
+            'route'      => '{register}',
+            'controller' => 'user.register',
+            'action'     => 'index',
         ],
         'settings'        => [
             'route'      => '{settings}/*',
@@ -56,10 +48,8 @@ return [
         ],
         'profile.members' => [
             'route'    => 'members',
-            'defaults' => [
-                'action'     => 'members',
-                'controller' => 'user.profile',
-            ],
+            'action'     => 'members',
+            'controller' => 'user.profile',
         ],
         'admin.user'      => [
             'route'      => 'user/*',

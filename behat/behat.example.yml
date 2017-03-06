@@ -1,0 +1,32 @@
+default:
+  autoload:
+    '': %paths.base%/features/bootstrap
+  extensions:
+    emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
+      name: html
+      renderer: Twig,Behat2
+      file_name: index
+      print_args: true
+      print_outp: true
+      loop_break: true	  
+    Behat\MinkExtension:
+      base_url:  'http://yoursiteurl'
+      goutte: ~
+      selenium2: ~
+#      browser_name: ~
+    Drupal\DrupalExtension:
+      blackbox: ~
+  suites:
+    default:
+      paths:
+        - %paths.base%/features
+      contexts:
+        - FeatureContext
+        - FakerContext
+        - Drupal\DrupalExtension\Context\DrupalContext
+        - Drupal\DrupalExtension\Context\MinkContext
+        - Drupal\DrupalExtension\Context\MessageContext
+        - Drupal\DrupalExtension\Context\DrushContext
+formatters:
+    html:
+      output_path: %paths.base%/build/html/behat

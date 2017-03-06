@@ -44,7 +44,7 @@ class AdminMailController extends AdminController
     {
         $vm = new ViewModel();
 
-        $request = \Phpfox::get('mvc.request');
+        $request = \Phpfox::get('request');
         $driverName = $request->get('driver_name');
         $vm->setTemplate('core/admin-mail/add-transport');
         $vm->assign(['driver_name' => $driverName]);
@@ -77,7 +77,7 @@ class AdminMailController extends AdminController
 
     public function actionEditTransport()
     {
-        $request = \Phpfox::get('mvc.request');
+        $request = \Phpfox::get('request');
         $id = $request->get('id');
 
         $item = \Phpfox::with('mail_adapter')->findById($id);

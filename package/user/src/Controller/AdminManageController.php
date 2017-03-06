@@ -12,7 +12,7 @@ class AdminManageController extends AdminController
     public function actionIndex()
     {
         $vm = new ViewModel();
-        $request = \Phpfox::get('mvc.request');
+        $request = \Phpfox::get('request');
 
         $filter = new AdminFilterUser();
 

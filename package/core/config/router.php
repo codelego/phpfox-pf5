@@ -36,6 +36,21 @@ return [
                 ],
             ],
         ],
+        'admin.core.layout'         => [
+            'route'      => 'core/layout/*',
+            'controller' => 'core.admin-layout',
+            'action'     => 'index',
+            'children'   => [
+                'edit'  => [
+                    'route'  => 'edit/<id>',
+                    'action' => 'edit',
+                ],
+                'debug' => [
+                    'route'  => 'debug/<id>',
+                    'action' => 'debug',
+                ],
+            ],
+        ],
         'admin.core.theme'         => [
             'route'      => 'core/themes/*',
             'controller' => 'core.admin-theme',

@@ -1,0 +1,66 @@
+<?php
+
+namespace Phpfox\Layout;
+
+use Phpfox\View\ViewModel;
+
+class LayoutManager extends ViewModel
+{
+    /**
+     * @var string
+     */
+    protected $pageName;
+
+    /**
+     * @return $this
+     */
+    public function prepare()
+    {
+        if (!$this->template) {
+            $this->template = 'layout/default';
+        }
+
+        \Phpfox::get('assets')
+            ->addScripts('require', null)
+            ->prependStyle('main', null)
+            ->prependStyle('font', null);
+
+        _emit('onViewLayoutPrepare', $this);
+
+        $content = '';
+
+        $data = \Phpfox::get('response')->getData();
+
+        if ($data instanceof ViewModel) {
+            $content = $data->render();
+        }
+
+        $this->assign([
+            'layout_content' => $content,
+        ]);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPageName()
+    {
+        if (null == $this->pageName) {
+            $this->pageName = \Phpfox::get('dispatcher')->getFullActionName();
+        }
+        return $this->pageName;
+    }
+
+    /**
+     * @param string $pageName
+     *
+     * @return $this
+     */
+    public function setPageName($pageName)
+    {
+        $this->pageName = $pageName;
+        return $this;
+    }
+}

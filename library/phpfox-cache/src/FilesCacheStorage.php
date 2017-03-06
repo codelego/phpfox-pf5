@@ -35,7 +35,7 @@ class FilesCacheStorage implements CacheStorageInterface
             'debug'     => false,
         ], (array)$configs);
 
-        $this->directory = PHPFOX_DIR . 'data/' . $configs['directory'];
+        $this->directory = PHPFOX_DATA_DIR . $configs['directory'];
         $this->debug = (bool)$configs['debug'];
     }
 

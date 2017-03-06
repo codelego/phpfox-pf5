@@ -38,7 +38,7 @@ class FilesLogger implements LoggerInterface
             'level'    => 'debug',
         ], (array)$config);
 
-        $this->filename = PHPFOX_DIR . 'data/log' . DS . $config['filename'];
+        $this->filename = PHPFOX_LOG_DIR . $config['filename'];
 
         if (!file_exists($this->filename)) {
             if (!is_dir($dir = dirname($this->filename))

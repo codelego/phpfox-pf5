@@ -23,7 +23,7 @@ class AdminStatusController extends AdminController
             'form'    => $form,
         ]);
 
-        $vm->setTemplate('layout/admin-edit');
+        $vm->setTemplate('layout/form-edit');
 
         return $vm;
     }

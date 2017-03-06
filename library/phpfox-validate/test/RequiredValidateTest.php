@@ -13,9 +13,9 @@ class RequiredValidateTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $this->assertFalse($obj->isValid(null));
-        $this->assertEquals('This field is required', $obj->getError());
+        $this->assertEquals('This field is required', $obj->get('message'));
         $this->assertFalse($obj->isValid(''));
-        $this->assertEquals('This field is required', $obj->getError());
+        $this->assertEquals('This field is required', $obj->get('message'));
         $this->assertTrue($obj->isValid('0'));
         $this->assertTrue($obj->isValid('1'));
         $this->assertTrue($obj->isValid(0));

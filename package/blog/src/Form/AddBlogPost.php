@@ -3,6 +3,7 @@
 namespace Neutron\Blog\Form;
 
 
+use Phpfox\Form\Button;
 use Phpfox\Form\Form;
 
 class AddBlogPost extends Form
@@ -111,5 +112,23 @@ class AddBlogPost extends Form
                     'class'     => 'form-control',
                 ],
         ]);
+    }
+
+    public function getButtons()
+    {
+        return [
+            new Button([
+                'type'       => 'submit',
+                'name'       => 'save',
+                'label'      => _text('Add New Post'),
+                'attributes' => ['class' => 'btn btn-primary'],
+            ]),
+            new Button([
+                'type'       => 'submit',
+                'label'      => _text('Cancel'),
+                'href'       => _url('admin.blog.category'),
+                'attributes' => ['class' => 'btn btn-link'],
+            ]),
+        ];
     }
 }

@@ -27,7 +27,7 @@ class AdminCategoryControllerTest extends \PHPUnit_Framework_TestCase
         ]);
 
         \Phpfox::get('manager')
-            ->set('mvc.request', $request);
+            ->set('request', $request);
 
         $obj = new AdminCategoryController();
         $vm = $obj->actionAdd();
@@ -47,7 +47,7 @@ class AdminCategoryControllerTest extends \PHPUnit_Framework_TestCase
         ]);
 
         \Phpfox::get('manager')
-            ->set('mvc.request', $request);
+            ->set('request', $request);
 
         $obj = new AdminCategoryController();
 

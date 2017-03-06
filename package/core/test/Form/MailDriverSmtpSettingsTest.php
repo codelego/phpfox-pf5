@@ -3,7 +3,7 @@
 namespace Neutron\Core\Form;
 
 use Phpfox\Form\ElementInterface;
-use Phpfox\Form\FormBootstrapRender;
+use Phpfox\Form\BootstrapFormRender;
 
 class MailDriverSmtpSettingsTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,6 +14,6 @@ class MailDriverSmtpSettingsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(true,
             $form->getElement('license_email') instanceof ElementInterface);
 
-        $this->assertNotEmpty((new FormBootstrapRender())->render($form));
+        $this->assertNotEmpty((new BootstrapFormRender())->render($form));
     }
 }

@@ -11,9 +11,10 @@ class AdminIndexController extends AdminController
      */
     public function actionIndex()
     {
-        $vm = new ViewModel();
+        \Phpfox::get('layouts')
+            ->setPageName('core/admin-index/index');
 
-        $vm->setTemplate('core/admin-index/index');
+        $vm = new ViewModel([], 'core/admin-index/index');
 
         return $vm;
     }

@@ -10,7 +10,7 @@ class AdminController extends ActionController
     {
         \Phpfox::get('auth');
 
-        \Phpfox::get('view.template')
+        \Phpfox::get('template')
             ->preferThemes(['admin']);
 
         // todo verify logged in user can access admincp.

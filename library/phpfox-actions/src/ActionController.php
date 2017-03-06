@@ -31,7 +31,7 @@ class ActionController
      */
     public function forward($controller, $action)
     {
-        return \Phpfox::get('mvc.dispatch')->forward($controller, $action);
+        return \Phpfox::get('dispatcher')->forward($controller, $action);
     }
 
     function __call($name, $arguments)

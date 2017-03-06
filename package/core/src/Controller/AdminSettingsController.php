@@ -14,7 +14,7 @@ class AdminSettingsController extends AdminController
 
         $vm->assign(['form' => $form, 'heading' => _text('General Settings')]);
 
-        $vm->setTemplate('layout/admin-edit');
+        $vm->setTemplate('layout/form-edit');
 
         return $vm;
     }

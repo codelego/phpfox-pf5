@@ -17,7 +17,7 @@ class Response
     /**
      * @var string
      */
-    protected $prototype = 'mvc.response.html';
+    protected $prototype = 'response.html';
 
     /**
      * @return mixed

@@ -24,7 +24,7 @@ class AdminCategoryController extends AdminController
 
     public function actionAdd()
     {
-        $request = \Phpfox::get('mvc.request');
+        $request = \Phpfox::get('request');
 
 
         $form = new AddCategory();
@@ -32,7 +32,7 @@ class AdminCategoryController extends AdminController
         $vm = new ViewModel([
             'heading' => 'add new category',
             'form'    => $form,
-        ], 'layout/admin-edit');
+        ], 'layout/form-edit');
 
         if ($request->isGet()) {
 
@@ -47,7 +47,7 @@ class AdminCategoryController extends AdminController
 
             $obj->save();
 
-            \Phpfox::get('mvc.response')->redirect('');
+            \Phpfox::get('response')->redirect('');
         }
         return $vm;
 

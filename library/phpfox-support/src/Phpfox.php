@@ -142,25 +142,11 @@ namespace {
         }
 
         /**
-         * @return \Phpfox\Assets\AssetsFacades
-         */
-        public static function assets()
-        {
-            return self::$service->get('assets');
-        }
-
-        public static function trans($id, $domain, $locale, $context = [])
-        {
-            return self::$service->get('translator')
-                ->translate($id, $domain, $locale, $context);
-        }
-
-        /**
          * @return \Phpfox\Action\Response
          */
         public static function getResponse()
         {
-            return self::$service->get('mvc.response');
+            return self::$service->get('response');
         }
 
         /**
@@ -168,7 +154,7 @@ namespace {
          */
         public static function getTemplate()
         {
-            return self::$service->get('view.template');
+            return self::$service->get('template');
         }
 
         /**
@@ -178,15 +164,6 @@ namespace {
         {
             return self::$service->get('db');
         }
-
-        /**
-         * @return \Phpfox\Authorization\AuthorizationManager
-         */
-        public static function getAcl()
-        {
-            return self::$service->get('authorization');
-        }
-
 
         /**
          * @return \Phpfox\Routing\Router

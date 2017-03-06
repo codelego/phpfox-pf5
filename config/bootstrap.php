@@ -12,13 +12,13 @@ include __DIR__ . '/constants.php';
 include __DIR__ . '/functions.php';
 
 $cacheFiles = [
-    'package'  => PHPFOX_DIR . 'data/cache/package.php',
-    'autoload' => PHPFOX_DIR . 'data/cache/autoload.php',
+    'package'  => PHPFOX_CACHE_DIR . 'package.php',
+    'autoload' => PHPFOX_CACHE_DIR . 'autoload.php',
 ];
 
 $configFiles = [
-    'package'  => PHPFOX_DIR . 'config/package.php',
-    'autoload' => PHPFOX_DIR . 'config/autoload.php',
+    'package'  => PHPFOX_CONFIG_DIR . 'package.php',
+    'autoload' => PHPFOX_CONFIG_DIR . 'autoload.php',
 ];
 
 $shouldGenerate = PHPFOX_ENV != 'production';
@@ -82,8 +82,7 @@ if (!$shouldGenerate) {
 
     $configContainer = \Phpfox::configs();
 
-    $packageConfigs['db.adapters']['default'] = include PHPFOX_DIR
-        . '/config/database.php';
+    $packageConfigs['db.adapters']['default'] = include PHPFOX_DATABASE_FILE;
 
 
     /**

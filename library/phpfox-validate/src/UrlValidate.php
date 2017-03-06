@@ -6,8 +6,6 @@ class UrlValidate extends Validate
 {
     public function isValid($value)
     {
-        $this->setValue($value);
-
         if (filter_var($value, FILTER_VALIDATE_URL) !== false) {
             return true;
         }

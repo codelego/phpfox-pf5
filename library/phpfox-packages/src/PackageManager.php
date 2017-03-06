@@ -102,7 +102,7 @@ class PackageManager
         $includePaths = $info['paths'];
         $exportFilename = $info['name'];
 
-        $destinationZipFilename = PHPFOX_DIR . 'data/package/'
+        $destinationZipFilename = PHPFOX_DATA_DIR . 'data/package/'
             . $exportFilename . '.zip';
 
         if (file_exists($destinationZipFilename)) {

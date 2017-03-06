@@ -69,19 +69,20 @@ class StringValidate extends Validate
 
     public function isValid($value)
     {
-        $this->setValue($value);
-
         $length = mb_strlen($value);
+        $max = $this->get('max');
+        $min = $this->get('min');
+        $regexp = $this->get('regexp');
 
-        if ($this->max !== null and $length > $this->max) {
+        if ($max !== null and $length > $max) {
             return false;
         }
 
-        if ($this->min !== null and $length < $this->min) {
+        if ($min !== null and $length < $min) {
             return false;
         }
 
-        if ($this->regexp !== null and !preg_match($this->regexp, $value)) {
+        if ($regexp !== null and !preg_match($regexp, $value)) {
             return false;
         }
 

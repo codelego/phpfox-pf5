@@ -1,6 +1,7 @@
 <?php
 namespace Phpfox\Form;
 
+use Phpfox\Error\MessageContainer;
 use Phpfox\Validate\Validator;
 
 class Form extends Element implements ElementInterface, CollectionInterface
@@ -10,6 +11,9 @@ class Form extends Element implements ElementInterface, CollectionInterface
      */
     protected $byNames = [];
 
+    /**
+     * @var string
+     */
     protected $render = 'form_bootstrap';
 
     /**
@@ -21,6 +25,11 @@ class Form extends Element implements ElementInterface, CollectionInterface
      * @var Validator
      */
     protected $validator;
+
+    /**
+     * @var MessageContainer
+     */
+    protected $error;
 
     public function getElements()
     {
@@ -99,10 +108,47 @@ class Form extends Element implements ElementInterface, CollectionInterface
     public function isValid($data)
     {
         $this->populate($data);
-        if ($this->validator) {
-            return $this->validator->isValid($data);
+        $validator = $this->getValidator();
+        if ($validator instanceof Validator) {
+            return $this->validator->isValid($data, $this->getError());
         }
         return true;
+    }
+
+    /**
+     * Get error message container
+     *
+     * @return MessageContainer
+     */
+    public function getError()
+    {
+        if (null == $this->error) {
+            $this->error = new MessageContainer();
+        }
+        return $this->error;
+    }
+
+    /**
+     * @param string $group
+     * @param string $messages
+     */
+    public function addError($group, $messages)
+    {
+        $this->getError()->add($group, $messages);
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return string
+     */
+    public function getErrorHtml($type)
+    {
+        if ($this->getError()->isValid()) {
+            return '';
+        }
+
+        return \Phpfox::get('error_formater')->format($this->getError(), $type);
     }
 
     public function getData()
@@ -116,6 +162,13 @@ class Form extends Element implements ElementInterface, CollectionInterface
         }
 
         return $data;
+    }
 
+    /**
+     * @return Button[]
+     */
+    public function getButtons()
+    {
+        return [];
     }
 }

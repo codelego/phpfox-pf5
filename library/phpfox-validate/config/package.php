@@ -11,6 +11,7 @@ return [
         'ip'       => IpValidate::class,
         'url'      => UrlValidate::class,
         'callback' => CallbackValidate::class,
+        'unique'   => UniqueValidate::class,
     ],
     'services'        => [
         'validator' => [null, ValidateManager::class],

@@ -17,7 +17,7 @@ class AdminManageControllerTest extends \PHPUnit_Framework_TestCase
             'method' => 'get',
         ]);
 
-        \Phpfox::get('manager')->set('mvc.request', $request);
+        \Phpfox::get('manager')->set('request', $request);
 
         $vm = $obj->actionAdd();
         $this->assertTrue($vm instanceof ViewModel);
@@ -37,13 +37,13 @@ class AdminManageControllerTest extends \PHPUnit_Framework_TestCase
             'is_active'     => 1,
             'type_id'       => 0,
             'content'       => '[annoucement content]',
-            'created_at'    => '2012-00-00 00:00:00',
-            'updated_at'    => '2013-00-00 00:00:00',
-            'publish_at'    => '2014-00-00 00:00:00',
-            'expires_at'    => '2015-00-00 00:00:00',
+            'created_at'    => '2012-01-01 00:00:00',
+            'updated_at'    => '2013-01-01 00:00:00',
+            'publish_at'    => '2014-01-01 00:00:00',
+            'expires_at'    => '2015-01-01 00:00:00',
         ]);
 
-        \Phpfox::get('manager')->set('mvc.request', $request);
+        \Phpfox::get('manager')->set('request', $request);
 
         $vm = $obj->actionAdd();
         $this->assertTrue($vm instanceof ViewModel);

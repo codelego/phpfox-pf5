@@ -9,7 +9,7 @@ class ErrorController extends ActionController
 {
     public function actionIndex()
     {
-        $lastException = \Phpfox::get('mvc.dispatch')
+        $lastException = \Phpfox::get('dispatcher')
             ->getLastException();
 
         $vm = new ViewModel();

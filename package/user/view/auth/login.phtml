@@ -1,7 +1,5 @@
-<div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
-    <?php if (!empty($message)): ?><p
-            class="alert alert-danger alert-danger"><?= $message ?></p><?php endif; ?>
-    <?= $form->open(); ?>
-    <?= \Phpfox::get('form.render')->render($form) ?>
-    <?= $form->close(); ?>
+<?= $form->render() ?>
+<div class="dots">
+    <a class="" href="<?= _url('login')?>"><?= _text('Reset Password')?></a>
+    <a class="" href="<?= _url('register') ?>"><?= _text('Create Account')?></a>
 </div>

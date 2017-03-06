@@ -32,7 +32,7 @@ class LocalFileStorageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($fileStorage->getUrl('test.jpg'),
             $fileStorage->mapCdnUrl('test.jpg'));
 
-        $local = PHPFOX_DIR . 'data/temp/temp.txt';
+        $local = PHPFOX_TEMP_DIR . 'temp.txt';
 
         if (file_exists($local)) {
             @unlink($local);

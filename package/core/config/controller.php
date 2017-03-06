@@ -9,6 +9,7 @@ return [
     'core.admin-settings'      => AdminSettingsController::class,
     'core.admin-package'       => AdminPackageController::class,
     'core.admin-mail'          => AdminMailController::class,
+    'core.admin-layout'        => AdminLayoutController::class,
     'core.error'               => ErrorController::class,
     'core.admin-auth'          => AdminAuthController::class,
     'core.ajax-i18n'           => AjaxI18nController::class,

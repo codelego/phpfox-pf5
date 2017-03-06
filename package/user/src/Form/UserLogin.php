@@ -2,12 +2,15 @@
 
 namespace Neutron\User\Form;
 
+use Phpfox\Form\Button;
 use Phpfox\Form\Form;
 
 class UserLogin extends Form
 {
     protected function initialize()
     {
+
+        $this->setAttribute('id', 'form-login');
         $texts = [
             'username' => _text('Username'),
             'password' => _text('Password'),
@@ -44,16 +47,19 @@ class UserLogin extends Form
                 'attributes' => [
                     'class' => '',
                 ],
-            ],
-            [
-                'factory'    => 'button',
-                'name'       => '_submit',
-                'label'      => $texts['login'],
-                'required'   => true,
-                'attributes' => [
-                    'class' => 'btn btn-primary',
-                ],
-            ],
+            ]
         ]);
+    }
+
+    public function getButtons()
+    {
+        return [
+            new Button([
+                'type'       => 'submit',
+                'name'       => 'login',
+                'label'      => _text('Login'),
+                'attributes' => ['class' => 'btn btn-primary btn-login'],
+            ]),
+        ];
     }
 }

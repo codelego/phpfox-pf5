@@ -28,13 +28,13 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddVariables()
     {
-        \Phpfox::db()->insert(':theme_setting', [
+        \Phpfox::db()->insert(':theme_params', [
             'theme_id' => 'galaxy',
             'params' => '[]',
         ])->execute();
 
         $result = \Phpfox::db()->select('*')
-            ->from(':theme_setting')
+            ->from(':theme_params')
             ->first();
 
         $this->assertNotEmpty($result);

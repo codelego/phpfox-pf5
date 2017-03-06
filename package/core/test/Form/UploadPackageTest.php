@@ -3,7 +3,7 @@
 namespace Neutron\Core\Form;
 
 
-use Phpfox\Form\FormBootstrapRender;
+use Phpfox\Form\BootstrapFormRender;
 
 class UploadPackageTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,6 +14,6 @@ class UploadPackageTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNotNull($obj->getElement('package'));
 
-        $this->assertNotEmpty((new FormBootstrapRender())->render($obj));
+        $this->assertNotEmpty((new BootstrapFormRender())->render($obj));
     }
 }

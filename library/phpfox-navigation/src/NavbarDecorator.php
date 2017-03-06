@@ -134,7 +134,7 @@ class NavbarDecorator implements DecoratorInterface
             $params = $item->params;
             foreach ($params as $k => $v) {
                 if (substr($v, 0, 1) == '$') {
-                    $params[$k] = \Phpfox::get('mvc.request')
+                    $params[$k] = \Phpfox::get('request')
                         ->get(substr($v,
                             1));
                 }
@@ -164,7 +164,7 @@ class NavbarDecorator implements DecoratorInterface
         }
 
         $extra = '';
-        $cls = 'ni-' . $item->name;
+        $cls = 'mi-' . $item->name;
 
         if (!empty($item->class)) {
             $cls = $item->class;

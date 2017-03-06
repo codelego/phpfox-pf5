@@ -5,47 +5,18 @@ namespace Phpfox\Validate;
 class Validate implements ValidateInterface
 {
     /**
-     * @var bool
+     * @var array
      */
-    protected $skip = false;
+    protected $defaults = [];
 
     /**
-     * @var bool
+     * @var array
      */
-    protected $skipAll = false;
+    protected $params = [];
 
-    /**
-     * @var string
-     */
-    protected $message;
-
-    /**
-     * @var mixed
-     */
-    protected $value;
-
-    /**
-     * @return string
-     */
-    public function getMessage()
+    public function __construct($params = [])
     {
-        return $this->message;
-    }
-
-    /**
-     * @param string $message
-     */
-    public function setMessage($message)
-    {
-        $this->message = $message;
-    }
-
-    /**
-     * @param mixed $value
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
+        $this->params = array_merge($this->defaults, $params);
     }
 
     public function isValid($value)
@@ -53,49 +24,18 @@ class Validate implements ValidateInterface
         return true;
     }
 
-    public function getValue()
+    public function set($key, $value)
     {
-        return $this->value;
+        $this->params[$key] = $value;
     }
 
-    public function isSkip()
+    public function get($key, $default = null)
     {
-        return $this->skip;
+        return isset($this->params[$key]) ? $this->params[$key] : $default;
     }
 
-    public function setSkip($flag)
+    public function has($key)
     {
-        $this->skip = (boolean)$flag;
-    }
-
-    public function isSkipAll()
-    {
-        return $this->skipAll;
-    }
-
-    public function setSkipAll($flag)
-    {
-        $this->skipAll = (bool)$flag;
-    }
-
-    public function getError()
-    {
-        return $this->message;
-    }
-
-    public function initialize($params)
-    {
-        foreach ($params as $key => $value) {
-            if (method_exists($this, $method = 'set' . ucfirst($key))) {
-                $this->{$method}($value);
-            }
-        }
-    }
-
-    public function __construct($params = [])
-    {
-        if ($params) {
-            $this->initialize($params);
-        }
+        return isset($this->params[$key]);
     }
 }

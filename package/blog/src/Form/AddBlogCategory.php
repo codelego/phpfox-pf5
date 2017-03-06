@@ -1,42 +1,35 @@
 <?php
 namespace Neutron\Blog\Form;
 
+use Neutron\Blog\Validator\EditBlogCategoryValidator;
+use Phpfox\Form\Button;
 use Phpfox\Form\Form;
 
 class AddBlogCategory extends Form
 {
+    protected $validatorClass = EditBlogCategoryValidator::class;
+
     public function initialize()
     {
         $this->addElement([
-            'factory'    => 'yesno',
-            'name'       => 'is_active',
-            'label'      => _text('Is Active'),
-            'required'   => true,
-            'value'      => 1,
-            'attributes' =>
-                [
-                    'maxlength' => PHPFOX_TITLE_LENGTH,
-                    'class'     => 'form-control',
-                ],
-        ]);
-        $this->addElement([
             'factory'    => 'text',
             'name'       => 'name',
-            'label'      => _text('Name'),
+            'label'      => _text('Category Name'),
             'required'   => true,
-            'value'      => 1,
+            'value'      => '',
             'attributes' =>
                 [
                     'maxlength' => PHPFOX_TITLE_LENGTH,
                     'class'     => 'form-control',
                 ],
         ]);
+
         $this->addElement([
             'factory'    => 'textarea',
             'name'       => 'description',
             'label'      => _text('Description'),
             'required'   => false,
-            'value'      => 1,
+            'value'      => '',
             'attributes' =>
                 [
                     'maxlength' => PHPFOX_DESC_LENGTH,
@@ -44,5 +37,35 @@ class AddBlogCategory extends Form
                     'rows'      => PHPFOX_DESC_ROWS,
                 ],
         ]);
+        $this->addElement([
+            'factory'    => 'yesno',
+            'name'       => 'is_active',
+            'label'      => _text('Is Active'),
+            'required'   => true,
+            'value'      => 0,
+            'attributes' =>
+                [
+                    'maxlength' => PHPFOX_TITLE_LENGTH,
+                    'class'     => 'form-control',
+                ],
+        ]);
+    }
+
+    public function getButtons()
+    {
+        return [
+            new Button([
+                'type'       => 'submit',
+                'name'       => 'save',
+                'label'      => _text('Save Changes'),
+                'attributes' => ['class' => 'btn btn-primary'],
+            ]),
+            new Button([
+                'type'       => 'submit',
+                'label'      => _text('Cancel'),
+                'href'       => _url('admin.blog.category'),
+                'attributes' => ['class' => 'btn btn-link'],
+            ]),
+        ];
     }
 }

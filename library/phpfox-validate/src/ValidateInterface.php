@@ -6,31 +6,6 @@ namespace Phpfox\Validate;
 interface ValidateInterface
 {
     /**
-     * @return string
-     */
-    public function getMessage();
-
-    /**
-     * @param string $message
-     */
-    public function setMessage($message);
-
-    /**
-     * @param mixed $value
-     */
-    public function setValue($value);
-
-    /**
-     * @return mixed
-     */
-    public function getValue();
-
-    /**
-     * @return string
-     */
-    public function getError();
-
-    /**
      * @param mixed $value
      *
      * @return bool
@@ -38,27 +13,30 @@ interface ValidateInterface
     public function isValid($value);
 
     /**
-     * @return bool
-     */
-    public function isSkipAll();
-
-    /**
-     * @param bool $flag
-     */
-    public function setSkipAll($flag);
-
-    /**
-     * @return bool
-     */
-    public function isSkip();
-
-    /**
-     * @param bool $flag
-     */
-    public function setSkip($flag);
-
-    /**
+     * ValidateInterface constructor.
+     *
      * @param array $params
      */
-    public function initialize($params);
+    public function __construct($params = []);
+
+    /**
+     * @param string $key
+     * @param mixed  $default
+     *
+     * @return mixed
+     */
+    public function get($key, $default = null);
+
+    /**
+     * @param string $key
+     * @param mixed  $value
+     */
+    public function set($key, $value);
+
+    /**
+     * @param string $key
+     *
+     * @return bool
+     */
+    public function has($key);
 }

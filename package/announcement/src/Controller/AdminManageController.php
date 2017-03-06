@@ -14,7 +14,7 @@ class AdminManageController extends AdminController
     {
         $form = new AddAnnouncement();
 
-        $request = \Phpfox::get('mvc.request');
+        $request = \Phpfox::get('request');
 
         if ($request->isGet()) {
 
@@ -24,6 +24,8 @@ class AdminManageController extends AdminController
             $form->populate($request->all());
             $data = $form->getData();
             $obj = new Announcement($data);
+            $obj->setDescription('');
+            $obj->setUserId(1);
             $obj->save();
         }
 
@@ -31,7 +33,7 @@ class AdminManageController extends AdminController
         $vm = new ViewModel([
             'form'    => $form,
             'heading' => _text('Add Announcement'),
-        ], 'layout/admin-edit');
+        ], 'layout/form-edit');
 
         return $vm;
     }
