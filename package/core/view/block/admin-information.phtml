@@ -1,0 +1,31 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">Information</div>
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <td>License Account</td>
+            <td><?= $license_email ?></td>
+        </tr>
+        <tr>
+            <td>License Key</td>
+            <td><?= $license_key ?></td>
+        </tr>
+        <tr>
+            <td>License Type</td>
+            <td><span class="label label-info"><?= $license_type ?></span></td>
+        </tr>
+        <tr>
+            <td>Expires on</td>
+            <td>n/a</td>
+        </tr>
+        <tr>
+            <td>Version</td>
+            <td><small class="label label-info"><?= $version ?></small></td>
+        </tr>
+        <tr>
+            <td>Installed on</td>
+            <td><?= date('Y-m-d', $installed_on) ?></td>
+        </tr>
+    </table>
+</div>

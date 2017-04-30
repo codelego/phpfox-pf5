@@ -10,6 +10,8 @@ class StaticText extends Element implements FieldInterface
      */
     protected $value;
 
+    protected $render = 'static_text';
+
     public function getValue()
     {
         return $this->value;

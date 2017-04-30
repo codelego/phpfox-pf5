@@ -8,27 +8,26 @@
            href="<?= _url('admin.core.i18n.add-phrase') ?>">+ <?= _text('Add') ?></a>
     </div>
 </div>
-<div class="container">
-    <div class="table table-responsive">
-        <table class="table table-admin">
-            <thead>
+
+<div class="table-responsive">
+    <table class="table table-admin">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Native Name</th>
+            <th>Author</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($items as $item): ?>
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Native Name</th>
-                <th>Author</th>
+                <td><?= $item['id'] ?></td>
+                <td><?= $item['name'] ?></td>
+                <td><?= $item['native_name'] ?></td>
+                <td><?= $item['code_6391'] ?></td>
             </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($items as $item): ?>
-                <tr>
-                    <td><?= $item['id'] ?></td>
-                    <td><?= $item['name'] ?></td>
-                    <td><?= $item['native_name'] ?></td>
-                    <td><?= $item['code_6391'] ?></td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
 </div>

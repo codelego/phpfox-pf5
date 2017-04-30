@@ -109,7 +109,9 @@ class Router
     {
         if (strpos($key, '.') !== false) {
             list($group) = explode('.', $key, 2);
-            return $this->routes[$group]->getUri($key, $params);
+            if(isset($this->routes[$group])){
+                return $this->routes[$group]->getUri($key, $params);
+            }
         } elseif (isset($this->routes[$key])) {
             return $this->routes[$key]->getUri($key, $params);
         }

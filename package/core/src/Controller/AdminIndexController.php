@@ -14,8 +14,8 @@ class AdminIndexController extends AdminController
         \Phpfox::get('layouts')
             ->setPageName('core/admin-index/index');
 
-        $vm = new ViewModel([], 'core/admin-index/index');
-
-        return $vm;
+        return new ViewModel([
+            
+        ], 'core/admin-index/index');
     }
 }

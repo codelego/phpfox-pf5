@@ -34,7 +34,7 @@ $packages = array_map(function ($item) {
 }, Phpfox::get('db')
     ->select('*')
     ->from(':core_package')
-    ->order('package_name', 1)
+    ->order('name', 1)
     ->all());
 
 $tables = array_map(function ($item) {

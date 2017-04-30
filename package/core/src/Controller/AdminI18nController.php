@@ -15,12 +15,9 @@ class AdminI18nController extends AdminController
             ->execute()
             ->all();
 
-        $vm = new ViewModel();
-        $vm->assign(['items' => $items]);
-
-        $vm->setTemplate('core/admin-i18n/index');
-
-        return $vm;
+        return new ViewModel([
+            'items' => $items,
+        ], 'core/admin-i18n/index');
     }
 
     public function actionLanguages()
@@ -30,15 +27,12 @@ class AdminI18nController extends AdminController
 
     public function actionAddPhrase()
     {
-        $vm = new ViewModel();
-
         $form = new AddNewPhrase();
 
-        $vm->assign(['form' => $form, 'heading' => 'Add New Phrase',]);
-
-        $vm->setTemplate('layout/form-edit');
-
-        return $vm;
+        return new ViewModel([
+            'form'    => $form,
+            'heading' => 'Add New Phrase',
+        ], 'layout/form-edit');
     }
 
     public function actionPhrases()
@@ -54,12 +48,10 @@ class AdminI18nController extends AdminController
             ->execute()
             ->all();
 
-        $vm = new ViewModel();
+        return new ViewModel([
+            'items' => $items,
+            'form'  => $form,
+        ], 'core/admin-i18n/phrases');
 
-        $vm->assign(['items' => $items, 'form' => $form]);
-
-        $vm->setTemplate('core/admin-i18n/phrases');
-
-        return $vm;
     }
 }

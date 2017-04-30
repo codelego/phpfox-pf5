@@ -11,6 +11,11 @@ class BlogPost extends DbModel
         return 'blog_post';
     }
 
+    public function getUrl()
+    {
+        return _url('blog_post.view',['id'=>$this->getId()]);
+    }
+
     public function getId()
     {
         return (int)$this->__get('blog_id');

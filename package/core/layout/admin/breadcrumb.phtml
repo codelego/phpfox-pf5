@@ -1,0 +1,9 @@
+<ul class="site-breadcrumb navbar-left">
+    <li>
+        <a role="button" href="<?= _url('admin') ?>">Admincp</a>
+    </li>
+    <?php foreach ($items as $item): ?>
+        <li><a role="button"
+               href="<?= $item['href'] ?>"><?= $item['label'] ?></a></li>
+    <?php endforeach; ?>
+</ul>

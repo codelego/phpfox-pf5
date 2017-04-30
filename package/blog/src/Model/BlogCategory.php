@@ -31,6 +31,16 @@ class BlogCategory extends DbModel
         $this->__set('is_active', $value ? 1 : 0);
     }
 
+    public function getUrl()
+    {
+        return _url('blogs',[],['category'=>$this->getId()]);
+    }
+
+    public function getTitle()
+    {
+        return $this->__get('name');
+    }
+
     public function getName()
     {
         return $this->__get('name');

@@ -18,5 +18,6 @@ return [
     'services'       => [
         'main.log' => [LogContainerFactory::class, null, 'main.log'],
         'dev.log'  => [LogContainerFactory::class, null, 'dev.log'],
+        'error.handler'=> [null, ErrorHandler::class],
     ],
 ];

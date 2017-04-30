@@ -22,6 +22,11 @@
     0 => 'library/phpfox-authorization/src',
     1 => 'library/phpfox-authorization/test',
   ),
+  'Phpfox\\Breadcrumb' => 
+  array (
+    0 => 'library/phpfox-breadcrumb/src',
+    1 => 'library/phpfox-breadcrumb/test',
+  ),
   'Phpfox\\Cache' => 
   array (
     0 => 'library/phpfox-cache/src',
@@ -136,10 +141,5 @@
   array (
     0 => 'library/phpfox-view/src',
     1 => 'library/phpfox-view/test',
-  ),
-  'Phpfox\\Widget' => 
-  array (
-    0 => 'library/phpfox-widget/src',
-    1 => 'library/phpfox-widget/test',
   ),
 );

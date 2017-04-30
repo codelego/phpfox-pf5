@@ -1,0 +1,43 @@
+<div class="panel-default">
+    <div class="table-responsive">
+        <table class="table table-admin">
+            <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th>ID</th>
+                <th>Parent ID</th>
+                <th>Name</th>
+                <th>Package</th>
+                <th>Desc.</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item): ?>
+                <tr>
+                    <td class="dropdown" data-cmd="dropdown">
+                        <ul>
+                            <li><a href="<?= _url('admin.core.layout.design', ['id' => $item->getId()]) ?>"><?= _text('Design Layout') ?></a></li>
+                            <li>
+                                <a href="<?= _url('admin.core.layout.edit', ['id' => $item->getId()]) ?>"><?= _text('Edit Page') ?></a>
+                            </li>R V
+                            <li class="divider"></li>
+                            <li>
+                                <a href="<?= _url('admin.core.layout.edit', ['id' => $item->getId()]) ?>"><?= _text('Add Block') ?></a>
+                                <a href="<?= _url('admin.core.layout.edit', ['id' => $item->getId()]) ?>"><?= _text('Add Location') ?></a>
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <a href="<?= _url('admin.core.layout.design',
+                            ['id' => $item->getId()]) ?>"><?= $item->getId() ?></a>
+                    </td>
+                    <td><?= $item->__get('parent_page_id') ?></td>
+                    <td><?= $item->__get('page_name') ?></td>
+                    <td><?= $item->__get('package_id') ?></td>
+                    <td><?= $item->__get('description') ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -7,6 +7,12 @@ use Phpfox\View\ViewModel;
 
 class AdminStatusController extends AdminController
 {
+    protected function initialized()
+    {
+        \Phpfox::get('breadcrumb')
+            ->add(['label'=>'System Status']);
+    }
+
     public function actionCache()
     {
 
@@ -14,56 +20,34 @@ class AdminStatusController extends AdminController
 
     public function actionLicense()
     {
-        $vm = new ViewModel();
-
         $form = new LicenseSettings();
 
-        $vm->assign([
+        return new ViewModel([
             'heading' => 'License Information',
             'form'    => $form,
-        ]);
-
-        $vm->setTemplate('layout/form-edit');
-
-        return $vm;
+        ], 'layout/form-edit');
     }
 
     public function actionHealthCheck()
     {
-        $vm = new ViewModel();
-
         $response = _emit('onSystemHealthCheck');
 
-
-        $vm->setTemplate('core/admin-status/health-check');
-
-        $vm->assign([
+        return new ViewModel([
             'items' => $response,
-        ]);
-
-        return $vm;
+        ], 'core/admin-status/health-check');
     }
 
     public function actionStatistics()
     {
-        $vm = new ViewModel();
-
         $response = _emit('onSiteStatistics');
 
-        $vm->setTemplate('core/admin-status/statistics');
-
-        $vm->assign([
+        return new ViewModel([
             'items' => $response,
-        ]);
-
-        return $vm;
-
+        ], 'core/admin-status/statistics');
     }
 
     public function actionOverview()
     {
-        $vm = new ViewModel();
-
         $status = [
             [
                 'label' => 'PHP Version',
@@ -101,12 +85,8 @@ class AdminStatusController extends AdminController
                 $status[] = ['label' => $key, 'value' => $value];
             }
         }
-        $vm->assign([
+        return new ViewModel([
             'status' => $status,
-        ]);
-
-        $vm->setTemplate('core/admin-status/overview');
-
-        return $vm;
+        ], 'core/admin-status/overview');
     }
 }

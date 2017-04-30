@@ -2,6 +2,10 @@
 
 namespace {
 
+    function _dump(){
+        var_dump(func_get_args());exit;
+    }
+
     /**
      * Generate random string by length
      *

@@ -2,73 +2,19 @@
 
 namespace Phpfox\Navigation;
 
-class NavDecorator
+class NavDecorator implements DecoratorInterface
 {
-    protected $max_level = 3;
-    /**
-     * @var array
-     */
-    protected $data;
-
-    /**
-     * render from section
-     *
-     * @var string
-     */
-    protected $section;
-
-    /**
-     * Menu name
-     *
-     * @var string
-     */
-    protected $menu;
-
-    /**
-     * List of active items
-     *
-     * @var array|string
-     */
-    protected $active;
-
     /**
      * max number to render
      *
      * @var number
      */
-    protected $level;
+    private $level = 4;
 
     /**
      * @var array
      */
-    protected $context;
-
-
-    public function __construct(
-        $menu,
-        $section,
-        $active,
-        $level,
-        $context
-    ) {
-
-        $this->menu = $menu;
-        $this->section = $section;
-        $this->active = $active;
-        $this->level = $level;
-        $this->context = $context;
-
-    }
-
-    /**
-     * @var NavigationItem[]
-     */
-    protected $items = [];
-
-    /**
-     * @var array
-     */
-    protected $params
+    private $defaults
         = [
             'level0' => 'nav nav-tabs',
             'level1' => '',
@@ -78,23 +24,14 @@ class NavDecorator
 
         ];
 
-    /**
-     * @inheritdoc
-     */
-    public function render()
+    private $context = [];
+
+    public function render(Navigation $navigation, $context = [])
     {
-
-        $this->items = \Phpfox::get('navigation.loader')->load($this->menu);
-
-        if (empty($this->items)) {
-            return '';
-        }
-
-        $this->prepareActiveItems();
-
+        $this->context = array_merge($this->defaults, $context);
         $content = [];
 
-        foreach ($this->items as $item) {
+        foreach ($navigation->items as $item) {
             try {
                 $content[] = $this->renderItem(0, $item);
             } catch (\Exception $e) {
@@ -102,9 +39,7 @@ class NavDecorator
             }
 
         }
-
-        $topClass = $this->params['level0'];
-
+        $topClass = $this->context['level0'];
         return '<ul class="' . $topClass . '">' . implode('', $content)
             . '</ul>';
     }
@@ -187,14 +122,6 @@ class NavDecorator
     }
 
     /**
-     *
-     */
-    public function prepareActiveItems()
-    {
-
-    }
-
-    /**
      * @param int   $level
      * @param array $items
      *
@@ -208,7 +135,7 @@ class NavDecorator
             $content[] = $this->renderItem($level, $item);
         }
 
-        $class = $this->params[sprintf('level%d', $level)];
+        $class = $this->context[sprintf('level%d', $level)];
 
         return '<ul class="' . $class . '" role="menu">' . implode('', $content)
             . '</ul>';

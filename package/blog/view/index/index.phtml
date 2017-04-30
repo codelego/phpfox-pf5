@@ -1,3 +1,30 @@
-<div class="container">
-    Blog List Item
+<p>Before content </p>
+<div class="item-container">
+    <?php foreach($items as $item): ?>
+    <article>
+        <div class="item-outer">
+            <div class="item-inner">
+                <div class="item-title">
+                    <a href="<?= $item->getUrl() ?>"><?= $item->getTitle()?></a>
+                </div>
+                <div class="item-desc">
+                    <p>How to control this first</p>
+                </div>
+                <label class="item-moderate">
+                    <input type="checkbox" name="item_moderate[]" value="<?= $item->getId() ?>"/>
+                </label>
+                <div class="item-option" data-cmd="dropdown" role="button">
+                    <ul>
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </article>
+    <?php endforeach; ?>
 </div>
+<p>After content</p>

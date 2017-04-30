@@ -1,4 +1,5 @@
 <?php
+
 namespace Phpfox\Navigation;
 
 /**
@@ -22,14 +23,41 @@ namespace Phpfox\Navigation;
 class NavigationItem
 {
 
-    public $data;
+    /**
+     * @var array
+     */
+    public $data = [];
 
     /**
      * @var NavigationItem[]
-     *
      */
     public $children = [];
 
+    /**
+     * @param string $key
+     * @param mixed  $default
+     *
+     * @return mixed
+     */
+    public function get($key, $default = null)
+    {
+        return isset($this->data[$key]) ? $this->data[$key] : $default;
+    }
+
+    /**
+     * @param string $key
+     * @param mixed  $value
+     */
+    public function set($key, $value)
+    {
+        $this->data[$key] = $value;
+    }
+
+    /**
+     * NavigationItem constructor.
+     *
+     * @param array $data
+     */
     public function __construct($data = [])
     {
         foreach ($data as $k => $v) {
@@ -41,19 +69,20 @@ class NavigationItem
         }
     }
 
-    public function setParams($value)
-    {
-        if (is_string($value)) {
-            $value = (array)json_decode($value, true);
-        }
-        $this->params = $value;
-    }
-
+    /**
+     * @param $name
+     *
+     * @return mixed|null
+     */
     public function __get($name)
     {
         return isset($this->data[$name]) ? $this->data[$name] : null;
     }
 
+    /**
+     * @param string $name
+     * @param mixed  $value
+     */
     function __set($name, $value)
     {
         $this->data[$name] = $value;

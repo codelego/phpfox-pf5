@@ -129,6 +129,7 @@
   array (
     'navbar' => 'Phpfox\\Navigation\\NavbarDecorator',
     'nav' => 'Phpfox\\Navigation\\NavDecorator',
+    'aside' => 'Phpfox\\Navigation\\AsideDecorator',
   ),
   'services' => 
   array (
@@ -372,6 +373,11 @@
       1 => NULL,
       2 => 'dev.log',
     ),
+    'error.handler' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Logger\\ErrorHandler',
+    ),
     'mailer' => 
     array (
       0 => NULL,
@@ -391,6 +397,16 @@
     array (
       0 => NULL,
       1 => 'Phpfox\\Navigation\\NavigationManager',
+    ),
+    'menu.primary' => 
+    array (
+      0 => 'Phpfox\\Navigation\\NavigationFactory',
+      1 => NULL,
+    ),
+    'menu.secondary' => 
+    array (
+      0 => 'Phpfox\\Navigation\\NavigationFactory',
+      1 => NULL,
     ),
     'package' => 'Phpfox\\Package\\PackageManager',
     'package.loader' => 
@@ -447,6 +463,11 @@
       0 => NULL,
       1 => 'Phpfox\\Support\\InterventionImageManager',
     ),
+    'registry' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Support\\Registry',
+    ),
     'validator' => 
     array (
       0 => NULL,
@@ -456,11 +477,6 @@
     array (
       0 => NULL,
       1 => 'Phpfox\\View\\PhpTemplate',
-    ),
-    'widgets' => 
-    array (
-      0 => NULL,
-      1 => 'Phpfox\\Widget\\WidgetManager',
     ),
     'i18n.loader' => 
     array (
@@ -496,6 +512,11 @@
     array (
       0 => NULL,
       1 => 'Neutron\\Core\\Service\\Roles',
+    ),
+    'layout_loader' => 
+    array (
+      0 => NULL,
+      1 => 'Neutron\\Core\\Service\\LayoutLoader',
     ),
     'user.callback' => 
     array (
@@ -632,7 +653,7 @@
       'port' => 3306,
       'user' => 'root',
       'password' => 'namnv123',
-      'database' => 'phpfox_v5_unitest',
+      'database' => 'phpfox_v5',
     ),
   ),
   'requirejs.paths' => 
@@ -652,6 +673,7 @@
   array (
     'main' => '@css/main.css',
     'font' => '//fonts.googleapis.com/css?family=Roboto',
+    'custom' => '@css/custom.css',
     'admin.login' => '@css/admin-login.css',
     'core-test.css' => '@css/core-test.css',
   ),
@@ -699,6 +721,8 @@
     'default:core/admin-status/statistics' => 'package/core/view/admin-status/statistics',
     'default:core/admin-theme/debug' => 'package/core/view/admin-theme/debug',
     'default:core/admin-theme/index' => 'package/core/view/admin-theme/index',
+    'default:core/block/admin-information' => 'package/core/view/block/admin-information',
+    'default:core/block/admin-update' => 'package/core/view/block/admin-update',
     'default:core/error/404' => 'package/core/view/error/404',
     'default:core/error/500' => 'package/core/view/error/500',
     'default:core/error/503' => 'package/core/view/error/503',
@@ -708,10 +732,10 @@
     'default:layout/footer' => 'package/core/layout/default/footer',
     'default:layout/form-edit' => 'package/core/layout/default/form-edit',
     'default:layout/header' => 'package/core/layout/default/header',
+    'default:grid/simple' => 'package/core/layout/grid/simple',
+    'admin:layout/breadcrumb' => 'package/core/layout/admin/breadcrumb',
     'admin:layout/default' => 'package/core/layout/admin/default',
-    'admin:layout/footer' => 'package/core/layout/admin/footer',
     'admin:layout/form-edit' => 'package/core/layout/admin/form-edit',
-    'admin:layout/header' => 'package/core/layout/admin/header',
     'admin:layout/login' => 'package/core/layout/admin/login',
     'default:user/admin-manage/index' => 'package/user/view/admin-manage/index',
     'default:user/auth/login' => 'package/user/view/auth/login',

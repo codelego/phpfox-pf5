@@ -1,36 +1,57 @@
-<div class="container text-right">
-    <div class="btn-group">
-        <a class="btn btn-link" href="<?= _url('admin.core.package.add') ?>"> +
-            Upload</a>
-    </div>
-</div>
-<div class="container">
-    <div class="table-responsive">
-        <table class="table table-admin">
+<div class="panel-default">
+    <table class="table table-admin">
+        <tr>
+            <th class="text-center">#</th>
+            <th>ID</th>
+            <th>Info.</th>
+            <th>Version</th>
+            <th>Required</th>
+            <th>Type</th>
+            <th>Author</th>
+            <th>Active</th>
+        </tr>
+        <?php foreach ($items as $item): ?>
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Version</th>
-                <th>Author</th>
-                <th>Active</th>
+                <td data-cmd="dropdown" class="dropdown">
+                    <ul>
+                        <?php if ($item->canDisable()): ?>
+                        <li><a role="button">Disable</a></li>
+                        <?php elseif($item->canEnable()): ?>
+                            <li><a role="button">Enable</a></li>
+                        <?php endif; ?>
+                        <?php if($item->canExport()): ?>
+                        <li><a role="button">Export</a></li>
+                        <?php endif; ?>
+                        <?php if($item->canUpgrade()):?>
+                        <li><a role="button">Upgrade</a></li>
+                        <?php endif; ?>
+                        <?php if ($item->canUninstall()): ?>
+                            <li><a role="button">Uninstall</a></li>
+                        <?php endif; ?>
+                    </ul>
+                </td>
+                <td><?= $item->getName() ?></td>
+                <td><?= $item->getTitle() ?></td>
+                <td><?= $item['version'] ?></td>
+                <td>
+                    <?php if ($item->isRequired()): ?>
+                        <label class="label label-success"><?= _text('Yes') ?></label>
+                    <?php else: ?>
+                        <?= _text('No') ?>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?= $item->getTypeId() ?>
+                </td>
+                <td><?= $item['author'] ?></td>
+                <td>
+                    <?php if ($item->isActive()): ?>
+                        <?= _text('Yes') ?>
+                    <?php else: ?>
+                        <label class="label label-danger"><?= _text('No') ?></label>
+                    <?php endif; ?>
+                </td>
             </tr>
-            <?php foreach ($items as $item): ?>
-                <tr>
-                    <td><?= $item['id'] ?></td>
-                    <td><?= $item['var_name'] ?></td>
-                    <td><?= $item['version'] ?></td>
-                    <td><?= $item['author'] ?></td>
-                    <td>
-                        <label for="_">
-                            <input name="item[active][]" id="_"
-                                   type="checkbox" <?= $item['is_active']
-                                ? 'checked' : '' ?>
-                                   value="<?= $item['id'] ?>"/>
-                        </label>
-
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-    </div>
+        <?php endforeach; ?>
+    </table>
 </div>

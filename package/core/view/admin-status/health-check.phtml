@@ -1,27 +1,25 @@
-<div class="container">
-    <div class="table-responsive">
-        <table class="table table-admin">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Value</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($items as $rows): ?>
-                <?php foreach ($rows as $item): ?>
-                    <tr class="<?= $item['status'] ?>">
-                        <td><?= $item['label'] ?>
-                            <?php if ($item['note']): ?>
-                                <p>
-                                <small><?= $item['note'] ?></small>
-                                </p><?php endif; ?>
-                        </td>
-                        <td><?= $item['value'] ?></td>
-                    </tr>
-                <?php endforeach; ?>
+<div class="table-responsive">
+    <table class="table table-admin">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($items as $rows): ?>
+            <?php foreach ($rows as $item): ?>
+                <tr class="<?= $item['status'] ?>">
+                    <td><?= $item['label'] ?>
+                        <?php if ($item['note']): ?>
+                            <p>
+                            <small><?= $item['note'] ?></small>
+                            </p><?php endif; ?>
+                    </td>
+                    <td><?= $item['value'] ?></td>
+                </tr>
             <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
 </div>

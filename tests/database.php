@@ -6,5 +6,6 @@ return [
     'port'     => 3306,
     'user'     => 'root',
     'password' => 'namnv123',
-    'database' => 'phpfox_v5_unitest',
+//    'database' => 'phpfox_v5_unitest',
+    'database' => 'phpfox_v5',
 ];

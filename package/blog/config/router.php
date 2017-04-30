@@ -29,6 +29,16 @@ return [
             'route'  => 'edit/<id>',
             'action' => 'edit',
         ],
+        'blog_post'                => [
+            'route' => 'blog/post/*',
+        ],
+        'blog_post.view'           => [
+            'route'    => '<id>',
+            'defaults' => [
+                'controller' => 'blog.post',
+                'action'     => 'view',
+            ],
+        ],
         'browse_blog:profile'      => [
             'route'    => '{blog}',
             'defaults' => [

@@ -2,152 +2,194 @@
 
 namespace Neutron\Core\Model;
 
-
 use Phpfox\Db\DbModel;
 
 class CorePackage extends DbModel
 {
-    /**
-     * @return string
-     */
     public function getModelId()
     {
         return 'core_package';
     }
 
-    /**
-     * @return mixed|null
-     */
     public function getId()
     {
-        return $this->__get('id');
+        return (int)$this->__get('id');
     }
 
-    /**
-     * @return bool
-     */
+    public function setId($value)
+    {
+        $this->__set('id', $value);
+    }
+
+    public function getTypeId()
+    {
+        return $this->__get('type_id');
+    }
+
+    public function setTypeId($value)
+    {
+        $this->__set('type_id', $value);
+    }
+
+    public function isRequired()
+    {
+        return $this->__get('is_required') ? 1 : 0;
+    }
+
+    public function setRequired($value)
+    {
+        $this->__set('is_required', $value ? 1 : 0);
+    }
+
     public function isActive()
     {
-        return (bool)$this->__get('is_active');
+        return $this->__get('is_active') ? 1 : 0;
     }
 
-    /**
-     * @return bool
-     */
-    public function isCore()
+    public function setActive($value)
     {
-        return (bool)$this->__get('is_core');
+        $this->__set('is_active', $value ? 1 : 0);
     }
 
-    /**
-     * @return bool
-     */
-    public function isTheme()
-    {
-        return (bool)$this->__get('is_theme');
-    }
-
-    /**
-     * @return bool
-     */
-    public function isLanguage()
-    {
-        return (bool)$this->__get('is_language');
-    }
-
-    /**
-     * @return bool
-     */
-    public function isApp()
-    {
-        return (bool)$this->__get('is_app');
-    }
-
-    /**
-     * @return bool
-     */
-    public function isLibrary()
-    {
-        return (bool)$this->__get('is_library');
-    }
-
-    /**
-     * @return mixed|null
-     */
     public function getThemeId()
     {
         return $this->__get('theme_id');
     }
 
-    /**
-     * @return mixed|null
-     */
+    public function setThemeId($value)
+    {
+        $this->__set('theme_id', $value);
+    }
+
+    public function getPriority()
+    {
+        return (int)$this->__get('priority');
+    }
+
+    public function setPriority($value)
+    {
+        $this->__set('priority', $value);
+    }
+
+    public function getTitle()
+    {
+        return $this->__get('title');
+    }
+
+    public function setTitle($value)
+    {
+        $this->__set('title', $value);
+    }
+
     public function getVersion()
     {
         return $this->__get('version');
     }
 
-    /**
-     * @return mixed|null
-     */
+    public function setVersion($value)
+    {
+        $this->__set('version', $value);
+    }
+
+    public function getLatestVersion()
+    {
+        return $this->__get('latest_version');
+    }
+
+    public function setLatestVersion($value)
+    {
+        $this->__set('latest_version', $value);
+    }
+
     public function getAuthor()
     {
         return $this->__get('author');
     }
 
-    /**
-     * @return mixed|null
-     */
+    public function setAuthor($value)
+    {
+        $this->__set('author', $value);
+    }
+
     public function getDescription()
     {
         return $this->__get('description');
     }
 
-    /**
-     * @return mixed|null
-     */
-    public function getPackageType()
+    public function setDescription($value)
     {
-        return $this->__get('package_type');
+        $this->__set('description', $value);
     }
 
-    /**
-     * @return mixed|null
-     */
+    public function getAppsIcon()
+    {
+        return $this->__get('apps_icon');
+    }
+
+    public function setAppsIcon($value)
+    {
+        $this->__set('apps_icon', $value);
+    }
+
     public function getName()
     {
         return $this->__get('name');
     }
 
-    /**
-     * @return mixed|null
-     */
-    public function getTitle()
+    public function setName($value)
     {
-        return $this->__get('name');
+        $this->__set('name', $value);
     }
 
-    /**
-     * @return mixed|null
-     */
     public function getPath()
     {
         return $this->__get('path');
     }
 
-    /**
-     * @return mixed|null
-     */
-    public function getIcon()
+    public function setPath($value)
     {
-        return $this->__get('apps_icon');
+        $this->__set('path', $value);
     }
 
     /**
-     * @return mixed|null
+     * @return bool
      */
-    public function getPriority()
+    public function canEnable()
     {
-        return $this->__get('priority');
+        return !$this->isRequired() and !$this->isActive();
+    }
+
+    /**
+     * @return bool
+     */
+    public function canDisable()
+    {
+        return !$this->isRequired() and $this->isActive();
+    }
+
+    /**
+     * @return bool
+     */
+    public function canUninstall()
+    {
+        return !$this->isRequired();
+    }
+
+    /**
+     * @return bool
+     */
+    public function canUpgrade()
+    {
+        return $this->getLatestVersion()
+            and version_compare($this->getVersion(),
+                $this->getLatestVersion()) > 0;
+    }
+
+    /**
+     * @return bool
+     */
+    public function canExport()
+    {
+        return true;
     }
 }

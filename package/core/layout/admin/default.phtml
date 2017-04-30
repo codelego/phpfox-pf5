@@ -5,12 +5,47 @@
 </head>
 <body class="">
 <header>
-    <?= $this->render('layout/header', []) ?>
+
+    <?php $login = Phpfox::get('auth')->getLogin(); ?>
+    <div class="navbar">
+        <?= \Phpfox::get('breadcrumb')->render() ?>
+        <form role="search" class="navbar-form navbar-right global-search-holder"
+              onsubmit="return false;">
+            <input type="text" placeholder="<?= _text('Search ...') ?>"
+                   class="form-control">
+        </form>
+    </div>
 </header>
-<?php echo @$layout_content ?>
-<footer>
-    <?= $this->render('layout/footer', []) ?>
-</footer>
+<div class="top-left">
+</div>
+<aside>
+    <div class="top">PHPFOX</div>
+    <?= \Phpfox::get('menu.admin.primary')->render('aside', []) ?>
+    <ul>
+        <li><a role="button">logged as <?= $login->getName() ?></a></li>
+        <li><a href="<?= _url('logout') ?>"><?= _text('Logout') ?></a></li>
+    </ul>
+</aside>
+<section class="main-wrapper">
+    <?= Phpfox::get('menu.admin.secondary')->render('toolbar',['level0'=>'btn-group toolbar pull-right']); ?>
+    <div class="container">
+        <?php if (Phpfox::get('registry')->has('search.filter')): ?>
+            <div class="main-search-wrapper">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form class="form-inline">
+                            <?= Phpfox::get('form_render')->render(Phpfox::get('registry')
+                                ->get('search.filter')) ?>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+    <div class="content-wrapper">
+        <?php echo @$layout_content ?>
+    </div>
+</section>
 <?= Phpfox::get('assets')->getShutdownHtml() ?>
 </body>
 </html>

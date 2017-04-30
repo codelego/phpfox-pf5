@@ -5,8 +5,16 @@ use Phpfox\Action\ActionController;
 
 class AdminAuthController extends ActionController
 {
+
     public function actionLogin()
     {
+        \Phpfox::get('auth');
+
+        \Phpfox::get('layouts')->setThemeId('admin');
+
+        \Phpfox::get('require_js')
+            ->deps('package/core/admin');
+
         \Phpfox::get('template')
             ->preferThemes(['admin']);
 

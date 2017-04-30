@@ -39,7 +39,7 @@ class RequireJs
     /**
      * @var array
      */
-    protected $_deps = ['jquery', 'bootstrap', 'main'];
+    protected $_deps = ['jquery','underscore', 'bootstrap', 'main'];
 
     /**
      * @var array

@@ -1,31 +1,27 @@
-<?= $this->render('core/admin-mail/menu', []) ?>
-<div class="container">
-    <div class="table-responsive">
-        <table class="table table-admin">
+<div class="table-responsive">
+    <table class="table table-admin">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Version</th>
+            <th>Author</th>
+            <th>Active</th>
+        </tr>
+        <?php foreach ($items as $item): ?>
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Version</th>
-                <th>Author</th>
-                <th>Active</th>
+                <td><?= $item['id'] ?></td>
+                <td><?= $item['var_name'] ?></td>
+                <td><?= $item['version'] ?></td>
+                <td><?= $item['author'] ?></td>
+                <td>
+                    <label for="_">
+                        <input name="item[active][]" id="_"
+                               type="checkbox" <?= $item['is_active']
+                            ? 'checked' : '' ?>
+                               value="<?= $item['id'] ?>"/>
+                    </label>
+                </td>
             </tr>
-            <?php foreach ($items as $item): ?>
-                <tr>
-                    <td><?= $item['id'] ?></td>
-                    <td><?= $item['var_name'] ?></td>
-                    <td><?= $item['version'] ?></td>
-                    <td><?= $item['author'] ?></td>
-                    <td>
-                        <label for="_">
-                            <input name="item[active][]" id="_"
-                                   type="checkbox" <?= $item['is_active']
-                                ? 'checked' : '' ?>
-                                   value="<?= $item['id'] ?>"/>
-                        </label>
-
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-    </div>
+        <?php endforeach; ?>
+    </table>
 </div>

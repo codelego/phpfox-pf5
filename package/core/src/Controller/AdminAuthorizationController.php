@@ -9,8 +9,16 @@ use Phpfox\View\ViewModel;
 
 class AdminAuthorizationController extends AdminController
 {
+
     public function actionIndex()
     {
+        \Phpfox::get('menu.admin.secondary')
+            ->add([
+                'name'  => 'add_role',
+                'label' => _text('Add Role'),
+                'route' => 'admin.core.authorization.add',
+            ]);
+
         $items = \Phpfox::with('core_role')
             ->select()
             ->execute()

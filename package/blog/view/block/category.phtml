@@ -1,0 +1,5 @@
+<ul class="menu-category">
+    <?php foreach($items as $item): ?>
+        <li><a href="<?= $item->getUrl()?>"><?= $item->getTitle(); ?></a></li>
+    <?php endforeach?>
+</ul>

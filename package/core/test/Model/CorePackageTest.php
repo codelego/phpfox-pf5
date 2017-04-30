@@ -2,53 +2,103 @@
 
 namespace Neutron\Core\Model;
 
-
 class CorePackageTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     *
-     */
+    public function testBase()
+    {
+        $obj = new CorePackage(array (  'id' => 1,  'type_id' => 'app',  'is_required' => 1,  'is_active' => 1,  'theme_id' => NULL,  'priority' => 1,  'title' => 'Core',  'version' => '5.0.1',  'latest_version' => NULL,  'author' => 'phpFox',  'description' => NULL,  'apps_icon' => '',  'name' => 'core',  'path' => 'package/core',));
+
+        $this->assertSame('core_package', $obj->getModelId());
+        $this->assertSame(1, $obj->getId());
+        $this->assertSame('app', $obj->getTypeId());
+        $this->assertSame(1, $obj->isRequired());
+        $this->assertSame(1, $obj->isActive());
+        $this->assertSame('', $obj->getThemeId());
+        $this->assertSame(1, $obj->getPriority());
+        $this->assertSame('Core', $obj->getTitle());
+        $this->assertSame('5.0.1', $obj->getVersion());
+        $this->assertSame('', $obj->getLatestVersion());
+        $this->assertSame('phpFox', $obj->getAuthor());
+        $this->assertSame('', $obj->getDescription());
+        $this->assertSame('', $obj->getAppsIcon());
+        $this->assertSame('core', $obj->getName());
+        $this->assertSame('package/core', $obj->getPath());
+    }
+
     public function testParameters()
     {
-        $obj = new CorePackage([
-            'id'           => 14,
-            'is_app'       => 1,
-            'is_theme'     => 0,
-            'is_library'   => 0,
-            'is_core'      => 0,
-            'is_active'    => 0,
-            'theme_id'     => 0,
-            'is_language'  => 0,
-            'priority'     => 12,
-            'var_name'     => 1,
-            'version'      => '[example version]',
-            'author'       => '[example author]',
-            'description'  => '[example package description]',
-            'apps_icon'    => '[example icon]',
-            'package_name' => '[example name]',
-            'path'         => '[example path]',
-            'package_type' => 16,
-        ]);
+        $obj = new CorePackage();
 
-        $this->assertEquals('core_package', $obj->getModelId());
+        // set data
+        $obj->setId(1);
+        $obj->setTypeId('app');
+        $obj->setRequired(1);
+        $obj->setActive(1);
+        $obj->setThemeId('');
+        $obj->setPriority(1);
+        $obj->setTitle('Core');
+        $obj->setVersion('5.0.1');
+        $obj->setLatestVersion('');
+        $obj->setAuthor('phpFox');
+        $obj->setDescription('');
+        $obj->setAppsIcon('');
+        $obj->setName('core');
+        $obj->setPath('package/core');
 
-        $this->assertEquals(1, $obj->isApp());
-        $this->assertEquals(0, $obj->isTheme());
-        $this->assertEquals(0, $obj->isLibrary());
-        $this->assertEquals(0, $obj->isLanguage());
-        $this->assertEquals(0, $obj->isCore());
-        $this->assertEquals(0, $obj->isActive());
-        $this->assertEquals(12, $obj->getPriority());
-        $this->assertEquals(0, $obj->getName());
-        $this->assertEquals(0, $obj->getTitle());
-        $this->assertEquals('[example path]', $obj->getPath());
-        $this->assertEquals('[example icon]', $obj->getIcon());
-        $this->assertEquals('[example author]', $obj->getAuthor());
-        $this->assertEquals('[example version]', $obj->getVersion());
-        $this->assertEquals(0, $obj->getThemeId());
-        $this->assertEquals(16, $obj->getPackageType());
-        $this->assertEquals(14, $obj->getId());
-        $this->assertEquals('[example package description]',
-            $obj->getDescription());
+        // assert same data
+        $this->assertSame('core_package', $obj->getModelId());
+        $this->assertSame(1, $obj->getId());
+        $this->assertSame('app', $obj->getTypeId());
+        $this->assertSame(1, $obj->isRequired());
+        $this->assertSame(1, $obj->isActive());
+        $this->assertSame('', $obj->getThemeId());
+        $this->assertSame(1, $obj->getPriority());
+        $this->assertSame('Core', $obj->getTitle());
+        $this->assertSame('5.0.1', $obj->getVersion());
+        $this->assertSame('', $obj->getLatestVersion());
+        $this->assertSame('phpFox', $obj->getAuthor());
+        $this->assertSame('', $obj->getDescription());
+        $this->assertSame('', $obj->getAppsIcon());
+        $this->assertSame('core', $obj->getName());
+        $this->assertSame('package/core', $obj->getPath());
+    }
+
+    public function testSave()
+    {
+        $obj = new CorePackage(array (  'id' => 1,  'type_id' => 'app',  'is_required' => 1,  'is_active' => 1,  'theme_id' => NULL,  'priority' => 1,  'title' => 'Core',  'version' => '5.0.1',  'latest_version' => NULL,  'author' => 'phpFox',  'description' => NULL,  'apps_icon' => '',  'name' => 'core',  'path' => 'package/core',));
+
+        $obj->save();
+
+        /** @var CorePackage $obj */
+        $obj = \Phpfox::with('core_package')
+            ->select()->where('id=?',1)->first();
+
+        $this->assertSame('core_package', $obj->getModelId());
+        $this->assertSame(1, $obj->getId());
+        $this->assertSame('app', $obj->getTypeId());
+        $this->assertSame(1, $obj->isRequired());
+        $this->assertSame(1, $obj->isActive());
+        $this->assertSame('', $obj->getThemeId());
+        $this->assertSame(1, $obj->getPriority());
+        $this->assertSame('Core', $obj->getTitle());
+        $this->assertSame('5.0.1', $obj->getVersion());
+        $this->assertSame('', $obj->getLatestVersion());
+        $this->assertSame('phpFox', $obj->getAuthor());
+        $this->assertSame('', $obj->getDescription());
+        $this->assertSame('', $obj->getAppsIcon());
+        $this->assertSame('core', $obj->getName());
+        $this->assertSame('package/core', $obj->getPath());
+    }
+
+    public static function setUpBeforeClass()
+    {
+        \Phpfox::with('core_package')
+            ->delete()->where('id=?',1)->execute();
+    }
+
+    public static function tearDownAfterClass()
+    {
+        \Phpfox::with('core_package')
+            ->delete()->where('id=?',1)->execute();
     }
 }

@@ -53,19 +53,8 @@ class AddBlogPost extends Form
                     'class'     => 'form-control',
                 ],
             'label'      => _text('Category Id'),
-            'required'   => true,
         ]);
-        $this->addElement([
-            'factory'    => 'text',
-            'name'       => 'publish_at',
-            'attributes' =>
-                [
-                    'maxlength' => PHPFOX_TITLE_LENGTH,
-                    'class'     => 'form-control',
-                ],
-            'label'      => _text('Publish At'),
-            'required'   => true,
-        ]);
+
         $this->addElement([
             'factory'    => 'text',
             'name'       => 'privacy_id',
@@ -87,18 +76,6 @@ class AddBlogPost extends Form
                 ],
             'label'      => _text('Status Id'),
             'required'   => true,
-        ]);
-        $this->addElement([
-            'factory'    => 'yesno',
-            'name'       => 'is_approved',
-            'label'      => _text('Is Approved'),
-            'required'   => true,
-            'value'      => 1,
-            'attributes' =>
-                [
-                    'maxlength' => PHPFOX_TITLE_LENGTH,
-                    'class'     => 'form-control',
-                ],
         ]);
         $this->addElement([
             'factory'    => 'yesno',

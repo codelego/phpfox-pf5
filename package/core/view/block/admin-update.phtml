@@ -1,0 +1,14 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">Recent News</div>
+    </div>
+    <div class="panel-body">
+        <?php foreach($items as $item): ?>
+            <div>
+                <h5><a target="_blank" href="<?= $item['link']?>" rel="nofollow"><?= $item['title'] ?></a></h5>
+                <small>posted on <i><?= $item['date']?></i></small>
+                <p class="sr-only"><?= $item['description'] ?></p>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>

@@ -1,4 +1,5 @@
 <?php
+
 namespace Phpfox\Form;
 
 use Phpfox\Error\MessageContainer;

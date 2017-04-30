@@ -77,6 +77,7 @@
     'file_upload' => 'Phpfox\\Form\\FileUploadRender',
     'textarea' => 'Phpfox\\Form\\TextareaRender',
     'yesno' => 'Phpfox\\Form\\YesnoRender',
+    'static_text' => 'Phpfox\\Form\\StaticTextRender',
   ),
   'job.handlers' => 
   array (
@@ -129,30 +130,32 @@
   array (
     'navbar' => 'Phpfox\\Navigation\\NavbarDecorator',
     'nav' => 'Phpfox\\Navigation\\NavDecorator',
+    'aside' => 'Phpfox\\Navigation\\AsideDecorator',
+    'toolbar' => 'Phpfox\\Navigation\\ToolbarDecorator',
   ),
   'services' => 
   array (
-    'dispatcher' =>
+    'dispatcher' => 
     array (
       0 => NULL,
       1 => 'Phpfox\\Action\\Dispatcher',
     ),
-    'request' =>
+    'request' => 
     array (
       0 => 'Phpfox\\Action\\RequestFactory',
       1 => NULL,
     ),
-    'response' =>
+    'response' => 
     array (
       0 => 'Phpfox\\Action\\ResponseFactory',
       1 => NULL,
     ),
-    'response.ajax' =>
+    'response.ajax' => 
     array (
       0 => NULL,
       1 => 'Phpfox\\Action\\AjaxResponse',
     ),
-    'response.html' =>
+    'response.html' => 
     array (
       0 => NULL,
       1 => 'Phpfox\\Action\\HtmlResponse',
@@ -162,11 +165,6 @@
       0 => NULL,
       1 => 'Phpfox\\Assets\\AssetsFacades',
       2 => NULL,
-    ),
-    'breadcrumb' => 
-    array (
-      0 => NULL,
-      1 => 'Phpfox\\Assets\\Breadcrumb',
     ),
     'require_js' => 
     array (
@@ -279,6 +277,11 @@
       0 => NULL,
       1 => 'Phpfox\\Authorization\\PermissionProviderInterface',
     ),
+    'breadcrumb' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Breadcrumb\\Breadcrumb',
+    ),
     'cache.local' => 
     array (
       0 => 'Phpfox\\Cache\\CacheStorageFactory',
@@ -368,6 +371,11 @@
       1 => NULL,
       2 => 'dev.log',
     ),
+    'error.handler' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Logger\\ErrorHandler',
+    ),
     'mailer' => 
     array (
       0 => NULL,
@@ -383,6 +391,31 @@
     array (
       0 => NULL,
       1 => 'Phpfox\\Navigation\\NavigationManager',
+    ),
+    'menu.main.primary' => 
+    array (
+      0 => 'Phpfox\\Navigation\\NavigationFactory',
+      1 => 'main',
+    ),
+    'menu.main.secondary' => 
+    array (
+      0 => 'Phpfox\\Navigation\\NavigationFactory',
+      1 => NULL,
+    ),
+    'menu.main.mini' => 
+    array (
+      0 => 'Phpfox\\Navigation\\NavigationFactory',
+      1 => 'main.mini',
+    ),
+    'menu.admin.primary' => 
+    array (
+      0 => 'Phpfox\\Navigation\\NavigationFactory',
+      1 => 'admin',
+    ),
+    'menu.admin.secondary' => 
+    array (
+      0 => 'Phpfox\\Navigation\\NavigationFactory',
+      1 => NULL,
     ),
     'package' => 'Phpfox\\Package\\PackageManager',
     'package.loader' => 
@@ -432,6 +465,11 @@
       0 => NULL,
       1 => 'Phpfox\\Support\\InterventionImageManager',
     ),
+    'registry' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Support\\Registry',
+    ),
     'validator' => 
     array (
       0 => NULL,
@@ -441,11 +479,6 @@
     array (
       0 => NULL,
       1 => 'Phpfox\\View\\PhpTemplate',
-    ),
-    'widgets' => 
-    array (
-      0 => NULL,
-      1 => 'Phpfox\\Widget\\WidgetManager',
     ),
   ),
   'session.drivers' => 

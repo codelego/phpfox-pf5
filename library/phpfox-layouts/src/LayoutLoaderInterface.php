@@ -5,8 +5,10 @@ namespace Phpfox\Layout;
 interface LayoutLoaderInterface
 {
     /**
-     * @param string $pageName
+     * @param string $pageId
      * @param string $themeId
+     *
+     * @return LayoutPage
      */
-    public function load($pageName, $themeId);
+    public function loadForRender($pageId, $themeId);
 }

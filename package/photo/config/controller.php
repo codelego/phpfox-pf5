@@ -1,4 +1,7 @@
 <?php
-namespace Neutron\Photo;
 
-return [];
+namespace Neutron\Photo\Controller;
+
+return [
+    'photo.index' => IndexController::class,
+];

@@ -1,8 +1,6 @@
-define(['jquery', 'package/core/extras', 'package/core/sha1'], function () {
+define(['jquery', 'package/core/extras'], function () {
 
-    var main, commands;
-    main = {};
-    commands = [];
+    var main = {}, commands=[], _ = require('underscore');
 
     //###############################################//
     // configurations
@@ -89,17 +87,23 @@ define(['jquery', 'package/core/extras', 'package/core/sha1'], function () {
     // register commands
     //###############################################//
     main.cmd('toggle', function (btn) {
-        var rel = btn.data('rel').split('|'),
-            classes = btn.data('css') || 'hide';
+        var prop = btn.data('rel').split(':'),
+            rel = prop[0].split('|'),
+            classes = prop[1];
 
         switch (rel.length) {
             case 0:
                 btn.toggleClass(classes);
                 break;
             case 2:
-                btn.closest(rel[0])
-                    .find(rel[1])
-                    .toggleClass(classes);
+                if (rel[1] != '') {
+                    btn.closest(rel[0])
+                        .find(rel[1])
+                        .toggleClass(classes);
+                } else {
+                    btn.closest(rel[0])
+                        .toggleClass(classes);
+                }
                 break;
             case 1:
                 $(rel[0]).toggleClass(classes);
@@ -148,19 +152,27 @@ define(['jquery', 'package/core/extras', 'package/core/sha1'], function () {
         if (typeof commands[name] != 'function')
             return false;
 
-        evt.preventDefault();
+        evt.stopPropagation();
 
         commands[name](ele, evt);
 
         return false;
+    }).on('core.moderator.check_all', function () {
+        $('input.item_checkbox').prop('checked', true)
+    }).on('core.moderator.uncheck_all', function () {
+        $('input.item_checkbox').prop('checked', false)
+    }).on('change', '.moderation-check-all', function () {
+        var ele = $(this),
+            checked = ele.prop('checked');
+        ele.prop('checked', checked ? true : false);
+        $(document).trigger(ele.prop('checked')?'core.moderator.check_all':'core.moderator.uncheck_all');
+    }).on('change','.item_checkbox',function(){
+
     }).on('submit', '[data-submit]', function (evt) {
         var ele = $(this),
             name = ele.data('submit');
 
-        if (!commands.hasOwnProperty(name))
-            return false;
-
-        if (typeof commands[name] != 'function')
+        if (!commands.hasOwnProperty(name) || typeof commands[name] != 'function')
             return false;
 
         evt.preventDefault();

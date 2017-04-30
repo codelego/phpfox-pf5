@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Assets;
+namespace Phpfox\Breadcrumb;
 
 
 class BreadcrumbTest extends \PHPUnit_Framework_TestCase
@@ -9,7 +9,7 @@ class BreadcrumbTest extends \PHPUnit_Framework_TestCase
     {
         $obj = new Breadcrumb();
 
-        $this->assertEmpty($obj->getHtml());
+        $this->assertEmpty($obj->render());
 
         $obj->add([
             'label'       => 'Add label',
@@ -18,6 +18,6 @@ class BreadcrumbTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $obj->clear();
-        $this->assertEmpty($obj->getHtml());
+        $this->assertEmpty($obj->render());
     }
 }

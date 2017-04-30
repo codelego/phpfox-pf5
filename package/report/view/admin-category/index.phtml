@@ -1,9 +1,9 @@
-<div class="container">
+<div class="panel-default">
     <div class="table-responsive">
         <table class="table table-admin">
             <thead>
             <tr>
-                <th width="30px">ID</th>
+                <th class="w30">ID</th>
                 <th>Name</th>
                 <th>Active?</th>
                 <th>Option</th>
@@ -15,9 +15,11 @@
                     <td><?= $item->getId() ?></td>
                     <td><?= $item->getName() ?></td>
                     <td><?= _yesno($item->isActive()) ?></td>
-                    <td>
+                    <td class="dots">
                         <a href="<?= _url('admin.report.category.edit',
                             ['id' => $item->getId()]) ?>"><?= _text('edit') ?></a>
+                        <a href="<?= _url('admin.report.delete',
+                            ['id' => $item->getId()]) ?>"><?= _text('delete') ?></a>
                     </td>
                 </tr>
             <?php endforeach; ?>

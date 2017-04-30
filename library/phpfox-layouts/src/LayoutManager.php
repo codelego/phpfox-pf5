@@ -12,6 +12,11 @@ class LayoutManager extends ViewModel
     protected $pageName;
 
     /**
+     * @var string
+     */
+    protected $themeId ='default';
+
+    /**
      * @return $this
      */
     public function prepare()
@@ -22,23 +27,44 @@ class LayoutManager extends ViewModel
 
         \Phpfox::get('assets')
             ->addScripts('require', null)
+            ->addStyle('custom', null)
             ->prependStyle('main', null)
             ->prependStyle('font', null);
 
         _emit('onViewLayoutPrepare', $this);
 
-        $content = '';
+        $layoutPage = \Phpfox::get('layout_loader')->loadForRender($this->getPageName(), $this->getThemeId());
 
-        $data = \Phpfox::get('response')->getData();
-
-        if ($data instanceof ViewModel) {
-            $content = $data->render();
-        }
+        $content  = $layoutPage->render();
 
         $this->assign([
             'layout_content' => $content,
         ]);
 
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getThemeId()
+    {
+        if(null == $this->themeId){
+            $this->setThemeId(\Phpfox::get('core.themes')->getDefault()->getId());
+        }
+        return $this->themeId;
+    }
+
+    /**
+     * @param string $themeId
+     * @return $this
+     */
+    public function setThemeId($themeId)
+    {
+        $this->themeId = $themeId;
+
+        \Phpfox::get('template')
+            ->preferThemes([$themeId]);
         return $this;
     }
 
@@ -62,5 +88,27 @@ class LayoutManager extends ViewModel
     {
         $this->pageName = $pageName;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStyleBaseUrl()
+    {
+        return '/pf5/static/' . 'themes/' . $this->getThemeId() . '/css';
+    }
+
+
+    /**
+     * @param string $cls
+     * @param array  $params
+     *
+     * @return string
+     */
+    public function showElement($cls, $params = [])
+    {
+        $params ['block_class'] = $cls;
+
+        return (new LayoutElement($params))->render();
     }
 }

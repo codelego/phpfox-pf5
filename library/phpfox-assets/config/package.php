@@ -5,7 +5,6 @@ namespace Phpfox\Assets;
 return [
     'services' => [
         'assets'                      => [null, AssetsFacades::class, null],
-        'breadcrumb'                  => [null, Breadcrumb::class,],
         'require_js'                  => [null, RequireJs::class,],
         'require_css'                 => [null, RequireCss::class,],
         'html.title'                  => [null, HeadTitle::class],

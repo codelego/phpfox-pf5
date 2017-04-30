@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Core\Controller;
 
 use Neutron\Core\Form\UploadPackage;
@@ -6,36 +7,35 @@ use Phpfox\View\ViewModel;
 
 class AdminPackageController extends AdminController
 {
+    protected function initialized()
+    {
+        \Phpfox::get('breadcrumb')
+            ->add([
+                'link'  => _url('admin.core.package'),
+                'label' => _text('Package'),
+            ], true);
+    }
+
     public function actionIndex()
     {
-        $db = \Phpfox::get('db');
-
-        $packages = $db->select('*')
-            ->from(':core_package')
-            ->execute()
+        $packages = \Phpfox::with('core_package')
+            ->select()
+            ->order('is_required', -1)
+            ->order('title', 1)
             ->all();
 
-        $vm = new ViewModel([
+        return new ViewModel([
             'items' => $packages,
-        ]);
-        $vm->setTemplate('core/admin-package/index');
-
-        return $vm;
+        ], 'core/admin-package/index');
     }
 
     public function actionAdd()
     {
-        $vm = new ViewModel();
-
         $form = new UploadPackage();
 
-        $vm->assign([
+        return new ViewModel([
             'heading' => 'Upload Package',
             'form'    => $form,
-        ]);
-
-        $vm->setTemplate('layout/form-edit');
-
-        return $vm;
+        ], 'layout/form-edit');
     }
 }

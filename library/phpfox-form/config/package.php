@@ -13,6 +13,7 @@ return [
         'file_upload'    => FileUploadRender::class,
         'textarea'       => TextareaRender::class,
         'yesno'          => YesnoRender::class,
+        'static_text'    => StaticTextRender::class,
     ],
     'form.elements' => [
         'yesno'        => YesnoField::class,

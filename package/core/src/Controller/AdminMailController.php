@@ -6,6 +6,12 @@ use Phpfox\View\ViewModel;
 
 class AdminMailController extends AdminController
 {
+    protected function initialized()
+    {
+        \Phpfox::get('breadcrumb')
+            ->add(['link' => '', 'label' => 'Mail'], true);
+    }
+
     public function actionIndex()
     {
         $items = \Phpfox::db()
@@ -15,13 +21,9 @@ class AdminMailController extends AdminController
             ->execute()
             ->all();
 
-        $vm = new ViewModel([
+        return new ViewModel([
             'items' => $items,
-        ]);
-
-        $vm->setTemplate('core/admin-mail/index');
-
-        return $vm;
+        ], 'core/admin-mail/index');
     }
 
     public function actionTransports()
@@ -31,17 +33,17 @@ class AdminMailController extends AdminController
             ->execute()
             ->all();
 
-        $vm = new ViewModel();
-
-        $vm->setTemplate('core/admin-mail/transports');
-
-        $vm->assign(['items' => $items]);
-
-        return $vm;
+        return new ViewModel([
+            'items' => $items,
+        ], 'core/admin-mail/transports');
     }
 
     public function actionAddTransport()
     {
+        \Phpfox::get('breadcrumb')
+            ->add(['link' => '', 'label' => 'Mail'], true)
+            ->add(['link' => '', 'label' => _text('Add Transport')]);
+
         $vm = new ViewModel();
 
         $request = \Phpfox::get('request');

@@ -137,11 +137,6 @@
     0 => 'library/phpfox-view/src',
     1 => 'library/phpfox-view/test',
   ),
-  'Phpfox\\Widget' => 
-  array (
-    0 => 'library/phpfox-widget/src',
-    1 => 'library/phpfox-widget/test',
-  ),
   'Neutron\\Core' => 
   array (
     0 => 'package/core/src',

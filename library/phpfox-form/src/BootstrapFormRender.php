@@ -1,4 +1,5 @@
 <?php
+
 namespace Phpfox\Form;
 
 class BootstrapFormRender implements FormRenderInterface
@@ -67,10 +68,11 @@ class BootstrapFormRender implements FormRenderInterface
             $array[] = $facade->render($button);
         }
 
-        if(empty($array))
+        if (empty($array)) {
             return '';
+        }
 
-        return '<div class="form-group">'.implode('', $array) .'</div>';
+        return '<div class="form-group">' . implode('', $array) . '</div>';
     }
 
     /**
@@ -80,19 +82,12 @@ class BootstrapFormRender implements FormRenderInterface
      */
     public function render($form)
     {
-        $errors = $form->getErrorHtml('alert');
-        $desc = $this->renderDesc($form);
-        $buttons = $this->renderButtons($form);
-        $title = $this->renderTitle($form);
-        $elements = $this->renderElements($form);
-
-        if ($errors) {
-            $desc = '';
-        }
-
-        return $form->open() . $title
-            . $desc . $errors
-            . $elements . $buttons
+        return $form->open() .
+              $this->renderTitle($form)
+            . $this->renderDesc($form)
+            . $form->getErrorHtml('alert')
+            . $this->renderElements($form)
+            . $this->renderButtons($form)
             . $form->close();
     }
 }

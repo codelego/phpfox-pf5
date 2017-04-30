@@ -6,43 +6,21 @@ namespace Phpfox\Navigation;
 class NavbarDecorator implements DecoratorInterface
 {
     /**
-     * render from section
-     *
-     * @var string
-     */
-    protected $section;
-
-    /**
-     * @var NavigationItem[]
-     */
-    protected $items = [];
-
-    /**
-     * Menu name
-     *
-     * @var string
-     */
-    protected $menu;
-
-    /**
-     * List of active items
-     *
-     * @var array|string
-     */
-    protected $active;
-
-    /**
      * max number to render
      *
      * @var number
      */
-    protected $level;
-
+    private $level = 4;
 
     /**
      * @var array
      */
-    protected $context
+    private $context = [];
+
+    /**
+     * @var array
+     */
+    private $defaults
         = [
             'level0'       => 'nav navbar-nav',
             'level1'       => 'dropdown-menu',
@@ -54,37 +32,12 @@ class NavbarDecorator implements DecoratorInterface
             'moreLabel'    => 'More',
         ];
 
-
-    public function __construct(
-        $menu,
-        $section = null,
-        $active = [],
-        $level = 1,
-        $context = []
-    ) {
-
-        $this->menu = $menu;
-        $this->section = $section;
-        $this->active = $active;
-        $this->level = $level;
-        $this->context = array_merge($this->context, $context);
-
-    }
-
-
-    public function render()
+    public function render(Navigation $navigation, $context = [])
     {
-        $this->items = \Phpfox::get('navigation.loader')->load($this->menu);
-
-        if (empty($this->items)) {
-            return '';
-        }
-
-        $this->prepareItems();
-        $this->prepareActiveItems();
-
+        $this->context = array_merge($this->defaults, $context);
         $content = [];
-        foreach ($this->items as $item) {
+
+        foreach ($navigation->items as $item) {
             try {
                 $html = $this->renderItem(0, $item);
                 if (!empty($html)) {
@@ -102,16 +55,6 @@ class NavbarDecorator implements DecoratorInterface
         $class = $this->context['level0'];
 
         return '<ul class="' . $class . '">' . implode('', $content) . '</ul>';
-    }
-
-    public function prepareItems()
-    {
-
-    }
-
-    public function prepareActiveItems()
-    {
-
     }
 
     /**

@@ -8,6 +8,13 @@ class ActionController
     public function __construct()
     {
         $this->initialize();
+
+        $this->initialized();
+    }
+
+    protected function initialized()
+    {
+
     }
 
     protected function initialize()

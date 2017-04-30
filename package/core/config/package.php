@@ -17,6 +17,7 @@ return [
     'static.css'      => [
         'main'          => '@css/main.css',
         'font'          => '//fonts.googleapis.com/css?family=Roboto',
+        'custom'        => '@css/custom.css',
         'admin.login'   => '@css/admin-login.css',
         'core-test.css' => '@css/core-test.css',
     ],
@@ -51,11 +52,13 @@ return [
         'core.themes'            => [null, Service\ThemeManager::class],
         'core.roles'             => [null, Service\Roles::class],
         'authorization.provider' => [null, Service\PermissionProvider::class],
+        'layout_loader'          => [null, Service\LayoutLoader::class],
     ],
     'templates'       => _view_map([
         'default' => [
             'core'   => 'package/core/view',
             'layout' => 'package/core/layout/default',
+            'grid'   => 'package/core/layout/grid',
         ],
         'admin'   => ['layout' => 'package/core/layout/admin'],
     ]),

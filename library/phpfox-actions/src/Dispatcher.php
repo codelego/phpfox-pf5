@@ -135,7 +135,7 @@ class Dispatcher
         } while (!$this->completed and ++$runCounter < self::FORWARD_LIMIT);
 
         if (!$this->completed) {
-            exit("Can not pass thought");
+            throw $this->lastException;
         }
 
         return true;

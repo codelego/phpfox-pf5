@@ -7,6 +7,11 @@ use Phpfox\View\ViewModel;
 
 class AdminThemeController extends AdminController
 {
+    protected function initialized()
+    {
+        \Phpfox::get('breadcrumb')->add(['label' => 'Themes']);
+    }
+
     public function actionIndex()
     {
         $request = \Phpfox::get('request');
@@ -57,7 +62,6 @@ class AdminThemeController extends AdminController
      */
     public function actionEdit()
     {
-        $vm = new ViewModel();
         $form = new ThemeEditor();
         $request = \Phpfox::get('request');
         $id = $request->get('id');
@@ -73,14 +77,10 @@ class AdminThemeController extends AdminController
 
         $form->populate($params);
 
-        $vm->assign([
+        return new ViewModel([
             'heading' => '',
             'form'    => $form,
-        ]);
-
-        $vm->setTemplate('layout/form-edit');
-
-        return $vm;
+        ], 'layout/form-edit');
     }
 
     public function actionDebug()
@@ -97,8 +97,6 @@ class AdminThemeController extends AdminController
             $theme = \Phpfox::get('core.themes')
                 ->findById($id);
         }
-
-        $vm->setTemplate('core/admin-theme/debug');
 
         $themes = \Phpfox::get('core.themes');
 
@@ -120,13 +118,11 @@ class AdminThemeController extends AdminController
             $paths[$index] = str_replace(PHPFOX_DIR, '/', $value);
         }
 
-        $vm->assign([
+        return new ViewModel([
             'files'     => $files,
             'main'      => $main,
             'paths'     => $paths,
             'variables' => $variables,
-        ]);
-
-        return $vm;
+        ], 'core/admin-theme/debug');
     }
 }

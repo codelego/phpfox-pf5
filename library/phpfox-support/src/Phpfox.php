@@ -26,6 +26,11 @@ namespace {
         private static $initialized = false;
 
         /**
+         * @var string
+         */
+        private static $version = '4.5.2';
+
+        /**
          * Initialize method
          */
         public static function init()
@@ -41,13 +46,6 @@ namespace {
             self::$initialized = true;
             self::$service = new ServiceManager();
             self::$config = new Configs();
-
-//        set_error_handler(function ($num, $msg, $file, $line, $context) {
-//            var_dump(debug_backtrace(1));exit;
-//        });
-//        set_exception_handler(function ($exception) {
-//            var_dump($exception);
-//        });
         }
 
         /**
@@ -61,6 +59,8 @@ namespace {
 
         public static function bootstrap()
         {
+            Phpfox::get('error.handler')->register();
+
             Phpfox::get('mvc.events')->initialize();
         }
 
@@ -198,6 +198,14 @@ namespace {
         public static function findById($model, $id)
         {
             return self::$service->get('models')->findById($model, $id);
+        }
+
+        /**
+         * @return string
+         */
+        public static function getVersion()
+        {
+            return self::$version;
         }
     }
 }

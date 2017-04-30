@@ -10,12 +10,24 @@ class IndexController extends ActionController
 {
     public function actionIndex()
     {
-        return new ViewModel([], 'blog/index/index');
+        $items =  \Phpfox::with('blog_post')->select()->all();
+
+        return new ViewModel([
+            'items'=>$items,
+        ], 'blog/index/index');
     }
 
     public function actionAdd()
     {
         $form = new AddBlogPost();
+
+        $request =  \Phpfox::get('request');
+
+        if($request->isPost() and $form->isValid($request->all())){
+            $data = $form->getData();
+            $entry  = \Phpfox::with('blog_post')->create($data);
+            $entry->save();
+        }
 
         return new ViewModel([
             'form'    => $form,

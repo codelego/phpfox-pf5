@@ -58,7 +58,7 @@ class ExternalStyle implements HtmlElementInterface
 
     public function getHtml()
     {
-        $base = \Phpfox::get('core.themes')->getCssBaseUrl();
+        $base = \Phpfox::get('layouts')->getStyleBaseUrl();
 
         return implode(PHP_EOL, array_map(function ($v) use ($base) {
             $v['href'] = str_replace('@css', $base, $v['href']);

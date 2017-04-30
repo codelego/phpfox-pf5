@@ -2,7 +2,6 @@
 
 namespace Phpfox\Navigation;
 
-
 class NavigationManager
 {
     /**
@@ -11,11 +10,26 @@ class NavigationManager
     CONST MAX_LEVEL = 4;
 
     /**
+     * @param Navigation $navigation
+     * @param string     $decorator
+     * @param array      $context
+     *
+     * @return mixed
+     */
+    public function show(Navigation $navigation, $decorator, $context = [])
+    {
+        $class = \Phpfox::getParam('navigation.decorators', $decorator);
+
+        /** @var DecoratorInterface $decorator */
+        $decorator = new $class;
+
+        return $decorator->render($navigation, $context);
+    }
+
+    /**
      * @param string $decorator
      * @param string $menu
      * @param string $section
-     * @param array  $active
-     * @param int    $level
      * @param array  $context
      *
      * @return string
@@ -24,8 +38,6 @@ class NavigationManager
         $decorator,
         $menu,
         $section = null,
-        $active = [],
-        $level = 1,
         $context = []
     ) {
         $class = \Phpfox::getParam('navigation.decorators', $decorator);
@@ -34,12 +46,7 @@ class NavigationManager
             throw new \InvalidArgumentException("Oops! Navigation decorator '{$decorator}' does not exists.");
         }
 
-        $arguments = func_get_args();
-        array_shift($arguments);
-
-        return (new \ReflectionClass($class))->newInstanceArgs($arguments)
-            ->render();
-
+        return (new Navigation($menu, $section))->render($decorator, $context);
     }
 
 }

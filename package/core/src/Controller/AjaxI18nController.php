@@ -22,7 +22,7 @@ class AjaxI18nController extends AjaxController
                 ->delete(['var_name' => $key]);
         }
 
-        $vm = new ViewModel([
+        return new ViewModel([
             'message' => _text('Change Saved!'),
             'cmd'     => $cmd,
             'item'    => [
@@ -32,7 +32,5 @@ class AjaxI18nController extends AjaxController
                 'domain' => $dm,
             ],
         ]);
-
-        return $vm;
     }
 }

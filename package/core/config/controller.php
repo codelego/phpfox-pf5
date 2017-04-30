@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Core\Controller;
 
 return [
@@ -15,4 +16,5 @@ return [
     'core.ajax-i18n'           => AjaxI18nController::class,
     'core.admin-status'        => AdminStatusController::class,
     'core.admin-authorization' => AdminAuthorizationController::class,
+    'core.admin-storage'       => AdminStorageController::class,
 ];

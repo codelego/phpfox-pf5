@@ -115,25 +115,6 @@ class AssetsFacades
     }
 
     /**
-     * @param mixed $item
-     *
-     * @return $this
-     */
-    public function addBreadcrumb($item)
-    {
-        Phpfox::get('breadcrumb')->add($item);
-        return $this;
-    }
-
-    /**
-     * @return Breadcrumb
-     */
-    public function breadcrumb()
-    {
-        return Phpfox::get('breadcrumb');
-    }
-
-    /**
      * @param string $name
      * @param array  $props
      *

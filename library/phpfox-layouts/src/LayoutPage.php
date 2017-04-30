@@ -2,6 +2,8 @@
 
 namespace Phpfox\Layout;
 
+use Phpfox\View\ViewModel;
+
 class LayoutPage
 {
     /**
@@ -17,27 +19,46 @@ class LayoutPage
     /**
      * @var array
      */
-    protected $locationData = [];
+    protected $params = [];
 
-    /**
-     * prepare content
-     */
-    public function prepare()
+    public function __construct($name, $params = [])
     {
-        $this->locationData = [];
-        foreach ($this->location as $key => $location) {
-            $this->locationData[$key] = $location->render();
-        }
+        $this->name = $name;
+        $this->params = $params;
     }
 
     /**
-     * @param string $key
+     * add new location
      *
-     * @return bool
+     * @param LayoutLocation $location
      */
-    public function has($key)
+    public function addLocation($location)
     {
-        return !empty($this->locationData[$key]);
+        $this->location[$location->getName()] = $location;
+    }
+
+    /**
+     * Get parameters
+     *
+     * @param string $key
+     * @param mixed  $default
+     *
+     * @return mixed
+     */
+    public function get($key, $default = null)
+    {
+        return isset($this->params[$key]) ? $this->params[$key] : $default;
+    }
+
+    /**
+     * Set parameters
+     *
+     * @param string $key
+     * @param mixed  $value
+     */
+    public function set($key, $value)
+    {
+        $this->params[$key] = $value;
     }
 
     /**
@@ -45,6 +66,24 @@ class LayoutPage
      */
     public function render()
     {
-        return '';
+        $data = [];
+        foreach ($this->location as $key => $location) {
+            $data[$key] = $location->render();
+        }
+
+        \Phpfox::get('assets')
+            ->addMeta('debug.page_name', ['name' => 'layout_page', 'content' => $this->name]);
+
+        $script = $this->get('layout', 'grid/simple');
+
+        return (new ViewModel($data, $script))->render();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function __sleep()
+    {
+        return ['name', 'location', 'params'];
     }
 }

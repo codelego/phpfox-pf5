@@ -8,7 +8,7 @@ interface NavigationLoaderInterface
     /**
      * @param string $menu
      *
-     * @return mixed
+     * @return array
      */
     public function load($menu);
 }

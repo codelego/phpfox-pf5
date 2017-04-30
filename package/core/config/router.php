@@ -25,6 +25,20 @@ return [
                 'delete'   => ['route' => 'delete', 'action' => 'delete'],
             ],
         ],
+        'admin.core.storage'       => [
+            'route'      => 'core/storage/*',
+            'controller' => 'core.admin-storage',
+            'action'     => 'index',
+            'children'   => [
+                'edit'     => ['route' => 'edit/<id>', 'action' => 'edit'],
+                'transfer' => [
+                    'route'  => 'transfer/<id>',
+                    'action' => 'transfer',
+                ],
+                'add'      => ['route' => 'add', 'action' => 'add'],
+                'delete'   => ['route' => 'delete', 'action' => 'delete'],
+            ],
+        ],
         'admin.core.package'       => [
             'route'      => 'core/package/*',
             'controller' => 'core.admin-package',
@@ -36,16 +50,40 @@ return [
                 ],
             ],
         ],
-        'admin.core.layout'         => [
+        'admin.core.layout'        => [
             'route'      => 'core/layout/*',
             'controller' => 'core.admin-layout',
             'action'     => 'index',
             'children'   => [
-                'edit'  => [
+                'edit'           => [
                     'route'  => 'edit/<id>',
                     'action' => 'edit',
                 ],
-                'debug' => [
+                'add'            => [
+                    'route'  => 'add',
+                    'action' => 'add',
+                ],
+                'design'         => [
+                    'route'  => 'element/<id>',
+                    'action' => 'element',
+                ],
+                'edit-element'   => [
+                    'route'  => 'edit-element/<id>',
+                    'action' => 'edit-element',
+                ],
+                'component'      => [
+                    'route'  => 'component',
+                    'action' => 'component',
+                ],
+                'add-component'  => [
+                    'route'  => 'add-component',
+                    'action' => 'add-component',
+                ],
+                'edit-component' => [
+                    'route'  => 'edit-component/<id>',
+                    'action' => 'edit-component',
+                ],
+                'debug'          => [
                     'route'  => 'debug/<id>',
                     'action' => 'debug',
                 ],
