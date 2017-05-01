@@ -11,6 +11,13 @@ use Phpfox\View\ViewModel;
 class AdminDepartmentController extends AdminController
 {
 
+    protected function initialized()
+    {
+        \Phpfox::get('breadcrumb')
+            ->clear()
+            ->add(['label' => 'Contact Us']);
+    }
+
     public function actionDepartments()
     {
         $items = \Phpfox::with('contact_department')
@@ -18,12 +25,10 @@ class AdminDepartmentController extends AdminController
             ->execute()
             ->all();
 
-        $vm = new ViewModel();
+        return new ViewModel([
+            'items' => $items,
+        ], 'contact/admin-department/index');
 
-        $vm->assign(['items' => $items]);
-        $vm->setTemplate('contact/admin-department/index');
-
-        return $vm;
     }
 
     public function actionEdit()
@@ -50,17 +55,11 @@ class AdminDepartmentController extends AdminController
             \Phpfox::get('response')->redirect(_url('admin.contact'));
         }
 
-        $vm = new ViewModel();
-
-        $vm->assign([
+        return new ViewModel([
             'heading' => _text('Edit "{0}"', 'admin', null,
                 [$item->getTitle()]),
             'form'    => $form,
-        ]);
-
-        $vm->setTemplate('layout/form-edit');
-
-        return $vm;
+        ], 'layout/form-edit');
     }
 
     public function actionAdd()
@@ -79,15 +78,10 @@ class AdminDepartmentController extends AdminController
             \Phpfox::get('response')->redirect(_url('admin.contact'));
         }
 
-        $vm = new ViewModel();
-
-        $vm->assign([
+        return new ViewModel([
             'heading' => _text('Add Department', 'admin'),
             'form'    => $form,
-        ]);
+        ], 'layout/form-edit');
 
-        $vm->setTemplate('layout/form-edit');
-
-        return $vm;
     }
 }

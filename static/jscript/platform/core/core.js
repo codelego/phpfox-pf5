@@ -1,9 +1,5 @@
 define(['jquery'], function ($) {
-    var $kd;
-    $kd = {
-        /**
-         * Base options
-         */
+    var Core = {
         options: {
             baseUrl: '/',
             staticUrl: '/',
@@ -52,10 +48,9 @@ define(['jquery'], function ($) {
             if (typeof data == 'string') {
                 h = '?' + data;
             }
-            else
-                if (typeof data == 'object') {
-                    h = '?' + $.param(data);
-                }
+            else if (typeof data == 'object') {
+                h = '?' + $.param(data);
+            }
 
             return this.getBaseUrl() + url.replace(/^\/+/, '') + h;
         },
@@ -85,7 +80,7 @@ define(['jquery'], function ($) {
          */
         ajax: function (url, data) {
             return $.ajax({
-                url: $kd.getUrl(url),
+                url: Core.getUrl(url),
                 data: arguments[1],
                 method: 'post',
                 dataType: 'json'
@@ -120,5 +115,5 @@ define(['jquery'], function ($) {
             return this;
         }
     };
-    return $kd;
+    return Core;
 });

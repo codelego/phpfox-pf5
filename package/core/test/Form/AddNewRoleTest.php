@@ -4,7 +4,7 @@ namespace Neutron\Core\Form;
 
 
 use Phpfox\Form\ElementInterface;
-use Phpfox\Form\BootstrapFormRender;
+use Phpfox\Form\FormRenderBootstrap;
 
 class AddNewRoleTest extends \PHPUnit_Framework_TestCase
 {
@@ -19,6 +19,6 @@ class AddNewRoleTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(true,
             $form->getElement('inherit_id') instanceof ElementInterface);
 
-        $this->assertNotEmpty((new BootstrapFormRender())->render($form));
+        $this->assertNotEmpty((new FormRenderBootstrap())->render($form));
     }
 }

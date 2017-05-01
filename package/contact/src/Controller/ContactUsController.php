@@ -12,15 +12,9 @@ class ContactUsController extends ActionController
     {
         $form = new ContactUs();
 
-        $vm = new ViewModel();
-
-        $vm->setTemplate('contact/index/index');
-
-        $vm->assign([
+        return new ViewModel([
             'form'    => $form,
             'heading' => _text('Contact Us'),
-        ]);
-
-        return $vm;
+        ], 'contact/index/index');
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Phpfox\Layout;
 
+use Phpfox\View\ViewModel;
+
 class LayoutBlock
 {
     /**
@@ -10,15 +12,39 @@ class LayoutBlock
     protected $params = [];
 
     /**
-     * LayoutBlock constructor.
+     * LayoutElement constructor.
      *
      * @param array $params
      */
     public function __construct($params = [])
     {
-        if ($params) {
-            $this->params = $params;
+        $this->params = $params;
+    }
+
+    /**
+     * @return string
+     */
+    public function render()
+    {
+        $cls = $this->get('block_class');
+
+        if (!class_exists($cls)) {
+            return '';
         }
+
+        /** @var LayoutComponent $block */
+        $block = new $cls($this->params);
+
+        $result = $block->run();
+
+        if (is_string($result)) {
+            return $result;
+        } else {
+            if ($result instanceof ViewModel) {
+                return $result->render();
+            }
+        }
+        return '';
     }
 
     /**
@@ -50,10 +76,13 @@ class LayoutBlock
     }
 
     /**
-     * @return mixed|string
+     * @return string
      */
-    public function run()
+    public function renderForEdit()
     {
-        return false;
+        return (new ViewModel(['block' => $this],
+            'layout-editor/edit-block'))->render();
+
     }
+
 }

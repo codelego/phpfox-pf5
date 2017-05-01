@@ -10,7 +10,7 @@ namespace Neutron\User\Form;
 
 
 use Phpfox\Form\FieldInterface;
-use Phpfox\Form\BootstrapFormRender;
+use Phpfox\Form\FormRenderBootstrap;
 
 class UserLoginTest extends \PHPUnit_Framework_TestCase
 {
@@ -23,6 +23,6 @@ class UserLoginTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($form->getElement('password') instanceof
             FieldInterface);
 
-        $this->assertNotEmpty((new BootstrapFormRender())->render($form));
+        $this->assertNotEmpty((new FormRenderBootstrap())->render($form));
     }
 }

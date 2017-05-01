@@ -3,6 +3,8 @@
 namespace Phpfox\Layout;
 
 
+use Phpfox\View\ViewModel;
+
 class LayoutLocation
 {
     /**
@@ -11,16 +13,9 @@ class LayoutLocation
     protected $name;
 
     /**
-     * full section, section, column
-     *
-     * @var string
+     * @var LayoutBlock[]
      */
-    protected $type;
-
-    /**
-     * @var LayoutElement[]
-     */
-    protected $elements = [];
+    protected $blocks = [];
 
     /**
      * @var array
@@ -56,43 +51,43 @@ class LayoutLocation
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getType()
+    public function getParams()
     {
-        return $this->type;
+        return $this->params;
     }
 
     /**
-     * @param string $type
+     * @param array $params
      */
-    public function setType($type)
+    public function setParams($params)
     {
-        $this->type = $type;
+        $this->params = $params;
     }
 
     /**
-     * @return LayoutElement[]
+     * @return LayoutBlock[]
      */
-    public function getElements()
+    public function getBlocks()
     {
-        return $this->elements;
+        return $this->blocks;
     }
 
     /**
-     * @param LayoutElement[] $elements
+     * @param LayoutBlock[] $blocks
      */
-    public function setElements($elements)
+    public function setBlocks($blocks)
     {
-        $this->elements = $elements;
+        $this->blocks = $blocks;
     }
 
     /**
      * @param $element
      */
-    public function add(LayoutElement $element)
+    public function addBlock(LayoutBlock $element)
     {
-        $this->elements[] = $element;
+        $this->blocks[] = $element;
     }
 
     /**
@@ -120,16 +115,37 @@ class LayoutLocation
      */
     public function render()
     {
-        if (empty($this->elements)) {
+        if (empty($this->blocks)) {
             return '';
         }
 
         $htmlArray = [];
 
-        foreach ($this->elements as $element) {
-            $htmlArray[] = $element->render();
+        foreach ($this->blocks as $block) {
+            $htmlArray[] = $block->render();
         }
 
         return implode('', $htmlArray);
+    }
+
+    /**
+     * @return string
+     */
+    public function renderForEdit()
+    {
+        if (empty($this->blocks)) {
+            return '';
+        }
+
+        $htmlArray = [];
+
+        foreach ($this->blocks as $block) {
+            $htmlArray[] = $block->renderForEdit();
+        }
+
+        return (new ViewModel([
+            'content'  => implode('', $htmlArray),
+            'location' => $this,
+        ], 'layout-editor/edit-location'))->render();
     }
 }

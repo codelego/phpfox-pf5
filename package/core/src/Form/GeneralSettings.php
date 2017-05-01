@@ -3,6 +3,7 @@
 namespace Neutron\Core\Form;
 
 
+use Phpfox\Form\Button;
 use Phpfox\Form\Form;
 
 class GeneralSettings extends Form
@@ -49,5 +50,17 @@ class GeneralSettings extends Form
                 'attributes' => ['class' => 'form-control'],
             ],
         ]);
+    }
+
+    public function getButtons()
+    {
+        return [
+            new Button([
+                'type'       => 'submit',
+                'name'       => 'save',
+                'label'      => _text('Save Changes'),
+                'attributes' => ['class' => 'btn btn-primary'],
+            ])
+        ];
     }
 }

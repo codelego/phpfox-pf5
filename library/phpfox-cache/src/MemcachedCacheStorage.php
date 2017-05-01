@@ -1,4 +1,5 @@
 <?php
+
 namespace Phpfox\Cache;
 
 
@@ -38,7 +39,7 @@ class MemcachedCacheStorage implements CacheStorageInterface
 
     }
 
-    public function with($key, $fallback, $ttl = 0)
+    public function with($key, $ttl = 0, $fallback)
     {
         if (is_array($key)) {
             $key = implode('_', $key);

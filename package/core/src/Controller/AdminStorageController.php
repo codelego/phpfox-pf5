@@ -6,18 +6,28 @@ use Phpfox\View\ViewModel;
 
 class AdminStorageController extends AdminController
 {
-    public function actionIndex()
+    protected function initialized()
     {
-        \Phpfox::get('breadcrumb')->add([
-            'href'  => _url('admin.core.storage'),
-            'label' => _text('Storage'),
-        ]);
+        \Phpfox::get('breadcrumb')
+            ->clear()
+            ->add([
+                'href'  => _url('admin.core.storage'),
+                'label' => _text('Storage'),
+            ])->add([
+                'href'  => _url('admin.core.storage.add'),
+                'label' => _text('Add Storage'),
+            ]);
 
         \Phpfox::get('menu.admin.secondary')
+            ->clear()
             ->add([
                 'label' => 'Add',
                 'route' => 'admin.core.storage.add',
             ]);
+    }
+
+    public function actionIndex()
+    {
 
         $items = $packages = \Phpfox::with('storage_adapter')
             ->select('*')
@@ -30,20 +40,6 @@ class AdminStorageController extends AdminController
 
     public function actionAdd()
     {
-        \Phpfox::get('breadcrumb')->add([
-            'href'  => _url('admin.core.storage'),
-            'label' => _text('Storage'),
-        ])->add([
-            'href'  => _url('admin.core.storage.add'),
-            'label' => _text('Add Storage'),
-        ]);
-
-        \Phpfox::get('menu.admin.secondary')
-            ->add([
-                'label' => 'Add',
-                'route' => 'admin.core.storage.add',
-            ]);
-
         return new ViewModel([], 'core/admin-storage/index');
     }
 }

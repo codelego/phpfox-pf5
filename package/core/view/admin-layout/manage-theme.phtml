@@ -1,0 +1,75 @@
+<div class="panel panel-default table-responsive">
+    <table class="table table-bordered table-hover table-striped">
+        <tr>
+            <th class="text-center">#</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Default?</th>
+            <th>Admin?</th>
+            <th>Editing?</th>
+        </tr>
+        <?php foreach ($items as $item): ?>
+            <tr>
+                <td class="dropdown" data-cmd="dropdown">
+                    <ul>
+                        <?php if (!$item->isAdmin() and !$item->isEditing()): ?>
+                        <li>
+                            <a href="<?= _url('admin.core.layout.manage-theme', null, [
+                                'cmd' => 'editing',
+                                'id'  => $item->getId(),
+                            ]) ?>" role="button"><?= _text('Set Editing',
+                                    'admin') ?></a></li>
+                        <?php endif; ?>
+                        <?php if (!$item->isAdmin() and !$item->isDefault()): ?>
+                            <li><a href="<?= _url('admin.core.layout.manage-theme', null, [
+                                    'cmd' => 'default',
+                                    'id'  => $item->getId(),
+                                ]) ?>" role="button"><?= _text('Set Default','admin') ?></a></li>
+                        <?php endif; ?>
+                        <li>
+                            <a href="<?= _url('admin.core.layout.manage-theme', null, [
+                                'cmd' => 'rebuild-main',
+                                'id'  => $item->getId(),
+                            ]) ?>" role="button"><?= _text('Rebuild Main',
+                                    'admin') ?></a></li>
+                        <li><a href="<?= _url('admin.core.layout.manage-theme', null, [
+                                'cmd' => 'rebuild-files',
+                                'id'  => $item->getId(),
+                            ]) ?>" role="button"><?= _text('Rebuild Files', 'admin') ?></a></li>
+                        <li>
+                            <a href="<?= _url('admin.core.layout.debug-theme', ['id' => $item->getId()]) ?>" role="button" ><?= _text('Debug', 'admin') ?></a>
+                        </li>
+                    </ul>
+                </td>
+                <td>
+                    <?= $item->getId() ?>
+                </td>
+                <td>
+                    <a href="<?= _url('admin.core.layout.edit-theme', ['id' => $item->getId()]) ?>"><?= $item->getTitle() ?></a>
+                </td>
+                <td>
+                    <?php if($item->isDefault()): ?>
+                        <span class="label label-success"><?= _text('Yes')?></span>
+                    <?php else: ?>
+                        <?= _text('No') ?>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php if($item->isAdmin()): ?>
+                        <span class="label label-success"><?= _text('Yes')?></span>
+                    <?php else: ?>
+                        <?= _text('No') ?>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php if($item->isEditing()): ?>
+                        <span class="label label-success"><?= _text('Yes')?></span>
+                    <?php else: ?>
+                        <?= _text('No') ?>
+                    <?php endif; ?>
+                </td>
+
+            </tr>
+        <?php endforeach; ?>
+    </table>
+</div>

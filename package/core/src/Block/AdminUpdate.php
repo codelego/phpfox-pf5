@@ -2,36 +2,42 @@
 
 namespace Neutron\Core\Block;
 
-use Phpfox\Layout\LayoutBlock;
+use Phpfox\Layout\LayoutComponent;
 use Phpfox\View\ViewModel;
 
-class AdminUpdate extends LayoutBlock
+class AdminUpdate extends LayoutComponent
 {
     public function run()
     {
-        $remoteUrl = 'http://feeds.feedburner.com/phpfox';
-        $content = \Phpfox::get('curl')->factory($remoteUrl)->getString();
+        $limit = $this->get('limit', 6);
 
-        $dom = simplexml_load_string($content);
+        $news = \Phpfox::get('cache.local')
+            ->with('admincp.news', 600, function () use ($limit) {
+                $remoteUrl = 'http://feeds.feedburner.com/phpfox';
+                $content = \Phpfox::get('curl')->factory($remoteUrl)
+                    ->getString();
 
-        $items = $dom->xpath('//channel/item');
-
-        $news = [];
-        foreach ($items as $item) {
-            $news[] = [
-                'title'       => $item->title->__toString(),
-                'description' => substr(strip_tags($item->description->__toString()),
-                    0,120) .'...',
-                'link'        => $item->link->__toString(),
-                'date'        => date('Y-m-d', strtotime($item->pubDate->__toString())),
-            ];
-            
-        }
-
-        $limit = $this->get('limit',6);
+                $dom = simplexml_load_string($content);
+                $items = $dom->xpath('//channel/item');
+                $news = [];
+                foreach ($items as $item) {
+                    $news[] = [
+                        'title'       => $item->title->__toString(),
+                        'description' => substr(strip_tags($item->description->__toString()),
+                                0, 120) . '...',
+                        'link'        => $item->link->__toString(),
+                        'date'        => date('Y-m-d',
+                            strtotime($item->pubDate->__toString())),
+                    ];
+                    if (count($news) >= $limit) {
+                        break;
+                    }
+                }
+                return $news;
+            });
 
         return new ViewModel([
-            'items' => array_slice($news, 0, $limit),
+            'items' => $news,
         ], 'core/block/admin-update');
     }
 }

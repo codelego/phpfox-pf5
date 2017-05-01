@@ -2,8 +2,10 @@
 
 namespace {
 
-    function _dump(){
-        var_dump(func_get_args());exit;
+    function _dump()
+    {
+        var_dump(func_get_args());
+        exit;
     }
 
     /**
@@ -504,8 +506,18 @@ namespace {
             ->trans($id, $domain, $locale, $context);
     }
 
-    function _yesno($flag)
+    function _yesno($flag, $label_yes = false, $label_false = false)
     {
+        if ($flag && $label_yes) {
+            return '<label class="label label-success">' . _text('Yes')
+                . '</label>';
+        }
+
+        if (!$flag && $label_false) {
+            return '<label class="label label-danger">' . _text('No')
+                . '</label>';
+        }
+
         return _text($flag ? 'Yes' : 'No');
     }
 

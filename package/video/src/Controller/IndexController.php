@@ -10,28 +10,21 @@ class IndexController extends ActionController
 {
     public function actionIndex()
     {
-
-        $vm = new ViewModel();
-
         $items = \Phpfox::with('video')
             ->select()
             ->all();
 
-
-        $vm->setTemplate('video/index/index');
-        $vm->assign(['items' => $items]);
-
-        return $vm;
+        return new ViewModel([
+            'items' => $items,
+        ], 'video/index/index');
     }
 
     public function actionEmbed()
     {
         $form = new EmbedVideo();
 
-        $vm = new ViewModel();
-        $vm->assign(['form' => $form]);
-        $vm->setTemplate('video/index/embed');
-
-        return $vm;
+        return new ViewModel([
+            'form' => $form,
+        ], 'video/index/embed');
     }
 }

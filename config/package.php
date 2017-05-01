@@ -69,7 +69,9 @@
   'form_renders' => 
   array (
     'input' => 'Phpfox\\Form\\InputRender',
-    'form_bootstrap' => 'Phpfox\\Form\\BootstrapFormRender',
+    'form_bootstrap' => 'Phpfox\\Form\\FormRenderBootstrap',
+    'form_panel' => 'Phpfox\\Form\\FormRenderPanel',
+    'form_panel_horizontal' => 'Phpfox\\Form\\FormRenderPanelHorizontal',
     'button' => 'Phpfox\\Form\\ButtonRender',
     'checkbox' => 'Phpfox\\Form\\CheckboxRender',
     'select' => 'Phpfox\\Form\\SelectRender',

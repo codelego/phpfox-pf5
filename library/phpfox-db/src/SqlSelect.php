@@ -191,7 +191,7 @@ class SqlSelect
     }
 
     /**
-     * @param $expression
+     * @param string|array $expression
      * @param $data
      *
      * @return SqlSelect
@@ -297,7 +297,7 @@ class SqlSelect
      *
      * @return $this
      */
-    public function join($table, $alias, $expression, $data, $columns)
+    public function join($table, $alias, $expression, $data = null, $columns =  null)
     {
         if (null == $this->_join) {
             $this->_join = new SqlJoin($this->adapter);
@@ -367,27 +367,27 @@ class SqlSelect
     }
 
     /**
-     * @param $column
-     * @param $type
+     * @param string $column
+     * @param string $order
      *
      * @return $this
      */
-    public function order($column, $type)
+    public function order($column, $order)
     {
         switch (true) {
-            case $type == 'asc':
-            case $type == 'ASC':
-            case $type === 1:
-            case $type === '1':
+            case $order == 'asc':
+            case $order == 'ASC':
+            case $order === 1:
+            case $order === '1':
                 $this->_order = $column . ' ASC';
                 break;
-            case $type == 'DESC':
-            case $type == 'desc':
-            case $type === -1:
-            case $type === "-1":
+            case $order == 'DESC':
+            case $order == 'desc':
+            case $order === -1:
+            case $order === "-1":
                 $this->_order = $column . ' DESC';
                 break;
-            case $type == null:
+            case $order == null:
             default:
                 $this->_order = $column;
 

@@ -1,1 +1,1 @@
-<?php return array(0=>NULL,1=>array('block_id'=>1,),2=>'block_id',3=>array('block_id'=>1,'block_name'=>1,'form_class'=>1,'package_id'=>1,'is_active'=>1,),4=>array(),);
+<?php return array(0=>'block_id',1=>array('block_id'=>1,),2=>'block_id',3=>array('block_id'=>1,'parent_id'=>1,'container_id'=>1,'location_id'=>1,'component_id'=>1,'sort_order'=>1,'is_active'=>1,'block_params'=>1,),4=>array(),);

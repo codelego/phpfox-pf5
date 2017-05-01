@@ -4,7 +4,7 @@ namespace Neutron\Core\Form;
 
 
 use Phpfox\Form\ElementInterface;
-use Phpfox\Form\BootstrapFormRender;
+use Phpfox\Form\FormRenderBootstrap;
 
 class AddNewPhraseTest extends \PHPUnit_Framework_TestCase
 {
@@ -16,6 +16,6 @@ class AddNewPhraseTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(true,
             $form->getElement('var_name') instanceof ElementInterface);
 
-        $this->assertNotEmpty((new BootstrapFormRender())->render($form));
+        $this->assertNotEmpty((new FormRenderBootstrap())->render($form));
     }
 }

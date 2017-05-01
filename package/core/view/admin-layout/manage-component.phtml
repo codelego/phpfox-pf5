@@ -1,4 +1,4 @@
-<div class="panel-default">
+<div class="panel panel-default">
     <div class="table-responsive">
         <table class="table table-admin">
             <thead>
@@ -17,8 +17,8 @@
                         <a href="<?= _url('admin.core.layout.edit-component',
                             ['id' => $item->getId()]) ?>"><?= $item->getId() ?></a>
                     </td>
-                    <td><?= $item->__get('block_name') ?></td>
-                    <td><?= $item->__get('block_class') ?></td>
+                    <td><?= $item->__get('component_name') ?></td>
+                    <td><?= $item->__get('component_class') ?></td>
                     <td><?= $item->__get('package_id') ?></td>
                     <td><?= $item->__get('description') ?></td>
                 </tr>

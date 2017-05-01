@@ -10,10 +10,11 @@ class AdminPackageController extends AdminController
     protected function initialized()
     {
         \Phpfox::get('breadcrumb')
+            ->clear()
             ->add([
-                'link'  => _url('admin.core.package'),
+                'href'  => _url('admin.core.package'),
                 'label' => _text('Package'),
-            ], true);
+            ]);
     }
 
     public function actionIndex()

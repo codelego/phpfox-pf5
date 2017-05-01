@@ -68,15 +68,15 @@
   ),
   'form_renders' => 
   array (
-    'input' => 'Phpfox\\Form\\InputRender',
-    'form_bootstrap' => 'Phpfox\\Form\\BootstrapFormRender',
-    'button' => 'Phpfox\\Form\\ButtonRender',
-    'checkbox' => 'Phpfox\\Form\\CheckboxRender',
-    'select' => 'Phpfox\\Form\\SelectRender',
-    'radio' => 'Phpfox\\Form\\RadioRender',
-    'file_upload' => 'Phpfox\\Form\\FileUploadRender',
-    'textarea' => 'Phpfox\\Form\\TextareaRender',
-    'yesno' => 'Phpfox\\Form\\YesnoRender',
+      'input' => 'Phpfox\\Form\\InputRender',
+      'form_bootstrap' => 'Phpfox\\Form\\FormRenderBootstrap',
+      'button' => 'Phpfox\\Form\\ButtonRender',
+      'checkbox' => 'Phpfox\\Form\\CheckboxRender',
+      'select' => 'Phpfox\\Form\\SelectRender',
+      'radio' => 'Phpfox\\Form\\RadioRender',
+      'file_upload' => 'Phpfox\\Form\\FileUploadRender',
+      'textarea' => 'Phpfox\\Form\\TextareaRender',
+      'yesno' => 'Phpfox\\Form\\YesnoRender',
   ),
   'job.handlers' => 
   array (

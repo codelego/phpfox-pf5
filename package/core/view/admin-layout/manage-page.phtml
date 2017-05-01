@@ -1,13 +1,13 @@
-<div class="panel-default">
+<div class="panel panel-default">
     <div class="table-responsive">
         <table class="table table-admin">
             <thead>
             <tr>
                 <th class="text-center">#</th>
-                <th>ID</th>
-                <th>Parent ID</th>
-                <th>Name</th>
-                <th>Package</th>
+                <th class="w160">ID</th>
+                <th class="w160">Parent ID</th>
+                <th class="w160">Name</th>
+                <th class="w160">Package</th>
                 <th>Desc.</th>
             </tr>
             </thead>
@@ -19,22 +19,21 @@
                             <li><a href="<?= _url('admin.core.layout.design', ['id' => $item->getId()]) ?>"><?= _text('Design Layout') ?></a></li>
                             <li>
                                 <a href="<?= _url('admin.core.layout.edit', ['id' => $item->getId()]) ?>"><?= _text('Edit Page') ?></a>
-                            </li>R V
+                            </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="<?= _url('admin.core.layout.edit', ['id' => $item->getId()]) ?>"><?= _text('Add Block') ?></a>
-                                <a href="<?= _url('admin.core.layout.edit', ['id' => $item->getId()]) ?>"><?= _text('Add Location') ?></a>
+                                <a href="<?= _url('admin.core.layout.add-element',[], ['page_id' => $item->getId()]) ?>"><?= _text('Add Block') ?></a>
+                                <a href="<?= _url('admin.core.layout.add-location', ['page_id' => $item->getId()]) ?>"><?= _text('Add Location') ?></a>
                             </li>
                         </ul>
                     </td>
                     <td>
-                        <a href="<?= _url('admin.core.layout.design',
-                            ['id' => $item->getId()]) ?>"><?= $item->getId() ?></a>
+                        <?= $item->getId() ?>
                     </td>
-                    <td><?= $item->__get('parent_page_id') ?></td>
-                    <td><?= $item->__get('page_name') ?></td>
+                    <td><?= $item->__get('parent_action_id') ?></td>
+                    <td><?= $item->__get('action_name') ?></td>
                     <td><?= $item->__get('package_id') ?></td>
-                    <td><?= $item->__get('description') ?></td>
+                    <td><small><?= $item->__get('description') ?></small></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

@@ -9,8 +9,7 @@ use Phpfox\View\ViewModel;
 
 class AdminAuthorizationController extends AdminController
 {
-
-    public function actionIndex()
+    protected function initialized()
     {
         \Phpfox::get('menu.admin.secondary')
             ->add([
@@ -18,13 +17,15 @@ class AdminAuthorizationController extends AdminController
                 'label' => _text('Add Role'),
                 'route' => 'admin.core.authorization.add',
             ]);
+    }
+
+    public function actionIndex()
+    {
 
         $items = \Phpfox::with('core_role')
             ->select()
             ->execute()
             ->all();
-
-        $vm = new ViewModel();
 
         $temp = \Phpfox::with('user')
             ->select('role_id, count(*) as user_count')
@@ -38,67 +39,44 @@ class AdminAuthorizationController extends AdminController
             $counter[$row['role_id']] = $row['user_count'];
         }
 
-        $vm->assign([
+        return new ViewModel([
             'items'   => $items,
             'counter' => $counter,
-        ]);
-
-        $vm->setTemplate('core/admin-authorization/index');
-
-        return $vm;
+        ], 'core/admin-authorization/index');
     }
 
     public function actionAdd()
     {
         $form = new AddNewRole();
 
-        $vm = new ViewModel();
-
-        $vm->assign([
+        return new ViewModel([
             'heading' => '',
             'form'    => $form,
-        ]);
-
-        $vm->setTemplate('layout/form-edit');
-
-        return $vm;
+        ], 'layout/form-edit');
     }
 
     public function actionDelete()
     {
         $form = new AddNewRole();
 
-        $vm = new ViewModel();
-
-        $vm->assign([
+        return new ViewModel([
             'heading' => '',
             'form'    => $form,
-        ]);
-
-        $vm->setTemplate('layout/form-edit');
-
-        return $vm;
+        ], 'layout/form-edit');
     }
 
     public function actionEdit()
     {
         $form = new AddNewRole();
 
-        $vm = new ViewModel();
-
-        $vm->assign([
+        return new ViewModel([
             'heading' => '',
             'form'    => $form,
-        ]);
-
-        $vm->setTemplate('layout/form-edit');
-
-        return $vm;
+        ], 'layout/form-edit');
     }
 
     public function actionSettings()
     {
-        $vm = new ViewModel();
         $request = \Phpfox::get('request');
 
         $id = $request->get('id', 1);
@@ -106,15 +84,11 @@ class AdminAuthorizationController extends AdminController
 
         $form = new AuthorizationSettings();
 
-        $vm->assign([
+        return new ViewModel([
             'form'    => $form,
             'heading' => _text('#Edit "{0}" Permissions', null, null,
                 [$role->getTitle()]),
-        ]);
-
-        $vm->setTemplate('layout/form-edit');
-
-        return $vm;
+        ], 'layout/form-edit');
 
     }
 }

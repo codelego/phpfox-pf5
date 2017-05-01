@@ -74,7 +74,7 @@ class MemcachedCacheStorageTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($cache->getItem('key1'));
 
         $this->assertEquals("test data",
-            $cache->with('example_key', function () {
+            $cache->with('example_key', 0, function () {
                 return 'test data';
             }));
 

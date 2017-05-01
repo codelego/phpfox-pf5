@@ -64,7 +64,7 @@ class ReportManager
     public function getActiveCategoryOptions()
     {
         return \Phpfox::get('cache.local')
-            ->with('AbuseReport.getActiveCategoryOptions', function () {
+            ->with('AbuseReport.getActiveCategoryOptions',0, function () {
                 return $this->_getActiveCategoryOptions();
             });
     }

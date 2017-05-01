@@ -12,10 +12,10 @@ class LayoutLoaderTest extends \PHPUnit_Framework_TestCase
         $obj = new LayoutLoader();
 
         $this->assertSame(['blog_index_index', 'default'],
-            $obj->findAcceptablePageId('blog_index_index'));
+            $obj->findAcceptableActionId('blog_index_index'));
 
         $this->assertSame(['blog_index_my', 'default'],
-            $obj->findAcceptablePageId('blog_index_my'));
+            $obj->findAcceptableActionId('blog_index_my'));
     }
 
     public function testAcceptThemes()

@@ -2,6 +2,10 @@
 
 namespace Neutron\Core\Controller;
 
+use Neutron\Core\Form\SelectMailDriver;
+use Neutron\Core\Model\MailAdapter;
+use Neutron\Core\Model\MailDriver;
+use Phpfox\Form\Form;
 use Phpfox\View\ViewModel;
 
 class AdminMailController extends AdminController
@@ -9,21 +13,41 @@ class AdminMailController extends AdminController
     protected function initialized()
     {
         \Phpfox::get('breadcrumb')
-            ->add(['link' => '', 'label' => 'Mail'], true);
+            ->clear()
+            ->add([
+                'href'  => _url('admin.core.mail'),
+                'label' => 'Manage Adapters',
+            ]);
+
+        \Phpfox::get('menu.admin.secondary')
+            ->clear()
+            ->add([
+                'href'  => _url('admin.core.mail'),
+                'label' => _text('Manage Adapter'),
+            ])
+            ->add([
+                'href'  => _url('admin.core.mail.manage-template'),
+                'label' => _text('Manage Templates'),
+            ])
+            ->add([
+                'href'  => _url('admin.core.mail.add-adapter'),
+                'label' => _text('Add Adapter'),
+            ])
+            ->add([
+                'href'  => _url('admin.core.mail.add-template'),
+                'label' => _text('Add Template'),
+            ]);
     }
 
     public function actionIndex()
     {
-        $items = \Phpfox::db()
-            ->select('*')
-            ->from(':core_package')
-            ->order('is_core, package_type', 1)
-            ->execute()
+        $items = \Phpfox::with('mail_adapter')
+            ->select()
             ->all();
 
         return new ViewModel([
             'items' => $items,
-        ], 'core/admin-mail/index');
+        ], 'core/admin-mail/manage-adapter');
     }
 
     public function actionTransports()
@@ -38,64 +62,59 @@ class AdminMailController extends AdminController
         ], 'core/admin-mail/transports');
     }
 
-    public function actionAddTransport()
+    public function actionAddAdapter()
     {
-        \Phpfox::get('breadcrumb')
-            ->add(['link' => '', 'label' => 'Mail'], true)
-            ->add(['link' => '', 'label' => _text('Add Transport')]);
-
-        $vm = new ViewModel();
-
         $request = \Phpfox::get('request');
-        $driverName = $request->get('driver_name');
-        $vm->setTemplate('core/admin-mail/add-transport');
-        $vm->assign(['driver_name' => $driverName]);
+        $driverId = $request->get('driver_id');
 
-        if (empty($driverName)) {
-            $items = \Phpfox::with('mail_driver')
-                ->select()
-                ->execute()
-                ->all();
-
-            $vm->assign(['items' => $items]);
-
-            return $vm;
+        if (!$driverId) {
+            return new ViewModel([
+                'form'    => new SelectMailDriver([]),
+                'heading' => 'Add Adapter',
+            ], 'layout/form-edit');
         }
 
-        $driver = \Phpfox::with('mail_driver')
-            ->findById($driverName);
+        /** @var MailDriver $driver */
+        $driver = \Phpfox::with('mail_driver')->findById($driverId);
 
-        $formSettings = $driver->getFormSettings();
+        $formSettings = $driver->getFormName();
 
-        $form = new $formSettings;
+        $form = new $formSettings();
 
-        if ($request->isPost()) {
+        return new ViewModel([
+            'form'    => new $form,
+            'heading' => 'Add Adapter',
+        ], 'layout/form-edit');
 
-        }
-
-        $vm->assign(['form' => $form, 'driver' => $driver]);
-        return $vm;
     }
 
-    public function actionEditTransport()
+    public function actionEditAdapter()
     {
         $request = \Phpfox::get('request');
         $id = $request->get('id');
 
+        /** @var MailAdapter $item */
         $item = \Phpfox::with('mail_adapter')->findById($id);
 
-        if (!$item) {
+        /** @var MailDriver $driver */
+        $driver = \Phpfox::with('mail_driver')->findById($item->getDriverId());
 
-        }
+        $formSettings = $driver->getFormName();
+
+        /** @var Form $form */
+        $form = new $formSettings();
 
         if ($request->isGet()) {
 
         }
 
-        if ($request->isPost()) {
+        if ($request->isPost() and $form->isValid($request->all())) {
 
         }
 
-        return null;
+        return new ViewModel([
+            'form'    => new $form,
+            'heading' => 'Edit Adapter Settings',
+        ], 'layout/form-edit');
     }
 }

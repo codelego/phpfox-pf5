@@ -10,7 +10,7 @@ interface ViewTemplateInterface
      * @param $__name_
      * @param $__vars_
      *
-     * @return mixed
+     * @return string
      */
     public function render($__name_, $__vars_);
 }

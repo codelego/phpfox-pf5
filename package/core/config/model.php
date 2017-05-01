@@ -74,17 +74,35 @@ return [
         MailTemplate::class,
         'package/core/config/model/mail_template.php',
     ],
-    'theme'           => [
+    'layout_action' => [
         'table_factory',
-        ':theme',
-        Theme::class,
-        'package/core/config/model/theme.php',
+        ':layout_action',
+        LayoutAction::class,
+        'package/core/config/model/layout_action.php',
     ],
-    'theme_params'    => [
+    'layout_theme'           => [
         'table_factory',
-        ':theme_params',
-        ThemeParams::class,
-        'package/core/config/model/theme_params.php',
+        ':layout_theme',
+        LayoutTheme::class,
+        'package/core/config/model/layout_theme.php',
+    ],
+    'layout_page' => [
+        'table_factory',
+        ':layout_page',
+        LayoutPage::class,
+        'package/core/config/model/layout_page.php',
+    ],
+    'layout_theme_params'    => [
+        'table_factory',
+        ':layout_theme_params',
+        LayoutThemeParams::class,
+        'package/core/config/model/layout_theme_params.php',
+    ],
+    'layout_component' => [
+        'table_factory',
+        ':layout_component',
+        LayoutComponent::class,
+        'package/core/config/model/layout_component.php',
     ],
     'layout_block'    => [
         'table_factory',
@@ -92,22 +110,22 @@ return [
         LayoutBlock::class,
         'package/core/config/model/layout_block.php',
     ],
-    'layout_element'  => [
+    'layout_grid_location' => [
         'table_factory',
-        ':layout_element',
-        LayoutElement::class,
-        'package/core/config/model/layout_element.php',
+        ':layout_grid_location',
+        LayoutGridLocation::class,
+        'package/core/config/model/layout_grid_location.php',
     ],
-    'layout_page'     => [
+    'layout_container_location' => [
         'table_factory',
-        ':layout_page',
-        LayoutPage::class,
-        'package/core/config/model/layout_page.php',
+        ':layout_container_location',
+        LayoutContainerLocation::class,
+        'package/core/config/model/layout_container_location.php',
     ],
-    'layout_params'   => [
+    'layout_container' => [
         'table_factory',
-        ':layout_params',
-        LayoutParams::class,
-        'package/core/config/model/layout_params.php',
+        ':layout_container',
+        LayoutContainer::class,
+        'package/core/config/model/layout_container.php',
     ],
 ];

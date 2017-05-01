@@ -31,6 +31,11 @@ class MailAdapter extends DbModel
         $this->__set('adapter_name', $value);
     }
 
+    public function getTitle()
+    {
+        return $this->__get('adapter_name');
+    }
+
     public function getDriverId()
     {
         return $this->__get('driver_id');

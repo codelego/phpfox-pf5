@@ -4,7 +4,7 @@ namespace Neutron\Core\Form;
 
 
 use Phpfox\Form\ElementInterface;
-use Phpfox\Form\BootstrapFormRender;
+use Phpfox\Form\FormRenderBootstrap;
 
 class AuthorizationSettingsTest extends \PHPUnit_Framework_TestCase
 {
@@ -17,6 +17,6 @@ class AuthorizationSettingsTest extends \PHPUnit_Framework_TestCase
             $form->getElement('core__account_deletion') instanceof
             ElementInterface);
 
-        $this->assertNotEmpty((new BootstrapFormRender())->render($form));
+        $this->assertNotEmpty((new FormRenderBootstrap())->render($form));
     }
 }

@@ -6,12 +6,12 @@ interface CacheStorageInterface
 {
     /**
      * @param string   $key
-     * @param \Closure $fallback
      * @param int      $ttl
+     * @param \Closure $fallback
      *
      * @return mixed
      */
-    public function with($key, $fallback, $ttl = 0);
+    public function with($key, $ttl, $fallback);
 
     /**
      * @param string $key

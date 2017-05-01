@@ -4,16 +4,18 @@ namespace Phpfox\Form;
 
 return [
     'form_renders'  => [
-        'input'          => InputRender::class,
-        'form_bootstrap' => BootstrapFormRender::class,
-        'button'         => ButtonRender::class,
-        'checkbox'       => CheckboxRender::class,
-        'select'         => SelectRender::class,
-        'radio'          => RadioRender::class,
-        'file_upload'    => FileUploadRender::class,
-        'textarea'       => TextareaRender::class,
-        'yesno'          => YesnoRender::class,
-        'static_text'    => StaticTextRender::class,
+        'input'                 => InputRender::class,
+        'form_bootstrap'        => FormRenderBootstrap::class,
+        'form_panel'            => FormRenderPanel::class,
+        'form_panel_horizontal' => FormRenderPanelHorizontal::class,
+        'button'                => ButtonRender::class,
+        'checkbox'              => CheckboxRender::class,
+        'select'                => SelectRender::class,
+        'radio'                 => RadioRender::class,
+        'file_upload'           => FileUploadRender::class,
+        'textarea'              => TextareaRender::class,
+        'yesno'                 => YesnoRender::class,
+        'static_text'           => StaticTextRender::class,
     ],
     'form.elements' => [
         'yesno'        => YesnoField::class,

@@ -64,16 +64,20 @@ return [
                     'action' => 'add',
                 ],
                 'design'         => [
-                    'route'  => 'element/<id>',
-                    'action' => 'element',
+                    'route'  => 'design/<id>',
+                    'action' => 'design',
                 ],
-                'edit-element'   => [
-                    'route'  => 'edit-element/<id>',
-                    'action' => 'edit-element',
+                'edit-block'   => [
+                    'route'  => 'edit-block/<id>',
+                    'action' => 'edit-block',
                 ],
-                'component'      => [
-                    'route'  => 'component',
-                    'action' => 'component',
+                'add-block'    => [
+                    'route'  => 'add-block',
+                    'action' => 'add-block',
+                ],
+                'manage-component'      => [
+                    'route'  => 'manage-component',
+                    'action' => 'manage-component',
                 ],
                 'add-component'  => [
                     'route'  => 'add-component',
@@ -83,22 +87,19 @@ return [
                     'route'  => 'edit-component/<id>',
                     'action' => 'edit-component',
                 ],
+                'manage-theme'   => [
+                    'route'  => 'manage-theme',
+                    'action' => 'manage-theme',
+                ],
+                'edit-theme'     => [
+                    'route'  => 'edit-theme/<id>',
+                    'action' => 'edit-theme',
+                ],
+                'debug-theme'    => [
+                    'route'  => 'debug-theme/<id>',
+                    'action' => 'debug-theme',
+                ],
                 'debug'          => [
-                    'route'  => 'debug/<id>',
-                    'action' => 'debug',
-                ],
-            ],
-        ],
-        'admin.core.theme'         => [
-            'route'      => 'core/themes/*',
-            'controller' => 'core.admin-theme',
-            'action'     => 'index',
-            'children'   => [
-                'edit'  => [
-                    'route'  => 'edit/<id>',
-                    'action' => 'edit',
-                ],
-                'debug' => [
                     'route'  => 'debug/<id>',
                     'action' => 'debug',
                 ],
@@ -128,13 +129,25 @@ return [
             'controller' => 'core.admin-mail',
             'action'     => 'index',
             'children'   => [
-                'transports'    => [
-                    'route'  => 'transports',
-                    'action' => 'transports',
+                'add-adapter'     => [
+                    'route'  => 'add-adapter',
+                    'action' => 'add-adapter',
                 ],
-                'add-transport' => [
-                    'route'  => 'add-transport',
-                    'action' => 'add-transport',
+                'edit-adapter'    => [
+                    'route'  => 'edit-adapter/<id>',
+                    'action' => 'edit-adapter',
+                ],
+                'manage-template' => [
+                    'route'  => 'manage-template',
+                    'action' => 'manage-template',
+                ],
+                'add-template'    => [
+                    'route'  => 'add-template',
+                    'action' => 'add-template',
+                ],
+                'edit-template'   => [
+                    'route'  => 'edit-template/<id>',
+                    'action' => 'edit-template',
                 ],
             ],
         ],

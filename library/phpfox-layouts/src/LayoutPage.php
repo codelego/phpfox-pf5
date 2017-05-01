@@ -2,8 +2,6 @@
 
 namespace Phpfox\Layout;
 
-use Phpfox\View\ViewModel;
-
 class LayoutPage
 {
     /**
@@ -12,29 +10,129 @@ class LayoutPage
     protected $name;
 
     /**
-     * @var LayoutLocation[]
+     * @var string
      */
-    protected $location = [];
+    protected $actionId;
+
+    /**
+     * @var string
+     */
+    protected $themeId;
+
+    /**
+     * @var LayoutContainer[]
+     */
+    protected $containers = [];
 
     /**
      * @var array
      */
     protected $params = [];
 
-    public function __construct($name, $params = [])
+    /**
+     * LayoutPage constructor.
+     *
+     * @param string $name
+     * @param string $actionId
+     * @param string $themeId
+     * @param array  $params
+     */
+    public function __construct($name, $actionId, $themeId, $params = [])
     {
         $this->name = $name;
+        $this->actionId = $actionId;
+        $this->themeId = $themeId;
         $this->params = $params;
     }
 
     /**
-     * add new location
-     *
-     * @param LayoutLocation $location
+     * @return string
      */
-    public function addLocation($location)
+    public function getActionId()
     {
-        $this->location[$location->getName()] = $location;
+        return $this->actionId;
+    }
+
+    /**
+     * @param string $actionId
+     */
+    public function setActionId($actionId)
+    {
+        $this->actionId = $actionId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getThemeId()
+    {
+        return $this->themeId;
+    }
+
+    /**
+     * @param string $themeId
+     */
+    public function setThemeId($themeId)
+    {
+        $this->themeId = $themeId;
+    }
+
+    /**
+     * add new container
+     *
+     * @param LayoutContainer $layoutContainer
+     */
+    public function addContainer($layoutContainer)
+    {
+        $this->containers[] = $layoutContainer;
+    }
+
+    /**
+     * @return LayoutContainer[]
+     */
+    public function getContainers()
+    {
+        return $this->containers;
+    }
+
+    /**
+     * @param LayoutContainer[] $containers
+     */
+    public function setContainers($containers)
+    {
+        $this->containers = $containers;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return array
+     */
+    public function getParams()
+    {
+        return $this->params;
+    }
+
+    /**
+     * @param array $params
+     */
+    public function setParams($params)
+    {
+        $this->params = $params;
     }
 
     /**
@@ -66,17 +164,29 @@ class LayoutPage
      */
     public function render()
     {
+        \Phpfox::get('assets')
+            ->addMeta('debug.page_name',
+                ['name' => 'layout_page', 'content' => $this->name]);
+
         $data = [];
-        foreach ($this->location as $key => $location) {
-            $data[$key] = $location->render();
+        foreach ($this->containers as $container) {
+            $data[] = $container->render();
         }
 
-        \Phpfox::get('assets')
-            ->addMeta('debug.page_name', ['name' => 'layout_page', 'content' => $this->name]);
+        return implode(PHP_EOL, $data);
+    }
 
-        $script = $this->get('layout', 'grid/simple');
+    /**
+     * @return string
+     */
+    public function renderForEdit()
+    {
+        $data = [];
+        foreach ($this->containers as $container) {
+            $data[] = $container->renderForEdit();
+        }
 
-        return (new ViewModel($data, $script))->render();
+        return implode(PHP_EOL, $data);
     }
 
     /**

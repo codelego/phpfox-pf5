@@ -72,6 +72,9 @@ class ViewModel
         }
     }
 
+    /**
+     * @return string
+     */
     public function render()
     {
         if (null == $this->template) {

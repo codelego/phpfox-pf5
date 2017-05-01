@@ -118,4 +118,9 @@ interface ElementInterface
      * @return bool
      */
     public function noLabel();
+
+    /**
+     * @return boolean
+     */
+    public function isRequired();
 }

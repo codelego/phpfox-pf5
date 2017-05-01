@@ -2,13 +2,12 @@
     <table class="table table-admin">
         <tr>
             <th class="text-center">#</th>
-            <th>ID</th>
             <th>Info.</th>
-            <th>Version</th>
-            <th>Required</th>
-            <th>Type</th>
-            <th>Author</th>
-            <th>Active</th>
+            <th class="w80">Version</th>
+            <th class="w80">Required</th>
+            <th class="w80">Type</th>
+            <th class="w80">Author</th>
+            <th class="w80">Active</th>
         </tr>
         <?php foreach ($items as $item): ?>
             <tr>
@@ -30,7 +29,6 @@
                         <?php endif; ?>
                     </ul>
                 </td>
-                <td><?= $item->getName() ?></td>
                 <td><?= $item->getTitle() ?></td>
                 <td><?= $item['version'] ?></td>
                 <td>

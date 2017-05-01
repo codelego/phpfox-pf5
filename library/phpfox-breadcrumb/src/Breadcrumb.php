@@ -25,15 +25,11 @@ class Breadcrumb
 
     /**
      * @param array $item
-     * @param bool  $clear value = false, true
      *
      * @return $this
      */
-    public function add($item, $clear = false)
+    public function add($item)
     {
-        if ($clear) {
-            $this->data = [];
-        }
         $this->data[] = $item;
         return $this;
     }
@@ -47,9 +43,15 @@ class Breadcrumb
             'layout/breadcrumb'))->render();
     }
 
+    /**
+     * Clear data
+     *
+     * @return $this
+     */
     public function clear()
     {
         $this->data = [];
+        return $this;
     }
 
     /**

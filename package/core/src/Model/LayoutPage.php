@@ -8,16 +8,19 @@ class LayoutPage extends DbModel
 {
     public function getModelId(){return 'layout_page';}
 
-    public function getId(){return $this->__get('page_id');}
+    public function getId(){return (int) $this->__get('page_id');}
     public function setId($value){$this->__set('page_id', $value);}
     
-    public function getPageName(){return $this->__get('page_name');}
-    public function setPageName($value){$this->__set('page_name', $value);}
+    public function getActionId(){return $this->__get('action_id');}
+    public function setActionId($value){$this->__set('action_id', $value);}
     
-    public function getPackageId(){return $this->__get('package_id');}
-    public function setPackageId($value){$this->__set('package_id', $value);}
+    public function getThemeId(){return $this->__get('theme_id');}
+    public function setThemeId($value){$this->__set('theme_id', $value);}
     
-    public function getDescription(){return $this->__get('description');}
-    public function setDescription($value){$this->__set('description', $value);}
+    public function isActive(){return $this->__get('is_active') ?1:0;}
+    public function setActive($value){$this->__set('is_active',$value?1:0);}
+    
+    public function getParams(){return $this->__get('params');}
+    public function setParams($value){$this->__set('params', $value);}
     
 }

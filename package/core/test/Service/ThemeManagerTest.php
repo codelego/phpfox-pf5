@@ -2,7 +2,7 @@
 
 namespace Neutron\Core\Service;
 
-use Neutron\Core\Model\Theme;
+use Neutron\Core\Model\LayoutTheme;
 
 class ThemeManagerTest extends \PHPUnit_Framework_TestCase
 {
@@ -28,13 +28,13 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddVariables()
     {
-        \Phpfox::db()->insert(':theme_params', [
+        \Phpfox::db()->insert(':layout_theme_params', [
             'theme_id' => 'galaxy',
             'params' => '[]',
         ])->execute();
 
         $result = \Phpfox::db()->select('*')
-            ->from(':theme_params')
+            ->from(':layout_theme_params')
             ->first();
 
         $this->assertNotEmpty($result);
@@ -68,12 +68,12 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasAtLeastTheme()
     {
-        /** @var Theme $theme */
-        $theme = \Phpfox::with('theme')
+        /** @var LayoutTheme $theme */
+        $theme = \Phpfox::with('layout_theme')
             ->select()
             ->first();
 
-        $this->assertTrue($theme instanceof Theme);
+        $this->assertTrue($theme instanceof LayoutTheme);
 
         return $theme->getId();
     }
@@ -90,7 +90,7 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
         $mn = new ThemeManager();
         $theme = $mn->findById($id);
 
-        $this->assertTrue($theme instanceof Theme);
+        $this->assertTrue($theme instanceof LayoutTheme);
         $this->assertSame($id, $theme->getId());
 
         return $id;
@@ -107,7 +107,7 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
 
         $mn->setDefault($id);
 
-        $ids = \Phpfox::db()->select('theme_id')->from(':theme')
+        $ids = \Phpfox::db()->select('theme_id')->from(':layout_theme')
             ->where('is_default=?', 1)->all();
 
         $this->assertSame([['theme_id' => $id]], $ids);
@@ -164,13 +164,13 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetNotDefaultTheme()
     {
-        /** @var Theme $theme */
-        $theme = \Phpfox::with('theme')
+        /** @var LayoutTheme $theme */
+        $theme = \Phpfox::with('layout_theme')
             ->select()
             ->where('is_default=?', 0)
             ->first();
 
-        $this->assertTrue($theme instanceof Theme);
+        $this->assertTrue($theme instanceof LayoutTheme);
 
         return $theme->getId();
     }
@@ -197,20 +197,20 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
     public function testGetDefault()
     {
         \Phpfox::db()
-            ->update(':theme', ['is_default' => 0, 'is_active' => 0])
+            ->update(':layout_theme', ['is_default' => 0, 'is_active' => 0])
             ->execute();
 
         \Phpfox::db()
-            ->update(':theme', ['is_active' => 1])
+            ->update(':layout_theme', ['is_active' => 1])
             ->where('theme_id=?', 'galaxy')
             ->execute();
 
         $mn = new ThemeManager();
 
-        /** @var Theme $obj */
+        /** @var LayoutTheme $obj */
         $obj = $mn->getDefault();
 
-        $this->assertTrue($obj instanceof Theme);
+        $this->assertTrue($obj instanceof LayoutTheme);
         $this->assertSame('galaxy', $obj->getId());
         $this->assertSame([
             0 => 'galaxy',
@@ -222,17 +222,17 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
         ], $mn->_preferThemes());
 
         \Phpfox::db()
-            ->update(':theme', ['is_default' => 0, 'is_active' => 0])
+            ->update(':layout_theme', ['is_default' => 0, 'is_active' => 0])
             ->execute();
 
         \Phpfox::db()
-            ->update(':theme', ['is_active' => 1, 'is_default' => 1,])
+            ->update(':layout_theme', ['is_active' => 1, 'is_default' => 1,])
             ->where('theme_id=?', 'default')
             ->execute();
 
         $obj = $mn->getDefault();
 
-        $this->assertTrue($obj instanceof Theme);
+        $this->assertTrue($obj instanceof LayoutTheme);
         $this->assertSame('default', $obj->getId());
     }
 

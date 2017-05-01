@@ -3,7 +3,7 @@
 namespace Neutron\Report\Form;
 
 
-use Phpfox\Form\BootstrapFormRender;
+use Phpfox\Form\FormRenderBootstrap;
 
 class AddAbuseReportTest extends \PHPUnit_Framework_TestCase
 {
@@ -11,7 +11,7 @@ class AddAbuseReportTest extends \PHPUnit_Framework_TestCase
     {
         $form = new AddAbuseReport();
 
-        $render = new BootstrapFormRender();
+        $render = new FormRenderBootstrap();
 
         $content = $render->render($form);
 

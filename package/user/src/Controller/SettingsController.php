@@ -13,29 +13,23 @@ class SettingsController extends ActionController
     {
         $form = new AccountSettings([]);
 
-        $vm = new ViewModel([
+        return new ViewModel([
             'form' => $form,
-        ]);
-        $vm->setTemplate('user/settings/index');
-
-        return $vm;
+        ], 'user/settings/index');
     }
 
     public function actionLoginHistory()
     {
-        $vm = new ViewModel();
-
         $userId = \Phpfox::get('auth')->getLoginId();
 
 
         $items = \Phpfox::get('user.auth_history')
             ->getByUserId($userId);
 
-        $vm->assign(['items' => $items]);
+        return new ViewModel([
+            'items' => $items,
+        ], 'user/settings/login-history');
 
-        $vm->setTemplate('user/settings/login-history');
-
-        return $vm;
     }
 
     public function actionSubscriptions()

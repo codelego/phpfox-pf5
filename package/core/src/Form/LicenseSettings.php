@@ -3,6 +3,7 @@
 namespace Neutron\Core\Form;
 
 
+use Phpfox\Form\Button;
 use Phpfox\Form\Form;
 
 class LicenseSettings extends Form
@@ -27,5 +28,17 @@ class LicenseSettings extends Form
                 'required'   => true,
             ],
         ]);
+    }
+
+    public function getButtons()
+    {
+        return [
+            new Button([
+                'type'       => 'submit',
+                'name'       => 'save',
+                'label'      => _text('Save Changes'),
+                'attributes' => ['class' => 'btn btn-primary'],
+            ])
+        ];
     }
 }

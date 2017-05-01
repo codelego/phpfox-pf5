@@ -1,8 +1,10 @@
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="panel-title"><?= @$heading ?></div>
-    </div>
-    <div class="panel-body">
-        <?= $form->render() ?>
-    </div>
-</div>
+<?php
+if (isset($heading)) {
+    $form->setParam('title', $heading);
+}
+if (isset($render)) {
+    $form->setRender($render);
+}else{
+    $form->setRender('form_panel_horizontal');
+}
+echo $form->render();

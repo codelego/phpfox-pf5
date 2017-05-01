@@ -2,7 +2,6 @@
 
 namespace Neutron\Core\Service;
 
-
 use Neutron\Core\Model\CorePackage;
 
 class Packages
@@ -26,8 +25,8 @@ class Packages
 
         return array_map(function (CorePackage $v) {
             return [
-                'label' => $v->__get('var_name'),
-                'value' => $v->__get('package_name'),
+                'label' => $v->__get('name'),
+                'value' => $v->__get('name'),
             ];
         }, $select->all());
     }

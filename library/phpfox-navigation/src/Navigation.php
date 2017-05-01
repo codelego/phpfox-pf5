@@ -119,6 +119,17 @@ class Navigation
     }
 
     /**
+     * Clear data
+     *
+     * @return $this
+     */
+    public function clear()
+    {
+        $this->data = [];
+        return $this;
+    }
+
+    /**
      * @return bool
      */
     public function isEmpty()
@@ -199,6 +210,9 @@ class Navigation
             throw new \InvalidArgumentException("Oops! Navigation decorator '{$decorator}' does not exists.");
         }
 
-        return (new $class)->render($this, $context);
+        /** @var DecoratorInterface $decorate */
+        $decorate = new $class;
+
+        return $decorate->render($this, $context);
     }
 }

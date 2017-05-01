@@ -6,13 +6,14 @@ class LayoutPageTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new LayoutPage(array (  'page_id' => 'blog_index_index',  'page_name' => 'Blog Home',  'package_id' => 'blog',  'description' => '',));
+        $obj = new LayoutPage(array (  'page_id' => 1,  'action_id' => 'default',  'theme_id' => 'default',  'is_active' => 1,  'params' => '["grid":"3"]',));
 
         $this->assertSame('layout_page', $obj->getModelId());
-        $this->assertSame('blog_index_index', $obj->getId());
-        $this->assertSame('Blog Home', $obj->getPageName());
-        $this->assertSame('blog', $obj->getPackageId());
-        $this->assertSame('', $obj->getDescription());
+        $this->assertSame(1, $obj->getId());
+        $this->assertSame('default', $obj->getActionId());
+        $this->assertSame('default', $obj->getThemeId());
+        $this->assertSame(1, $obj->isActive());
+        $this->assertSame('["grid":"3"]', $obj->getParams());
     }
 
     public function testParameters()
@@ -20,45 +21,48 @@ class LayoutPageTest extends \PHPUnit_Framework_TestCase
         $obj = new LayoutPage();
 
         // set data
-        $obj->setId('blog_index_index');
-        $obj->setPageName('Blog Home');
-        $obj->setPackageId('blog');
-        $obj->setDescription('');
+        $obj->setId(1);
+        $obj->setActionId('default');
+        $obj->setThemeId('default');
+        $obj->setActive(1);
+        $obj->setParams('["grid":"3"]');
 
         // assert same data
         $this->assertSame('layout_page', $obj->getModelId());
-        $this->assertSame('blog_index_index', $obj->getId());
-        $this->assertSame('Blog Home', $obj->getPageName());
-        $this->assertSame('blog', $obj->getPackageId());
-        $this->assertSame('', $obj->getDescription());
+        $this->assertSame(1, $obj->getId());
+        $this->assertSame('default', $obj->getActionId());
+        $this->assertSame('default', $obj->getThemeId());
+        $this->assertSame(1, $obj->isActive());
+        $this->assertSame('["grid":"3"]', $obj->getParams());
     }
 
     public function testSave()
     {
-        $obj = new LayoutPage(array (  'page_id' => 'blog_index_index',  'page_name' => 'Blog Home',  'package_id' => 'blog',  'description' => '',));
+        $obj = new LayoutPage(array (  'page_id' => 1,  'action_id' => 'default',  'theme_id' => 'default',  'is_active' => 1,  'params' => '["grid":"3"]',));
 
         $obj->save();
 
         /** @var LayoutPage $obj */
         $obj = \Phpfox::with('layout_page')
-            ->select()->where('page_id=?','blog_index_index')->first();
+            ->select()->where('page_id=?',1)->first();
 
         $this->assertSame('layout_page', $obj->getModelId());
-        $this->assertSame('blog_index_index', $obj->getId());
-        $this->assertSame('Blog Home', $obj->getPageName());
-        $this->assertSame('blog', $obj->getPackageId());
-        $this->assertSame('', $obj->getDescription());
+        $this->assertSame(1, $obj->getId());
+        $this->assertSame('default', $obj->getActionId());
+        $this->assertSame('default', $obj->getThemeId());
+        $this->assertSame(1, $obj->isActive());
+        $this->assertSame('["grid":"3"]', $obj->getParams());
     }
 
     public static function setUpBeforeClass()
     {
         \Phpfox::with('layout_page')
-            ->delete()->where('page_id=?','blog_index_index')->execute();
+            ->delete()->where('page_id=?',1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
         \Phpfox::with('layout_page')
-            ->delete()->where('page_id=?','blog_index_index')->execute();
+            ->delete()->where('page_id=?',1)->execute();
     }
 }

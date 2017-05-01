@@ -12,15 +12,17 @@ class AdminCategoryController extends AdminController
     protected function initialized()
     {
         \Phpfox::get('breadcrumb')
+            ->clear()
             ->add([
                 'href'  => _url('admin.report'),
                 'label' => _text('Reports'),
-            ], true)->add([
+            ])->add([
                 'href'  => _url('admin.report'),
                 'label' => _text('Categories'),
             ]);
 
         \Phpfox::get('menu.admin.secondary')
+            ->clear()
             ->add([
                 'href'  => _url('admin.report.add'),
                 'label' => _text('Add Category'),
@@ -42,11 +44,6 @@ class AdminCategoryController extends AdminController
 
     public function actionAdd()
     {
-        \Phpfox::get('breadcrumb')
-            ->add([
-                'href'  => _url('admin.report.add'),
-                'label' => _text('Add Category'),
-            ]);
 
         $request = \Phpfox::get('request');
         $form = new AddCategory();
@@ -74,12 +71,6 @@ class AdminCategoryController extends AdminController
 
     public function actionEdit()
     {
-        \Phpfox::get('breadcrumb')
-            ->add([
-                'href'  => '#',
-                'label' => _text('Edit'),
-            ]);
-
         $id = \Phpfox::get('request')->get('id');
     }
 

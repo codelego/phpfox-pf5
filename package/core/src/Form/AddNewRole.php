@@ -4,6 +4,7 @@ namespace Neutron\Core\Form;
 
 
 use Neutron\Core\Model\CoreRole;
+use Phpfox\Form\Button;
 use Phpfox\Form\Form;
 
 class AddNewRole extends Form
@@ -50,5 +51,17 @@ class AddNewRole extends Form
                 'options'  => $roleOptions,
             ],
         ]);
+    }
+
+    public function getButtons()
+    {
+        return [
+            new Button([
+                'type'       => 'submit',
+                'name'       => 'save',
+                'label'      => _text('Save Changes'),
+                'attributes' => ['class' => 'btn btn-primary'],
+            ])
+        ];
     }
 }

@@ -3,7 +3,7 @@
 namespace Neutron\Video\Form;
 
 
-use Phpfox\Form\BootstrapFormRender;
+use Phpfox\Form\FormRenderBootstrap;
 
 class EmbedVideoTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,6 +12,6 @@ class EmbedVideoTest extends \PHPUnit_Framework_TestCase
         $obj = new EmbedVideo();
         $this->assertNotEmpty($obj->getElement('origin_url'));
 
-        $this->assertNotEmpty((new BootstrapFormRender())->render($obj));
+        $this->assertNotEmpty((new FormRenderBootstrap())->render($obj));
     }
 }

@@ -3,10 +3,12 @@
 namespace Neutron\Core\Service;
 
 
-use Phpfox\Layout\LayoutElement;
+use Phpfox\Layout\LayoutBlock;
+use Phpfox\Layout\LayoutContainer;
 use Phpfox\Layout\LayoutLoaderInterface;
 use Phpfox\Layout\LayoutLocation;
 use Phpfox\Layout\LayoutPage;
+use Phpfox\Model\ModelInterface;
 
 class LayoutLoader implements LayoutLoaderInterface
 {
@@ -23,7 +25,7 @@ class LayoutLoader implements LayoutLoaderInterface
         do {
             $row = \Phpfox::get('db')
                 ->select('parent_id')
-                ->from(':theme')
+                ->from(':layout_theme')
                 ->where('theme_id=?', $themeId)
                 ->first();
 
@@ -39,24 +41,24 @@ class LayoutLoader implements LayoutLoaderInterface
     }
 
     /**
-     * @param string $pageId
+     * @param string $actionId
      *
      * @return array
      */
-    public function findAcceptablePageId($pageId)
+    public function findAcceptableActionId($actionId)
     {
-        $result = [$pageId];
+        $result = [$actionId];
         $limit = 5;
 
         do {
             $row = \Phpfox::get('db')
-                ->select('parent_page_id')
-                ->from(':layout_page')
-                ->where('page_id=?', $pageId)
+                ->select('parent_action_id')
+                ->from(':layout_action')
+                ->where('action_id=?', $actionId)
                 ->first();
 
-            if ($row and $row['parent_page_id']) {
-                $result[] = $pageId = $row['parent_page_id'];
+            if ($row and $row['parent_action_id']) {
+                $result[] = $actionId = $row['parent_action_id'];
             }
 
         } while (!empty($row) and --$limit > 0);
@@ -67,194 +69,287 @@ class LayoutLoader implements LayoutLoaderInterface
     }
 
     /**
-     * @param string $pageId
+     * @param string $actionId
      * @param string $themeId
      *
      * @return int|null
      */
-    public function findLayoutForRender($pageId, $themeId)
+    public function findPageIdForRender($actionId, $themeId)
     {
-        $pageIdList = $this->findAcceptablePageId($pageId);
+        $actionIdList = $this->findAcceptableActionId($actionId);
         $themeIdList = $this->findAcceptableThemeId($themeId);
 
         foreach ($themeIdList as $themeId) {
             $temp = [];
-            $rows = \Phpfox::get('db')
+
+            /** @var \Neutron\Core\Model\LayoutPage[] $rows */
+            $rows = \Phpfox::with('layout_page')
                 ->select()
-                ->from(':layout_params')
                 ->where('is_active=?', 1)
                 ->where('theme_id=?', $themeId)
-                ->where('page_id IN ?', $pageIdList)
+                ->where('action_id IN ?', $actionIdList)
                 ->all();
 
             foreach ($rows as $row) {
-                $temp[$row['page_id']] = $row['layout_id'];
+                $temp[$row->getActionId()] = $row->getId();
             }
-
-            foreach ($pageIdList as $pageId) {
-                if (isset($temp[$pageId]) and $temp[$pageId]) {
-                    return $temp[$pageId];
+            foreach ($actionIdList as $actionId) {
+                if (isset($temp[$actionId]) and $temp[$actionId]) {
+                    return $temp[$actionId];
                 }
             }
         }
 
-        $alternate = \Phpfox::get('db')
+        /** @var \Neutron\Core\Model\LayoutPage $alternate */
+        $alternate = \Phpfox::with('layout_page')
             ->select()
-            ->from(':layout_params')
             ->where('theme_id=?', 'default')
-            ->where('page_id=?', 'default')
+            ->where('action_id=?', 'default')
             ->first();
 
-        return $alternate['layout_id'];
+        return $alternate->getId();
     }
 
     /**
-     * @param int $layoutId
+     * @param string $gridId
+     * @param bool   $activeOnly
      *
-     * @return array
+     * @return LayoutLocation[]
      */
-    public function loadLayoutParamsByLayoutId($layoutId)
+    public function loadLayoutLocationByGridId($gridId, $activeOnly = false)
     {
-        $layout = \Phpfox::get('db')
+        if ($activeOnly) {
+            // reversed parameter
+        }
+        /** @var \Neutron\Core\Model\LayoutGridLocation[] $gridLocations */
+        $gridLocations = \Phpfox::with('layout_grid_location')
             ->select()
-            ->from(':layout_params')
-            ->where('layout_id=?', $layoutId)
-            ->first();
-
-        return $layout;
-    }
-
-    /**
-     * @param int $layoutId
-     *
-     * @return array
-     */
-    public function loadElementForRenderByLayoutId($layoutId)
-    {
-        return \Phpfox::get('db')
-            ->select('ele.*, blk.block_name, blk.block_class')
-            ->from(':layout_element', 'ele')
-            ->join(':layout_block', 'blk', 'ele.block_id=blk.block_id', null,
-                null)
-            ->where('ele.is_active=?', 1)
-            ->where('ele.layout_id=?', $layoutId)
-            ->order('ele.location_id', 1)
-            ->order('ele.sort_order', 1)
+            ->where('grid_id=?', $gridId)
+            ->order('sort_order', 1)
             ->all();
+
+        /** @var LayoutLocation[] $layoutLocations */
+        $layoutLocations = [];
+
+        foreach ($gridLocations as $gridLocation) {
+            $layoutLocations[$gridLocation->getLocationId()]
+                = new LayoutLocation($gridLocation->getLocationId());
+        }
+
+        return $layoutLocations;
     }
 
+    /**
+     * @param string $id         Container Id
+     * @param string $gridId     Grid Id
+     * @param bool   $activeOnly Active only ?
+     *
+     * @return LayoutLocation[]
+     */
+    public function loadLayoutLocation($id, $gridId, $activeOnly = false)
+    {
+
+        $layoutLocations = $this->loadLayoutLocationByGridId($gridId);
+
+        /** @var \Neutron\Core\Model\LayoutContainerLocation[] $containerLocations */
+        $containerLocations = \Phpfox::with('layout_container_location')
+            ->select()
+            ->where('container_id=?', $id)
+            ->all();
+
+        foreach ($containerLocations as $containerLocation) {
+            $locationId = $containerLocation->getLocationId();
+
+            if (!isset($layoutLocations[$locationId])) {
+                continue;
+            }
+            $layoutLocations[$locationId]->setParams(json_decode($containerLocation->getParams(),
+                true));
+        }
+
+        $selectBlocks = \Phpfox::get('db')
+            ->select('blk.*, cmp.component_class, cmp.component_name')
+            ->from(':layout_block', 'blk')
+            ->join(':layout_component', 'cmp',
+                'cmp.component_id=blk.component_id')
+            ->where('blk.container_id=?', $id)
+            ->order('blk.location_id, blk.sort_order', 1);
+
+        if ($activeOnly) {
+            $selectBlocks->where('blk.is_active=?', 1);
+        }
+
+        foreach ($selectBlocks->all() as $block) {
+            $locationId = $block['location_id'];
+            if (!isset($layoutLocations[$locationId])) {
+                continue;
+            }
+
+            $layoutLocations[$locationId]->addBlock(new LayoutBlock([
+                'element_id'  => $block['block_id'],
+                'parent_id'   => $block['parent_id'],
+                'location_id' => $block['location_id'],
+                'block_id'    => $block['block_id'],
+                'block_name'  => $block['component_name'],
+                'block_class' => $block['component_class'],
+                'is_active'   => $block['is_active'],
+            ]));
+        }
+
+        return $layoutLocations;
+    }
 
     /**
-     * @param string $pageId
+     * @param string $actionId
      * @param string $themeId
      *
      * @return LayoutPage
      */
-    public function loadForRender($pageId, $themeId)
+    public function loadForRender($actionId, $themeId)
     {
-        $layoutId = $this->findLayoutForRender($pageId, $themeId);
+        $pageId = $this->findPageIdForRender($actionId, $themeId);
 
-        $locations = \Phpfox::get('db')
+        /** @var \Neutron\Core\Model\LayoutContainer[] $containers */
+        $containers = \Phpfox::with('layout_container')
             ->select()
-            ->from(':layout_location')
-            ->where('layout_id=?', $layoutId)
+            ->where('page_id=?', $pageId)
             ->where('is_active=?', 1)
+            ->order('sort_order', 1)
             ->all();
 
-        $layout = \Phpfox::get('db')->select()
-            ->from(':layout_params')
-            ->where('layout_id=?', $layoutId)
-            ->first();
+        $layoutPage = new LayoutPage($pageId, $actionId, $themeId);
 
-        $layoutParams = (array)json_decode($layout['params']);
+        foreach ($containers as $container) {
+            $layoutContainer = new LayoutContainer($container->getId(),
+                $container->getTypeId(), $container->getGridId(),
+                json_decode($container->getContainerParams(), true));
 
-        $layoutPage = new LayoutPage($pageId, $layoutParams);
+            /** @var LayoutLocation[] $layoutLocations */
+            $layoutLocations
+                = $this->loadLayoutLocation($container->getId(),
+                $container->getGridId(), true);
 
-        $elements = $this->loadElementForRenderByLayoutId($layoutId);
-
-        foreach ($locations as $data) {
-            $locationId = $data['location_id'];
-            $locationParams = json_decode($data['location_params'], 1);
-            $location = new LayoutLocation($locationId, $locationParams);
-            foreach ($elements as $row) {
-
-                if ($row['location_id'] != $locationId) {
-                    continue;
-                }
-
-                $params = (array)json_decode($row['params'], 1);
-                $location->add(new LayoutElement(array_merge($params, [
-                    'element_id'  => $row['element_id'],
-                    'parent_id'   => $row['parent_id'],
-                    'location_id' => $row['location_id'],
-                    'block_id'    => $row['block_id'],
-                    'block_name'  => $row['block_name'],
-                    'block_class' => $row['block_class'],
-                ])));
+            foreach ($layoutLocations as $layoutLocation) {
+                $layoutContainer->addLocation($layoutLocation);
             }
 
-            $layoutPage->addLocation($location);
+            $layoutPage->addContainer($layoutContainer);
         }
 
         return $layoutPage;
     }
 
     /**
-     * @param string $pageId
+     * @param string $actionId
      * @param string $themeId
      *
-     * @return LayoutLocation[]
+     * @return LayoutPage
      */
-    public function loadForEdit($pageId, $themeId)
+    public function loadForEdit($actionId, $themeId)
     {
-        $layoutId = $this->findLayoutForRender($pageId, $themeId);
+        $pageId = $this->findPageIdForRender($actionId, $themeId);
 
-        $locations = \Phpfox::get('db')
+        /** @var \Neutron\Core\Model\LayoutContainer[] $containers */
+        $containers = \Phpfox::with('layout_container')
             ->select()
-            ->from(':layout_location')
-            ->where('layout_id=?', $layoutId)
+            ->where('page_id=?', $pageId)
+            ->where('is_active=?', 1)
+            ->order('sort_order', 1)
             ->all();
 
-        /** @var LayoutElement[] $elements */
-        $elements = \Phpfox::get('db')
-            ->select('ele.*, blk.block_name, blk.block_class')
-            ->from(':layout_element', 'ele')
-            ->join(':layout_block', 'blk', 'ele.block_id=blk.block_id', null,
-                null)
-            ->where('ele.layout_id=?', $layoutId)
-            ->order('ele.location_id', 1)
-            ->order('ele.sort_order', 1)
-            ->all();;
+        $layoutPage = new LayoutPage($pageId, $actionId, $themeId);
 
-        /** @var LayoutLocation[] $layoutLocations */
-        $layoutLocations = [];
+        foreach ($containers as $container) {
+            $layoutContainer = new LayoutContainer($container->getId(),
+                $container->getTypeId(), $container->getGridId(),
+                json_decode($container->getContainerParams(), true));
 
-        foreach ($locations as $data) {
-            $locationId = $data['location_id'];
-            $locationParams = json_decode($data['location_params'], 1);
-            $layoutLocation = new LayoutLocation($locationId, $locationParams);
-            foreach ($elements as $row) {
+            /** @var LayoutLocation[] $layoutLocations */
+            $layoutLocations
+                = $this->loadLayoutLocation($container->getId(),
+                $container->getGridId(), false);
 
-                if ($row['location_id'] != $locationId) {
-                    continue;
-                }
-
-                $params = (array)json_decode($row['params'], 1);
-                $layoutLocation->add(new LayoutElement(array_merge($params, [
-                    'element_id'  => $row['element_id'],
-                    'parent_id'   => $row['parent_id'],
-                    'location_id' => $row['location_id'],
-                    'is_active'   => $row['is_active'],
-                    'sort_order'  => $row['sort_order'],
-                    'block_id'    => $row['block_id'],
-                    'block_name'  => $row['block_name'],
-                    'block_class' => $row['block_class'],
-                ])));
+            foreach ($layoutLocations as $layoutLocation) {
+                $layoutContainer->addLocation($layoutLocation);
             }
 
-            $layoutLocations[] = $layoutLocation;
+            $layoutPage->addContainer($layoutContainer);
         }
 
-        return $layoutLocations;
+        return $layoutPage;
+    }
+
+    /**
+     * Get editing theme id
+     *
+     * @return string
+     */
+    public function getEditingThemeId()
+    {
+        $theme = \Phpfox::with('layout_theme')
+            ->select()
+            ->where('is_editing=?', 1)
+            ->first();
+
+        if (!empty($theme)) {
+            return $theme->getId();
+        }
+
+        return 'default';
+    }
+
+    /**
+     * @return array
+     */
+    public function getGridIdOptions()
+    {
+        return array_map(function (ModelInterface $v) {
+            return [
+                'label' => $v->__get('title'),
+                'value' => $v->__get('grid_id'),
+                'note'  => $v->__get('description'),
+            ];
+        }, \Phpfox::with('layout_grid')->select()->all());
+    }
+
+    public function getLocationIdOptions($gridId)
+    {
+        $select = \Phpfox::with('layout_grid_location')
+            ->select()
+            ->where('grid_id=?', $gridId)
+            ->where('is_active=?', 1)
+            ->order('sort_order', 1);
+
+        return array_map(function (ModelInterface $v) {
+
+        }, $select->all());
+    }
+
+    /**
+     * @return array
+     */
+    public function getPageIdOptions()
+    {
+        $select = \Phpfox::with('layout_page')->select();
+
+        return array_map(function (ModelInterface $v) {
+            return [
+                'label' => $v->__get('page_id'),
+                'value' => $v->__get('page_id'),
+            ];
+        }, $select->all());
+    }
+
+    public function getComponentIdOptions()
+    {
+        $select = \Phpfox::with('layout_component')->select();
+
+        return array_map(function (ModelInterface $v) {
+            return [
+                'label' => $v->__get('package_id') . '.'
+                    . $v->__get('component_id'),
+                'value' => $v->__get('component_id'),
+            ];
+        }, $select->all());
     }
 }

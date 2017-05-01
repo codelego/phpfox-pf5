@@ -9,12 +9,15 @@ use Phpfox\View\ViewModel;
 
 class AdminManageController extends AdminController
 {
-    public function actionIndex()
+    protected function initialized()
     {
         \Phpfox::get('breadcrumb')
-            ->add(['link' => '', 'label' => 'Members',], true);
+            ->clear()
+            ->add(['href' => '', 'label' => 'Members',]);
+    }
 
-        $vm = new ViewModel();
+    public function actionIndex()
+    {
         $request = \Phpfox::get('request');
 
         $filter = new AdminFilterUser();
@@ -30,10 +33,8 @@ class AdminManageController extends AdminController
             ->limit(10)
             ->all();
 
-        $vm->assign(['items' => $items]);
-
-        $vm->setTemplate('user/admin-manage/index');
-
-        return $vm;
+        return new ViewModel([
+            'items' => $items,
+        ], 'user/admin-manage/index');
     }
 }
