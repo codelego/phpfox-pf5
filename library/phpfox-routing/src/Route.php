@@ -78,12 +78,12 @@ class Route implements RouteInterface
         if (!empty($params['route'])) {
             $this->route = strtr(preg_replace('/\/<([\w+\_\-]+)>\?/', '(/<$1>)',
                 $params['route']), ['/*' => '(/<retain>)',]);
-            $this->route_expr = $this->compile($this->route, $wheres);
+            $this->route_expr = $this->prepareRegularExpression($this->route, $wheres);
         }
 
         if (!empty($params['host'])) {
             $this->host = $params['host'];
-            $this->host_expr = $this->compile($this->host, $wheres);
+            $this->host_expr = $this->prepareRegularExpression($this->host, $wheres);
         }
     }
 
@@ -96,7 +96,7 @@ class Route implements RouteInterface
      * @return string
      * @ignore
      */
-    protected function compile($rule, $wheres = [])
+    protected function prepareRegularExpression($rule, $wheres = [])
     {
         $return = preg_replace('#[.\\+*?[^\\]${}=!|]#', '\\\\$0', $rule);
 
