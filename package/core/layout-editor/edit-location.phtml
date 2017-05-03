@@ -1,23 +1,23 @@
 <div class="layout-location-heading">
     <strong><?= $location->getName() ?></strong>
-    <span data-cmd="dropdown" role="button" style="float:right">
-        <small>Edit</small>
-        <ul class="dropdown-menu dropdown-menu-right">
-            <li>
-                <a role="button">Add Block</a>
-            </li>
-            <li>
-                <a role="button">Edit Settings</a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a role="button">Enable all block</a>
-            </li>
-            <li>
-                <a role="button">Disable all block</a>
-            </li>
-        </ul>
+    <span data-cmd="dropdown" role="button" style="float:right" data-target=":div/ul">
+        <small>edit</small>
     </span>
+    <ul class="hide" role="menu">
+        <li role="menuitem">
+            <a role="button">Add Block</a>
+        </li>
+        <li role="menuitem">
+            <a role="button">Edit Settings</a>
+        </li>
+        <li class="divider"></li>
+        <li role="menuitem">
+            <a>Enable all block</a>
+        </li>
+        <li role="menuitem">
+            <a role="button">Disable all block</a>
+        </li>
+    </ul>
 </div>
 <ul class="layout-editor-location">
     <?= $content ?>

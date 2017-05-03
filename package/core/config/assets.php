@@ -7,7 +7,6 @@ return [
         'jqueryui'   => 'jscript/jquery-ui/jqueryui',
         'underscore' => 'jscript/underscore/underscore.min',
         'tiny_mce'   => 'jscript/tinymce/jquery.tinymce.min',
-        'main'       => 'package/core/main',
     ],
     'static.js'       => [
         'require' => 'jscript/requirejs/require.js',

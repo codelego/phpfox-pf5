@@ -13,6 +13,5 @@ class AddLayoutBlockTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($form->getElement('component_id'));
         $this->assertNotNull($form->getElement('sort_order'));
         $this->assertNotNull($form->getElement('is_active'));
-        $this->assertNotNull($form->getElement('block_params'));
     }
 }

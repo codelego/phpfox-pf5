@@ -29,7 +29,7 @@ class LayoutBlock extends DbModel
     public function isActive(){return $this->__get('is_active') ?1:0;}
     public function setActive($value){$this->__set('is_active',$value?1:0);}
     
-    public function getBlockParams(){return $this->__get('block_params');}
-    public function setBlockParams($value){$this->__set('block_params', $value);}
+    public function getParams(){return $this->__get('params');}
+    public function setParams($value){$this->__set('params', $value);}
     
 }

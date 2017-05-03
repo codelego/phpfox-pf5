@@ -10,7 +10,7 @@ class Hidden extends Element implements FieldInterface
      */
     protected $value;
 
-    protected $render = 'input';
+    protected $render = 'hidden';
 
     public function getValue()
     {
@@ -22,8 +22,13 @@ class Hidden extends Element implements FieldInterface
         $this->value = $value;
     }
 
+    public function noWrap()
+    {
+        return true;
+    }
+
     public function noLabel()
     {
-        return $this->getParam('noLabel', true);
+        return true;
     }
 }

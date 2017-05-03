@@ -94,10 +94,10 @@ class Element implements ElementInterface
         $this->attributes[$name] = $value;
     }
 
-    public function getAttribute($name)
+    public function getAttribute($name, $default = null)
     {
         return isset($this->attributes[$name])
-            ? $this->attributes[$name] : null;
+            ? $this->attributes[$name] : $default;
     }
 
     /**

@@ -22,6 +22,10 @@ class FormRenderPanel implements FormRenderInterface
                 : '<label class="control-label '.$required.'">' . $v->getLabel() . '</label>';
 
 
+            if($v->noWrap()){
+                return $fc->render($v);
+            }
+
             return '<div class="form-group input-' . $name . '">' . $label
                 . $note . $fc->render($v) . '</div>';
         }, $form->getElements());

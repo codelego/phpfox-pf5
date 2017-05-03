@@ -1,3 +1,3 @@
-define(['main'], function () {
+define(['core'], function (Core) {
 
 });

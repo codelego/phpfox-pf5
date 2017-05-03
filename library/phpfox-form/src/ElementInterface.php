@@ -80,10 +80,11 @@ interface ElementInterface
 
     /**
      * @param string $name
+     * @param null   $default
      *
      * @return string
      */
-    public function getAttribute($name);
+    public function getAttribute($name, $default  = null);
 
     /**
      * @param string $name
@@ -118,6 +119,8 @@ interface ElementInterface
      * @return bool
      */
     public function noLabel();
+
+    public function noWrap();
 
     /**
      * @return boolean

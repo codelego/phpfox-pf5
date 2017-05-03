@@ -1,0 +1,17 @@
+<div class="alert alert-danger">
+    <h4>Warning</h4>
+    <p>
+        There are no page by `<?= $actionId ?>` = `<?= $themeId ?>`. Layout
+        engine use `<?= $parentPage->getActionId() ?>` instead.
+    </p>
+    <ul role="menu">
+        <li role="menuitem">
+            Clone parent page to continue.
+            <a role="button" href="?confirmed=1">Clone It</a>
+        </li>
+        <li>
+            Design layout for parent page,
+            <a role="button" href="<?= _url('admin.core.layout.design-layout',['action_id'=>$parentPage->getActionId()]) ?>">Edit Parent Layout</a>
+        </li>
+    </ul>
+</div>

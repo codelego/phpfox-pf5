@@ -17,7 +17,7 @@ class RequireJs
     /**
      * @var array
      */
-    protected $_modules;
+    protected $_modules = [];
 
     /**
      * Script list
@@ -39,7 +39,7 @@ class RequireJs
     /**
      * @var array
      */
-    protected $_deps = ['jquery','underscore', 'bootstrap', 'main'];
+    protected $_deps = ['jquery', 'underscore', 'bootstrap', 'core','extras'];
 
     /**
      * @var array

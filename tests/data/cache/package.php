@@ -150,8 +150,8 @@
     ),
     'response.ajax' => 
     array (
-      0 => NULL,
-      1 => 'Phpfox\\Action\\AjaxResponse',
+        0 => NULL,
+        1 => 'Phpfox\\Action\\JsonResponse',
     ),
     'response.html' => 
     array (

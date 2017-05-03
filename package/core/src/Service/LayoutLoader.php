@@ -72,6 +72,28 @@ class LayoutLoader implements LayoutLoaderInterface
      * @param string $actionId
      * @param string $themeId
      *
+     * @return int
+     */
+    public function findPageIdForEdit($actionId, $themeId)
+    {
+        /** @var \Neutron\Core\Model\LayoutPage $layoutPage */
+        $layoutPage = \Phpfox::with('layout_page')
+            ->select()
+            ->where('theme_id=?', $themeId)
+            ->where('action_id =?', $actionId)
+            ->first();
+
+        if ($layoutPage) {
+            return $layoutPage->getId();
+        }
+
+        return 0;
+    }
+
+    /**
+     * @param string $actionId
+     * @param string $themeId
+     *
      * @return int|null
      */
     public function findPageIdForRender($actionId, $themeId)
@@ -151,8 +173,8 @@ class LayoutLoader implements LayoutLoaderInterface
 
         $layoutLocations = $this->loadLayoutLocationByGridId($gridId);
 
-        /** @var \Neutron\Core\Model\LayoutContainerLocation[] $containerLocations */
-        $containerLocations = \Phpfox::with('layout_container_location')
+        /** @var \Neutron\Core\Model\LayoutLocation[] $containerLocations */
+        $containerLocations = \Phpfox::with('layout_location')
             ->select()
             ->where('container_id=?', $id)
             ->all();
@@ -222,7 +244,7 @@ class LayoutLoader implements LayoutLoaderInterface
         foreach ($containers as $container) {
             $layoutContainer = new LayoutContainer($container->getId(),
                 $container->getTypeId(), $container->getGridId(),
-                json_decode($container->getContainerParams(), true));
+                json_decode($container->getParams(), true));
 
             /** @var LayoutLocation[] $layoutLocations */
             $layoutLocations
@@ -247,13 +269,16 @@ class LayoutLoader implements LayoutLoaderInterface
      */
     public function loadForEdit($actionId, $themeId)
     {
-        $pageId = $this->findPageIdForRender($actionId, $themeId);
+        $pageId = $this->findPageIdForEdit($actionId, $themeId);
+
+        if (!$pageId) {
+            return null;
+        }
 
         /** @var \Neutron\Core\Model\LayoutContainer[] $containers */
         $containers = \Phpfox::with('layout_container')
             ->select()
             ->where('page_id=?', $pageId)
-            ->where('is_active=?', 1)
             ->order('sort_order', 1)
             ->all();
 
@@ -262,7 +287,7 @@ class LayoutLoader implements LayoutLoaderInterface
         foreach ($containers as $container) {
             $layoutContainer = new LayoutContainer($container->getId(),
                 $container->getTypeId(), $container->getGridId(),
-                json_decode($container->getContainerParams(), true));
+                json_decode($container->getParams(), true));
 
             /** @var LayoutLocation[] $layoutLocations */
             $layoutLocations
@@ -277,6 +302,99 @@ class LayoutLoader implements LayoutLoaderInterface
         }
 
         return $layoutPage;
+    }
+
+    /**
+     * Clone a parent page to child page with all its children
+     *
+     * @param string $actionId
+     * @param string $themeId
+     *
+     * @return int  Get new page id
+     */
+    public function clonePage($actionId, $themeId)
+    {
+        // find container map
+        $pageId = $this->findPageIdForRender($actionId, $themeId);
+
+
+        $db = \Phpfox::get('db');
+
+        $db->begin();
+
+        try {
+
+            /** @var \Neutron\Core\Model\LayoutPage $page */
+            $page = \Phpfox::with('layout_page')->findById($pageId);
+
+            /** @var \Neutron\Core\Model\LayoutPage $newPage */
+            $newPage = \Phpfox::with('layout_page')
+                ->create(array_merge($page->toArray(), [
+                    'page_id'   => null,
+                    'action_id' => $actionId,
+                    'theme_id'  => $themeId,
+                ]));
+
+            $newPage->save();
+
+            /** @var \Neutron\Core\Model\LayoutContainer[] $containers */
+            $containers
+                = \Phpfox::with('layout_container')
+                ->select()
+                ->where('page_id=?', $pageId)
+                ->all();
+
+            foreach ($containers as $container) {
+                /** @var \Neutron\Core\Model\LayoutContainer $newContainer */
+                $newContainer = \Phpfox::with('layout_container')
+                    ->create(array_merge($container->toArray(), [
+                        'container_id' => null,
+                        'page_id'      => $newPage->getId(),
+                    ]));
+                $newContainer->save();
+
+                /** @var \Neutron\Core\Model\LayoutLocation[] $locations */
+                $locations = \Phpfox::with('layout_location')
+                    ->select()
+                    ->where('container_id=?', $container->getId())
+                    ->all();
+
+                foreach ($locations as $location) {
+                    /** @var \Neutron\Core\Model\LayoutLocation $newLocation */
+                    $newLocation = \Phpfox::with('layout_location')
+                        ->create(array_merge($location->toArray(), [
+                            'container_id' => $newContainer->getId(),
+                        ]));
+                    $newLocation->save();
+                }
+
+                /** @var \Neutron\Core\Model\LayoutBlock[] $blocks */
+                $blocks = \Phpfox::with('layout_block')
+                    ->select()
+                    ->where('container_id=?', $container->getId())
+                    ->where('parent_id=?', 0)
+                    ->all();
+
+                foreach ($blocks as $block) {
+                    /** @var \Neutron\Core\Model\LayoutBlock $block */
+                    $newBlock = \Phpfox::with('layout_block')
+                        ->create(array_merge($block->toArray(), [
+                            'block_id'     => null,
+                            'parent_id'    => 0,
+                            'container_id' => $newContainer->getId(),
+                        ]));
+                    $newBlock->save();
+                }
+
+
+            }
+            $db->commit();
+            return true;
+        } catch (\Exception $ex) {
+            $db->rollback();
+            _dump($ex);
+        }
+        return false;
     }
 
     /**
@@ -328,6 +446,17 @@ class LayoutLoader implements LayoutLoaderInterface
     /**
      * @return array
      */
+    public function getContainerTypeIdOptions()
+    {
+        return [
+            ['value' => 'container', 'label' => 'Container',],
+            ['value' => 'container-fluid', 'label' => 'Container Fluid',],
+        ];
+    }
+
+    /**
+     * @return array
+     */
     public function getPageIdOptions()
     {
         $select = \Phpfox::with('layout_page')->select();
@@ -338,6 +467,16 @@ class LayoutLoader implements LayoutLoaderInterface
                 'value' => $v->__get('page_id'),
             ];
         }, $select->all());
+    }
+
+    /**
+     * @param mixed $pageId
+     *
+     * @return \Neutron\Core\Model\LayoutPage
+     */
+    public function findPageById($pageId)
+    {
+        return \Phpfox::with('layout_page')->findById($pageId);
     }
 
     public function getComponentIdOptions()
@@ -351,5 +490,32 @@ class LayoutLoader implements LayoutLoaderInterface
                 'value' => $v->__get('component_id'),
             ];
         }, $select->all());
+    }
+
+    /**
+     * @param array $containerIdList
+     */
+    public function deleteContainers($containerIdList)
+    {
+
+        if (empty($containerIdList)) {
+            return;
+        }
+
+        \Phpfox::with('layout_block')
+            ->delete()
+            ->where('container_id in ?', $containerIdList)
+            ->execute();
+
+        \Phpfox::with('layout_location')
+            ->delete()
+            ->where('container_id in ?', $containerIdList)
+            ->execute();
+
+        \Phpfox::with('layout_container')
+            ->delete()
+            ->where('container_id in ?', $containerIdList)
+            ->execute();
+
     }
 }

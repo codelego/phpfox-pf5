@@ -31,14 +31,8 @@
     <div class="container">
         <?php if (Phpfox::get('registry')->has('search.filter')): ?>
             <div class="main-search-wrapper">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <form class="form-inline">
-                            <?= Phpfox::get('form_render')->render(Phpfox::get('registry')
-                                ->get('search.filter')) ?>
-                        </form>
-                    </div>
-                </div>
+                <?= Phpfox::get('form_render')->render(Phpfox::get('registry')
+                    ->get('search.filter')) ?>
             </div>
         <?php endif; ?>
     </div>

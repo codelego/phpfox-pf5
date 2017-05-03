@@ -5,6 +5,7 @@ namespace Phpfox\Form;
 return [
     'form_renders'  => [
         'input'                 => InputRender::class,
+        'hidden'                => HiddenRender::class,
         'form_bootstrap'        => FormRenderBootstrap::class,
         'form_panel'            => FormRenderPanel::class,
         'form_panel_horizontal' => FormRenderPanelHorizontal::class,

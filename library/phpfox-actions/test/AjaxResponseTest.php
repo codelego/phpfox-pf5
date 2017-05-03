@@ -11,7 +11,7 @@ class AjaxResponseTest extends \PHPUnit_Framework_TestCase
 
         $response->setData(['key1' => 'value1']);
 
-        $obj = new AjaxResponse();
+        $obj = new JsonResponse();
 
         $this->assertSame('{"key1":"value1"}', $obj->run($response));
     }

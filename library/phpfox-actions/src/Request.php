@@ -1,4 +1,5 @@
 <?php
+
 namespace Phpfox\Action;
 
 
@@ -191,5 +192,12 @@ class Request
     public function singleton()
     {
         \Phpfox::get('manager')->set('request', $this);
+    }
+
+    public function isAjax()
+    {
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+            return true;
+        }
     }
 }

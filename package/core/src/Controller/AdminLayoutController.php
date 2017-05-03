@@ -5,16 +5,16 @@ namespace Neutron\Core\Controller;
 use Neutron\Core\Form\AddLayoutAction;
 use Neutron\Core\Form\AddLayoutBlock;
 use Neutron\Core\Form\AddLayoutComponent;
-use Neutron\Core\Form\AddLayoutElement;
-use Neutron\Core\Form\AddLayoutPage;
+use Neutron\Core\Form\AddLayoutContainer;
 use Neutron\Core\Form\EditLayoutAction;
 use Neutron\Core\Form\EditLayoutBlock;
 use Neutron\Core\Form\EditLayoutComponent;
-use Neutron\Core\Form\EditLayoutPage;
+use Neutron\Core\Form\EditLayoutContainer;
 use Neutron\Core\Form\ThemeEditor;
 use Neutron\Core\Model\LayoutAction;
 use Neutron\Core\Model\LayoutBlock;
-use Neutron\Core\Model\LayoutElement;
+use Neutron\Core\Model\LayoutContainer;
+use Neutron\Core\Model\LayoutPage;
 use Phpfox\View\ViewModel;
 
 class AdminLayoutController extends AdminController
@@ -46,9 +46,17 @@ class AdminLayoutController extends AdminController
             ])->add([
                 'label' => _text('Add Page', 'admin'),
                 'href'  => _url('admin.core.layout.add'),
+                'extra' => [
+                    'data-cmd' => 'modal',
+                    'class'    => 'btn btn-default',
+                ],
             ])->add([
                 'label' => _text('Add Component', 'admin'),
                 'href'  => _url('admin.core.layout.add-component'),
+                'extra' => [
+                    'data-cmd' => 'modal',
+                    'class'    => 'btn btn-default',
+                ],
             ]);
     }
 
@@ -288,16 +296,33 @@ class AdminLayoutController extends AdminController
     /**
      * List element of pages
      */
-    public function actionDesign()
+    public function actionDesignLayout()
     {
         $request = \Phpfox::get('request');
-        $actionId = $request->get('id');
+        $actionId = $request->get('action_id');
+        $themeId = 'default';
+        $containerId = $request->get('container_id');
+        $cmd = $request->get('cmd');
+        $layoutService = \Phpfox::get('layout_loader');
+
+        switch ($cmd) {
+            case 'delete_container':
+                $layoutService->deleteContainers([$containerId]);
+                \Phpfox::get('response')->redirect('?');
+                break;
+        }
+
 
         \Phpfox::get('require_js')
-            ->deps('jscript/core/layout-editor');
+            ->deps('package/core/layout-editor');
 
-        $layoutPage = \Phpfox::get('layout_loader')
-            ->loadForEdit($actionId, 'default');
+        $layoutPage = $layoutService->loadForEdit($actionId, $themeId);
+
+        if (!$layoutPage) {
+            \Phpfox::get('response')
+                ->redirect(_url('admin.core.layout.clone-page',
+                    ['action_id' => $actionId, 'theme_id' => $themeId]));
+        }
 
         \Phpfox::get('menu.admin.secondary')
             ->clear()
@@ -307,12 +332,13 @@ class AdminLayoutController extends AdminController
                 'extra' => [
                     'class'    => 'btn btn-success',
                     'data-cmd' => 'modal',
-                    'data-url' => '#',
+                    'data-url' => _url('admin.core.layout.action',
+                        ['action'=>'add-container','page_id' => $layoutPage->getName()]),
                 ],
             ]);
 
         return new ViewModel(['layoutPage' => $layoutPage,],
-            'core/admin-layout/manage-element');
+            'core/admin-layout/design-layout');
     }
 
     public function actionAddBlock()
@@ -364,5 +390,101 @@ class AdminLayoutController extends AdminController
             'form'    => $form,
             'heading' => _text('Edit Block', 'admin'),
         ], 'layout/form-edit');
+    }
+
+    public function actionEditContainer()
+    {
+        $request = \Phpfox::get('request');
+        $id = $request->get('container_id');
+        $container = \Phpfox::findById('layout_container', $id);
+        $page = \Phpfox::findById('layout_page', $container->getPageId());
+
+        $form = new EditLayoutContainer();
+
+        $form->setAction(_url('admin.core.layout.edit-container',
+            ['container_id' => $id]));
+
+        if ($request->isGet()) {
+            $form->populate($container);
+        }
+
+        if ($request->isPost() and $form->isValid($request->all())) {
+
+            $container->fromArray($form->getData());
+
+            $container->save();
+
+            \Phpfox::get('response')
+                ->redirect(_url('admin.core.layout.design-layout',
+                    ['action_id' => $page->getActionId()]));
+        }
+
+        return new ViewModel(['form' => $form, 'heading' => 'Add Container'],
+            'layout/form-edit');
+    }
+
+    public function actionAddContainer()
+    {
+        $request = \Phpfox::get('request');
+        $pageId = $request->get('page_id');
+        $page = \Phpfox::get('layout_loader')->findPageById($pageId);
+        $form = new AddLayoutContainer();
+
+        $form->setAction(_url('admin.core.layout.add-container',
+            ['page_id' => $pageId]));
+
+        if ($request->isGet()) {
+
+        }
+
+        if ($request->isPost() and $form->isValid($request->all())) {
+            $data = $form->getData();
+            $data['page_id'] = $pageId;
+
+            $entry = new LayoutContainer($data);
+            $entry->save();
+
+            \Phpfox::get('response')
+                ->redirect(_url('admin.core.layout.design-layout',
+                    ['action_id' => $page->getActionId()]));
+        }
+
+        return new ViewModel(['form' => $form, 'heading' => 'Add Container'],
+            'layout/form-edit');
+    }
+
+    public function actionDeleteContainer()
+    {
+        $request = \Phpfox::get('request');
+        $containerId = $request->get('container_id');
+
+        \Phpfox::get('layout_loader')->deleteContainers([$containerId]);
+    }
+
+    public function actionClonePage()
+    {
+        $request = \Phpfox::get('request');
+        $actionId = $request->get('action_id');
+        $themeId = $request->get('theme_id');
+        $confirmed = $request->get('confirmed', false);
+        $layoutService = \Phpfox::get('layout_loader');
+        $parentPageId = $layoutService->findPageIdForRender($actionId,
+            $themeId);
+        /** @var LayoutPage $parentPage */
+        $parentPage = \Phpfox::with('layout_page')->findById($parentPageId);
+
+        if ($confirmed) {
+            $layoutService->clonePage($actionId, $themeId);
+            \Phpfox::get('response')
+                ->redirect(_url('admin.core.layout.design-layout',
+                    ['action_id' => $actionId]));
+        } else {
+            return new ViewModel([
+                'themeId'    => $themeId,
+                'actionId'   => $actionId,
+                'parentPage' => $parentPage,
+            ], 'core/admin-layout/clone-page');
+
+        }
     }
 }

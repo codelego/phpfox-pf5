@@ -55,53 +55,68 @@ return [
             'controller' => 'core.admin-layout',
             'action'     => 'index',
             'children'   => [
-                'edit'           => [
-                    'route'  => 'edit/<id>',
+                'edit'             => [
+                    'route'  => 'edit/<action_id>',
                     'action' => 'edit',
                 ],
-                'add'            => [
+                'add'              => [
                     'route'  => 'add',
                     'action' => 'add',
                 ],
-                'design'         => [
-                    'route'  => 'design/<id>',
-                    'action' => 'design',
+                'design-layout'    => [
+                    'route'  => 'design-layout/<action_id>',
+                    'action' => 'design-layout',
                 ],
-                'edit-block'   => [
+                'edit-block'       => [
                     'route'  => 'edit-block/<id>',
                     'action' => 'edit-block',
                 ],
-                'add-block'    => [
+                'add-block'        => [
                     'route'  => 'add-block',
                     'action' => 'add-block',
                 ],
-                'manage-component'      => [
+                'manage-component' => [
                     'route'  => 'manage-component',
                     'action' => 'manage-component',
                 ],
-                'add-component'  => [
+                'add-component'    => [
                     'route'  => 'add-component',
                     'action' => 'add-component',
                 ],
-                'edit-component' => [
+                'edit-component'   => [
                     'route'  => 'edit-component/<id>',
                     'action' => 'edit-component',
                 ],
-                'manage-theme'   => [
+                'manage-theme'     => [
                     'route'  => 'manage-theme',
                     'action' => 'manage-theme',
                 ],
-                'edit-theme'     => [
+                'edit-theme'       => [
                     'route'  => 'edit-theme/<id>',
                     'action' => 'edit-theme',
                 ],
-                'debug-theme'    => [
+                'debug-theme'      => [
                     'route'  => 'debug-theme/<id>',
                     'action' => 'debug-theme',
                 ],
-                'debug'          => [
+                'debug'            => [
                     'route'  => 'debug/<id>',
                     'action' => 'debug',
+                ],
+                'add-container'    => [
+                    'route'  => 'add-container/<page_id>',
+                    'action' => 'add-container',
+                ],
+                'edit-container'   => [
+                    'route'  => 'edit-container/<container_id>',
+                    'action' => 'edit-container',
+                ],
+                'clone-page'       => [
+                    'route'  => 'clone-page/<action_id>/<theme_id>',
+                    'action' => 'clone-page',
+                ],
+                'action'           => [
+                    'route'  => '<action>',
                 ],
             ],
         ],

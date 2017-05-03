@@ -15,7 +15,7 @@
                 <tr>
                     <td>
                         <a href="<?= _url('admin.core.layout.edit-component',
-                            ['id' => $item->getId()]) ?>"><?= $item->getId() ?></a>
+                            ['component_id' => $item->getId()]) ?>"><?= $item->getId() ?></a>
                     </td>
                     <td><?= $item->__get('component_name') ?></td>
                     <td><?= $item->__get('component_class') ?></td>

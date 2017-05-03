@@ -133,10 +133,6 @@ class LayoutLocation
      */
     public function renderForEdit()
     {
-        if (empty($this->blocks)) {
-            return '';
-        }
-
         $htmlArray = [];
 
         foreach ($this->blocks as $block) {

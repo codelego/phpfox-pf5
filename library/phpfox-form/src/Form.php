@@ -166,6 +166,63 @@ class Form extends Element implements ElementInterface, CollectionInterface
     }
 
     /**
+     * @param string $action
+     */
+    public function setAction($action)
+    {
+        $this->setAttribute('action', (string)$action);
+    }
+
+    /**
+     * @return string
+     */
+    public function getAction()
+    {
+        return (string)$this->getAttribute('action');
+    }
+
+    /**
+     * Values get, post, put, delete, options, head
+     *
+     * @param string $method
+     */
+    public function setMethod($method)
+    {
+        $this->setAttribute('method', strtolower($method));
+    }
+
+    /**
+     * Result get, post, put, delete, options, head
+     *
+     * @return string
+     */
+    public function getMethod()
+    {
+        return $this->getAttribute('method', 'get');
+    }
+
+    /**
+     * Values application/x-www-form-urlencoded, multipart/form-data, text/plain
+     *
+     * @param string $enctype
+     */
+    public function setEncType($enctype)
+    {
+        $this->setAttribute('enctype', strtolower($enctype));
+    }
+
+    /**
+     * Result is application/x-www-form-urlencoded, multipart/form-data,
+     * text/plain
+     *
+     * @return string
+     */
+    public function getEncType()
+    {
+        return $this->getAttribute('enctype', 'text/plain');
+    }
+
+    /**
      * @return Button[]
      */
     public function getButtons()

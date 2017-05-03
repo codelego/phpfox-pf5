@@ -69,6 +69,7 @@
   'form_renders' => 
   array (
     'input' => 'Phpfox\\Form\\InputRender',
+    'hidden' => 'Phpfox\\Form\\HiddenRender',
     'form_bootstrap' => 'Phpfox\\Form\\FormRenderBootstrap',
     'form_panel' => 'Phpfox\\Form\\FormRenderPanel',
     'form_panel_horizontal' => 'Phpfox\\Form\\FormRenderPanelHorizontal',
@@ -155,12 +156,17 @@
     'response.ajax' => 
     array (
       0 => NULL,
-      1 => 'Phpfox\\Action\\AjaxResponse',
+      1 => 'Phpfox\\Action\\JsonResponse',
     ),
     'response.html' => 
     array (
       0 => NULL,
       1 => 'Phpfox\\Action\\HtmlResponse',
+    ),
+    'response.partial' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Action\\JsonResponse',
     ),
     'assets' => 
     array (
