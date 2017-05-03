@@ -1,12 +1,28 @@
 <?php
+
 namespace Phpfox\Routing;
 
-class Parameters
+class Parameters implements \ArrayAccess
 {
     /**
      * @var array
      */
     protected $params = [];
+
+    /**
+     * @var array
+     */
+    protected $usages = [];
+
+    /**
+     * Parameters constructor.
+     *
+     * @param array $params
+     */
+    public function __construct(array $params = [])
+    {
+        $this->params = $params;
+    }
 
     /**
      * @param string     $key
@@ -67,4 +83,42 @@ class Parameters
         return !empty($this->params['action'])
             and !empty($this->params['controller']);
     }
+
+    /**
+     * @param string $key
+     */
+    public function used($key)
+    {
+        $this->usages[$key] = true;
+    }
+
+    public function offsetExists($offset)
+    {
+        return isset($this->params[$offset]);
+    }
+
+    public function offsetGet($offset)
+    {
+        return $this->params[$offset];
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        $this->params[$offset] = $value;
+    }
+
+    public function offsetUnset($offset)
+    {
+        unset($this->params[$offset]);
+    }
+
+    public function getQueryString()
+    {
+        if (empty($this->params)) {
+            return '';
+        }
+
+        return '?'. http_build_query(array_intersect_key($this->usages, $this->params));
+    }
+
 }

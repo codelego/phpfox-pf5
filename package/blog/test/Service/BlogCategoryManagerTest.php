@@ -72,5 +72,7 @@ class BlogCategoryManagerTest extends \PHPUnit_Framework_TestCase
         $mn = new BlogCategoryManager();
         $this->assertFalse($mn->hasName($category->getName()));
         $this->assertSame(0, $mn->findIdByName($category->getName()));
+
+        return $category;
     }
 }

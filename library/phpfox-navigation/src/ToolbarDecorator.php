@@ -81,7 +81,7 @@ class ToolbarDecorator implements DecoratorInterface
             } elseif ($item->type == 'plugin') {
                 $item = \Phpfox::callback($item->event, $params);
             } else {
-                $href = \Phpfox::router()->getUrl($item->route, $params);
+                $href = _url($item->route, $params);
             }
         }
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace Phpfox\Routing;
 
 interface RouteInterface
@@ -13,7 +14,7 @@ interface RouteInterface
     public function match($path, $host, &$parameters);
 
     /**
-     * @param array $params
+     * @param Parameters $params
      *
      * @return string
      */

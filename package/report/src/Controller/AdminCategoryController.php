@@ -71,7 +71,6 @@ class AdminCategoryController extends AdminController
 
     public function actionEdit()
     {
-        $id = \Phpfox::get('request')->get('id');
     }
 
     public function actionDelete()

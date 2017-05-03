@@ -126,9 +126,7 @@ namespace {
     }
 
     /**
-     * @param array|string $array ['core'=> PHPFOX_DIR
-     *                            .'/package/neutron-core/view',...]
-     * @param string|null  $config
+     * @param array|string $config
      *
      * @return array
      */
@@ -482,14 +480,13 @@ namespace {
 
     /**
      * @param string $key
-     * @param array  $context
-     * @param null   $query
+     * @param array  $params
      *
      * @return string
      */
-    function _url($key, $context = [], $query = null)
+    function _url($key, $params = [])
     {
-        return \Phpfox::get('router')->getUrl($key, $context, $query);
+        return \Phpfox::get('router')->getUrl($key, $params);
     }
 
     /**

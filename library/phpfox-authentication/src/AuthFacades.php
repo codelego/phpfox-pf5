@@ -34,7 +34,7 @@ class AuthFacades
      * @param mixed  $id
      * @param string $identity
      * @param string $credential
-     * @param string $extra
+     * @param array $extra
      *
      * @return AuthResult
      */

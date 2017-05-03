@@ -1,4 +1,5 @@
 <?php
+
 namespace Phpfox\Routing;
 
 
@@ -71,6 +72,12 @@ class Routing
         return $result;
     }
 
+    /**
+     * @param string     $key
+     * @param Parameters $params
+     *
+     * @return bool|mixed|string
+     */
     public function getUri($key, $params)
     {
         $result = '';

@@ -77,7 +77,7 @@ class NavDecorator implements DecoratorInterface
             return '<li class="divider"></li>';
         } else {
             if ($item->type == 'route') {
-                $href = \Phpfox::router()->getUrl($item->route, $params);
+                $href = _url($item->route, $params);
             } else {
                 if ($item->type == 'plugin') {
                     $item = \Phpfox::callback($item->event, $params);

@@ -50,7 +50,7 @@ class LayoutComponent
     }
 
     /**
-     * @return mixed|string
+     * @return mixed
      */
     public function run()
     {

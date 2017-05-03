@@ -4,6 +4,7 @@ namespace Phpfox\Routing;
 
 class RouterTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testInitialize()
     {
         $router = new Router();
@@ -72,13 +73,13 @@ class RouterTest extends \PHPUnit_Framework_TestCase
             $router->getUrl('admin.core.i18n.add-phrase'));
 
         $this->assertStringStartsWith(PHPFOX_BASE_URL,
-            $router->getUrl('admin.core.i18n', null, ['id' => 4]));
+            $router->getUrl('admin.core.i18n', ['id' => 4]));
 
         $this->assertStringStartsWith(PHPFOX_BASE_URL,
-            $router->getUrl('admin.core.i18n', null, 'id=2'));
+            $router->getUrl('admin.core.i18n', 'id=2'));
 
         $this->assertStringStartsWith(PHPFOX_BASE_URL,
-            $router->getUrl(PHPFOX_BASE_URL, null, 'id=2'),
+            $router->getUrl(PHPFOX_BASE_URL, 'id=2'),
             $router->getUrl(null, 'admin/index'));
     }
 }

@@ -164,6 +164,11 @@ class Route implements RouteInterface
         return true;
     }
 
+    /**
+     * @param Parameters $params
+     *
+     * @return string
+     */
     public function compileUri($params)
     {
 
@@ -179,7 +184,7 @@ class Route implements RouteInterface
         $compile = function ($portion, $required, &$usages) use (
             &$compile,
             $defaults,
-            $params
+            &$params
         ) {
             $missing = [];
 
@@ -189,7 +194,7 @@ class Route implements RouteInterface
                 &$compile,
                 $defaults,
                 &$missing,
-                $params,
+                &$params,
                 &$required,
                 &$usages
             ) {
@@ -204,6 +209,7 @@ class Route implements RouteInterface
                             OR $params[$param] !== $defaults[$param]);
 
                         $usages[$param] = 1;
+                        $params->used($param);
 
                         // Add specified parameter to this result
                         return $params[$param];

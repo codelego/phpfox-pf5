@@ -68,15 +68,19 @@
   ),
   'form_renders' => 
   array (
-      'input' => 'Phpfox\\Form\\InputRender',
-      'form_bootstrap' => 'Phpfox\\Form\\FormRenderBootstrap',
-      'button' => 'Phpfox\\Form\\ButtonRender',
-      'checkbox' => 'Phpfox\\Form\\CheckboxRender',
-      'select' => 'Phpfox\\Form\\SelectRender',
-      'radio' => 'Phpfox\\Form\\RadioRender',
-      'file_upload' => 'Phpfox\\Form\\FileUploadRender',
-      'textarea' => 'Phpfox\\Form\\TextareaRender',
-      'yesno' => 'Phpfox\\Form\\YesnoRender',
+    'input' => 'Phpfox\\Form\\InputRender',
+    'hidden' => 'Phpfox\\Form\\HiddenRender',
+    'form_bootstrap' => 'Phpfox\\Form\\FormRenderBootstrap',
+    'form_panel' => 'Phpfox\\Form\\FormRenderPanel',
+    'form_panel_horizontal' => 'Phpfox\\Form\\FormRenderPanelHorizontal',
+    'button' => 'Phpfox\\Form\\ButtonRender',
+    'checkbox' => 'Phpfox\\Form\\CheckboxRender',
+    'select' => 'Phpfox\\Form\\SelectRender',
+    'radio' => 'Phpfox\\Form\\RadioRender',
+    'file_upload' => 'Phpfox\\Form\\FileUploadRender',
+    'textarea' => 'Phpfox\\Form\\TextareaRender',
+    'yesno' => 'Phpfox\\Form\\YesnoRender',
+    'static_text' => 'Phpfox\\Form\\StaticTextRender',
   ),
   'job.handlers' => 
   array (
@@ -130,6 +134,7 @@
     'navbar' => 'Phpfox\\Navigation\\NavbarDecorator',
     'nav' => 'Phpfox\\Navigation\\NavDecorator',
     'aside' => 'Phpfox\\Navigation\\AsideDecorator',
+    'toolbar' => 'Phpfox\\Navigation\\ToolbarDecorator',
   ),
   'services' => 
   array (
@@ -150,24 +155,24 @@
     ),
     'response.ajax' => 
     array (
-        0 => NULL,
-        1 => 'Phpfox\\Action\\JsonResponse',
+      0 => NULL,
+      1 => 'Phpfox\\Action\\JsonResponse',
     ),
     'response.html' => 
     array (
       0 => NULL,
       1 => 'Phpfox\\Action\\HtmlResponse',
     ),
+    'response.partial' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Action\\JsonResponse',
+    ),
     'assets' => 
     array (
       0 => NULL,
       1 => 'Phpfox\\Assets\\AssetsFacades',
       2 => NULL,
-    ),
-    'breadcrumb' => 
-    array (
-      0 => NULL,
-      1 => 'Phpfox\\Assets\\Breadcrumb',
     ),
     'require_js' => 
     array (
@@ -279,6 +284,11 @@
     array (
       0 => NULL,
       1 => 'Neutron\\Core\\Service\\PermissionProvider',
+    ),
+    'breadcrumb' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Breadcrumb\\Breadcrumb',
     ),
     'cache.local' => 
     array (
@@ -398,12 +408,27 @@
       0 => NULL,
       1 => 'Phpfox\\Navigation\\NavigationManager',
     ),
-    'menu.primary' => 
+    'menu.main.primary' => 
+    array (
+      0 => 'Phpfox\\Navigation\\NavigationFactory',
+      1 => 'main',
+    ),
+    'menu.main.secondary' => 
     array (
       0 => 'Phpfox\\Navigation\\NavigationFactory',
       1 => NULL,
     ),
-    'menu.secondary' => 
+    'menu.main.mini' => 
+    array (
+      0 => 'Phpfox\\Navigation\\NavigationFactory',
+      1 => 'main.mini',
+    ),
+    'menu.admin.primary' => 
+    array (
+      0 => 'Phpfox\\Navigation\\NavigationFactory',
+      1 => 'admin',
+    ),
+    'menu.admin.secondary' => 
     array (
       0 => 'Phpfox\\Navigation\\NavigationFactory',
       1 => NULL,
@@ -507,6 +532,11 @@
     array (
       0 => NULL,
       1 => 'Neutron\\Core\\Service\\ThemeManager',
+    ),
+    'core.mails' => 
+    array (
+      0 => NULL,
+      1 => 'Neutron\\Core\\Service\\MailManager',
     ),
     'core.roles' => 
     array (
@@ -658,16 +688,17 @@
   ),
   'requirejs.paths' => 
   array (
-    'jquery' => 'jscript/jquery/jquery',
-    'bootstrap' => 'jscript/bootstrap/bootstrap',
-    'jqueryui' => 'jscript/jquery-ui/jqueryui',
-    'underscore' => 'jscript/underscore/underscore.min',
-    'tiny_mce' => 'jscript/tinymce/jquery.tinymce.min',
-    'main' => 'package/core/main',
+    'jquery' => 'package/jquery/jquery',
+    'bootstrap' => 'package/bootstrap/bootstrap',
+    'jqueryui' => 'package/jquery/jqueryui',
+    'underscore' => 'package/underscore/underscore.min',
+    'tiny_mce' => 'package/tinymce/jquery.tinymce.min',
+    'core' => 'package/core/main',
+    'extras' => 'package/core/extras',
   ),
   'static.js' => 
   array (
-    'require' => 'jscript/requirejs/require.js',
+    'require' => 'package/requirejs/require.js',
   ),
   'static.css' => 
   array (
@@ -706,12 +737,21 @@
   ),
   'templates' => 
   array (
+    'default:layout-editor/edit-block' => 'package/core/layout-editor/edit-block',
+    'default:layout-editor/edit-container' => 'package/core/layout-editor/edit-container',
+    'default:layout-editor/edit-location' => 'package/core/layout-editor/edit-location',
     'default:core/admin-authorization/index' => 'package/core/view/admin-authorization/index',
     'default:core/admin-i18n/index' => 'package/core/view/admin-i18n/index',
     'default:core/admin-i18n/phrases' => 'package/core/view/admin-i18n/phrases',
     'default:core/admin-index/index' => 'package/core/view/admin-index/index',
+    'default:core/admin-layout/clone-page' => 'package/core/view/admin-layout/clone-page',
+    'default:core/admin-layout/debug-theme' => 'package/core/view/admin-layout/debug-theme',
+    'default:core/admin-layout/design-layout' => 'package/core/view/admin-layout/design-layout',
+    'default:core/admin-layout/manage-component' => 'package/core/view/admin-layout/manage-component',
+    'default:core/admin-layout/manage-page' => 'package/core/view/admin-layout/manage-page',
+    'default:core/admin-layout/manage-theme' => 'package/core/view/admin-layout/manage-theme',
     'default:core/admin-mail/add-transport' => 'package/core/view/admin-mail/add-transport',
-    'default:core/admin-mail/index' => 'package/core/view/admin-mail/index',
+    'default:core/admin-mail/manage-adapter' => 'package/core/view/admin-mail/manage-adapter',
     'default:core/admin-mail/menu' => 'package/core/view/admin-mail/menu',
     'default:core/admin-mail/transports' => 'package/core/view/admin-mail/transports',
     'default:core/admin-package/index' => 'package/core/view/admin-package/index',
@@ -719,8 +759,7 @@
     'default:core/admin-status/health-check' => 'package/core/view/admin-status/health-check',
     'default:core/admin-status/overview' => 'package/core/view/admin-status/overview',
     'default:core/admin-status/statistics' => 'package/core/view/admin-status/statistics',
-    'default:core/admin-theme/debug' => 'package/core/view/admin-theme/debug',
-    'default:core/admin-theme/index' => 'package/core/view/admin-theme/index',
+    'default:core/admin-storage/index' => 'package/core/view/admin-storage/index',
     'default:core/block/admin-information' => 'package/core/view/block/admin-information',
     'default:core/block/admin-update' => 'package/core/view/block/admin-update',
     'default:core/error/404' => 'package/core/view/error/404',
@@ -732,6 +771,9 @@
     'default:layout/footer' => 'package/core/layout/default/footer',
     'default:layout/form-edit' => 'package/core/layout/default/form-edit',
     'default:layout/header' => 'package/core/layout/default/header',
+    'default:grid/edit-simple-111' => 'package/core/layout/grid/edit-simple-111',
+    'default:grid/edit-simple' => 'package/core/layout/grid/edit-simple',
+    'default:grid/simple-111' => 'package/core/layout/grid/simple-111',
     'default:grid/simple' => 'package/core/layout/grid/simple',
     'admin:layout/breadcrumb' => 'package/core/layout/admin/breadcrumb',
     'admin:layout/default' => 'package/core/layout/admin/default',
@@ -746,7 +788,9 @@
     'default:user/settings/login-history' => 'package/user/view/settings/login-history',
     'default:blog/admin-category/index' => 'package/blog/view/admin-category/index',
     'default:blog/admin-category/menu' => 'package/blog/view/admin-category/menu',
+    'default:blog/block/category' => 'package/blog/view/block/category',
     'default:blog/index/index' => 'package/blog/view/index/index',
+    'default:blog/post/view' => 'package/blog/view/post/view',
     'default:video/index/embed' => 'package/video/view/index/embed',
     'default:video/index/index' => 'package/video/view/index/index',
     'default:video/partial/embed' => 'package/video/view/partial/embed',

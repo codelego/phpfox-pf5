@@ -18,5 +18,7 @@ class ActionContent extends LayoutComponent
         if ($data instanceof ViewModel) {
             return $data->render();
         }
+
+        return '';
     }
 }

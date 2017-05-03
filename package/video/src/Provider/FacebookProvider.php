@@ -90,9 +90,6 @@ class FacebookProvider implements ProviderInterface
 
     public function getEmbedCode($code, $context = [])
     {
-        $view = isset($context['view']) ? $context['view'] : false;
-        $mobile = empty($context['mobile']) ? false : $context['mobile'];
-        $autoplay = !$mobile && $view;
         $videoFrame = '_' . $code;
         $embedded
             = '
@@ -104,21 +101,7 @@ class FacebookProvider implements ProviderInterface
             frameborder="0"
             allowfullscreen=""
             scrolling="no">
-            </iframe>
-            <script type="text/javascript">
-              en4.core.runonce.add(function() {
-                var doResize = function() {
-                  var aspect = 16 / 9;
-                  var el = document.id("videoFrame' . $videoFrame . '");
-                  var parent = el.getParent();
-                  var parentSize = parent.getSize();
-                  el.set("width", parentSize.x);
-                  el.set("height", parentSize.x / aspect);
-                }
-                window.addEvent("resize", doResize);
-                doResize();
-              });
-            </script>';
+            </iframe>';
         return $embedded;
     }
 

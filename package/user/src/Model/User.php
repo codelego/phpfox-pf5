@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\User\Model;
 
 use Phpfox\Db\DbModel;
@@ -11,8 +12,7 @@ class User extends DbModel implements UserInterface
      */
     public function getUrl()
     {
-        return \Phpfox::get('router')
-            ->getUrl('profile', ['name' => $this->getUsername()]);
+        return _url('profile', ['name' => $this->getUsername()]);
     }
 
     /**

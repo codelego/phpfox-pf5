@@ -333,7 +333,7 @@ class AdminLayoutController extends AdminController
                     'class'    => 'btn btn-success',
                     'data-cmd' => 'modal',
                     'data-url' => _url('admin.core.layout.action',
-                        ['action'=>'add-container','page_id' => $layoutPage->getName()]),
+                        ['action' => 'add-container', 'page_id' => $layoutPage->getName()]),
                 ],
             ]);
 
@@ -478,13 +478,12 @@ class AdminLayoutController extends AdminController
             \Phpfox::get('response')
                 ->redirect(_url('admin.core.layout.design-layout',
                     ['action_id' => $actionId]));
-        } else {
-            return new ViewModel([
-                'themeId'    => $themeId,
-                'actionId'   => $actionId,
-                'parentPage' => $parentPage,
-            ], 'core/admin-layout/clone-page');
-
         }
+
+        return new ViewModel([
+            'themeId'    => $themeId,
+            'actionId'   => $actionId,
+            'parentPage' => $parentPage,
+        ], 'core/admin-layout/clone-page');
     }
 }

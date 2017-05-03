@@ -235,7 +235,7 @@ class ThemeManager
         return \Phpfox::get('cache.local')
             ->with(self::PREFER_THEME_CACHE, 0, function () {
                 return $this->_preferThemes();
-            }, 0);
+            });
     }
 
     /**
@@ -361,7 +361,7 @@ class ThemeManager
             ->with(self::PREFER_THEME_URL_CACHE, 0, function () {
                 $theme = $this->getDefault();
                 return '/pf5/static/' . 'themes/' . $theme->getId() . '/css';
-            }, 0);
+            });
     }
 
     /**

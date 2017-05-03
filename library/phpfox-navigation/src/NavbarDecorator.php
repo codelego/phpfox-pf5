@@ -87,13 +87,12 @@ class NavbarDecorator implements DecoratorInterface
         if ($item->type == 'separator') {
             return '<li class="divider"></li>';
         } elseif ($item->type == 'route') {
-            $href = \Phpfox::router()
-                ->getUrl($item->route, $params);
+            $href = _url($item->route, $params);
         }
 
         if ($href) {
             if (!empty($item->route)) {
-                $href = \Phpfox::router()->getUrl($item->route, $params);
+                $href = _url($item->route, $params);
             }
         } else {
             $href = $item->href;

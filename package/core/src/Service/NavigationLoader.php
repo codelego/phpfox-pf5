@@ -3,7 +3,6 @@
 namespace Neutron\Core\Service;
 
 
-use Phpfox\Navigation\Navigation;
 use Phpfox\Navigation\NavigationLoaderInterface;
 
 class NavigationLoader implements NavigationLoaderInterface

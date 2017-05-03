@@ -14,25 +14,25 @@
                     <ul>
                         <?php if (!$item->isAdmin() and !$item->isEditing()): ?>
                         <li>
-                            <a href="<?= _url('admin.core.layout.manage-theme', null, [
+                            <a href="<?= _url('admin.core.layout.manage-theme', [
                                 'cmd' => 'editing',
                                 'id'  => $item->getId(),
                             ]) ?>" role="button"><?= _text('Set Editing',
                                     'admin') ?></a></li>
                         <?php endif; ?>
                         <?php if (!$item->isAdmin() and !$item->isDefault()): ?>
-                            <li><a href="<?= _url('admin.core.layout.manage-theme', null, [
+                            <li><a href="<?= _url('admin.core.layout.manage-theme', [
                                     'cmd' => 'default',
                                     'id'  => $item->getId(),
                                 ]) ?>" role="button"><?= _text('Set Default','admin') ?></a></li>
                         <?php endif; ?>
                         <li>
-                            <a href="<?= _url('admin.core.layout.manage-theme', null, [
+                            <a href="<?= _url('admin.core.layout.manage-theme',  [
                                 'cmd' => 'rebuild-main',
                                 'id'  => $item->getId(),
                             ]) ?>" role="button"><?= _text('Rebuild Main',
                                     'admin') ?></a></li>
-                        <li><a href="<?= _url('admin.core.layout.manage-theme', null, [
+                        <li><a href="<?= _url('admin.core.layout.manage-theme',  [
                                 'cmd' => 'rebuild-files',
                                 'id'  => $item->getId(),
                             ]) ?>" role="button"><?= _text('Rebuild Files', 'admin') ?></a></li>

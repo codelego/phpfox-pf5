@@ -22,7 +22,7 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="<?= _url('admin.core.layout.add-element',[], ['page_id' => $item->getId()]) ?>"><?= _text('Add Block') ?></a>
+                                <a href="<?= _url('admin.core.layout.add-element',['page_id' => $item->getId()]) ?>"><?= _text('Add Block') ?></a>
                                 <a href="<?= _url('admin.core.layout.add-location', ['page_id' => $item->getId()]) ?>"><?= _text('Add Location') ?></a>
                             </li>
                         </ul>

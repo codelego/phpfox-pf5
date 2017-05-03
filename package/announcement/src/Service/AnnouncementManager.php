@@ -14,6 +14,9 @@ class AnnouncementManager
      */
     public function findByUser($userId)
     {
+        if ($userId) {
+            ;
+        }
         return [];
     }
 }
