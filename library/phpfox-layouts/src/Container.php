@@ -5,7 +5,7 @@ namespace Phpfox\Layout;
 
 use Phpfox\View\ViewModel;
 
-class LayoutContainer
+class Container
 {
     /**
      * @var string
@@ -13,7 +13,7 @@ class LayoutContainer
     protected $name;
 
     /**
-     * @var LayoutLocation[]
+     * @var Location[]
      */
     protected $locations = [];
 
@@ -89,7 +89,7 @@ class LayoutContainer
     }
 
     /**
-     * @return LayoutLocation[]
+     * @return Location[]
      */
     public function getLocations()
     {
@@ -97,7 +97,7 @@ class LayoutContainer
     }
 
     /**
-     * @param LayoutLocation[] $locations
+     * @param Location[] $locations
      */
     public function setLocations($locations)
     {
@@ -131,7 +131,7 @@ class LayoutContainer
     /**
      * add new location
      *
-     * @param LayoutLocation $location
+     * @param Location $location
      */
     public function addLocation($location)
     {

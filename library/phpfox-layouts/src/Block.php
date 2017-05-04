@@ -4,7 +4,7 @@ namespace Phpfox\Layout;
 
 use Phpfox\View\ViewModel;
 
-class LayoutBlock
+class Block
 {
     /**
      * @var array
@@ -32,7 +32,7 @@ class LayoutBlock
             return '';
         }
 
-        /** @var LayoutComponent $block */
+        /** @var Component $block */
         $block = new $cls($this->params);
 
         $result = $block->run();

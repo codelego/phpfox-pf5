@@ -3,14 +3,14 @@
 namespace Neutron\Core\Service;
 
 
-use Phpfox\Layout\LayoutBlock;
-use Phpfox\Layout\LayoutContainer;
-use Phpfox\Layout\LayoutLoaderInterface;
-use Phpfox\Layout\LayoutLocation;
-use Phpfox\Layout\LayoutPage;
+use Phpfox\Layout\Block;
+use Phpfox\Layout\Container;
+use Phpfox\Layout\LoaderInterface;
+use Phpfox\Layout\Location;
+use Phpfox\Layout\Page;
 use Phpfox\Model\ModelInterface;
 
-class LayoutLoader implements LayoutLoaderInterface
+class Loader implements LoaderInterface
 {
     /**
      * @param string $themeId
@@ -135,7 +135,7 @@ class LayoutLoader implements LayoutLoaderInterface
     /**
      * @param string $gridId
      *
-     * @return LayoutLocation[]
+     * @return Location[]
      */
     public function loadLayoutLocationByGridId($gridId)
     {
@@ -143,12 +143,12 @@ class LayoutLoader implements LayoutLoaderInterface
 
         $locations = json_decode($grid->getLocations(), true);
 
-        /** @var LayoutLocation[] $result */
+        /** @var Location[] $result */
         $result = [];
 
         foreach ($locations as $location) {
             $result[$location]
-                = new LayoutLocation($location);
+                = new Location($location);
         }
 
         return $result;
@@ -159,7 +159,7 @@ class LayoutLoader implements LayoutLoaderInterface
      * @param string $gridId     Grid Id
      * @param bool   $activeOnly Active only ?
      *
-     * @return LayoutLocation[]
+     * @return Location[]
      */
     public function loadLayoutLocation($id, $gridId, $activeOnly = false)
     {
@@ -200,7 +200,7 @@ class LayoutLoader implements LayoutLoaderInterface
                 continue;
             }
 
-            $layoutLocations[$locationId]->addBlock(new LayoutBlock([
+            $layoutLocations[$locationId]->addBlock(new Block([
                 'element_id'  => $block['block_id'],
                 'parent_id'   => $block['parent_id'],
                 'location_id' => $block['location_id'],
@@ -218,7 +218,7 @@ class LayoutLoader implements LayoutLoaderInterface
      * @param string $actionId
      * @param string $themeId
      *
-     * @return LayoutPage
+     * @return Page
      */
     public function loadForRender($actionId, $themeId)
     {
@@ -232,14 +232,14 @@ class LayoutLoader implements LayoutLoaderInterface
             ->order('sort_order', 1)
             ->all();
 
-        $layoutPage = new LayoutPage($pageId, $actionId, $themeId);
+        $layoutPage = new Page($pageId, $actionId, $themeId);
 
         foreach ($containers as $container) {
-            $layoutContainer = new LayoutContainer($container->getId(),
+            $layoutContainer = new Container($container->getId(),
                 $container->getTypeId(), $container->getGridId(),
                 json_decode($container->getParams(), true));
 
-            /** @var LayoutLocation[] $layoutLocations */
+            /** @var Location[] $layoutLocations */
             $layoutLocations
                 = $this->loadLayoutLocation($container->getId(),
                 $container->getGridId(), true);
@@ -258,7 +258,7 @@ class LayoutLoader implements LayoutLoaderInterface
      * @param string $actionId
      * @param string $themeId
      *
-     * @return LayoutPage
+     * @return Page
      */
     public function loadForEdit($actionId, $themeId)
     {
@@ -275,14 +275,14 @@ class LayoutLoader implements LayoutLoaderInterface
             ->order('sort_order', 1)
             ->all();
 
-        $layoutPage = new LayoutPage($pageId, $actionId, $themeId);
+        $layoutPage = new Page($pageId, $actionId, $themeId);
 
         foreach ($containers as $container) {
-            $layoutContainer = new LayoutContainer($container->getId(),
+            $layoutContainer = new Container($container->getId(),
                 $container->getTypeId(), $container->getGridId(),
                 json_decode($container->getParams(), true));
 
-            /** @var LayoutLocation[] $layoutLocations */
+            /** @var Location[] $layoutLocations */
             $layoutLocations
                 = $this->loadLayoutLocation($container->getId(),
                 $container->getGridId(), false);

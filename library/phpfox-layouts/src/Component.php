@@ -2,7 +2,7 @@
 
 namespace Phpfox\Layout;
 
-class LayoutComponent
+class Component
 {
     /**
      * @var array

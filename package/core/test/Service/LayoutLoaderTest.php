@@ -3,13 +3,13 @@
 namespace Neutron\Core\Service;
 
 
-use Phpfox\Layout\LayoutPage;
+use Phpfox\Layout\Page;
 
 class LayoutLoaderTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new LayoutLoader();
+        $obj = new Loader();
 
         $this->assertSame(['blog_index_index', 'default'],
             $obj->findAcceptableActionId('blog_index_index'));
@@ -20,7 +20,7 @@ class LayoutLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function testAcceptThemes()
     {
-        $obj = new LayoutLoader();
+        $obj = new Loader();
 
         $this->assertSame(['default'], $obj->findAcceptableThemeId('default'));
         $this->assertSame(['admin', 'default'],
@@ -31,20 +31,21 @@ class LayoutLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function testLoadForRender()
     {
-        $obj = new LayoutLoader();
+        $obj = new Loader();
 
         $result = $obj->loadForRender('default', 'default');
 
-        $this->assertTrue($result instanceof LayoutPage);
+        $this->assertTrue($result instanceof Page);
 
         return $result;
     }
 
     /**
-     * @param LayoutPage $layoutPage
+     * @param Page $layoutPage
+     *
      * @depends testLoadForRender
      */
-    public function testLayoutPageRender(LayoutPage $layoutPage)
+    public function testLayoutPageRender(Page $layoutPage)
     {
         $this->assertNotEmpty($layoutPage->render());
 

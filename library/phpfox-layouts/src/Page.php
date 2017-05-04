@@ -2,7 +2,7 @@
 
 namespace Phpfox\Layout;
 
-class LayoutPage
+class Page
 {
     /**
      * @var string
@@ -20,7 +20,7 @@ class LayoutPage
     protected $themeId;
 
     /**
-     * @var LayoutContainer[]
+     * @var Container[]
      */
     protected $containers = [];
 
@@ -80,7 +80,7 @@ class LayoutPage
     /**
      * add new container
      *
-     * @param LayoutContainer $layoutContainer
+     * @param Container $layoutContainer
      */
     public function addContainer($layoutContainer)
     {
@@ -88,7 +88,7 @@ class LayoutPage
     }
 
     /**
-     * @return LayoutContainer[]
+     * @return Container[]
      */
     public function getContainers()
     {
@@ -96,7 +96,7 @@ class LayoutPage
     }
 
     /**
-     * @param LayoutContainer[] $containers
+     * @param Container[] $containers
      */
     public function setContainers($containers)
     {

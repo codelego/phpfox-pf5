@@ -109,6 +109,6 @@ class LayoutManager extends ViewModel
     {
         $params ['block_class'] = $cls;
 
-        return (new LayoutBlock($params))->render();
+        return (new Block($params))->render();
     }
 }

@@ -2,13 +2,13 @@
 
 namespace Phpfox\Layout;
 
-interface LayoutLoaderInterface
+interface LoaderInterface
 {
     /**
      * @param string $pageId
      * @param string $themeId
      *
-     * @return LayoutPage
+     * @return Page
      */
     public function loadForRender($pageId, $themeId);
 }

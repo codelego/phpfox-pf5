@@ -2,10 +2,10 @@
 
 namespace Neutron\Blog\Block;
 
-use Phpfox\Layout\LayoutComponent;
+use Phpfox\Layout\Component;
 use Phpfox\View\ViewModel;
 
-class CategoryComponent extends LayoutComponent
+class CategoryComponent extends Component
 {
     public function run()
     {

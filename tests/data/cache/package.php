@@ -545,8 +545,8 @@
     ),
     'layout_loader' => 
     array (
-      0 => NULL,
-      1 => 'Neutron\\Core\\Service\\LayoutLoader',
+        0 => NULL,
+        1 => 'Neutron\\Core\\Service\\Loader',
     ),
     'user.callback' => 
     array (

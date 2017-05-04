@@ -5,7 +5,7 @@ namespace Phpfox\Layout;
 
 use Phpfox\View\ViewModel;
 
-class LayoutLocation
+class Location
 {
     /**
      * @var string
@@ -13,7 +13,7 @@ class LayoutLocation
     protected $name;
 
     /**
-     * @var LayoutBlock[]
+     * @var Block[]
      */
     protected $blocks = [];
 
@@ -67,7 +67,7 @@ class LayoutLocation
     }
 
     /**
-     * @return LayoutBlock[]
+     * @return Block[]
      */
     public function getBlocks()
     {
@@ -75,7 +75,7 @@ class LayoutLocation
     }
 
     /**
-     * @param LayoutBlock[] $blocks
+     * @param Block[] $blocks
      */
     public function setBlocks($blocks)
     {
@@ -85,7 +85,7 @@ class LayoutLocation
     /**
      * @param $element
      */
-    public function addBlock(LayoutBlock $element)
+    public function addBlock(Block $element)
     {
         $this->blocks[] = $element;
     }

@@ -2,10 +2,10 @@
 
 namespace Neutron\Core\Block;
 
-use Phpfox\Layout\LayoutComponent;
+use Phpfox\Layout\Component;
 use Phpfox\View\ViewModel;
 
-class AdminInformation extends LayoutComponent
+class AdminInformation extends Component
 {
     public function run()
     {
