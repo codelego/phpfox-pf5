@@ -8,7 +8,7 @@ use Phpfox\View\ViewModel;
 class Location
 {
     /**
-     * @var Block[]
+     * @var array[]
      */
     protected $blocks = [];
 
@@ -70,27 +70,11 @@ class Location
     }
 
     /**
-     * @return Block[]
+     * @param array $block
      */
-    public function getBlocks()
+    public function addBlock($block)
     {
-        return $this->blocks;
-    }
-
-    /**
-     * @param Block[] $blocks
-     */
-    public function setBlocks($blocks)
-    {
-        $this->blocks = $blocks;
-    }
-
-    /**
-     * @param $element
-     */
-    public function addBlock(Block $element)
-    {
-        $this->blocks[] = $element;
+        $this->blocks[] = $block;
     }
 
     /**
@@ -124,8 +108,10 @@ class Location
 
         $htmlArray = [];
 
+        $layouts = \Phpfox::get('layouts');
+
         foreach ($this->blocks as $block) {
-            $htmlArray[] = $block->render();
+            $htmlArray[] = $layouts->renderBlock($block['block_class'], $block);
         }
 
         return implode('', $htmlArray);
@@ -136,15 +122,9 @@ class Location
      */
     public function renderForEdit()
     {
-        $htmlArray = [];
-
-        foreach ($this->blocks as $block) {
-            $htmlArray[] = $block->renderForEdit();
-        }
-
         return (new ViewModel([
-            'content'  => implode('', $htmlArray),
-            'location' => $this,
+            'blocks'   => $this->blocks,
+            'location' => $this->params,
         ], 'layout-editor/edit-location'))->render();
     }
 

@@ -106,10 +106,24 @@ class LayoutManager extends ViewModel
      *
      * @return string
      */
-    public function showElement($cls, $params = [])
+    public function renderBlock($cls, $params = [])
     {
-        $params ['block_class'] = $cls;
+        if (!class_exists($cls)) {
+            return '';
+        }
 
-        return (new Block($params))->render();
+        /** @var Component $component */
+        $component = new $cls($params);
+
+        $result = $component->run();
+
+        if (is_string($result)) {
+            return $result;
+        } else {
+            if ($result instanceof ViewModel) {
+                return $result->render();
+            }
+        }
+        return '';
     }
 }

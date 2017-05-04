@@ -133,22 +133,6 @@ class Container
     /**
      * @return string
      */
-    public function getScriptForEdit()
-    {
-        return 'grid/edit-' . $this->getGridId();
-    }
-
-    /**
-     * @return string
-     */
-    public function getScriptForRender()
-    {
-        return 'grid/' . $this->getGridId();
-    }
-
-    /**
-     * @return string
-     */
     public function render()
     {
         $data = [];
@@ -156,7 +140,7 @@ class Container
             $data[$key] = $location->render();
         }
 
-        return (new ViewModel($data, $this->getScriptForRender()))->render();
+        return (new ViewModel($data, 'grid/' . $this->getGridId()))->render();
     }
 
     /**
@@ -170,7 +154,7 @@ class Container
             $data[$key] = $location->renderForEdit();
         }
 
-        $data['content'] = (new ViewModel($data, $this->getScriptForEdit()))->render();
+        $data['content'] = (new ViewModel($data, 'grid/edit-' . $this->getGridId()))->render();
 
         return (new ViewModel($data,
             'layout-editor/edit-container'))->render();

@@ -8,7 +8,6 @@ use Neutron\Core\Model\LayoutContainer;
 use Neutron\Core\Model\LayoutGrid;
 use Neutron\Core\Model\LayoutLocation;
 use Neutron\Core\Model\LayoutPage;
-use Phpfox\Layout\Block;
 use Phpfox\Layout\Container;
 use Phpfox\Layout\LoaderInterface;
 use Phpfox\Layout\Location;
@@ -198,7 +197,7 @@ class LayoutManager implements LoaderInterface
                 continue;
             }
 
-            $layoutLocations[$locationId]->addBlock(new Block([
+            $layoutLocations[$locationId]->addBlock([
                 'element_id'     => $block['block_id'],
                 'parent_id'      => $block['parent_id'],
                 'location_id'    => $block['location_id'],
@@ -209,7 +208,7 @@ class LayoutManager implements LoaderInterface
                 'block_name'     => $block['component_name'],
                 'block_class'    => $block['component_class'],
                 'is_active'      => $block['is_active'],
-            ]));
+            ]);
         }
 
         return $layoutLocations;
