@@ -3,6 +3,10 @@
 namespace Neutron\Core\Service;
 
 
+use Neutron\Core\Model\LayoutBlock;
+use Neutron\Core\Model\LayoutContainer;
+use Neutron\Core\Model\LayoutLocation;
+use Neutron\Core\Model\LayoutPage;
 use Phpfox\Layout\Block;
 use Phpfox\Layout\Container;
 use Phpfox\Layout\LoaderInterface;
@@ -10,7 +14,7 @@ use Phpfox\Layout\Location;
 use Phpfox\Layout\Page;
 use Phpfox\Model\ModelInterface;
 
-class Loader implements LoaderInterface
+class LayoutManager implements LoaderInterface
 {
     /**
      * @param string $themeId
@@ -76,7 +80,7 @@ class Loader implements LoaderInterface
      */
     public function findPageIdForEdit($actionId, $themeId)
     {
-        /** @var \Neutron\Core\Model\LayoutPage $layoutPage */
+        /** @var LayoutPage $layoutPage */
         $layoutPage = \Phpfox::with('layout_page')
             ->select()
             ->where('theme_id=?', $themeId)
@@ -104,7 +108,7 @@ class Loader implements LoaderInterface
         foreach ($themeIdList as $themeId) {
             $temp = [];
 
-            /** @var \Neutron\Core\Model\LayoutPage[] $rows */
+            /** @var LayoutPage[] $rows */
             $rows = \Phpfox::with('layout_page')
                 ->select()
                 ->where('is_active=?', 1)
@@ -122,7 +126,7 @@ class Loader implements LoaderInterface
             }
         }
 
-        /** @var \Neutron\Core\Model\LayoutPage $alternate */
+        /** @var LayoutPage $alternate */
         $alternate = \Phpfox::with('layout_page')
             ->select()
             ->where('theme_id=?', 'default')
@@ -166,7 +170,7 @@ class Loader implements LoaderInterface
 
         $layoutLocations = $this->loadLayoutLocationByGridId($gridId);
 
-        /** @var \Neutron\Core\Model\LayoutLocation[] $containerLocations */
+        /** @var LayoutLocation[] $containerLocations */
         $containerLocations = \Phpfox::with('layout_location')
             ->select()
             ->where('container_id=?', $id)
@@ -224,7 +228,7 @@ class Loader implements LoaderInterface
     {
         $pageId = $this->findPageIdForRender($actionId, $themeId);
 
-        /** @var \Neutron\Core\Model\LayoutContainer[] $containers */
+        /** @var LayoutContainer[] $containers */
         $containers = \Phpfox::with('layout_container')
             ->select()
             ->where('page_id=?', $pageId)
@@ -268,7 +272,7 @@ class Loader implements LoaderInterface
             return null;
         }
 
-        /** @var \Neutron\Core\Model\LayoutContainer[] $containers */
+        /** @var LayoutContainer[] $containers */
         $containers = \Phpfox::with('layout_container')
             ->select()
             ->where('page_id=?', $pageId)
@@ -317,10 +321,10 @@ class Loader implements LoaderInterface
 
         try {
 
-            /** @var \Neutron\Core\Model\LayoutPage $page */
+            /** @var LayoutPage $page */
             $page = \Phpfox::with('layout_page')->findById($pageId);
 
-            /** @var \Neutron\Core\Model\LayoutPage $newPage */
+            /** @var LayoutPage $newPage */
             $newPage = \Phpfox::with('layout_page')
                 ->create(array_merge($page->toArray(), [
                     'page_id'   => null,
@@ -330,7 +334,7 @@ class Loader implements LoaderInterface
 
             $newPage->save();
 
-            /** @var \Neutron\Core\Model\LayoutContainer[] $containers */
+            /** @var LayoutContainer[] $containers */
             $containers
                 = \Phpfox::with('layout_container')
                 ->select()
@@ -338,7 +342,7 @@ class Loader implements LoaderInterface
                 ->all();
 
             foreach ($containers as $container) {
-                /** @var \Neutron\Core\Model\LayoutContainer $newContainer */
+                /** @var LayoutContainer $newContainer */
                 $newContainer = \Phpfox::with('layout_container')
                     ->create(array_merge($container->toArray(), [
                         'container_id' => null,
@@ -346,14 +350,14 @@ class Loader implements LoaderInterface
                     ]));
                 $newContainer->save();
 
-                /** @var \Neutron\Core\Model\LayoutLocation[] $locations */
+                /** @var LayoutLocation[] $locations */
                 $locations = \Phpfox::with('layout_location')
                     ->select()
                     ->where('container_id=?', $container->getId())
                     ->all();
 
                 foreach ($locations as $location) {
-                    /** @var \Neutron\Core\Model\LayoutLocation $newLocation */
+                    /** @var LayoutLocation $newLocation */
                     $newLocation = \Phpfox::with('layout_location')
                         ->create(array_merge($location->toArray(), [
                             'container_id' => $newContainer->getId(),
@@ -361,7 +365,7 @@ class Loader implements LoaderInterface
                     $newLocation->save();
                 }
 
-                /** @var \Neutron\Core\Model\LayoutBlock[] $blocks */
+                /** @var LayoutBlock[] $blocks */
                 $blocks = \Phpfox::with('layout_block')
                     ->select()
                     ->where('container_id=?', $container->getId())
@@ -369,7 +373,7 @@ class Loader implements LoaderInterface
                     ->all();
 
                 foreach ($blocks as $block) {
-                    /** @var \Neutron\Core\Model\LayoutBlock $block */
+                    /** @var LayoutBlock $block */
                     $newBlock = \Phpfox::with('layout_block')
                         ->create(array_merge($block->toArray(), [
                             'block_id'     => null,
@@ -385,7 +389,6 @@ class Loader implements LoaderInterface
             return true;
         } catch (\Exception $ex) {
             $db->rollback();
-            _dump($ex);
         }
         return false;
     }
@@ -453,7 +456,7 @@ class Loader implements LoaderInterface
     /**
      * @param mixed $pageId
      *
-     * @return \Neutron\Core\Model\LayoutPage
+     * @return LayoutPage
      */
     public function findPageById($pageId)
     {

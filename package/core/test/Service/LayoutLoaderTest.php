@@ -9,7 +9,7 @@ class LayoutLoaderTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new Loader();
+        $obj = new LayoutManager();
 
         $this->assertSame(['blog_index_index', 'default'],
             $obj->findAcceptableActionId('blog_index_index'));
@@ -20,7 +20,7 @@ class LayoutLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function testAcceptThemes()
     {
-        $obj = new Loader();
+        $obj = new LayoutManager();
 
         $this->assertSame(['default'], $obj->findAcceptableThemeId('default'));
         $this->assertSame(['admin', 'default'],
@@ -31,7 +31,7 @@ class LayoutLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function testLoadForRender()
     {
-        $obj = new Loader();
+        $obj = new LayoutManager();
 
         $result = $obj->loadForRender('default', 'default');
 

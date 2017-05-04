@@ -54,7 +54,7 @@ return [
         'core.mails'             => [null, Service\MailManager::class],
         'core.roles'             => [null, Service\Roles::class],
         'authorization.provider' => [null, Service\PermissionProvider::class],
-        'layout_loader'          => [null, Service\Loader::class],
+        'layout_loader'          => [null, Service\LayoutManager::class],
     ],
     'templates'       => _view_map([
         'default' => [
