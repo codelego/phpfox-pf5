@@ -25,6 +25,7 @@ class UserBrowseTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param $userId
+     *
      * @return mixed|User
      * @depends testFindUser
      */

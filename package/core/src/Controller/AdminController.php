@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Core\Controller;
 
 
@@ -9,7 +10,7 @@ class AdminController extends ActionController
     protected function initialize()
     {
         \Phpfox::get('auth');
-        
+
         \Phpfox::get('layouts')->setThemeId('admin');
 
         \Phpfox::get('require_js')

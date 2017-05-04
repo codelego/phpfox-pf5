@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Core\Service;
 
 use Phpfox\Authorization\PermissionData;

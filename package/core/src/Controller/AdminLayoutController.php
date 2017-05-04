@@ -331,7 +331,8 @@ class AdminLayoutController extends AdminController
                 'extra' => [
                     'class'    => 'btn btn-success',
                     'data-cmd' => 'modal',
-                    'data-url' => _url('admin.core.layout.action', ['action' => 'add-container', 'page_id' => $layoutPage->getName()]),
+                    'data-url' => _url('admin.core.layout.action',
+                        ['action' => 'add-container', 'page_id' => $layoutPage->getName()]),
                 ],
             ]);
 
@@ -342,20 +343,34 @@ class AdminLayoutController extends AdminController
     public function actionAddBlock()
     {
         $request = \Phpfox::get('request');
+        $locationId = $request->get('location_id');
+        $containerId = $request->get('container_id');
 
-        $form = new AddLayoutBlock([
-            'pageId'     => $request->get('page_id'),
-            'blockId'    => $request->get('block_id'),
-            'locationId' => $request->get('locationId'),
-        ]);
+        $form = new AddLayoutBlock();
+
+        $form->setAction(_url('admin.core.layout.action', [
+            'location_id'  => $locationId,
+            'container_id' => $containerId,
+        ]));
 
         if ($request->isGet()) {
         }
 
         if ($request->isPost() and $form->isValid($request->all())) {
+            $data = array_merge($form->getData(), [
+                'location_id'  => $locationId,
+                'container_id' => $containerId,
+                'is_active'    => 1,
+                'sort_order'   => 0,
+            ]);
+
             /** @var LayoutBlock $entry */
-            $entry = \Phpfox::with('layout_block')->create($form->getData());
+            $entry = \Phpfox::with('layout_block')
+                ->create($data);
+
             $entry->save();
+
+
         }
 
         return new ViewModel([

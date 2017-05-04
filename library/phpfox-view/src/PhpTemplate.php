@@ -1,4 +1,5 @@
 <?php
+
 namespace Phpfox\View;
 
 class PhpTemplate implements ViewTemplateInterface

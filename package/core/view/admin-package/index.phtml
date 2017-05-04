@@ -14,15 +14,15 @@
                 <td data-cmd="dropdown" class="dropdown">
                     <ul>
                         <?php if ($item->canDisable()): ?>
-                        <li><a role="button">Disable</a></li>
-                        <?php elseif($item->canEnable()): ?>
+                            <li><a role="button">Disable</a></li>
+                        <?php elseif ($item->canEnable()): ?>
                             <li><a role="button">Enable</a></li>
                         <?php endif; ?>
-                        <?php if($item->canExport()): ?>
-                        <li><a role="button">Export</a></li>
+                        <?php if ($item->canExport()): ?>
+                            <li><a role="button">Export</a></li>
                         <?php endif; ?>
-                        <?php if($item->canUpgrade()):?>
-                        <li><a role="button">Upgrade</a></li>
+                        <?php if ($item->canUpgrade()): ?>
+                            <li><a role="button">Upgrade</a></li>
                         <?php endif; ?>
                         <?php if ($item->canUninstall()): ?>
                             <li><a role="button">Uninstall</a></li>

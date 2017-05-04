@@ -1,1 +1,20 @@
-<?php return array(0=>'announcement_id',1=>array('announcement_id'=>1,),2=>'announcement_id',3=>array('announcement_id'=>1,'user_id'=>1,'title'=>1,'photo_file_id'=>1,'description'=>1,'is_active'=>1,'type_id'=>1,'content'=>1,'created_at'=>1,'updated_at'=>1,'publish_at'=>1,'expires_at'=>1,),4=>array(),);
+<?php return [
+    0 => 'announcement_id',
+    1 => ['announcement_id' => 1,],
+    2 => 'announcement_id',
+    3 => [
+        'announcement_id' => 1,
+        'user_id'         => 1,
+        'title'           => 1,
+        'photo_file_id'   => 1,
+        'description'     => 1,
+        'is_active'       => 1,
+        'type_id'         => 1,
+        'content'         => 1,
+        'created_at'      => 1,
+        'updated_at'      => 1,
+        'publish_at'      => 1,
+        'expires_at'      => 1,
+    ],
+    4 => [],
+];

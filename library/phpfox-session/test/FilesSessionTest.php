@@ -1,4 +1,5 @@
 <?php
+
 namespace Phpfox\Session;
 
 class FilesSessionTest extends \PHPUnit_Framework_TestCase

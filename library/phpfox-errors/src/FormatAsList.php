@@ -16,7 +16,7 @@ class FormatAsList implements MessageFormatInterface
                 $array[] = '<li>' . $string . '</li>';
             }
         }
-        
+
         return '<ul class="errors">' . implode(PHP_EOL, $array) . '</ul>';
     }
 }

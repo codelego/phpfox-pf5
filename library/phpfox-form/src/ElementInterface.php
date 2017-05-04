@@ -84,7 +84,7 @@ interface ElementInterface
      *
      * @return string
      */
-    public function getAttribute($name, $default  = null);
+    public function getAttribute($name, $default = null);
 
     /**
      * @param string $name

@@ -15,14 +15,14 @@ class FormRenderPanel implements FormRenderInterface
                 $note = '<p class="help-block">' . $note . '</p>';
             }
 
-            $required =  $v->isRequired()? 'required': '';
+            $required = $v->isRequired() ? 'required' : '';
 
             $label = $v->noLabel()
                 ? ''
-                : '<label class="control-label '.$required.'">' . $v->getLabel() . '</label>';
+                : '<label class="control-label ' . $required . '">' . $v->getLabel() . '</label>';
 
 
-            if($v->noWrap()){
+            if ($v->noWrap()) {
                 return $fc->render($v);
             }
 
@@ -77,7 +77,7 @@ class FormRenderPanel implements FormRenderInterface
             return '';
         }
 
-        return '<div class="panel-footer">' .implode('', $array)  . '</div>';
+        return '<div class="panel-footer">' . implode('', $array) . '</div>';
     }
 
     /**
@@ -94,7 +94,7 @@ class FormRenderPanel implements FormRenderInterface
             . $this->renderDesc($form)
             . $form->getErrorHtml('alert')
             . $this->renderElements($form)
-            .'</div>'
+            . '</div>'
             . $this->renderButtons($form)
             . '</div>'
             . $form->close();

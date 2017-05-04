@@ -6,7 +6,15 @@ class LayoutComponentTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new LayoutComponent(array (  'component_id' => 'core.action_content',  'component_name' => 'Action Content',  'component_class' => 'Neutron\\Core\\Block\\ActionContent',  'form_name' => 'none',  'package_id' => 'core',  'is_active' => 1,  'sort_order' => 1,  'description' => NULL,));
+        $obj = new LayoutComponent(['component_id'    => 'core.action_content',
+                                    'component_name'  => 'Action Content',
+                                    'component_class' => 'Neutron\\Core\\Block\\ActionContent',
+                                    'form_name'       => 'none',
+                                    'package_id'      => 'core',
+                                    'is_active'       => 1,
+                                    'sort_order'      => 1,
+                                    'description'     => null,
+        ]);
 
         $this->assertSame('layout_component', $obj->getModelId());
         $this->assertSame('core.action_content', $obj->getId());
@@ -47,13 +55,21 @@ class LayoutComponentTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new LayoutComponent(array (  'component_id' => 'core.action_content',  'component_name' => 'Action Content',  'component_class' => 'Neutron\\Core\\Block\\ActionContent',  'form_name' => 'none',  'package_id' => 'core',  'is_active' => 1,  'sort_order' => 1,  'description' => NULL,));
+        $obj = new LayoutComponent(['component_id'    => 'core.action_content',
+                                    'component_name'  => 'Action Content',
+                                    'component_class' => 'Neutron\\Core\\Block\\ActionContent',
+                                    'form_name'       => 'none',
+                                    'package_id'      => 'core',
+                                    'is_active'       => 1,
+                                    'sort_order'      => 1,
+                                    'description'     => null,
+        ]);
 
         $obj->save();
 
         /** @var LayoutComponent $obj */
         $obj = \Phpfox::with('layout_component')
-            ->select()->where('component_id=?','core.action_content')->first();
+            ->select()->where('component_id=?', 'core.action_content')->first();
 
         $this->assertSame('layout_component', $obj->getModelId());
         $this->assertSame('core.action_content', $obj->getId());
@@ -69,12 +85,12 @@ class LayoutComponentTest extends \PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         \Phpfox::with('layout_component')
-            ->delete()->where('component_id=?','core.action_content')->execute();
+            ->delete()->where('component_id=?', 'core.action_content')->execute();
     }
 
     public static function tearDownAfterClass()
     {
         \Phpfox::with('layout_component')
-            ->delete()->where('component_id=?','core.action_content')->execute();
+            ->delete()->where('component_id=?', 'core.action_content')->execute();
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Report\Service;
 
 use Neutron\Report\Model\Report;

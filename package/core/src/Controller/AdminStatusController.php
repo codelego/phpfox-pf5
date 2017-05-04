@@ -11,7 +11,7 @@ class AdminStatusController extends AdminController
     {
         \Phpfox::get('breadcrumb')
             ->clear()
-            ->add(['label'=>'System Status']);
+            ->add(['label' => 'System Status']);
     }
 
     public function actionCache()

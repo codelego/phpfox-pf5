@@ -10,60 +10,12 @@ class AddLayoutBlock extends Form
     public function initialize()
     {
         $this->addElement([
-            'factory'    => 'text',
-            'name'       => 'container_id',
-            'attributes' =>
-                [
-                    'maxlength' => PHPFOX_TITLE_LENGTH,
-                    'class'     => 'form-control',
-                ],
-            'label'      => _text('Container Id'),
-            'required'   => true,
-        ]);
-        $this->addElement([
-            'factory'    => 'text',
-            'name'       => 'location_id',
-            'attributes' =>
-                [
-                    'maxlength' => PHPFOX_TITLE_LENGTH,
-                    'class'     => 'form-control',
-                ],
-            'label'      => _text('Location Id'),
-            'required'   => true,
-        ]);
-        $this->addElement([
-            'factory'    => 'text',
+            'factory'    => 'radio',
             'name'       => 'component_id',
-            'attributes' =>
-                [
-                    'maxlength' => PHPFOX_TITLE_LENGTH,
-                    'class'     => 'form-control',
-                ],
-            'label'      => _text('Component Id'),
+            'attributes' => ['class' => 'form-control',],
+            'label'      => _text('Component'),
             'required'   => true,
-        ]);
-        $this->addElement([
-            'factory'    => 'text',
-            'name'       => 'sort_order',
-            'attributes' =>
-                [
-                    'maxlength' => PHPFOX_TITLE_LENGTH,
-                    'class'     => 'form-control',
-                ],
-            'label'      => _text('Sort Order'),
-            'required'   => true,
-        ]);
-        $this->addElement([
-            'factory'    => 'yesno',
-            'name'       => 'is_active',
-            'label'      => _text('Is Active'),
-            'required'   => true,
-            'value'      => 1,
-            'attributes' =>
-                [
-                    'maxlength' => PHPFOX_TITLE_LENGTH,
-                    'class'     => 'form-control',
-                ],
+            'options'    => \Phpfox::get('layout_loader')->getComponentIdOptions(),
         ]);
     }
 
@@ -77,5 +29,37 @@ class AddLayoutBlock extends Form
                 'attributes' => ['class' => 'btn btn-primary'],
             ]),
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocationId()
+    {
+        return $this->locationId;
+    }
+
+    /**
+     * @param string $locationId
+     */
+    public function setLocationId($locationId)
+    {
+        $this->locationId = $locationId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getComponentId()
+    {
+        return $this->componentId;
+    }
+
+    /**
+     * @param string $componentId
+     */
+    public function setComponentId($componentId)
+    {
+        $this->componentId = $componentId;
     }
 }

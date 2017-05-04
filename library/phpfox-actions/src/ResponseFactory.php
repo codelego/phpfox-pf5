@@ -11,11 +11,11 @@ class ResponseFactory
      */
     public function createFromHttpRequest()
     {
-        $response =  new Response();
+        $response = new Response();
 
-        $request =  \Phpfox::get('request');
+        $request = \Phpfox::get('request');
 
-        if($request->isAjax()){
+        if ($request->isAjax()) {
             $response->setPrototype('response.ajax');
         }
 

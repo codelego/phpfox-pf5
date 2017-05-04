@@ -6,7 +6,12 @@ class LayoutGridTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new LayoutGrid(array (  'grid_id' => 'simple',  'title' => 'Simple 1 column',  'sort_order' => 1,  'description' => 'Single column',  'locations' => '["main"]',));
+        $obj = new LayoutGrid(['grid_id'     => 'simple',
+                               'title'       => 'Simple 1 column',
+                               'sort_order'  => 1,
+                               'description' => 'Single column',
+                               'locations'   => '["main"]',
+        ]);
 
         $this->assertSame('layout_grid', $obj->getModelId());
         $this->assertSame('simple', $obj->getId());
@@ -41,13 +46,18 @@ class LayoutGridTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new LayoutGrid(array (  'grid_id' => 'simple',  'title' => 'Simple 1 column',  'sort_order' => 1,  'description' => 'Single column',  'locations' => '["main"]',));
+        $obj = new LayoutGrid(['grid_id'     => 'simple',
+                               'title'       => 'Simple 1 column',
+                               'sort_order'  => 1,
+                               'description' => 'Single column',
+                               'locations'   => '["main"]',
+        ]);
 
         $obj->save();
 
         /** @var LayoutGrid $obj */
         $obj = \Phpfox::with('layout_grid')
-            ->select()->where('grid_id=?','simple')->first();
+            ->select()->where('grid_id=?', 'simple')->first();
 
         $this->assertSame('layout_grid', $obj->getModelId());
         $this->assertSame('simple', $obj->getId());
@@ -61,12 +71,12 @@ class LayoutGridTest extends \PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         \Phpfox::with('layout_grid')
-            ->delete()->where('grid_id=?','simple')->execute();
+            ->delete()->where('grid_id=?', 'simple')->execute();
     }
 
     public static function tearDownAfterClass()
     {
         \Phpfox::with('layout_grid')
-            ->delete()->where('grid_id=?','simple')->execute();
+            ->delete()->where('grid_id=?', 'simple')->execute();
     }
 }

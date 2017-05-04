@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Blog\Form;
 
 use Neutron\Blog\Validator\EditBlogCategoryValidator;

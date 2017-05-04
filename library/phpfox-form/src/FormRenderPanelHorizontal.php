@@ -23,17 +23,17 @@ class FormRenderPanelHorizontal implements FormRenderInterface
 
             $required = $v->isRequired() ? 'required' : '';
 
-            if($v->noWrap()){
+            if ($v->noWrap()) {
                 return $fc->render($v);
             }
 
             $label = $v->noLabel()
                 ? ''
-                : '<label class="control-label col-sm-3 '.$required.'">' . $v->getLabel()
+                : '<label class="control-label col-sm-3 ' . $required . '">' . $v->getLabel()
                 . '</label>';
 
             return '<div class="form-group input-' . $name . '">' . $label
-                . '<div class="col-sm-9">' .  $info . $fc->render($v) . $note
+                . '<div class="col-sm-9">' . $info . $fc->render($v) . $note
                 . '</div></div>';
         }, $form->getElements());
 

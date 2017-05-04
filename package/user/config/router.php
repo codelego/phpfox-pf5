@@ -8,21 +8,21 @@ return [
             'filter' => 'user.profile_filter',
         ],
         [
-            'chain'    => 'profile',
-            'route'    => '{profile}/<name>/*',
-            'filter'   => 'user.profile_filter',
+            'chain'      => 'profile',
+            'route'      => '{profile}/<name>/*',
+            'filter'     => 'user.profile_filter',
             'controller' => 'user.profile',
             'action'     => 'index',
         ],
     ],
     'routes' => [
         'login'           => [
-            'route'    => '{login}',
+            'route'      => '{login}',
             'controller' => 'user.auth',
             'action'     => 'login',
         ],
         'logout'          => [
-            'route'    => '{logout}',
+            'route'      => '{logout}',
             'controller' => 'user.auth',
             'action'     => 'logout',
         ],
@@ -47,7 +47,7 @@ return [
             ],
         ],
         'profile.members' => [
-            'route'    => 'members',
+            'route'      => 'members',
             'action'     => 'members',
             'controller' => 'user.profile',
         ],

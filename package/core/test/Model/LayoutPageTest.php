@@ -6,7 +6,12 @@ class LayoutPageTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new LayoutPage(array (  'page_id' => 1,  'action_id' => 'default',  'theme_id' => 'default',  'is_active' => 1,  'params' => '["grid":"3"]',));
+        $obj = new LayoutPage(['page_id'   => 1,
+                               'action_id' => 'default',
+                               'theme_id'  => 'default',
+                               'is_active' => 1,
+                               'params'    => '["grid":"3"]',
+        ]);
 
         $this->assertSame('layout_page', $obj->getModelId());
         $this->assertSame(1, $obj->getId());
@@ -38,13 +43,18 @@ class LayoutPageTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new LayoutPage(array (  'page_id' => 1,  'action_id' => 'default',  'theme_id' => 'default',  'is_active' => 1,  'params' => '["grid":"3"]',));
+        $obj = new LayoutPage(['page_id'   => 1,
+                               'action_id' => 'default',
+                               'theme_id'  => 'default',
+                               'is_active' => 1,
+                               'params'    => '["grid":"3"]',
+        ]);
 
         $obj->save();
 
         /** @var LayoutPage $obj */
         $obj = \Phpfox::with('layout_page')
-            ->select()->where('page_id=?',1)->first();
+            ->select()->where('page_id=?', 1)->first();
 
         $this->assertSame('layout_page', $obj->getModelId());
         $this->assertSame(1, $obj->getId());
@@ -57,12 +67,12 @@ class LayoutPageTest extends \PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         \Phpfox::with('layout_page')
-            ->delete()->where('page_id=?',1)->execute();
+            ->delete()->where('page_id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
         \Phpfox::with('layout_page')
-            ->delete()->where('page_id=?',1)->execute();
+            ->delete()->where('page_id=?', 1)->execute();
     }
 }

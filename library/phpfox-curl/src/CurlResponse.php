@@ -1,4 +1,5 @@
 <?php
+
 namespace Phpfox\CurlRequest;
 
 class CurlResponse

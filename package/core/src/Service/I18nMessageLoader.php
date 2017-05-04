@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Core\Service;
 
 use Phpfox\I18n\I18nMessageLoaderInterface;

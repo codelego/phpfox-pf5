@@ -22,7 +22,7 @@ class Parameters implements \ArrayAccess
     public function __construct(array $params = [])
     {
         $this->params = $params;
-        $this->queries =  $params;
+        $this->queries = $params;
     }
 
     /**
@@ -119,7 +119,7 @@ class Parameters implements \ArrayAccess
             return '';
         }
 
-        return '?'. http_build_query($this->queries);
+        return '?' . http_build_query($this->queries);
     }
 
 }

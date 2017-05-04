@@ -80,7 +80,7 @@ class ToolbarDecorator implements DecoratorInterface
                 $href = $item->href;
             } elseif ($item->type == 'plugin') {
                 $item = \Phpfox::callback($item->event, $params);
-            } elseif($item->route) {
+            } elseif ($item->route) {
                 $href = _url($item->route, $params);
             }
         }
@@ -102,7 +102,7 @@ class ToolbarDecorator implements DecoratorInterface
             $cls .= ' active';
         }
 
-        $extra = _attrize($item->get('extra', ['class'=>'btn btn-default']));
+        $extra = _attrize($item->get('extra', ['class' => 'btn btn-default']));
 
         if (!empty($item->children)) {
             $childrenHtml = $this->renderChildren($level + 1, $item->children);

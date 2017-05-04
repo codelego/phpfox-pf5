@@ -1,4 +1,5 @@
 <?php
+
 namespace Phpfox\Form;
 
 class FormFacades

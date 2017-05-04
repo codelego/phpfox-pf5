@@ -4,7 +4,7 @@
             <thead>
             <tr>
                 <th class="w30">
-                    <label><input type="checkbox" class="moderation-check-all" /></label>
+                    <label><input type="checkbox" class="moderation-check-all"/></label>
                 </th>
                 <th class="text-center">#</th>
                 <th class="w50">ID</th>
@@ -17,7 +17,8 @@
             <?php foreach ($items as $item): ?>
                 <tr>
                     <td>
-                        <label><input id="cb" type="checkbox" name="cb[]" value="<?= $item->getId() ?>" class="item_checkbox"/></label>
+                        <label><input id="cb" type="checkbox" name="cb[]" value="<?= $item->getId() ?>"
+                                      class="item_checkbox"/></label>
                     </td>
                     <td data-cmd="dropdown" class="dropdown">
                         <ul>

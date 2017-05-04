@@ -15,14 +15,14 @@ class FormRenderBootstrap implements FormRenderInterface
                 $note = '<p class="help-block">' . $note . '</p>';
             }
 
-            $required =  $v->isRequired()? 'required': '';
+            $required = $v->isRequired() ? 'required' : '';
 
             $label = $v->noLabel()
                 ? ''
-                : '<label class="control-label '.$required.'">' . $v->getLabel()
+                : '<label class="control-label ' . $required . '">' . $v->getLabel()
                 . '</label>';
 
-            if($v->noWrap()){
+            if ($v->noWrap()) {
                 return $fc->render($v);
             }
 
@@ -88,7 +88,7 @@ class FormRenderBootstrap implements FormRenderInterface
     public function render($form)
     {
         return $form->open() .
-              $this->renderTitle($form)
+            $this->renderTitle($form)
             . $this->renderDesc($form)
             . $form->getErrorHtml('alert')
             . $this->renderElements($form)

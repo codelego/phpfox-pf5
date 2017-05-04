@@ -14,7 +14,7 @@ class LayoutManager extends ViewModel
     /**
      * @var string
      */
-    protected $themeId ='default';
+    protected $themeId = 'default';
 
     /**
      * @return $this
@@ -35,7 +35,7 @@ class LayoutManager extends ViewModel
 
         $layoutPage = \Phpfox::get('layout_loader')->loadForRender($this->getPageName(), $this->getThemeId());
 
-        $content  = $layoutPage->render();
+        $content = $layoutPage->render();
 
         $this->assign([
             'layout_content' => $content,
@@ -49,7 +49,7 @@ class LayoutManager extends ViewModel
      */
     public function getThemeId()
     {
-        if(null == $this->themeId){
+        if (null == $this->themeId) {
             $this->setThemeId(\Phpfox::get('core.themes')->getDefault()->getId());
         }
         return $this->themeId;
@@ -57,6 +57,7 @@ class LayoutManager extends ViewModel
 
     /**
      * @param string $themeId
+     *
      * @return $this
      */
     public function setThemeId($themeId)

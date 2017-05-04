@@ -6,7 +6,21 @@ class CorePackageTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new CorePackage(array (  'id' => 1,  'type_id' => 'app',  'is_required' => 1,  'is_active' => 1,  'theme_id' => NULL,  'priority' => 1,  'title' => 'Core',  'version' => '5.0.1',  'latest_version' => NULL,  'author' => 'phpFox',  'description' => NULL,  'apps_icon' => '',  'name' => 'core',  'path' => 'package/core',));
+        $obj = new CorePackage(['id'             => 1,
+                                'type_id'        => 'app',
+                                'is_required'    => 1,
+                                'is_active'      => 1,
+                                'theme_id'       => null,
+                                'priority'       => 1,
+                                'title'          => 'Core',
+                                'version'        => '5.0.1',
+                                'latest_version' => null,
+                                'author'         => 'phpFox',
+                                'description'    => null,
+                                'apps_icon'      => '',
+                                'name'           => 'core',
+                                'path'           => 'package/core',
+        ]);
 
         $this->assertSame('core_package', $obj->getModelId());
         $this->assertSame(1, $obj->getId());
@@ -65,13 +79,27 @@ class CorePackageTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new CorePackage(array (  'id' => 1,  'type_id' => 'app',  'is_required' => 1,  'is_active' => 1,  'theme_id' => NULL,  'priority' => 1,  'title' => 'Core',  'version' => '5.0.1',  'latest_version' => NULL,  'author' => 'phpFox',  'description' => NULL,  'apps_icon' => '',  'name' => 'core',  'path' => 'package/core',));
+        $obj = new CorePackage(['id'             => 1,
+                                'type_id'        => 'app',
+                                'is_required'    => 1,
+                                'is_active'      => 1,
+                                'theme_id'       => null,
+                                'priority'       => 1,
+                                'title'          => 'Core',
+                                'version'        => '5.0.1',
+                                'latest_version' => null,
+                                'author'         => 'phpFox',
+                                'description'    => null,
+                                'apps_icon'      => '',
+                                'name'           => 'core',
+                                'path'           => 'package/core',
+        ]);
 
         $obj->save();
 
         /** @var CorePackage $obj */
         $obj = \Phpfox::with('core_package')
-            ->select()->where('id=?',1)->first();
+            ->select()->where('id=?', 1)->first();
 
         $this->assertSame('core_package', $obj->getModelId());
         $this->assertSame(1, $obj->getId());
@@ -93,12 +121,12 @@ class CorePackageTest extends \PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         \Phpfox::with('core_package')
-            ->delete()->where('id=?',1)->execute();
+            ->delete()->where('id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
         \Phpfox::with('core_package')
-            ->delete()->where('id=?',1)->execute();
+            ->delete()->where('id=?', 1)->execute();
     }
 }

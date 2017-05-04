@@ -116,7 +116,7 @@ return [
                     'action' => 'clone-page',
                 ],
                 'action'           => [
-                    'route'  => '<action>',
+                    'route' => '<action>',
                 ],
             ],
         ],

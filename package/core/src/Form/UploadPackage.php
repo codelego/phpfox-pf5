@@ -30,7 +30,7 @@ class UploadPackage extends Form
                 'name'       => 'save',
                 'label'      => _text('Save Changes'),
                 'attributes' => ['class' => 'btn btn-primary'],
-            ])
+            ]),
         ];
     }
 }

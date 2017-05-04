@@ -8,11 +8,6 @@ use Phpfox\View\ViewModel;
 class Location
 {
     /**
-     * @var string
-     */
-    protected $name;
-
-    /**
      * @var Block[]
      */
     protected $blocks = [];
@@ -25,13 +20,19 @@ class Location
     /**
      * LayoutLocation constructor.
      *
-     * @param string $name
-     * @param array  $params
+     * @param array $params
      */
-    public function __construct($name, $params = [])
+    public function __construct($params = [])
     {
-        $this->name = $name;
         $this->params = $params;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContainerId()
+    {
+        return $this->get('container_id');
     }
 
     /**
@@ -39,15 +40,15 @@ class Location
      */
     public function getName()
     {
-        return $this->name;
+        return $this->get('location_id');
     }
 
     /**
-     * @param string $name
+     * @return string
      */
-    public function setName($name)
+    public function getId()
     {
-        $this->name = $name;
+        return $this->get('location_id');
     }
 
     /**
@@ -63,7 +64,9 @@ class Location
      */
     public function setParams($params)
     {
-        $this->params = $params;
+        foreach ($params as $key => $value) {
+            $this->params[$key] = $value;
+        }
     }
 
     /**
@@ -144,4 +147,5 @@ class Location
             'location' => $this,
         ], 'layout-editor/edit-location'))->render();
     }
+
 }

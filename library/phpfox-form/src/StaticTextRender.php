@@ -11,10 +11,10 @@ class StaticTextRender implements RenderInterface
      */
     public function render($element)
     {
-        $name =  $element->getName();
+        $name = $element->getName();
         $value = $element->getValue();
-        $input =  '<textarea class="hidden" name="'.$name.'">'.$value.'</textarea>';
-        $text =  '<p class="form-control-static">' . $value . '</p>';
+        $input = '<textarea class="hidden" name="' . $name . '">' . $value . '</textarea>';
+        $text = '<p class="form-control-static">' . $value . '</p>';
         return $text . $input;
     }
 }

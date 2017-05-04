@@ -15,7 +15,7 @@ class AdminIndexController extends AdminController
             ->setPageName('core/admin-index/index');
 
         return new ViewModel([
-            
+
         ], 'core/admin-index/index');
     }
 }

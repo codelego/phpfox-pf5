@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Group\Controller;
 
 return [

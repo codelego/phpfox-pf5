@@ -1,4 +1,5 @@
 <?php
+
 namespace Phpfox\Event;
 
 interface EventLoaderInterface

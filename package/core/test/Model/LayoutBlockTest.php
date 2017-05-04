@@ -6,7 +6,15 @@ class LayoutBlockTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new LayoutBlock(array (  'block_id' => 1,  'parent_id' => 0,  'container_id' => 1,  'location_id' => 'main',  'component_id' => 'core.action_content',  'sort_order' => 1,  'is_active' => 1,  'params' => '[]',));
+        $obj = new LayoutBlock(['block_id'     => 1,
+                                'parent_id'    => 0,
+                                'container_id' => 1,
+                                'location_id'  => 'main',
+                                'component_id' => 'core.action_content',
+                                'sort_order'   => 1,
+                                'is_active'    => 1,
+                                'params'       => '[]',
+        ]);
 
         $this->assertSame('layout_block', $obj->getModelId());
         $this->assertSame(1, $obj->getId());
@@ -47,13 +55,21 @@ class LayoutBlockTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new LayoutBlock(array (  'block_id' => 1,  'parent_id' => 0,  'container_id' => 1,  'location_id' => 'main',  'component_id' => 'core.action_content',  'sort_order' => 1,  'is_active' => 1,  'params' => '[]',));
+        $obj = new LayoutBlock(['block_id'     => 1,
+                                'parent_id'    => 0,
+                                'container_id' => 1,
+                                'location_id'  => 'main',
+                                'component_id' => 'core.action_content',
+                                'sort_order'   => 1,
+                                'is_active'    => 1,
+                                'params'       => '[]',
+        ]);
 
         $obj->save();
 
         /** @var LayoutBlock $obj */
         $obj = \Phpfox::with('layout_block')
-            ->select()->where('block_id=?',1)->first();
+            ->select()->where('block_id=?', 1)->first();
 
         $this->assertSame('layout_block', $obj->getModelId());
         $this->assertSame(1, $obj->getId());
@@ -69,12 +85,12 @@ class LayoutBlockTest extends \PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         \Phpfox::with('layout_block')
-            ->delete()->where('block_id=?',1)->execute();
+            ->delete()->where('block_id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
         \Phpfox::with('layout_block')
-            ->delete()->where('block_id=?',1)->execute();
+            ->delete()->where('block_id=?', 1)->execute();
     }
 }

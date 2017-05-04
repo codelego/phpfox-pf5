@@ -1,4 +1,5 @@
 <?php
+
 namespace Phpfox\Support;
 
 use PHPUnit_Framework_TestCase;

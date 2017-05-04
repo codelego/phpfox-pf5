@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Core\Controller;
 
 use Phpfox\Action\ActionController;

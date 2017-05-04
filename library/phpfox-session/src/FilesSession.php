@@ -1,4 +1,5 @@
 <?php
+
 namespace Phpfox\Session;
 
 class FilesSession implements SessionInterface
@@ -10,7 +11,7 @@ class FilesSession implements SessionInterface
         if (!is_dir($save_path) && mkdir($save_path, true, 0777)) {
             @chmod($save_path, 0777);
         }
-        
+
         ini_set('session.save_handler', 'files');
         ini_set('session.save_path', $save_path);
 

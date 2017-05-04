@@ -6,7 +6,12 @@ class LayoutActionTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new LayoutAction(array (  'action_id' => 'blog_index_index',  'parent_action_id' => 'default',  'action_name' => 'Blog Home',  'package_id' => 'blog',  'description' => 'Blog landing page',));
+        $obj = new LayoutAction(['action_id'        => 'blog_index_index',
+                                 'parent_action_id' => 'default',
+                                 'action_name'      => 'Blog Home',
+                                 'package_id'       => 'blog',
+                                 'description'      => 'Blog landing page',
+        ]);
 
         $this->assertSame('layout_action', $obj->getModelId());
         $this->assertSame('blog_index_index', $obj->getId());
@@ -38,13 +43,18 @@ class LayoutActionTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new LayoutAction(array (  'action_id' => 'blog_index_index',  'parent_action_id' => 'default',  'action_name' => 'Blog Home',  'package_id' => 'blog',  'description' => 'Blog landing page',));
+        $obj = new LayoutAction(['action_id'        => 'blog_index_index',
+                                 'parent_action_id' => 'default',
+                                 'action_name'      => 'Blog Home',
+                                 'package_id'       => 'blog',
+                                 'description'      => 'Blog landing page',
+        ]);
 
         $obj->save();
 
         /** @var LayoutAction $obj */
         $obj = \Phpfox::with('layout_action')
-            ->select()->where('action_id=?','blog_index_index')->first();
+            ->select()->where('action_id=?', 'blog_index_index')->first();
 
         $this->assertSame('layout_action', $obj->getModelId());
         $this->assertSame('blog_index_index', $obj->getId());
@@ -57,12 +67,12 @@ class LayoutActionTest extends \PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         \Phpfox::with('layout_action')
-            ->delete()->where('action_id=?','blog_index_index')->execute();
+            ->delete()->where('action_id=?', 'blog_index_index')->execute();
     }
 
     public static function tearDownAfterClass()
     {
         \Phpfox::with('layout_action')
-            ->delete()->where('action_id=?','blog_index_index')->execute();
+            ->delete()->where('action_id=?', 'blog_index_index')->execute();
     }
 }

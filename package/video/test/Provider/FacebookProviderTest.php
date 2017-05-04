@@ -60,6 +60,7 @@ class FacebookProviderTest extends \PHPUnit_Framework_TestCase
      * @param $videoId
      * @param $code
      * @param $autoplay
+     *
      * @dataProvider  provideExtractVideoParams
      */
     public function testExtractVideoByVideoId($videoId, $code, $autoplay)

@@ -192,7 +192,7 @@ class SqlSelect
 
     /**
      * @param string|array $expression
-     * @param $data
+     * @param              $data
      *
      * @return SqlSelect
      */
@@ -297,7 +297,7 @@ class SqlSelect
      *
      * @return $this
      */
-    public function join($table, $alias, $expression, $data = null, $columns =  null)
+    public function join($table, $alias, $expression, $data = null, $columns = null)
     {
         if (null == $this->_join) {
             $this->_join = new SqlJoin($this->adapter);

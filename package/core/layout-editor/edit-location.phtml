@@ -5,7 +5,8 @@
     </span>
     <ul class="hide" role="menu">
         <li role="menuitem">
-            <a role="button">Add Block</a>
+            <a data-cmd="modal" href="<?= _url('admin.core.layout.action',
+                ['action' => 'add-block', 'location_id' => $location->getId(),'container'=>$location->getContainerId()]) ?>">Add Block</a>
         </li>
         <li role="menuitem">
             <a role="button">Edit Settings</a>

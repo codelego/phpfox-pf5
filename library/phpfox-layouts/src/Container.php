@@ -8,24 +8,9 @@ use Phpfox\View\ViewModel;
 class Container
 {
     /**
-     * @var string
-     */
-    protected $name;
-
-    /**
      * @var Location[]
      */
     protected $locations = [];
-
-    /**
-     * @var string
-     */
-    protected $gridId;
-
-    /**
-     * @var string
-     */
-    protected $typeId;
 
     /**
      * @var array
@@ -34,18 +19,22 @@ class Container
 
     /**
      * LayoutContainer constructor.
+     * required
+     * [container_id=>, grid_id=>, action_id, page_id]
      *
-     * @param string $id
-     * @param string $typeId
-     * @param string $gridId
-     * @param array  $params
+     * @param array $params
      */
-    public function __construct($id, $typeId, $gridId, $params = [])
+    public function __construct($params = [])
     {
-        $this->name = $id;
-        $this->typeId = $typeId;
-        $this->gridId = $gridId;
         $this->params = $params;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->get('container_id');
     }
 
     /**
@@ -53,15 +42,7 @@ class Container
      */
     public function getName()
     {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
+        return $this->get('container_id');
     }
 
     /**
@@ -77,7 +58,9 @@ class Container
      */
     public function setParams($params)
     {
-        $this->params = $params;
+        foreach ($params as $key => $value) {
+            $this->params[$key] = $value;
+        }
     }
 
     /**
@@ -85,7 +68,7 @@ class Container
      */
     public function getGridId()
     {
-        return $this->gridId;
+        return $this->get('grid_id');
     }
 
     /**
@@ -105,28 +88,13 @@ class Container
     }
 
     /**
-     * @param string $gridId
-     */
-    public function setGridId($gridId)
-    {
-        $this->gridId = $gridId;
-    }
-
-    /**
      * @return string
      */
     public function getTypeId()
     {
-        return $this->typeId;
+        return $this->get('type_id');
     }
 
-    /**
-     * @param string $typeId
-     */
-    public function setTypeId($typeId)
-    {
-        $this->typeId = $typeId;
-    }
 
     /**
      * add new location
@@ -165,6 +133,22 @@ class Container
     /**
      * @return string
      */
+    public function getScriptForEdit()
+    {
+        return 'grid/edit-' . $this->getGridId();
+    }
+
+    /**
+     * @return string
+     */
+    public function getScriptForRender()
+    {
+        return 'grid/' . $this->getGridId();
+    }
+
+    /**
+     * @return string
+     */
     public function render()
     {
         $data = [];
@@ -172,9 +156,7 @@ class Container
             $data[$key] = $location->render();
         }
 
-        $script = $this->get('layout', 'grid/' . $this->gridId);
-
-        return (new ViewModel($data, $script))->render();
+        return (new ViewModel($data, $this->getScriptForRender()))->render();
     }
 
     /**
@@ -182,15 +164,13 @@ class Container
      */
     public function renderForEdit()
     {
-        $data = [];
+        $data = ['container' => $this];
+
         foreach ($this->locations as $key => $location) {
             $data[$key] = $location->renderForEdit();
         }
 
-        $data['container'] = $this;
-
-        $data['content'] = (new ViewModel($data,
-            'grid/edit-' . $this->gridId))->render();
+        $data['content'] = (new ViewModel($data, $this->getScriptForEdit()))->render();
 
         return (new ViewModel($data,
             'layout-editor/edit-container'))->render();

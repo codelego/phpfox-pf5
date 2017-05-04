@@ -16,14 +16,18 @@
                 <tr>
                     <td class="dropdown" data-cmd="dropdown">
                         <ul>
-                            <li><a href="<?= _url('admin.core.layout.design-layout', ['action_id' => $item->getId()]) ?>"><?= _text('Design Layout') ?></a></li>
+                            <li><a href="<?= _url('admin.core.layout.design-layout',
+                                    ['action_id' => $item->getId()]) ?>"><?= _text('Design Layout') ?></a></li>
                             <li>
-                                <a href="<?= _url('admin.core.layout.edit', ['action_id' => $item->getId()]) ?>"><?= _text('Edit Page') ?></a>
+                                <a href="<?= _url('admin.core.layout.edit',
+                                    ['action_id' => $item->getId()]) ?>"><?= _text('Edit Page') ?></a>
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="<?= _url('admin.core.layout.add-element',['page_id' => $item->getId()]) ?>"><?= _text('Add Block') ?></a>
-                                <a href="<?= _url('admin.core.layout.add-location', ['page_id' => $item->getId()]) ?>"><?= _text('Add Location') ?></a>
+                                <a href="<?= _url('admin.core.layout.add-element',
+                                    ['page_id' => $item->getId()]) ?>"><?= _text('Add Block') ?></a>
+                                <a href="<?= _url('admin.core.layout.add-location',
+                                    ['page_id' => $item->getId()]) ?>"><?= _text('Add Location') ?></a>
                             </li>
                         </ul>
                     </td>
@@ -33,7 +37,9 @@
                     <td><?= $item->__get('parent_action_id') ?></td>
                     <td><?= $item->__get('action_name') ?></td>
                     <td><?= $item->__get('package_id') ?></td>
-                    <td><small><?= $item->__get('description') ?></small></td>
+                    <td>
+                        <small><?= $item->__get('description') ?></small>
+                    </td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

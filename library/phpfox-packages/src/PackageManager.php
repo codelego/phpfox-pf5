@@ -1,4 +1,5 @@
 <?php
+
 namespace Phpfox\Package;
 
 class PackageManager

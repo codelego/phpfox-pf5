@@ -6,7 +6,15 @@ class LayoutContainerTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new LayoutContainer(array (  'container_id' => 1,  'page_id' => 1,  'grid_id' => 'simple',  'type_id' => 'container',  'is_active' => 1,  'sort_order' => 0,  'params' => '[]',));
+        $obj = new LayoutContainer([
+            'container_id' => 1,
+            'page_id'      => 1,
+            'grid_id'      => 'simple',
+            'type_id'      => 'container',
+            'is_active'    => 1,
+            'sort_order'   => 0,
+            'params'       => '[]',
+        ]);
 
         $this->assertSame('layout_container', $obj->getModelId());
         $this->assertSame(1, $obj->getId());
@@ -44,13 +52,21 @@ class LayoutContainerTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new LayoutContainer(array (  'container_id' => 1,  'page_id' => 1,  'grid_id' => 'simple',  'type_id' => 'container',  'is_active' => 1,  'sort_order' => 0,  'params' => '[]',));
+        $obj = new LayoutContainer([
+            'container_id' => 1,
+            'page_id'      => 1,
+            'grid_id'      => 'simple',
+            'type_id'      => 'container',
+            'is_active'    => 1,
+            'sort_order'   => 0,
+            'params'       => '[]',
+        ]);
 
         $obj->save();
 
         /** @var LayoutContainer $obj */
         $obj = \Phpfox::with('layout_container')
-            ->select()->where('container_id=?',1)->first();
+            ->select()->where('container_id=?', 1)->first();
 
         $this->assertSame('layout_container', $obj->getModelId());
         $this->assertSame(1, $obj->getId());
@@ -65,12 +81,12 @@ class LayoutContainerTest extends \PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         \Phpfox::with('layout_container')
-            ->delete()->where('container_id=?',1)->execute();
+            ->delete()->where('container_id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
         \Phpfox::with('layout_container')
-            ->delete()->where('container_id=?',1)->execute();
+            ->delete()->where('container_id=?', 1)->execute();
     }
 }

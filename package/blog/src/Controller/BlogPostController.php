@@ -9,11 +9,11 @@ class BlogPostController extends ActionController
 {
     public function actionView()
     {
-        $request  = \Phpfox::get('request');
-        $id      = $request->get('id');
-        
-        $entry =  \Phpfox::with('blog_post')->findById($id);
+        $request = \Phpfox::get('request');
+        $id = $request->get('id');
 
-        return new ViewModel(['item'=> $entry,],'blog/post/view');
+        $entry = \Phpfox::with('blog_post')->findById($id);
+
+        return new ViewModel(['item' => $entry,], 'blog/post/view');
     }
 }

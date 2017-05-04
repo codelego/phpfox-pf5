@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Contact\Controller;
 
 return [

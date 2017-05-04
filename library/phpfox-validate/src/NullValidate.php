@@ -1,4 +1,5 @@
 <?php
+
 namespace Phpfox\Validate;
 
 class NullValidate extends Validate

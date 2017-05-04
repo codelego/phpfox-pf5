@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Report\Controller;
 
 return [

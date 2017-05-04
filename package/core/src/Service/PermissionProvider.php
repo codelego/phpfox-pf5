@@ -59,7 +59,7 @@ class PermissionProvider implements PermissionProviderInterface
     {
 
         return \Phpfox::get('cache.local')
-            ->with("permission_provider.$roleId",0, function () use ($roleId) {
+            ->with("permission_provider.$roleId", 0, function () use ($roleId) {
                 return $this->_load($roleId);
             });
     }

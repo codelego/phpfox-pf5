@@ -30,7 +30,7 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
     {
         \Phpfox::db()->insert(':layout_theme_params', [
             'theme_id' => 'galaxy',
-            'params' => '[]',
+            'params'   => '[]',
         ])->execute();
 
         $result = \Phpfox::db()->select('*')

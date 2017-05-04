@@ -2,32 +2,35 @@
     <div class="table-responsive">
         <table class="table table-admin">
             <thead>
-                <tr>
-                    <th class="w50">#</th>
-                    <th>Title</th>
-                    <th class="w100">Driver</th>
-                    <th class="w50">Active</th>
-                    <th class="w50">Default</th>
-                    <th class="w50">Fallback</th>
-                    <th class="w200">Options</th>
-                </tr>
+            <tr>
+                <th class="w50">#</th>
+                <th>Title</th>
+                <th class="w100">Driver</th>
+                <th class="w50">Active</th>
+                <th class="w50">Default</th>
+                <th class="w50">Fallback</th>
+                <th class="w200">Options</th>
+            </tr>
             </thead>
             <tbody>
-            <?php foreach($items as $item): ?>
+            <?php foreach ($items as $item): ?>
                 <tr>
-                    <td><?= $item->getId()?></td>
-                    <td><?= $item->getTitle()?></td>
-                    <td><?= $item->getDriverId()?></td>
-                    <td><?= _yesno($item->isActive())?></td>
-                    <td><?= _yesno($item->isDefault())?></td>
-                    <td><?= _yesno($item->isFallback())?></td>
+                    <td><?= $item->getId() ?></td>
+                    <td><?= $item->getTitle() ?></td>
+                    <td><?= $item->getDriverId() ?></td>
+                    <td><?= _yesno($item->isActive()) ?></td>
+                    <td><?= _yesno($item->isDefault()) ?></td>
+                    <td><?= _yesno($item->isFallback()) ?></td>
                     <td class="dots">
-                        <a href="<?= _url('admin.core.storage.edit',['id'=> $item->getId()])?>"><?= _text('edit')?></a>
-                        <a href="<?= _url('admin.core.storage.delete',['id'=> $item->getId()])?>"><?= _text('delete')?></a>
-                        <a href="<?= _url('admin.core.storage.transfer',['id'=> $item->getId()])?>"><?= _text('transfer')?></a>
+                        <a href="<?= _url('admin.core.storage.edit',
+                            ['id' => $item->getId()]) ?>"><?= _text('edit') ?></a>
+                        <a href="<?= _url('admin.core.storage.delete',
+                            ['id' => $item->getId()]) ?>"><?= _text('delete') ?></a>
+                        <a href="<?= _url('admin.core.storage.transfer',
+                            ['id' => $item->getId()]) ?>"><?= _text('transfer') ?></a>
                     </td>
                 </tr>
-            <?php endforeach;?>
+            <?php endforeach; ?>
             </tbody>
         </table>
     </div>

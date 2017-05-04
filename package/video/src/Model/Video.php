@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Video\Model;
 
 use Phpfox\Db\DbModel;

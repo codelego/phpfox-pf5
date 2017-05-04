@@ -33,7 +33,7 @@ class BlogCategory extends DbModel
 
     public function getUrl()
     {
-        return _url('blogs',['category'=>$this->getId()]);
+        return _url('blogs', ['category' => $this->getId()]);
     }
 
     public function getTitle()

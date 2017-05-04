@@ -1,4 +1,5 @@
 <?php
+
 namespace Phpfox\Support;
 
 final class Configs

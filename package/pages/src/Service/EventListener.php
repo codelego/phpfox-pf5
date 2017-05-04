@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Pages\Service;
 
 use Phpfox\Event\EventListenerInterface;

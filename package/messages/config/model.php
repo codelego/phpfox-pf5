@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Messages\Model;
 
 return [

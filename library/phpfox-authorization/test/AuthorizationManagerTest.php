@@ -1,4 +1,5 @@
 <?php
+
 namespace Phpfox\Authorization;
 
 use Neutron\User\Model\User;

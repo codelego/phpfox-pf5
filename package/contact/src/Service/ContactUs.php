@@ -40,7 +40,7 @@ class ContactUs
     public function getActiveDepartmentOptions()
     {
         return \Phpfox::get('cache.local')
-            ->with('core.contact_us.active_departments', 0,function () {
+            ->with('core.contact_us.active_departments', 0, function () {
                 return $this->_getActiveDepartmentOptions();
             });
     }

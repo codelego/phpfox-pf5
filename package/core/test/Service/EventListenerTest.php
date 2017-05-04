@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Core\Service;
 
 class EventListenerTest extends \PHPUnit_Framework_TestCase

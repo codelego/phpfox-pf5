@@ -47,7 +47,7 @@ class UserLogin extends Form
                 'attributes' => [
                     'class' => '',
                 ],
-            ]
+            ],
         ]);
     }
 

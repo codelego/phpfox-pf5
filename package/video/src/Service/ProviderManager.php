@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Video\Service;
 
 use Neutron\Video\Model\VideoProvider;

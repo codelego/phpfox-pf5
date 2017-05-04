@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\User\Form;
 
 use Phpfox\Form\Form;

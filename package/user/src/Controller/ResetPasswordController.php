@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\User\Controller;
 
 use Neutron\User\Form\ResetPasswordForm;

@@ -5,6 +5,7 @@ namespace Neutron\Core\Service;
 
 use Neutron\Core\Model\LayoutBlock;
 use Neutron\Core\Model\LayoutContainer;
+use Neutron\Core\Model\LayoutGrid;
 use Neutron\Core\Model\LayoutLocation;
 use Neutron\Core\Model\LayoutPage;
 use Phpfox\Layout\Block;
@@ -137,43 +138,34 @@ class LayoutManager implements LoaderInterface
     }
 
     /**
-     * @param string $gridId
+     * @param LayoutContainer $container
+     * @param bool            $activeOnly Active only ?
      *
      * @return Location[]
      */
-    public function loadLayoutLocationByGridId($gridId)
+    public function loadLayoutLocation($container, $activeOnly = false)
     {
-        $grid = \Phpfox::with('layout_grid')->findById($gridId);
 
-        $locations = json_decode($grid->getLocations(), true);
+        /** @var LayoutGrid $grid */
+        $grid = \Phpfox::findById('layout_grid', $container->getGridId());
 
-        /** @var Location[] $result */
-        $result = [];
+        $locationIds = json_decode($grid->getLocations(), true);
 
-        foreach ($locations as $location) {
-            $result[$location]
-                = new Location($location);
+        /** @var Location[] $layoutLocations */
+        $layoutLocations = [];
+
+        foreach ($locationIds as $locationId) {
+            $layoutLocations[$locationId] = new Location([
+                'location_id'    => $locationId,
+                'container_id'   => $container->getId(),
+                'container_type' => $container->getTypeId(),
+            ]);
         }
-
-        return $result;
-    }
-
-    /**
-     * @param string $id         Container Id
-     * @param string $gridId     Grid Id
-     * @param bool   $activeOnly Active only ?
-     *
-     * @return Location[]
-     */
-    public function loadLayoutLocation($id, $gridId, $activeOnly = false)
-    {
-
-        $layoutLocations = $this->loadLayoutLocationByGridId($gridId);
 
         /** @var LayoutLocation[] $containerLocations */
         $containerLocations = \Phpfox::with('layout_location')
             ->select()
-            ->where('container_id=?', $id)
+            ->where('container_id=?', $container->getId())
             ->all();
 
         foreach ($containerLocations as $containerLocation) {
@@ -182,8 +174,10 @@ class LayoutManager implements LoaderInterface
             if (!isset($layoutLocations[$locationId])) {
                 continue;
             }
-            $layoutLocations[$locationId]->setParams(json_decode($containerLocation->getParams(),
-                true));
+            $params = json_decode($containerLocation->getParams(), true);
+            if (!empty($params)) {
+                $layoutLocations[$locationId]->setParams($params);
+            }
         }
 
         $selectBlocks = \Phpfox::get('db')
@@ -191,7 +185,7 @@ class LayoutManager implements LoaderInterface
             ->from(':layout_block', 'blk')
             ->join(':layout_component', 'cmp',
                 'cmp.component_id=blk.component_id')
-            ->where('blk.container_id=?', $id)
+            ->where('blk.container_id=?', $container->getId())
             ->order('blk.location_id, blk.sort_order', 1);
 
         if ($activeOnly) {
@@ -205,13 +199,16 @@ class LayoutManager implements LoaderInterface
             }
 
             $layoutLocations[$locationId]->addBlock(new Block([
-                'element_id'  => $block['block_id'],
-                'parent_id'   => $block['parent_id'],
-                'location_id' => $block['location_id'],
-                'block_id'    => $block['block_id'],
-                'block_name'  => $block['component_name'],
-                'block_class' => $block['component_class'],
-                'is_active'   => $block['is_active'],
+                'element_id'     => $block['block_id'],
+                'parent_id'      => $block['parent_id'],
+                'location_id'    => $block['location_id'],
+                'container_id'   => $block['container_id'],
+                'sort_order'     => $block['sort_order'],
+                'container_type' => $container->getTypeId(),
+                'block_id'       => $block['block_id'],
+                'block_name'     => $block['component_name'],
+                'block_class'    => $block['component_class'],
+                'is_active'      => $block['is_active'],
             ]));
         }
 
@@ -236,17 +233,19 @@ class LayoutManager implements LoaderInterface
             ->order('sort_order', 1)
             ->all();
 
+
         $layoutPage = new Page($pageId, $actionId, $themeId);
 
         foreach ($containers as $container) {
-            $layoutContainer = new Container($container->getId(),
-                $container->getTypeId(), $container->getGridId(),
-                json_decode($container->getParams(), true));
+            $params = array_merge(json_decode($container->getParams(), true), [
+                'container_id' => $container->getId(),
+                'type_id'      => $container->getTypeId(),
+                'grid_id'      => $container->getGridId(),
+            ]);
+            $layoutContainer = new Container($params);
 
             /** @var Location[] $layoutLocations */
-            $layoutLocations
-                = $this->loadLayoutLocation($container->getId(),
-                $container->getGridId(), true);
+            $layoutLocations = $this->loadLayoutLocation($container, true);
 
             foreach ($layoutLocations as $layoutLocation) {
                 $layoutContainer->addLocation($layoutLocation);
@@ -282,14 +281,16 @@ class LayoutManager implements LoaderInterface
         $layoutPage = new Page($pageId, $actionId, $themeId);
 
         foreach ($containers as $container) {
-            $layoutContainer = new Container($container->getId(),
-                $container->getTypeId(), $container->getGridId(),
-                json_decode($container->getParams(), true));
+
+            $params = array_merge(json_decode($container->getParams(), true), [
+                'container_id' => $container->getId(),
+                'type_id'      => $container->getTypeId(),
+                'grid_id'      => $container->getGridId(),
+            ]);
+            $layoutContainer = new Container($params);
 
             /** @var Location[] $layoutLocations */
-            $layoutLocations
-                = $this->loadLayoutLocation($container->getId(),
-                $container->getGridId(), false);
+            $layoutLocations = $this->loadLayoutLocation($container, false);
 
             foreach ($layoutLocations as $layoutLocation) {
                 $layoutContainer->addLocation($layoutLocation);
@@ -300,7 +301,7 @@ class LayoutManager implements LoaderInterface
 
         return $layoutPage;
     }
-
+    
     /**
      * Clone a parent page to child page with all its children
      *
@@ -465,13 +466,16 @@ class LayoutManager implements LoaderInterface
 
     public function getComponentIdOptions()
     {
-        $select = \Phpfox::with('layout_component')->select();
+        $select = \Phpfox::with('layout_component')
+            ->select()
+            ->where('is_active=?', 1)
+            ->order('package_id,component_name', 1);
 
         return array_map(function (ModelInterface $v) {
             return [
-                'label' => $v->__get('package_id') . '.'
-                    . $v->__get('component_id'),
+                'label' => $v->__get('component_name'),
                 'value' => $v->__get('component_id'),
+                'note'  => $v->__get('description'),
             ];
         }, $select->all());
     }
