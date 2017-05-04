@@ -12,7 +12,7 @@ class Parameters implements \ArrayAccess
     /**
      * @var array
      */
-    protected $usages = [];
+    protected $queries = [];
 
     /**
      * Parameters constructor.
@@ -22,6 +22,7 @@ class Parameters implements \ArrayAccess
     public function __construct(array $params = [])
     {
         $this->params = $params;
+        $this->queries =  $params;
     }
 
     /**
@@ -89,7 +90,7 @@ class Parameters implements \ArrayAccess
      */
     public function used($key)
     {
-        $this->usages[$key] = true;
+        unset($this->queries[$key]);
     }
 
     public function offsetExists($offset)
@@ -112,13 +113,13 @@ class Parameters implements \ArrayAccess
         unset($this->params[$offset]);
     }
 
-    public function getQueryString()
+    public function getQueries()
     {
-        if (empty($this->params)) {
+        if (empty($this->queries)) {
             return '';
         }
 
-        return '?'. http_build_query(array_intersect_key($this->usages, $this->params));
+        return '?'. http_build_query($this->queries);
     }
 
 }

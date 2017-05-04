@@ -134,31 +134,24 @@ class LayoutLoader implements LayoutLoaderInterface
 
     /**
      * @param string $gridId
-     * @param bool   $activeOnly
      *
      * @return LayoutLocation[]
      */
-    public function loadLayoutLocationByGridId($gridId, $activeOnly = false)
+    public function loadLayoutLocationByGridId($gridId)
     {
-        if ($activeOnly) {
-            // reversed parameter
-        }
-        /** @var \Neutron\Core\Model\LayoutGridLocation[] $gridLocations */
-        $gridLocations = \Phpfox::with('layout_grid_location')
-            ->select()
-            ->where('grid_id=?', $gridId)
-            ->order('sort_order', 1)
-            ->all();
+        $grid = \Phpfox::with('layout_grid')->findById($gridId);
 
-        /** @var LayoutLocation[] $layoutLocations */
-        $layoutLocations = [];
+        $locations = json_decode($grid->getLocations(), true);
 
-        foreach ($gridLocations as $gridLocation) {
-            $layoutLocations[$gridLocation->getLocationId()]
-                = new LayoutLocation($gridLocation->getLocationId());
+        /** @var LayoutLocation[] $result */
+        $result = [];
+
+        foreach ($locations as $location) {
+            $result[$location]
+                = new LayoutLocation($location);
         }
 
-        return $layoutLocations;
+        return $result;
     }
 
     /**
@@ -430,18 +423,6 @@ class LayoutLoader implements LayoutLoaderInterface
         }, \Phpfox::with('layout_grid')->select()->all());
     }
 
-    public function getLocationIdOptions($gridId)
-    {
-        $select = \Phpfox::with('layout_grid_location')
-            ->select()
-            ->where('grid_id=?', $gridId)
-            ->where('is_active=?', 1)
-            ->order('sort_order', 1);
-
-        return array_map(function (ModelInterface $v) {
-
-        }, $select->all());
-    }
 
     /**
      * @return array

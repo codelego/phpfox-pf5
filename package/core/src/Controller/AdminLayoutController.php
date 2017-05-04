@@ -328,12 +328,10 @@ class AdminLayoutController extends AdminController
             ->clear()
             ->add([
                 'label' => 'Add Container',
-                'href'  => '#' . $layoutPage->getName(),
                 'extra' => [
                     'class'    => 'btn btn-success',
                     'data-cmd' => 'modal',
-                    'data-url' => _url('admin.core.layout.action',
-                        ['action' => 'add-container', 'page_id' => $layoutPage->getName()]),
+                    'data-url' => _url('admin.core.layout.action', ['action' => 'add-container', 'page_id' => $layoutPage->getName()]),
                 ],
             ]);
 

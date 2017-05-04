@@ -252,7 +252,7 @@ class Route implements RouteInterface
         return $compile($this->route, true, $usages);
     }
 
-    public function getUri($params)
+    public function compile($params)
     {
         if ($this->filter) {
             $uri = \Phpfox::get($this->filter)->onCompile($params);

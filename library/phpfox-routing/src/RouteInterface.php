@@ -18,5 +18,5 @@ interface RouteInterface
      *
      * @return string
      */
-    public function getUri($params);
+    public function compile($params);
 }

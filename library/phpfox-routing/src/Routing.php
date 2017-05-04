@@ -78,14 +78,14 @@ class Routing
      *
      * @return bool|mixed|string
      */
-    public function getUri($key, $params)
+    public function compile($key, $params)
     {
         $result = '';
         if ($this->route) {
-            $result = $this->route->getUri($params);
+            $result = $this->route->compile($params);
         } else {
             foreach ($this->chains as $chain) {
-                if (false !== ($result = $chain->getUri($params))) {
+                if (false !== ($result = $chain->compile($params))) {
                     break;
                 }
             }
@@ -104,7 +104,7 @@ class Routing
 
             if (isset($c->children[$test])) {
                 $c = $c->children[$test];
-                $result .= '/' . $c->getUri($test, $params);
+                $result .= '/' . $c->compile($test, $params);
             }
         }
         return $result;

@@ -34,8 +34,8 @@ class RoutingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('core.admin.index', $parameters->get('controller'));
         $this->assertEquals('dashboard', $parameters->get('action'));
 
-        $this->assertEquals('admincp', $admin->getUri(null, null));
-        $this->assertEquals('admincp', $admin->getUri('admin', null));
+        $this->assertEquals('admincp', $admin->compile(null, null));
+        $this->assertEquals('admincp', $admin->compile('admin', null));
     }
 
     public function testAdminUser()
@@ -70,8 +70,8 @@ class RoutingTest extends \PHPUnit_Framework_TestCase
             $parameters->get('controller'));
         $this->assertEquals('index', $parameters->get('action'));
 
-        $this->assertEquals('admincp', $admin->getUri(null, null));
-        $this->assertEquals('admincp/user', $admin->getUri('admin.user', null));
+        $this->assertEquals('admincp', $admin->compile(null, null));
+        $this->assertEquals('admincp/user', $admin->compile('admin.user', null));
     }
 
     public function testAdminUserDelete()
@@ -120,10 +120,10 @@ class RoutingTest extends \PHPUnit_Framework_TestCase
             $parameters->get('controller'));
         $this->assertEquals('delete', $parameters->get('action'));
 
-        $this->assertEquals('admincp', $admin->getUri(null, null));
-        $this->assertEquals('admincp/user', $admin->getUri('admin.user', null));
+        $this->assertEquals('admincp', $admin->compile(null, null));
+        $this->assertEquals('admincp/user', $admin->compile('admin.user', null));
         $this->assertEquals('admincp/user/delete/1',
-            $admin->getUri('admin.user.delete', ['id' => 1]));
+            $admin->compile('admin.user.delete', ['id' => 1]));
     }
 
     public function testProfile()
@@ -186,7 +186,7 @@ class RoutingTest extends \PHPUnit_Framework_TestCase
 
 
         $this->assertEquals('profile/namnv',
-            $profile->getUri('profile', ['name' => 'namnv']));
+            $profile->compile('profile', ['name' => 'namnv']));
     }
 
     public function testProfileWithBlog()
@@ -236,7 +236,7 @@ class RoutingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('browse', $parameters->get('action'));
 
         $this->assertEquals('profile/namnv/blogs',
-            $profile->getUri('profile.blogs',
+            $profile->compile('profile.blogs',
                 ['name' => 'namnv']));
     }
 }

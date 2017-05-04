@@ -617,7 +617,7 @@
     'video' => 
     array (
       0 => NULL,
-      1 => 'Neutron\\Video\\Service\\video',
+      1 => 'Neutron\\Video\\Service\\VideoManager',
     ),
     'video.provider' => 
     array (

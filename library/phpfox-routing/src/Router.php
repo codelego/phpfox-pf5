@@ -86,7 +86,7 @@ class Router
 
         $params = new Parameters($params);
 
-        return PHPFOX_BASE_URL . $this->getUri($key, $params) . $params->getQueryString();
+        return PHPFOX_BASE_URL . $this->getUri($key, $params) . $params->getQueries();
 
     }
 
@@ -98,16 +98,14 @@ class Router
      */
     public function getUri($key, $params)
     {
-
         if (strpos($key, '.') !== false) {
             list($group) = explode('.', $key, 2);
             if (isset($this->routes[$group])) {
-                return $this->routes[$group]->getUri($key, $params);
+                return $this->routes[$group]->compile($key, $params);
             }
         } elseif (isset($this->routes[$key])) {
-            return $this->routes[$key]->getUri($key, $params);
+            return $this->routes[$key]->compile($key, $params);
         }
-
         return '';
     }
 
