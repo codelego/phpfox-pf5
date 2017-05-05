@@ -60,7 +60,7 @@ class AdminCategoryController extends AdminController
             $obj = new ReportCategory($data);
             $obj->save();
 
-            _get('response')->redirect('');
+            _redirect('');
         }
 
         return new ViewModel([

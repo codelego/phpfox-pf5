@@ -52,7 +52,7 @@ class AdminDepartmentController extends AdminController
             $item->fromArray($_POST);
             $item->save();
 
-            _get('response')->redirect(_url('admin.contact'));
+            _redirect('admin.contact');
         }
 
         return new ViewModel([
@@ -75,7 +75,7 @@ class AdminDepartmentController extends AdminController
             $item->fromArray($_POST);
             $item->save();
 
-            _get('response')->redirect(_url('admin.contact'));
+            _redirect('admin.contact');
         }
 
         return new ViewModel([

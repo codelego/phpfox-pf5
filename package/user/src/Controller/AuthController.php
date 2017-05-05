@@ -20,7 +20,7 @@ class AuthController extends ActionController
         if ($auth->isLoggedIn()) {
             // redirect to logged in user
             $user = $auth->getUser();
-            _get('response')->redirect($user->getUrl(), 302);
+            _redirect($user->getUrl(), 302);
         }
 
         $request = _get('request');
@@ -38,7 +38,7 @@ class AuthController extends ActionController
 
                 $url = _url('home');
 
-                _get('response')->redirect($url);
+                _redirect($url);
             } else {
                 $form->addError('', $result->getMessage());
             }
@@ -57,7 +57,7 @@ class AuthController extends ActionController
     {
         _get('auth')->logout();
 
-        _get('response')->redirect(_url('home'));
+        _redirect('home');
 
         return new ViewModel([], 'user/auth/logout');
     }

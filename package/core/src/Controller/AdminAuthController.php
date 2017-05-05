@@ -39,7 +39,7 @@ class AdminAuthController extends ActionController
                 $user = _find('user', $result->getIdentity());
                 _get('auth')->login($user, true);
 
-                _get('response')->redirect(_url('admin'));
+                _redirect('admin');
 
             } else {
                 $layout->assign([

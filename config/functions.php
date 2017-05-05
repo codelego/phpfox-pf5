@@ -21,6 +21,15 @@ namespace {
     }
 
     /**
+     * @param string $route
+     * @param array  $params
+     */
+    function _redirect($route, $params = [])
+    {
+        \Phpfox::$service->get('response')->redirect(_url($route, $params));
+    }
+
+    /**
      * @see ServiceManager::build()
      *
      * @param string $id

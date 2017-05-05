@@ -291,7 +291,7 @@ class AdminLayoutController extends AdminController
             $entry->fromArray($form->getData());
             $entry->save();
 
-            _get('response')->redirect(_url('admin.core.layout.action', ['action' => 'manage-component']));
+            _redirect('admin.core.layout.action', ['action' => 'manage-component']);
         }
 
         return new ViewModel([
@@ -313,7 +313,6 @@ class AdminLayoutController extends AdminController
         $layoutService = _get('layout_loader');
 
         $pageId = $layoutService->findPageIdForEdit($actionId, $themeId);
-
 
         $layoutContent = $layoutService->loadForEdit($actionId, $themeId);
 
@@ -385,8 +384,8 @@ class AdminLayoutController extends AdminController
 
             _get('cache.local')->flush();
 
-            _get('response')->redirect(_url('admin.core.layout.design-page',
-                ['action_id' => $page->getActionId()]));
+            _redirect('admin.core.layout.design-page',
+                ['action_id' => $page->getActionId()]);
         }
 
         return new ViewModel([
@@ -436,10 +435,10 @@ class AdminLayoutController extends AdminController
 
         _get('cache.local')->flush();
 
-        _get('response')->redirect(_url('admin.core.layout.action', [
+        _redirect('admin.core.layout.action', [
             'action'    => 'design-page',
             'action_id' => $page->getActionId(),
-        ]));
+        ]);
     }
 
     public function actionEditContainer()
