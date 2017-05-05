@@ -33,7 +33,7 @@ class AuthController extends ActionController
                 $data['password'], null);
 
             if ($result->isValid()) {
-                $user = \Phpfox::findById('user', $result->getIdentity());
+                $user = _find('user', $result->getIdentity());
                 $auth->login($user, !!$data['remember']);
 
                 $url = _url('home');

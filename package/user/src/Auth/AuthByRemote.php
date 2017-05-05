@@ -43,7 +43,7 @@ class AuthByRemote implements AuthInterface
             return $result;
         }
 
-        $user = \Phpfox::findById('user', $userId);
+        $user = _find('user', $userId);
 
         if (!$user) {
             $remote->delete();

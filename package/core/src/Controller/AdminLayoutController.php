@@ -351,10 +351,10 @@ class AdminLayoutController extends AdminController
         $containerId = $request->get('container_id');
 
         /** @var LayoutContainer $container */
-        $container = \Phpfox::findById('layout_container', $containerId);
+        $container = _find('layout_container', $containerId);
 
         /** @var LayoutPage $page */
-        $page = \Phpfox::findById('layout_page', $container->getPageId());
+        $page = _find('layout_page', $container->getPageId());
 
         $form = new AddLayoutBlock();
 
@@ -427,10 +427,10 @@ class AdminLayoutController extends AdminController
         $blockId = $request->get('block_id');
 
         /** @var LayoutBlock $block */
-        $block = \Phpfox::findById('layout_block', $blockId);
-        $container = \Phpfox::findById('layout_container', $block->getContainerId());
+        $block = _find('layout_block', $blockId);
+        $container = _find('layout_container', $block->getContainerId());
         /** @var LayoutContainer $page */
-        $page = \Phpfox::findById('layout_page', $container->getPageId());
+        $page = _find('layout_page', $container->getPageId());
 
         $block->delete();
 
@@ -447,8 +447,8 @@ class AdminLayoutController extends AdminController
         $request = _get('request');
         $id = $request->get('container_id');
         /** @var LayoutContainer $container */
-        $container = \Phpfox::findById('layout_container', $id);
-        $page = \Phpfox::findById('layout_page', $container->getPageId());
+        $container = _find('layout_container', $id);
+        $page = _find('layout_page', $container->getPageId());
 
         $form = new EditLayoutContainer();
 

@@ -161,7 +161,7 @@ class LayoutManager implements LoaderInterface
             ]));
 
             /** @var LayoutGrid $grid */
-            $grid = \Phpfox::findById('layout_grid', $layoutContainer->getGridId());
+            $grid = _find('layout_grid', $layoutContainer->getGridId());
 
             $locationIds = json_decode($grid->getLocations(), true);
 

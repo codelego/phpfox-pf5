@@ -14,11 +14,11 @@ class CacheStorageFactory
     public function factory($class, $options)
     {
         if (is_string($options)) {
-            $options = \Phpfox::getParam('cache.adapters', $options);
+            $options = _param('cache.adapters', $options);
         }
 
         if (!$class) {
-            $class = \Phpfox::getParam('cache.drivers', $options['driver']);
+            $class = _param('cache.drivers', $options['driver']);
         }
         return new $class($options);
     }

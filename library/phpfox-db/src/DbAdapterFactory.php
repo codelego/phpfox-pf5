@@ -16,10 +16,10 @@ class DbAdapterFactory
             $key = 'default';
         }
 
-        $params = \Phpfox::getParam('db.adapters', $key);
+        $params = _param('db.adapters', $key);
 
         if (!$class) {
-            $class = \Phpfox::getParam('db.drivers', $params['driver']);
+            $class = _param('db.drivers', $params['driver']);
         }
 
         return new $class($params);

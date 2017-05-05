@@ -48,8 +48,8 @@ class RequireJs
 
     public function __construct()
     {
-        $this->_shim = \Phpfox::getParam('requirejs.shim');
-        $this->_paths = \Phpfox::getParam('requirejs.paths');
+        $this->_shim = _param('requirejs.shim');
+        $this->_paths = _param('requirejs.paths');
     }
 
     /**

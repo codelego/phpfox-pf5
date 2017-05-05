@@ -58,44 +58,5 @@ namespace {
 
             _get('mvc.events')->initialize();
         }
-
-        /**
-         * @see ServiceManager::get()
-         *
-         * @param string $id
-         *
-         * @return mixed
-         */
-        public static function get($id)
-        {
-            return self::$service->get($id);
-        }
-
-        /**
-         * @see \Phpfox\Action\Configs::get()
-         *
-         * @param string $section
-         * @param mixed  $item
-         *
-         * @return array
-         */
-        public static function getParam($section, $item = null)
-        {
-            return self::$config->get($section, $item);
-        }
-
-        /**
-         * @see GatewayInterface::findById()
-         *
-         * @param string $type
-         * @param mixed  $id
-         *
-         * @return \Phpfox\Model\ModelInterface
-         */
-        public static function findById($type, $id)
-        {
-            return self::$service->get('models')->findById($type, $id);
-        }
-
     }
 }

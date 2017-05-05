@@ -14,7 +14,7 @@ class ValidateManager
      */
     public function __construct()
     {
-        $this->classes = \Phpfox::getParam('validator_rules');
+        $this->classes = _param('validator_rules');
     }
 
     /**

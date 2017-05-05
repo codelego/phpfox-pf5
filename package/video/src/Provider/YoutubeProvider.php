@@ -129,7 +129,7 @@ class YoutubeProvider implements ProviderInterface
     public function getApiKey()
     {
         if (null == $this->apiKey) {
-            $this->apiKey = \Phpfox::getParam('video', 'google_public_key');
+            $this->apiKey = _param('video', 'google_public_key');
         }
         return $this->apiKey;
     }

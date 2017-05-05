@@ -11,7 +11,7 @@ class SessionFactory implements SessionFactoryInterface
     {
         $ref = $this->getConfigs();
 
-        $class = \Phpfox::getParam('session.drivers', $ref['driver']);
+        $class = _param('session.drivers', $ref['driver']);
 
         return new $class($ref['configs']);
     }

@@ -2,7 +2,6 @@
 
 namespace Phpfox\Assets;
 
-use Phpfox;
 
 class ExternalScript implements HtmlElementInterface
 {
@@ -16,7 +15,7 @@ class ExternalScript implements HtmlElementInterface
     public function add($key, $path, $props = [])
     {
         if (!$path) {
-            $path = Phpfox::getParam('static.js', $key);
+            $path = _param('static.js', $key);
         }
 
         if (substr($path, 0, 2) != '//') {
@@ -44,7 +43,7 @@ class ExternalScript implements HtmlElementInterface
     public function prepend($key, $path, $props = [])
     {
         if (!$path) {
-            $path = \Phpfox::getParam('static.js', $key);
+            $path = _param('static.js', $key);
         }
 
         if ($this->ensureKey($path)) {

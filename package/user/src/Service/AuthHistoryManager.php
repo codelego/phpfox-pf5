@@ -11,7 +11,7 @@ class AuthHistoryManager
 {
     public function cleanup()
     {
-        $day = \Phpfox::getParam('auth', 'history_limit');
+        $day = _param('auth', 'history_limit');
 
         return _with('auth_history')
             ->delete()

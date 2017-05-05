@@ -71,6 +71,19 @@ namespace {
     }
 
     /**
+     * @see \Phpfox\Action\Configs::get()
+     *
+     * @param string $section
+     * @param mixed  $item
+     *
+     * @return array
+     */
+    function _param($section, $item = null)
+    {
+        return \Phpfox::$config->get($section, $item);
+    }
+
+    /**
      * Generate random string by length
      *
      * @param $length

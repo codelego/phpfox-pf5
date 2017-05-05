@@ -36,7 +36,7 @@ class AdminAuthController extends ActionController
                 ->authenticate(null, $email, $password, []);
 
             if ($result->isValid()) {
-                $user = \Phpfox::findById('user', $result->getIdentity());
+                $user = _find('user', $result->getIdentity());
                 _get('auth')->login($user, true);
 
                 _get('response')->redirect(_url('admin'));

@@ -36,10 +36,10 @@ class AuthStorageSession implements AuthStorageInterface
         }
 
         $user = null;
-        $login = \Phpfox::findById('user', $loginId);
+        $login = _find('user', $loginId);
 
         if ($userType != 'user' || ($userId != $loginId)) {
-            $user = \Phpfox::findById($userType, $userId);
+            $user = _find($userType, $userId);
         }
 
         if (!$user) {

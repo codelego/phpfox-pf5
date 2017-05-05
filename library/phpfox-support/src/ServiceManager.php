@@ -26,7 +26,7 @@ class ServiceManager
      */
     public function has($key)
     {
-        return \Phpfox::getParam('services', $key) != null;
+        return _param('services', $key) != null;
     }
 
     /**
@@ -56,7 +56,7 @@ class ServiceManager
      */
     public function build($id)
     {
-        $ref = \Phpfox::getParam('services', $id);
+        $ref = _param('services', $id);
 
         if (!$ref) {
             throw new \InvalidArgumentException("Unexpected '{$id}'");

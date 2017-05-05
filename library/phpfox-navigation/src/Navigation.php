@@ -204,7 +204,7 @@ class Navigation
             return '';
         }
 
-        $class = \Phpfox::getParam('navigation.decorators', $decorator);
+        $class = _param('navigation.decorators', $decorator);
 
         if (!$class) {
             throw new \InvalidArgumentException("Oops! Navigation decorator '{$decorator}' does not exists.");
