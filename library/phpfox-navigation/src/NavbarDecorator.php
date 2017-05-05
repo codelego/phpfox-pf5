@@ -66,20 +66,17 @@ class NavbarDecorator implements DecoratorInterface
     public function renderItem($level, $item)
     {
         $href = null;
-        $params = [];
+        $params = $item->params;
 
         // validate passed acl
         if ($item->acl and !_pass($item->acl)) {
             return '';
         }
 
-        if (!empty($item->params)) {
-            $params = $item->params;
+        if (!empty($params)) {
             foreach ($params as $k => $v) {
                 if (substr($v, 0, 1) == '$') {
-                    $params[$k] = _service('request')
-                        ->get(substr($v,
-                            1));
+                    $params[$k] = _service('request')->get(substr($v, 1));
                 }
             }
         }

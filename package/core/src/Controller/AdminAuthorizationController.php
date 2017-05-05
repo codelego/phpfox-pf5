@@ -11,12 +11,18 @@ class AdminAuthorizationController extends AdminController
 {
     protected function initialized()
     {
-        _service('menu.admin.secondary')
+        _service('breadcrumb')
+            ->clear()
             ->add([
-                'name'  => 'add_role',
-                'label' => _text('Add Role'),
-                'route' => 'admin.core.authorization.add',
+                'href'  => _url('admin.core.authorization'),
+                'label' => _text('Authorizations', 'admin'),
             ]);
+
+        _service('html.title')
+            ->clear()
+            ->set(_text('Authorizations', 'admin'));
+
+        _service('menu.admin.secondary')->load('admin.core.acl');
     }
 
     public function actionIndex()
@@ -50,7 +56,7 @@ class AdminAuthorizationController extends AdminController
         $form = new AddNewRole();
 
         return new ViewModel([
-            'heading' => '',
+            'heading' => _text('Add Groups', 'admin'),
             'form'    => $form,
         ], 'layout/form-edit');
     }

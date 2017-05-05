@@ -232,9 +232,9 @@ class ThemeManager
      */
     public function preferThemes()
     {
-        return _load(self::PREFER_THEME_CACHE, 0, function () {
-                return $this->_preferThemes();
-            });
+        return _load(null, self::PREFER_THEME_CACHE, 0, function () {
+            return $this->_preferThemes();
+        });
     }
 
     /**

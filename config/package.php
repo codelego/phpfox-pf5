@@ -113,12 +113,12 @@
         'filename' => 'main.log',
       ),
     ),
-    'dev.log' => 
+    'debug.log' => 
     array (
       0 => 
       array (
         'driver' => 'files',
-        'filename' => 'dev.log',
+        'filename' => 'debug.log',
       ),
     ),
   ),
@@ -376,11 +376,11 @@
       1 => NULL,
       2 => 'main.log',
     ),
-    'dev.log' => 
+    'debug.log' => 
     array (
       0 => 'Phpfox\\Logger\\LogContainerFactory',
       1 => NULL,
-      2 => 'dev.log',
+      2 => 'debug.log',
     ),
     'error.handler' => 
     array (

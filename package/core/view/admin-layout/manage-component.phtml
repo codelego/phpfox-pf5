@@ -3,6 +3,9 @@
         <table class="table table-admin">
             <thead>
             <tr>
+                <?php if(PHPFOX_IS_DEV): ?>
+                <th class="text-center">#</th>
+                <?php endif; ?>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Class</th>
@@ -13,14 +16,16 @@
             <tbody>
             <?php foreach ($items as $item): ?>
                 <tr>
+                    <?php if(PHPFOX_IS_DEV): ?>
+                    <td class="dropdown" data-cmd="dropdown">
+                        <ul>
+                            <li><a href="<?= _url('admin.core.layout.action',
+                                    ['action'=>'edit-component','component_id' => $item->getId()]) ?>"><?= _text('Edit Component') ?></a></li>
+                        </ul>
+                    </td>
+                    <?php endif; ?>
                     <td>
-                        <?php if(PHPFOX_IS_DEV): ?>
-                        <a href="<?= _url('admin.core.layout.action',
-                            ['action'=>'edit-component','component_id' => $item->getId()]) ?>"><?= $item->getId() ?></a>
-                        <?php else: ?>
-                            <?= $item->getId() ?>
-                        <?php endif; ?>
-
+                        <?= $item->getId() ?>
                     </td>
                     <td><?= $item->__get('component_name') ?></td>
                     <td><?= $item->__get('component_class') ?></td>

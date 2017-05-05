@@ -1,27 +1,27 @@
-<div class="container">
-    <?= $this->render('blog/admin-category/menu', []) ?>
-</div>
-<div class="container">
+<div class="panel panel-default">
     <div class="table-responsive">
         <table class="table table-admin">
             <thead>
             <tr>
-                <th>ID</th>
+                <th class="text-center w40">#</th>
+                <th class="w40">ID</th>
                 <th>Name</th>
                 <th>Active?</th>
-                <td>Option</td>
             </tr>
             </thead>
             <tbody>
             <?php foreach ($items as $item): ?>
                 <tr>
+                    <td class="dropdown" data-cmd="dropdown">
+                        <ul>
+                            <li><a href="<?= _url('admin.blog.*', ['action' => 'edit', 'id' => $item->getId()]) ?>"><?= _text('Edit') ?></a></li>
+                            <li><a href="<?= _url('admin.blog.*', ['action' => 'delete', 'id' => $item->getId()]) ?>"><?= _text('Delete') ?></a></li>
+                            <li><a href="<?= _url('admin.blog.*', ['action' => 'transfer', 'id' => $item->getId()]) ?>"><?= _text('Transfer') ?></a></li>
+                        </ul>
+                    </td>
                     <td><?= $item->getId() ?></td>
                     <td><?= $item->getName() ?></td>
                     <td><?= _yesno($item->isActive()) ?></td>
-                    <td class="separate-cmd">
-                        <a href="<?= _url('admin.blog.category.edit',
-                            ['id' => $item->getId()]) ?>"><?= _text('edit') ?></a>
-                    </td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

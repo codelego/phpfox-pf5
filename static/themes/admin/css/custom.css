@@ -280,8 +280,8 @@ aside {
     padding-left: 32px; }
 
 .toolbar {
-  margin-right: 20px;
-  margin-bottom: 16px; }
+  margin-bottom: 16px;
+  padding: 0 10px 0 8px; }
 
 select {
   -webkit-appearance: none;

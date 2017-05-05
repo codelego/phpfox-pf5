@@ -13,8 +13,12 @@ class AdminPackageController extends AdminController
             ->clear()
             ->add([
                 'href'  => _url('admin.core.package'),
-                'label' => _text('Package'),
+                'label' => _text('Packages','admin'),
             ]);
+
+        _service('html.title')
+            ->clear()
+            ->set(_text('Packages','admin'));
     }
 
     public function actionIndex()

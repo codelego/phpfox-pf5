@@ -21,24 +21,18 @@ class AdminCategoryController extends AdminController
                 'label' => _text('Categories'),
             ]);
 
-        _service('menu.admin.secondary')
-            ->clear()
-            ->add([
-                'href'  => _url('admin.report.add'),
-                'label' => _text('Add Category'),
-            ]);
+        _service('menu.admin.secondary')->load('admin.report');
     }
 
     public function actionIndex()
     {
         $items = _model('report_category')
             ->select()
-            ->execute()
             ->all();
 
         return new ViewModel([
             'items' => $items,
-        ], 'report/admin-category/index');
+        ], 'report/admin/manage-category');
 
     }
 

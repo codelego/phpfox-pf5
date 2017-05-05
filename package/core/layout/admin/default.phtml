@@ -27,7 +27,9 @@
     </ul>
 </aside>
 <section class="main-wrapper">
-    <?= _service('menu.admin.secondary')->render('toolbar', ['level0' => 'btn-group toolbar pull-right']); ?>
+    <div class="container">
+        <?= _service('menu.admin.secondary')->render('toolbar', ['level0' => 'btn-group toolbar pull-right']); ?>
+    </div>
     <div class="container">
         <?php if (_service('registry')->has('search.filter')): ?>
             <div class="main-search-wrapper">

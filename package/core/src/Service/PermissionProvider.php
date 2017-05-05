@@ -58,8 +58,8 @@ class PermissionProvider implements PermissionProviderInterface
     public function load($roleId)
     {
 
-        return _load("permission_provider.$roleId", 0, function () use ($roleId) {
-                return $this->_load($roleId);
-            });
+        return _load(null, ['permission_provider', $roleId], 0, function () use ($roleId) {
+            return $this->_load($roleId);
+        });
     }
 }

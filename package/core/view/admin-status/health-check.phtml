@@ -1,25 +1,31 @@
-<div class="table-responsive">
-    <table class="table table-admin">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Value</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($items as $rows): ?>
-            <?php foreach ($rows as $item): ?>
-                <tr class="<?= $item['status'] ?>">
-                    <td><?= $item['label'] ?>
-                        <?php if ($item['note']): ?>
-                            <p>
-                            <small><?= $item['note'] ?></small>
-                            </p><?php endif; ?>
-                    </td>
-                    <td><?= $item['value'] ?></td>
-                </tr>
+<div class="panel panel-default">
+    <div class="table-responsive">
+        <table class="table table-admin">
+            <thead>
+            <tr>
+                <th class="w40">#</th>
+                <th>Name</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            $indexing = 1;
+            foreach ($items as $rows): ?>
+                <?php foreach ($rows as $item): ?>
+                    <tr class="<?= @$item['status'] ?>">
+                        <td><?= $indexing ++ ?></td>
+                        <td><?= $item['label'] ?>
+                            <?php if ($item['note']): ?>
+                                <p>
+                                <small><?= $item['note'] ?></small>
+                                </p><?php endif; ?>
+                        </td>
+                        <td><?= $item['value'] ?></td>
+                    </tr>
+                <?php endforeach; ?>
             <?php endforeach; ?>
-        <?php endforeach; ?>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 </div>

@@ -2,51 +2,49 @@
 
 return [
     'routes' => [
-        'blogs'                    => [
+        'blogs'               => [
             'route'      => 'blogs/*',
             'controller' => 'blog.index',
             'action'     => 'index',
         ],
-        'blogs.add'                => [
+        'blogs.add'           => [
             'route'  => 'add',
             'action' => 'add',
         ],
-        'admin.blog'               => [
+        'admin.blog'          => [
             'route'      => 'blog/*',
-            'controller' => 'blog.admin-category',
+            'controller' => 'blog.admin-post',
             'action'     => 'index',
+            'children'   => [
+                'post*'    => [
+                    'route'      => 'manage(/<action>)',
+                    'controller' => 'blog.admin-post',
+                    'defaults'   => ['action' => 'index'],
+                ],
+                'category' => [
+                    'route'      => 'category(/<action>)',
+                    'controller' => 'blog.admin-category',
+                ],
+            ],
         ],
-        'admin.blog.category'      => [
-            'route'      => 'category/*',
-            'controller' => 'blog.admin-category',
-            'action'     => 'index',
-        ],
-        'admin.blog.category.add'  => [
-            'route'  => 'add',
-            'action' => 'add',
-        ],
-        'admin.blog.category.edit' => [
-            'route'  => 'edit/<id>',
-            'action' => 'edit',
-        ],
-        'blog_post'                => [
+        'blog_post'           => [
             'route' => 'blog/post/*',
         ],
-        'blog_post.view'           => [
+        'blog_post.view'      => [
             'route'    => '<id>',
             'defaults' => [
                 'controller' => 'blog.post',
                 'action'     => 'view',
             ],
         ],
-        'browse_blog:profile'      => [
+        'browse_blog:profile' => [
             'route'    => '{blog}',
             'defaults' => [
                 'controller' => 'blog.profile',
                 'action'     => 'browse',
             ],
         ],
-        'view_blog:profile'        => [
+        'view_blog:profile'   => [
             'route'    => '{blog}/<id>',
             'defaults' => [
                 'controller' => 'blog.profile',

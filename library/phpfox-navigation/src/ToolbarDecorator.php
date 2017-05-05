@@ -61,14 +61,11 @@ class ToolbarDecorator implements DecoratorInterface
         }
 
         $href = null;
-        $params = [];
-        if (!empty($item->params)) {
-            $params = $item['params'];
+        $params = $item->params;
+        if (!empty($params)) {
             foreach ($params as $k => $v) {
                 if (substr($v, 0, 1) == '$') {
-                    $params[$k] = _service('request')
-                        ->get(substr($v,
-                            1));
+                    $params[$k] = _service('request')->get(substr($v, 1));
                 }
             }
         }
@@ -102,7 +99,7 @@ class ToolbarDecorator implements DecoratorInterface
             $cls .= ' active';
         }
 
-        $extra = _attrize($item->get('extra', ['class' => 'btn btn-default']));
+        $extra = _attrize(array_merge(['class' => 'btn btn-default'],$item->get('extra')));
 
         if (!empty($item->children)) {
             $childrenHtml = $this->renderChildren($level + 1, $item->children);
@@ -112,8 +109,7 @@ class ToolbarDecorator implements DecoratorInterface
                 . $label . '<span class="caret"></span></a>' . $childrenHtml
                 . '</li>';
         } else {
-            return '<a ' . $extra . ' href="' . $href
-                . '">' . $label . '</a>';
+            return '<a ' . $extra . ' href="' . $href . '">' . $label . '</a>';
         }
 
     }

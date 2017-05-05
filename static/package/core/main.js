@@ -98,14 +98,9 @@ define(['jquery', 'underscore'], function () {
         if (!commands.hasOwnProperty(name))
             return false;
 
-        if (typeof commands[name] != 'function')
-            return false;
-
-        evt.stopPropagation();
-
-        commands[name](ele, evt);
-
-        return false;
+        if (typeof commands[name] == 'function'){
+            return commands[name](ele, evt);
+        }
     }).on('submit', '[data-submit]', function (evt) {
         var ele = $(this),
             name = ele.data('submit');

@@ -150,12 +150,15 @@ define(['jquery', 'underscore', 'core'], function () {
         } else {
             new Dialog(opts)
         }
+        return false;
     }).cmd('modal.close', function () {
         $(document).trigger('modal.close');
+        return false;
     }).cmd('confirm', function (ele) {
         new Confirm(ele.data('confirm'), function () {
             window.location.href = ele.data('url') || ele.prop('href');
         });
+        return false;
     });
 
     Core.dialog = {

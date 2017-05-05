@@ -9,9 +9,18 @@ class AdminStatusController extends AdminController
 {
     protected function initialized()
     {
+        _service('html.title')
+            ->clear()
+            ->add(_text('System Status', 'admin'));
+
         _service('breadcrumb')
             ->clear()
-            ->add(['label' => 'System Status']);
+            ->add([
+                'href'  => _url('admin.core.status'),
+                'label' => _text('System Status', 'admin'),
+            ]);
+
+        _service('menu.admin.secondary')->load('admin.core.status');
     }
 
     public function actionCache()

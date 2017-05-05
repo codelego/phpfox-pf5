@@ -34,6 +34,16 @@ class NavigationItem
     public $children = [];
 
     /**
+     * NavigationItem constructor.
+     *
+     * @param array $data
+     */
+    public function __construct($data = [])
+    {
+        $this->data = $data;
+    }
+
+    /**
      * @param string $key
      * @param mixed  $default
      *
@@ -51,22 +61,6 @@ class NavigationItem
     public function set($key, $value)
     {
         $this->data[$key] = $value;
-    }
-
-    /**
-     * NavigationItem constructor.
-     *
-     * @param array $data
-     */
-    public function __construct($data = [])
-    {
-        foreach ($data as $k => $v) {
-            if (method_exists($this, $method = 'set' . ucfirst($k))) {
-                $this->{$method}($v);
-            } else {
-                $this->data[$k] = $v;
-            }
-        }
     }
 
     /**

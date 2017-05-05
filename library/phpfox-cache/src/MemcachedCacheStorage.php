@@ -39,21 +39,6 @@ class MemcachedCacheStorage implements CacheStorageInterface
 
     }
 
-    public function load($key, $ttl = 0, $fallback)
-    {
-        if (is_array($key)) {
-            $key = implode('_', $key);
-        }
-
-        $item = $this->getItem($key);
-
-        if (null == $item) {
-            $this->saveItem($item = new CacheItem($key, $fallback(), $ttl));
-        }
-
-        return $item->value;
-    }
-
     public function saveItem(CacheItem $item)
     {
         $this->ready();

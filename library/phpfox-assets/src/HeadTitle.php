@@ -16,26 +16,35 @@ class HeadTitle implements HtmlElementInterface
 
     /**
      * @param string $title
+     *
+     * @return $this
      */
     public function set($title)
     {
         $this->data = [$title];
+        return $this;
     }
 
     /**
      * @param string $title
+     *
+     * @return $this
      */
     public function add($title)
     {
         $this->data[] = $title;
+        return $this;
     }
 
     /**
      * Empty title string
+     *
+     * @return $this
      */
     public function clear()
     {
         $this->data = [];
+        return $this;
     }
 
     /**

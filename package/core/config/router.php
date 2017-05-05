@@ -6,77 +6,60 @@ return [
 
     ],
     'routes'  => [
-        'admin'                    => [
+        'admin'               => [
             'route'      => 'admincp/*',
             'controller' => 'core.admin-index',
             'action'     => 'index',
         ],
-        'admin.core.authorization' => [
-            'route'      => 'core/authorizations/*',
+        'admin.core.acl'      => [
+            'route'      => 'core/acl/*',
             'controller' => 'core.admin-authorization',
             'action'     => 'index',
             'children'   => [
-                'edit'     => ['route' => 'edit/<id>', 'action' => 'edit'],
-                'settings' => [
-                    'route'  => 'settings/<id>',
-                    'action' => 'settings',
-                ],
-                'add'      => ['route' => 'add', 'action' => 'add'],
-                'delete'   => ['route' => 'delete', 'action' => 'delete'],
+                '*' => ['route' => '<action>'],
             ],
         ],
-        'admin.core.storage'       => [
+        'admin.core.storage'  => [
             'route'      => 'core/storage/*',
             'controller' => 'core.admin-storage',
             'action'     => 'index',
             'children'   => [
-                'edit'     => ['route' => 'edit/<id>', 'action' => 'edit'],
-                'transfer' => [
-                    'route'  => 'transfer/<id>',
-                    'action' => 'transfer',
-                ],
-                'add'      => ['route' => 'add', 'action' => 'add'],
-                'delete'   => ['route' => 'delete', 'action' => 'delete'],
+                '*' => ['route' => '<action>'],
             ],
         ],
-        'admin.core.package'       => [
+        'admin.core.package'  => [
             'route'      => 'core/package/*',
             'controller' => 'core.admin-package',
             'action'     => 'index',
             'children'   => [
-                'add' => [
-                    'route'    => 'add',
-                    'defaults' => ['action' => 'add'],
-                ],
-            ],
-        ],
-        'admin.core.layout'        => [
-            'route'      => 'core/layout/*',
-            'controller' => 'core.admin-layout',
-            'action'     => 'index',
-            'children'   => [
-                'edit-theme'  => [
-                    'route'  => 'edit-theme/<id>',
-                    'action' => 'edit-theme',
-                ],
-                'debug-theme' => [
-                    'route'  => 'debug-theme/<id>',
-                    'action' => 'debug-theme',
-                ],
-                'debug'       => [
-                    'route'  => 'debug/<id>',
-                    'action' => 'debug',
-                ],
-                'design-page' => [
-                    'route'  => 'design-page/<action_id>',
-                    'action' => 'design-page',
-                ],
-                'action'      => [
+                '*' => [
                     'route' => '<action>',
                 ],
             ],
         ],
-        'admin.core.rad'           => [
+        'admin.core.layout'   => [
+            'route'      => 'core/layout/*',
+            'controller' => 'core.admin-layout',
+            'action'     => 'index',
+            'children'   => [
+                'component' => [
+                    'route'      => 'component(/<action>)',
+                    'controller' => 'core.admin-layout-component',
+                ],
+                'theme'     => [
+                    'route'      => 'theme(/<action>)',
+                    'controller' => 'core.admin-layout-theme',
+                ],
+                'block'     => [
+                    'route'      => 'block(/<action>)',
+                    'controller' => 'core.admin-layout-block',
+                ],
+                '*'         => [
+                    'route' => '<action>',
+                ],
+            ],
+        ],
+        'admin.core.rad'      => [
             'route'      => 'core/rad/*',
             'controller' => 'core.admin-rad',
             'action'     => 'index',
@@ -86,117 +69,85 @@ return [
                 ],
             ],
         ],
-        'admin.core.i18n'          => [
+        'admin.core.i18n'     => [
             'route'      => 'core/i18n/*',
-            'controller' => 'core.admin-i18n',
+            'controller' => 'core.admin-i18n-phrase',
             'action'     => 'index',
             'children'   => [
-                'add-phrase' => [
-                    'route'  => 'add-phrase',
-                    'action' => 'add-phrase',
+                'language' => [
+                    'route'      => 'language(/<action>)',
+                    'controller' => 'core.admin-i18n-language',
                 ],
-                'languages'  => [
-                    'route'  => 'languages',
-                    'action' => 'index',
-                ],
-                'phrases'    => [
-                    'route'  => 'phrases',
-                    'action' => 'phrases',
-                ],
+                '*'        => ['route' => '<action>',],
             ],
         ],
-        'admin.core.mail'          => [
+        'admin.core.mail'     => [
             'route'      => 'core/mail/*',
             'controller' => 'core.admin-mail',
             'action'     => 'index',
             'children'   => [
-                'add-adapter'     => [
-                    'route'  => 'add-adapter',
-                    'action' => 'add-adapter',
+                'template' => [
+                    'route'      => 'template(/<action>)',
+                    'controller' => 'core.admin-mail-template',
                 ],
-                'edit-adapter'    => [
-                    'route'  => 'edit-adapter/<id>',
-                    'action' => 'edit-adapter',
+                'driver'   => [
+                    'route'      => 'driver(/<action>)',
+                    'controller' => 'core.admin-mail-driver',
                 ],
-                'manage-template' => [
-                    'route'  => 'manage-template',
-                    'action' => 'manage-template',
-                ],
-                'add-template'    => [
-                    'route'  => 'add-template',
-                    'action' => 'add-template',
-                ],
-                'edit-template'   => [
-                    'route'  => 'edit-template/<id>',
-                    'action' => 'edit-template',
-                ],
+                '*'        => ['route' => '<action>'],
             ],
         ],
-        'admin.core.status'        => [
+        'admin.core.status'   => [
             'route'      => 'core/status/*',
             'controller' => 'core.admin-status',
             'action'     => 'overview',
             'children'   => [
-                'health' => [
-                    'route'  => 'health-check',
-                    'action' => 'health-check',
-                ],
-
-                'license'    => [
-                    'route'  => 'license',
-                    'action' => 'license',
-                ],
-                'overview'   => [
-                    'route'  => 'system-overview',
-                    'action' => 'overview',
-                ],
-                'statistics' => [
-                    'route'  => 'site-statistics',
-                    'action' => 'statistics',
+                '*' => [
+                    'route' => '<action>',
                 ],
             ],
         ],
-        'admin.core.settings'      => [
+        'admin.core.settings' => [
             'route'      => 'core/settings/*',
             'controller' => 'core.admin-settings',
+            'action'     => 'index',
             'children'   => [
                 'general' => [
-                    'route'  => 'general',
-                    'action' => 'index',
+                    'route' => 'general',
                 ],
             ],
         ],
-        'admin.login'              => [
+        'admin.login'         => [
             'route'      => 'login',
             'controller' => 'core.admin-auth',
             'action'     => 'login',
         ],
-        'api'                      => [
+        'api'                 => [
             'route' => 'api/*',
         ],
-        'ajax'                     => [
+        'ajax'                => [
             'route' => 'ajax/*',
         ],
-        'ajax.i18n'                => [
+        'ajax.i18n'           => [
             'route'      => 'i18n/<action>',
             'controller' => 'core.ajax-i18n',
         ],
-        'home'                     => [
+        'home'                => [
             'route'      => '/',
             'controller' => 'core.index',
             'action'     => 'index',
         ],
-        'api.menu'                 => [
+        'api.menu'            => [
             'route'      => 'menu',
             'controller' => 'MenuApiController',
             'action'     => 'listing',
         ],
-        'api.menu.item'            => [
+        'api.menu.item'       => [
             'route'      => '<id>',
             'controller' => 'MenuApiController',
             'action'     => 'view',
         ],
-        'profile.index'            => [
+        'profile.index'       => [
             'route'  => '/',
             'action' => 'index',
         ],

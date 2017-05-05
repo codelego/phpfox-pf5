@@ -37,19 +37,28 @@ class Navigation
     /**
      * Navigation constructor.
      *
-     * @param null $menu
-     * @param null $parentId
-     *
-     * @internal param $data
+     * @param string $menu
      */
-    public function __construct($menu = null, $parentId = null)
+    public function __construct($menu = null)
+    {
+        if ($menu) {
+            $this->load($menu);
+        }
+    }
+
+    /**
+     * @param string $menu
+     *
+     * @return $this
+     */
+    public function load($menu)
     {
         $this->menu = $menu;
-        $this->parentId = null;
 
         if ($this->menu) {
             $this->data = _service('navigation.loader')->load($menu);
         }
+        return $this;
     }
 
     /**

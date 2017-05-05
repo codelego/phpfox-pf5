@@ -8,13 +8,13 @@ class AdminI18nControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testBase()
     {
-        $obj = new AdminI18nController();
+        $obj = new AdminI18nPhraseController();
 
         $this->assertInstanceOf('\Phpfox\View\ViewModel', $obj->actionIndex());
-        $this->assertNull($obj->actionLanguages());
+        $this->assertNull($obj->actionManageLanguages());
         $this->assertInstanceOf('\Phpfox\View\ViewModel',
-            $obj->actionPhrases());
+            $obj->actionManagePhrases());
         $this->assertInstanceOf('\Phpfox\View\ViewModel',
-            $obj->actionAddPhrase());
+            $obj->actionAdd());
     }
 }

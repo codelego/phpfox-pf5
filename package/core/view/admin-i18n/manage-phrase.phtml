@@ -1,0 +1,60 @@
+<div class="panel panel-default">
+    <div class="table-responsive">
+        <table class="table table-admin">
+            <thead>
+            <tr>
+                <th>Edit</th>
+                <th>Value</th>
+                <th>Locale</th>
+                <th>Domain</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item): ?>
+                <tr>
+                    <td>
+                        <a data-cmd="toggle" data-rel="tr|form" role="button">edit</a>
+                    </td>
+                    <td>
+                        <p class="text-danger"><?= $item->getName() ?></p>
+                        <p class="text-value"><?= $item->getTextValue() ?></p>
+                        <form method="post" class="form hide"
+                              data-submit="admin.i18n.phrase.save"
+                              data-url="<?= _url(null, 'ajax/i18n/save') ?>">
+                            <input type="hidden" name="text_domain"
+                                   value="<?= $item->getDomain() ?>"/>
+                            <input type="hidden" name="text_key"
+                                   value="<?= $item->getName() ?>"/>
+                            <input type="hidden" name="text_id"
+                                   value="<?= $item->getId() ?>"/>
+                            <div class="form-group">
+                                <textarea class="form-control"
+                                          name="text_value"><?= $item->getTextValue() ?></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-sm btn-save"
+                                        data-cmd="form.cmd"
+                                        data-rel="save"
+                                        type="button">Save
+                                </button>
+                                <button type="button"
+                                        data-cmd="form.confirm"
+                                        data-rel="delete"
+                                        class="btn btn-sm btn-danger">Delete
+                                </button>
+                                <button class="btn btn-sm btn-cancel"
+                                        type="button" data-cmd="toggle"
+                                        data-rel="tr|form">Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </td>
+                    <td><?= $item->getLocale() ?></td>
+                    <td><?= $item->getDomain() ?></td>
+
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -36,6 +36,7 @@ class AsideDecorator implements DecoratorInterface
     {
         $content = [];
         $this->context = array_merge($this->defaults, $context);
+
         foreach ($navigation->items as $item) {
             try {
                 $html = $this->renderItem(0, $item);
@@ -65,20 +66,17 @@ class AsideDecorator implements DecoratorInterface
     public function renderItem($level, $item)
     {
         $href = null;
-        $params = [];
-
         // validate passed acl
         if ($item->acl and !_pass($item->acl)) {
             return '';
         }
 
-        if (!empty($item->params)) {
-            $params = $item->params;
+        $params = $item->params;
+
+        if (!empty($params)) {
             foreach ($params as $k => $v) {
                 if (substr($v, 0, 1) == '$') {
-                    $params[$k] = _service('request')
-                        ->get(substr($v,
-                            1));
+                    $params[$k] = _service('request')->get(substr($v, 1));
                 }
             }
         }

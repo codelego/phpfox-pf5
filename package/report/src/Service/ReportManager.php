@@ -63,9 +63,9 @@ class ReportManager
      */
     public function getActiveCategoryOptions()
     {
-        return _load('AbuseReport.getActiveCategoryOptions', 0, function () {
-                return $this->_getActiveCategoryOptions();
-            });
+        return _load(null, ['report', 'getActiveCategoryOptions'], 0, function () {
+            return $this->_getActiveCategoryOptions();
+        });
     }
 
     public function _getActiveCategoryOptions()

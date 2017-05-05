@@ -29,6 +29,17 @@ class AdminRadController extends AdminController
 
     protected function initialized()
     {
+        _service('breadcrumb')
+            ->clear()
+            ->add([
+                'href'  => _url('admin.core.mail'),
+                'label' => _text('Rapid Development Tools', 'admin'),
+            ]);
+
+        _service('html.title')
+            ->clear()
+            ->set(_text('Rapid Development Tools', 'admin'));
+
 
     }
 

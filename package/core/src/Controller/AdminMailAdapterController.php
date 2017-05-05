@@ -8,7 +8,7 @@ use Neutron\Core\Model\MailDriver;
 use Phpfox\Form\Form;
 use Phpfox\View\ViewModel;
 
-class AdminMailController extends AdminController
+class AdminMailAdapterController extends AdminController
 {
     protected function initialized()
     {
@@ -16,27 +16,15 @@ class AdminMailController extends AdminController
             ->clear()
             ->add([
                 'href'  => _url('admin.core.mail'),
-                'label' => 'Manage Adapters',
+                'label' => _text('Mail Settings', 'menu'),
             ]);
 
-        _service('menu.admin.secondary')
+        _service('html.title')
             ->clear()
-            ->add([
-                'href'  => _url('admin.core.mail'),
-                'label' => _text('Manage Adapter'),
-            ])
-            ->add([
-                'href'  => _url('admin.core.mail.manage-template'),
-                'label' => _text('Manage Templates'),
-            ])
-            ->add([
-                'href'  => _url('admin.core.mail.add-adapter'),
-                'label' => _text('Add Adapter'),
-            ])
-            ->add([
-                'href'  => _url('admin.core.mail.add-template'),
-                'label' => _text('Add Template'),
-            ]);
+            ->set(_text('Mail Settings', 'menu'));
+
+        _service('menu.admin.secondary')
+            ->load('admin.core.mail');
     }
 
     public function actionIndex()
@@ -62,7 +50,7 @@ class AdminMailController extends AdminController
         ], 'core/admin-mail/transports');
     }
 
-    public function actionAddAdapter()
+    public function actionAdd()
     {
         $request = _service('request');
         $driverId = $request->get('driver_id');
@@ -88,7 +76,7 @@ class AdminMailController extends AdminController
 
     }
 
-    public function actionEditAdapter()
+    public function actionEdit()
     {
         $request = _service('request');
         $id = $request->get('id');

@@ -6,6 +6,14 @@ use Phpfox\View\ViewModel;
 
 class AdminIndexController extends AdminController
 {
+    protected function initialized()
+    {
+        _service('html.title')
+            ->clear()
+            ->set(_text('Dashboard', 'admin'));
+
+    }
+
     /**
      * @return ViewModel
      */
@@ -15,7 +23,6 @@ class AdminIndexController extends AdminController
             ->setPageName('core/admin-index/index');
 
         return new ViewModel([
-
         ], 'core/admin-index/index');
     }
 }

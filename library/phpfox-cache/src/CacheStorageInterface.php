@@ -5,15 +5,6 @@ namespace Phpfox\Cache;
 interface CacheStorageInterface
 {
     /**
-     * @param string|array $key
-     * @param int          $ttl
-     * @param \Closure     $fallback
-     *
-     * @return mixed
-     */
-    public function load($key, $ttl, $fallback);
-
-    /**
      * @param string $key
      *
      * @return CacheItem|null

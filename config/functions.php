@@ -145,27 +145,36 @@ namespace {
         return _sprintf($url, $context) . $query;
     }
 
+
     /**
      * Load from cache
      *
-     * @param string $key
-     * @param        $ttl
-     * @param        $fallback
+     * @param string       $cache
+     * @param string|array $key
+     * @param int          $ttl
+     * @param Closure      $fallback
      *
      * @return mixed|object
      */
-    function _load($key, $ttl, $fallback)
+    function _load($cache, $key, $ttl, $fallback)
     {
-        /** @var CacheStorageInterface $obj */
-        $obj = \Phpfox::$service->get('cache.local');
+        /** @var CacheStorageInterface $storage */
+        $storage = \Phpfox::$service->get($cache ? $cache : 'cache.local');
+
         if (is_array($key)) {
             $key = implode('_', $key);
         }
-        $item = $obj->getItem($key);
+
+        if ($ttl === false) {
+            $item = new CacheItem($key, $fallback(), $ttl);
+        } else {
+            $item = $storage->getItem($key);
+        }
 
         if (null == $item) {
-            $obj->saveItem($item = new CacheItem($key, $fallback(), $ttl));
+            $storage->saveItem($item = new CacheItem($key, $fallback(), $ttl));
         }
+        
         return $item->value;
     }
 

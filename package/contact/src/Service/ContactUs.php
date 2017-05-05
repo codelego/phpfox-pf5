@@ -39,9 +39,9 @@ class ContactUs
      */
     public function getActiveDepartmentOptions()
     {
-        return _load('core.contact_us.active_departments', 0, function () {
-                return $this->_getActiveDepartmentOptions();
-            });
+        return _load(null, ['core', 'contact', 'departments'], 0, function () {
+            return $this->_getActiveDepartmentOptions();
+        });
     }
 
     /**

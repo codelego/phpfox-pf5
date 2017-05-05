@@ -1,0 +1,42 @@
+<div class="panel panel-default">
+    <div class="table-responsive">
+        <table class="table table-admin">
+            <thead>
+            <tr>
+                <td class="text-center w40">#</td>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Active</td>
+                <td>Default?</td>
+                <td>Message?</td>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item): ?>
+                <tr>
+                    <td class="dropdown" data-cmd="dropdown">
+                        <ul>
+                            <li>
+                                <a href="<?= _url('admin.contact.department', [
+                                        'action' => 'edit', 'department_id' => $item->getId()]) ?>">
+                                    <?= _text('Edit') ?></a>
+                            </li>
+                            <li>
+                                <a href="<?= _url('admin.contact.department', [
+                                    'action' => 'delete', 'department_id' => $item->getId()]) ?>">
+                                    <?= _text('Delete') ?></a>
+                            </li>
+                        </ul>
+                    </td>
+                    <td><?= $item->getId() ?></td>
+                    <td><?= $item->getName() ?></td>
+                    <td><?= _yesno($item->isActive()) ?></td>
+                    <td><?= _yesno($item->isDefault()) ?></td>
+                    <td><?= $item->getMessageCount() ?></td>
+
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

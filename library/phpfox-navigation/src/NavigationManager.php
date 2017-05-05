@@ -29,7 +29,6 @@ class NavigationManager
     /**
      * @param string $decorator
      * @param string $menu
-     * @param string $section
      * @param array  $context
      *
      * @return string
@@ -37,7 +36,6 @@ class NavigationManager
     public function render(
         $decorator,
         $menu,
-        $section = null,
         $context = []
     ) {
         $class = _param('navigation.decorators', $decorator);
@@ -46,7 +44,7 @@ class NavigationManager
             throw new \InvalidArgumentException("Oops! Navigation decorator '{$decorator}' does not exists.");
         }
 
-        return (new Navigation($menu, $section))->render($decorator, $context);
+        return (new Navigation($menu))->render($decorator, $context);
     }
 
 }

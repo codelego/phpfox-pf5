@@ -59,11 +59,6 @@ class FilesCacheStorageTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNull($cache->getItem('key1'));
 
-        $this->assertEquals("test data",
-            $cache->load('example_key', 0, function () {
-                return 'test data';
-            }));
-
         $this->assertEquals('test data', $cache->getItem('example_key')->value);
     }
 }

@@ -1,8 +1,9 @@
 <div class="panel panel-default">
     <div class="table-responsive">
-        <table class="table">
+        <table class="table table-admin">
             <thead>
             <tr>
+                <th class="w40 text-center">#</th>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Inherit</th>
@@ -15,12 +16,22 @@
                 <th>Registered</th>
                 <th>Banned</th>
                 <th>Guest</th>
-                <th>Option</th>
             </tr>
             </thead>
             <tbody>
             <?php foreach ($items as $item): ?>
                 <tr>
+                    <td class="dropdown" data-cmd="dropdown">
+                        <ul>
+                            <li><a href="<?= _url('admin.core.acl.*', ['action'=>'edit','id' => $item->getId()]) ?>">
+                                    <?= _text('Edit') ?></a></li>
+                            <li><a href="<?= _url('admin.core.acl.*', ['action'=>'delete','id' => $item->getId()]) ?>">
+                                    <?= _text('Delete') ?></a></li>
+                            <li>
+                                <a href="<?= _url('admin.core.acl.*', ['action'=>'settings','id' => $item->getId()]) ?>">
+                                    <?= _text('Settings') ?></a></li>
+                        </ul>
+                    </td>
                     <td><?php echo $item->getId() ?></td>
                     <td><?php echo $item->getName() ?></td>
                     <td><?php echo $item->getInheritId() ?></td>
@@ -33,16 +44,6 @@
                     <td><?= _yesno($item->isRegistered()) ?></td>
                     <td><?= _yesno($item->isBanned()) ?></td>
                     <td><?= _yesno($item->isGuest()) ?></td>
-                    <td>
-                        <a href="<?= _url('admin.core.authorization.edit',
-                            ['id' => $item->getId()]) ?>"><?= _text('edit') ?></a>
-                        &middot;
-                        <a href="<?= _url('admin.core.authorization.delete',
-                            ['id' => $item->getId()]) ?>"><?= _text('delete') ?></a>
-                        &middot;
-                        <a href="<?= _url('admin.core.authorization.settings',
-                            ['id' => $item->getId()]) ?>"><?= _text('settings') ?></a>
-                    </td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

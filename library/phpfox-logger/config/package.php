@@ -8,16 +8,16 @@ return [
         'db'    => DbLogger::class,
     ],
     'log.containers' => [
-        'main.log' => [
+        'main.log'  => [
             ['driver' => 'files', 'filename' => 'main.log',],
         ],
-        'dev.log'  => [
-            ['driver' => 'files', 'filename' => 'dev.log',],
+        'debug.log' => [
+            ['driver' => 'files', 'filename' => 'debug.log',],
         ],
     ],
     'services'       => [
         'main.log'      => [LogContainerFactory::class, null, 'main.log'],
-        'dev.log'       => [LogContainerFactory::class, null, 'dev.log'],
+        'debug.log'     => [LogContainerFactory::class, null, 'debug.log'],
         'error.handler' => [null, ErrorHandler::class],
     ],
 ];

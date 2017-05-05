@@ -3,13 +3,15 @@
 return [
     'routes' => [
         'admin.report' => [
-            'route'      => 'report/category/*',
-            'controller' => 'report.admin-category',
+            'route'      => 'report/*',
+            'controller' => 'report.admin-report',
             'action'     => 'index',
             'children'   => [
-                'edit'   => ['route' => 'edit/<id>', 'action' => 'edit'],
-                'add'    => ['route' => 'add', 'action' => 'add'],
-                'delete' => ['route' => 'delete', 'action' => 'delete'],
+                'category' => [
+                    'route'      => 'category(/<action>)',
+                    'controller' => 'report.admin-category',
+                ],
+                '*'        => ['route' => '<action>'],
             ],
         ],
     ],

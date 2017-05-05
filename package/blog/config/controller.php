@@ -7,4 +7,5 @@ return [
     'blog.admin-category' => AdminCategoryController::class,
     'blog.index'          => IndexController::class,
     'blog.post'           => BlogPostController::class,
+    'blog.admin-post'     => AdminPostController::class,
 ];

@@ -10,19 +10,15 @@ return [
         'admin.contact' => [
             'route'      => 'contact/*',
             'controller' => 'contact.admin-department',
-            'action'     => 'departments',
+            'action'     => 'index',
             'children'   => [
-                'edit'        => ['route' => 'edit/<id>', 'action' => 'edit'],
-                'add'         => ['route' => 'add', 'action' => 'add'],
-                'settings'    => [
-                    'route'      => 'settings',
-                    'controller' => 'contact.admin-settings',
-                    'action'     => 'edit',
+                'department'  => [
+                    'route'      => 'department(/<action>)',
+                    'controller' => 'contact.admin-department',
                 ],
                 'permissions' => [
                     'controller' => 'contact.admin-permission',
                     'route'      => 'permissions',
-                    'action'     => 'edit',
                 ],
             ],
         ],

@@ -11,14 +11,18 @@ class NavigationLoader implements NavigationLoaderInterface
 
     public function loadFromRepository($menu)
     {
-        return _service('db')
+        $select = _service('db')
             ->select('*')
             ->from(':core_menu')
             ->where('menu=?', trim($menu))
             ->where('is_active=?', 1)
-            ->order('sort_order', 1)
-            ->execute()
-            ->all();
+            ->order('sort_order', 1);
+
+        return array_map(function ($row) {
+            $row['params'] = (array)json_decode($row['params'], 1);
+            $row['extra'] = (array)json_decode($row['extra'], 1);
+            return $row;
+        }, $select->all());
 
     }
 

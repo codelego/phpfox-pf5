@@ -15,10 +15,17 @@ class AdminDepartmentController extends AdminController
     {
         _service('breadcrumb')
             ->clear()
-            ->add(['label' => 'Contact Us']);
+            ->add(['label' => _text('Contact Us'), 'href' => _url('admin.contact.department')]);
+
+        _service('html.title')
+            ->clear()
+            ->add(_text('Contact Us'));
+
+        _service('menu.admin.secondary')
+            ->load('admin.contact_us');
     }
 
-    public function actionDepartments()
+    public function actionIndex()
     {
         $items = _model('contact_department')
             ->select()
@@ -27,19 +34,19 @@ class AdminDepartmentController extends AdminController
 
         return new ViewModel([
             'items' => $items,
-        ], 'contact/admin-department/index');
+        ], 'contact/admin/manage-department');
 
     }
 
     public function actionEdit()
     {
         $request = _service('request');
-        $id = $request->get('id');
+        $departmentId = $request->get('department_id');
 
         $item = _service('contact_us')
-            ->findDepartmentById($id);
+            ->findDepartmentById($departmentId);
 
-        $form = new EditContactDepartment();
+        $form = new EditContactDepartment([]);
 
         if ($request->isGet()) {
             if ($item) {
@@ -66,7 +73,7 @@ class AdminDepartmentController extends AdminController
     {
         $request = _service('request');
 
-        $form = new EditContactDepartment();
+        $form = new EditContactDepartment([]);
 
         if ($request->isGet()) {
 
@@ -82,6 +89,10 @@ class AdminDepartmentController extends AdminController
             'heading' => _text('Add Department', 'admin'),
             'form'    => $form,
         ], 'layout/form-edit');
+    }
+
+    public function actionDelete()
+    {
 
     }
 }
