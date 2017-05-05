@@ -11,7 +11,7 @@ class AdminCategoryController extends AdminController
 {
     protected function initialized()
     {
-        _get('breadcrumb')
+        _service('breadcrumb')
             ->clear()
             ->add([
                 'href'  => _url('admin.report'),
@@ -21,7 +21,7 @@ class AdminCategoryController extends AdminController
                 'label' => _text('Categories'),
             ]);
 
-        _get('menu.admin.secondary')
+        _service('menu.admin.secondary')
             ->clear()
             ->add([
                 'href'  => _url('admin.report.add'),
@@ -45,7 +45,7 @@ class AdminCategoryController extends AdminController
     public function actionAdd()
     {
 
-        $request = _get('request');
+        $request = _service('request');
         $form = new AddCategory();
 
         if ($request->isGet()) {

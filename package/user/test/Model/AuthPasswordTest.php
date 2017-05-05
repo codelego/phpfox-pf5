@@ -66,7 +66,7 @@ class AuthPasswordTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _get('db')
+        _service('db')
             ->delete(':auth_password')
             ->where('source_id=?', 'test')
             ->execute();
@@ -74,7 +74,7 @@ class AuthPasswordTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        _get('db')
+        _service('db')
             ->delete(':auth_password')
             ->where('source_id=?', 'test')
             ->execute();

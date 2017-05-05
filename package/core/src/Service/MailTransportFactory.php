@@ -53,7 +53,7 @@ class MailTransportFactory implements MailTransportFactoryInterface
         $this->initialized = true;
 
 
-        $rows = _get('db')->select('*')->from(':mail_adapter')
+        $rows = _service('db')->select('*')->from(':mail_adapter')
             ->where('is_active=?', 1)
             ->execute()->all();
 

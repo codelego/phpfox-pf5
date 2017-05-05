@@ -8,7 +8,7 @@ class EventLoader implements EventLoaderInterface
 {
     public function load()
     {
-        $rows = _get('db')
+        $rows = _service('db')
             ->select('*')
             ->from(':core_event')
             ->order('event_name, priority', 1);

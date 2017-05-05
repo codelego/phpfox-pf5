@@ -22,9 +22,9 @@ class AdminLayoutController extends AdminController
 {
     public function initialized()
     {
-        $editingThemeId = _get('layout_loader')->getEditingThemeId();
+        $editingThemeId = _service('layout_loader')->getEditingThemeId();
 
-        _get('breadcrumb')
+        _service('breadcrumb')
             ->clear()
             ->add([
                 'href'  => _url('admin.core.layout'),
@@ -32,7 +32,7 @@ class AdminLayoutController extends AdminController
                     [$editingThemeId]),
             ]);
 
-        _get('menu.admin.secondary')
+        _service('menu.admin.secondary')
             ->clear()
             ->add([
                 'label' => _text('Manage Pages', 'admin'),
@@ -47,7 +47,7 @@ class AdminLayoutController extends AdminController
             ]);
 
         if (PHPFOX_IS_DEV) {
-            _get('menu.admin.secondary')->add([
+            _service('menu.admin.secondary')->add([
                 'label' => _text('Add Page', 'admin'),
                 'href'  => _url('admin.core.layout.action', ['action' => 'add-page']),
                 'extra' => [
@@ -76,7 +76,7 @@ class AdminLayoutController extends AdminController
 
     public function actionAddPage()
     {
-        $request = _get('request');
+        $request = _service('request');
 
         $form = new AddLayoutAction([]);
 
@@ -97,7 +97,7 @@ class AdminLayoutController extends AdminController
 
     public function actionEditPage()
     {
-        $request = _get('request');
+        $request = _service('request');
         $actionId = $request->get('action_id');
 
         $form = new EditLayoutAction(['actionId' => $actionId]);
@@ -125,7 +125,7 @@ class AdminLayoutController extends AdminController
      */
     public function actionManageTheme()
     {
-        $request = _get('request');
+        $request = _service('request');
 
         $cmd = $request->get('cmd');
         $themeId = $request->get('theme_id');
@@ -134,30 +134,30 @@ class AdminLayoutController extends AdminController
             if ($themeId and $cmd) {
                 switch ($cmd) {
                     case 'default':
-                        _get('core.themes')
+                        _service('core.themes')
                             ->setDefault($themeId);
                         break;
                     case 'editing':
-                        _get('core.themes')
+                        _service('core.themes')
                             ->setEditing($themeId);
                         break;
                     case 'active':
-                        _get('core.themes')
+                        _service('core.themes')
                             ->setActive($themeId);
                         break;
                     case 'inactive':
-                        _get('core.themes')
+                        _service('core.themes')
                             ->setInactive($themeId);
                         break;
                     case 'rebuild-main':
-                        _get('core.themes')
+                        _service('core.themes')
                             ->rebuildMain($themeId);
                         break;
                     case 'rebuild-files':
-                        _get('core.themes')
+                        _service('core.themes')
                             ->rebuildFiles($themeId);
                 }
-                _get('response')
+                _service('response')
                     ->redirect(_url('admin.core.layout.action', ['action' => 'manage-theme']));
             }
         } catch (\Exception $ex) {
@@ -180,12 +180,12 @@ class AdminLayoutController extends AdminController
     public function actionEditTheme()
     {
         $form = new ThemeEditor();
-        $request = _get('request');
+        $request = _service('request');
         $id = $request->get('id');
 
 
         $params = [];
-        $custom = _get('core.themes')
+        $custom = _service('core.themes')
             ->findSettingByThemeId($id);
 
         if ($custom) {
@@ -202,18 +202,18 @@ class AdminLayoutController extends AdminController
 
     public function actionDebugTheme()
     {
-        $request = _get('request');
+        $request = _service('request');
         $id = $request->get('id');
-        $theme = _get('core.themes')
+        $theme = _service('core.themes')
             ->findById($id);
 
         if (!$id) {
             $id = 'default';
-            $theme = _get('core.themes')
+            $theme = _service('core.themes')
                 ->findById($id);
         }
 
-        $themes = _get('core.themes');
+        $themes = _service('core.themes');
 
         $tempFiles = $themes->getRebuildFiles($theme->getId());
         $main = $themes->getMainSource();
@@ -252,7 +252,7 @@ class AdminLayoutController extends AdminController
 
     public function actionAddComponent()
     {
-        $request = _get('request');
+        $request = _service('request');
 
         $form = new AddLayoutComponent([]);
 
@@ -275,7 +275,7 @@ class AdminLayoutController extends AdminController
 
     public function actionEditComponent()
     {
-        $request = _get('request');
+        $request = _service('request');
         $componentId = $request->get('component_id');
 
         $form = new EditLayoutComponent([]);
@@ -306,11 +306,11 @@ class AdminLayoutController extends AdminController
     public function actionDesignPage()
     {
 
-        $request = _get('request');
+        $request = _service('request');
         $actionId = $request->get('action_id');
         $themeId = $request->get('theme_id', 'default');
 
-        $layoutService = _get('layout_loader');
+        $layoutService = _service('layout_loader');
 
         $pageId = $layoutService->findPageIdForEdit($actionId, $themeId);
 
@@ -318,13 +318,13 @@ class AdminLayoutController extends AdminController
 
 
         if (!$layoutContent) {
-            _get('response')
+            _service('response')
                 ->redirect(_url('admin.core.layout.action',
                     ['action' => 'clone-page', 'action_id' => $actionId, 'theme_id' => $themeId]));
         }
 
 
-        _get('menu.admin.secondary')
+        _service('menu.admin.secondary')
             ->clear()
             ->add([
                 'label' => 'Add Container',
@@ -336,7 +336,7 @@ class AdminLayoutController extends AdminController
                 ],
             ]);
 
-        _get('require_js')
+        _service('require_js')
             ->deps('package/core/layout-editor');
 
         return new ViewModel(['layoutPage' => $layoutContent,],
@@ -345,7 +345,7 @@ class AdminLayoutController extends AdminController
 
     public function actionAddBlock()
     {
-        $request = _get('request');
+        $request = _service('request');
         $locationId = $request->get('location_id');
         $containerId = $request->get('container_id');
 
@@ -382,7 +382,7 @@ class AdminLayoutController extends AdminController
 
             $entry->save();
 
-            _get('cache.local')->flush();
+            _service('cache.local')->flush();
 
             _redirect('admin.core.layout.design-page',
                 ['action_id' => $page->getActionId()]);
@@ -397,7 +397,7 @@ class AdminLayoutController extends AdminController
 
     public function actionEditBlock()
     {
-        $request = _get('request');
+        $request = _service('request');
         $id = $request->get('id');
 
         $form = new EditLayoutBlock([]);
@@ -422,7 +422,7 @@ class AdminLayoutController extends AdminController
 
     public function actionDeleteBlock()
     {
-        $request = _get('request');
+        $request = _service('request');
         $blockId = $request->get('block_id');
 
         /** @var LayoutBlock $block */
@@ -433,7 +433,7 @@ class AdminLayoutController extends AdminController
 
         $block->delete();
 
-        _get('cache.local')->flush();
+        _service('cache.local')->flush();
 
         _redirect('admin.core.layout.action', [
             'action'    => 'design-page',
@@ -443,7 +443,7 @@ class AdminLayoutController extends AdminController
 
     public function actionEditContainer()
     {
-        $request = _get('request');
+        $request = _service('request');
         $id = $request->get('container_id');
         /** @var LayoutContainer $container */
         $container = _find('layout_container', $id);
@@ -464,9 +464,9 @@ class AdminLayoutController extends AdminController
 
             $container->save();
 
-            _get('cache.local')->flush();
+            _service('cache.local')->flush();
 
-            _get('response')
+            _service('response')
                 ->redirect(_url('admin.core.layout.design-page',
                     ['action_id' => $page->getActionId()]));
         }
@@ -477,9 +477,9 @@ class AdminLayoutController extends AdminController
 
     public function actionAddContainer()
     {
-        $request = _get('request');
+        $request = _service('request');
         $pageId = $request->get('page_id');
-        $page = _get('layout_loader')->findPageById($pageId);
+        $page = _service('layout_loader')->findPageById($pageId);
         $form = new AddLayoutContainer();
 
         $form->setAction(_url('admin.core.layout.action', ['action' => 'add-container', 'page_id' => $pageId]));
@@ -495,7 +495,7 @@ class AdminLayoutController extends AdminController
             $entry = new LayoutContainer($data);
             $entry->save();
 
-            _get('response')
+            _service('response')
                 ->redirect(_url('admin.core.layout.design-page',
                     ['action_id' => $page->getActionId()]));
         }
@@ -506,26 +506,26 @@ class AdminLayoutController extends AdminController
 
     public function actionDeleteContainer()
     {
-        $request = _get('request');
+        $request = _service('request');
         $containerId = $request->get('container_id');
 
-        _get('layout_loader')->deleteContainers([$containerId]);
+        _service('layout_loader')->deleteContainers([$containerId]);
     }
 
     public function actionClonePage()
     {
-        $request = _get('request');
+        $request = _service('request');
         $actionId = $request->get('action_id');
         $themeId = $request->get('theme_id');
         $confirmed = $request->get('confirmed', false);
-        $layoutService = _get('layout_loader');
+        $layoutService = _service('layout_loader');
         $parentPageId = $layoutService->findPageIdForRender($actionId, $themeId);
         /** @var LayoutPage $parentPage */
         $parentPage = _with('layout_page')->findById($parentPageId);
 
         if ($confirmed) {
             $layoutService->clonePage($actionId, $themeId);
-            _get('response')
+            _service('response')
                 ->redirect(_url('admin.core.layout.design-page', ['action_id' => $actionId]));
         }
 

@@ -47,7 +47,7 @@ class Form extends Element implements ElementInterface, CollectionInterface
     public function addElement($element)
     {
         if (!$element instanceof ElementInterface) {
-            $element = _get('form.factory')->factory($element);
+            $element = _service('form.factory')->factory($element);
         }
 
         $element->setParent($this);
@@ -149,7 +149,7 @@ class Form extends Element implements ElementInterface, CollectionInterface
             return '';
         }
 
-        return _get('error_formater')->format($this->getError(), $type);
+        return _service('error_formater')->format($this->getError(), $type);
     }
 
     public function getData()

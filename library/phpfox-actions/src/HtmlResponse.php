@@ -14,6 +14,6 @@ class HtmlResponse implements ResponsePrototypeInterface
             }
         }
 
-        return _get('layouts')->prepare()->render();
+        return _service('layouts')->prepare()->render();
     }
 }

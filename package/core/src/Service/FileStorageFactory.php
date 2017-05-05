@@ -55,7 +55,7 @@ class FileStorageFactory implements FileStorageFactoryInterface
     {
         $this->initialized = true;
 
-        $rows = _get('db')
+        $rows = _service('db')
             ->select('*')
             ->from(':storage_adapter')
             ->where('is_active=1')

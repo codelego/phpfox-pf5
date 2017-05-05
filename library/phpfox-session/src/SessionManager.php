@@ -26,7 +26,7 @@ class SessionManager
 
         $this->started = true;
 
-        _get('session.save_handler')->register();
+        _service('session.save_handler')->register();
 
         if (!session_id() and !headers_sent()) {
             @session_start();

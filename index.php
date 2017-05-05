@@ -11,6 +11,6 @@ register_shutdown_function(function () {
     }
 });
 
-_get('session')->start();
+_service('session')->start();
 
-_get('dispatcher')->run();
+_service('dispatcher')->run();

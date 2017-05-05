@@ -17,7 +17,7 @@ class SelectMailDriver extends Form
             'label'      => _text('Select Driver'),
             'required'   => true,
             'value'      => 'smtp',
-            'options'    => _get('core.mails')->getDriverIdOptions(),
+            'options'    => _service('core.mails')->getDriverIdOptions(),
             'attributes' => [
                 'class' => 'form-control',
             ],

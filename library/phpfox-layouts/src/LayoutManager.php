@@ -25,7 +25,7 @@ class LayoutManager extends ViewModel
             $this->template = 'layout/default';
         }
 
-        _get('assets')
+        _service('assets')
             ->addScripts('require', null)
             ->addStyle('custom', null)
             ->prependStyle('main', null)
@@ -33,7 +33,7 @@ class LayoutManager extends ViewModel
 
         _emit('onViewLayoutPrepare', $this);
 
-        $content =  _get('layout_loader')
+        $content =  _service('layout_loader')
             ->loadForRender($this->getPageName(), $this->getThemeId())
             ->render();
 
@@ -50,7 +50,7 @@ class LayoutManager extends ViewModel
     public function getThemeId()
     {
         if (null == $this->themeId) {
-            $this->setThemeId(_get('core.themes')->getDefault()->getId());
+            $this->setThemeId(_service('core.themes')->getDefault()->getId());
         }
         return $this->themeId;
     }
@@ -64,7 +64,7 @@ class LayoutManager extends ViewModel
     {
         $this->themeId = $themeId;
 
-        _get('template')
+        _service('template')
             ->preferThemes([$themeId]);
         return $this;
     }
@@ -75,7 +75,7 @@ class LayoutManager extends ViewModel
     public function getPageName()
     {
         if (null == $this->pageName) {
-            $this->pageName = _get('dispatcher')->getFullActionName();
+            $this->pageName = _service('dispatcher')->getFullActionName();
         }
         return $this->pageName;
     }

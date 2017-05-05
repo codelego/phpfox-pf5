@@ -12,7 +12,7 @@ class AdminCategoryController extends AdminController
 {
     public function actionAdd()
     {
-        $request = _get('request');
+        $request = _service('request');
 
         $form = new AddBlogCategory();
 
@@ -34,7 +34,7 @@ class AdminCategoryController extends AdminController
 
     public function actionEdit()
     {
-        $request = _get('request');
+        $request = _service('request');
         $id = $request->get('id');
 
         /** @var BlogCategory $obj */

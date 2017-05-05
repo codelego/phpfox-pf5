@@ -39,7 +39,7 @@ class ContactUs
      */
     public function getActiveDepartmentOptions()
     {
-        return _get('cache.local')
+        return _service('cache.local')
             ->load('core.contact_us.active_departments', 0, function () {
                 return $this->_getActiveDepartmentOptions();
             });

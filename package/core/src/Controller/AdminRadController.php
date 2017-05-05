@@ -41,7 +41,7 @@ class AdminRadController extends AdminController
             'model'        => 'generateModel',
             'model_config' => 'geneateModelConfig',
         ];
-        $req = _get('request');
+        $req = _service('request');
 
         $form = new AdminRadSetting([]);
 
@@ -120,7 +120,7 @@ class AdminRadController extends AdminController
         $whereArrays = [];
         $id_value = '0';
 
-        $savedData = _get('db')
+        $savedData = _service('db')
             ->select('*')
             ->from(':' . $table_name)
             ->first();
@@ -298,7 +298,7 @@ class AdminRadController extends AdminController
         $test_path = $module_path . '/test/Form/' . $form_name . 'Test.php';
 
 
-        $rows = _get('db')
+        $rows = _service('db')
             ->execute('describe ' . PHPFOX_TABLE_PREFIX . $table_name)
             ->all();
 
@@ -483,7 +483,7 @@ class AdminRadController extends AdminController
      */
     protected function _getPackageInfo($packageId)
     {
-        return _get('db')
+        return _service('db')
             ->select('*')
             ->from(':core_package')
             ->where('name=?', $packageId)

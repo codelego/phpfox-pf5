@@ -17,7 +17,7 @@ class PackageLoader implements PackageLoaderInterface
             return $this->paths;
         }
 
-        $rows = _get('db')
+        $rows = _service('db')
             ->select('path')
             ->from(':core_package')
             ->where('is_active=?', 1)
@@ -112,7 +112,7 @@ class PackageLoader implements PackageLoaderInterface
         /**
          * fetch setting variables from table ':core_setting'
          */
-        $rows = _get('db')
+        $rows = _service('db')
             ->select('group_id, var_name, value_actual, is_active, priority')
             ->from(':core_setting')
             ->where('is_active=?', 1)

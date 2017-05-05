@@ -9,11 +9,11 @@ class AdminController extends ActionController
 {
     protected function initialize()
     {
-        _get('auth');
+        _service('auth');
 
-        _get('layouts')->setThemeId('admin');
+        _service('layouts')->setThemeId('admin');
 
-        _get('require_js')
+        _service('require_js')
             ->deps('package/core/admin');
 
         // todo verify logged in user can access admincp.

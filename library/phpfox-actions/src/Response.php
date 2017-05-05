@@ -65,7 +65,7 @@ class Response
     public function terminate()
     {
         /** @var ResponsePrototypeInterface $obj */
-        $obj = _get($this->prototype);
+        $obj = _service($this->prototype);
         echo $obj->run($this);
     }
 

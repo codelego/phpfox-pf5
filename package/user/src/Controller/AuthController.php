@@ -14,7 +14,7 @@ class AuthController extends ActionController
     public function actionLogin()
     {
         // start session
-        $auth = _get('auth');
+        $auth = _service('auth');
 
 
         if ($auth->isLoggedIn()) {
@@ -23,7 +23,7 @@ class AuthController extends ActionController
             _redirect($user->getUrl(), 302);
         }
 
-        $request = _get('request');
+        $request = _service('request');
         $form = new UserLogin([]);
         $message = null;
 
@@ -55,7 +55,7 @@ class AuthController extends ActionController
      */
     public function actionLogout()
     {
-        _get('auth')->logout();
+        _service('auth')->logout();
 
         _redirect('home');
 

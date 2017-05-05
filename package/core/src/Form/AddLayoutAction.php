@@ -49,7 +49,7 @@ class AddLayoutAction extends Form
                 [
                     'class' => 'form-control',
                 ],
-            'options'    => _get('core.packages')->getPackageIdOptions(),
+            'options'    => _service('core.packages')->getPackageIdOptions(),
             'label'      => _text('Package'),
             'required'   => true,
         ]);

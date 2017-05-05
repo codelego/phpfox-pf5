@@ -15,17 +15,17 @@ class PermissionProvider implements PermissionProviderInterface
      */
     public function _load($roleId)
     {
-        $role = _get('core.roles')
+        $role = _service('core.roles')
             ->findById((int)$roleId);
 
         if (empty($role)) {
             $roleId = PHPFOX_GUEST_ID;
 
-            $role = _get('core.roles')
+            $role = _service('core.roles')
                 ->findById($roleId);
         }
 
-        $items = _get('db')->select('*')
+        $items = _service('db')->select('*')
             ->from(':core_permission')
             ->where('role_id=?', $roleId)
             ->execute()
@@ -58,7 +58,7 @@ class PermissionProvider implements PermissionProviderInterface
     public function load($roleId)
     {
 
-        return _get('cache.local')
+        return _service('cache.local')
             ->load("permission_provider.$roleId", 0, function () use ($roleId) {
                 return $this->_load($roleId);
             });

@@ -39,7 +39,7 @@ class AdminI18nController extends AdminController
     {
         $form = new FilterI18nPhrase([]);
 
-        _get('require_js')
+        _service('require_js')
             ->deps('package/core/admin-i18n');
 
         $items = _with('i18n_message')

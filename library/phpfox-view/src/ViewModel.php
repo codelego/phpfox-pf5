@@ -81,7 +81,7 @@ class ViewModel
             return '';
         }
 
-        return _get('template')
+        return _service('template')
             ->render($this->template, $this->data);
     }
 

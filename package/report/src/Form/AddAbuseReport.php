@@ -52,7 +52,7 @@ class AddAbuseReport extends Form
                 'required' => true,
                 'factory'  => 'choice',
                 'render'   => 'radio',
-                'options'  => _get('reports')
+                'options'  => _service('reports')
                     ->getActiveCategoryOptions(),
             ],
             [

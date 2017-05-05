@@ -11,7 +11,7 @@ class AdminAuthorizationController extends AdminController
 {
     protected function initialized()
     {
-        _get('menu.admin.secondary')
+        _service('menu.admin.secondary')
             ->add([
                 'name'  => 'add_role',
                 'label' => _text('Add Role'),
@@ -77,10 +77,10 @@ class AdminAuthorizationController extends AdminController
 
     public function actionSettings()
     {
-        $request = _get('request');
+        $request = _service('request');
 
         $id = $request->get('id', 1);
-        $role = _get('core.roles')->findById($id);
+        $role = _service('core.roles')->findById($id);
 
         $form = new AuthorizationSettings();
 

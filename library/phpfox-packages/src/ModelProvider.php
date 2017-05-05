@@ -18,7 +18,7 @@ class ModelProvider implements GatewayProviderInterface
     {
         $this->initialized = true;
 
-        $paths = _get('package.loader')->loadEnablePaths();
+        $paths = _service('package.loader')->loadEnablePaths();
 
         foreach ($paths as $path) {
 

@@ -12,13 +12,13 @@ class AuthStorageSession implements AuthStorageInterface
 
     public function __construct()
     {
-        _get('session')->start();
+        _service('session')->start();
     }
 
 
     public function initialize(AuthFacades $auth)
     {
-        $info = _get('session')->get($this->key);
+        $info = _service('session')->get($this->key);
 
         if (!$info) {
             return false;
@@ -57,7 +57,7 @@ class AuthStorageSession implements AuthStorageInterface
 
     public function remember($userId, $loginAs, $loginAsId, $remember)
     {
-        $session = _get('session');
+        $session = _service('session');
 
         $session->set($this->key, [$userId, $loginAs, $loginAsId]);
 
@@ -68,6 +68,6 @@ class AuthStorageSession implements AuthStorageInterface
 
     public function forgot()
     {
-        _get('session')->delete($this->key);
+        _service('session')->delete($this->key);
     }
 }

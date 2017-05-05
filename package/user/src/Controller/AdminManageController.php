@@ -11,18 +11,18 @@ class AdminManageController extends AdminController
 {
     protected function initialized()
     {
-        _get('breadcrumb')
+        _service('breadcrumb')
             ->clear()
             ->add(['href' => _url('admin.user'), 'label' => 'Members',]);
     }
 
     public function actionIndex()
     {
-        $request = _get('request');
+        $request = _service('request');
 
         $filter = new AdminFilterUser();
 
-        _get('registry')->set('search.filter', $filter);
+        _service('registry')->set('search.filter', $filter);
 
         if ($request->isGet()) {
             $filter->populate($request->all());

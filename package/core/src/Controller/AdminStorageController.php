@@ -8,7 +8,7 @@ class AdminStorageController extends AdminController
 {
     protected function initialized()
     {
-        _get('breadcrumb')
+        _service('breadcrumb')
             ->clear()
             ->add([
                 'href'  => _url('admin.core.storage'),
@@ -18,7 +18,7 @@ class AdminStorageController extends AdminController
                 'label' => _text('Add Storage'),
             ]);
 
-        _get('menu.admin.secondary')
+        _service('menu.admin.secondary')
             ->clear()
             ->add([
                 'label' => 'Add',

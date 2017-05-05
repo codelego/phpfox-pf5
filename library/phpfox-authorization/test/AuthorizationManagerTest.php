@@ -9,7 +9,7 @@ class AuthorizationManagerTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
     {
-        _get('manager')
+        _service('manager')
             ->set('authorization.provider',
                 new MockPermissionLoaderInterface());
     }

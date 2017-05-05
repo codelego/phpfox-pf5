@@ -31,7 +31,7 @@ $skip_fields = [
 
 $packages = array_map(function ($item) {
     return str_replace('package/', '', $item['path']);
-}, _get('db')
+}, _service('db')
     ->select('*')
     ->from(':core_package')
     ->order('name', 1)
@@ -39,7 +39,7 @@ $packages = array_map(function ($item) {
 
 $tables = array_map(function ($item) {
     return str_replace(PHPFOX_TABLE_PREFIX, '', $item);
-}, _get('db')->tables());
+}, _service('db')->tables());
 
 if (empty($table_name)) {
 
@@ -114,7 +114,7 @@ if (empty($form_name)) {
             $table_name));
 }
 
-$rows = _get('db')
+$rows = _service('db')
     ->execute('describe ' . PHPFOX_TABLE_PREFIX . $table_name)
     ->all();
 

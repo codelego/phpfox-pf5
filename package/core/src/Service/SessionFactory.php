@@ -22,7 +22,7 @@ class SessionFactory implements SessionFactoryInterface
      */
     protected function getConfigs()
     {
-        $row = _get('db')->select('*')
+        $row = _service('db')->select('*')
             ->from(':session_driver')
             ->where('is_default=?', 1)
             ->limit(1, 0)

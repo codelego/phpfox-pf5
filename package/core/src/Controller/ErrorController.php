@@ -9,7 +9,7 @@ class ErrorController extends ActionController
 {
     public function actionIndex()
     {
-        $lastException = _get('dispatcher')
+        $lastException = _service('dispatcher')
             ->getLastException();
 
         $message = '';

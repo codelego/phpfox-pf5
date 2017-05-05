@@ -18,7 +18,7 @@ class AddLayoutContainer extends Form
                     'class'     => 'form-control',
                 ],
             'value'      => 'grid010',
-            'options'    => _get('layout_loader')
+            'options'    => _service('layout_loader')
                 ->getGridIdOptions(),
             'label'      => _text('Grid Id'),
             'required'   => true,
@@ -32,7 +32,7 @@ class AddLayoutContainer extends Form
                     'class'     => 'form-control',
                 ],
             'value'      => 'container',
-            'options'    => _get('layout_loader')
+            'options'    => _service('layout_loader')
                 ->getContainerTypeIdOptions(),
             'label'      => _text('Type Id'),
             'required'   => true,

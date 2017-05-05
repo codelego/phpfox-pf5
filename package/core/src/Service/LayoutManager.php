@@ -26,7 +26,7 @@ class LayoutManager implements LoaderInterface
         $limit = 5;
 
         do {
-            $row = _get('db')
+            $row = _service('db')
                 ->select('parent_id')
                 ->from(':layout_theme')
                 ->where('theme_id=?', $themeId)
@@ -54,7 +54,7 @@ class LayoutManager implements LoaderInterface
         $limit = 5;
 
         do {
-            $row = _get('db')
+            $row = _service('db')
                 ->select('parent_action_id')
                 ->from(':layout_action')
                 ->where('action_id=?', $actionId)
@@ -185,7 +185,7 @@ class LayoutManager implements LoaderInterface
             }
 
 
-            $selectBlocks = _get('db')
+            $selectBlocks = _service('db')
                 ->select('blk.*, cmp.component_class, cmp.component_name')
                 ->from(':layout_block', 'blk')
                 ->join(':layout_component', 'cmp',
@@ -226,7 +226,7 @@ class LayoutManager implements LoaderInterface
     {
         $pageId = $this->findPageIdForRender($actionId, $themeId);
 
-        $page = _get('cache.local')->load(['layouts', 'loadForRender', $pageId], 0,
+        $page = _service('cache.local')->load(['layouts', 'loadForRender', $pageId], 0,
             function () use ($pageId) {
                 return $this->loadPageDataById($pageId, $activeOnly = true);
             });
@@ -268,7 +268,7 @@ class LayoutManager implements LoaderInterface
         // find container map
         $pageId = $this->findPageIdForRender($actionId, $themeId);
 
-        $db = _get('db');
+        $db = _service('db');
 
         $db->begin();
 

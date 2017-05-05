@@ -57,7 +57,7 @@ class AuthorizationManager
      */
     public function load($roleId)
     {
-        return _get('authorization.provider')
+        return _service('authorization.provider')
             ->load($roleId);
     }
 

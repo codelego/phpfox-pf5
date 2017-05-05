@@ -194,6 +194,6 @@ class Element implements ElementInterface
 
     public function render()
     {
-        return _get('form_render')->render($this);
+        return _service('form_render')->render($this);
     }
 }

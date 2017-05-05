@@ -13,7 +13,7 @@ class AdminDepartmentController extends AdminController
 
     protected function initialized()
     {
-        _get('breadcrumb')
+        _service('breadcrumb')
             ->clear()
             ->add(['label' => 'Contact Us']);
     }
@@ -33,10 +33,10 @@ class AdminDepartmentController extends AdminController
 
     public function actionEdit()
     {
-        $request = _get('request');
+        $request = _service('request');
         $id = $request->get('id');
 
-        $item = _get('contact_us')
+        $item = _service('contact_us')
             ->findDepartmentById($id);
 
         $form = new EditContactDepartment();
@@ -64,7 +64,7 @@ class AdminDepartmentController extends AdminController
 
     public function actionAdd()
     {
-        $request = _get('request');
+        $request = _service('request');
 
         $form = new EditContactDepartment();
 

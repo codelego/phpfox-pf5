@@ -111,7 +111,7 @@ class DbTableGateway implements GatewayInterface
      */
     public function adapter()
     {
-        return _get($this->_adapter);
+        return _service($this->_adapter);
     }
 
     /**

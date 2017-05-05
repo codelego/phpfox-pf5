@@ -34,7 +34,7 @@ class DbLogger implements LoggerInterface
 
     protected function write($data)
     {
-        return _get('db')->insert($this->model, $data)->execute();
+        return _service('db')->insert($this->model, $data)->execute();
     }
 
     /**

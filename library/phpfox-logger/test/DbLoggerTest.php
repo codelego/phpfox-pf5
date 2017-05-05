@@ -57,7 +57,7 @@ class DbLoggerTest extends \PHPUnit_Framework_TestCase
 
     function totalRows()
     {
-        return _get('db')
+        return _service('db')
             ->select('*')
             ->from(':core_log')
             ->count();

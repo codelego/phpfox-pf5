@@ -53,11 +53,11 @@ class AuthByTokenTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _get('db')->delete(':auth_token')
+        _service('db')->delete(':auth_token')
             ->where('id=?',
                 '$2y$10$eO/nRD4KPbvtzQJjE26d1OjjXYjQj96pfExn8Gpva5yD/36UsoG2e')
             ->execute();
-        _get('db')->delete(':user')
+        _service('db')->delete(':user')
             ->where('email=?', 'auth_token.unitest@example.com')
             ->execute();
 

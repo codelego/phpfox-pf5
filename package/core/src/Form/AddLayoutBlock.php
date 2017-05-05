@@ -15,7 +15,7 @@ class AddLayoutBlock extends Form
             'attributes' => ['class' => 'form-control',],
             'label'      => _text('Component'),
             'required'   => true,
-            'options'    => _get('layout_loader')->getComponentIdOptions(),
+            'options'    => _service('layout_loader')->getComponentIdOptions(),
         ]);
     }
 

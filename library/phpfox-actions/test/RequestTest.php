@@ -30,7 +30,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
         $request->singleton();
 
-        $this->assertSame($request, _get('request'));
+        $this->assertSame($request, _service('request'));
 
     }
 

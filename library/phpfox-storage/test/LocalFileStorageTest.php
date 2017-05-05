@@ -22,7 +22,7 @@ class LocalFileStorageTest extends \PHPUnit_Framework_TestCase
      */
     public function testBase($id)
     {
-        $fileStorage = _get('storage.manager')->get($id);
+        $fileStorage = _service('storage.manager')->get($id);
         $this->assertEquals(PHPFOX_BASE_URL . 'public/path/to/url.png',
             $fileStorage->mapUrl('public/path/to/url.png'));
 
@@ -41,7 +41,7 @@ class LocalFileStorageTest extends \PHPUnit_Framework_TestCase
         @file_put_contents($local,
             '200 0k' . PHP_EOL . get_class($fileStorage));
 
-        $name = _get('storage.file_name')
+        $name = _service('storage.file_name')
             ->createName(null, null, '.txt');
 
         $fileStorage->putFile($local, $name);

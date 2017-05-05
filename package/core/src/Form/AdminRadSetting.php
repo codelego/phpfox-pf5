@@ -15,14 +15,14 @@ class AdminRadSetting extends Form
         return array_map(function ($item) {
             $v = str_replace(PHPFOX_TABLE_PREFIX, '', $item);
             return ['value' => $v, 'label' => $v];
-        }, _get('db')->tables());
+        }, _service('db')->tables());
     }
 
     protected function getPackageIdOptions()
     {
         return array_map(function ($item) {
             return ['value' => $item['name'], 'label' => $item['title']];
-        }, _get('db')
+        }, _service('db')
             ->select('*')
             ->from(':core_package')
             ->order('name', 1)

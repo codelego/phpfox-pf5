@@ -11,7 +11,7 @@ class AdminIndexController extends AdminController
      */
     public function actionIndex()
     {
-        _get('layouts')
+        _service('layouts')
             ->setPageName('core/admin-index/index');
 
         return new ViewModel([

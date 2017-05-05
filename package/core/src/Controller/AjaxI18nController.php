@@ -9,7 +9,7 @@ class AjaxI18nController extends AjaxController
 {
     public function actionSave()
     {
-        $request = _get('request');
+        $request = _service('request');
         $key = $request->get('text_key');
         $value = $request->get('text_value');
         $lang = $request->get('text_lang', '');

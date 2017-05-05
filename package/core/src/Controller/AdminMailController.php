@@ -12,14 +12,14 @@ class AdminMailController extends AdminController
 {
     protected function initialized()
     {
-        _get('breadcrumb')
+        _service('breadcrumb')
             ->clear()
             ->add([
                 'href'  => _url('admin.core.mail'),
                 'label' => 'Manage Adapters',
             ]);
 
-        _get('menu.admin.secondary')
+        _service('menu.admin.secondary')
             ->clear()
             ->add([
                 'href'  => _url('admin.core.mail'),
@@ -64,7 +64,7 @@ class AdminMailController extends AdminController
 
     public function actionAddAdapter()
     {
-        $request = _get('request');
+        $request = _service('request');
         $driverId = $request->get('driver_id');
 
         if (!$driverId) {
@@ -90,7 +90,7 @@ class AdminMailController extends AdminController
 
     public function actionEditAdapter()
     {
-        $request = _get('request');
+        $request = _service('request');
         $id = $request->get('id');
 
         /** @var MailAdapter $item */

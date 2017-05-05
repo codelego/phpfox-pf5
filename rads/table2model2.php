@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and !empty($_REQUEST['overwrite'])) {
     $whereArrays = [];
     $id_value = '0';
 
-    $savedData = _get('db')
+    $savedData = _service('db')
         ->select('*')
         ->from(':' . $table_name)
         ->first();

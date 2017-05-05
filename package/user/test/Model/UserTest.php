@@ -6,7 +6,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
-        _get('db')->delete(':user')->where('email=?', 'vanlk@younetco.com')
+        _service('db')->delete(':user')->where('email=?', 'vanlk@younetco.com')
             ->execute();
     }
 

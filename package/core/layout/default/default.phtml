@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <?= _get('assets')->getStartHtml() ?>
+    <?= _service('assets')->getStartHtml() ?>
 </head>
 <body class="">
 <header>
@@ -13,6 +13,6 @@
 <footer>
     <?= $this->render('layout/footer', []) ?>
 </footer>
-<?= _get('assets')->getShutdownHtml() ?>
+<?= _service('assets')->getShutdownHtml() ?>
 </body>
 </html>

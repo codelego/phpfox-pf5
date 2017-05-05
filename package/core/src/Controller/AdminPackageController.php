@@ -9,7 +9,7 @@ class AdminPackageController extends AdminController
 {
     protected function initialized()
     {
-        _get('breadcrumb')
+        _service('breadcrumb')
             ->clear()
             ->add([
                 'href'  => _url('admin.core.package'),

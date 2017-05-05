@@ -13,7 +13,7 @@ class ResponseFactory
     {
         $response = new Response();
 
-        $request = _get('request');
+        $request = _service('request');
 
         if ($request->isAjax()) {
             $response->setPrototype('response.ajax');

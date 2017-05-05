@@ -77,7 +77,7 @@ class NavbarDecorator implements DecoratorInterface
             $params = $item->params;
             foreach ($params as $k => $v) {
                 if (substr($v, 0, 1) == '$') {
-                    $params[$k] = _get('request')
+                    $params[$k] = _service('request')
                         ->get(substr($v,
                             1));
                 }

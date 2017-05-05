@@ -1,6 +1,6 @@
 <div class="container">
     <?php echo $form->open(); ?>
-    <?php echo _get('form_render')->render($form); ?>
+    <?php echo _service('form_render')->render($form); ?>
     <div class="form-group">
         <button class="btn btn-primary" type="submit"
                 name="_submit"><?= _text('Save Changes') ?></button>

@@ -73,7 +73,7 @@ class LocalFileStorage implements FileStorageInterface
         $this->ensure($path);
 
         if (!file_exists($local)) {
-            _get('dev.log')
+            _service('dev.log')
                 ->error('File not found {0}, {1}', [$local, __CLASS__]);
         }
 

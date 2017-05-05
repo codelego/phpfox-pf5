@@ -28,12 +28,12 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddVariables()
     {
-        _get('db')->insert(':layout_theme_params', [
+        _service('db')->insert(':layout_theme_params', [
             'theme_id' => 'galaxy',
             'params'   => '[]',
         ])->execute();
 
-        $result = _get('db')->select('*')
+        $result = _service('db')->select('*')
             ->from(':layout_theme_params')
             ->first();
 
@@ -107,7 +107,7 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
 
         $mn->setDefault($id);
 
-        $ids = _get('db')->select('theme_id')->from(':layout_theme')
+        $ids = _service('db')->select('theme_id')->from(':layout_theme')
             ->where('is_default=?', 1)->all();
 
         $this->assertSame([['theme_id' => $id]], $ids);
@@ -196,11 +196,11 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetDefault()
     {
-        _get('db')
+        _service('db')
             ->update(':layout_theme', ['is_default' => 0, 'is_active' => 0])
             ->execute();
 
-        _get('db')
+        _service('db')
             ->update(':layout_theme', ['is_active' => 1])
             ->where('theme_id=?', 'galaxy')
             ->execute();
@@ -221,11 +221,11 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
             1 => 'default',
         ], $mn->_preferThemes());
 
-        _get('db')
+        _service('db')
             ->update(':layout_theme', ['is_default' => 0, 'is_active' => 0])
             ->execute();
 
-        _get('db')
+        _service('db')
             ->update(':layout_theme', ['is_active' => 1, 'is_default' => 1,])
             ->where('theme_id=?', 'default')
             ->execute();

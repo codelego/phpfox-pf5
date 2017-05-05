@@ -6,7 +6,7 @@ class AjaxController extends ActionController
 {
     protected function initialize()
     {
-        _get('response')
+        _service('response')
             ->setPrototype('response.ajax');
     }
 }

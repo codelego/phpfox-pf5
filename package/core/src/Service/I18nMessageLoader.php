@@ -9,7 +9,7 @@ class I18nMessageLoader implements I18nMessageLoaderInterface
     public function load($locale, $domain)
     {
         $result = [];
-        $stmt = _get('db')
+        $stmt = _service('db')
             ->select('*')
             ->from(':i18n_message')
             ->where('locale in ?', ['', $locale])

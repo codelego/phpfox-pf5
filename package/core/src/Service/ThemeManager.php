@@ -83,12 +83,12 @@ class ThemeManager
                 [$id]));
         }
 
-        _get('db')
+        _service('db')
             ->update(':layout_theme')
             ->values(['is_editing' => 0])
             ->execute();
 
-        _get('db')
+        _service('db')
             ->update(':layout_theme')
             ->values([
                 'is_editing' => 1,
@@ -114,12 +114,12 @@ class ThemeManager
                 [$id]));
         }
 
-        _get('db')
+        _service('db')
             ->update(':layout_theme')
             ->values(['is_default' => 0])
             ->execute();
 
-        _get('db')
+        _service('db')
             ->update(':layout_theme')
             ->values([
                 'is_default' => 1,
@@ -145,7 +145,7 @@ class ThemeManager
                 [$id]));
         }
 
-        _get('db')
+        _service('db')
             ->update(':layout_theme')
             ->values([
                 'is_active' => 1,
@@ -168,7 +168,7 @@ class ThemeManager
                 [$id]));
         }
 
-        _get('db')
+        _service('db')
             ->update(':layout_theme', ['is_active' => 0,])
             ->where('theme_id=?', $id)
             ->where('is_default=?', 0)
@@ -232,7 +232,7 @@ class ThemeManager
      */
     public function preferThemes()
     {
-        return _get('cache.local')
+        return _service('cache.local')
             ->load(self::PREFER_THEME_CACHE, 0, function () {
                 return $this->_preferThemes();
             });
@@ -243,7 +243,7 @@ class ThemeManager
      */
     private function updateCache()
     {
-        _get('cache.local')
+        _service('cache.local')
             ->deleteItems([
                 self::PREFER_THEME_CACHE,
                 self::PREFER_THEME_URL_CACHE,
@@ -357,7 +357,7 @@ class ThemeManager
      */
     public function getCssBaseUrl()
     {
-        return _get('cache.local')
+        return _service('cache.local')
             ->load(self::PREFER_THEME_URL_CACHE, 0, function () {
                 $theme = $this->getDefault();
                 return '/pf5/static/' . 'themes/' . $theme->getId() . '/css';
@@ -428,7 +428,7 @@ class ThemeManager
     {
 
         $variables = [];
-        $item = _get('db')
+        $item = _service('db')
             ->select('*')
             ->from(':layout_theme_params')
             ->where('theme_id=?', (string)$id)

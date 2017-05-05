@@ -6,7 +6,7 @@ class FormRenderPanelHorizontal implements FormRenderInterface
 {
     public function renderElements($form)
     {
-        $fc = _get('form_render');
+        $fc = _service('form_render');
 
         $result = array_map(function (ElementInterface $v) use ($fc) {
             $name = $v->getName();
@@ -76,7 +76,7 @@ class FormRenderPanelHorizontal implements FormRenderInterface
     public function renderButtons($form)
     {
         $array = [];
-        $facade = _get('form_render');
+        $facade = _service('form_render');
         foreach ($form->getButtons() as $button) {
             $array[] = $facade->render($button);
         }

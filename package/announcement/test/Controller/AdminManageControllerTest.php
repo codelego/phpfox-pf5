@@ -17,7 +17,7 @@ class AdminManageControllerTest extends \PHPUnit_Framework_TestCase
             'method' => 'get',
         ]);
 
-        _get('manager')->set('request', $request);
+        _service('manager')->set('request', $request);
 
         $vm = $obj->actionAdd();
         $this->assertTrue($vm instanceof ViewModel);
@@ -43,7 +43,7 @@ class AdminManageControllerTest extends \PHPUnit_Framework_TestCase
             'expires_at'    => '2015-01-01 00:00:00',
         ]);
 
-        _get('manager')->set('request', $request);
+        _service('manager')->set('request', $request);
 
         $vm = $obj->actionAdd();
         $this->assertTrue($vm instanceof ViewModel);

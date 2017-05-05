@@ -15,7 +15,7 @@ namespace {
      *
      * @return mixed
      */
-    function _get($name)
+    function _service($name)
     {
         return \Phpfox::$service->get($name);
     }
@@ -27,18 +27,6 @@ namespace {
     function _redirect($route, $params = [])
     {
         \Phpfox::$service->get('response')->redirect(_url($route, $params));
-    }
-
-    /**
-     * @see ServiceManager::build()
-     *
-     * @param string $id
-     *
-     * @return mixed
-     */
-    function _build($id)
-    {
-        return \Phpfox::$service->build($id);
     }
 
     /**
@@ -162,7 +150,7 @@ namespace {
      */
     function _emit($name, $target = null, $argv = [])
     {
-        return _get('mvc.events')
+        return _service('mvc.events')
             ->emit($name, $target, $argv);
     }
 
@@ -175,13 +163,13 @@ namespace {
      */
     function _callback($name, $target = null, $argv = [])
     {
-        return _get('mvc.event')
+        return _service('mvc.event')
             ->callback($name, $target, $argv);
     }
 
     function _pass($action, $roleId = null)
     {
-        return _get('authorization')
+        return _service('authorization')
             ->pass($roleId, $action);
     }
 
@@ -190,7 +178,7 @@ namespace {
         if (substr($table, 0, 1) == ':') {
             $table = PHPFOX_TABLE_PREFIX . substr($table, 1);
         }
-        $rows = _get('db')
+        $rows = _service('db')
             ->execute('describe ' . $table)
             ->all();
 
@@ -583,7 +571,7 @@ namespace {
      */
     function _url($key, $params = [])
     {
-        return _get('router')->getUrl($key, $params);
+        return _service('router')->getUrl($key, $params);
     }
 
     /**
@@ -596,7 +584,7 @@ namespace {
      */
     function _text($id, $domain = null, $locale = null, $context = null)
     {
-        return _get('translator')
+        return _service('translator')
             ->trans($id, $domain, $locale, $context);
     }
 

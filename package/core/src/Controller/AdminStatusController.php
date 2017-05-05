@@ -9,7 +9,7 @@ class AdminStatusController extends AdminController
 {
     protected function initialized()
     {
-        _get('breadcrumb')
+        _service('breadcrumb')
             ->clear()
             ->add(['label' => 'System Status']);
     }

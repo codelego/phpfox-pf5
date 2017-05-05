@@ -11,7 +11,7 @@ class I18nLanguage
     public function getActiveOptions()
     {
 
-        $rows = _get('db')->select('*')
+        $rows = _service('db')->select('*')
             ->from(':i18n_language')
             ->where('is_active=1')
             ->execute()
