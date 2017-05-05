@@ -45,7 +45,7 @@ class MailDriverTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var MailDriver $entry */
-        $entry = \Phpfox::get('db')
+        $entry = _get('db')
             ->select('*')
             ->from(':mail_driver')
             ->where('driver_id=?', 'test')
@@ -63,7 +63,7 @@ class MailDriverTest extends \PHPUnit_Framework_TestCase
         $obj->delete();
 
         /** @var MailDriver $entry */
-        $entry = \Phpfox::get('db')
+        $entry = _get('db')
             ->select('*')
             ->from(':mail_driver')
             ->where('driver_id=?', 'test')
@@ -75,7 +75,7 @@ class MailDriverTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::get('db')
+        _get('db')
             ->delete(':mail_driver')
             ->where('driver_id=?', 'test')
             ->execute();
@@ -83,7 +83,7 @@ class MailDriverTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        \Phpfox::get('db')
+        _get('db')
             ->delete(':mail_driver')
             ->where('driver_id=?', 'test')
             ->execute();

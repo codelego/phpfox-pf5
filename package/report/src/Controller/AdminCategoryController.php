@@ -11,7 +11,7 @@ class AdminCategoryController extends AdminController
 {
     protected function initialized()
     {
-        \Phpfox::get('breadcrumb')
+        _get('breadcrumb')
             ->clear()
             ->add([
                 'href'  => _url('admin.report'),
@@ -21,7 +21,7 @@ class AdminCategoryController extends AdminController
                 'label' => _text('Categories'),
             ]);
 
-        \Phpfox::get('menu.admin.secondary')
+        _get('menu.admin.secondary')
             ->clear()
             ->add([
                 'href'  => _url('admin.report.add'),
@@ -31,7 +31,7 @@ class AdminCategoryController extends AdminController
 
     public function actionIndex()
     {
-        $items = \Phpfox::with('report_category')
+        $items = _with('report_category')
             ->select()
             ->execute()
             ->all();
@@ -45,7 +45,7 @@ class AdminCategoryController extends AdminController
     public function actionAdd()
     {
 
-        $request = \Phpfox::get('request');
+        $request = _get('request');
         $form = new AddCategory();
 
         if ($request->isGet()) {
@@ -60,7 +60,7 @@ class AdminCategoryController extends AdminController
             $obj = new ReportCategory($data);
             $obj->save();
 
-            \Phpfox::get('response')->redirect('');
+            _get('response')->redirect('');
         }
 
         return new ViewModel([

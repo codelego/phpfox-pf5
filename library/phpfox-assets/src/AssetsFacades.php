@@ -17,7 +17,7 @@ class AssetsFacades
      */
     public function setTitle($title)
     {
-        Phpfox::get('html.title')->set($title);
+        _get('html.title')->set($title);
         return $this;
     }
 
@@ -26,7 +26,7 @@ class AssetsFacades
      */
     public function clearTitle()
     {
-        Phpfox::get('html.title')->clear();
+        _get('html.title')->clear();
         return $this;
     }
 
@@ -37,7 +37,7 @@ class AssetsFacades
      */
     public function setTitleSeparator($separator)
     {
-        Phpfox::get('html.title')->setSeparator($separator);
+        _get('html.title')->setSeparator($separator);
         return $this;
     }
 
@@ -46,7 +46,7 @@ class AssetsFacades
      */
     public function getTitleSeparator()
     {
-        return Phpfox::get('html.title')->getSepartor();
+        return _get('html.title')->getSepartor();
     }
 
     /**
@@ -58,7 +58,7 @@ class AssetsFacades
      */
     public function setKeyword($keywords)
     {
-        Phpfox::get('html.keyword')->set($keywords);
+        _get('html.keyword')->set($keywords);
         return $this;
     }
 
@@ -71,7 +71,7 @@ class AssetsFacades
      */
     public function setDescription($description)
     {
-        Phpfox::get('html.description')->set($description);
+        _get('html.description')->set($description);
         return $this;
     }
 
@@ -80,7 +80,7 @@ class AssetsFacades
      */
     public function clearKeywords()
     {
-        Phpfox::get('html.keyword')->clear();
+        _get('html.keyword')->clear();
         return $this;
     }
 
@@ -95,7 +95,7 @@ class AssetsFacades
      */
     public function addStyle($key, $path = null, $props = [])
     {
-        Phpfox::get('html.start.style')->add($key, $path, $props);
+        _get('html.start.style')->add($key, $path, $props);
         return $this;
     }
 
@@ -110,7 +110,7 @@ class AssetsFacades
      */
     public function prependStyle($key, $path = null, $props = [])
     {
-        Phpfox::get('html.start.style')->prepend($key, $path, $props);
+        _get('html.start.style')->prepend($key, $path, $props);
         return $this;
     }
 
@@ -122,7 +122,7 @@ class AssetsFacades
      */
     public function addMeta($name, $props = [])
     {
-        Phpfox::get('html.meta')->add($name, $props);
+        _get('html.meta')->add($name, $props);
         return $this;
     }
 
@@ -133,7 +133,7 @@ class AssetsFacades
      */
     public function addLink($props = [])
     {
-        Phpfox::get('html.link')->add($props);
+        _get('html.link')->add($props);
         return $this;
     }
 
@@ -148,7 +148,7 @@ class AssetsFacades
      */
     public function addScripts($key, $path, $props = [])
     {
-        Phpfox::get('html.shutdown.script')->add($key, $path, $props);
+        _get('html.shutdown.script')->add($key, $path, $props);
         return $this;
     }
 
@@ -158,7 +158,7 @@ class AssetsFacades
     public function getStartHtml()
     {
         return implode(PHP_EOL, array_map(function ($v) {
-            return Phpfox::get($v)->getHtml();
+            return _get($v)->getHtml();
         }, [
             'html.meta',
             'html.title',
@@ -183,7 +183,7 @@ class AssetsFacades
     public function getShutdownHtml()
     {
         return implode(PHP_EOL, array_map(function ($v) {
-            return Phpfox::get($v)->getHtml();
+            return _get($v)->getHtml();
         }, [
             'html.shutdown.script',
             'require_js',

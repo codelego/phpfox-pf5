@@ -28,12 +28,12 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddVariables()
     {
-        \Phpfox::get('db')->insert(':layout_theme_params', [
+        _get('db')->insert(':layout_theme_params', [
             'theme_id' => 'galaxy',
             'params'   => '[]',
         ])->execute();
 
-        $result = \Phpfox::get('db')->select('*')
+        $result = _get('db')->select('*')
             ->from(':layout_theme_params')
             ->first();
 
@@ -69,7 +69,7 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
     public function testHasAtLeastTheme()
     {
         /** @var LayoutTheme $theme */
-        $theme = \Phpfox::with('layout_theme')
+        $theme = _with('layout_theme')
             ->select()
             ->first();
 
@@ -107,7 +107,7 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
 
         $mn->setDefault($id);
 
-        $ids = \Phpfox::get('db')->select('theme_id')->from(':layout_theme')
+        $ids = _get('db')->select('theme_id')->from(':layout_theme')
             ->where('is_default=?', 1)->all();
 
         $this->assertSame([['theme_id' => $id]], $ids);
@@ -165,7 +165,7 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
     public function testGetNotDefaultTheme()
     {
         /** @var LayoutTheme $theme */
-        $theme = \Phpfox::with('layout_theme')
+        $theme = _with('layout_theme')
             ->select()
             ->where('is_default=?', 0)
             ->first();
@@ -196,11 +196,11 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetDefault()
     {
-        \Phpfox::get('db')
+        _get('db')
             ->update(':layout_theme', ['is_default' => 0, 'is_active' => 0])
             ->execute();
 
-        \Phpfox::get('db')
+        _get('db')
             ->update(':layout_theme', ['is_active' => 1])
             ->where('theme_id=?', 'galaxy')
             ->execute();
@@ -221,11 +221,11 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
             1 => 'default',
         ], $mn->_preferThemes());
 
-        \Phpfox::get('db')
+        _get('db')
             ->update(':layout_theme', ['is_default' => 0, 'is_active' => 0])
             ->execute();
 
-        \Phpfox::get('db')
+        _get('db')
             ->update(':layout_theme', ['is_active' => 1, 'is_default' => 1,])
             ->where('theme_id=?', 'default')
             ->execute();

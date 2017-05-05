@@ -50,7 +50,7 @@ class FriendListTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var FriendList $obj */
-        $obj = \Phpfox::with('friend_list')
+        $obj = _with('friend_list')
             ->select()->where('list_id=?', 2)->where('parent_id=?', 44)
             ->where('type_id=?', 1)->where('name=?', '[customize]')->first();
 
@@ -63,14 +63,14 @@ class FriendListTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('friend_list')
+        _with('friend_list')
             ->delete()->where('list_id=?', 2)->where('parent_id=?', 44)
             ->where('type_id=?', 1)->where('name=?', '[customize]')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('friend_list')
+        _with('friend_list')
             ->delete()->where('list_id=?', 2)->where('parent_id=?', 44)
             ->where('type_id=?', 1)->where('name=?', '[customize]')->execute();
     }

@@ -73,7 +73,7 @@ class EventTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var Event $obj */
-        $obj = \Phpfox::with('')
+        $obj = _with('')
             ->select()->where('event_id=?',34)->first();
 
         $this->assertSame('', $obj->getModelId());
@@ -96,13 +96,13 @@ class EventTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('')
+        _with('')
             ->delete()->where('event_id=?',34)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('')
+        _with('')
             ->delete()->where('event_id=?',34)->execute();
     }
 }

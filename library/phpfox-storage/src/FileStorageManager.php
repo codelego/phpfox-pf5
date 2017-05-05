@@ -34,7 +34,7 @@ class FileStorageManager implements FileStorageManagerInterface
 
         return isset($this->container[$id])
             ? $this->container[$id]
-            : $this->container[$id] = \Phpfox::get('storage.factory')
+            : $this->container[$id] = _get('storage.factory')
                 ->factory($id);
     }
 

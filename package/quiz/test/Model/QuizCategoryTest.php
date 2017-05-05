@@ -50,7 +50,7 @@ class QuizCategoryTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var QuizCategory $obj */
-        $obj = \Phpfox::with('quiz_category')
+        $obj = _with('quiz_category')
             ->select()->where('category_id=?', 12)->first();
 
         $this->assertSame('quiz_category', $obj->getModelId());
@@ -62,13 +62,13 @@ class QuizCategoryTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('quiz_category')
+        _with('quiz_category')
             ->delete()->where('category_id=?', 12)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('quiz_category')
+        _with('quiz_category')
             ->delete()->where('category_id=?', 12)->execute();
     }
 }

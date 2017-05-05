@@ -111,7 +111,7 @@ class DbTableGateway implements GatewayInterface
      */
     public function adapter()
     {
-        return \Phpfox::get($this->_adapter);
+        return _get($this->_adapter);
     }
 
     /**

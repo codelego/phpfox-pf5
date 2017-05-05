@@ -18,7 +18,7 @@ class EditLayoutAction extends Form
         $this->addElement([
             'factory'    => 'select',
             'name'       => 'parent_action_id',
-            'options'    => \Phpfox::get('layout_loader')->getActionIdOptions([$this->getActionId()]),
+            'options'    => _get('layout_loader')->getActionIdOptions([$this->getActionId()]),
             'attributes' =>
                 [
                     'maxlength' => PHPFOX_TITLE_LENGTH,
@@ -45,7 +45,7 @@ class EditLayoutAction extends Form
                 [
                     'class' => 'form-control',
                 ],
-            'options'    => \Phpfox::get('core.packages')->getPackageIdOptions(),
+            'options'    => _get('core.packages')->getPackageIdOptions(),
             'label'      => _text('Package'),
             'required'   => true,
         ]);

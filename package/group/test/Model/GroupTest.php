@@ -130,7 +130,7 @@ class GroupTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var Group $obj */
-        $obj = \Phpfox::with('group')
+        $obj = _with('group')
             ->select()
             ->where('group_id=?', 33)
             ->first();
@@ -160,7 +160,7 @@ class GroupTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('group')
+        _with('group')
             ->delete()
             ->where('group_id=?', 33)
             ->execute();
@@ -168,7 +168,7 @@ class GroupTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('group')
+        _with('group')
             ->delete()
             ->where('group_id=?', 33)
             ->execute();

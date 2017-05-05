@@ -97,7 +97,7 @@ class PagesTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var Pages $obj */
-        $obj = \Phpfox::with('pages')
+        $obj = _with('pages')
             ->select()->where('page_id=?', 3)->first();
 
         $this->assertSame('pages', $obj->getModelId());
@@ -119,13 +119,13 @@ class PagesTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('pages')
+        _with('pages')
             ->delete()->where('page_id=?', 3)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('pages')
+        _with('pages')
             ->delete()->where('page_id=?', 3)->execute();
     }
 }

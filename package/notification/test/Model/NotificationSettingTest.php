@@ -35,7 +35,7 @@ class NotificationSettingTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var NotificationSetting $obj */
-        $obj = \Phpfox::with('notification_setting')
+        $obj = _with('notification_setting')
             ->select()
             ->where('user_id=?', '22')
             ->first();
@@ -47,7 +47,7 @@ class NotificationSettingTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('notification_setting')
+        _with('notification_setting')
             ->delete()
             ->where('user_id=?', '22')
             ->execute();
@@ -55,7 +55,7 @@ class NotificationSettingTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('notification_setting')
+        _with('notification_setting')
             ->delete()
             ->where('user_id=?', '22')
             ->execute();

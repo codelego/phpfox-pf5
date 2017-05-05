@@ -91,7 +91,7 @@ class ErrorHandler
                 $this->formatBacktrace(array_slice(debug_backtrace(), 1)));
 
 
-            \Phpfox::get('main.log')->log($level, $message);
+            _get('main.log')->log($level, $message);
 
         }
 
@@ -115,7 +115,7 @@ class ErrorHandler
         $message = 'Error Code: ' . $this->getErrorCode(true) . PHP_EOL .
             $exception->__toString();
 
-        \Phpfox::get('main.log')->error($message);
+        _get('main.log')->error($message);
 
         $this->_sendFatalResponse();
 

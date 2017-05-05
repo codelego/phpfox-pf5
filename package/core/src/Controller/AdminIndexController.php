@@ -11,7 +11,7 @@ class AdminIndexController extends AdminController
      */
     public function actionIndex()
     {
-        \Phpfox::get('layouts')
+        _get('layouts')
             ->setPageName('core/admin-index/index');
 
         return new ViewModel([

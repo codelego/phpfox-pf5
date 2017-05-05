@@ -34,7 +34,7 @@ class FriendItemTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var FriendItem $obj */
-        $obj = \Phpfox::with('friend_item')
+        $obj = _with('friend_item')
             ->select()->where('list_id=?', 12)->where('user_id=?', 45)->first();
 
         $this->assertSame('friend_item', $obj->getModelId());
@@ -44,14 +44,14 @@ class FriendItemTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('friend_item')
+        _with('friend_item')
             ->delete()->where('list_id=?', 12)->where('user_id=?', 45)
             ->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('friend_item')
+        _with('friend_item')
             ->delete()->where('list_id=?', 12)->where('user_id=?', 45)
             ->execute();
     }

@@ -9,7 +9,7 @@ class ErrorController extends ActionController
 {
     public function actionIndex()
     {
-        $lastException = \Phpfox::get('dispatcher')
+        $lastException = _get('dispatcher')
             ->getLastException();
 
         $message = '';

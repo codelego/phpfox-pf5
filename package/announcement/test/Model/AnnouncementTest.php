@@ -90,7 +90,7 @@ class AnnouncementTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var Announcement $obj */
-        $obj = \Phpfox::with('announcement')
+        $obj = _with('announcement')
             ->select()->where('announcement_id=?', 3)->first();
 
         $this->assertSame('announcement', $obj->getModelId());
@@ -110,13 +110,13 @@ class AnnouncementTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('announcement')
+        _with('announcement')
             ->delete()->where('announcement_id=?', 3)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('announcement')
+        _with('announcement')
             ->delete()->where('announcement_id=?', 3)->execute();
     }
 }

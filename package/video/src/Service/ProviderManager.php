@@ -33,7 +33,7 @@ class ProviderManager
     {
         if (empty($this->classes)) {
             /** @var VideoProvider[] $items */
-            $items = \Phpfox::with('video_provider')
+            $items = _with('video_provider')
                 ->select()
                 ->where('is_active=1')
                 ->all();

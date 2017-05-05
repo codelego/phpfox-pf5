@@ -50,7 +50,7 @@ class GroupMemberRequestTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var GroupMemberRequest $obj */
-        $obj = \Phpfox::with('group_member_request')
+        $obj = _with('group_member_request')
             ->select()->where('parent_id=?', 22)->where('user_id=?', 44)
             ->where('status_id=?', 4)
             ->where('created_at=?', '2012-11-11 11:11:11')->first();
@@ -64,7 +64,7 @@ class GroupMemberRequestTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('group_member_request')
+        _with('group_member_request')
             ->delete()->where('parent_id=?', 22)->where('user_id=?', 44)
             ->where('status_id=?', 4)
             ->where('created_at=?', '2012-11-11 11:11:11')->execute();
@@ -72,7 +72,7 @@ class GroupMemberRequestTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('group_member_request')
+        _with('group_member_request')
             ->delete()->where('parent_id=?', 22)->where('user_id=?', 44)
             ->where('status_id=?', 4)
             ->where('created_at=?', '2012-11-11 11:11:11')->execute();

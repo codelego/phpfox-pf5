@@ -70,7 +70,7 @@ class MessagesTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var Messages $obj */
-        $obj = \Phpfox::with('messages')
+        $obj = _with('messages')
             ->select()->where('message_id=?', 2)->first();
 
         $this->assertSame('messages', $obj->getModelId());
@@ -86,13 +86,13 @@ class MessagesTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('messages')
+        _with('messages')
             ->delete()->where('message_id=?', 2)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('messages')
+        _with('messages')
             ->delete()->where('message_id=?', 2)->execute();
     }
 }

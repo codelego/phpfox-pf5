@@ -55,7 +55,7 @@ class MailTemplateTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var MailTemplate $obj */
-        $obj = \Phpfox::with('mail_template')
+        $obj = _with('mail_template')
             ->select()->where('id=?', 1)->first();
 
         $this->assertSame('mail_template', $obj->getModelId());
@@ -68,13 +68,13 @@ class MailTemplateTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('mail_template')
+        _with('mail_template')
             ->delete()->where('id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('mail_template')
+        _with('mail_template')
             ->delete()->where('id=?', 1)->execute();
     }
 }

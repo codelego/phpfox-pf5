@@ -26,7 +26,7 @@ class SessionManager
 
         $this->started = true;
 
-        \Phpfox::get('session.save_handler')->register();
+        _get('session.save_handler')->register();
 
         if (!session_id() and !headers_sent()) {
             @session_start();

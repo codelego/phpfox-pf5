@@ -57,7 +57,7 @@ class AuthorizationManager
      */
     public function load($roleId)
     {
-        return \Phpfox::get('authorization.provider')
+        return _get('authorization.provider')
             ->load($roleId);
     }
 

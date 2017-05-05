@@ -17,7 +17,7 @@ class SelectMailDriver extends Form
             'label'      => _text('Select Driver'),
             'required'   => true,
             'value'      => 'smtp',
-            'options'    => \Phpfox::get('core.mails')->getDriverIdOptions(),
+            'options'    => _get('core.mails')->getDriverIdOptions(),
             'attributes' => [
                 'class' => 'form-control',
             ],

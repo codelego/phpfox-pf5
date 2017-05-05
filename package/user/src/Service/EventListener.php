@@ -8,7 +8,7 @@ class EventListener implements EventListenerInterface
 {
     public function onSiteStatistics()
     {
-        $totalUser = \Phpfox::with('user')
+        $totalUser = _with('user')
             ->select()
             ->count();
 

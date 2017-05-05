@@ -34,7 +34,7 @@ class PagesMemberItemTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var PagesMemberItem $obj */
-        $obj = \Phpfox::with('pages_member_item')
+        $obj = _with('pages_member_item')
             ->select()->where('list_id=?', 5)->where('user_id=?', 7)->first();
 
         $this->assertSame('pages_member_item', $obj->getModelId());
@@ -44,13 +44,13 @@ class PagesMemberItemTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('pages_member_item')
+        _with('pages_member_item')
             ->delete()->where('list_id=?', 5)->where('user_id=?', 7)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('pages_member_item')
+        _with('pages_member_item')
             ->delete()->where('list_id=?', 5)->where('user_id=?', 7)->execute();
     }
 }

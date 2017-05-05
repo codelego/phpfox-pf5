@@ -18,7 +18,7 @@ class AddLayoutContainer extends Form
                     'class'     => 'form-control',
                 ],
             'value'      => 'grid010',
-            'options'    => \Phpfox::get('layout_loader')
+            'options'    => _get('layout_loader')
                 ->getGridIdOptions(),
             'label'      => _text('Grid Id'),
             'required'   => true,
@@ -32,7 +32,7 @@ class AddLayoutContainer extends Form
                     'class'     => 'form-control',
                 ],
             'value'      => 'container',
-            'options'    => \Phpfox::get('layout_loader')
+            'options'    => _get('layout_loader')
                 ->getContainerTypeIdOptions(),
             'label'      => _text('Type Id'),
             'required'   => true,

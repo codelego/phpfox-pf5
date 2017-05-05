@@ -94,7 +94,7 @@ if (!$shouldGenerate) {
     /**
      * load extension package
      */
-    $packageLoader = Phpfox::get('package.loader');
+    $packageLoader = _get('package.loader');
 
     $paths = $packageLoader->loadEnablePaths();
 
@@ -102,7 +102,7 @@ if (!$shouldGenerate) {
 
 
     $autoloadConfigs = array_merge($autoloadConfigs,
-        Phpfox::get('package.loader')->loadAutoloadConfigs());
+        _get('package.loader')->loadAutoloadConfigs());
 
 
     _autoload_psr4($autoloader, $autoloadConfigs);

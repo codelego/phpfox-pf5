@@ -13,7 +13,7 @@ class AuthHistoryManager
     {
         $day = \Phpfox::getParam('auth', 'history_limit');
 
-        return \Phpfox::with('auth_history')
+        return _with('auth_history')
             ->delete()
             ->where('created_at<?',
                 date('Y-m-d H:i:s', time() - (int)$day * 86400))
@@ -27,7 +27,7 @@ class AuthHistoryManager
      */
     public function findById($id)
     {
-        return \Phpfox::with('auth_history')
+        return _with('auth_history')
             ->findById((int)$id);
     }
 
@@ -56,7 +56,7 @@ class AuthHistoryManager
      */
     public function getByUserId($userId)
     {
-        return \Phpfox::with('auth_history')
+        return _with('auth_history')
             ->select()
             ->where('user_id=?', (int)$userId)
             ->order('created_at', -1)

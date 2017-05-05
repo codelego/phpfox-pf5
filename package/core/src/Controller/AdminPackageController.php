@@ -9,7 +9,7 @@ class AdminPackageController extends AdminController
 {
     protected function initialized()
     {
-        \Phpfox::get('breadcrumb')
+        _get('breadcrumb')
             ->clear()
             ->add([
                 'href'  => _url('admin.core.package'),
@@ -19,7 +19,7 @@ class AdminPackageController extends AdminController
 
     public function actionIndex()
     {
-        $packages = \Phpfox::with('core_package')
+        $packages = _with('core_package')
             ->select()
             ->order('is_required', -1)
             ->order('title', 1)

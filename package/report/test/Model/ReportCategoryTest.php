@@ -50,7 +50,7 @@ class ReportCategoryTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var ReportCategory $obj */
-        $obj = \Phpfox::with('report_category')
+        $obj = _with('report_category')
             ->select()
             ->where('category_id=?', 1)->first();
 
@@ -63,13 +63,13 @@ class ReportCategoryTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('report_category')
+        _with('report_category')
             ->delete()->where('category_id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('report_category')
+        _with('report_category')
             ->delete()->where('category_id=?', 1)->execute();
     }
 }

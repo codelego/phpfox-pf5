@@ -23,7 +23,7 @@ class AuthByRemote implements AuthInterface
         }
 
         /** @var AuthRemote $remote */
-        $remote = \Phpfox::with('auth_remote')
+        $remote = _with('auth_remote')
             ->select()
             ->where('remote_id=?', (string)$identity)
             ->where('remote_uid=?', (string)$credential)

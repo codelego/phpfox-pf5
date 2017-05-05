@@ -9,10 +9,10 @@ class MailTransportFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
     {
-        \Phpfox::get('db')
+        _get('db')
             ->delete(':mail_adapter')->execute();
 
-        \Phpfox::get('db')->insert(':mail_adapter', [
+        _get('db')->insert(':mail_adapter', [
             'adapter_id'   => 1,
             'adapter_name' => 'SMTP #1',
             'driver_id'    => 'smtp',

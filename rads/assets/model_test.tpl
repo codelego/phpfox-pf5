@@ -29,7 +29,7 @@ class {model_name}Test extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var {model_name} $obj */
-        $obj = \Phpfox::with('{model_id}')
+        $obj = _with('{model_id}')
             ->select(){where_condition}->first();
 
         {assert_same_method}
@@ -37,13 +37,13 @@ class {model_name}Test extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('{model_id}')
+        _with('{model_id}')
             ->delete(){where_condition}->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('{model_id}')
+        _with('{model_id}')
             ->delete(){where_condition}->execute();
     }
 }

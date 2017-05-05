@@ -259,7 +259,7 @@ class SqlSelect
 
     public function paging($page, $limit)
     {
-        return \Phpfox::get('paging')->factory($this)->paging($page, $limit);
+        return _get('paging')->factory($this)->paging($page, $limit);
     }
 
     /**

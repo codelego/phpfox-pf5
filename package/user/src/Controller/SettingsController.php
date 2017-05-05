@@ -20,10 +20,10 @@ class SettingsController extends ActionController
 
     public function actionLoginHistory()
     {
-        $userId = \Phpfox::get('auth')->getLoginId();
+        $userId = _get('auth')->getLoginId();
 
 
-        $items = \Phpfox::get('user.auth_history')
+        $items = _get('user.auth_history')
             ->getByUserId($userId);
 
         return new ViewModel([

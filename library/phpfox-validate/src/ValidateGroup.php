@@ -54,7 +54,7 @@ class ValidateGroup implements \ArrayAccess
      */
     public function add($keyValues)
     {
-        $validator = \Phpfox::get('validator');
+        $validator = _get('validator');
         foreach ($keyValues as $name => $params) {
             $this->rules[$name] = $validator->make($name, $params);
         }

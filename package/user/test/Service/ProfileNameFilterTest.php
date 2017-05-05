@@ -32,7 +32,7 @@ class ProfileNameFilterTest extends \PHPUnit_Framework_TestCase
     public function testGetValidName()
     {
         /** @var User $obj */
-        $obj = \Phpfox::with('user')
+        $obj = _with('user')
             ->select()
             ->where('username != ?', '')
             ->first();

@@ -9,7 +9,7 @@ class CategoryComponent extends Component
 {
     public function run()
     {
-        $items = \Phpfox::with('blog_category')
+        $items = _with('blog_category')
             ->select()
             ->all();
 

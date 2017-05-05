@@ -13,13 +13,13 @@ class ContactUs
      */
     public function findDepartmentById($id)
     {
-        return \Phpfox::with('contact_department')
+        return _with('contact_department')
             ->findById((int)$id);
     }
 
     public function getDefaultDepartmentId()
     {
-        $entry = \Phpfox::with('contact_department')
+        $entry = _with('contact_department')
             ->select()
             ->where('is_active=?', 1)
             ->order('is_default', -1)
@@ -39,7 +39,7 @@ class ContactUs
      */
     public function getActiveDepartmentOptions()
     {
-        return \Phpfox::get('cache.local')
+        return _get('cache.local')
             ->load('core.contact_us.active_departments', 0, function () {
                 return $this->_getActiveDepartmentOptions();
             });
@@ -52,7 +52,7 @@ class ContactUs
     {
         return array_map(function (Department $item) {
             return ['value' => $item->getId(), 'label' => $item->getTitle()];
-        }, \Phpfox::with('contact_department')
+        }, _with('contact_department')
             ->select()
             ->where('is_active=?', 1)
             ->execute()

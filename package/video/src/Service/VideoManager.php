@@ -15,7 +15,7 @@ class VideoManager
      */
     public function findVideoById($id)
     {
-        return \Phpfox::with('video')
+        return _with('video')
             ->findById((int)$id);
     }
 }

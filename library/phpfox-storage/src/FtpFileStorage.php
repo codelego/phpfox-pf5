@@ -377,7 +377,7 @@ class FtpFileStorage implements FileStorageInterface
         $return = @ftp_delete($this->ftpStream, $path);
 
         if (!$return) {
-            \Phpfox::get('dev.log')
+            _get('dev.log')
                 ->debug('Oops! {1} Unable to delete "{0}"', [$path, __CLASS__]);
         }
 

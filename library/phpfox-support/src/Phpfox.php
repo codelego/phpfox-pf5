@@ -54,9 +54,9 @@ namespace {
 
         public static function bootstrap()
         {
-            Phpfox::get('error.handler')->register();
+            _get('error.handler')->register();
 
-            Phpfox::get('mvc.events')->initialize();
+            _get('mvc.events')->initialize();
         }
 
         /**
@@ -82,43 +82,6 @@ namespace {
         public static function getParam($section, $item = null)
         {
             return self::$config->get($section, $item);
-        }
-
-        /**
-         * @see ServiceManager::build()
-         *
-         * @param string $id
-         *
-         * @return mixed
-         */
-        public static function build($id)
-        {
-            return self::$service->build($id);
-        }
-
-        /**
-         * @see ServiceManager::has()
-         *
-         * @param string $id
-         *
-         * @return bool
-         */
-        public static function has($id)
-        {
-            return self::$service->has($id);
-        }
-
-
-        /**
-         * @see GatewayManager::get()
-         *
-         * @param string $id
-         *
-         * @return \Phpfox\Model\GatewayInterface|\Phpfox\Db\DbTableGateway
-         */
-        public static function with($id)
-        {
-            return self::$service->get('models')->get($id);
         }
 
         /**

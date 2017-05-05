@@ -66,7 +66,7 @@ class NavDecorator implements DecoratorInterface
             $params = $item['params'];
             foreach ($params as $k => $v) {
                 if (substr($v, 0, 1) == '$') {
-                    $params[$k] = \Phpfox::get('request')
+                    $params[$k] = _get('request')
                         ->get(substr($v,
                             1));
                 }

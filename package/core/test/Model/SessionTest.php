@@ -55,7 +55,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var Session $obj */
-        $obj = \Phpfox::with('session')
+        $obj = _with('session')
             ->select()->where('id=?', 'n9s5248m9ak1asrjk2ccjkmbc0')->first();
 
         $this->assertSame('session', $obj->getModelId());
@@ -68,13 +68,13 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('session')
+        _with('session')
             ->delete()->where('id=?', 'n9s5248m9ak1asrjk2ccjkmbc0')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('session')
+        _with('session')
             ->delete()->where('id=?', 'n9s5248m9ak1asrjk2ccjkmbc0')->execute();
     }
 }

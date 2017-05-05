@@ -39,7 +39,7 @@ class FriendForwardTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var FriendForward $obj */
-        $obj = \Phpfox::with('friend_forward')
+        $obj = _with('friend_forward')
             ->select()
             ->where('user_id=?', 4)
             ->where('friend_id=?', 12)
@@ -53,7 +53,7 @@ class FriendForwardTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('friend_forward')
+        _with('friend_forward')
             ->delete()
             ->where('user_id=?', 4)
             ->where('friend_id=?', 12)
@@ -62,7 +62,7 @@ class FriendForwardTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('friend_forward')
+        _with('friend_forward')
             ->delete()
             ->where('user_id=?', 4)
             ->where('friend_id=?', 12)

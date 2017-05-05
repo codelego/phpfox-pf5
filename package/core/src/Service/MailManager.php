@@ -12,7 +12,7 @@ class MailManager
      */
     public function getDriverIdOptions()
     {
-        $select = \Phpfox::with('mail_driver')
+        $select = _with('mail_driver')
             ->select();
 
         return array_map(function (ModelInterface $v) {

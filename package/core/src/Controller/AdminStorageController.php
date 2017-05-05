@@ -8,7 +8,7 @@ class AdminStorageController extends AdminController
 {
     protected function initialized()
     {
-        \Phpfox::get('breadcrumb')
+        _get('breadcrumb')
             ->clear()
             ->add([
                 'href'  => _url('admin.core.storage'),
@@ -18,7 +18,7 @@ class AdminStorageController extends AdminController
                 'label' => _text('Add Storage'),
             ]);
 
-        \Phpfox::get('menu.admin.secondary')
+        _get('menu.admin.secondary')
             ->clear()
             ->add([
                 'label' => 'Add',
@@ -29,7 +29,7 @@ class AdminStorageController extends AdminController
     public function actionIndex()
     {
 
-        $items = $packages = \Phpfox::with('storage_adapter')
+        $items = $packages = _with('storage_adapter')
             ->select('*')
             ->all();
 

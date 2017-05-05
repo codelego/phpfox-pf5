@@ -11,6 +11,6 @@ register_shutdown_function(function () {
     }
 });
 
-Phpfox::get('session')->start();
+_get('session')->start();
 
-Phpfox::get('dispatcher')->run();
+_get('dispatcher')->run();

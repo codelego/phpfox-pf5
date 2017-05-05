@@ -10,7 +10,7 @@ class AdminI18nController extends AdminController
 {
     public function actionIndex()
     {
-        $items = \Phpfox::with('i18n_language')
+        $items = _with('i18n_language')
             ->select()
             ->execute()
             ->all();
@@ -39,10 +39,10 @@ class AdminI18nController extends AdminController
     {
         $form = new FilterI18nPhrase([]);
 
-        \Phpfox::get('require_js')
+        _get('require_js')
             ->deps('package/core/admin-i18n');
 
-        $items = \Phpfox::with('i18n_message')
+        $items = _with('i18n_message')
             ->select()
             ->limit(100, 0)
             ->execute()

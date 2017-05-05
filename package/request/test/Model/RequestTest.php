@@ -85,7 +85,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var Request $obj */
-        $obj = \Phpfox::with('request')
+        $obj = _with('request')
             ->select()->where('id=?', 1)->first();
 
         $this->assertSame('request', $obj->getModelId());
@@ -104,13 +104,13 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('request')
+        _with('request')
             ->delete()->where('id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('request')
+        _with('request')
             ->delete()->where('id=?', 1)->execute();
     }
 }

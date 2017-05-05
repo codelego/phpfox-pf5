@@ -68,7 +68,7 @@ class LayoutComponentTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var LayoutComponent $obj */
-        $obj = \Phpfox::with('layout_component')
+        $obj = _with('layout_component')
             ->select()->where('component_id=?', 'core.action_content')->first();
 
         $this->assertSame('layout_component', $obj->getModelId());
@@ -84,13 +84,13 @@ class LayoutComponentTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('layout_component')
+        _with('layout_component')
             ->delete()->where('component_id=?', 'core.action_content')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('layout_component')
+        _with('layout_component')
             ->delete()->where('component_id=?', 'core.action_content')->execute();
     }
 }

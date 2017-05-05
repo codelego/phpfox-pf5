@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <?= Phpfox::get('assets')->getStartHtml() ?>
+    <?= _get('assets')->getStartHtml() ?>
 </head>
 <body class="">
 <header>
 
-    <?php $login = Phpfox::get('auth')->getLogin(); ?>
+    <?php $login = _get('auth')->getLogin(); ?>
     <div class="navbar">
-        <?= \Phpfox::get('breadcrumb')->render() ?>
+        <?= _get('breadcrumb')->render() ?>
         <form role="search" class="navbar-form navbar-right global-search-holder"
               onsubmit="return false;">
             <input type="text" placeholder="<?= _text('Search ...') ?>"
@@ -20,18 +20,18 @@
 </div>
 <aside>
     <div class="top">PHPFOX</div>
-    <?= \Phpfox::get('menu.admin.primary')->render('aside', []) ?>
+    <?= _get('menu.admin.primary')->render('aside', []) ?>
     <ul>
         <li><a role="button">logged as <?= $login->getName() ?></a></li>
         <li><a href="<?= _url('logout') ?>"><?= _text('Logout') ?></a></li>
     </ul>
 </aside>
 <section class="main-wrapper">
-    <?= Phpfox::get('menu.admin.secondary')->render('toolbar', ['level0' => 'btn-group toolbar pull-right']); ?>
+    <?= _get('menu.admin.secondary')->render('toolbar', ['level0' => 'btn-group toolbar pull-right']); ?>
     <div class="container">
-        <?php if (Phpfox::get('registry')->has('search.filter')): ?>
+        <?php if (_get('registry')->has('search.filter')): ?>
             <div class="main-search-wrapper">
-                <?= Phpfox::get('form_render')->render(Phpfox::get('registry')
+                <?= _get('form_render')->render(_get('registry')
                     ->get('search.filter')) ?>
             </div>
         <?php endif; ?>
@@ -40,6 +40,6 @@
         <?php echo @$layout_content ?>
     </div>
 </section>
-<?= Phpfox::get('assets')->getShutdownHtml() ?>
+<?= _get('assets')->getShutdownHtml() ?>
 </body>
 </html>

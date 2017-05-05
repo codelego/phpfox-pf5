@@ -42,7 +42,7 @@ class MailFacades
         $message = Message::factory()->setSubject($subject)->setBody($html)
             ->setAltBody($text);
 
-        \Phpfox::get('main.log')->info(json_encode($message->toArray()));
+        _get('main.log')->info(json_encode($message->toArray()));
 
         return $message;
     }
@@ -75,15 +75,15 @@ class MailFacades
     {
         try {
 
-            \Phpfox::get('mailer.factory')->factory($id)->send($message);
+            _get('mailer.factory')->factory($id)->send($message);
 
         } catch (TransportException $exception) {
 
-            \Phpfox::get('main.log')
+            _get('main.log')
                 ->info('Oops! Could not send email use transport "{0}", retry to use configured fallback!',
                     [$id]);
 
-            \Phpfox::get('mailer.factory')->factory('fallback')->send($message);
+            _get('mailer.factory')->factory('fallback')->send($message);
         }
     }
 }

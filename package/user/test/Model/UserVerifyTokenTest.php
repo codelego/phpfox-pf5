@@ -55,7 +55,7 @@ class UserVerifyTokenTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var UserVerifyToken $obj */
-        $obj = \Phpfox::with('user_verify_token')
+        $obj = _with('user_verify_token')
             ->select()->where('token_id=?', 'dddd')->first();
 
         $this->assertSame('user_verify_token', $obj->getModelId());
@@ -68,13 +68,13 @@ class UserVerifyTokenTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('user_verify_token')
+        _with('user_verify_token')
             ->delete()->where('token_id=?', 'dddd')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('user_verify_token')
+        _with('user_verify_token')
             ->delete()->where('token_id=?', 'dddd')->execute();
     }
 }

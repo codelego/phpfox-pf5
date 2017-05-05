@@ -76,7 +76,7 @@ class CommentTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var Comment $obj */
-        $obj = \Phpfox::with('comment')
+        $obj = _with('comment')
             ->select()
             ->where('poster_id=?', 33)
             ->where('about_id=?', 2)
@@ -100,7 +100,7 @@ class CommentTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('comment')
+        _with('comment')
             ->delete()
             ->where('poster_id=?', 33)
             ->where('about_id=?', 2)
@@ -111,7 +111,7 @@ class CommentTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('comment')
+        _with('comment')
             ->delete()
             ->where('poster_id=?', 33)
             ->where('about_id=?', 2)

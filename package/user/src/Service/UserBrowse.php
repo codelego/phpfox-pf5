@@ -13,7 +13,7 @@ class UserBrowse
      */
     public function findUserById($userId)
     {
-        return \Phpfox::with('user')
+        return _with('user')
             ->findById($userId);
     }
 
@@ -24,7 +24,7 @@ class UserBrowse
      */
     public function findByProfileName($name)
     {
-        return \Phpfox::with('user')
+        return _with('user')
             ->select()
             ->where('username=?', (string)$name)
             ->execute()

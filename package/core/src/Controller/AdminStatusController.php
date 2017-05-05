@@ -9,7 +9,7 @@ class AdminStatusController extends AdminController
 {
     protected function initialized()
     {
-        \Phpfox::get('breadcrumb')
+        _get('breadcrumb')
             ->clear()
             ->add(['label' => 'System Status']);
     }

@@ -50,7 +50,7 @@ class BlogCategoryTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var BlogCategory $obj */
-        $obj = \Phpfox::with('blog_category')
+        $obj = _with('blog_category')
             ->select()->where('category_id=?', 12)->first();
 
         $this->assertSame('blog_category', $obj->getModelId());
@@ -62,13 +62,13 @@ class BlogCategoryTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('blog_category')
+        _with('blog_category')
             ->delete()->where('category_id=?', 12)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('blog_category')
+        _with('blog_category')
             ->delete()->where('category_id=?', 12)->execute();
     }
 }

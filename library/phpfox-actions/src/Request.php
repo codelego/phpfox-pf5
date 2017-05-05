@@ -191,7 +191,7 @@ class Request
      */
     public function singleton()
     {
-        \Phpfox::get('manager')->set('request', $this);
+        _get('manager')->set('request', $this);
     }
 
     public function isAjax()

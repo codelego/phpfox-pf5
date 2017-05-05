@@ -52,7 +52,7 @@ class AddAbuseReport extends Form
                 'required' => true,
                 'factory'  => 'choice',
                 'render'   => 'radio',
-                'options'  => \Phpfox::get('reports')
+                'options'  => _get('reports')
                     ->getActiveCategoryOptions(),
             ],
             [

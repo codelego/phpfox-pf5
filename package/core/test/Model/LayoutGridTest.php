@@ -56,7 +56,7 @@ class LayoutGridTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var LayoutGrid $obj */
-        $obj = \Phpfox::with('layout_grid')
+        $obj = _with('layout_grid')
             ->select()->where('grid_id=?', 'simple')->first();
 
         $this->assertSame('layout_grid', $obj->getModelId());
@@ -70,13 +70,13 @@ class LayoutGridTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('layout_grid')
+        _with('layout_grid')
             ->delete()->where('grid_id=?', 'simple')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('layout_grid')
+        _with('layout_grid')
             ->delete()->where('grid_id=?', 'simple')->execute();
     }
 }

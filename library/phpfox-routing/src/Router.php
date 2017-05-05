@@ -29,7 +29,7 @@ class Router
      */
     protected function initialize()
     {
-        $configs = \Phpfox::get('router.provider')->loadConfigs();
+        $configs = _get('router.provider')->loadConfigs();
 
         $this->phrases = $configs['phrases'];
 

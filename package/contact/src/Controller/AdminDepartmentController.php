@@ -13,14 +13,14 @@ class AdminDepartmentController extends AdminController
 
     protected function initialized()
     {
-        \Phpfox::get('breadcrumb')
+        _get('breadcrumb')
             ->clear()
             ->add(['label' => 'Contact Us']);
     }
 
     public function actionDepartments()
     {
-        $items = \Phpfox::with('contact_department')
+        $items = _with('contact_department')
             ->select()
             ->execute()
             ->all();
@@ -33,10 +33,10 @@ class AdminDepartmentController extends AdminController
 
     public function actionEdit()
     {
-        $request = \Phpfox::get('request');
+        $request = _get('request');
         $id = $request->get('id');
 
-        $item = \Phpfox::get('contact_us')
+        $item = _get('contact_us')
             ->findDepartmentById($id);
 
         $form = new EditContactDepartment();
@@ -52,7 +52,7 @@ class AdminDepartmentController extends AdminController
             $item->fromArray($_POST);
             $item->save();
 
-            \Phpfox::get('response')->redirect(_url('admin.contact'));
+            _get('response')->redirect(_url('admin.contact'));
         }
 
         return new ViewModel([
@@ -64,7 +64,7 @@ class AdminDepartmentController extends AdminController
 
     public function actionAdd()
     {
-        $request = \Phpfox::get('request');
+        $request = _get('request');
 
         $form = new EditContactDepartment();
 
@@ -75,7 +75,7 @@ class AdminDepartmentController extends AdminController
             $item->fromArray($_POST);
             $item->save();
 
-            \Phpfox::get('response')->redirect(_url('admin.contact'));
+            _get('response')->redirect(_url('admin.contact'));
         }
 
         return new ViewModel([

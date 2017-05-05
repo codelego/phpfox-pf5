@@ -4,7 +4,7 @@ include 'init.php';
 
 $packages = array_map(function ($item) {
     return str_replace('package/', '', $item['path']);
-}, Phpfox::get('db')
+}, _get('db')
     ->select('*')
     ->from(':core_package')
     ->order('name', 1)
@@ -12,7 +12,7 @@ $packages = array_map(function ($item) {
 
 $tables = array_map(function ($item) {
     return str_replace(PHPFOX_TABLE_PREFIX, '', $item);
-}, Phpfox::get('db')->tables());
+}, _get('db')->tables());
 
 
 $table_name = isset($_REQUEST['table_name']) ? $_REQUEST['table_name'] : null;

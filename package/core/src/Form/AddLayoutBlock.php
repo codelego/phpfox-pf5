@@ -15,7 +15,7 @@ class AddLayoutBlock extends Form
             'attributes' => ['class' => 'form-control',],
             'label'      => _text('Component'),
             'required'   => true,
-            'options'    => \Phpfox::get('layout_loader')->getComponentIdOptions(),
+            'options'    => _get('layout_loader')->getComponentIdOptions(),
         ]);
     }
 

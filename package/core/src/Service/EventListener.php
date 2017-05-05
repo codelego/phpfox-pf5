@@ -8,8 +8,8 @@ class EventListener implements EventListenerInterface
 {
     public function onBootstrap()
     {
-        \Phpfox::get('template')
-            ->preferThemes(\Phpfox::get('core.themes')->preferThemes());
+        _get('template')
+            ->preferThemes(_get('core.themes')->preferThemes());
 
         return [];
     }

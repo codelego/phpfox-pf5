@@ -41,7 +41,7 @@ class AdminRadController extends AdminController
             'model'        => 'generateModel',
             'model_config' => 'geneateModelConfig',
         ];
-        $req = \Phpfox::get('request');
+        $req = _get('request');
 
         $form = new AdminRadSetting([]);
 
@@ -120,7 +120,7 @@ class AdminRadController extends AdminController
         $whereArrays = [];
         $id_value = '0';
 
-        $savedData = \Phpfox::get('db')
+        $savedData = _get('db')
             ->select('*')
             ->from(':' . $table_name)
             ->first();
@@ -298,7 +298,7 @@ class AdminRadController extends AdminController
         $test_path = $module_path . '/test/Form/' . $form_name . 'Test.php';
 
 
-        $rows = \Phpfox::get('db')
+        $rows = _get('db')
             ->execute('describe ' . PHPFOX_TABLE_PREFIX . $table_name)
             ->all();
 
@@ -342,7 +342,7 @@ class AdminRadController extends AdminController
 
             if ($name == 'package_id') {
                 $factory = 'select';
-                $info['options'] = '$$$\Phpfox::get($$'.'core.packages'.'$$)->getPackageIdOptions()$$$';
+                $info['options'] = '$$$_get($$'.'core.packages'.'$$)->getPackageIdOptions()$$$';
             }
 
 
@@ -483,7 +483,7 @@ class AdminRadController extends AdminController
      */
     protected function _getPackageInfo($packageId)
     {
-        return \Phpfox::get('db')
+        return _get('db')
             ->select('*')
             ->from(':core_package')
             ->where('name=?', $packageId)

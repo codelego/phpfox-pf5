@@ -65,7 +65,7 @@ class ReportTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var Report $obj */
-        $obj = \Phpfox::with('report')
+        $obj = _with('report')
             ->select()->where('report_id=?', 85)->first();
 
         $this->assertSame('report', $obj->getModelId());
@@ -80,13 +80,13 @@ class ReportTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('report')
+        _with('report')
             ->delete()->where('report_id=?', 85)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('report')
+        _with('report')
             ->delete()->where('report_id=?', 85)->execute();
     }
 }

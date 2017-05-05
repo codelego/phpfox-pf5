@@ -70,7 +70,7 @@ class StorageAdapterTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var StorageAdapter $obj */
-        $obj = \Phpfox::with('storage_adapter')
+        $obj = _with('storage_adapter')
             ->select()->where('adapter_id=?', 1)->first();
 
         $this->assertSame('storage_adapter', $obj->getModelId());
@@ -86,13 +86,13 @@ class StorageAdapterTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('storage_adapter')
+        _with('storage_adapter')
             ->delete()->where('adapter_id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('storage_adapter')
+        _with('storage_adapter')
             ->delete()->where('adapter_id=?', 1)->execute();
     }
 }

@@ -59,7 +59,7 @@ class ReportManagerTest extends \PHPUnit_Framework_TestCase
     {
         $mn = new ReportManager();
 
-        \Phpfox::get('cache.local')
+        _get('cache.local')
             ->deleteItem('AbuseReport.getActiveCategoryOptions');
 
         $data = $mn->_getActiveCategoryOptions();

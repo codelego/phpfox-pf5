@@ -55,7 +55,7 @@ class FileStorageFactory implements FileStorageFactoryInterface
     {
         $this->initialized = true;
 
-        $rows = \Phpfox::get('db')
+        $rows = _get('db')
             ->select('*')
             ->from(':storage_adapter')
             ->where('is_active=1')

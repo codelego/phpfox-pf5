@@ -15,7 +15,7 @@ class BlogCategoryManager
     public function findIdByName($name)
     {
         /** @var BlogCategory $entry */
-        $entry = \Phpfox::with('blog_category')
+        $entry = _with('blog_category')
             ->select()
             ->where('name=?', (string)$name)
             ->first();
@@ -29,7 +29,7 @@ class BlogCategoryManager
 
     public function hasName($name)
     {
-        return \Phpfox::with('blog_category')
+        return _with('blog_category')
                 ->select()
                 ->where('name=?', (string)$name)
                 ->first() != null;

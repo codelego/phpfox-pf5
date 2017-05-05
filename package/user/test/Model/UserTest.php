@@ -6,7 +6,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
-        \Phpfox::get('db')->delete(':user')->where('email=?', 'vanlk@younetco.com')
+        _get('db')->delete(':user')->where('email=?', 'vanlk@younetco.com')
             ->execute();
     }
 
@@ -96,7 +96,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var User $obj */
-        $obj = \Phpfox::with('user')
+        $obj = _with('user')
             ->select()
             ->where('user_id=?', 1)
             ->first();
@@ -118,7 +118,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('user')
+        _with('user')
             ->delete()
             ->where('user_id=?', 1)
             ->execute();
@@ -126,7 +126,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('user')
+        _with('user')
             ->delete()
             ->where('user_id=?', 1)
             ->execute();

@@ -9,37 +9,37 @@ class AdminAuthController extends ActionController
 
     public function actionLogin()
     {
-        \Phpfox::get('auth');
+        _get('auth');
 
-        \Phpfox::get('layouts')->setThemeId('admin');
+        _get('layouts')->setThemeId('admin');
 
-        \Phpfox::get('require_js')
+        _get('require_js')
             ->deps('package/core/admin');
 
-        \Phpfox::get('template')
+        _get('template')
             ->preferThemes(['admin']);
 
-        \Phpfox::get('assets')
+        _get('assets')
             ->addStyle('admin.login', null);
 
-        $layout = \Phpfox::get('layouts');
+        $layout = _get('layouts');
 
         $layout->setTemplate('layout/login');
 
-        $request = \Phpfox::get('request');
+        $request = _get('request');
 
         if ($request->isPost()) {
             $email = $request->get('email');
             $password = $request->get('password');
 
-            $result = \Phpfox::get('auth')
+            $result = _get('auth')
                 ->authenticate(null, $email, $password, []);
 
             if ($result->isValid()) {
                 $user = \Phpfox::findById('user', $result->getIdentity());
-                \Phpfox::get('auth')->login($user, true);
+                _get('auth')->login($user, true);
 
-                \Phpfox::get('response')->redirect(_url('admin'));
+                _get('response')->redirect(_url('admin'));
 
             } else {
                 $layout->assign([

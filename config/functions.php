@@ -140,7 +140,7 @@ namespace {
      */
     function _emit($name, $target = null, $argv = [])
     {
-        return Phpfox::get('mvc.events')
+        return _get('mvc.events')
             ->emit($name, $target, $argv);
     }
 
@@ -153,13 +153,13 @@ namespace {
      */
     function _callback($name, $target = null, $argv = [])
     {
-        return \Phpfox::get('mvc.event')
+        return _get('mvc.event')
             ->callback($name, $target, $argv);
     }
 
     function _pass($action, $roleId = null)
     {
-        return \Phpfox::get('authorization')
+        return _get('authorization')
             ->pass($roleId, $action);
     }
 
@@ -168,7 +168,7 @@ namespace {
         if (substr($table, 0, 1) == ':') {
             $table = PHPFOX_TABLE_PREFIX . substr($table, 1);
         }
-        $rows = \Phpfox::get('db')
+        $rows = _get('db')
             ->execute('describe ' . $table)
             ->all();
 
@@ -561,7 +561,7 @@ namespace {
      */
     function _url($key, $params = [])
     {
-        return \Phpfox::get('router')->getUrl($key, $params);
+        return _get('router')->getUrl($key, $params);
     }
 
     /**
@@ -574,7 +574,7 @@ namespace {
      */
     function _text($id, $domain = null, $locale = null, $context = null)
     {
-        return \Phpfox::get('translator')
+        return _get('translator')
             ->trans($id, $domain, $locale, $context);
     }
 

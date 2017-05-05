@@ -65,7 +65,7 @@ class StorageFileTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var StorageFile $obj */
-        $obj = \Phpfox::with('storage_file')
+        $obj = _with('storage_file')
             ->select()->where('file_id=?', 11)->first();
 
         $this->assertSame('storage_file', $obj->getModelId());
@@ -80,13 +80,13 @@ class StorageFileTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('storage_file')
+        _with('storage_file')
             ->delete()->where('file_id=?', 11)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('storage_file')
+        _with('storage_file')
             ->delete()->where('file_id=?', 11)->execute();
     }
 }

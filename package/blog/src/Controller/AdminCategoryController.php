@@ -12,7 +12,7 @@ class AdminCategoryController extends AdminController
 {
     public function actionAdd()
     {
-        $request = \Phpfox::get('request');
+        $request = _get('request');
 
         $form = new AddBlogCategory();
 
@@ -34,11 +34,11 @@ class AdminCategoryController extends AdminController
 
     public function actionEdit()
     {
-        $request = \Phpfox::get('request');
+        $request = _get('request');
         $id = $request->get('id');
 
         /** @var BlogCategory $obj */
-        $obj = \Phpfox::with('blog_category')->findById($id);
+        $obj = _with('blog_category')->findById($id);
 
         $form = new AddBlogCategory();
 
@@ -63,7 +63,7 @@ class AdminCategoryController extends AdminController
 
     public function actionIndex()
     {
-        $items = \Phpfox::with('blog_category')
+        $items = _with('blog_category')
             ->select()
             ->all();
 

@@ -52,7 +52,7 @@ class CoreRole extends DbModel
      */
     public function getUserCount()
     {
-        return \Phpfox::with('user')
+        return _with('user')
             ->select()
             ->where('role_id=?', $this->getId())
             ->count();

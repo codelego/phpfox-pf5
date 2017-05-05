@@ -29,7 +29,7 @@ class YoutubeProvider implements ProviderInterface
         ], $context);
 
 
-        return \Phpfox::get('template')
+        return _get('template')
             ->render('video/partial/embed', [
                 'iframe' => '<iframe ' . _attrize($props) . '></iframe>',
                 'id'     => $id,
@@ -56,7 +56,7 @@ class YoutubeProvider implements ProviderInterface
                 'part' => 'snippet,contentDetails',
             ]);
 
-        $info = \Phpfox::get('curl')->factory($url, 30)->getJSON();
+        $info = _get('curl')->factory($url, 30)->getJSON();
 
         // validate result
         if (empty($info)) {

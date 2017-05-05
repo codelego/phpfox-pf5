@@ -11,7 +11,7 @@ class AdminAuthorizationController extends AdminController
 {
     protected function initialized()
     {
-        \Phpfox::get('menu.admin.secondary')
+        _get('menu.admin.secondary')
             ->add([
                 'name'  => 'add_role',
                 'label' => _text('Add Role'),
@@ -22,12 +22,12 @@ class AdminAuthorizationController extends AdminController
     public function actionIndex()
     {
 
-        $items = \Phpfox::with('core_role')
+        $items = _with('core_role')
             ->select()
             ->execute()
             ->all();
 
-        $temp = \Phpfox::with('user')
+        $temp = _with('user')
             ->select('role_id, count(*) as user_count')
             ->group('role_id')
             ->execute()
@@ -77,10 +77,10 @@ class AdminAuthorizationController extends AdminController
 
     public function actionSettings()
     {
-        $request = \Phpfox::get('request');
+        $request = _get('request');
 
         $id = $request->get('id', 1);
-        $role = \Phpfox::get('core.roles')->findById($id);
+        $role = _get('core.roles')->findById($id);
 
         $form = new AuthorizationSettings();
 

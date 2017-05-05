@@ -12,7 +12,7 @@ class StorageManager
      */
     public function getStorageAdapters()
     {
-        return \Phpfox::with('storage_adapter')
+        return _with('storage_adapter')
             ->select()
             ->all();
     }

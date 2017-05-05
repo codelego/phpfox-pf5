@@ -65,7 +65,7 @@ class Response
     public function terminate()
     {
         /** @var ResponsePrototypeInterface $obj */
-        $obj = \Phpfox::get($this->prototype);
+        $obj = _get($this->prototype);
         echo $obj->run($this);
     }
 

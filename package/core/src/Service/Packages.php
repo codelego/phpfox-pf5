@@ -15,13 +15,13 @@ class Packages
      */
     public function findById($id)
     {
-        return \Phpfox::with('core_package')
+        return _with('core_package')
             ->findById((int)$id);
     }
 
     public function getPackageIdOptions()
     {
-        $select = \Phpfox::with('core_package')->select();
+        $select = _with('core_package')->select();
 
         return array_map(function (CorePackage $v) {
             return [

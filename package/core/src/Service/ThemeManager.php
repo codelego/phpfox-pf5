@@ -27,13 +27,13 @@ class ThemeManager
      */
     public function findById($id)
     {
-        return \Phpfox::with('layout_theme')
+        return _with('layout_theme')
             ->findById((string)$id);
     }
 
     public function getThemeIdOptions()
     {
-        $select = \Phpfox::with('layout_theme')
+        $select = _with('layout_theme')
             ->select();
 
         return array_map(function (ModelInterface $v) {
@@ -51,7 +51,7 @@ class ThemeManager
      */
     public function findSettingById($id)
     {
-        return \Phpfox::with('layout_theme_params')
+        return _with('layout_theme_params')
             ->findById((int)$id);
     }
 
@@ -62,7 +62,7 @@ class ThemeManager
      */
     public function findSettingByThemeId($id)
     {
-        return \Phpfox::with('layout_theme_params')
+        return _with('layout_theme_params')
             ->select()
             ->where('theme_id=?', (string)$id)
             ->first();
@@ -83,12 +83,12 @@ class ThemeManager
                 [$id]));
         }
 
-        \Phpfox::get('db')
+        _get('db')
             ->update(':layout_theme')
             ->values(['is_editing' => 0])
             ->execute();
 
-        \Phpfox::get('db')
+        _get('db')
             ->update(':layout_theme')
             ->values([
                 'is_editing' => 1,
@@ -114,12 +114,12 @@ class ThemeManager
                 [$id]));
         }
 
-        \Phpfox::get('db')
+        _get('db')
             ->update(':layout_theme')
             ->values(['is_default' => 0])
             ->execute();
 
-        \Phpfox::get('db')
+        _get('db')
             ->update(':layout_theme')
             ->values([
                 'is_default' => 1,
@@ -145,7 +145,7 @@ class ThemeManager
                 [$id]));
         }
 
-        \Phpfox::get('db')
+        _get('db')
             ->update(':layout_theme')
             ->values([
                 'is_active' => 1,
@@ -168,7 +168,7 @@ class ThemeManager
                 [$id]));
         }
 
-        \Phpfox::get('db')
+        _get('db')
             ->update(':layout_theme', ['is_active' => 0,])
             ->where('theme_id=?', $id)
             ->where('is_default=?', 0)
@@ -182,13 +182,13 @@ class ThemeManager
      */
     public function getDefault()
     {
-        $item = \Phpfox::with('layout_theme')
+        $item = _with('layout_theme')
             ->select()
             ->where('is_default=?', 1)
             ->first();
 
         if (!$item) {
-            $item = \Phpfox::with('layout_theme')
+            $item = _with('layout_theme')
                 ->select()
                 ->where('is_active=?', 1)
                 ->first();
@@ -232,7 +232,7 @@ class ThemeManager
      */
     public function preferThemes()
     {
-        return \Phpfox::get('cache.local')
+        return _get('cache.local')
             ->load(self::PREFER_THEME_CACHE, 0, function () {
                 return $this->_preferThemes();
             });
@@ -243,7 +243,7 @@ class ThemeManager
      */
     private function updateCache()
     {
-        \Phpfox::get('cache.local')
+        _get('cache.local')
             ->deleteItems([
                 self::PREFER_THEME_CACHE,
                 self::PREFER_THEME_URL_CACHE,
@@ -357,7 +357,7 @@ class ThemeManager
      */
     public function getCssBaseUrl()
     {
-        return \Phpfox::get('cache.local')
+        return _get('cache.local')
             ->load(self::PREFER_THEME_URL_CACHE, 0, function () {
                 $theme = $this->getDefault();
                 return '/pf5/static/' . 'themes/' . $theme->getId() . '/css';
@@ -428,7 +428,7 @@ class ThemeManager
     {
 
         $variables = [];
-        $item = \Phpfox::get('db')
+        $item = _get('db')
             ->select('*')
             ->from(':layout_theme_params')
             ->where('theme_id=?', (string)$id)

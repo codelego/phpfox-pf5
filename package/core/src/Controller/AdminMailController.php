@@ -12,14 +12,14 @@ class AdminMailController extends AdminController
 {
     protected function initialized()
     {
-        \Phpfox::get('breadcrumb')
+        _get('breadcrumb')
             ->clear()
             ->add([
                 'href'  => _url('admin.core.mail'),
                 'label' => 'Manage Adapters',
             ]);
 
-        \Phpfox::get('menu.admin.secondary')
+        _get('menu.admin.secondary')
             ->clear()
             ->add([
                 'href'  => _url('admin.core.mail'),
@@ -41,7 +41,7 @@ class AdminMailController extends AdminController
 
     public function actionIndex()
     {
-        $items = \Phpfox::with('mail_adapter')
+        $items = _with('mail_adapter')
             ->select()
             ->all();
 
@@ -52,7 +52,7 @@ class AdminMailController extends AdminController
 
     public function actionTransports()
     {
-        $items = \Phpfox::with('mail_adapter')
+        $items = _with('mail_adapter')
             ->select()
             ->execute()
             ->all();
@@ -64,7 +64,7 @@ class AdminMailController extends AdminController
 
     public function actionAddAdapter()
     {
-        $request = \Phpfox::get('request');
+        $request = _get('request');
         $driverId = $request->get('driver_id');
 
         if (!$driverId) {
@@ -75,7 +75,7 @@ class AdminMailController extends AdminController
         }
 
         /** @var MailDriver $driver */
-        $driver = \Phpfox::with('mail_driver')->findById($driverId);
+        $driver = _with('mail_driver')->findById($driverId);
 
         $formSettings = $driver->getFormName();
 
@@ -90,14 +90,14 @@ class AdminMailController extends AdminController
 
     public function actionEditAdapter()
     {
-        $request = \Phpfox::get('request');
+        $request = _get('request');
         $id = $request->get('id');
 
         /** @var MailAdapter $item */
-        $item = \Phpfox::with('mail_adapter')->findById($id);
+        $item = _with('mail_adapter')->findById($id);
 
         /** @var MailDriver $driver */
-        $driver = \Phpfox::with('mail_driver')->findById($item->getDriverId());
+        $driver = _with('mail_driver')->findById($item->getDriverId());
 
         $formSettings = $driver->getFormName();
 

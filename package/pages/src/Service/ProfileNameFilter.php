@@ -16,7 +16,7 @@ class ProfileNameFilter
 
 
         // is digit
-        $item = \Phpfox::get('pages.browse')->findById($id);
+        $item = _get('pages.browse')->findById($id);
 
         if (!$item) {
             return false;

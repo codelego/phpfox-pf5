@@ -81,7 +81,7 @@ class AuthHistoryManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetUser()
     {
-        $user = \Phpfox::with('user')->select()->first();
+        $user = _with('user')->select()->first();
 
         $this->assertTrue($user instanceof User);
 

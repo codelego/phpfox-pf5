@@ -30,7 +30,7 @@ class MessageDomain
         $this->locale = $locale;
         $this->domain = $domain;
 
-        $this->messages = \Phpfox::get('i18n.loader')
+        $this->messages = _get('i18n.loader')
             ->load($this->locale, $domain);
     }
 

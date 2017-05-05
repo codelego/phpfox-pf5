@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and !empty($_REQUEST['overwrite'])) {
     $whereArrays = [];
     $id_value = '0';
 
-    $savedData = Phpfox::get('db')
+    $savedData = _get('db')
         ->select('*')
         ->from(':' . $table_name)
         ->first();

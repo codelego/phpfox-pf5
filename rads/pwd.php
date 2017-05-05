@@ -5,14 +5,14 @@ include 'init.php';
 $email = 'Casey02@Spencer.com';
 
 /** @var \Neutron\User\Model\User $user */
-$user = Phpfox::with('user')
+$user = _with('user')
     ->select()
     ->where('email=?', (string)$email)
     ->first();
 
 $userId = $user->getId();
 
-Phpfox::with('auth_password')
+_with('auth_password')
     ->delete()
     ->where('user_id=?', $userId)
     ->execute();

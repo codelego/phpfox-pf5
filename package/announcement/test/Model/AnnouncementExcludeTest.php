@@ -50,7 +50,7 @@ class AnnouncementExcludeTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var AnnouncementExclude $obj */
-        $obj = \Phpfox::with('announcement_exclude')
+        $obj = _with('announcement_exclude')
             ->select()->where('exclude_id=?', 1)->first();
 
         $this->assertSame('announcement_exclude', $obj->getModelId());
@@ -62,13 +62,13 @@ class AnnouncementExcludeTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('announcement_exclude')
+        _with('announcement_exclude')
             ->delete()->where('exclude_id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('announcement_exclude')
+        _with('announcement_exclude')
             ->delete()->where('exclude_id=?', 1)->execute();
     }
 }

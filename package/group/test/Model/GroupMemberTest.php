@@ -50,7 +50,7 @@ class GroupMemberTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var GroupMember $obj */
-        $obj = \Phpfox::with('group_member')
+        $obj = _with('group_member')
             ->select()->where('parent_id=?', 13)->where('user_id=?', 44)
             ->where('type_id=?', 2)->where('is_active=?', 1)->first();
 
@@ -63,14 +63,14 @@ class GroupMemberTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('group_member')
+        _with('group_member')
             ->delete()->where('parent_id=?', 13)->where('user_id=?', 44)
             ->where('type_id=?', 2)->where('is_active=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('group_member')
+        _with('group_member')
             ->delete()->where('parent_id=?', 13)->where('user_id=?', 44)
             ->where('type_id=?', 2)->where('is_active=?', 1)->execute();
     }

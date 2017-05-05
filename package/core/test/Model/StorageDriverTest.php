@@ -60,7 +60,7 @@ class StorageDriverTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var StorageDriver $obj */
-        $obj = \Phpfox::with('storage_driver')
+        $obj = _with('storage_driver')
             ->select()->where('driver_id=?', '[local]')->first();
 
         $this->assertSame('storage_driver', $obj->getModelId());
@@ -74,13 +74,13 @@ class StorageDriverTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('storage_driver')
+        _with('storage_driver')
             ->delete()->where('driver_id=?', '[local]')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('storage_driver')
+        _with('storage_driver')
             ->delete()->where('driver_id=?', '[local]')->execute();
     }
 }

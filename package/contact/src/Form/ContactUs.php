@@ -8,7 +8,7 @@ class ContactUs extends Form
 {
     protected function initialize()
     {
-        $contactService = \Phpfox::get('contact_us');
+        $contactService = _get('contact_us');
         $this->addElements([
             [
                 'name'     => 'department_id',

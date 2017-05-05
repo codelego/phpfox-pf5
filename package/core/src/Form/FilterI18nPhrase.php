@@ -38,7 +38,7 @@ class FilterI18nPhrase extends Form
                 'attributes' => [
                     'class' => 'form-control',
                 ],
-                'options'    => \Phpfox::get('core.i18n_language')
+                'options'    => _get('core.i18n_language')
                     ->getActiveOptions(),
             ],
             [

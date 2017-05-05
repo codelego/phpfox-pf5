@@ -11,23 +11,23 @@ class AdminManageController extends AdminController
 {
     protected function initialized()
     {
-        \Phpfox::get('breadcrumb')
+        _get('breadcrumb')
             ->clear()
             ->add(['href' => _url('admin.user'), 'label' => 'Members',]);
     }
 
     public function actionIndex()
     {
-        $request = \Phpfox::get('request');
+        $request = _get('request');
 
         $filter = new AdminFilterUser();
 
-        \Phpfox::get('registry')->set('search.filter', $filter);
+        _get('registry')->set('search.filter', $filter);
 
         if ($request->isGet()) {
             $filter->populate($request->all());
         }
-        $items = \Phpfox::with('user')
+        $items = _with('user')
             ->select()
             ->limit(10)
             ->all();

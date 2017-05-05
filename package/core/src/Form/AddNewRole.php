@@ -11,7 +11,7 @@ class AddNewRole extends Form
 {
     protected function initialize()
     {
-        $roles = \Phpfox::with('core_role')
+        $roles = _with('core_role')
             ->select()
             ->where('inherit_id=?', 0)
             ->execute()

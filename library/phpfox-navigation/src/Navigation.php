@@ -48,7 +48,7 @@ class Navigation
         $this->parentId = null;
 
         if ($this->menu) {
-            $this->data = \Phpfox::get('navigation.loader')->load($menu);
+            $this->data = _get('navigation.loader')->load($menu);
         }
     }
 

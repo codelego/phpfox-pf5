@@ -50,7 +50,7 @@ class EventMemberRequestTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var EventMemberRequest $obj */
-        $obj = \Phpfox::with('event_member_request')
+        $obj = _with('event_member_request')
             ->select()->where('parent_id=?', 1)->where('user_id=?', 3)
             ->where('status_id=?', 4)
             ->where('created_at=?', '2012-10-10 09:09:09')->first();
@@ -64,7 +64,7 @@ class EventMemberRequestTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('event_member_request')
+        _with('event_member_request')
             ->delete()->where('parent_id=?', 1)->where('user_id=?', 3)
             ->where('status_id=?', 4)
             ->where('created_at=?', '2012-10-10 09:09:09')->execute();
@@ -72,7 +72,7 @@ class EventMemberRequestTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('event_member_request')
+        _with('event_member_request')
             ->delete()->where('parent_id=?', 1)->where('user_id=?', 3)
             ->where('status_id=?', 4)
             ->where('created_at=?', '2012-10-10 09:09:09')->execute();

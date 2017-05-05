@@ -92,8 +92,10 @@ abstract class DbModel implements ModelInterface
     public function delete()
     {
         $this->beforeDelete();
-        \Phpfox::with($this->getModelId())
+
+        _with($this->getModelId())
             ->deleteBy($this);
+
         $this->afterDelete();
     }
 
@@ -114,7 +116,7 @@ abstract class DbModel implements ModelInterface
             return false;
         }
 
-        $gateway = \Phpfox::with($this->getModelId());
+        $gateway = _with($this->getModelId());
 
         if ($this->_saved) {
             $this->beforeUpdate();

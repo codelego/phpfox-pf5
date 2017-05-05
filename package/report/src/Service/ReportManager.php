@@ -15,7 +15,7 @@ class ReportManager
      */
     public function findReportById($id)
     {
-        return \Phpfox::with('report')
+        return _with('report')
             ->findById(intval($id));
     }
 
@@ -26,7 +26,7 @@ class ReportManager
      */
     public function findCategoryById($id)
     {
-        return \Phpfox::with('report_category')
+        return _with('report_category')
             ->findById((int)$id);
     }
 
@@ -37,7 +37,7 @@ class ReportManager
      */
     public function addReport($data)
     {
-        $item = \Phpfox::with('report')
+        $item = _with('report')
             ->create($data);
 
         $item->save();
@@ -52,7 +52,7 @@ class ReportManager
      */
     public function deleteReport($reportId)
     {
-        $result = \Phpfox::with('report')
+        $result = _with('report')
             ->deleteById(intval($reportId));
 
         return $result->isValid();
@@ -63,7 +63,7 @@ class ReportManager
      */
     public function getActiveCategoryOptions()
     {
-        return \Phpfox::get('cache.local')
+        return _get('cache.local')
             ->load('AbuseReport.getActiveCategoryOptions', 0, function () {
                 return $this->_getActiveCategoryOptions();
             });
@@ -73,7 +73,7 @@ class ReportManager
     {
         return array_map(function (ReportCategory $item) {
             return ['label' => $item->getName(), 'value' => $item->getId()];
-        }, \Phpfox::with('report_category')->select()
+        }, _with('report_category')->select()
             ->where('is_active=1')->execute()->all());
     }
 }

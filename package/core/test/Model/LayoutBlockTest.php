@@ -68,7 +68,7 @@ class LayoutBlockTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var LayoutBlock $obj */
-        $obj = \Phpfox::with('layout_block')
+        $obj = _with('layout_block')
             ->select()->where('block_id=?', 1)->first();
 
         $this->assertSame('layout_block', $obj->getModelId());
@@ -84,13 +84,13 @@ class LayoutBlockTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('layout_block')
+        _with('layout_block')
             ->delete()->where('block_id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('layout_block')
+        _with('layout_block')
             ->delete()->where('block_id=?', 1)->execute();
     }
 }

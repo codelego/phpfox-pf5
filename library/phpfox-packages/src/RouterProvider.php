@@ -11,7 +11,7 @@ class RouterProvider implements RouterProviderInterface
     {
         $result = ['chains' => [], 'routes' => [], 'phrases' => []];
 
-        $paths = \Phpfox::get('package.loader')->loadEnablePaths();
+        $paths = _get('package.loader')->loadEnablePaths();
 
         foreach ($paths as $path) {
             $data = include PHPFOX_DIR . $path . '/config/router.php';

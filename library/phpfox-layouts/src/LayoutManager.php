@@ -25,7 +25,7 @@ class LayoutManager extends ViewModel
             $this->template = 'layout/default';
         }
 
-        \Phpfox::get('assets')
+        _get('assets')
             ->addScripts('require', null)
             ->addStyle('custom', null)
             ->prependStyle('main', null)
@@ -33,7 +33,7 @@ class LayoutManager extends ViewModel
 
         _emit('onViewLayoutPrepare', $this);
 
-        $content =  \Phpfox::get('layout_loader')
+        $content =  _get('layout_loader')
             ->loadForRender($this->getPageName(), $this->getThemeId())
             ->render();
 
@@ -50,7 +50,7 @@ class LayoutManager extends ViewModel
     public function getThemeId()
     {
         if (null == $this->themeId) {
-            $this->setThemeId(\Phpfox::get('core.themes')->getDefault()->getId());
+            $this->setThemeId(_get('core.themes')->getDefault()->getId());
         }
         return $this->themeId;
     }
@@ -64,7 +64,7 @@ class LayoutManager extends ViewModel
     {
         $this->themeId = $themeId;
 
-        \Phpfox::get('template')
+        _get('template')
             ->preferThemes([$themeId]);
         return $this;
     }
@@ -75,7 +75,7 @@ class LayoutManager extends ViewModel
     public function getPageName()
     {
         if (null == $this->pageName) {
-            $this->pageName = \Phpfox::get('dispatcher')->getFullActionName();
+            $this->pageName = _get('dispatcher')->getFullActionName();
         }
         return $this->pageName;
     }

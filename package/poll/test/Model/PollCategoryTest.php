@@ -50,7 +50,7 @@ class PollCategoryTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var PollCategory $obj */
-        $obj = \Phpfox::with('poll_category')
+        $obj = _with('poll_category')
             ->select()->where('category_id=?', 12)->first();
 
         $this->assertSame('poll_category', $obj->getModelId());
@@ -62,13 +62,13 @@ class PollCategoryTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::with('poll_category')
+        _with('poll_category')
             ->delete()->where('category_id=?', 12)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::with('poll_category')
+        _with('poll_category')
             ->delete()->where('category_id=?', 12)->execute();
     }
 }

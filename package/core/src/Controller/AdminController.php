@@ -9,11 +9,11 @@ class AdminController extends ActionController
 {
     protected function initialize()
     {
-        \Phpfox::get('auth');
+        _get('auth');
 
-        \Phpfox::get('layouts')->setThemeId('admin');
+        _get('layouts')->setThemeId('admin');
 
-        \Phpfox::get('require_js')
+        _get('require_js')
             ->deps('package/core/admin');
 
         // todo verify logged in user can access admincp.
