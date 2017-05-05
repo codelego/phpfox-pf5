@@ -80,7 +80,7 @@ class NavDecorator implements DecoratorInterface
                 $href = _url($item->route, $params);
             } else {
                 if ($item->type == 'plugin') {
-                    $item = \Phpfox::callback($item->event, $params);
+                    $item = _callback($item->event, $params);
                 }
             }
         }

@@ -26,11 +26,6 @@ namespace {
         private static $initialized = false;
 
         /**
-         * @var string
-         */
-        private static $version = '4.5.2';
-
-        /**
          * Initialize method
          */
         public static function init()
@@ -126,57 +121,11 @@ namespace {
             return self::$service->get('models')->get($id);
         }
 
-        public static function getUserId()
-        {
-            return self::$service->get('auth')->getLoginId();
-        }
-
-        public static function isLoggedIn()
-        {
-            return self::$service->get('auth')->isLoggedIn();
-        }
-
-        public static function membersOnly()
-        {
-            return self::$service->get('auth')->isUser();
-        }
-
-        /**
-         * @return \Phpfox\Action\Response
-         */
-        public static function getResponse()
-        {
-            return self::$service->get('response');
-        }
-
-        /**
-         * @return \Phpfox\View\PhpTemplate
-         */
-        public static function getTemplate()
-        {
-            return self::$service->get('template');
-        }
-
-        /**
-         * @return \Phpfox\Db\DbAdapterInterface
-         */
-        public static function db()
-        {
-            return self::$service->get('db');
-        }
-
-
-        public static function callback($name, $target = null, $context = [])
-        {
-            return self::$service->get('mvc.event')
-                ->callback($name, $target, $context);
-        }
-
         /**
          * @see GatewayInterface::findById()
          *
          * @param string $type
-         * @param mixed $id
+         * @param mixed  $id
          *
          * @return \Phpfox\Model\ModelInterface
          */
@@ -185,12 +134,5 @@ namespace {
             return self::$service->get('models')->findById($type, $id);
         }
 
-        /**
-         * @return string
-         */
-        public static function getVersion()
-        {
-            return self::$version;
-        }
     }
 }

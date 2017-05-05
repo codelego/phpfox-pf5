@@ -81,7 +81,7 @@ class ViewModel
             return '';
         }
 
-        return \Phpfox::getTemplate()
+        return \Phpfox::get('template')
             ->render($this->template, $this->data);
     }
 

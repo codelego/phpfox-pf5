@@ -27,7 +27,7 @@ class VimeoProvider implements ProviderInterface
         ], $context);
 
 
-        return \Phpfox::getTemplate()
+        return \Phpfox::get('template')
             ->render('video/partial/embed', [
                 'iframe' => '<iframe ' . _attrize($props) . '></iframe>',
                 'id'     => $id,

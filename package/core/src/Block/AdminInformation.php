@@ -14,7 +14,7 @@ class AdminInformation extends Component
             'license_key'   => 'AAAA-BBBB-CCCC-DDDD',
             'license_type'  => 'trial',
             'installed_on'  => time() - 86400 * 30,
-            'version'       => \Phpfox::getVersion(),
+            'version'       => PHPFOX_VERSION,
         ], 'core/block/admin-information');
     }
 }

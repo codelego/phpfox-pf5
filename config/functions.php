@@ -82,6 +82,19 @@ namespace {
             ->emit($name, $target, $argv);
     }
 
+    /**
+     * @param string      $name
+     * @param object|null $target
+     * @param array|null  $argv
+     *
+     * @return \Phpfox\Event\Response
+     */
+    function _callback($name, $target = null, $argv = [])
+    {
+        return \Phpfox::get('mvc.event')
+            ->callback($name, $target, $argv);
+    }
+
     function _pass($action, $roleId = null)
     {
         return \Phpfox::get('authorization')
@@ -93,7 +106,7 @@ namespace {
         if (substr($table, 0, 1) == ':') {
             $table = PHPFOX_TABLE_PREFIX . substr($table, 1);
         }
-        $rows = Phpfox::db()
+        $rows = \Phpfox::get('db')
             ->execute('describe ' . $table)
             ->all();
 

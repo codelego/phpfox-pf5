@@ -96,7 +96,7 @@ class EventManager
             return false;
         }
         $this->initialized = true;
-        $this->events = \Phpfox::build('mvc.events.loader')->load();
+        $this->events = \Phpfox::get('mvc.events.loader')->load();
 
         return true;
     }
