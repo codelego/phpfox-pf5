@@ -3,14 +3,14 @@
 namespace Phpfox\Form;
 
 
-class Hidden extends Element implements FieldInterface
+class StaticField extends Element implements FieldInterface
 {
     /**
      * @var mixed
      */
     protected $value;
 
-    protected $render = 'hidden';
+    protected $render = 'static_text';
 
     public function getValue()
     {
@@ -20,15 +20,5 @@ class Hidden extends Element implements FieldInterface
     public function setValue($value)
     {
         $this->value = $value;
-    }
-
-    public function noWrap()
-    {
-        return true;
-    }
-
-    public function noLabel()
-    {
-        return true;
     }
 }

@@ -11,7 +11,7 @@ class NavigationLoader implements NavigationLoaderInterface
 
     public function loadFromRepository($menu)
     {
-        return \Phpfox::db()
+        return \Phpfox::get('db')
             ->select('*')
             ->from(':core_menu')
             ->where('menu=?', trim($menu))

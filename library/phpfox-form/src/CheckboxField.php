@@ -2,7 +2,7 @@
 
 namespace Phpfox\Form;
 
-class Checkbox extends Element implements FieldInterface
+class CheckboxField extends Element implements FieldInterface
 {
     protected $render = 'checkbox';
 

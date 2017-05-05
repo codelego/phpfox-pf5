@@ -223,7 +223,7 @@ class Form extends Element implements ElementInterface, CollectionInterface
     }
 
     /**
-     * @return Button[]
+     * @return ButtonField[]
      */
     public function getButtons()
     {

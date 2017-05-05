@@ -51,6 +51,16 @@ class LayoutAction extends DbModel
         $this->__set('package_id', $value);
     }
 
+    public function isAdmin()
+    {
+        return $this->__get('is_admin') ? 1 : 0;
+    }
+
+    public function setAdmin($value)
+    {
+        $this->__set('is_admin', $value ? 1 : 0);
+    }
+
     public function getDescription()
     {
         return $this->__get('description');

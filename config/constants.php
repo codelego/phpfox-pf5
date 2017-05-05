@@ -23,6 +23,13 @@ define('PHPFOX_CONFIG_DIR', PHPFOX_DIR . 'config' . DS);
 defined('PHPFOX_DATABASE_FILE') OR
 define('PHPFOX_DATABASE_FILE', PHPFOX_CONFIG_DIR . 'database.php');
 
+/**
+ * Some menu/action/dropdown show for developer only, not development mode.
+ *
+ * @const PHPFOX_IS_DEV boolean
+ */
+defined('PHPFOX_IS_DEV') OR
+define('PHPFOX_IS_DEV', false);
 
 /**
  * @const PHPFOX_ENV string production|development|staging

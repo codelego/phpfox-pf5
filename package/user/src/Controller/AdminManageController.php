@@ -13,7 +13,7 @@ class AdminManageController extends AdminController
     {
         \Phpfox::get('breadcrumb')
             ->clear()
-            ->add(['href' => '', 'label' => 'Members',]);
+            ->add(['href' => _url('admin.user'), 'label' => 'Members',]);
     }
 
     public function actionIndex()
@@ -27,7 +27,6 @@ class AdminManageController extends AdminController
         if ($request->isGet()) {
             $filter->populate($request->all());
         }
-
         $items = \Phpfox::with('user')
             ->select()
             ->limit(10)

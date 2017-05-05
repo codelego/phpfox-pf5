@@ -6,28 +6,25 @@ use Phpfox\Form\Form;
 
 class EditLayoutAction extends Form
 {
+    protected $actionId;
+
     public function initialize()
     {
         $this->addElement([
-            'factory'    => 'text',
-            'name'       => 'action_id',
-            'attributes' =>
-                [
-                    'maxlength' => PHPFOX_TITLE_LENGTH,
-                    'class'     => 'form-control',
-                ],
-            'label'      => _text('Action Id'),
-            'required'   => true,
+            'factory' => 'hidden',
+            'name'    => 'action_id',
+            'value'   => $this->actionId,
         ]);
         $this->addElement([
-            'factory'    => 'text',
+            'factory'    => 'select',
             'name'       => 'parent_action_id',
+            'options'    => \Phpfox::get('layout_loader')->getActionIdOptions([$this->getActionId()]),
             'attributes' =>
                 [
                     'maxlength' => PHPFOX_TITLE_LENGTH,
                     'class'     => 'form-control',
                 ],
-            'label'      => _text('Parent Action Id'),
+            'label'      => _text('Parent Action'),
             'required'   => false,
         ]);
         $this->addElement([
@@ -42,14 +39,14 @@ class EditLayoutAction extends Form
             'required'   => true,
         ]);
         $this->addElement([
-            'factory'    => 'text',
+            'factory'    => 'select',
             'name'       => 'package_id',
             'attributes' =>
                 [
-                    'maxlength' => PHPFOX_TITLE_LENGTH,
-                    'class'     => 'form-control',
+                    'class' => 'form-control',
                 ],
-            'label'      => _text('Package Id'),
+            'options'    => \Phpfox::get('core.packages')->getPackageIdOptions(),
+            'label'      => _text('Package'),
             'required'   => true,
         ]);
         $this->addElement([
@@ -64,5 +61,21 @@ class EditLayoutAction extends Form
             'label'      => _text('Description'),
             'required'   => true,
         ]);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getActionId()
+    {
+        return $this->actionId;
+    }
+
+    /**
+     * @param mixed $actionId
+     */
+    public function setActionId($actionId)
+    {
+        $this->actionId = $actionId;
     }
 }

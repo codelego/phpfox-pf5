@@ -8,9 +8,14 @@ use Phpfox\View\ViewModel;
 class Container
 {
     /**
-     * @var Location[]
+     * @var array
      */
     protected $locations = [];
+
+    /**
+     * @var array
+     */
+    protected $blocks = [];
 
     /**
      * @var array
@@ -72,22 +77,6 @@ class Container
     }
 
     /**
-     * @return Location[]
-     */
-    public function getLocations()
-    {
-        return $this->locations;
-    }
-
-    /**
-     * @param Location[] $locations
-     */
-    public function setLocations($locations)
-    {
-        $this->locations = $locations;
-    }
-
-    /**
      * @return string
      */
     public function getTypeId()
@@ -99,11 +88,68 @@ class Container
     /**
      * add new location
      *
-     * @param Location $location
+     * @param string $locationId
+     * @param array  $params
+     *
+     * @return bool
      */
-    public function addLocation($location)
+    public function addLocation($locationId, $params = [])
     {
-        $this->locations[$location->getName()] = $location;
+        $this->locations[$locationId] = $params;
+        if (empty($this->blocks[$locationId])) {
+            $this->blocks[$locationId] = [];
+        }
+
+        return true;
+    }
+
+    /**
+     * @param string $locationId
+     * @param array  $params
+     *
+     * @return bool
+     */
+    public function mergeLocation($locationId, $params)
+    {
+        if (empty($this->locations[$locationId])) {
+            return false;
+        }
+
+        $this->locations[$locationId] = array_merge($params, $this->locations[$locationId]);
+
+        return true;
+    }
+
+    /**
+     * @param string $locationId
+     * @param array  $block
+     *
+     * @return bool
+     */
+    public function addBlock($locationId, $block)
+    {
+        if (!isset($this->locations[$locationId])) {
+            return false;
+        }
+        $this->blocks[$locationId][] = $block;
+
+        return true;
+    }
+
+    /**
+     * @return array
+     */
+    public function getBlocks()
+    {
+        return $this->blocks;
+    }
+
+    /**
+     * @return array
+     */
+    public function getLocations()
+    {
+        return $this->locations;
     }
 
     /**
@@ -136,8 +182,16 @@ class Container
     public function render()
     {
         $data = [];
-        foreach ($this->locations as $key => $location) {
-            $data[$key] = $location->render();
+        $layouts = \Phpfox::get('layouts');
+
+        foreach ($this->locations as $locationId => $location) {
+            $data[$locationId] = '';
+            $htmlArray = [];
+
+            foreach ($this->blocks[$locationId] as $block) {
+                $htmlArray[] = $layouts->renderBlock($block['block_class'], $block);
+            }
+            $data[$locationId] = implode(PHP_EOL, $htmlArray);
         }
 
         return (new ViewModel($data, 'grid/' . $this->getGridId()))->render();
@@ -150,8 +204,11 @@ class Container
     {
         $data = ['container' => $this];
 
-        foreach ($this->locations as $key => $location) {
-            $data[$key] = $location->renderForEdit();
+        foreach ($this->locations as $locationId => $location) {
+            $data[$locationId] = (new ViewModel([
+                'blocks'   => $this->blocks[$locationId],
+                'location' => $location,
+            ], 'layout-editor/edit-location'))->render();
         }
 
         $data['content'] = (new ViewModel($data, 'grid/edit-' . $this->getGridId()))->render();

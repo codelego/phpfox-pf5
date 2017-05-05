@@ -7,7 +7,7 @@ class TextareaTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new Textarea();
+        $obj = new TextareaField();
 
         $this->assertEmpty($obj->getName());
         $this->assertEmpty($obj->getValue());

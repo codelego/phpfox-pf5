@@ -83,7 +83,7 @@ class I18nLanguageTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::db()
+        \Phpfox::get('db')
             ->delete(':i18n_language')
             ->where('id=?', 'test_language')
             ->execute();
@@ -91,7 +91,7 @@ class I18nLanguageTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::db()
+        \Phpfox::get('db')
             ->delete(':i18n_language')
             ->where('id=?', 'test_language')
             ->execute();

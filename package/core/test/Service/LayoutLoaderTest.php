@@ -3,7 +3,7 @@
 namespace Neutron\Core\Service;
 
 
-use Phpfox\Layout\Page;
+use Phpfox\Layout\LayoutContent;
 
 class LayoutLoaderTest extends \PHPUnit_Framework_TestCase
 {
@@ -35,17 +35,17 @@ class LayoutLoaderTest extends \PHPUnit_Framework_TestCase
 
         $result = $obj->loadForRender('default', 'default');
 
-        $this->assertTrue($result instanceof Page);
+        $this->assertTrue($result instanceof LayoutContent);
 
         return $result;
     }
 
     /**
-     * @param Page $layoutPage
+     * @param LayoutContent $layoutPage
      *
      * @depends testLoadForRender
      */
-    public function testLayoutPageRender(Page $layoutPage)
+    public function testLayoutPageRender(LayoutContent $layoutPage)
     {
         $this->assertNotEmpty($layoutPage->render());
 

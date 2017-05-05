@@ -7,7 +7,7 @@ class StaticTextTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new StaticText();
+        $obj = new StaticField();
 
         $this->assertEmpty($obj->getName());
         $this->assertEmpty($obj->getValue());

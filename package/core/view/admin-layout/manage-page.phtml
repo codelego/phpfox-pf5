@@ -16,19 +16,14 @@
                 <tr>
                     <td class="dropdown" data-cmd="dropdown">
                         <ul>
-                            <li><a href="<?= _url('admin.core.layout.design-layout',
-                                    ['action_id' => $item->getId()]) ?>"><?= _text('Design Layout') ?></a></li>
+                            <li><a href="<?= _url('admin.core.layout.design-page',
+                                    ['action_id' => $item->getId()]) ?>"><?= _text('Design Page') ?></a></li>
+                            <?php if(PHPFOX_IS_DEV):?>
                             <li>
-                                <a href="<?= _url('admin.core.layout.edit',
-                                    ['action_id' => $item->getId()]) ?>"><?= _text('Edit Page') ?></a>
+                                <a href="<?= _url('admin.core.layout.action',
+                                    ['action'=>'edit-page','action_id' => $item->getId()]) ?>"><?= _text('Edit Page') ?></a>
                             </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="<?= _url('admin.core.layout.add-element',
-                                    ['page_id' => $item->getId()]) ?>"><?= _text('Add Block') ?></a>
-                                <a href="<?= _url('admin.core.layout.add-location',
-                                    ['page_id' => $item->getId()]) ?>"><?= _text('Add Location') ?></a>
-                            </li>
+                            <?php endif; ?>
                         </ul>
                     </td>
                     <td>

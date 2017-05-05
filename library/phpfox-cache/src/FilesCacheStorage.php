@@ -39,7 +39,7 @@ class FilesCacheStorage implements CacheStorageInterface
         $this->debug = (bool)$configs['debug'];
     }
 
-    public function with($key, $ttl, $fallback)
+    public function load($key, $ttl, $fallback)
     {
         if (is_array($key)) {
             $key = implode('_', $key);

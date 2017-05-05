@@ -7,7 +7,7 @@ class EditBlogCategoryValidatorTest extends \PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         try {
-            \Phpfox::db()->insert(':blog_category', [
+            \Phpfox::get('db')->insert(':blog_category', [
                 'name'        => 'example name',
                 'is_active'   => 1,
                 'description' => 'example description',

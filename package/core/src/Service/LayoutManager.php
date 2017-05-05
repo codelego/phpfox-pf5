@@ -9,9 +9,8 @@ use Neutron\Core\Model\LayoutGrid;
 use Neutron\Core\Model\LayoutLocation;
 use Neutron\Core\Model\LayoutPage;
 use Phpfox\Layout\Container;
+use Phpfox\Layout\LayoutContent;
 use Phpfox\Layout\LoaderInterface;
-use Phpfox\Layout\Location;
-use Phpfox\Layout\Page;
 use Phpfox\Model\ModelInterface;
 
 class LayoutManager implements LoaderInterface
@@ -137,130 +136,113 @@ class LayoutManager implements LoaderInterface
     }
 
     /**
-     * @param LayoutContainer $container
-     * @param bool            $activeOnly Active only ?
+     * @param string  $pageId
+     * @param boolean $activeOnly
      *
-     * @return Location[]
+     * @return LayoutContent
      */
-    public function loadLayoutLocation($container, $activeOnly = false)
+    public function loadPageDataById($pageId, $activeOnly)
     {
+        $page = new LayoutContent($pageId);
 
-        /** @var LayoutGrid $grid */
-        $grid = \Phpfox::findById('layout_grid', $container->getGridId());
-
-        $locationIds = json_decode($grid->getLocations(), true);
-
-        /** @var Location[] $layoutLocations */
-        $layoutLocations = [];
-
-        foreach ($locationIds as $locationId) {
-            $layoutLocations[$locationId] = new Location([
-                'location_id'    => $locationId,
-                'container_id'   => $container->getId(),
-                'container_type' => $container->getTypeId(),
-            ]);
-        }
-
-        /** @var LayoutLocation[] $containerLocations */
-        $containerLocations = \Phpfox::with('layout_location')
-            ->select()
-            ->where('container_id=?', $container->getId())
-            ->all();
-
-        foreach ($containerLocations as $containerLocation) {
-            $locationId = $containerLocation->getLocationId();
-
-            if (!isset($layoutLocations[$locationId])) {
-                continue;
-            }
-            $params = json_decode($containerLocation->getParams(), true);
-            if (!empty($params)) {
-                $layoutLocations[$locationId]->setParams($params);
-            }
-        }
-
-        $selectBlocks = \Phpfox::get('db')
-            ->select('blk.*, cmp.component_class, cmp.component_name')
-            ->from(':layout_block', 'blk')
-            ->join(':layout_component', 'cmp',
-                'cmp.component_id=blk.component_id')
-            ->where('blk.container_id=?', $container->getId())
-            ->order('blk.location_id, blk.sort_order', 1);
-
-        if ($activeOnly) {
-            $selectBlocks->where('blk.is_active=?', 1);
-        }
-
-        foreach ($selectBlocks->all() as $block) {
-            $locationId = $block['location_id'];
-            if (!isset($layoutLocations[$locationId])) {
-                continue;
-            }
-
-            $layoutLocations[$locationId]->addBlock([
-                'element_id'     => $block['block_id'],
-                'parent_id'      => $block['parent_id'],
-                'location_id'    => $block['location_id'],
-                'container_id'   => $block['container_id'],
-                'sort_order'     => $block['sort_order'],
-                'container_type' => $container->getTypeId(),
-                'block_id'       => $block['block_id'],
-                'block_name'     => $block['component_name'],
-                'block_class'    => $block['component_class'],
-                'is_active'      => $block['is_active'],
-            ]);
-        }
-
-        return $layoutLocations;
-    }
-
-    /**
-     * @param string $actionId
-     * @param string $themeId
-     *
-     * @return Page
-     */
-    public function loadForRender($actionId, $themeId)
-    {
-        $pageId = $this->findPageIdForRender($actionId, $themeId);
-
-        /** @var LayoutContainer[] $containers */
-        $containers = \Phpfox::with('layout_container')
+        /** @var LayoutContainer[] $layoutContainers */
+        $layoutContainers = \Phpfox::with('layout_container')
             ->select()
             ->where('page_id=?', $pageId)
             ->where('is_active=?', 1)
             ->order('sort_order', 1)
             ->all();
 
+        foreach ($layoutContainers as $layoutContainer) {
+            $container = new Container(array_merge(json_decode($layoutContainer->getParams(), true), [
+                'container_id' => $layoutContainer->getId(),
+                'type_id'      => $layoutContainer->getTypeId(),
+                'grid_id'      => $layoutContainer->getGridId(),
+            ]));
 
-        $layoutPage = new Page($pageId, $actionId, $themeId);
+            /** @var LayoutGrid $grid */
+            $grid = \Phpfox::findById('layout_grid', $layoutContainer->getGridId());
 
-        foreach ($containers as $container) {
-            $params = array_merge(json_decode($container->getParams(), true), [
-                'container_id' => $container->getId(),
-                'type_id'      => $container->getTypeId(),
-                'grid_id'      => $container->getGridId(),
-            ]);
-            $layoutContainer = new Container($params);
+            $locationIds = json_decode($grid->getLocations(), true);
 
-            /** @var Location[] $layoutLocations */
-            $layoutLocations = $this->loadLayoutLocation($container, true);
-
-            foreach ($layoutLocations as $layoutLocation) {
-                $layoutContainer->addLocation($layoutLocation);
+            foreach ($locationIds as $locationId) {
+                $container->addLocation($locationId, [
+                    'location_id'    => $locationId,
+                    'container_id'   => $layoutContainer->getId(),
+                    'container_type' => $layoutContainer->getTypeId(),
+                ]);
             }
 
-            $layoutPage->addContainer($layoutContainer);
-        }
+            /** @var LayoutLocation[] $containerLocations */
+            $containerLocations = \Phpfox::with('layout_location')
+                ->select()
+                ->where('container_id=?', $layoutContainer->getId())
+                ->all();
 
-        return $layoutPage;
+            foreach ($containerLocations as $containerLocation) {
+                $container->mergeLocation($containerLocation->getLocationId(),
+                    json_decode($containerLocation->getParams(), true));
+            }
+
+
+            $selectBlocks = \Phpfox::get('db')
+                ->select('blk.*, cmp.component_class, cmp.component_name')
+                ->from(':layout_block', 'blk')
+                ->join(':layout_component', 'cmp',
+                    'cmp.component_id=blk.component_id')
+                ->where('blk.container_id=?', $layoutContainer->getId())
+                ->order('blk.location_id, blk.sort_order', 1);
+
+            if ($activeOnly) {
+                $selectBlocks->where('blk.is_active=?', 1);
+            }
+
+            foreach ($selectBlocks->all() as $block) {
+                $container->addBlock($block['location_id'], [
+                    'block_id'       => $block['block_id'],
+                    'parent_id'      => $block['parent_id'],
+                    'location_id'    => $block['location_id'],
+                    'container_id'   => $block['container_id'],
+                    'sort_order'     => $block['sort_order'],
+                    'container_type' => $layoutContainer->getTypeId(),
+                    'block_name'     => $block['component_name'],
+                    'block_class'    => $block['component_class'],
+                    'is_active'      => $block['is_active'],
+                ]);
+            }
+
+            $page->addContainer($container);
+        }
+        return $page;
     }
 
     /**
      * @param string $actionId
      * @param string $themeId
      *
-     * @return Page
+     * @return LayoutContent
+     */
+    public function loadForRender($actionId, $themeId)
+    {
+        $pageId = $this->findPageIdForRender($actionId, $themeId);
+
+        $page = \Phpfox::get('cache.local')->load(['layouts', 'loadForRender', $pageId], 0,
+            function () use ($pageId) {
+                return $this->loadPageDataById($pageId, $activeOnly = true);
+            });
+
+        if (!$page instanceof LayoutContent) {
+            return new LayoutContent(0);
+        }
+
+        return $page;
+    }
+
+    /**
+     * @param string $actionId
+     * @param string $themeId
+     *
+     * @return LayoutContent
      */
     public function loadForEdit($actionId, $themeId)
     {
@@ -270,37 +252,9 @@ class LayoutManager implements LoaderInterface
             return null;
         }
 
-        /** @var LayoutContainer[] $containers */
-        $containers = \Phpfox::with('layout_container')
-            ->select()
-            ->where('page_id=?', $pageId)
-            ->order('sort_order', 1)
-            ->all();
-
-        $layoutPage = new Page($pageId, $actionId, $themeId);
-
-        foreach ($containers as $container) {
-
-            $params = array_merge(json_decode($container->getParams(), true), [
-                'container_id' => $container->getId(),
-                'type_id'      => $container->getTypeId(),
-                'grid_id'      => $container->getGridId(),
-            ]);
-            $layoutContainer = new Container($params);
-
-            /** @var Location[] $layoutLocations */
-            $layoutLocations = $this->loadLayoutLocation($container, false);
-
-            foreach ($layoutLocations as $layoutLocation) {
-                $layoutContainer->addLocation($layoutLocation);
-            }
-
-            $layoutPage->addContainer($layoutContainer);
-        }
-
-        return $layoutPage;
+        return $this->loadPageDataById($pageId, $activeOnly = false);
     }
-    
+
     /**
      * Clone a parent page to child page with all its children
      *
@@ -314,13 +268,11 @@ class LayoutManager implements LoaderInterface
         // find container map
         $pageId = $this->findPageIdForRender($actionId, $themeId);
 
-
         $db = \Phpfox::get('db');
 
         $db->begin();
 
         try {
-
             /** @var LayoutPage $page */
             $page = \Phpfox::with('layout_page')->findById($pageId);
 
@@ -439,16 +391,22 @@ class LayoutManager implements LoaderInterface
     }
 
     /**
+     * @param array $excludes
+     *
      * @return array
      */
-    public function getPageIdOptions()
+    public function getActionIdOptions($excludes = [])
     {
-        $select = \Phpfox::with('layout_page')->select();
+        $select = \Phpfox::with('layout_action')->select();
+
+        if (!empty($excludes)) {
+            $select->where('action_id not in ?', $excludes);
+        }
 
         return array_map(function (ModelInterface $v) {
             return [
-                'label' => $v->__get('page_id'),
-                'value' => $v->__get('page_id'),
+                'label' => $v->__get('action_id'),
+                'value' => $v->__get('action_id'),
             ];
         }, $select->all());
     }

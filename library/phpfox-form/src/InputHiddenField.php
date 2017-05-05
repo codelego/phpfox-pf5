@@ -3,14 +3,14 @@
 namespace Phpfox\Form;
 
 
-class InputFile extends Element implements FieldInterface
+class InputHiddenField extends Element implements FieldInterface
 {
     /**
      * @var mixed
      */
     protected $value;
 
-    protected $render = 'file_upload';
+    protected $render = 'hidden';
 
     public function getValue()
     {
@@ -20,5 +20,15 @@ class InputFile extends Element implements FieldInterface
     public function setValue($value)
     {
         $this->value = $value;
+    }
+
+    public function noWrap()
+    {
+        return true;
+    }
+
+    public function noLabel()
+    {
+        return true;
     }
 }

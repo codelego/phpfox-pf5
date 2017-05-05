@@ -55,67 +55,33 @@ return [
             'controller' => 'core.admin-layout',
             'action'     => 'index',
             'children'   => [
-                'edit'             => [
-                    'route'  => 'edit/<action_id>',
-                    'action' => 'edit',
-                ],
-                'add'              => [
-                    'route'  => 'add',
-                    'action' => 'add',
-                ],
-                'design-layout'    => [
-                    'route'  => 'design-layout/<action_id>',
-                    'action' => 'design-layout',
-                ],
-                'edit-block'       => [
-                    'route'  => 'edit-block/<id>',
-                    'action' => 'edit-block',
-                ],
-                'add-block'        => [
-                    'route'  => 'add-block',
-                    'action' => 'add-block',
-                ],
-                'manage-component' => [
-                    'route'  => 'manage-component',
-                    'action' => 'manage-component',
-                ],
-                'add-component'    => [
-                    'route'  => 'add-component',
-                    'action' => 'add-component',
-                ],
-                'edit-component'   => [
-                    'route'  => 'edit-component/<id>',
-                    'action' => 'edit-component',
-                ],
-                'manage-theme'     => [
-                    'route'  => 'manage-theme',
-                    'action' => 'manage-theme',
-                ],
-                'edit-theme'       => [
+                'edit-theme'  => [
                     'route'  => 'edit-theme/<id>',
                     'action' => 'edit-theme',
                 ],
-                'debug-theme'      => [
+                'debug-theme' => [
                     'route'  => 'debug-theme/<id>',
                     'action' => 'debug-theme',
                 ],
-                'debug'            => [
+                'debug'       => [
                     'route'  => 'debug/<id>',
                     'action' => 'debug',
                 ],
-                'add-container'    => [
-                    'route'  => 'add-container/<page_id>',
-                    'action' => 'add-container',
+                'design-page' => [
+                    'route'  => 'design-page/<action_id>',
+                    'action' => 'design-page',
                 ],
-                'edit-container'   => [
-                    'route'  => 'edit-container/<container_id>',
-                    'action' => 'edit-container',
+                'action'      => [
+                    'route' => '<action>',
                 ],
-                'clone-page'       => [
-                    'route'  => 'clone-page/<action_id>/<theme_id>',
-                    'action' => 'clone-page',
-                ],
-                'action'           => [
+            ],
+        ],
+        'admin.core.rad'           => [
+            'route'      => 'core/rad/*',
+            'controller' => 'core.admin-rad',
+            'action'     => 'index',
+            'children'   => [
+                '*' => [
                     'route' => '<action>',
                 ],
             ],

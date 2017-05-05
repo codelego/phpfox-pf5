@@ -16,5 +16,11 @@ class Roles
     {
         return \Phpfox::with('core_role')
             ->findById((int)$id);
+        
+    }
+
+    public function findRoleIdOptions($typeId)
+    {
+
     }
 }

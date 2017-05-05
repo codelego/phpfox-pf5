@@ -2,10 +2,10 @@
 
 namespace Phpfox\Form;
 
-class StaticTextRender implements RenderInterface
+class StaticRender implements RenderInterface
 {
     /**
-     * @param StaticText $element
+     * @param StaticField $element
      *
      * @return string
      */

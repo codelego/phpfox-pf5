@@ -6,7 +6,11 @@
     <ul class="hide" role="menu">
         <li role="menuitem">
             <a data-cmd="modal" href="<?= _url('admin.core.layout.action',
-                ['action' => 'add-block', 'location_id' => $location['location_id'],'container'=>$location['container_id']]) ?>">Add Block</a>
+                [
+                    'action'       => 'add-block',
+                    'location_id'  => $location['location_id'],
+                    'container_id' => $location['container_id'],
+                ]) ?>">Add Block</a>
         </li>
         <li role="menuitem">
             <a role="button">Edit Settings</a>
@@ -21,7 +25,7 @@
     </ul>
 </div>
 <ul class="layout-editor-location">
-    <?php foreach($blocks as $block): ?>
+    <?php foreach ($blocks as $block): ?>
         <li class="layout-editor-block">
             <i class="fa fa-ellipsis-v" style="margin-left: -5px;font-size:smaller"></i>
             <?= $block['block_name'] ?>
@@ -29,20 +33,28 @@
                 <small>edit</small>
             </span>
             <div class="hide">
-                <ul>
-                    <li>
-                        <a role="button">Edit Settings</a>
+                <ul role="menu">
+                    <li role="menuitem">
+                        <a data-cmd="xhr" href="<?= _url('admin.core.layout.action',
+                            ['action' => 'edit-block', 'block_id' => $block['block_id']]) ?>">Edit</a>
+                    </li>
+                    <li role="menuitem">
+                        <a data-cmd="xhr" href="<?= _url('admin.core.layout.action',
+                            ['action' => 'settings-block', 'block_id' => $block['block_id']]) ?>">Settings</a>
                     </li>
                     <li class="divider"></li>
-                    <li>
-                        <a role="button">Enable</a>
+                    <li role="menuitem">
+                        <a data-cmd="xhr" href="<?= _url('admin.core.layout.action',
+                            ['action' => 'enable-block', 'block_id' => $block['block_id']]) ?>">Enable</a>
                     </li>
-                    <li>
-                        <a role="button">Disable</a>
+                    <li role="menuitem">
+                        <a data-cmd="xhr" href="<?= _url('admin.core.layout.action',
+                            ['action' => 'disable-block', 'block_id' => $block['block_id']]) ?>">Disable</a>
                     </li>
                     <li class="divider"></li>
-                    <li>
-                        <a role="button">Remove</a>
+                    <li role="menuitem">
+                        <a href="<?= _url('admin.core.layout.action',
+                            ['action' => 'delete-block', 'block_id' => $block['block_id']]) ?>">Remove</a>
                     </li>
                 </ul>
             </div>

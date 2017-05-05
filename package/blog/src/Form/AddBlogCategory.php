@@ -3,7 +3,7 @@
 namespace Neutron\Blog\Form;
 
 use Neutron\Blog\Validator\EditBlogCategoryValidator;
-use Phpfox\Form\Button;
+use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
 class AddBlogCategory extends Form
@@ -55,13 +55,13 @@ class AddBlogCategory extends Form
     public function getButtons()
     {
         return [
-            new Button([
+            new ButtonField([
                 'type'       => 'submit',
                 'name'       => 'save',
                 'label'      => _text('Save Changes'),
                 'attributes' => ['class' => 'btn btn-primary'],
             ]),
-            new Button([
+            new ButtonField([
                 'type'       => 'submit',
                 'label'      => _text('Cancel'),
                 'href'       => _url('admin.blog.category'),

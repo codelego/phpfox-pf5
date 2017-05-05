@@ -1,6 +1,7 @@
 <?php
 
 define('PHPFOX_NO_CACHE', 1);
+define('PHPFOX_IS_DEV', true);
 
 include __DIR__ . '/config/bootstrap.php';
 

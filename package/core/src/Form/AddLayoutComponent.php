@@ -2,13 +2,24 @@
 
 namespace Neutron\Core\Form;
 
-use Phpfox\Form\Button;
+use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
 class AddLayoutComponent extends Form
 {
     public function initialize()
     {
+        $this->addElement([
+            'factory' => 'hidden',
+            'name'    => 'is_active',
+            'value'   => 1,
+        ]);
+        $this->addElement([
+            'factory' => 'hidden',
+            'name'    => 'sort_order',
+            'value'   => 1,
+        ]);
+
         $this->addElement([
             'factory'    => 'text',
             'name'       => 'component_id',
@@ -40,7 +51,7 @@ class AddLayoutComponent extends Form
                     'class'     => 'form-control',
                 ],
             'label'      => _text('Component Class'),
-            'required'   => false,
+            'required'   => true,
         ]);
         $this->addElement([
             'factory'    => 'text',
@@ -53,52 +64,32 @@ class AddLayoutComponent extends Form
             'label'      => _text('Form Name'),
             'required'   => true,
         ]);
+
         $this->addElement([
-            'factory'    => 'text',
+            'factory'    => 'select',
             'name'       => 'package_id',
             'attributes' =>
                 [
-                    'maxlength' => PHPFOX_TITLE_LENGTH,
-                    'class'     => 'form-control',
+                    'class' => 'form-control',
                 ],
-            'label'      => _text('Package Id'),
+            'options'    => \Phpfox::get('core.packages')->getPackageIdOptions(),
+            'label'      => _text('Package'),
             'required'   => true,
         ]);
-        $this->addElement([
-            'factory'    => 'yesno',
-            'name'       => 'is_active',
-            'label'      => _text('Is Active'),
-            'required'   => true,
-            'value'      => 1,
-            'attributes' =>
-                [
-                    'maxlength' => PHPFOX_TITLE_LENGTH,
-                    'class'     => 'form-control',
-                ],
-        ]);
-        $this->addElement([
-            'factory'    => 'text',
-            'name'       => 'sort_order',
-            'label'      => _text('Sort Order'),
-            'required'   => true,
-            'value'      => 1,
-            'attributes' =>
-                [
-                    'maxlength' => PHPFOX_TITLE_LENGTH,
-                    'class'     => 'form-control',
-                ],
-        ]);
+
+
         $this->addElement([
             'factory'    => 'textarea',
             'name'       => 'description',
             'label'      => _text('Description'),
             'required'   => false,
-            'value'      => 1,
+            'value'      => '',
             'attributes' =>
                 [
-                    'maxlength' => PHPFOX_DESC_LENGTH,
-                    'class'     => 'form-control',
-                    'rows'      => PHPFOX_DESC_ROWS,
+                    'placeholder' => _text('Description'),
+                    'maxlength'   => PHPFOX_DESC_LENGTH,
+                    'class'       => 'form-control',
+                    'rows'        => PHPFOX_DESC_ROWS,
                 ],
         ]);
     }
@@ -106,7 +97,7 @@ class AddLayoutComponent extends Form
     public function getButtons()
     {
         return [
-            new Button([
+            new ButtonField([
                 'type'       => 'submit',
                 'name'       => 'save',
                 'label'      => _text('Save Changes'),

@@ -2,15 +2,12 @@
 
 namespace Phpfox\Form;
 
-
-class StaticText extends Element implements FieldInterface
+class InputTextField extends Element implements FieldInterface
 {
     /**
      * @var mixed
      */
     protected $value;
-
-    protected $render = 'static_text';
 
     public function getValue()
     {

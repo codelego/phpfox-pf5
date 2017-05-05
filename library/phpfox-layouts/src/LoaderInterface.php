@@ -8,7 +8,7 @@ interface LoaderInterface
      * @param string $pageId
      * @param string $themeId
      *
-     * @return Page
+     * @return LayoutContent
      */
     public function loadForRender($pageId, $themeId);
 }

@@ -2,7 +2,7 @@
 
 namespace Phpfox\Form;
 
-class Button extends Element implements FieldInterface
+class ButtonField extends Element implements FieldInterface
 {
     /**
      * @var mixed

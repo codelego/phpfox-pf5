@@ -2,7 +2,7 @@
 
 namespace Neutron\Core\Form;
 
-use Phpfox\Form\Button;
+use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
 class AddLayoutAction extends Form
@@ -43,16 +43,17 @@ class AddLayoutAction extends Form
             'required'   => true,
         ]);
         $this->addElement([
-            'factory'    => 'text',
+            'factory'    => 'select',
             'name'       => 'package_id',
             'attributes' =>
                 [
-                    'maxlength' => PHPFOX_TITLE_LENGTH,
-                    'class'     => 'form-control',
+                    'class' => 'form-control',
                 ],
-            'label'      => _text('Package Id'),
+            'options'    => \Phpfox::get('core.packages')->getPackageIdOptions(),
+            'label'      => _text('Package'),
             'required'   => true,
         ]);
+
         $this->addElement([
             'factory'    => 'textarea',
             'name'       => 'description',
@@ -70,11 +71,19 @@ class AddLayoutAction extends Form
     public function getButtons()
     {
         return [
-            new Button([
+            new ButtonField([
                 'type'       => 'submit',
                 'name'       => 'save',
                 'label'      => _text('Save Changes'),
                 'attributes' => ['class' => 'btn btn-primary'],
+            ]),
+            new ButtonField([
+                'type'       => 'submit',
+                'name'       => 'cancel',
+                'href'       => '#',
+                'data-cmd'   => 'form.cancel',
+                'label'      => _text('Cancel'),
+                'attributes' => ['class' => 'btn link'],
             ]),
         ];
     }

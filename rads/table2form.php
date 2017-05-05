@@ -114,7 +114,7 @@ if (empty($form_name)) {
             $table_name));
 }
 
-$rows = \Phpfox::db()
+$rows = \Phpfox::get('db')
     ->execute('describe ' . PHPFOX_TABLE_PREFIX . $table_name)
     ->all();
 

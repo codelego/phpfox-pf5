@@ -33,9 +33,9 @@ class LayoutManager extends ViewModel
 
         _emit('onViewLayoutPrepare', $this);
 
-        $layoutPage = \Phpfox::get('layout_loader')->loadForRender($this->getPageName(), $this->getThemeId());
-
-        $content = $layoutPage->render();
+        $content =  \Phpfox::get('layout_loader')
+            ->loadForRender($this->getPageName(), $this->getThemeId())
+            ->render();
 
         $this->assign([
             'layout_content' => $content,

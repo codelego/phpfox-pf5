@@ -7,13 +7,18 @@
     <ul role="menu">
         <li role="menuitem">
             Clone parent page to continue.
-            <a role="button" href="?confirmed=1">Clone It</a>
+            <a role="button" href="?theme_id=<?=$themeId?>&action_id=<?= $actionId?>&confirmed=1">Clone It</a>
         </li>
         <li>
             Design layout for parent page,
             <a role="button"
-               href="<?= _url('admin.core.layout.design-layout', ['action_id' => $parentPage->getActionId()]) ?>">Edit
+               href="<?= _url('admin.core.layout.design-page', ['action_id' => $parentPage->getActionId()]) ?>">Edit
                 Parent Layout</a>
+        </li>
+        <li>
+            Design layout for parent page,
+            <a role="button"
+               href="<?= _url('admin.core.layout') ?>">Go Back</a>
         </li>
     </ul>
 </div>

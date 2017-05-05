@@ -34,16 +34,17 @@ class AdminFilterUser extends Form
                 ],
             ],
             [
-                'factory'    => 'choice',
+                'factory'    => 'select',
                 'name'       => 'verify',
-                'render'     => 'select',
                 'required'   => false,
                 'attributes' => [
-                    'placeholder' => _text('Verify', 'admin'),
+                    'placeholder' => _text('Both'),
                     'class'       => 'form-control',
                 ],
-                'options'    => \Phpfox::get('core.i18n_language')
-                    ->getActiveOptions(),
+                'options'    => [
+                    ['value' => 1, 'label' => 'Verified'],
+                    ['value' => 0, 'label' => 'Un-Verified'],
+                ],
             ],
             [
                 'factory'    => 'button',

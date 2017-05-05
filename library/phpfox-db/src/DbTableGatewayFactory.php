@@ -51,7 +51,7 @@ class DbTableGatewayFactory
             $table = PHPFOX_TABLE_PREFIX . substr($table, 1);
         }
 
-        $rows = \Phpfox::db()
+        $rows = \Phpfox::get('db')
             ->execute('describe ' . $table)
             ->all();
 

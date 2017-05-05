@@ -7,7 +7,7 @@ class FormFacadesRenderTest extends \PHPUnit_Framework_TestCase
 {
     public function testRenderCheckbox()
     {
-        $checkbox = new Checkbox([
+        $checkbox = new CheckboxField([
             'options' => [
                 ['value' => 1, 'label' => 'field1'],
                 ['value' => 2, 'label' => 'field2'],
@@ -20,7 +20,7 @@ class FormFacadesRenderTest extends \PHPUnit_Framework_TestCase
 
     public function testRenderButton()
     {
-        $checkbox = new Button([
+        $checkbox = new ButtonField([
             'name'  => '_submit',
             'value' => 'delete',
             'label' => 'Delete',
@@ -33,7 +33,7 @@ class FormFacadesRenderTest extends \PHPUnit_Framework_TestCase
 
     public function testRenderButton2()
     {
-        $checkbox = new Button([
+        $checkbox = new ButtonField([
             'name'  => '_submit',
             'value' => 'delete',
             'label' => 'Delete',
@@ -47,7 +47,7 @@ class FormFacadesRenderTest extends \PHPUnit_Framework_TestCase
 
     public function testRenderInput()
     {
-        $checkbox = new TextField([
+        $checkbox = new InputTextField([
             'name'  => 'username',
             'value' => '',
             'label' => 'Username',

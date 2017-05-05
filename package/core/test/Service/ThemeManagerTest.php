@@ -28,12 +28,12 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddVariables()
     {
-        \Phpfox::db()->insert(':layout_theme_params', [
+        \Phpfox::get('db')->insert(':layout_theme_params', [
             'theme_id' => 'galaxy',
             'params'   => '[]',
         ])->execute();
 
-        $result = \Phpfox::db()->select('*')
+        $result = \Phpfox::get('db')->select('*')
             ->from(':layout_theme_params')
             ->first();
 
@@ -107,7 +107,7 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
 
         $mn->setDefault($id);
 
-        $ids = \Phpfox::db()->select('theme_id')->from(':layout_theme')
+        $ids = \Phpfox::get('db')->select('theme_id')->from(':layout_theme')
             ->where('is_default=?', 1)->all();
 
         $this->assertSame([['theme_id' => $id]], $ids);
@@ -196,11 +196,11 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetDefault()
     {
-        \Phpfox::db()
+        \Phpfox::get('db')
             ->update(':layout_theme', ['is_default' => 0, 'is_active' => 0])
             ->execute();
 
-        \Phpfox::db()
+        \Phpfox::get('db')
             ->update(':layout_theme', ['is_active' => 1])
             ->where('theme_id=?', 'galaxy')
             ->execute();
@@ -221,11 +221,11 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
             1 => 'default',
         ], $mn->_preferThemes());
 
-        \Phpfox::db()
+        \Phpfox::get('db')
             ->update(':layout_theme', ['is_default' => 0, 'is_active' => 0])
             ->execute();
 
-        \Phpfox::db()
+        \Phpfox::get('db')
             ->update(':layout_theme', ['is_active' => 1, 'is_default' => 1,])
             ->where('theme_id=?', 'default')
             ->execute();

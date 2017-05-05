@@ -7,7 +7,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new Checkbox();
+        $obj = new CheckboxField();
 
         $this->assertEmpty($obj->getName());
         $this->assertEmpty($obj->getValue());

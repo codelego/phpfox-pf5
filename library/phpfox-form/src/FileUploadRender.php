@@ -6,7 +6,7 @@ namespace Phpfox\Form;
 class FileUploadRender implements RenderInterface
 {
     /**
-     * @param InputFile $element
+     * @param InputFileField $element
      *
      * @return string
      */

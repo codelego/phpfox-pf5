@@ -14,30 +14,34 @@
                     <ul>
                         <?php if (!$item->isAdmin() and !$item->isEditing()): ?>
                             <li>
-                                <a href="<?= _url('admin.core.layout.manage-theme', [
+                                <a href="<?= _url('admin.core.layout.action', [
+                                    'action'=>'manage-theme',
                                     'cmd' => 'editing',
-                                    'id'  => $item->getId(),
+                                    'theme_id'  => $item->getId(),
                                 ]) ?>" role="button"><?= _text('Set Editing',
                                         'admin') ?></a></li>
                         <?php endif; ?>
                         <?php if (!$item->isAdmin() and !$item->isDefault()): ?>
-                            <li><a href="<?= _url('admin.core.layout.manage-theme', [
+                            <li><a href="<?= _url('admin.core.layout.action', [
+                                    'action'=>'manage-theme',
                                     'cmd' => 'default',
-                                    'id'  => $item->getId(),
+                                    'theme_id'  => $item->getId(),
                                 ]) ?>" role="button"><?= _text('Set Default', 'admin') ?></a></li>
                         <?php endif; ?>
                         <li>
-                            <a href="<?= _url('admin.core.layout.manage-theme', [
+                            <a href="<?= _url('admin.core.layout.action', [
+                                'action'=>'manage-theme',
                                 'cmd' => 'rebuild-main',
-                                'id'  => $item->getId(),
+                                'theme_id'  => $item->getId(),
                             ]) ?>" role="button"><?= _text('Rebuild Main',
                                     'admin') ?></a></li>
-                        <li><a href="<?= _url('admin.core.layout.manage-theme', [
+                        <li><a href="<?= _url('admin.core.layout.action', [
+                                'action'=>'manage-theme',
                                 'cmd' => 'rebuild-files',
-                                'id'  => $item->getId(),
+                                'theme_id'  => $item->getId(),
                             ]) ?>" role="button"><?= _text('Rebuild Files', 'admin') ?></a></li>
                         <li>
-                            <a href="<?= _url('admin.core.layout.debug-theme', ['id' => $item->getId()]) ?>"
+                            <a href="<?= _url('admin.core.layout.action', ['action'=>'debug-theme','theme_id' => $item->getId()]) ?>"
                                role="button"><?= _text('Debug', 'admin') ?></a>
                         </li>
                     </ul>
@@ -46,8 +50,8 @@
                     <?= $item->getId() ?>
                 </td>
                 <td>
-                    <a href="<?= _url('admin.core.layout.edit-theme',
-                        ['id' => $item->getId()]) ?>"><?= $item->getTitle() ?></a>
+                    <a href="<?= _url('admin.core.layout.action',
+                        ['action'=>'edit-theme','theme_id' => $item->getId()]) ?>"><?= $item->getTitle() ?></a>
                 </td>
                 <td>
                     <?php if ($item->isDefault()): ?>

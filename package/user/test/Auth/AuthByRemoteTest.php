@@ -82,7 +82,7 @@ class AuthByRemoteTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Phpfox::db()->delete(':user')
+        \Phpfox::get('db')->delete(':user')
             ->where('email=?', 'auth_remote.unitest@example.com')
             ->execute();
 
@@ -117,7 +117,7 @@ class AuthByRemoteTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        \Phpfox::db()->delete(':user')
+        \Phpfox::get('db')->delete(':user')
             ->where('email=?', 'auth_remote.unitest@example.com')
             ->execute();
 

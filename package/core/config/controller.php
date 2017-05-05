@@ -16,4 +16,5 @@ return [
     'core.admin-status'        => AdminStatusController::class,
     'core.admin-authorization' => AdminAuthorizationController::class,
     'core.admin-storage'       => AdminStorageController::class,
+    'core.admin-rad'       => AdminRadController::class,
 ];

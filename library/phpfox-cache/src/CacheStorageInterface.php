@@ -5,13 +5,13 @@ namespace Phpfox\Cache;
 interface CacheStorageInterface
 {
     /**
-     * @param string   $key
-     * @param int      $ttl
-     * @param \Closure $fallback
+     * @param string|array $key
+     * @param int          $ttl
+     * @param \Closure     $fallback
      *
      * @return mixed
      */
-    public function with($key, $ttl, $fallback);
+    public function load($key, $ttl, $fallback);
 
     /**
      * @param string $key

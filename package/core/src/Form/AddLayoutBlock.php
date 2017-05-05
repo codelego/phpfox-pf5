@@ -2,7 +2,7 @@
 
 namespace Neutron\Core\Form;
 
-use Phpfox\Form\Button;
+use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
 class AddLayoutBlock extends Form
@@ -22,44 +22,12 @@ class AddLayoutBlock extends Form
     public function getButtons()
     {
         return [
-            new Button([
+            new ButtonField([
                 'type'       => 'submit',
                 'name'       => 'save',
                 'label'      => _text('Save Changes'),
                 'attributes' => ['class' => 'btn btn-primary'],
             ]),
         ];
-    }
-
-    /**
-     * @return string
-     */
-    public function getLocationId()
-    {
-        return $this->locationId;
-    }
-
-    /**
-     * @param string $locationId
-     */
-    public function setLocationId($locationId)
-    {
-        $this->locationId = $locationId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getComponentId()
-    {
-        return $this->componentId;
-    }
-
-    /**
-     * @param string $componentId
-     */
-    public function setComponentId($componentId)
-    {
-        $this->componentId = $componentId;
     }
 }

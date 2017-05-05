@@ -10,11 +10,11 @@ class FileStorageFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testBase()
     {
-        \Phpfox::db()
+        \Phpfox::get('db')
             ->delete(':storage_adapter')
             ->execute();
 
-        \Phpfox::db()->insert(':storage_adapter', [
+        \Phpfox::get('db')->insert(':storage_adapter', [
             'adapter_id'   => 1,
             'adapter_name' => 'Local #1',
             'driver_id'    => 'local',

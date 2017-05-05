@@ -2,22 +2,9 @@
 
 namespace Phpfox\Layout;
 
-class Page
+class LayoutContent
 {
-    /**
-     * @var string
-     */
     protected $name;
-
-    /**
-     * @var string
-     */
-    protected $actionId;
-
-    /**
-     * @var string
-     */
-    protected $themeId;
 
     /**
      * @var Container[]
@@ -32,49 +19,27 @@ class Page
     /**
      * LayoutPage constructor.
      *
-     * @param string $name
-     * @param string $actionId
-     * @param string $themeId
      * @param array  $params
      */
-    public function __construct($name, $actionId, $themeId, $params = [])
+    public function __construct($params = [])
     {
-        $this->name = $name;
-        $this->actionId = $actionId;
-        $this->themeId = $themeId;
         $this->params = $params;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getActionId()
+    public function getName()
     {
-        return $this->actionId;
+        return $this->name;
     }
 
     /**
-     * @param string $actionId
+     * @param mixed $name
      */
-    public function setActionId($actionId)
+    public function setName($name)
     {
-        $this->actionId = $actionId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getThemeId()
-    {
-        return $this->themeId;
-    }
-
-    /**
-     * @param string $themeId
-     */
-    public function setThemeId($themeId)
-    {
-        $this->themeId = $themeId;
+        $this->name = $name;
     }
 
     /**
@@ -101,22 +66,6 @@ class Page
     public function setContainers($containers)
     {
         $this->containers = $containers;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
     }
 
     /**
@@ -164,10 +113,6 @@ class Page
      */
     public function render()
     {
-        \Phpfox::get('assets')
-            ->addMeta('debug.page_name',
-                ['name' => 'layout_page', 'content' => $this->name]);
-
         $data = [];
         foreach ($this->containers as $container) {
             $data[] = $container->render();
@@ -187,13 +132,5 @@ class Page
         }
 
         return implode(PHP_EOL, $data);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function __sleep()
-    {
-        return ['name', 'location', 'params'];
     }
 }

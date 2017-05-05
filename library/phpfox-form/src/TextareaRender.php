@@ -6,7 +6,7 @@ namespace Phpfox\Form;
 class TextareaRender implements RenderInterface
 {
     /**
-     * @param Textarea $element
+     * @param TextareaField $element
      *
      * @return string
      */

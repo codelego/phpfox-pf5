@@ -7,7 +7,7 @@ class MultiChoiceTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new MultiChoice();
+        $obj = new MultiSelectField();
 
         $this->assertEmpty($obj->getName());
         $this->assertEmpty($obj->getValue());

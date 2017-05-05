@@ -6,7 +6,7 @@ namespace Phpfox\Form;
 class CheckboxRender implements RenderInterface
 {
     /**
-     * @param Checkbox $element
+     * @param CheckboxField $element
      *
      * @return string
      */

@@ -2,14 +2,15 @@
 
 namespace Phpfox\Form;
 
-class Textarea extends Element implements FieldInterface
+
+class InputFileField extends Element implements FieldInterface
 {
     /**
      * @var mixed
      */
     protected $value;
 
-    protected $render = 'textarea';
+    protected $render = 'file_upload';
 
     public function getValue()
     {

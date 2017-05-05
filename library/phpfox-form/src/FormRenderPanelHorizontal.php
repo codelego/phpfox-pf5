@@ -28,7 +28,7 @@ class FormRenderPanelHorizontal implements FormRenderInterface
             }
 
             $label = $v->noLabel()
-                ? ''
+                ? '<label class="control-label col-sm-3"></label>'
                 : '<label class="control-label col-sm-3 ' . $required . '">' . $v->getLabel()
                 . '</label>';
 

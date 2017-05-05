@@ -14,8 +14,13 @@
             <?php foreach ($items as $item): ?>
                 <tr>
                     <td>
-                        <a href="<?= _url('admin.core.layout.edit-component',
-                            ['component_id' => $item->getId()]) ?>"><?= $item->getId() ?></a>
+                        <?php if(PHPFOX_IS_DEV): ?>
+                        <a href="<?= _url('admin.core.layout.action',
+                            ['action'=>'edit-component','component_id' => $item->getId()]) ?>"><?= $item->getId() ?></a>
+                        <?php else: ?>
+                            <?= $item->getId() ?>
+                        <?php endif; ?>
+
                     </td>
                     <td><?= $item->__get('component_name') ?></td>
                     <td><?= $item->__get('component_class') ?></td>

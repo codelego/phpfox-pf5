@@ -3,10 +3,10 @@
 namespace Phpfox\Form;
 
 
-class HiddenRender implements RenderInterface
+class InputHiddenRender implements RenderInterface
 {
     /**
-     * @param Hidden $element
+     * @param InputHiddenField $element
      *
      * @return string
      */

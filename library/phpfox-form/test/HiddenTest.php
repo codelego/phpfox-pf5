@@ -7,7 +7,7 @@ class HiddenTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new Hidden();
+        $obj = new InputHiddenField();
 
         $this->assertEmpty($obj->getName());
         $this->assertEmpty($obj->getValue());

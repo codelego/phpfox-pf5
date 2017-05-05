@@ -2,7 +2,7 @@
 
 namespace Neutron\User\Form;
 
-use Phpfox\Form\Button;
+use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
 class UserLogin extends Form
@@ -54,7 +54,7 @@ class UserLogin extends Form
     public function getButtons()
     {
         return [
-            new Button([
+            new ButtonField([
                 'type'       => 'submit',
                 'name'       => 'login',
                 'label'      => _text('Login'),

@@ -6,7 +6,7 @@ namespace Phpfox\Form;
 class ButtonRender implements RenderInterface
 {
     /**
-     * @param Button $element
+     * @param ButtonField $element
      *
      * @return string
      */

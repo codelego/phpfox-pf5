@@ -2,7 +2,7 @@
 
 namespace Neutron\Core\Form;
 
-use Phpfox\Form\Button;
+use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
 class AddNewPhrase extends Form
@@ -28,7 +28,7 @@ class AddNewPhrase extends Form
     public function getButtons()
     {
         return [
-            new Button([
+            new ButtonField([
                 'type'       => 'submit',
                 'name'       => 'save',
                 'label'      => _text('Save Changes'),

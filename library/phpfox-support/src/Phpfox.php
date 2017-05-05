@@ -165,13 +165,6 @@ namespace {
             return self::$service->get('db');
         }
 
-        /**
-         * @return \Phpfox\Routing\Router
-         */
-        public static function router()
-        {
-            return self::$service->get('router');
-        }
 
         public static function callback($name, $target = null, $context = [])
         {
@@ -180,24 +173,16 @@ namespace {
         }
 
         /**
-         * @return \Phpfox\I18n\Translator
-         */
-        public static function translator()
-        {
-            return self::$service->get('translator');
-        }
-
-        /**
          * @see GatewayInterface::findById()
          *
-         * @param string $model
-         * @param mixed  $id
+         * @param string $type
+         * @param mixed $id
          *
          * @return \Phpfox\Model\ModelInterface
          */
-        public static function findById($model, $id)
+        public static function findById($type, $id)
         {
-            return self::$service->get('models')->findById($model, $id);
+            return self::$service->get('models')->findById($type, $id);
         }
 
         /**

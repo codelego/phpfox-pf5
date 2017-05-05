@@ -7,7 +7,7 @@ class InputFileTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new InputFile();
+        $obj = new InputFileField();
 
         $this->assertEmpty($obj->getName());
         $this->assertEmpty($obj->getValue());

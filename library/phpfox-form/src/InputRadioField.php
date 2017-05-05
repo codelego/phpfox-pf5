@@ -2,12 +2,13 @@
 
 namespace Phpfox\Form;
 
-class MultiChoice extends Element implements FieldInterface
+
+class InputRadioField extends ChoiceField
 {
     /**
-     * @var array
+     * @var mixed
      */
-    protected $value = [];
+    protected $value;
 
     /**
      * @var array
@@ -15,13 +16,21 @@ class MultiChoice extends Element implements FieldInterface
     protected $options = [];
 
     /**
-     * @return array
+     * @var string
+     */
+    protected $render = 'radio';
+
+    /**
+     * @return mixed
      */
     public function getValue()
     {
         return $this->value;
     }
 
+    /**
+     * @param mixed $value
+     */
     public function setValue($value)
     {
         $this->value = $value;

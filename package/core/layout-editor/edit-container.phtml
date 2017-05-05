@@ -1,9 +1,9 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="pull-right">
-            <a role="button" class="btn btn-xs btn-info" href="<?= _url('admin.core.layout.action',
+            <a role="link" data-cmd="modal" class="btn btn-xs btn-info" href="<?= _url('admin.core.layout.action',
                 ['action' => 'edit-container', 'container_id' => $container->getName()]) ?>">Edit</a>
-            <a role="button" class="btn btn-xs btn-info"
+            <a role="button" data-cmd="modal" class="btn btn-xs btn-info"
                href="?cmd=delete_container&container_id=<?= $container->getName() ?>">Remove</a>
             <a role="button" class="btn btn-xs btn-info">Toggle</a>
         </div>

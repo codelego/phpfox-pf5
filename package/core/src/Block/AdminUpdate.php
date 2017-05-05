@@ -12,7 +12,7 @@ class AdminUpdate extends Component
         $limit = $this->get('limit', 6);
 
         $news = \Phpfox::get('cache.local')
-            ->with('admincp.news', 600, function () use ($limit) {
+            ->load('admincp.news', 600, function () use ($limit) {
                 $remoteUrl = 'http://feeds.feedburner.com/phpfox';
                 $content = \Phpfox::get('curl')->factory($remoteUrl)
                     ->getString();

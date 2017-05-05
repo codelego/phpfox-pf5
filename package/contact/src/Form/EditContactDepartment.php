@@ -3,7 +3,7 @@
 namespace Neutron\Contact\Form;
 
 
-use Phpfox\Form\Button;
+use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
 class EditContactDepartment extends Form
@@ -47,13 +47,13 @@ class EditContactDepartment extends Form
     public function getButtons()
     {
         return [
-            new Button([
+            new ButtonField([
                 'type'       => 'submit',
                 'name'       => 'save',
                 'label'      => _text('Submit'),
                 'attributes' => ['class' => 'btn btn-primary'],
             ]),
-            new Button([
+            new ButtonField([
                 'type'       => 'submit',
                 'label'      => _text('Cancel'),
                 'href'       => _url('admin.report.category'),

@@ -233,7 +233,7 @@ class ThemeManager
     public function preferThemes()
     {
         return \Phpfox::get('cache.local')
-            ->with(self::PREFER_THEME_CACHE, 0, function () {
+            ->load(self::PREFER_THEME_CACHE, 0, function () {
                 return $this->_preferThemes();
             });
     }
@@ -358,7 +358,7 @@ class ThemeManager
     public function getCssBaseUrl()
     {
         return \Phpfox::get('cache.local')
-            ->with(self::PREFER_THEME_URL_CACHE, 0, function () {
+            ->load(self::PREFER_THEME_URL_CACHE, 0, function () {
                 $theme = $this->getDefault();
                 return '/pf5/static/' . 'themes/' . $theme->getId() . '/css';
             });

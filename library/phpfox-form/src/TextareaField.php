@@ -2,12 +2,14 @@
 
 namespace Phpfox\Form;
 
-class TextField extends Element implements FieldInterface
+class TextareaField extends Element implements FieldInterface
 {
     /**
      * @var mixed
      */
     protected $value;
+
+    protected $render = 'textarea';
 
     public function getValue()
     {

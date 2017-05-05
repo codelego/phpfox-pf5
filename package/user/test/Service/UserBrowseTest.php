@@ -12,7 +12,7 @@ class UserBrowseTest extends \PHPUnit_Framework_TestCase
      */
     public function testFindUser()
     {
-        $user = \Phpfox::db()
+        $user = \Phpfox::get('db')
             ->select('*')
             ->from(':user')
             ->setPrototype(User::class)

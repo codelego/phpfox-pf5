@@ -7,7 +7,7 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new TextField();
+        $obj = new InputTextField();
 
         $this->assertEmpty($obj->getName());
         $this->assertEmpty($obj->getValue());

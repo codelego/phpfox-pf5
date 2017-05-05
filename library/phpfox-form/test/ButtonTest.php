@@ -7,7 +7,7 @@ class ButtonTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new Button();
+        $obj = new ButtonField();
 
         $this->assertEmpty($obj->getName());
         $this->assertEmpty($obj->getValue());

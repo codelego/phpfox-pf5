@@ -2,14 +2,17 @@
 
 namespace Neutron\Core\Form;
 
+use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
 class EditLayoutComponent extends Form
 {
+    protected $componentId;
+
     public function initialize()
     {
         $this->addElement([
-            'factory'    => 'text',
+            'factory'    => 'static',
             'name'       => 'component_id',
             'attributes' =>
                 [
@@ -53,14 +56,14 @@ class EditLayoutComponent extends Form
             'required'   => true,
         ]);
         $this->addElement([
-            'factory'    => 'text',
+            'factory'    => 'select',
             'name'       => 'package_id',
             'attributes' =>
                 [
-                    'maxlength' => PHPFOX_TITLE_LENGTH,
-                    'class'     => 'form-control',
+                    'class' => 'form-control',
                 ],
-            'label'      => _text('Package Id'),
+            'options'    => \Phpfox::get('core.packages')->getPackageIdOptions(),
+            'label'      => _text('Package'),
             'required'   => true,
         ]);
         $this->addElement([
@@ -100,5 +103,17 @@ class EditLayoutComponent extends Form
                     'rows'      => PHPFOX_DESC_ROWS,
                 ],
         ]);
+    }
+
+    public function getButtons()
+    {
+        return [
+            new ButtonField([
+                'type'       => 'submit',
+                'name'       => 'save',
+                'label'      => _text('Save Changes'),
+                'attributes' => ['class' => 'btn btn-primary'],
+            ]),
+        ];
     }
 }

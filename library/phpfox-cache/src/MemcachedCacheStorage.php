@@ -39,7 +39,7 @@ class MemcachedCacheStorage implements CacheStorageInterface
 
     }
 
-    public function with($key, $ttl = 0, $fallback)
+    public function load($key, $ttl = 0, $fallback)
     {
         if (is_array($key)) {
             $key = implode('_', $key);
