@@ -63,8 +63,7 @@ class ReportManager
      */
     public function getActiveCategoryOptions()
     {
-        return _service('cache.local')
-            ->load('AbuseReport.getActiveCategoryOptions', 0, function () {
+        return _load('AbuseReport.getActiveCategoryOptions', 0, function () {
                 return $this->_getActiveCategoryOptions();
             });
     }

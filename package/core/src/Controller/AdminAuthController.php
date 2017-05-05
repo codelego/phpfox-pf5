@@ -22,9 +22,8 @@ class AdminAuthController extends ActionController
         _service('assets')
             ->addStyle('admin.login', null);
 
-        $layout = _service('layouts');
-
-        $layout->setTemplate('layout/login');
+        _service('layouts')
+            ->setTemplate('layout/login');
 
         $request = _service('request');
 
@@ -42,7 +41,7 @@ class AdminAuthController extends ActionController
                 _redirect('admin');
 
             } else {
-                $layout->assign([
+                _service('layouts')->assign([
                     'message' => $result->getMessage(),
                 ]);
             }

@@ -2,6 +2,9 @@
 
 namespace {
 
+    use Phpfox\Cache\CacheItem;
+    use Phpfox\Cache\CacheStorageInterface;
+
     function _dump()
     {
         var_dump(func_get_args());
@@ -43,7 +46,7 @@ namespace {
     {
         return \Phpfox::$service->get('models')->get($name);
     }
-    
+
     /**
      * @see GatewayInterface::findById()
      *
@@ -140,6 +143,30 @@ namespace {
         }
 
         return _sprintf($url, $context) . $query;
+    }
+
+    /**
+     * Load from cache
+     *
+     * @param string $key
+     * @param        $ttl
+     * @param        $fallback
+     *
+     * @return mixed|object
+     */
+    function _load($key, $ttl, $fallback)
+    {
+        /** @var CacheStorageInterface $obj */
+        $obj = \Phpfox::$service->get('cache.local');
+        if (is_array($key)) {
+            $key = implode('_', $key);
+        }
+        $item = $obj->getItem($key);
+
+        if (null == $item) {
+            $obj->saveItem($item = new CacheItem($key, $fallback(), $ttl));
+        }
+        return $item->value;
     }
 
     /**

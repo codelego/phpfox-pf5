@@ -58,8 +58,7 @@ class PermissionProvider implements PermissionProviderInterface
     public function load($roleId)
     {
 
-        return _service('cache.local')
-            ->load("permission_provider.$roleId", 0, function () use ($roleId) {
+        return _load("permission_provider.$roleId", 0, function () use ($roleId) {
                 return $this->_load($roleId);
             });
     }

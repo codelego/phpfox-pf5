@@ -11,8 +11,7 @@ class AdminUpdate extends Component
     {
         $limit = $this->get('limit', 6);
 
-        $news = _service('cache.local')
-            ->load('admincp.news', 600, function () use ($limit) {
+        $news = _load('admincp.news', 600, function () use ($limit) {
                 $remoteUrl = 'http://feeds.feedburner.com/phpfox';
                 $content = _service('curl')->factory($remoteUrl)
                     ->getString();
