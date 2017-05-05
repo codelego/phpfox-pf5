@@ -50,7 +50,7 @@ class VideoCategoryTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var VideoCategory $obj */
-        $obj = _with('video_category')
+        $obj = _model('video_category')
             ->select()->where('category_id=?', 15)->first();
 
         $this->assertSame('video_category', $obj->getModelId());
@@ -62,13 +62,13 @@ class VideoCategoryTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('video_category')
+        _model('video_category')
             ->delete()->where('category_id=?', 15)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('video_category')
+        _model('video_category')
             ->delete()->where('category_id=?', 15)->execute();
     }
 }

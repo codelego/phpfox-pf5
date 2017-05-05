@@ -50,7 +50,7 @@ class PhotoCategoryTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var PhotoCategory $obj */
-        $obj = _with('photo_category')
+        $obj = _model('photo_category')
             ->select()->where('category_id=?', 12)->first();
 
         $this->assertSame('photo_category', $obj->getModelId());
@@ -62,13 +62,13 @@ class PhotoCategoryTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('photo_category')
+        _model('photo_category')
             ->delete()->where('category_id=?', 12)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('photo_category')
+        _model('photo_category')
             ->delete()->where('category_id=?', 12)->execute();
     }
 }

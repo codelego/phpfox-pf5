@@ -12,7 +12,7 @@ class BlogPostController extends ActionController
         $request = _service('request');
         $id = $request->get('id');
 
-        $entry = _with('blog_post')->findById($id);
+        $entry = _model('blog_post')->findById($id);
 
         return new ViewModel(['item' => $entry,], 'blog/post/view');
     }

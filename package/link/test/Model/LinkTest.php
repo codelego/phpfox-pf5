@@ -105,7 +105,7 @@ class LinkTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var Link $obj */
-        $obj = _with('link')
+        $obj = _model('link')
             ->select()->where('link_id=?', 1)->first();
 
         $this->assertSame('link', $obj->getModelId());
@@ -128,13 +128,13 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('link')
+        _model('link')
             ->delete()->where('link_id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('link')
+        _model('link')
             ->delete()->where('link_id=?', 1)->execute();
     }
 }

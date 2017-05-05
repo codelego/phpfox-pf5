@@ -20,7 +20,7 @@ class AdminDepartmentController extends AdminController
 
     public function actionDepartments()
     {
-        $items = _with('contact_department')
+        $items = _model('contact_department')
             ->select()
             ->execute()
             ->all();

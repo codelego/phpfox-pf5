@@ -27,7 +27,7 @@ class AdminManageController extends AdminController
         if ($request->isGet()) {
             $filter->populate($request->all());
         }
-        $items = _with('user')
+        $items = _model('user')
             ->select()
             ->limit(10)
             ->all();

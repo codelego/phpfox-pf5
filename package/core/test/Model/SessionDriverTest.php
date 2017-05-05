@@ -60,7 +60,7 @@ class SessionDriverTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var SessionDriver $obj */
-        $obj = _with('session_driver')
+        $obj = _model('session_driver')
             ->select()->where('driver_id=?', '[database]')->first();
 
         $this->assertSame('session_driver', $obj->getModelId());
@@ -74,13 +74,13 @@ class SessionDriverTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('session_driver')
+        _model('session_driver')
             ->delete()->where('driver_id=?', '[database]')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('session_driver')
+        _model('session_driver')
             ->delete()->where('driver_id=?', '[database]')->execute();
     }
 }

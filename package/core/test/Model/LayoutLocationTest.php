@@ -37,7 +37,7 @@ class LayoutLocationTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var LayoutLocation $obj */
-        $obj = _with('layout_location')
+        $obj = _model('layout_location')
             ->select()->where('container_id=?', 1)->where('location_id=?', 'main')->first();
 
         $this->assertSame('layout_location', $obj->getModelId());
@@ -48,13 +48,13 @@ class LayoutLocationTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('layout_location')
+        _model('layout_location')
             ->delete()->where('container_id=?', 1)->where('location_id=?', 'main')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('layout_location')
+        _model('layout_location')
             ->delete()->where('container_id=?', 1)->where('location_id=?', 'main')->execute();
     }
 }

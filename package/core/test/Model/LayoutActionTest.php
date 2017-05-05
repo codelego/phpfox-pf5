@@ -46,7 +46,7 @@ class LayoutActionTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var LayoutAction $obj */
-        $obj = _with('layout_action')
+        $obj = _model('layout_action')
             ->select()->where('action_id=?','blog_index_index')->first();
 
         $this->assertSame('layout_action', $obj->getModelId());
@@ -60,13 +60,13 @@ class LayoutActionTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('layout_action')
+        _model('layout_action')
             ->delete()->where('action_id=?','blog_index_index')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('layout_action')
+        _model('layout_action')
             ->delete()->where('action_id=?','blog_index_index')->execute();
     }
 }

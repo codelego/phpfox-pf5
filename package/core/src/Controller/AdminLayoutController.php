@@ -67,7 +67,7 @@ class AdminLayoutController extends AdminController
 
     public function actionIndex()
     {
-        $items = _with('layout_action')->select()->all();
+        $items = _model('layout_action')->select()->all();
 
         return new ViewModel([
             'items' => $items,
@@ -85,7 +85,7 @@ class AdminLayoutController extends AdminController
 
         if ($request->isPost() and $form->isValid($request->all())) {
             /** @var LayoutAction $entry */
-            $entry = _with('layout_page')->create($form->getData());
+            $entry = _model('layout_page')->create($form->getData());
             $entry->save();
         }
 
@@ -103,7 +103,7 @@ class AdminLayoutController extends AdminController
         $form = new EditLayoutAction(['actionId' => $actionId]);
 
         /** @var LayoutAction $entry */
-        $entry = _with('layout_action')->findById($actionId);
+        $entry = _model('layout_action')->findById($actionId);
 
         if ($request->isGet()) {
             $form->populate($entry);
@@ -165,7 +165,7 @@ class AdminLayoutController extends AdminController
         }
 
 
-        $items = _with('layout_theme')
+        $items = _model('layout_theme')
             ->select('*')
             ->all();
 
@@ -243,7 +243,7 @@ class AdminLayoutController extends AdminController
 
     public function actionManageComponent()
     {
-        $items = _with('layout_component')->select()->all();
+        $items = _model('layout_component')->select()->all();
 
         return new ViewModel([
             'items' => $items,
@@ -261,7 +261,7 @@ class AdminLayoutController extends AdminController
 
         if ($request->isPost() and $form->isValid($request->all())) {
             /** @var LayoutBlock $entry */
-            $entry = _with('layout_component')
+            $entry = _model('layout_component')
                 ->create($form->getData());
             $entry->save();
         }
@@ -281,7 +281,7 @@ class AdminLayoutController extends AdminController
         $form = new EditLayoutComponent([]);
 
         /** @var LayoutComponent $entry */
-        $entry = _with('layout_component')->findById($componentId);
+        $entry = _model('layout_component')->findById($componentId);
 
         if ($request->isGet()) {
             $form->populate($entry);
@@ -377,7 +377,7 @@ class AdminLayoutController extends AdminController
             ]);
 
             /** @var LayoutBlock $entry */
-            $entry = _with('layout_block')
+            $entry = _model('layout_block')
                 ->create($data);
 
             $entry->save();
@@ -403,7 +403,7 @@ class AdminLayoutController extends AdminController
         $form = new EditLayoutBlock([]);
 
         /** @var LayoutBlock $entry */
-        $entry = _with('layout_block')->findById($id);
+        $entry = _model('layout_block')->findById($id);
 
         if ($request->isGet()) {
             $form->populate($entry);
@@ -521,7 +521,7 @@ class AdminLayoutController extends AdminController
         $layoutService = _service('layout_loader');
         $parentPageId = $layoutService->findPageIdForRender($actionId, $themeId);
         /** @var LayoutPage $parentPage */
-        $parentPage = _with('layout_page')->findById($parentPageId);
+        $parentPage = _model('layout_page')->findById($parentPageId);
 
         if ($confirmed) {
             $layoutService->clonePage($actionId, $themeId);

@@ -14,7 +14,7 @@ class Roles
      */
     public function findById($id)
     {
-        return _with('core_role')
+        return _model('core_role')
             ->findById((int)$id);
         
     }

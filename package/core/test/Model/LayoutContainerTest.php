@@ -65,7 +65,7 @@ class LayoutContainerTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var LayoutContainer $obj */
-        $obj = _with('layout_container')
+        $obj = _model('layout_container')
             ->select()->where('container_id=?', 1)->first();
 
         $this->assertSame('layout_container', $obj->getModelId());
@@ -80,13 +80,13 @@ class LayoutContainerTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('layout_container')
+        _model('layout_container')
             ->delete()->where('container_id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('layout_container')
+        _model('layout_container')
             ->delete()->where('container_id=?', 1)->execute();
     }
 }

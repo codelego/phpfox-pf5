@@ -29,7 +29,7 @@ class AdminStorageController extends AdminController
     public function actionIndex()
     {
 
-        $items = $packages = _with('storage_adapter')
+        $items = $packages = _model('storage_adapter')
             ->select('*')
             ->all();
 

@@ -96,7 +96,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var User $obj */
-        $obj = _with('user')
+        $obj = _model('user')
             ->select()
             ->where('user_id=?', 1)
             ->first();
@@ -118,7 +118,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('user')
+        _model('user')
             ->delete()
             ->where('user_id=?', 1)
             ->execute();
@@ -126,7 +126,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        _with('user')
+        _model('user')
             ->delete()
             ->where('user_id=?', 1)
             ->execute();

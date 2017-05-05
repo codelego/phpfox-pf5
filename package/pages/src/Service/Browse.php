@@ -14,7 +14,7 @@ class Browse
      */
     public function findById($id)
     {
-        $browse = _with('pages');
+        $browse = _model('pages');
         $pages = null;
 
         if (substr($id, 0, 1) > '9') {

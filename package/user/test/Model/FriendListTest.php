@@ -40,7 +40,7 @@ class FriendListTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var FriendList $obj */
-        $obj = _with('')
+        $obj = _model('')
             ->select()->where('list_id=?','')->first();
 
         $this->assertSame('', $obj->getModelId());
@@ -52,13 +52,13 @@ class FriendListTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('')
+        _model('')
             ->delete()->where('list_id=?','')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('')
+        _model('')
             ->delete()->where('list_id=?','')->execute();
     }
 }

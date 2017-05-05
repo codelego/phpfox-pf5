@@ -60,7 +60,7 @@ class AdminCategoryControllerTest extends \PHPUnit_Framework_TestCase
         // test lat object
 
         /** @var ReportCategory $obj */
-        $obj = _with('report_category')
+        $obj = _model('report_category')
             ->select('*')
             ->where('is_active=?', 0)->where('name=?', '[example name]')
             ->setPrototype(ReportCategory::class)

@@ -50,7 +50,7 @@ class AnnouncementExcludeTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var AnnouncementExclude $obj */
-        $obj = _with('announcement_exclude')
+        $obj = _model('announcement_exclude')
             ->select()->where('exclude_id=?', 1)->first();
 
         $this->assertSame('announcement_exclude', $obj->getModelId());
@@ -62,13 +62,13 @@ class AnnouncementExcludeTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('announcement_exclude')
+        _model('announcement_exclude')
             ->delete()->where('exclude_id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('announcement_exclude')
+        _model('announcement_exclude')
             ->delete()->where('exclude_id=?', 1)->execute();
     }
 }

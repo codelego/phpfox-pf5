@@ -38,7 +38,7 @@ class AdminCategoryController extends AdminController
         $id = $request->get('id');
 
         /** @var BlogCategory $obj */
-        $obj = _with('blog_category')->findById($id);
+        $obj = _model('blog_category')->findById($id);
 
         $form = new AddBlogCategory();
 
@@ -63,7 +63,7 @@ class AdminCategoryController extends AdminController
 
     public function actionIndex()
     {
-        $items = _with('blog_category')
+        $items = _model('blog_category')
             ->select()
             ->all();
 

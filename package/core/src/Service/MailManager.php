@@ -12,7 +12,7 @@ class MailManager
      */
     public function getDriverIdOptions()
     {
-        $select = _with('mail_driver')
+        $select = _model('mail_driver')
             ->select();
 
         return array_map(function (ModelInterface $v) {

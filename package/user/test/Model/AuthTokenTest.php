@@ -54,7 +54,7 @@ class AuthTokenTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var AuthToken $obj */
-        $obj = _with('auth_token')
+        $obj = _model('auth_token')
             ->select()->where('id=?',
                 '$2y$10$eO/nRD4KPbvtzQJjE26d1OjjXYjQj96pfExn8Gpva5yD/36UsoG2e')
             ->first();
@@ -69,7 +69,7 @@ class AuthTokenTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('auth_token')
+        _model('auth_token')
             ->delete()->where('id=?',
                 '$2y$10$eO/nRD4KPbvtzQJjE26d1OjjXYjQj96pfExn8Gpva5yD/36UsoG2e')
             ->execute();
@@ -77,7 +77,7 @@ class AuthTokenTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        _with('auth_token')
+        _model('auth_token')
             ->delete()->where('id=?',
                 '$2y$10$eO/nRD4KPbvtzQJjE26d1OjjXYjQj96pfExn8Gpva5yD/36UsoG2e')
             ->execute();

@@ -34,7 +34,7 @@ class GroupMemberItemTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var GroupMemberItem $obj */
-        $obj = _with('group_member_item')
+        $obj = _model('group_member_item')
             ->select()->where('list_id=?', 23)->where('user_id=?', 44)->first();
 
         $this->assertSame('group_member_item', $obj->getModelId());
@@ -44,14 +44,14 @@ class GroupMemberItemTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('group_member_item')
+        _model('group_member_item')
             ->delete()->where('list_id=?', 23)->where('user_id=?', 44)
             ->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('group_member_item')
+        _model('group_member_item')
             ->delete()->where('list_id=?', 23)->where('user_id=?', 44)
             ->execute();
     }

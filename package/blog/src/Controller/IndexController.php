@@ -10,7 +10,7 @@ class IndexController extends ActionController
 {
     public function actionIndex()
     {
-        $items = _with('blog_post')->select()->all();
+        $items = _model('blog_post')->select()->all();
 
         return new ViewModel([
             'items' => $items,
@@ -25,7 +25,7 @@ class IndexController extends ActionController
 
         if ($request->isPost() and $form->isValid($request->all())) {
             $data = $form->getData();
-            $entry = _with('blog_post')->create($data);
+            $entry = _model('blog_post')->create($data);
             $entry->save();
         }
 

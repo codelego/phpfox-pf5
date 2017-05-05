@@ -49,7 +49,7 @@ class AuthHistoryTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var AuthHistory $entry */
-        $entry = _with('auth_history')
+        $entry = _model('auth_history')
             ->select()
             ->where('remote_address=?', '::0')
             ->first();

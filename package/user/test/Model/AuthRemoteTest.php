@@ -60,7 +60,7 @@ class AuthRemoteTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var AuthRemote $obj */
-        $obj = _with('auth_remote')
+        $obj = _model('auth_remote')
             ->select()->where('id=?', 33)->first();
 
         $this->assertSame('auth_remote', $obj->getModelId());
@@ -74,13 +74,13 @@ class AuthRemoteTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('auth_remote')
+        _model('auth_remote')
             ->delete()->where('id=?', 33)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('auth_remote')
+        _model('auth_remote')
             ->delete()->where('id=?', 33)->execute();
     }
 }

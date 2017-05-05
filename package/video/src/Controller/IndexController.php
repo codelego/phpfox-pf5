@@ -10,7 +10,7 @@ class IndexController extends ActionController
 {
     public function actionIndex()
     {
-        $items = _with('video')
+        $items = _model('video')
             ->select()
             ->all();
 

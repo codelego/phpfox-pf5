@@ -11,7 +11,7 @@ class AddNewRole extends Form
 {
     protected function initialize()
     {
-        $roles = _with('core_role')
+        $roles = _model('core_role')
             ->select()
             ->where('inherit_id=?', 0)
             ->execute()

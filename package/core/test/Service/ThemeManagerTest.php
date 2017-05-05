@@ -69,7 +69,7 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
     public function testHasAtLeastTheme()
     {
         /** @var LayoutTheme $theme */
-        $theme = _with('layout_theme')
+        $theme = _model('layout_theme')
             ->select()
             ->first();
 
@@ -165,7 +165,7 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
     public function testGetNotDefaultTheme()
     {
         /** @var LayoutTheme $theme */
-        $theme = _with('layout_theme')
+        $theme = _model('layout_theme')
             ->select()
             ->where('is_default=?', 0)
             ->first();

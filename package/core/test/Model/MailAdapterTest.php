@@ -72,7 +72,7 @@ class MailAdapterTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var MailAdapter $obj */
-        $obj = _with('mail_adapter')
+        $obj = _model('mail_adapter')
             ->select()->where('adapter_id=?', 2)->first();
 
         $this->assertSame('mail_adapter', $obj->getModelId());
@@ -89,13 +89,13 @@ class MailAdapterTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('mail_adapter')
+        _model('mail_adapter')
             ->delete()->where('adapter_id=?', 2)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('mail_adapter')
+        _model('mail_adapter')
             ->delete()->where('adapter_id=?', 2)->execute();
     }
 }

@@ -72,7 +72,7 @@ class VerifyTokenManager
      */
     public function findById($id)
     {
-        return _with('user_verify_token')
+        return _model('user_verify_token')
             ->findById((string)$id);
     }
 

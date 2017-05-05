@@ -80,7 +80,7 @@ class FeedTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var Feed $obj */
-        $obj = _with('feed')
+        $obj = _model('feed')
             ->select()->where('feed_id=?', 16)->first();
 
         $this->assertSame('feed', $obj->getModelId());
@@ -98,13 +98,13 @@ class FeedTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('feed')
+        _model('feed')
             ->delete()->where('feed_id=?', 16)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('feed')
+        _model('feed')
             ->delete()->where('feed_id=?', 16)->execute();
     }
 }

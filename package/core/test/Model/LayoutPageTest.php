@@ -53,7 +53,7 @@ class LayoutPageTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var LayoutPage $obj */
-        $obj = _with('layout_page')
+        $obj = _model('layout_page')
             ->select()->where('page_id=?', 1)->first();
 
         $this->assertSame('layout_page', $obj->getModelId());
@@ -66,13 +66,13 @@ class LayoutPageTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('layout_page')
+        _model('layout_page')
             ->delete()->where('page_id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('layout_page')
+        _model('layout_page')
             ->delete()->where('page_id=?', 1)->execute();
     }
 }

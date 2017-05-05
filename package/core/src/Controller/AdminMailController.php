@@ -41,7 +41,7 @@ class AdminMailController extends AdminController
 
     public function actionIndex()
     {
-        $items = _with('mail_adapter')
+        $items = _model('mail_adapter')
             ->select()
             ->all();
 
@@ -52,7 +52,7 @@ class AdminMailController extends AdminController
 
     public function actionTransports()
     {
-        $items = _with('mail_adapter')
+        $items = _model('mail_adapter')
             ->select()
             ->execute()
             ->all();
@@ -75,7 +75,7 @@ class AdminMailController extends AdminController
         }
 
         /** @var MailDriver $driver */
-        $driver = _with('mail_driver')->findById($driverId);
+        $driver = _model('mail_driver')->findById($driverId);
 
         $formSettings = $driver->getFormName();
 
@@ -94,10 +94,10 @@ class AdminMailController extends AdminController
         $id = $request->get('id');
 
         /** @var MailAdapter $item */
-        $item = _with('mail_adapter')->findById($id);
+        $item = _model('mail_adapter')->findById($id);
 
         /** @var MailDriver $driver */
-        $driver = _with('mail_driver')->findById($item->getDriverId());
+        $driver = _model('mail_driver')->findById($item->getDriverId());
 
         $formSettings = $driver->getFormName();
 

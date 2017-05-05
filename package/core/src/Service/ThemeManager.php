@@ -27,13 +27,13 @@ class ThemeManager
      */
     public function findById($id)
     {
-        return _with('layout_theme')
+        return _model('layout_theme')
             ->findById((string)$id);
     }
 
     public function getThemeIdOptions()
     {
-        $select = _with('layout_theme')
+        $select = _model('layout_theme')
             ->select();
 
         return array_map(function (ModelInterface $v) {
@@ -51,7 +51,7 @@ class ThemeManager
      */
     public function findSettingById($id)
     {
-        return _with('layout_theme_params')
+        return _model('layout_theme_params')
             ->findById((int)$id);
     }
 
@@ -62,7 +62,7 @@ class ThemeManager
      */
     public function findSettingByThemeId($id)
     {
-        return _with('layout_theme_params')
+        return _model('layout_theme_params')
             ->select()
             ->where('theme_id=?', (string)$id)
             ->first();
@@ -182,13 +182,13 @@ class ThemeManager
      */
     public function getDefault()
     {
-        $item = _with('layout_theme')
+        $item = _model('layout_theme')
             ->select()
             ->where('is_default=?', 1)
             ->first();
 
         if (!$item) {
-            $item = _with('layout_theme')
+            $item = _model('layout_theme')
                 ->select()
                 ->where('is_active=?', 1)
                 ->first();

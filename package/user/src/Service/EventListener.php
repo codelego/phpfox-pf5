@@ -8,7 +8,7 @@ class EventListener implements EventListenerInterface
 {
     public function onSiteStatistics()
     {
-        $totalUser = _with('user')
+        $totalUser = _model('user')
             ->select()
             ->count();
 

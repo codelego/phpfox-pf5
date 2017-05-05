@@ -50,7 +50,7 @@ class FriendListTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var FriendList $obj */
-        $obj = _with('friend_list')
+        $obj = _model('friend_list')
             ->select()->where('list_id=?', 2)->where('parent_id=?', 44)
             ->where('type_id=?', 1)->where('name=?', '[customize]')->first();
 
@@ -63,14 +63,14 @@ class FriendListTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('friend_list')
+        _model('friend_list')
             ->delete()->where('list_id=?', 2)->where('parent_id=?', 44)
             ->where('type_id=?', 1)->where('name=?', '[customize]')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('friend_list')
+        _model('friend_list')
             ->delete()->where('list_id=?', 2)->where('parent_id=?', 44)
             ->where('type_id=?', 1)->where('name=?', '[customize]')->execute();
     }

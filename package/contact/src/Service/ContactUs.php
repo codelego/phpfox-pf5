@@ -13,13 +13,13 @@ class ContactUs
      */
     public function findDepartmentById($id)
     {
-        return _with('contact_department')
+        return _model('contact_department')
             ->findById((int)$id);
     }
 
     public function getDefaultDepartmentId()
     {
-        $entry = _with('contact_department')
+        $entry = _model('contact_department')
             ->select()
             ->where('is_active=?', 1)
             ->order('is_default', -1)
@@ -52,7 +52,7 @@ class ContactUs
     {
         return array_map(function (Department $item) {
             return ['value' => $item->getId(), 'label' => $item->getTitle()];
-        }, _with('contact_department')
+        }, _model('contact_department')
             ->select()
             ->where('is_active=?', 1)
             ->execute()

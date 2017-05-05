@@ -10,7 +10,7 @@ class AdminI18nController extends AdminController
 {
     public function actionIndex()
     {
-        $items = _with('i18n_language')
+        $items = _model('i18n_language')
             ->select()
             ->execute()
             ->all();
@@ -42,7 +42,7 @@ class AdminI18nController extends AdminController
         _service('require_js')
             ->deps('package/core/admin-i18n');
 
-        $items = _with('i18n_message')
+        $items = _model('i18n_message')
             ->select()
             ->limit(100, 0)
             ->execute()

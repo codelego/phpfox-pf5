@@ -21,15 +21,6 @@ namespace {
     }
 
     /**
-     * @param string $route
-     * @param array  $params
-     */
-    function _redirect($route, $params = [])
-    {
-        \Phpfox::$service->get('response')->redirect(_url($route, $params));
-    }
-
-    /**
      * @see ServiceManager::has()
      *
      * @param string $id
@@ -41,19 +32,18 @@ namespace {
         return \Phpfox::$service->has($id);
     }
 
-
     /**
      * @see GatewayManager::get()
      *
-     * @param string $id
+     * @param string $name
      *
      * @return \Phpfox\Model\GatewayInterface|\Phpfox\Db\DbTableGateway
      */
-    function _with($id)
+    function _model($name)
     {
-        return \Phpfox::$service->get('models')->get($id);
+        return \Phpfox::$service->get('models')->get($name);
     }
-
+    
     /**
      * @see GatewayInterface::findById()
      *
@@ -68,6 +58,16 @@ namespace {
     }
 
     /**
+     * @param string $route
+     * @param array  $params
+     */
+    function _redirect($route, $params = [])
+    {
+        \Phpfox::$service->get('response')->redirect(_url($route, $params));
+    }
+
+
+    /**
      * @see \Phpfox\Action\Configs::get()
      *
      * @param string $section
@@ -79,6 +79,7 @@ namespace {
     {
         return \Phpfox::$config->get($section, $item);
     }
+
 
     /**
      * Generate random string by length

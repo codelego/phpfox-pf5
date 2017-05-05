@@ -31,7 +31,7 @@ class AdminCategoryController extends AdminController
 
     public function actionIndex()
     {
-        $items = _with('report_category')
+        $items = _model('report_category')
             ->select()
             ->execute()
             ->all();

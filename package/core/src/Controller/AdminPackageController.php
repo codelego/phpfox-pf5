@@ -19,7 +19,7 @@ class AdminPackageController extends AdminController
 
     public function actionIndex()
     {
-        $packages = _with('core_package')
+        $packages = _model('core_package')
             ->select()
             ->order('is_required', -1)
             ->order('title', 1)

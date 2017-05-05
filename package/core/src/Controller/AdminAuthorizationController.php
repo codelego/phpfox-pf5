@@ -22,12 +22,12 @@ class AdminAuthorizationController extends AdminController
     public function actionIndex()
     {
 
-        $items = _with('core_role')
+        $items = _model('core_role')
             ->select()
             ->execute()
             ->all();
 
-        $temp = _with('user')
+        $temp = _model('user')
             ->select('role_id, count(*) as user_count')
             ->group('role_id')
             ->execute()

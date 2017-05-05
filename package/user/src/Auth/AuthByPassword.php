@@ -54,14 +54,14 @@ class AuthByPassword implements AuthInterface
     private function findUser($identity)
     {
         if (strpos($identity, '@') !== false) {// check is email
-            return _with('user')
+            return _model('user')
                 ->select()
                 ->where('email=?', $identity)
                 ->first();
 
         }
 
-        return _with('user')
+        return _model('user')
             ->select()
             ->where('username=?', $identity)
             ->first();
@@ -77,7 +77,7 @@ class AuthByPassword implements AuthInterface
     {
 
         /** @var AuthPassword[] $candidates */
-        $candidates = _with('auth_password')
+        $candidates = _model('auth_password')
             ->select()
             ->where('user_id=?', (int)$userId)
             ->all();

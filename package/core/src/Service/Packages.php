@@ -15,13 +15,13 @@ class Packages
      */
     public function findById($id)
     {
-        return _with('core_package')
+        return _model('core_package')
             ->findById((int)$id);
     }
 
     public function getPackageIdOptions()
     {
-        $select = _with('core_package')->select();
+        $select = _model('core_package')->select();
 
         return array_map(function (CorePackage $v) {
             return [

@@ -97,7 +97,7 @@ class VideoTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var Video $obj */
-        $obj = _with('video')
+        $obj = _model('video')
             ->select()
             ->where('title=?', '[title]')
             ->where('created_at=?', '2017-01-18 08:56:34')

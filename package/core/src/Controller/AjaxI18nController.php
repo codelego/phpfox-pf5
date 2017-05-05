@@ -18,7 +18,7 @@ class AjaxI18nController extends AjaxController
 
 
         if ($cmd == 'delete') {
-            _with('i18n_message')
+            _model('i18n_message')
                 ->delete(['var_name' => $key]);
         }
 

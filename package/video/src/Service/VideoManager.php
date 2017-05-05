@@ -15,7 +15,7 @@ class VideoManager
      */
     public function findVideoById($id)
     {
-        return _with('video')
+        return _model('video')
             ->findById((int)$id);
     }
 }

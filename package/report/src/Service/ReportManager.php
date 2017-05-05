@@ -15,7 +15,7 @@ class ReportManager
      */
     public function findReportById($id)
     {
-        return _with('report')
+        return _model('report')
             ->findById(intval($id));
     }
 
@@ -26,7 +26,7 @@ class ReportManager
      */
     public function findCategoryById($id)
     {
-        return _with('report_category')
+        return _model('report_category')
             ->findById((int)$id);
     }
 
@@ -37,7 +37,7 @@ class ReportManager
      */
     public function addReport($data)
     {
-        $item = _with('report')
+        $item = _model('report')
             ->create($data);
 
         $item->save();
@@ -52,7 +52,7 @@ class ReportManager
      */
     public function deleteReport($reportId)
     {
-        $result = _with('report')
+        $result = _model('report')
             ->deleteById(intval($reportId));
 
         return $result->isValid();
@@ -73,7 +73,7 @@ class ReportManager
     {
         return array_map(function (ReportCategory $item) {
             return ['label' => $item->getName(), 'value' => $item->getId()];
-        }, _with('report_category')->select()
+        }, _model('report_category')->select()
             ->where('is_active=1')->execute()->all());
     }
 }

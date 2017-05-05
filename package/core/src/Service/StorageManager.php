@@ -12,7 +12,7 @@ class StorageManager
      */
     public function getStorageAdapters()
     {
-        return _with('storage_adapter')
+        return _model('storage_adapter')
             ->select()
             ->all();
     }

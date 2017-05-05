@@ -70,7 +70,7 @@ class MessagesTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var Messages $obj */
-        $obj = _with('messages')
+        $obj = _model('messages')
             ->select()->where('message_id=?', 2)->first();
 
         $this->assertSame('messages', $obj->getModelId());
@@ -86,13 +86,13 @@ class MessagesTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('messages')
+        _model('messages')
             ->delete()->where('message_id=?', 2)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('messages')
+        _model('messages')
             ->delete()->where('message_id=?', 2)->execute();
     }
 }

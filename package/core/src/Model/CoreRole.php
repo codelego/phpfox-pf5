@@ -52,7 +52,7 @@ class CoreRole extends DbModel
      */
     public function getUserCount()
     {
-        return _with('user')
+        return _model('user')
             ->select()
             ->where('role_id=?', $this->getId())
             ->count();

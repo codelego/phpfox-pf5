@@ -45,7 +45,7 @@ class AuthPasswordTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var AuthPassword $obj */
-        $obj = _with('auth_password')
+        $obj = _model('auth_password')
             ->select()
             ->where('source_id=?', 'test')
             ->first();

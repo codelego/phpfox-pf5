@@ -67,7 +67,7 @@ class VideoProviderTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var VideoProvider $obj */
-        $obj = _with('video_provider')
+        $obj = _model('video_provider')
             ->select()->where('provider_id=?', 'vimeo')->first();
 
         $this->assertSame('video_provider', $obj->getModelId());
@@ -83,13 +83,13 @@ class VideoProviderTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('video_provider')
+        _model('video_provider')
             ->delete()->where('provider_id=?', 'vimeo')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('video_provider')
+        _model('video_provider')
             ->delete()->where('provider_id=?', 'vimeo')->execute();
     }
 }

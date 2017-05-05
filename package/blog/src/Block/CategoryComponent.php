@@ -9,7 +9,7 @@ class CategoryComponent extends Component
 {
     public function run()
     {
-        $items = _with('blog_category')
+        $items = _model('blog_category')
             ->select()
             ->all();
 

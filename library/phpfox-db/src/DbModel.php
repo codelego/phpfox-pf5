@@ -93,7 +93,7 @@ abstract class DbModel implements ModelInterface
     {
         $this->beforeDelete();
 
-        _with($this->getModelId())
+        _model($this->getModelId())
             ->deleteBy($this);
 
         $this->afterDelete();
@@ -116,7 +116,7 @@ abstract class DbModel implements ModelInterface
             return false;
         }
 
-        $gateway = _with($this->getModelId());
+        $gateway = _model($this->getModelId());
 
         if ($this->_saved) {
             $this->beforeUpdate();

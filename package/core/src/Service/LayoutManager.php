@@ -80,7 +80,7 @@ class LayoutManager implements LoaderInterface
     public function findPageIdForEdit($actionId, $themeId)
     {
         /** @var LayoutPage $layoutPage */
-        $layoutPage = _with('layout_page')
+        $layoutPage = _model('layout_page')
             ->select()
             ->where('theme_id=?', $themeId)
             ->where('action_id =?', $actionId)
@@ -108,7 +108,7 @@ class LayoutManager implements LoaderInterface
             $temp = [];
 
             /** @var LayoutPage[] $rows */
-            $rows = _with('layout_page')
+            $rows = _model('layout_page')
                 ->select()
                 ->where('is_active=?', 1)
                 ->where('theme_id=?', $themeId)
@@ -126,7 +126,7 @@ class LayoutManager implements LoaderInterface
         }
 
         /** @var LayoutPage $alternate */
-        $alternate = _with('layout_page')
+        $alternate = _model('layout_page')
             ->select()
             ->where('theme_id=?', 'default')
             ->where('action_id=?', 'default')
@@ -146,7 +146,7 @@ class LayoutManager implements LoaderInterface
         $page = new LayoutContent($pageId);
 
         /** @var LayoutContainer[] $layoutContainers */
-        $layoutContainers = _with('layout_container')
+        $layoutContainers = _model('layout_container')
             ->select()
             ->where('page_id=?', $pageId)
             ->where('is_active=?', 1)
@@ -174,7 +174,7 @@ class LayoutManager implements LoaderInterface
             }
 
             /** @var LayoutLocation[] $containerLocations */
-            $containerLocations = _with('layout_location')
+            $containerLocations = _model('layout_location')
                 ->select()
                 ->where('container_id=?', $layoutContainer->getId())
                 ->all();
@@ -274,10 +274,10 @@ class LayoutManager implements LoaderInterface
 
         try {
             /** @var LayoutPage $page */
-            $page = _with('layout_page')->findById($pageId);
+            $page = _model('layout_page')->findById($pageId);
 
             /** @var LayoutPage $newPage */
-            $newPage = _with('layout_page')
+            $newPage = _model('layout_page')
                 ->create(array_merge($page->toArray(), [
                     'page_id'   => null,
                     'action_id' => $actionId,
@@ -288,14 +288,14 @@ class LayoutManager implements LoaderInterface
 
             /** @var LayoutContainer[] $containers */
             $containers
-                = _with('layout_container')
+                = _model('layout_container')
                 ->select()
                 ->where('page_id=?', $pageId)
                 ->all();
 
             foreach ($containers as $container) {
                 /** @var LayoutContainer $newContainer */
-                $newContainer = _with('layout_container')
+                $newContainer = _model('layout_container')
                     ->create(array_merge($container->toArray(), [
                         'container_id' => null,
                         'page_id'      => $newPage->getId(),
@@ -303,14 +303,14 @@ class LayoutManager implements LoaderInterface
                 $newContainer->save();
 
                 /** @var LayoutLocation[] $locations */
-                $locations = _with('layout_location')
+                $locations = _model('layout_location')
                     ->select()
                     ->where('container_id=?', $container->getId())
                     ->all();
 
                 foreach ($locations as $location) {
                     /** @var LayoutLocation $newLocation */
-                    $newLocation = _with('layout_location')
+                    $newLocation = _model('layout_location')
                         ->create(array_merge($location->toArray(), [
                             'container_id' => $newContainer->getId(),
                         ]));
@@ -318,7 +318,7 @@ class LayoutManager implements LoaderInterface
                 }
 
                 /** @var LayoutBlock[] $blocks */
-                $blocks = _with('layout_block')
+                $blocks = _model('layout_block')
                     ->select()
                     ->where('container_id=?', $container->getId())
                     ->where('parent_id=?', 0)
@@ -326,7 +326,7 @@ class LayoutManager implements LoaderInterface
 
                 foreach ($blocks as $block) {
                     /** @var LayoutBlock $block */
-                    $newBlock = _with('layout_block')
+                    $newBlock = _model('layout_block')
                         ->create(array_merge($block->toArray(), [
                             'block_id'     => null,
                             'parent_id'    => 0,
@@ -352,7 +352,7 @@ class LayoutManager implements LoaderInterface
      */
     public function getEditingThemeId()
     {
-        $theme = _with('layout_theme')
+        $theme = _model('layout_theme')
             ->select()
             ->where('is_editing=?', 1)
             ->first();
@@ -375,7 +375,7 @@ class LayoutManager implements LoaderInterface
                 'value' => $v->__get('grid_id'),
                 'note'  => $v->__get('description'),
             ];
-        }, _with('layout_grid')->select()->all());
+        }, _model('layout_grid')->select()->all());
     }
 
 
@@ -397,7 +397,7 @@ class LayoutManager implements LoaderInterface
      */
     public function getActionIdOptions($excludes = [])
     {
-        $select = _with('layout_action')->select();
+        $select = _model('layout_action')->select();
 
         if (!empty($excludes)) {
             $select->where('action_id not in ?', $excludes);
@@ -418,12 +418,12 @@ class LayoutManager implements LoaderInterface
      */
     public function findPageById($pageId)
     {
-        return _with('layout_page')->findById($pageId);
+        return _model('layout_page')->findById($pageId);
     }
 
     public function getComponentIdOptions()
     {
-        $select = _with('layout_component')
+        $select = _model('layout_component')
             ->select()
             ->where('is_active=?', 1)
             ->order('package_id,component_name', 1);
@@ -447,17 +447,17 @@ class LayoutManager implements LoaderInterface
             return;
         }
 
-        _with('layout_block')
+        _model('layout_block')
             ->delete()
             ->where('container_id in ?', $containerIdList)
             ->execute();
 
-        _with('layout_location')
+        _model('layout_location')
             ->delete()
             ->where('container_id in ?', $containerIdList)
             ->execute();
 
-        _with('layout_container')
+        _model('layout_container')
             ->delete()
             ->where('container_id in ?', $containerIdList)
             ->execute();

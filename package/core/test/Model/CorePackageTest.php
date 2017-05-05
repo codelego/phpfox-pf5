@@ -98,7 +98,7 @@ class CorePackageTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var CorePackage $obj */
-        $obj = _with('core_package')
+        $obj = _model('core_package')
             ->select()->where('id=?', 1)->first();
 
         $this->assertSame('core_package', $obj->getModelId());
@@ -120,13 +120,13 @@ class CorePackageTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('core_package')
+        _model('core_package')
             ->delete()->where('id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('core_package')
+        _model('core_package')
             ->delete()->where('id=?', 1)->execute();
     }
 }

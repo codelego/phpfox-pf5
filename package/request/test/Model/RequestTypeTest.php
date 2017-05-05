@@ -56,7 +56,7 @@ class RequestTypeTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var RequestType $obj */
-        $obj = _with('request_type')
+        $obj = _model('request_type')
             ->select()
             ->where('type_id=?', '[comment_add]')
             ->first();
@@ -71,7 +71,7 @@ class RequestTypeTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('request_type')
+        _model('request_type')
             ->delete()
             ->where('type_id=?', '[comment_add]')
             ->execute();
@@ -79,7 +79,7 @@ class RequestTypeTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        _with('request_type')
+        _model('request_type')
             ->delete()
             ->where('type_id=?', '[comment_add]')
             ->execute();

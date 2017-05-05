@@ -50,7 +50,7 @@ class MarketplaceCategoryTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var MarketplaceCategory $obj */
-        $obj = _with('marketplace_category')
+        $obj = _model('marketplace_category')
             ->select()->where('category_id=?', 12)->first();
 
         $this->assertSame('marketplace_category', $obj->getModelId());
@@ -62,13 +62,13 @@ class MarketplaceCategoryTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('marketplace_category')
+        _model('marketplace_category')
             ->delete()->where('category_id=?', 12)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('marketplace_category')
+        _model('marketplace_category')
             ->delete()->where('category_id=?', 12)->execute();
     }
 }
