@@ -13,17 +13,17 @@ namespace {
         /**
          * @var \Phpfox\Support\ServiceManager
          */
-        private static $service;
+        public static $service;
 
         /**
          * @var \Phpfox\Support\Configs
          */
-        private static $config;
+        public static $config;
 
         /**
          * @var bool
          */
-        private static $initialized = false;
+        public static $initialized = false;
 
         /**
          * Initialize method

@@ -9,6 +9,68 @@ namespace {
     }
 
     /**
+     * @see ServiceManager::get()
+     *
+     * @param string $name
+     *
+     * @return mixed
+     */
+    function _get($name)
+    {
+        return \Phpfox::$service->get($name);
+    }
+
+    /**
+     * @see ServiceManager::build()
+     *
+     * @param string $id
+     *
+     * @return mixed
+     */
+    function _build($id)
+    {
+        return \Phpfox::$service->build($id);
+    }
+
+    /**
+     * @see ServiceManager::has()
+     *
+     * @param string $id
+     *
+     * @return bool
+     */
+    function _has($id)
+    {
+        return \Phpfox::$service->has($id);
+    }
+
+
+    /**
+     * @see GatewayManager::get()
+     *
+     * @param string $id
+     *
+     * @return \Phpfox\Model\GatewayInterface|\Phpfox\Db\DbTableGateway
+     */
+    function _with($id)
+    {
+        return \Phpfox::$service->get('models')->get($id);
+    }
+
+    /**
+     * @see GatewayInterface::findById()
+     *
+     * @param string $type
+     * @param mixed  $id
+     *
+     * @return \Phpfox\Model\ModelInterface
+     */
+    function _find($type, $id)
+    {
+        return \Phpfox::$service->get('models')->findById($type, $id);
+    }
+
+    /**
      * Generate random string by length
      *
      * @param $length
