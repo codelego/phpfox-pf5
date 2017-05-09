@@ -21,30 +21,27 @@ class NavigationManager
         $class = _param('navigation.decorators', $decorator);
 
         /** @var DecoratorInterface $decorator */
-        $decorator = new $class;
+        $decorator = new $class($context);
 
-        return $decorator->render($navigation, $context);
+        return $decorator->render($navigation);
     }
 
     /**
      * @param string $decorator
      * @param string $menu
-     * @param array  $context
+     * @param array  $params
      *
      * @return string
      */
-    public function render(
-        $decorator,
-        $menu,
-        $context = []
-    ) {
+    public function render($decorator, $menu, $params = [])
+    {
         $class = _param('navigation.decorators', $decorator);
 
         if (!$class) {
             throw new \InvalidArgumentException("Oops! Navigation decorator '{$decorator}' does not exists.");
         }
 
-        return (new Navigation($menu))->render($decorator, $context);
+        return (new Navigation($menu))->render($decorator, $params);
     }
 
 }

@@ -31,11 +31,6 @@ class Element implements ElementInterface
     protected $render = 'text';
 
     /**
-     * @var string
-     */
-    protected $label;
-
-    /**
      * @var bool
      */
     protected $required;
@@ -143,7 +138,7 @@ class Element implements ElementInterface
      */
     public function getLabel()
     {
-        return $this->label;
+        return $this->getParam('label', '');
     }
 
     /**
@@ -151,8 +146,57 @@ class Element implements ElementInterface
      */
     public function setLabel($label)
     {
-        $this->label = $label;
+        $this->setParam('label', (string)$label);
     }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->getParam('label', '');
+    }
+
+    /**
+     * @param string $label
+     */
+    public function setTitle($label)
+    {
+        $this->setParam('label', (string)$label);
+    }
+    
+    /**
+     * @return string
+     */
+    public function getNote()
+    {
+        return $this->getParam('note', '');
+    }
+
+    /**
+     * @param string $label
+     */
+    public function setNote($label)
+    {
+        $this->setParam('note', (string)$label);
+    }
+
+    /**
+     * @return string
+     */
+    public function getInfo()
+    {
+        return $this->getParam('info', '');
+    }
+
+    /**
+     * @param string $label
+     */
+    public function setInfo($label)
+    {
+        $this->setParam('info', (string)$label);
+    }
+
 
     /**
      * @return boolean
@@ -192,7 +236,10 @@ class Element implements ElementInterface
         }
     }
 
-    public function render()
+    /**
+     * @return string
+     */
+    public function toHtml()
     {
         return _service('form_render')->render($this);
     }

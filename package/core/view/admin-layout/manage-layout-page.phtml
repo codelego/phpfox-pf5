@@ -1,0 +1,46 @@
+<div class="panel panel-default">
+    <div class="table-responsive">
+        <table class="table table-admin">
+            <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th class="w160">ID</th>
+                <th class="w160">Parent ID</th>
+                <th class="w160">Name</th>
+                <th class="w160">Package</th>
+                <th>Desc.</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item): ?>
+                <tr>
+                    <td class="dropdown" data-cmd="dropdown">
+                        <ul>
+                            <li><a href="<?= _url('admin.core.layout.design-page',
+                                    ['action_id' => $item->getId()]) ?>"><?= _text('Design Page') ?></a></li>
+                            <?php if (PHPFOX_IS_DEV): ?>
+                                <li>
+                                    <a href="<?= _url('admin.core.layout.action',
+                                        [
+                                            'action'    => 'edit-page',
+                                            'action_id' => $item->getId(),
+                                        ]) ?>"><?= _text('Edit Page') ?></a>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
+                    </td>
+                    <td>
+                        <?= $item->getId() ?>
+                    </td>
+                    <td><?= $item->__get('parent_action_id') ?></td>
+                    <td><?= $item->__get('action_name') ?></td>
+                    <td><?= $item->__get('package_id') ?></td>
+                    <td>
+                        <small><?= $item->__get('description') ?></small>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

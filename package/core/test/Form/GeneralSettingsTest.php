@@ -11,7 +11,7 @@ class GeneralSettingsTest extends \PHPUnit_Framework_TestCase
 
     public function testBase()
     {
-        $form = new GeneralSettings();
+        $form = new AdminSettingsCoreSite();
 
         $this->assertSame(true,
             $form->getElement('core__offline') instanceof ElementInterface);

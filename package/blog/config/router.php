@@ -11,22 +11,6 @@ return [
             'route'  => 'add',
             'action' => 'add',
         ],
-        'admin.blog'          => [
-            'route'      => 'blog/*',
-            'controller' => 'blog.admin-post',
-            'action'     => 'index',
-            'children'   => [
-                'post*'    => [
-                    'route'      => 'manage(/<action>)',
-                    'controller' => 'blog.admin-post',
-                    'defaults'   => ['action' => 'index'],
-                ],
-                'category' => [
-                    'route'      => 'category(/<action>)',
-                    'controller' => 'blog.admin-category',
-                ],
-            ],
-        ],
         'blog_post'           => [
             'route' => 'blog/post/*',
         ],
@@ -49,6 +33,29 @@ return [
             'defaults' => [
                 'controller' => 'blog.profile',
                 'action'     => 'view',
+            ],
+        ],
+        'admin.blog'          => [
+            'route'      => 'blog/*',
+            'controller' => 'blog.admin-post',
+            'action'     => 'index',
+            'children'   => [
+                'category' => [
+                    'route'      => 'category(/<action>)',
+                    'controller' => 'blog.admin-category',
+                ],
+                'settings' => [
+                    'route'      => 'settings(/<action>)',
+                    'controller' => 'blog.admin-settings',
+                ],
+                'acl'      => [
+                    'route'      => 'acl(/<action>)',
+                    'controller' => 'blog.admin-acl',
+                ],
+                'post'     => [
+                    'route'      => '<action>',
+                    'controller' => 'blog.admin-post',
+                ],
             ],
         ],
     ],

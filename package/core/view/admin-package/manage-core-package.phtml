@@ -1,0 +1,56 @@
+<div class="panel-default">
+    <div class="table-responsive"><table class="table table-admin">
+        <tr>
+            <th class="text-center">#</th>
+            <th>Info.</th>
+            <th class="w80">Version</th>
+            <th class="w80">Required</th>
+            <th class="w80">Type</th>
+            <th class="w80">Author</th>
+            <th class="w80">Active</th>
+        </tr>
+        <?php foreach ($items as $item): ?>
+            <tr>
+                <td data-cmd="dropdown" class="dropdown">
+                    <ul>
+                        <?php if ($item->canDisable()): ?>
+                            <li><a role="button">Disable</a></li>
+                        <?php elseif ($item->canEnable()): ?>
+                            <li><a role="button">Enable</a></li>
+                        <?php endif; ?>
+                        <?php if ($item->canExport()): ?>
+                            <li><a role="button">Export</a></li>
+                        <?php endif; ?>
+                        <?php if ($item->canUpgrade()): ?>
+                            <li><a role="button">Upgrade</a></li>
+                        <?php endif; ?>
+                        <?php if ($item->canUninstall()): ?>
+                            <li><a role="button">Uninstall</a></li>
+                        <?php endif; ?>
+                    </ul>
+                </td>
+                <td><?= $item->getTitle() ?></td>
+                <td><?= $item['version'] ?></td>
+                <td>
+                    <?php if ($item->isRequired()): ?>
+                        <label class="label label-success"><?= _text('Yes') ?></label>
+                    <?php else: ?>
+                        <?= _text('No') ?>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?= $item->getTypeId() ?>
+                </td>
+                <td><?= $item['author'] ?></td>
+                <td>
+                    <?php if ($item->isActive()): ?>
+                        <?= _text('Yes') ?>
+                    <?php else: ?>
+                        <label class="label label-danger"><?= _text('No') ?></label>
+                    <?php endif; ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table></div>
+</div>
+<?= $items->render(); ?>

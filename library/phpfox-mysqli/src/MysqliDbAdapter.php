@@ -207,7 +207,7 @@ class MysqliDbAdapter implements DbAdapterInterface
                 . $mysqli->error);
         }
 
-        $mysqli->set_charset($params['charset']);
+        $mysqli->set_charset('utf8');
 
         return $mysqli;
     }

@@ -149,7 +149,7 @@ class Request
      */
     public function get($key, $default = null)
     {
-        if (method_exists($this, $method = 'get' . ucfirst($key))) {
+        if ($key and method_exists($this, $method = 'get' . ucfirst($key))) {
             return $this->{$method}();
         } else {
             return isset($this->data[$key]) ? $this->data[$key] : $default;

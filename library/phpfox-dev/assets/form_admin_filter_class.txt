@@ -1,0 +1,44 @@
+<?php
+namespace {namespace};
+
+use Phpfox\Form\ButtonField;
+use Phpfox\Form\Form;
+
+class {shortFormClass} extends Form{
+
+    public function initialize(){
+
+        $this->setMethod('get');
+
+        $this->addElement([
+            'factory'    => 'text',
+            'name'       => 'q',
+            'label' => _text('Search', 'admin'),
+            'attributes' => [
+                'class'       => 'form-control',
+                'placeholder' => _text('Search', 'admin'),
+            ],
+        ]);
+        
+        /** start elements **/
+
+        {initialize}
+
+        /** end elements **/
+    }
+
+    public function getButtons()
+    {
+
+        /** start buttons **/
+        return [
+            new ButtonField([
+                'type'       => 'submit',
+                'name'       => 'search',
+                'label'      => _text('Search'),
+                'attributes' => ['class' => 'btn btn-primary'],
+            ])
+        ];
+        /** end buttons **/
+    }
+}

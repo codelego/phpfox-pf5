@@ -53,6 +53,11 @@ interface ModelInterface extends \ArrayAccess
     public function markSaved();
 
     /**
+     * @param array|mixed $data
+     */
+    public function fromArray($data);
+
+    /**
      * @return bool
      */
     public function isSaved();

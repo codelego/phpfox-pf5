@@ -11,7 +11,7 @@ class FilterI18nPhraseTest extends \PHPUnit_Framework_TestCase
 
     public function testBase()
     {
-        $form = new FilterI18nPhrase();
+        $form = new FilterI18nMessage();
 
         $this->assertSame(true,
             $form->getElement('q') instanceof ElementInterface);

@@ -6,20 +6,21 @@ class CorePackageTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new CorePackage(['id'             => 1,
-                                'type_id'        => 'app',
-                                'is_required'    => 1,
-                                'is_active'      => 1,
-                                'theme_id'       => null,
-                                'priority'       => 1,
-                                'title'          => 'Core',
-                                'version'        => '5.0.1',
-                                'latest_version' => null,
-                                'author'         => 'phpFox',
-                                'description'    => null,
-                                'apps_icon'      => '',
-                                'name'           => 'core',
-                                'path'           => 'package/core',
+        $obj = new CorePackage([
+            'id'             => 1,
+            'type_id'        => 'app',
+            'is_required'    => 1,
+            'is_active'      => 1,
+            'theme_id'       => null,
+            'priority'       => 1,
+            'title'          => 'Core',
+            'version'        => '5.0.1',
+            'latest_version' => null,
+            'author'         => 'phpFox',
+            'description'    => null,
+            'apps_icon'      => '',
+            'name'           => 'core',
+            'path'           => 'package/core',
         ]);
 
         $this->assertSame('core_package', $obj->getModelId());
@@ -79,20 +80,21 @@ class CorePackageTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new CorePackage(['id'             => 1,
-                                'type_id'        => 'app',
-                                'is_required'    => 1,
-                                'is_active'      => 1,
-                                'theme_id'       => null,
-                                'priority'       => 1,
-                                'title'          => 'Core',
-                                'version'        => '5.0.1',
-                                'latest_version' => null,
-                                'author'         => 'phpFox',
-                                'description'    => null,
-                                'apps_icon'      => '',
-                                'name'           => 'core',
-                                'path'           => 'package/core',
+        $obj = new CorePackage([
+            'id'             => 1,
+            'type_id'        => 'app',
+            'is_required'    => 1,
+            'is_active'      => 1,
+            'theme_id'       => null,
+            'priority'       => 1,
+            'title'          => 'Core',
+            'version'        => '5.0.1',
+            'latest_version' => null,
+            'author'         => 'phpFox',
+            'description'    => null,
+            'apps_icon'      => '',
+            'name'           => 'core',
+            'path'           => 'package/core',
         ]);
 
         $obj->save();

@@ -1,0 +1,41 @@
+<div class="panel panel-default">
+    <div class="table-responsive">
+        <table class="table table-admin">
+            <thead>
+            <tr>
+                <th class="w40 text-center">#</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Native Name</th>
+                <th>Code</th>
+                <th>Direction</th>
+                <th>Active?</th>
+                <th>Default?</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item): ?>
+                <tr>
+                    <td class="dropdown" data-cmd="dropdown">
+                        <ul>
+                            <li>
+                                <a data-cmd="modal" href="<?= _url('admin.core.i18n.language',
+                                    ['action' => 'edit', 'language_id' => $item->getId()]) ?>">
+                                    <?= _text('Edit') ?>
+                                </a>
+                            </li>
+                        </ul>
+                    </td>
+                    <td><?= $item->getId() ?></td>
+                    <td><?= $item->getName() ?></td>
+                    <td><?= $item->getNativeName() ?></td>
+                    <td><?= $item->getCode6391() ?></td>
+                    <td><?= $item->getDirectionId() ?></td>
+                    <td><?= _yesno($item->isActive(), true, true) ?></td>
+                    <td><?= _yesno($item->isDefault(), true, false) ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

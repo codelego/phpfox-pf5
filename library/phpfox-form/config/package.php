@@ -9,6 +9,7 @@ return [
         'form_bootstrap'        => FormRenderBootstrap::class,
         'form_panel'            => FormRenderPanel::class,
         'form_panel_horizontal' => FormRenderPanelHorizontal::class,
+        'form_panel_flat'       => FormRenderPanelFlat::class,
         'button'                => ButtonRender::class,
         'checkbox'              => CheckboxRender::class,
         'select'                => SelectRender::class,

@@ -220,8 +220,8 @@ class Navigation
         }
 
         /** @var DecoratorInterface $decorate */
-        $decorate = new $class;
+        $decorate = new $class($context);
 
-        return $decorate->render($this, $context);
+        return $decorate->render($this);
     }
 }

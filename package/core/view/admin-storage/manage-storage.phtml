@@ -16,15 +16,18 @@
                 <tr>
                     <td class="dropdown" data-cmd="dropdown">
                         <ul>
-                            <li><a href="<?= _url('admin.core.storage.*', ['action' => 'edit', 'id' => $item->getId()]) ?>">
-                                <?= _text('Edit') ?>
-                            </a></li>
-                            <li><a href="<?= _url('admin.core.storage.*', ['action' => 'delete', 'id' => $item->getId()]) ?>">
-                                <?= _text('Delete') ?>
-                            </a></li>
-                            <li><a href="<?= _url('admin.core.storage.*', ['action' => 'transfer', 'id' => $item->getId()]) ?>">
-                                <?= _text('Transfer') ?>
-                            </a></li>
+                            <li><a href="<?= _url('admin.core.storage.*',
+                                    ['action' => 'edit', 'id' => $item->getId()]) ?>">
+                                    <?= _text('Edit') ?>
+                                </a></li>
+                            <li><a href="<?= _url('admin.core.storage.*',
+                                    ['action' => 'delete', 'id' => $item->getId()]) ?>">
+                                    <?= _text('Delete') ?>
+                                </a></li>
+                            <li><a href="<?= _url('admin.core.storage.*',
+                                    ['action' => 'transfer', 'id' => $item->getId()]) ?>">
+                                    <?= _text('Transfer') ?>
+                                </a></li>
                         </ul>
                     </td>
                     <td><?= $item->getTitle() ?></td>

@@ -6,11 +6,12 @@ class LayoutGridTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new LayoutGrid(['grid_id'     => 'simple',
-                               'title'       => 'Simple 1 column',
-                               'sort_order'  => 1,
-                               'description' => 'Single column',
-                               'locations'   => '["main"]',
+        $obj = new LayoutGrid([
+            'grid_id'     => 'simple',
+            'title'       => 'Simple 1 column',
+            'sort_order'  => 1,
+            'description' => 'Single column',
+            'locations'   => '["main"]',
         ]);
 
         $this->assertSame('layout_grid', $obj->getModelId());
@@ -46,11 +47,12 @@ class LayoutGridTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new LayoutGrid(['grid_id'     => 'simple',
-                               'title'       => 'Simple 1 column',
-                               'sort_order'  => 1,
-                               'description' => 'Single column',
-                               'locations'   => '["main"]',
+        $obj = new LayoutGrid([
+            'grid_id'     => 'simple',
+            'title'       => 'Simple 1 column',
+            'sort_order'  => 1,
+            'description' => 'Single column',
+            'locations'   => '["main"]',
         ]);
 
         $obj->save();

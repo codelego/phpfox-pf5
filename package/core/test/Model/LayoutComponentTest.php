@@ -6,14 +6,15 @@ class LayoutComponentTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new LayoutComponent(['component_id'    => 'core.action_content',
-                                    'component_name'  => 'Action Content',
-                                    'component_class' => 'Neutron\\Core\\Block\\ActionContent',
-                                    'form_name'       => 'none',
-                                    'package_id'      => 'core',
-                                    'is_active'       => 1,
-                                    'sort_order'      => 1,
-                                    'description'     => null,
+        $obj = new LayoutComponent([
+            'component_id'    => 'core.action_content',
+            'component_name'  => 'Action Content',
+            'component_class' => 'Neutron\\Core\\Block\\ActionContent',
+            'form_name'       => 'none',
+            'package_id'      => 'core',
+            'is_active'       => 1,
+            'sort_order'      => 1,
+            'description'     => null,
         ]);
 
         $this->assertSame('layout_component', $obj->getModelId());
@@ -55,14 +56,15 @@ class LayoutComponentTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new LayoutComponent(['component_id'    => 'core.action_content',
-                                    'component_name'  => 'Action Content',
-                                    'component_class' => 'Neutron\\Core\\Block\\ActionContent',
-                                    'form_name'       => 'none',
-                                    'package_id'      => 'core',
-                                    'is_active'       => 1,
-                                    'sort_order'      => 1,
-                                    'description'     => null,
+        $obj = new LayoutComponent([
+            'component_id'    => 'core.action_content',
+            'component_name'  => 'Action Content',
+            'component_class' => 'Neutron\\Core\\Block\\ActionContent',
+            'form_name'       => 'none',
+            'package_id'      => 'core',
+            'is_active'       => 1,
+            'sort_order'      => 1,
+            'description'     => null,
         ]);
 
         $obj->save();

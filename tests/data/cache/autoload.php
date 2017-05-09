@@ -112,6 +112,11 @@
     0 => 'library/phpfox-payments/src',
     1 => 'library/phpfox-payments/test',
   ),
+  'Phpfox\\RapidDev' => 
+  array (
+    0 => 'library/phpfox-dev/src',
+    1 => 'library/phpfox-dev/test',
+  ),
   'Phpfox\\Routing' => 
   array (
     0 => 'library/phpfox-routing/src',

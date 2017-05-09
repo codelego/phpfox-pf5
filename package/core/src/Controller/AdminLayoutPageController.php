@@ -2,10 +2,13 @@
 
 namespace Neutron\Core\Controller;
 
-use Neutron\Core\Form\AddLayoutAction;
-use Neutron\Core\Form\EditLayoutAction;
+use Neutron\Core\Form\Admin\LayoutAction\AddLayoutAction;
+use Neutron\Core\Form\Admin\LayoutAction\EditLayoutAction;
 use Neutron\Core\Model\LayoutAction;
 use Neutron\Core\Model\LayoutPage;
+use Neutron\Core\Process\AdminAddEntryProcess;
+use Neutron\Core\Process\AdminEditEntryProcess;
+use Neutron\Core\Process\AdminManageEntryProcess;
 use Phpfox\View\ViewModel;
 
 class AdminLayoutPageController extends AdminController
@@ -29,63 +32,45 @@ class AdminLayoutPageController extends AdminController
 
         _service('menu.admin.secondary')
             ->load('admin.core.layout');
+
+    }
+
+    protected function postDispatch($action)
+    {
+        if (in_array($action, ['index'])) {
+            _service('menu.admin.buttons')
+                ->load('admin.core.layout.page.buttons');
+        }
     }
 
     public function actionIndex()
     {
-        $items = _model('layout_action')->select()->all();
+        return (new AdminManageEntryProcess([
+            'model'    => LayoutAction::class,
+            'template' => 'core/admin-layout/manage-layout-page',
+        ]))->process();
 
-        return new ViewModel([
-            'items' => $items,
-        ], 'core/admin-layout/manage-page');
     }
 
     public function actionAdd()
     {
-        $request = _service('request');
-
-        $form = new AddLayoutAction([]);
-
-        if ($request->isGet()) {
-        }
-
-        if ($request->isPost() and $form->isValid($request->all())) {
-            /** @var LayoutAction $entry */
-            $entry = _model('layout_page')->create($form->getData());
-            $entry->save();
-        }
-
-        return new ViewModel([
-            'form'    => $form,
-            'heading' => _text('Edit Component', 'admin'),
-        ], 'layout/form-edit');
+        return (new AdminAddEntryProcess([
+            'model'    => LayoutAction::class,
+            'form'     => AddLayoutAction::class,
+            'redirect' => _url('admin.core.layout'),
+        ]))->process();
     }
+
 
     public function actionEdit()
     {
-        $request = _service('request');
-        $actionId = $request->get('action_id');
-
-        $form = new EditLayoutAction(['actionId' => $actionId]);
-
-        /** @var LayoutAction $entry */
-        $entry = _model('layout_action')->findById($actionId);
-
-        if ($request->isGet()) {
-            $form->populate($entry);
-        }
-
-        if ($request->isPost() and $form->isValid($request->all())) {
-            $entry->fromArray($form->getData());
-            $entry->save();
-        }
-
-        return new ViewModel([
-            'form'    => $form,
-            'heading' => _text('Edit Layout Page', 'admin'),
-        ], 'layout/form-edit');
+        return (new AdminEditEntryProcess([
+            'key'      => 'action_id',
+            'model'    => LayoutAction::class,
+            'form'     => EditLayoutAction::class,
+            'redirect' => _url('admin.core.layout'),
+        ]))->process();
     }
-
 
     /**
      * List element of pages

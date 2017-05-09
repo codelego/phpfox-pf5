@@ -3,7 +3,7 @@
 namespace Neutron\Core\Form;
 
 
-use Neutron\Core\Model\CoreRole;
+use Neutron\Core\Model\AclRole;
 use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
@@ -11,13 +11,13 @@ class AddNewRole extends Form
 {
     protected function initialize()
     {
-        $roles = _model('core_role')
+        $roles = _model('acl_role')
             ->select()
             ->where('inherit_id=?', 0)
             ->execute()
             ->all();
 
-        $roleOptions = array_map(function (CoreRole $v) {
+        $roleOptions = array_map(function (AclRole $v) {
             return [
                 'label' => $v->getName(),
                 'value' => $v->getId(),

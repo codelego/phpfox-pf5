@@ -1,8 +1,11 @@
 define([
-    'main',
-    'jscript/jquery/jquery.toast'
-], function (main, Toast) {
-    main.cmd('admin.i18n.phrase.save', function (ele) {
+    'core',
+    'package/jquery/jquery.toast'
+], function () {
+    var Core = require('core'),
+        Toast = require('package/jquery/jquery.toast');
+
+    Core.cmd('admin.i18n.phrase.save', function (ele) {
 
         var form = ele.closest('form');
 

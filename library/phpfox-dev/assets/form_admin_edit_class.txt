@@ -1,0 +1,45 @@
+<?php
+namespace {namespace};
+
+use Phpfox\Form\ButtonField;
+use Phpfox\Form\Form;
+
+class {shortFormClass} extends Form{
+
+    public function initialize(){
+
+        $this->setTitle(_text('{formTitle}','{textDomain}'));
+        $this->setInfo(_text('[{formTitle} Info]','{textDomain}'));
+        $this->setAction(_url('#'));
+        
+        /** start elements **/
+
+{initialize}
+
+        /** end elements **/
+    }
+
+
+    public function getButtons()
+    {
+
+        /** start buttons **/
+        return [
+            new ButtonField([
+                'type'       => 'submit',
+                'name'       => 'save',
+                'label'      => _text('Save Changes'),
+                'attributes' => ['class' => 'btn btn-primary'],
+            ]),
+            new ButtonField([
+                'type'       => 'button',
+                'name'       => 'cancel',
+                'href'       => '#',
+                'data-cmd'   => 'form.cancel',
+                'label'      => _text('Cancel'),
+                'attributes' => ['class' => 'btn btn-link cancel'],
+            ]),
+        ];
+        /** end buttons **/
+    }
+}

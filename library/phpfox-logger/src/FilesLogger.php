@@ -77,7 +77,7 @@ class FilesLogger implements LoggerInterface
         if ($context) {
             $message = $this->interpolate($message, $context);
         }
-        return $level . ': ' . date('Y-m-d H:i:s') . PHP_EOL . $message
+        return $level . ': ' . @date('Y-m-d H:i:s') . PHP_EOL . $message
             . PHP_EOL . PHP_EOL . PHP_EOL;
     }
 

@@ -8,7 +8,7 @@ class AdminAuthorizationControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testBase()
     {
-        $obj = new AdminAuthorizationController();
+        $obj = new AdminAclRoleController();
 
         $this->assertInstanceOf('\Phpfox\View\ViewModel', $obj->actionIndex());
         $this->assertInstanceOf('\Phpfox\View\ViewModel', $obj->actionEdit());

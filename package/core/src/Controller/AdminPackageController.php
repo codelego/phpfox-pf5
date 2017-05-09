@@ -3,6 +3,8 @@
 namespace Neutron\Core\Controller;
 
 use Neutron\Core\Form\UploadPackage;
+use Neutron\Core\Model\CorePackage;
+use Neutron\Core\Process\AdminManageEntryProcess;
 use Phpfox\View\ViewModel;
 
 class AdminPackageController extends AdminController
@@ -13,25 +15,22 @@ class AdminPackageController extends AdminController
             ->clear()
             ->add([
                 'href'  => _url('admin.core.package'),
-                'label' => _text('Packages','admin'),
+                'label' => _text('Packages', 'admin'),
             ]);
 
         _service('html.title')
             ->clear()
-            ->set(_text('Packages','admin'));
+            ->set(_text('Packages', 'admin'));
     }
 
     public function actionIndex()
     {
-        $packages = _model('core_package')
-            ->select()
-            ->order('is_required', -1)
-            ->order('title', 1)
-            ->all();
-
-        return new ViewModel([
-            'items' => $packages,
-        ], 'core/admin-package/index');
+        return (new AdminManageEntryProcess([
+            'model'    => CorePackage::class,
+            'noLimit'  => true,
+            'limit'    => 4,
+            'template' => 'core/admin-package/manage-core-package',
+        ]))->process();
     }
 
     public function actionAdd()

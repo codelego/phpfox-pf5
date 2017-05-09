@@ -82,12 +82,27 @@ class Router
     {
         if (null == $key) {
             return PHPFOX_BASE_URL . $params;
+        } elseif ('#' == $key) {
+            return $this->getCurrentUrl(true);
         }
 
         $params = new Parameters($params);
 
         return PHPFOX_BASE_URL . $this->getUri($key, $params) . $params->getQueries();
 
+    }
+
+    /**
+     * @param bool $short
+     *
+     * @return string
+     */
+    public function getCurrentUrl($short = true)
+    {
+        if ($short and isset($_SERVER['REQUEST_URI'])) {
+            return $_SERVER['REQUEST_URI'];
+        }
+        return '/';
     }
 
     /**

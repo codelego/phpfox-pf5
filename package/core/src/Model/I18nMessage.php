@@ -2,120 +2,93 @@
 
 namespace Neutron\Core\Model;
 
-
 use Phpfox\Db\DbModel;
 
 class I18nMessage extends DbModel
 {
-    /**
-     * @return string
-     */
     public function getModelId()
     {
         return 'i18n_message';
     }
 
-    /**
-     * @return mixed|null
-     */
     public function getId()
     {
-        return $this->__get('id');
+        return (int)$this->__get('message_id');
     }
 
-    /**
-     * @return mixed|null
-     */
-    public function getLocale()
+    public function setId($value)
     {
-        return $this->__get('locale');
+        $this->__set('message_id', $value);
     }
 
-    /**
-     * @param $value
-     */
-    public function setLocale($value)
+    public function getPackageId()
     {
-        $this->__set('locale', (string)$value);
+        return $this->__get('package_id');
     }
 
-    /**
-     * @return mixed|null
-     */
-    public function getDomain()
+    public function setPackageId($value)
     {
-        return $this->__get('domain');
+        $this->__set('package_id', $value);
     }
 
-    /**
-     * @param $value
-     */
-    public function setDomain($value)
+    public function getLanguageId()
     {
-        $this->__set('domain', (string)$value);
+        return $this->__get('language_id');
     }
 
-    /**
-     * @return mixed|null
-     */
-    public function getName()
+    public function setLanguageId($value)
     {
-        return $this->__get('var_name');
+        $this->__set('language_id', $value);
     }
 
-    /**
-     * @param $value
-     */
-    public function setName($value)
+    public function getDomainId()
     {
-        $this->__set('var_name', (string)$value);
+        return $this->__get('domain_id');
     }
 
-    /**
-     * @return mixed|null
-     */
-    public function getTextValue()
+    public function setDomainId($value)
     {
-        return $this->__get('text_value');
+        $this->__set('domain_id', $value);
     }
 
-    /**
-     * @param $value
-     */
-    public function setTextValue($value)
+    public function getMessageName()
     {
-        $this->__set('text_value', (string)$value);
+        return $this->__get('message_name');
     }
 
-    /**
-     * @return mixed|null
-     */
+    public function setMessageName($value)
+    {
+        $this->__set('message_name', $value);
+    }
+
+    public function getMessageValue()
+    {
+        return $this->__get('message_value');
+    }
+
+    public function setMessageValue($value)
+    {
+        $this->__set('message_value', $value);
+    }
+
     public function isJson()
     {
-        return $this->__get('is_json');
+        return $this->__get('is_json') ? 1 : 0;
     }
 
-    /**
-     * @return mixed|null
-     */
-    public function isUpdated()
-    {
-        return $this->__get('is_updated');
-    }
-
-    /**
-     * @param $value
-     */
     public function setJson($value)
     {
         $this->__set('is_json', $value ? 1 : 0);
     }
 
-    /**
-     * @param $value
-     */
+    public function isUpdated()
+    {
+        return $this->__get('is_updated') ? 1 : 0;
+    }
+
     public function setUpdated($value)
     {
         $this->__set('is_updated', $value ? 1 : 0);
     }
+
 }

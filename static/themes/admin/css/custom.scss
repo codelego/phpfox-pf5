@@ -28,14 +28,31 @@ $ibox-loading-width: 320px;
 $ibox-loading-height: 120px;
 $ibox-zindex: 100;
 
+.pagination-sliding {
+  text-align: center;
+  .pagination {
+    margin: 0;
+  }
+}
 
+.form-filter {
+  .form-group {
+    display: inline-block;
+  }
+  .form-group + .form-group {
+    margin-right: 10px;
+  }
+  .panel-body {
+    padding-bottom: 5px;
+  }
+}
 
-.ui-overlay{
+.ui-overlay {
   display: block;
   position: fixed;
-  left:0;
-  top:0;
-  right:0;
+  left: 0;
+  top: 0;
+  right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, .4);
   z-index: $ibox-zindex - 2;
@@ -59,8 +76,8 @@ $ibox-zindex: 100;
   filter: alpha(opacity=20);
 }
 
-.ibox-loading{
-  p{
+.ibox-loading {
+  p {
     position: fixed;
     left: 50%;
     bottom: 50%;
@@ -71,7 +88,7 @@ $ibox-zindex: 100;
     z-index: $ibox-zindex - 1;
     background-color: #fff;
     box-shadow: 0 2px 26px rgba(0, 0, 0, .3), 0 0 0 1px rgba(0, 0, 0, .1);
-    &:before{
+    &:before {
       content: "loading";
       display: block;
       width: $ibox-loading-width;
@@ -81,7 +98,7 @@ $ibox-zindex: 100;
   }
 }
 
-.ibox{
+.ibox {
   height: auto;
   left: 0;
   min-height: 100%;
@@ -90,7 +107,7 @@ $ibox-zindex: 100;
   top: 0;
 }
 
-.ibox-dialog{
+.ibox-dialog {
   opacity: 0;
   background-color: #fff;
   border-radius: 3px;
@@ -110,17 +127,17 @@ $ibox-zindex: 100;
   .ibox-md & {
     width: 760px;
   }
-  .ibox-lg &{
+  .ibox-lg & {
     width: 860px;
   }
 }
 
-.ibox-content{
+.ibox-content {
   opacity: 0;
-  position:relative;
+  position: relative;
 }
 
-.layout-location-heading{
+.layout-location-heading {
   display: block;
   border: 1px solid darken($layout-location-bg, 10%);
   padding: 5px 5px 5px 10px;
@@ -136,7 +153,7 @@ $ibox-zindex: 100;
 }
 
 .layout-editor-block,
-.layout-editor-block-placeholder{
+.layout-editor-block-placeholder {
   display: block;
   border: 1px solid darken($layout-block-bg, 10%);
   padding: 5px 5px 5px 10px;
@@ -144,9 +161,10 @@ $ibox-zindex: 100;
   margin-bottom: 5px;
 }
 
-.layout-editor-block-placeholder{
+.layout-editor-block-placeholder {
   min-height: 30px;
 }
+
 @for $i from 1 through 30 {
   $width: $i * 10;
   .w#{$width} {
@@ -169,7 +187,6 @@ $ibox-zindex: 100;
 
 .form-group .help-block {
   font-size: small;
-  text-indent: 4px;
 }
 
 .form-control + .help-block {
@@ -323,7 +340,7 @@ select {
   position: absolute;
 }
 
-.dropdown-right .dropdown-menu{
+.dropdown-right .dropdown-menu {
   right: 0;
   left: auto;
 }

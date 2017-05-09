@@ -3,24 +3,12 @@
 namespace Phpfox\Navigation;
 
 
-class NavbarDecorator implements DecoratorInterface
+class NavbarDecorator extends AbstractDecorator
 {
     /**
-     * max number to render
-     *
-     * @var number
-     */
-    private $level = 4;
-
-    /**
      * @var array
      */
-    private $context = [];
-
-    /**
-     * @var array
-     */
-    private $defaults
+    protected $defaults
         = [
             'level0'       => 'nav navbar-nav',
             'level1'       => 'dropdown-menu',
@@ -32,11 +20,9 @@ class NavbarDecorator implements DecoratorInterface
             'moreLabel'    => 'More',
         ];
 
-    public function render(Navigation $navigation, $context = [])
+    public function render(Navigation $navigation)
     {
-        $this->context = array_merge($this->defaults, $context);
         $content = [];
-
         foreach ($navigation->items as $item) {
             try {
                 $html = $this->renderItem(0, $item);

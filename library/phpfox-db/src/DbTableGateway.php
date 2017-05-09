@@ -157,7 +157,7 @@ class DbTableGateway implements GatewayInterface
     /**
      * @param  array|null $values
      *
-     * @return mixed
+     * @return ModelInterface|mixed
      */
     public function create($values = null)
     {

@@ -110,23 +110,18 @@ class PackageLoader implements PackageLoaderInterface
         }
 
         /**
-         * fetch setting variables from table ':core_setting'
+         * fetch setting variables from table ':site_setting_value'
          */
         $rows = _service('db')
-            ->select('group_id, var_name, value_actual, is_active, priority')
-            ->from(':core_setting')
-            ->where('is_active=?', 1)
+            ->select('*')
+            ->from(':site_setting_value')
             ->order('priority', 1)
-            ->execute()
             ->all();
 
 
         foreach ($rows as $row) {
-            $key = $row['var_name'];
+            $key = $row['name'];
             $group = $row['group_id'];
-            if (!$group) {
-                $group = 'global';
-            }
 
             if (!isset($settingVariables[$group])) {
                 $settingVariables[$group] = [];

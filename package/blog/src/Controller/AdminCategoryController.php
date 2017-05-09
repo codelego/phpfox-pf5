@@ -3,99 +3,63 @@
 namespace Neutron\Blog\Controller;
 
 
-use Neutron\Blog\Form\AddBlogCategory;
+use Neutron\Blog\Form\Admin\BlogCategory\AddBlogCategory;
+use Neutron\Blog\Form\Admin\BlogCategory\EditBlogCategory;
 use Neutron\Blog\Model\BlogCategory;
 use Neutron\Core\Controller\AdminController;
-use Phpfox\View\ViewModel;
+use Neutron\Core\Process\AdminAddEntryProcess;
+use Neutron\Core\Process\AdminManageEntryProcess;
 
 class AdminCategoryController extends AdminController
 {
-    public function initialized()
+    protected function initialized()
     {
         _service('html.title')
-            ->clear()
-            ->add(_text('Blogs'));
+            ->clear()->add(_text('Blogs'));
 
         _service('breadcrumb')
             ->clear()
-            ->add(['href' => _url('admin.blog', ['action' => 'index']), 'label' => _text('Blogs')])
-            ->add(['href' => _url('admin.blog.category', ['action' => 'index']), 'label' => _text('Categories')]);
+            ->add(['href' => _url('admin.blog'), 'label' => _text('Blogs')]);
 
-        _service('menu.admin.secondary')
-            ->clear()
-            ->add([
-                'href'  => _url('admin.blog'),
-                'label' => _text('Posts'),
-            ])->add([
-                'href'  => _url('admin.blog.category'),
-                'label' => _text('Categories'),
-            ])
-            ->add([
-                'href'  => _url('admin.blog.category', ['action' => 'add']),
-                'label' => _text('Add Category'),
-                'extra' => ['class' => 'btn btn-default', 'data-cmd' => 'modal', 'data-size' => 'lg'],
-            ]);
+        _service('menu.admin.secondary')->load('admin.blog');
+
+    }
+
+    protected function postDispatch($action)
+    {
+        if (in_array($action, ['index'])) {
+            _service('menu.admin.buttons')->load('admin.blog.category.buttons');
+        }
+
     }
 
     public function actionIndex()
     {
-
-        $items = _model('blog_category')
-            ->select()
-            ->all();
-
-        return new ViewModel(['items' => $items,], 'blog/admin-category/index');
+        return (new AdminManageEntryProcess([
+                'filter'   => null,
+                'model'    => BlogCategory::class,
+                'template' => 'blog/admin-category/manage-blog-category',
+            ]
+        ))->process();
 
     }
 
     public function actionAdd()
     {
-        $request = _service('request');
-
-        $form = new AddBlogCategory();
-
-        if ($request->isGet()) {
-
-        }
-
-        if ($request->isPost() and $form->isValid($request->all())) {
-            $data = $form->getData();
-            $blogCategory = new BlogCategory($data);
-            $blogCategory->save();
-        }
-
-        return new ViewModel([
-            'heading' => _text('Add Category'),
-            'form'    => $form,
-        ], 'layout/form-edit');
+        return (new AdminAddEntryProcess([
+            'form'     => AddBlogCategory::class,
+            'model'    => BlogCategory::class,
+            'redirect' => _url('admin.blog.category'),
+        ]))->process();
     }
 
     public function actionEdit()
     {
-        $request = _service('request');
-        $id = $request->get('id');
-
-        /** @var BlogCategory $obj */
-        $obj = _model('blog_category')->findById($id);
-
-        $form = new AddBlogCategory();
-
-        $form->getValidator()
-            ->setParam('name', 'unique', 'accept', $id);
-
-        if ($request->isGet()) {
-            $form->populate($obj);
-        }
-
-        if ($request->isPost() and $form->isValid($request->all())) {
-            $data = $form->getData();
-            $obj->fromArray($data);
-            $obj->save();
-        }
-
-        return new ViewModel([
-            'heading' => _text('Add Category'),
-            'form'    => $form,
-        ], 'layout/form-edit');
+        return (new AdminAddEntryProcess([
+            'key'      => 'category_id',
+            'form'     => EditBlogCategory::class,
+            'model'    => BlogCategory::class,
+            'redirect' => _url('admin.blog.category'),
+        ]))->process();
     }
 }

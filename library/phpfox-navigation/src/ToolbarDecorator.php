@@ -2,19 +2,12 @@
 
 namespace Phpfox\Navigation;
 
-class ToolbarDecorator implements DecoratorInterface
+class ToolbarDecorator extends AbstractDecorator
 {
-    /**
-     * max number to render
-     *
-     * @var number
-     */
-    private $level = 4;
-
     /**
      * @var array
      */
-    private $defaults
+    protected $defaults
         = [
             'level0' => 'btn-group',
             'level1' => '',
@@ -24,11 +17,8 @@ class ToolbarDecorator implements DecoratorInterface
 
         ];
 
-    private $context = [];
-
-    public function render(Navigation $navigation, $context = [])
+    public function render(Navigation $navigation)
     {
-        $this->context = array_merge($this->defaults, $context);
         $content = [];
 
         foreach ($navigation->items as $item) {

@@ -32,18 +32,32 @@ class Form extends Element implements ElementInterface, CollectionInterface
      */
     protected $error;
 
+    /**
+     * @return ElementInterface[]
+     */
     public function getElements()
     {
         return $this->byNames;
     }
 
+    /**
+     * @param array|ElementInterface[] $elements
+     *
+     * @return $this
+     */
     public function addElements($elements)
     {
         foreach ($elements as $element) {
             $this->addElement($element);
         }
+        return $this;
     }
 
+    /**
+     * @param array|ElementInterface $element
+     *
+     * @return $this
+     */
     public function addElement($element)
     {
         if (!$element instanceof ElementInterface) {
@@ -52,13 +66,23 @@ class Form extends Element implements ElementInterface, CollectionInterface
 
         $element->setParent($this);
         $this->byNames[$element->getName()] = $element;
+
+        return $this;
     }
 
+    /**
+     * @param string $name
+     *
+     * @return null|ElementInterface
+     */
     public function getElement($name)
     {
         return isset($this->byNames[$name]) ? $this->byNames[$name] : null;
     }
 
+    /**
+     * @return string
+     */
     public function open()
     {
         if (!isset($this->attributes['method'])) {
@@ -67,11 +91,19 @@ class Form extends Element implements ElementInterface, CollectionInterface
         return '<form ' . _attrize($this->attributes) . '>';
     }
 
+    /**
+     * @return string
+     */
     public function close()
     {
         return '</form>';
     }
 
+    /**
+     * @param array|mixed $data
+     *
+     * @return bool
+     */
     public function populate($data)
     {
         foreach ($this->byNames as $name => $element) {
@@ -104,7 +136,7 @@ class Form extends Element implements ElementInterface, CollectionInterface
     /**
      * @param array $data
      *
-     * @return false
+     * @return boolean
      */
     public function isValid($data)
     {
@@ -152,6 +184,9 @@ class Form extends Element implements ElementInterface, CollectionInterface
         return _service('error_formater')->format($this->getError(), $type);
     }
 
+    /**
+     * @return array
+     */
     public function getData()
     {
         $data = [];

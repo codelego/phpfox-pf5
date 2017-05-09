@@ -99,7 +99,6 @@ class LayoutManager extends ViewModel
         return '/pf5/static/' . 'themes/' . $this->getThemeId() . '/css';
     }
 
-
     /**
      * @param string $cls
      * @param array  $params

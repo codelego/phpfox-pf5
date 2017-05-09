@@ -6,7 +6,7 @@ class CoreRoleTest extends \PHPUnit_Framework_TestCase
 {
     public function testParameters()
     {
-        $obj = new CoreRole([
+        $obj = new AclRole([
             'role_id'       => 999,
             'is_super'      => 1,
             'is_admin'      => 1,
@@ -20,7 +20,7 @@ class CoreRoleTest extends \PHPUnit_Framework_TestCase
             'title'         => '[example role name]',
         ]);
 
-        $this->assertEquals('core_role', $obj->getModelId());
+        $this->assertEquals('acl_role', $obj->getModelId());
         $this->assertEquals(999, $obj->getId());
         $this->assertEquals(999, $obj->getRoleId());
 

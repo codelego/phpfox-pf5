@@ -44,6 +44,11 @@
       2 => 'cache.files',
     ),
   ),
+  'code_generator' => 
+  array (
+    0 => NULL,
+    1 => 'Phpfox\\RapidDev\\CodeGenerator',
+  ),
   'db.drivers' => 
   array (
     'mysqli' => 'Phpfox\\Mysqli\\MysqliDbAdapter',
@@ -53,34 +58,38 @@
     'yesno' => 'Phpfox\\Form\\YesnoField',
     'select' => 'Phpfox\\Form\\SelectField',
     'color_picker' => 'Phpfox\\Form\\ColorPicker',
-    'editor' => 'Phpfox\\Form\\Textarea',
+    'editor' => 'Phpfox\\Form\\TextareaField',
     'choice' => 'Phpfox\\Form\\ChoiceField',
-    'radio' => 'Phpfox\\Form\\RadioField',
-    'checkbox' => 'Phpfox\\Form\\Checkbox',
-    'select_multi' => 'Phpfox\\Form\\MultiChoice',
-    'button' => 'Phpfox\\Form\\Button',
-    'static' => 'Phpfox\\Form\\StaticText',
-    'file' => 'Phpfox\\Form\\InputFile',
-    'text' => 'Phpfox\\Form\\TextField',
-    'textarea' => 'Phpfox\\Form\\Textarea',
+    'radio' => 'Phpfox\\Form\\InputRadioField',
+    'checkbox' => 'Phpfox\\Form\\CheckboxField',
+    'multi_checkbox' => 'Phpfox\\Form\\MultiCheckboxField',
+    'multi_select' => 'Phpfox\\Form\\MultiSelectField',
+    'button' => 'Phpfox\\Form\\ButtonField',
+    'static' => 'Phpfox\\Form\\StaticField',
+    'file' => 'Phpfox\\Form\\InputFileField',
+    'text' => 'Phpfox\\Form\\InputTextField',
+    'textarea' => 'Phpfox\\Form\\TextareaField',
     'form' => 'Phpfox\\Form\\Form',
-    'hidden' => 'Phpfox\\Form\\Hidden',
+    'hidden' => 'Phpfox\\Form\\InputHiddenField',
   ),
   'form_renders' => 
   array (
     'input' => 'Phpfox\\Form\\InputRender',
-    'hidden' => 'Phpfox\\Form\\HiddenRender',
+    'hidden' => 'Phpfox\\Form\\InputHiddenRender',
     'form_bootstrap' => 'Phpfox\\Form\\FormRenderBootstrap',
     'form_panel' => 'Phpfox\\Form\\FormRenderPanel',
     'form_panel_horizontal' => 'Phpfox\\Form\\FormRenderPanelHorizontal',
+    'form_panel_flat' => 'Phpfox\\Form\\FormRenderPanelFlat',
     'button' => 'Phpfox\\Form\\ButtonRender',
     'checkbox' => 'Phpfox\\Form\\CheckboxRender',
     'select' => 'Phpfox\\Form\\SelectRender',
-    'radio' => 'Phpfox\\Form\\RadioRender',
+    'radio' => 'Phpfox\\Form\\InputRadioRender',
     'file_upload' => 'Phpfox\\Form\\FileUploadRender',
     'textarea' => 'Phpfox\\Form\\TextareaRender',
     'yesno' => 'Phpfox\\Form\\YesnoRender',
-    'static_text' => 'Phpfox\\Form\\StaticTextRender',
+    'static_text' => 'Phpfox\\Form\\StaticRender',
+    'multi_checkbox' => 'Phpfox\\Form\\MultiCheckboxRender',
+    'multi_select' => 'Phpfox\\Form\\MultiSelectRender',
   ),
   'job.handlers' => 
   array (
@@ -110,12 +119,12 @@
         'filename' => 'main.log',
       ),
     ),
-    'dev.log' => 
+    'debug.log' => 
     array (
       0 => 
       array (
         'driver' => 'files',
-        'filename' => 'dev.log',
+        'filename' => 'debug.log',
       ),
     ),
   ),
@@ -377,11 +386,11 @@
       1 => NULL,
       2 => 'main.log',
     ),
-    'dev.log' => 
+    'debug.log' => 
     array (
       0 => 'Phpfox\\Logger\\LogContainerFactory',
       1 => NULL,
-      2 => 'dev.log',
+      2 => 'debug.log',
     ),
     'error.handler' => 
     array (
@@ -518,10 +527,15 @@
       0 => NULL,
       1 => 'Neutron\\Core\\Service\\NavigationLoader',
     ),
-    'core.i18n_language' => 
+    'core.language' => 
     array (
       0 => NULL,
-      1 => 'Neutron\\Core\\Service\\I18nLanguage',
+      1 => 'Neutron\\Core\\Service\\Languages',
+    ),
+    'core.timezone' => 
+    array (
+      0 => NULL,
+      1 => 'Neutron\\Core\\Service\\Timezones',
     ),
     'core.packages' => 
     array (
@@ -545,8 +559,8 @@
     ),
     'layout_loader' => 
     array (
-        0 => NULL,
-        1 => 'Neutron\\Core\\Service\\LayoutManager',
+      0 => NULL,
+      1 => 'Neutron\\Core\\Service\\LayoutManager',
     ),
     'user.callback' => 
     array (
@@ -703,7 +717,6 @@
   'static.css' => 
   array (
     'main' => '@css/main.css',
-    'font' => '//fonts.googleapis.com/css?family=Roboto',
     'custom' => '@css/custom.css',
     'admin.login' => '@css/admin-login.css',
     'core-test.css' => '@css/core-test.css',
@@ -737,16 +750,17 @@
   ),
   'templates' => 
   array (
-    'default:layout-editor/edit-block' => 'package/core/layout-editor/edit-block',
     'default:layout-editor/edit-container' => 'package/core/layout-editor/edit-container',
     'default:layout-editor/edit-location' => 'package/core/layout-editor/edit-location',
+    'default:core/admin/manage-i18n-message' => 'package/core/view/admin/manage-i18n-message',
     'default:core/admin-authorization/index' => 'package/core/view/admin-authorization/index',
-    'default:core/admin-i18n/index' => 'package/core/view/admin-i18n/index',
-    'default:core/admin-i18n/phrases' => 'package/core/view/admin-i18n/phrases',
+    'default:core/admin-i18n/manage-currency' => 'package/core/view/admin-i18n/manage-currency',
+    'default:core/admin-i18n/manage-language' => 'package/core/view/admin-i18n/manage-language',
+    'default:core/admin-i18n/manage-timezone' => 'package/core/view/admin-i18n/manage-timezone',
     'default:core/admin-index/index' => 'package/core/view/admin-index/index',
     'default:core/admin-layout/clone-page' => 'package/core/view/admin-layout/clone-page',
     'default:core/admin-layout/debug-theme' => 'package/core/view/admin-layout/debug-theme',
-    'default:core/admin-layout/design-layout' => 'package/core/view/admin-layout/design-layout',
+    'default:core/admin-layout/design-page' => 'package/core/view/admin-layout/design-page',
     'default:core/admin-layout/manage-component' => 'package/core/view/admin-layout/manage-component',
     'default:core/admin-layout/manage-page' => 'package/core/view/admin-layout/manage-page',
     'default:core/admin-layout/manage-theme' => 'package/core/view/admin-layout/manage-theme',
@@ -759,7 +773,7 @@
     'default:core/admin-status/health-check' => 'package/core/view/admin-status/health-check',
     'default:core/admin-status/overview' => 'package/core/view/admin-status/overview',
     'default:core/admin-status/statistics' => 'package/core/view/admin-status/statistics',
-    'default:core/admin-storage/index' => 'package/core/view/admin-storage/index',
+    'default:core/admin-storage/manage-storage' => 'package/core/view/admin-storage/manage-storage',
     'default:core/block/admin-information' => 'package/core/view/block/admin-information',
     'default:core/block/admin-update' => 'package/core/view/block/admin-update',
     'default:core/error/404' => 'package/core/view/error/404',
@@ -771,13 +785,18 @@
     'default:layout/footer' => 'package/core/layout/default/footer',
     'default:layout/form-edit' => 'package/core/layout/default/form-edit',
     'default:layout/header' => 'package/core/layout/default/header',
+    'default:grid/edit-simple-011' => 'package/core/layout/grid/edit-simple-011',
+    'default:grid/edit-simple-110' => 'package/core/layout/grid/edit-simple-110',
     'default:grid/edit-simple-111' => 'package/core/layout/grid/edit-simple-111',
     'default:grid/edit-simple' => 'package/core/layout/grid/edit-simple',
+    'default:grid/simple-011' => 'package/core/layout/grid/simple-011',
+    'default:grid/simple-110' => 'package/core/layout/grid/simple-110',
     'default:grid/simple-111' => 'package/core/layout/grid/simple-111',
     'default:grid/simple' => 'package/core/layout/grid/simple',
     'admin:layout/breadcrumb' => 'package/core/layout/admin/breadcrumb',
     'admin:layout/default' => 'package/core/layout/admin/default',
     'admin:layout/form-edit' => 'package/core/layout/admin/form-edit',
+    'admin:layout/form-filter' => 'package/core/layout/admin/form-filter',
     'admin:layout/login' => 'package/core/layout/admin/login',
     'default:user/admin-manage/index' => 'package/user/view/admin-manage/index',
     'default:user/auth/login' => 'package/user/view/auth/login',
@@ -794,9 +813,9 @@
     'default:video/index/embed' => 'package/video/view/index/embed',
     'default:video/index/index' => 'package/video/view/index/index',
     'default:video/partial/embed' => 'package/video/view/partial/embed',
-    'default:contact/admin-department/index' => 'package/contact/view/admin-department/index',
+    'default:contact/admin/manage-department' => 'package/contact/view/admin/manage-department',
     'default:contact/index/index' => 'package/contact/view/index/index',
-    'default:report/admin-category/index' => 'package/report/view/admin-category/index',
+    'default:report/admin/manage-category' => 'package/report/view/admin/manage-category',
   ),
   'auth.passwords' => 
   array (
@@ -816,5 +835,68 @@
   ),
   'views' => 
   array (
+  ),
+  'core_seo' => 
+  array (
+    'title_separator' => '&#187;',
+    'site_title' => 'Social Network',
+    'keyword' => '',
+    'description' => '',
+    'site_copyright' => 'Copyright &copyright;',
+    'google_api_key' => '',
+    'google_analytic_id' => '',
+    'facebook_app_id' => '',
+    'keyword_limit' => '',
+    'description_limit' => '',
+    'facebook_enable' => '',
+    'google_api_enable' => '0',
+    'google_analytic_enable' => '0',
+    'facebook_app_name' => '',
+  ),
+  'core_site' => 
+  array (
+    'full_ajax_mode' => '0',
+    '2_step_verify' => 'Social Network',
+    'private_network' => '0',
+    'cookie_path' => '/',
+    'cookie_domain' => '',
+    'cookie_prefix' => 'f',
+    'allow_html' => '0',
+    'allow_html_tags' => '<p><br><br /><strong><em><u><ul><li><font><ol><img><div><span><blockquote><strike><sub><sup><h1><h2><h3><h4><h5><h6><a><b><i><hr><tt><s><center><big><abbr><pre><small><object><embed><param><code>',
+    'secure_image_enable' => '0',
+  ),
+  'core_offline' => 
+  array (
+    'enable' => '0',
+    'code' => '0',
+  ),
+  'user_register' => 
+  array (
+    'display_dob' => '0',
+    'display_gender' => '0',
+    'display_location' => '0',
+    'display_timezone' => '0',
+    'display_username' => '1',
+    'display_reenter_email' => '0',
+    'display_reenter_password' => '0',
+    'redirection_url' => '0',
+    'display_term_of_use' => '0',
+    'auto_friend_list' => '0',
+    'welcome_email' => '0',
+    'require_verify_email' => '0',
+    'verify_email_timeout' => '0',
+    'display_password' => '0',
+    'notify_admin' => '0',
+    'auto_approval' => '0',
+    'register_mode' => '0',
+    'upload_avatar' => '0',
+    'invite_friends' => '0',
+    'choose_subscription' => '0',
+    'auto_login' => '1',
+  ),
+  'core_allow_html' => 
+  array (
+    'enable' => '1',
+    'tags' => '<p><br><br /><strong><em><u><ul><li><font><ol><img><div><span><blockquote><strike><sub><sup><h1><h2><h3><h4><h5><h6><a><b><i><hr><tt><s><center><big><abbr><pre><small><object><embed><param><code>',
   ),
 );

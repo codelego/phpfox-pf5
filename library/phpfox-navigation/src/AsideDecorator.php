@@ -3,24 +3,13 @@
 namespace Phpfox\Navigation;
 
 
-class AsideDecorator implements DecoratorInterface
+class AsideDecorator extends AbstractDecorator
 {
-    /**
-     * max number to render
-     *
-     * @var number
-     */
-    private $level = 4;
 
     /**
      * @var array
      */
-    private $context = [];
-
-    /**
-     * @var array
-     */
-    private $defaults
+    protected $defaults
         = [
             'level0'       => 'aside',
             'level1'       => '',
@@ -32,10 +21,9 @@ class AsideDecorator implements DecoratorInterface
             'moreLabel'    => 'More',
         ];
 
-    public function render(Navigation $navigation, $context = [])
+    public function render(Navigation $navigation)
     {
         $content = [];
-        $this->context = array_merge($this->defaults, $context);
 
         foreach ($navigation->items as $item) {
             try {

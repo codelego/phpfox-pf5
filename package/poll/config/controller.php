@@ -2,4 +2,8 @@
 
 namespace Neutron\Poll\Controller;
 
-return [];
+return [
+    'poll.admin-poll'     => AdminPollController::class,
+    'poll.admin-settings' => AdminSettingsController::class,
+    'poll.admin-acl'      => AdminAclController::class,
+];

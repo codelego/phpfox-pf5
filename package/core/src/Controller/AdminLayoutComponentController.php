@@ -2,75 +2,70 @@
 
 namespace Neutron\Core\Controller;
 
-use Neutron\Core\Form\AddLayoutComponent;
-use Neutron\Core\Form\EditLayoutComponent;
+use Neutron\Core\Form\Admin\LayoutComponent\AddLayoutComponent;
+use Neutron\Core\Form\Admin\LayoutComponent\EditLayoutComponent;
 use Neutron\Core\Model\LayoutComponent;
-use Phpfox\View\ViewModel;
+use Neutron\Core\Process\AdminAddEntryProcess;
+use Neutron\Core\Process\AdminEditEntryProcess;
+use Neutron\Core\Process\AdminManageEntryProcess;
 
 class AdminLayoutComponentController extends AdminController
 {
     public function initialized()
     {
+        $editingThemeId = _service('layout_loader')
+            ->getEditingThemeId();
+
+        _service('html.title')
+            ->clear()
+            ->add(_text('Layout Editor', 'admin'));
+
+        _service('breadcrumb')
+            ->clear()
+            ->add([
+                'href'  => _url('admin.core.layout'),
+                'label' => _text('Layout Editor {0}', 'admin', null,
+                    [$editingThemeId]),
+            ]);
+
         _service('menu.admin.secondary')
             ->load('admin.core.layout');
+
+    }
+
+    protected function postDispatch($action)
+    {
+        if (in_array($action, ['index'])) {
+            _service('menu.admin.buttons')->load('admin.core.layout.component.buttons');
+        }
     }
 
     public function actionIndex()
     {
-        $items = _model('layout_component')->select()->all();
+        return (new AdminManageEntryProcess([
+            'model'    => LayoutComponent::class,
+            'template' => 'core/admin-layout/manage-layout-component',
+        ]))->process();
 
-        return new ViewModel([
-            'items' => $items,
-        ], 'core/admin-layout/manage-component');
     }
 
     public function actionAdd()
     {
-        $request = _service('request');
-
-        $form = new AddLayoutComponent([]);
-
-        if ($request->isGet()) {
-        }
-
-        if ($request->isPost() and $form->isValid($request->all())) {
-            /** @var LayoutComponent $entry */
-            $entry = _model('layout_component')
-                ->create($form->getData());
-            $entry->save();
-        }
-
-        return new ViewModel([
-            'form'    => $form,
-            'render'  => 'form_panel_horizontal',
-            'heading' => _text('Edit Component', 'admin'),
-        ], 'layout/form-edit');
+        return (new AdminAddEntryProcess([
+            'model'    => LayoutComponent::class,
+            'form'     => AddLayoutComponent::class,
+            'redirect' => _url('admin.core.layout.component'),
+        ]))->process();
     }
+
 
     public function actionEdit()
     {
-        $request = _service('request');
-        $componentId = $request->get('component_id');
-
-        $form = new EditLayoutComponent([]);
-
-        /** @var LayoutComponent $entry */
-        $entry = _model('layout_component')->findById($componentId);
-
-        if ($request->isGet()) {
-            $form->populate($entry);
-        }
-
-        if ($request->isPost() and $form->isValid($request->all())) {
-            $entry->fromArray($form->getData());
-            $entry->save();
-
-            _redirect('admin.core.layout.action', ['action' => 'manage-component']);
-        }
-
-        return new ViewModel([
-            'form'    => $form,
-            'heading' => _text('Edit Component', 'admin'),
-        ], 'layout/form-edit');
+        return (new AdminEditEntryProcess([
+            'key'      => 'action_id',
+            'model'    => LayoutComponent::class,
+            'form'     => EditLayoutComponent::class,
+            'redirect' => _url('admin.core.layout.component'),
+        ]))->process();
     }
 }

@@ -2,98 +2,91 @@
 
 namespace Neutron\Core\Model;
 
-
 class I18nLanguageTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testBase()
     {
         $obj = new I18nLanguage([
-            'id'          => 'en',
-            'name'        => 'English (US)',
-            'native_name' => 'English',
-            'code_6391'   => 'en',
-            'direction'   => 'ltr',
-            'is_active'   => '1',
-            'is_default'  => '0',
+            'language_id'  => 'en',
+            'name'         => 'English (US)',
+            'native_name'  => 'English',
+            'code_6391'    => 'en',
+            'direction_id' => 'ltr',
+            'is_active'    => 0,
+            'is_default'   => 0,
         ]);
 
-        $this->assertEquals('en', $obj->getId());
-        $this->assertEquals('i18n_language', $obj->getModelId());
-        $this->assertEquals('English (US)', $obj->getName());
-        $this->assertEquals('English (US)', $obj->getTitle());
-        $this->assertEquals('English', $obj->getNativeName());
-        $this->assertEquals('1', $obj->isActive());
-        $this->assertEquals('0', $obj->isDefault());
-        $this->assertEquals('ltr', $obj->getDirection());
+        $this->assertSame('i18n_language', $obj->getModelId());
+        $this->assertSame('en', $obj->getId());
+        $this->assertSame('English (US)', $obj->getName());
+        $this->assertSame('English', $obj->getNativeName());
+        $this->assertSame('en', $obj->getCode6391());
+        $this->assertSame('ltr', $obj->getDirectionId());
+        $this->assertSame(0, $obj->isActive());
+        $this->assertSame(0, $obj->isDefault());
+    }
+
+    public function testParameters()
+    {
+        $obj = new I18nLanguage();
+
+        // set data
+        $obj->setId('en');
+        $obj->setName('English (US)');
+        $obj->setNativeName('English');
+        $obj->setCode6391('en');
+        $obj->setDirectionId('ltr');
+        $obj->setActive(0);
+        $obj->setDefault(0);
+
+        // assert same data
+        $this->assertSame('i18n_language', $obj->getModelId());
+        $this->assertSame('en', $obj->getId());
+        $this->assertSame('English (US)', $obj->getName());
+        $this->assertSame('English', $obj->getNativeName());
+        $this->assertSame('en', $obj->getCode6391());
+        $this->assertSame('ltr', $obj->getDirectionId());
+        $this->assertSame(0, $obj->isActive());
+        $this->assertSame(0, $obj->isDefault());
     }
 
     public function testSave()
     {
         $obj = new I18nLanguage([
-            'id'          => 'test_language',
-            'name'        => '[test name]',
-            'native_name' => '[native_name]',
-            'code_6391'   => '[test_code]',
-            'direction'   => 'rtl',
-            'is_active'   => '1',
-            'is_default'  => '0',
+            'language_id'  => 'en',
+            'name'         => 'English (US)',
+            'native_name'  => 'English',
+            'code_6391'    => 'en',
+            'direction_id' => 'ltr',
+            'is_active'    => 0,
+            'is_default'   => 0,
         ]);
 
         $obj->save();
 
-        /** @var I18nLanguage $entry */
-        $entry = _model('i18n_language')
-            ->findById('test_language');
+        /** @var I18nLanguage $obj */
+        $obj = _with('i18n_language')
+            ->select()->where('language_id=?', 'en')->first();
 
-        $this->assertEquals('test_language', $obj->getId());
-        $this->assertEquals('i18n_language', $obj->getModelId());
-        $this->assertEquals('[test name]', $obj->getName());
-        $this->assertEquals('[test name]', $obj->getTitle());
-        $this->assertEquals('[test_code]', $obj->getCode6391());
-        $this->assertEquals('[native_name]', $obj->getNativeName());
-        $this->assertEquals('1', $obj->isActive());
-        $this->assertEquals('0', $obj->isDefault());
-        $this->assertEquals('rtl', $obj->getDirection());
-
-        $entry->setName('[test name 1]');
-        $entry->setNativeName('[native_name 1]');
-        $entry->setActive('0');
-        $entry->setDefault('0');
-        $entry->setDirection('ltr');
-        $entry->setCode6391('[test_code_1]');
-
-        $entry->save();
-
-        $this->assertEquals('test_language', $entry->getId());
-        $this->assertEquals('i18n_language', $entry->getModelId());
-        $this->assertEquals('[test name 1]', $entry->getName());
-        $this->assertEquals('[test name 1]', $entry->getTitle());
-        $this->assertEquals('[native_name 1]', $entry->getNativeName());
-        $this->assertEquals('0', $entry->isActive());
-        $this->assertEquals('0', $entry->isDefault());
-        $this->assertEquals('ltr', $entry->getDirection());
-
-        /** @var I18nLanguage $entry */
-        $entry = _model('i18n_language')
-            ->findById('test_language');
-
-        $entry->delete();
+        $this->assertSame('i18n_language', $obj->getModelId());
+        $this->assertSame('en', $obj->getId());
+        $this->assertSame('English (US)', $obj->getName());
+        $this->assertSame('English', $obj->getNativeName());
+        $this->assertSame('en', $obj->getCode6391());
+        $this->assertSame('ltr', $obj->getDirectionId());
+        $this->assertSame(0, $obj->isActive());
+        $this->assertSame(0, $obj->isDefault());
     }
 
     public static function setUpBeforeClass()
     {
-        _service('db')
-            ->delete(':i18n_language')
-            ->where('id=?', 'test_language')
-            ->execute();
+        _with('i18n_language')
+            ->delete()->where('language_id=?', 'en')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _service('db')
-            ->delete(':i18n_language')
-            ->where('id=?', 'test_language')
-            ->execute();
+        _with('i18n_language')
+            ->delete()->where('language_id=?', 'en')->execute();
     }
 }

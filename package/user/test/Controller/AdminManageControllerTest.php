@@ -7,7 +7,7 @@ class AdminManageControllerTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new AdminManageController();
+        $obj = new AdminUserController();
 
         $this->assertInstanceOf('\Phpfox\View\ViewModel', $obj->actionIndex());
     }

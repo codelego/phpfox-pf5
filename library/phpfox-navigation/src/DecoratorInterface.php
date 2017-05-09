@@ -7,9 +7,8 @@ interface DecoratorInterface
 {
     /**
      * @param Navigation $navigation
-     * @param array      $context
      *
      * @return string
      */
-    public function render(Navigation $navigation, $context = []);
+    public function render(Navigation $navigation);
 }

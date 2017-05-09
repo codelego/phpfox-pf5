@@ -2,13 +2,12 @@
 
 namespace Phpfox\Paging;
 
-interface PagingInterface
+interface PagingInterface extends \Countable, \IteratorAggregate
 {
     /**
      * @param $data
      */
     public function __construct($data);
-
 
     /**
      * Get total items of paging, Not current item count
@@ -22,49 +21,34 @@ interface PagingInterface
      *
      * @return int
      */
-    public function itemCount();
+    public function getItemCount();
 
     /**
      * @return int
      */
-    public function pageCount();
+    public function getPageCount();
 
     /**
-     * @param int $pageNumber
-     * @param int $limit
+     * @param bool $noLimit
      *
-     * @return PagingInterface
+     * @return $this
      */
-    public function paging($pageNumber, $limit);
+    public function setNoLimit($noLimit);
+
+    /**
+     * @return $this
+     */
+    public function prepare();
 
     /**
      * Return all items
      */
-    public function noLimit();
+    public function isNoLimit();
 
     /**
      * @return \IteratorAggregate
      */
-    public function items();
-
-    /**
-     * @param int $pageNumber
-     *
-     * @return PagingInterface
-     */
-    public function setPage($pageNumber);
-
-    /**
-     * @param $limit
-     *
-     * @return PagingInterface
-     */
-    public function setLimit($limit);
-
-    /**
-     * @return int
-     */
-    public function getPage();
+    public function getItems();
 
     /**
      * @return int
@@ -72,47 +56,83 @@ interface PagingInterface
     public function getLimit();
 
     /**
-     * @param string $name
-     * @param array  $params
+     * @param $limit
      *
-     * @return PagingInterface
+     * @return $this
      */
-    public function setRouting($name, $params);
+    public function setLimit($limit);
 
     /**
-     * @return bool
+     * @return int
      */
-    public function hasNext();
+    public function getPageNumber();
 
     /**
-     * @return bool
+     * @param int $pageNumber
+     *
+     * @return $this
      */
-    public function hasPrev();
+    public function setPageNumber($pageNumber);
+
+    /**
+     * @param int $totalPage
+     */
+    public function setPageCount($totalPage);
+
+    /**
+     * @return mixed
+     */
+    public function getRoute();
+
+    /**
+     * @param mixed $route
+     *
+     * @return $this
+     */
+    public function setRoute($route);
 
     /**
      * @return string
      */
-    public function getNextUrl();
+    public function getRender();
 
     /**
+     * @param string $render
+     *
+     * @return $this
+     */
+    public function setRender($render);
+
+    /**
+     * @param array $params
+     *
      * @return string
      */
-    public function getPrevUrl();
+    public function render($params = []);
 
     /**
-     * @return array
+     * @param $string
+     *
+     * @return mixed
      */
-    public function getPager();
+    public function setUrl($string);
 
     /**
      * @param $pageNumber
      *
      * @return string
      */
-    public function getUrl($pageNumber);
+    public function getPageUrl($pageNumber);
 
     /**
      * @return int
      */
-    public function getStartIndexing();
+    public function getStartIndex();
+
+    /**
+     * @param $startIndex
+     *
+     * @return $this
+     */
+    public function setStartIndex($startIndex);
 }

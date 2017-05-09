@@ -28,15 +28,11 @@
 </aside>
 <section class="main-wrapper">
     <div class="container">
-        <?= _service('menu.admin.secondary')->render('toolbar', ['level0' => 'btn-group toolbar pull-right']); ?>
+        <?= _service('menu.admin.secondary')->render('toolbar', ['level0' => 'btn-group toolbar pull-left']); ?>
+        <?= _service('menu.admin.buttons')->render('toolbar', ['level0' => 'btn-group toolbar pull-right']); ?>
     </div>
     <div class="container">
-        <?php if (_service('registry')->has('search.filter')): ?>
-            <div class="main-search-wrapper">
-                <?= _service('form_render')->render(_service('registry')
-                    ->get('search.filter')) ?>
-            </div>
-        <?php endif; ?>
+        <?= _service('layouts')->renderBlock('\Neutron\Core\Block\AdminFilter', []) ?>
     </div>
     <div class="content-wrapper">
         <?php echo @$layout_content ?>

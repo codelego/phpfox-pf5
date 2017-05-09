@@ -1,10 +1,10 @@
 <?php
 if (isset($heading)) {
-    $form->setParam('title', $heading);
+    $form->setTitle($heading);
 }
 if (isset($render)) {
     $form->setRender($render);
 } else {
     $form->setRender('form_panel_horizontal');
 }
-echo $form->render();
+echo $form->toHtml();

@@ -6,11 +6,12 @@ class LayoutPageTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new LayoutPage(['page_id'   => 1,
-                               'action_id' => 'default',
-                               'theme_id'  => 'default',
-                               'is_active' => 1,
-                               'params'    => '["grid":"3"]',
+        $obj = new LayoutPage([
+            'page_id'   => 1,
+            'action_id' => 'default',
+            'theme_id'  => 'default',
+            'is_active' => 1,
+            'params'    => '["grid":"3"]',
         ]);
 
         $this->assertSame('layout_page', $obj->getModelId());
@@ -43,11 +44,12 @@ class LayoutPageTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new LayoutPage(['page_id'   => 1,
-                               'action_id' => 'default',
-                               'theme_id'  => 'default',
-                               'is_active' => 1,
-                               'params'    => '["grid":"3"]',
+        $obj = new LayoutPage([
+            'page_id'   => 1,
+            'action_id' => 'default',
+            'theme_id'  => 'default',
+            'is_active' => 1,
+            'params'    => '["grid":"3"]',
         ]);
 
         $obj->save();

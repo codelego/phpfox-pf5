@@ -11,10 +11,5 @@ return [
     ],
     'services'              => [
         'navigation'           => [null, NavigationManager::class],
-        'menu.main.primary'    => [NavigationFactory::class, 'main'],
-        'menu.main.secondary'  => [NavigationFactory::class, null],
-        'menu.main.mini'       => [NavigationFactory::class, 'main.mini'],
-        'menu.admin.primary'   => [NavigationFactory::class, 'admin'],
-        'menu.admin.secondary' => [NavigationFactory::class, null],
     ],
 ];

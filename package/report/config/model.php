@@ -9,10 +9,10 @@ return [
         ReportCategory::class,
         'package/report/config/model/category.php',
     ],
-    'report'          => [
+    'report_item'     => [
         'table_factory',
-        ':report',
-        Report::class,
-        'package/report/config/model/report.php',
+        ':report_item',
+        ReportItem::class,
+        'package/report/config/model/report_item.php',
     ],
 ];

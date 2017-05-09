@@ -55,6 +55,13 @@ return [
             'route'      => 'user/*',
             'controller' => 'user.admin-manage',
             'action'     => 'index',
+            'children'   => [
+                'setting' => [
+                    'route'      => 'setting(/<action>)',
+                    'controller' => 'user.admin-setting',
+                ],
+                'user'    => ['route' => '<action>'],
+            ],
         ],
     ],
 ];

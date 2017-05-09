@@ -40,7 +40,7 @@ class FormRenderPanel implements FormRenderInterface
      */
     public function renderTitle($form)
     {
-        $string = $form->getParam('title');
+        $string = $form->getTitle();
 
         if (empty($string)) {
             return '';
@@ -54,9 +54,9 @@ class FormRenderPanel implements FormRenderInterface
      *
      * @return string
      */
-    public function renderDesc($form)
+    public function renderInfo($form)
     {
-        $string = $form->getParam('desc');
+        $string = $form->getInfo();
 
         if (empty($string)) {
             return '';
@@ -91,7 +91,7 @@ class FormRenderPanel implements FormRenderInterface
             '<div class="panel panel-default">'
             . $this->renderTitle($form)
             . '<div class="panel-body">'
-            . $this->renderDesc($form)
+            . $this->renderInfo($form)
             . $form->getErrorHtml('alert')
             . $this->renderElements($form)
             . '</div>'

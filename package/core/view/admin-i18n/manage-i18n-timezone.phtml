@@ -1,0 +1,35 @@
+<div class="panel panel-default">
+    <div class="table-responsive">
+        <table class="table table-admin">
+            <thead>
+            <tr>
+                <th class="w40 text-center">#</th>
+                <th>ID</th>
+                <th>Native Code</th>
+                <th>Location</th>
+                <th>Offset</th>
+                <th>Active?</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item): ?>
+                <tr>
+                    <td class="dropdown" data-cmd="dropdown">
+                        <ul>
+                            <li><a data-cmd="modal" href="<?= _url('admin.core.i18n.timezone',
+                                    ['action' => 'edit', 'timezone_id' => $item->getId()]) ?>"><?= _text('Edit') ?></li>
+                        </ul>
+                    </td>
+                    <td><?= $item->getId() ?></td>
+                    <td><?= $item->getTimezoneCode() ?></td>
+                    <td><?= $item->getTimezoneLocation() ?></td>
+                    <td><?= $item->getTimezoneOffset() ?></td>
+                    <td>
+                        <?= _yesno($item->isActive(), true, true) ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

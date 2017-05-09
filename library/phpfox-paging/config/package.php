@@ -2,4 +2,11 @@
 
 namespace Phpfox\Paging;
 
-return [];
+return [
+    'pagination.decorators' => [
+        'default' => SlidingDecorator::class,
+    ],
+    'services'              => [
+        'pagination' => [null, Pagination::class],
+    ],
+];

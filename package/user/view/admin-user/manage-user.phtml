@@ -1,0 +1,71 @@
+<div class="panel panel-default">
+    <div class="table-responsive">
+        <table class="table table-admin">
+            <thead>
+            <tr>
+                <th class="w30">
+                    <label><input type="checkbox" class="moderation-check-all"/></label>
+                </th>
+                <th class="text-center">#</th>
+                <th class="w50">ID</th>
+                <th class="w50">Role</th>
+                <th class="sortable asc">Name</th>
+                <th class="w300">Email</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item): ?>
+                <tr>
+                    <td>
+                        <label><input id="cb" type="checkbox" name="cb[]" value="<?= $item->getId() ?>"
+                                      class="item_checkbox"/></label>
+                    </td>
+                    <td data-cmd="dropdown" class="dropdown">
+                        <ul>
+                            <li><a href="<?= _url('admin.user.user',['action'=>'edit','user_id'=>$item->getId()]) ?>"><?= _text('Edit user') ?></a></li>
+                            <li><a href=""><?= _text('Login as this user') ?></a></li>
+                            <li><a href=""><?= _text('Change password') ?></a></li>
+                            <li><a href=""><?= _text('Promote this user') ?></a></li>
+                            <li class="divider"></li>
+                            <li><a href=""><?= _text('Ban this user') ?></a></li>
+                            <li><a href=""><?= _text('Delete this user') ?></a></li>
+                        </ul>
+                    </td>
+                    <td><?= $item->getId(); ?></td>
+                    <td><?= $item->getRoleId(); ?></td>
+                    <td>
+                        <a target="_blank" rel="nofollow" href="<?= $item->getUrl() ?>"><?= $item->getName(); ?></a>
+                    </td>
+                    <td><?= $item->getEmail(); ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="toolbar-bottom">
+    <div class="dropup">
+        <a class="btn btn-default btn-dropdown" data-toggle="dropdown">With
+            Selected</a>
+        <ul class="dropdown-menu">
+            <li role="presentation">
+                <a role="btn" class="danger">Delete</a>
+            </li>
+            <li role="presentation">
+                <a role="button">Approve</a>
+            </li>
+            <li role="presentation">
+                <a role="button">Verify email</a>
+            </li>
+            <li role="presentation">
+                <a role="button">Reset password</a>
+            </li>
+            <li role="presentation">
+                <a role="button">Ban account</a>
+            </li>
+            <li role="presentation">
+                <a role="button">Un-ban account</a>
+            </li>
+        </ul>
+    </div>
+</div>

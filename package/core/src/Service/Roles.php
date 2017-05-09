@@ -3,20 +3,20 @@
 namespace Neutron\Core\Service;
 
 
-use Neutron\Core\Model\CoreRole;
+use Neutron\Core\Model\AclRole;
 
 class Roles
 {
     /**
      * @param int $id
      *
-     * @return CoreRole
+     * @return AclRole
      */
     public function findById($id)
     {
-        return _model('core_role')
+        return _model('acl_role')
             ->findById((int)$id);
-        
+
     }
 
     public function findRoleIdOptions($typeId)

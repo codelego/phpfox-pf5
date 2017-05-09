@@ -96,7 +96,7 @@ class ErrorHandler
         }
 
         // Handle fatal with nice response for user
-        if ($fatal) {
+        if ($fatal and !PHPFOX_UNIT_TEST) {
             $this->_sendFatalResponse();
         }
 
@@ -117,7 +117,10 @@ class ErrorHandler
 
         _service('main.log')->error($message);
 
-        $this->_sendFatalResponse();
+        if(!PHPFOX_UNIT_TEST){
+            $this->_sendFatalResponse();
+        }
+
 
         return true;
     }
@@ -176,7 +179,6 @@ class ErrorHandler
         while (ob_get_level()) {
             ob_get_clean();
         }
-
         exit('error_code ' . $this->getErrorCode());
     }
 

@@ -30,5 +30,5 @@ interface FormRenderInterface extends RenderInterface
      *
      * @return string
      */
-    public function renderDesc($form);
+    public function renderInfo($form);
 }

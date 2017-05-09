@@ -2,6 +2,8 @@
 
 namespace Neutron\Core;
 
+use Phpfox\Navigation\NavigationFactory;
+
 return [
     'requirejs.paths' => [
         'jquery'     => 'package/jquery/jquery',
@@ -17,7 +19,7 @@ return [
     ],
     'static.css'      => [
         'main'          => '@css/main.css',
-        'font'          => '//fonts.googleapis.com/css?family=Roboto',
+        //        'font'          => '//fonts.googleapis.com/css?family=Roboto',
         'custom'        => '@css/custom.css',
         'admin.login'   => '@css/admin-login.css',
         'core-test.css' => '@css/core-test.css',
@@ -48,13 +50,20 @@ return [
         'mvc.events.loader'      => [null, Service\EventLoader::class],
         'core.callback'          => [null, Service\EventListener::class],
         'navigation.loader'      => [null, Service\NavigationLoader::class],
-        'core.i18n_language'     => [null, Service\I18nLanguage::class],
+        'core.language'          => [null, Service\Languages::class],
+        'core.timezone'          => [null, Service\Timezones::class],
         'core.packages'          => [null, Service\Packages::class],
         'core.themes'            => [null, Service\ThemeManager::class],
         'core.mails'             => [null, Service\MailManager::class],
         'core.roles'             => [null, Service\Roles::class],
         'authorization.provider' => [null, Service\PermissionProvider::class],
         'layout_loader'          => [null, Service\LayoutManager::class],
+        'menu.main.primary'      => [NavigationFactory::class, 'main'],
+        'menu.main.secondary'    => [NavigationFactory::class, null],
+        'menu.main.mini'         => [NavigationFactory::class, 'main.mini'],
+        'menu.admin.primary'     => [NavigationFactory::class, 'admin'],
+        'menu.admin.secondary'   => [NavigationFactory::class, null],
+        'menu.admin.buttons'     => [NavigationFactory::class, null],
     ],
     'templates'       => _view_map([
         'default' => [

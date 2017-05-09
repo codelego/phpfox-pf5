@@ -6,14 +6,15 @@ class LayoutBlockTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new LayoutBlock(['block_id'     => 1,
-                                'parent_id'    => 0,
-                                'container_id' => 1,
-                                'location_id'  => 'main',
-                                'component_id' => 'core.action_content',
-                                'sort_order'   => 1,
-                                'is_active'    => 1,
-                                'params'       => '[]',
+        $obj = new LayoutBlock([
+            'block_id'     => 1,
+            'parent_id'    => 0,
+            'container_id' => 1,
+            'location_id'  => 'main',
+            'component_id' => 'core.action_content',
+            'sort_order'   => 1,
+            'is_active'    => 1,
+            'params'       => '[]',
         ]);
 
         $this->assertSame('layout_block', $obj->getModelId());
@@ -55,14 +56,15 @@ class LayoutBlockTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new LayoutBlock(['block_id'     => 1,
-                                'parent_id'    => 0,
-                                'container_id' => 1,
-                                'location_id'  => 'main',
-                                'component_id' => 'core.action_content',
-                                'sort_order'   => 1,
-                                'is_active'    => 1,
-                                'params'       => '[]',
+        $obj = new LayoutBlock([
+            'block_id'     => 1,
+            'parent_id'    => 0,
+            'container_id' => 1,
+            'location_id'  => 'main',
+            'component_id' => 'core.action_content',
+            'sort_order'   => 1,
+            'is_active'    => 1,
+            'params'       => '[]',
         ]);
 
         $obj->save();

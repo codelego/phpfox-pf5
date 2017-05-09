@@ -2,60 +2,100 @@
 
 namespace Neutron\Core\Model;
 
-
 class I18nMessageTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testBase()
     {
         $obj = new I18nMessage([
-            'id'         => 8,
-            'locale'     => '',
-            'domain'     => '',
-            'var_name'   => 'No',
-            'text_value' => '[No]',
-            'is_json'    => '0',
-            'is_updated' => '0',
+            'message_id'    => 1,
+            'package_id'    => 'core',
+            'language_id'   => '',
+            'domain_id'     => 'admin',
+            'message_name'  => '[storage quota note]',
+            'message_value' => 'How much content (photos, songs, videos, etc.) do you want each member to be able to upload? This limit only applies to uploaded content, not things that are linked or embedded from other websites.',
+            'is_json'       => 0,
+            'is_updated'    => 0,
         ]);
 
-        $this->assertEquals(8, $obj->getId());
-        $this->assertEquals('i18n_message', $obj->getModelId());
-        $this->assertEquals('', $obj->getLocale());
-        $this->assertEquals('', $obj->getDomain());
-        $this->assertEquals('No', $obj->getName());
-        $this->assertEquals('[No]', $obj->getTextValue());
-        $this->assertEquals('0', $obj->isJson());
-        $this->assertEquals('0', $obj->isUpdated());
+        $this->assertSame('i18n_message', $obj->getModelId());
+        $this->assertSame(1, $obj->getId());
+        $this->assertSame('core', $obj->getPackageId());
+        $this->assertSame('', $obj->getLanguageId());
+        $this->assertSame('admin', $obj->getDomainId());
+        $this->assertSame('[storage quota note]', $obj->getMessageName());
+        $this->assertSame('How much content (photos, songs, videos, etc.) do you want each member to be able to upload? This limit only applies to uploaded content, not things that are linked or embedded from other websites.',
+            $obj->getMessageValue());
+        $this->assertSame(0, $obj->isJson());
+        $this->assertSame(0, $obj->isUpdated());
+    }
 
+    public function testParameters()
+    {
+        $obj = new I18nMessage();
+
+        // set data
+        $obj->setId(1);
+        $obj->setPackageId('core');
+        $obj->setLanguageId('');
+        $obj->setDomainId('admin');
+        $obj->setMessageName('[storage quota note]');
+        $obj->setMessageValue('How much content (photos, songs, videos, etc.) do you want each member to be able to upload? This limit only applies to uploaded content, not things that are linked or embedded from other websites.');
+        $obj->setJson(0);
+        $obj->setUpdated(0);
+
+        // assert same data
+        $this->assertSame('i18n_message', $obj->getModelId());
+        $this->assertSame(1, $obj->getId());
+        $this->assertSame('core', $obj->getPackageId());
+        $this->assertSame('', $obj->getLanguageId());
+        $this->assertSame('admin', $obj->getDomainId());
+        $this->assertSame('[storage quota note]', $obj->getMessageName());
+        $this->assertSame('How much content (photos, songs, videos, etc.) do you want each member to be able to upload? This limit only applies to uploaded content, not things that are linked or embedded from other websites.',
+            $obj->getMessageValue());
+        $this->assertSame(0, $obj->isJson());
+        $this->assertSame(0, $obj->isUpdated());
     }
 
     public function testSave()
     {
         $obj = new I18nMessage([
-            'id'         => 8,
-            'locale'     => '',
-            'domain'     => '',
-            'var_name'   => 'No',
-            'text_value' => '[No]',
-            'is_json'    => '0',
-            'is_updated' => '0',
+            'message_id'    => 1,
+            'package_id'    => 'core',
+            'language_id'   => '',
+            'domain_id'     => 'admin',
+            'message_name'  => '[storage quota note]',
+            'message_value' => 'How much content (photos, songs, videos, etc.) do you want each member to be able to upload? This limit only applies to uploaded content, not things that are linked or embedded from other websites.',
+            'is_json'       => 0,
+            'is_updated'    => 0,
         ]);
 
-        $obj->setDomain('domain 1');
-        $obj->setLocale('locale 1');
-        $obj->setName('No 1');
-        $obj->setTextValue('[No 1]');
-        $obj->setTextValue('[No 1]');
-        $obj->setJson('1');
-        $obj->setUpdated('1');
+        $obj->save();
 
-        $this->assertEquals(8, $obj->getId());
-        $this->assertEquals('i18n_message', $obj->getModelId());
-        $this->assertEquals('locale 1', $obj->getLocale());
-        $this->assertEquals('domain 1', $obj->getDomain());
-        $this->assertEquals('No 1', $obj->getName());
-        $this->assertEquals('[No 1]', $obj->getTextValue());
-        $this->assertEquals('1', $obj->isJson());
-        $this->assertEquals('1', $obj->isUpdated());
+        /** @var I18nMessage $obj */
+        $obj = _with('i18n_message')
+            ->select()->where('message_id=?', 1)->first();
+
+        $this->assertSame('i18n_message', $obj->getModelId());
+        $this->assertSame(1, $obj->getId());
+        $this->assertSame('core', $obj->getPackageId());
+        $this->assertSame('', $obj->getLanguageId());
+        $this->assertSame('admin', $obj->getDomainId());
+        $this->assertSame('[storage quota note]', $obj->getMessageName());
+        $this->assertSame('How much content (photos, songs, videos, etc.) do you want each member to be able to upload? This limit only applies to uploaded content, not things that are linked or embedded from other websites.',
+            $obj->getMessageValue());
+        $this->assertSame(0, $obj->isJson());
+        $this->assertSame(0, $obj->isUpdated());
+    }
+
+    public static function setUpBeforeClass()
+    {
+        _with('i18n_message')
+            ->delete()->where('message_id=?', 1)->execute();
+    }
+
+    public static function tearDownAfterClass()
+    {
+        _with('i18n_message')
+            ->delete()->where('message_id=?', 1)->execute();
     }
 }

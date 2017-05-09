@@ -15,7 +15,6 @@ class SelectRender implements RenderInterface
         $attributes = $element->getAttributes();
         $attributes['name'] = $element->getName();
         $value = $element->getValue();
-        $optionHtml = [];
         $options = $element->getOptions();
 
 
@@ -25,16 +24,15 @@ class SelectRender implements RenderInterface
                 'label' => $element->getAttribute('placeholder'),
             ]);
         }
-        foreach ($options as $option) {
-            $optionHtml[]
-                = _sprintf('<option value="{value}" {selected}>{label}</option>',
+        $optionHtml = array_map(function ($option) use ($value) {
+            return _sprintf('<option value="{value}" {selected}>{label}</option>',
                 [
                     'label'    => $option['label'],
                     'value'    => $option['value'],
-                    'selected' => ($value == $option['value']) ? 'selected'
-                        : '',
+                    'selected' => ($option['value'] and ($value == $option['value'])) ? 'selected' : '',
                 ]);
-        }
+        }, $options);
+
 
         $optionHtml = implode('', $optionHtml);
 

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'chains'  => [
+    'chains' => [
         [
             'chain'    => 'profile',
             'route'    => '{event}/<name>/*',
@@ -12,12 +12,35 @@ return [
             ],
         ],
     ],
-    'routers' => [
+    'routes' => [
         'profile.event' => [
             'route'    => 'event',
             'defaults' => [
                 'action'     => 'browse',
                 'controller' => 'event.profile',
+            ],
+        ],
+        'admin.event'   => [
+            'route'      => 'event/*',
+            'controller' => 'event.admin-event',
+            'action'     => 'index',
+            'children'   => [
+                'category' => [
+                    'route'      => 'category(/<action>)',
+                    'controller' => 'event.admin-category',
+                ],
+                'settings' => [
+                    'route'      => 'settings(/<action>)',
+                    'controller' => 'event.admin-settings',
+                ],
+                'acl'      => [
+                    'route'      => 'acl(/<action>)',
+                    'controller' => 'event.admin-acl',
+                ],
+                'event'    => [
+                    'route'      => '<action>',
+                    'controller' => 'event.admin-event',
+                ],
             ],
         ],
     ],

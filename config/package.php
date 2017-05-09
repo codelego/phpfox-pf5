@@ -44,6 +44,11 @@
       2 => 'cache.files',
     ),
   ),
+  'code_generator' => 
+  array (
+    0 => NULL,
+    1 => 'Phpfox\\RapidDev\\CodeGenerator',
+  ),
   'db.drivers' => 
   array (
     'mysqli' => 'Phpfox\\Mysqli\\MysqliDbAdapter',
@@ -74,6 +79,7 @@
     'form_bootstrap' => 'Phpfox\\Form\\FormRenderBootstrap',
     'form_panel' => 'Phpfox\\Form\\FormRenderPanel',
     'form_panel_horizontal' => 'Phpfox\\Form\\FormRenderPanelHorizontal',
+    'form_panel_flat' => 'Phpfox\\Form\\FormRenderPanelFlat',
     'button' => 'Phpfox\\Form\\ButtonRender',
     'checkbox' => 'Phpfox\\Form\\CheckboxRender',
     'select' => 'Phpfox\\Form\\SelectRender',
@@ -138,6 +144,10 @@
     'nav' => 'Phpfox\\Navigation\\NavDecorator',
     'aside' => 'Phpfox\\Navigation\\AsideDecorator',
     'toolbar' => 'Phpfox\\Navigation\\ToolbarDecorator',
+  ),
+  'pagination.decorators' => 
+  array (
+    'default' => 'Phpfox\\Paging\\SlidingDecorator',
   ),
   'services' => 
   array (
@@ -403,31 +413,6 @@
       0 => NULL,
       1 => 'Phpfox\\Navigation\\NavigationManager',
     ),
-    'menu.main.primary' => 
-    array (
-      0 => 'Phpfox\\Navigation\\NavigationFactory',
-      1 => 'main',
-    ),
-    'menu.main.secondary' => 
-    array (
-      0 => 'Phpfox\\Navigation\\NavigationFactory',
-      1 => NULL,
-    ),
-    'menu.main.mini' => 
-    array (
-      0 => 'Phpfox\\Navigation\\NavigationFactory',
-      1 => 'main.mini',
-    ),
-    'menu.admin.primary' => 
-    array (
-      0 => 'Phpfox\\Navigation\\NavigationFactory',
-      1 => 'admin',
-    ),
-    'menu.admin.secondary' => 
-    array (
-      0 => 'Phpfox\\Navigation\\NavigationFactory',
-      1 => NULL,
-    ),
     'package' => 'Phpfox\\Package\\PackageManager',
     'package.loader' => 
     array (
@@ -448,6 +433,11 @@
     array (
       0 => NULL,
       1 => 'Phpfox\\Package\\RouterProvider',
+    ),
+    'pagination' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Paging\\Pagination',
     ),
     'router' => 
     array (

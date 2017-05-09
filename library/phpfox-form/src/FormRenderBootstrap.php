@@ -40,7 +40,7 @@ class FormRenderBootstrap implements FormRenderInterface
      */
     public function renderTitle($form)
     {
-        $string = $form->getParam('title');
+        $string = $form->getTitle();
 
         if (empty($string)) {
             return '';
@@ -54,15 +54,15 @@ class FormRenderBootstrap implements FormRenderInterface
      *
      * @return string
      */
-    public function renderDesc($form)
+    public function renderInfo($form)
     {
-        $string = $form->getParam('desc');
+        $string = $form->getInfo();
 
         if (empty($string)) {
             return '';
         }
 
-        return '<p class="form-desc">' . $string . '</p>';
+        return '<p class="form-info">' . $string . '</p>';
     }
 
     public function renderButtons($form)
@@ -89,7 +89,7 @@ class FormRenderBootstrap implements FormRenderInterface
     {
         return $form->open() .
             $this->renderTitle($form)
-            . $this->renderDesc($form)
+            . $this->renderInfo($form)
             . $form->getErrorHtml('alert')
             . $this->renderElements($form)
             . $this->renderButtons($form)

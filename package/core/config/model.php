@@ -15,11 +15,23 @@ return [
         I18nMessage::class,
         'package/core/config/model/i18n_message.php',
     ],
-    'core_role'           => [
+    'i18n_timezone'       => [
         'table_factory',
-        ':core_role',
-        CoreRole::class,
-        'package/core/config/model/core_role.php',
+        ':i18n_timezone',
+        I18nTimezone::class,
+        'package/core/config/model/i18n_timezone.php',
+    ],
+    'i18n_currency'       => [
+        'table_factory',
+        ':i18n_currency',
+        I18nCurrency::class,
+        'package/core/config/model/i18n_currency.php',
+    ],
+    'acl_role'            => [
+        'table_factory',
+        ':acl_role',
+        AclRole::class,
+        'package/core/config/model/acl_role.php',
     ],
     'core_package'        => [
         'table_factory',
@@ -74,6 +86,18 @@ return [
         ':mail_template',
         MailTemplate::class,
         'package/core/config/model/mail_template.php',
+    ],
+    'site_setting_value'  => [
+        'table_factory',
+        ':site_setting_value',
+        SiteSettingValue::class,
+        'package/core/config/model/site_setting_value.php',
+    ],
+    'site_setting_group'  => [
+        'table_factory',
+        ':site_setting_group',
+        SiteSettingGroup::class,
+        'package/core/config/model/site_setting_group.php',
     ],
     'layout_action'       => [
         'table_factory',

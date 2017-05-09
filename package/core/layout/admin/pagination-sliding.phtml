@@ -1,0 +1,21 @@
+<div class="pagination-sliding">
+    <ul class="pagination">
+        <li>
+            <a href="<?= $paging->getUrl(1) ?>" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li><a href="<?= $paging->getUrl(1) ?>">1</a></li>
+        <li><a href="<?= $paging->getUrl(2) ?>">2</a></li>
+        <li><a href="<?= $paging->getUrl(3) ?>">3</a></li>
+        <li><a href="<?= $paging->getUrl(4) ?>">4</a></li>
+        <li><a href="<?= $paging->getUrl(5) ?>">5</a></li>
+        <li>
+            <a href="<?= $paging->getUrl('last') ?>" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+

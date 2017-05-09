@@ -3,9 +3,13 @@
 namespace Neutron\Report\Controller;
 
 use Neutron\Core\Controller\AdminController;
+use Neutron\Core\Process\AdminAddEntryProcess;
+use Neutron\Core\Process\AdminEditEntryProcess;
+use Neutron\Core\Process\AdminManageEntryProcess;
 use Neutron\Report\Form\AddCategory;
+use Neutron\Report\Form\Admin\ReportCategory\AddReportCategory;
+use Neutron\Report\Form\Admin\ReportCategory\EditReportCategory;
 use Neutron\Report\Model\ReportCategory;
-use Phpfox\View\ViewModel;
 
 class AdminCategoryController extends AdminController
 {
@@ -26,49 +30,29 @@ class AdminCategoryController extends AdminController
 
     public function actionIndex()
     {
-        $items = _model('report_category')
-            ->select()
-            ->all();
-
-        return new ViewModel([
-            'items' => $items,
-        ], 'report/admin/manage-category');
-
+        return (new AdminManageEntryProcess([
+            'model'    => ReportCategory::class,
+            'template' => 'report/admin-category/manage-report-category',
+        ]))->process();
     }
 
     public function actionAdd()
     {
-
-        $request = _service('request');
-        $form = new AddCategory();
-
-        if ($request->isGet()) {
-
-        }
-
-        if ($request->isPost()) {
-
-            $form->populate($request->all());
-
-            $data = $form->getData();
-            $obj = new ReportCategory($data);
-            $obj->save();
-
-            _redirect('');
-        }
-
-        return new ViewModel([
-            'heading' => _text('Add New Category'),
-            'form'    => $form,
-        ], 'layout/form-edit');
+        return (new AdminAddEntryProcess([
+            'model'    => ReportCategory::class,
+            'form'     => AddReportCategory::class,
+            'redirect' => _url('admin.report.category'),
+        ]))->process();
     }
+
 
     public function actionEdit()
     {
-    }
-
-    public function actionDelete()
-    {
-
+        return (new AdminEditEntryProcess([
+            'key'      => 'category_id',
+            'model'    => ReportCategory::class,
+            'form'     => EditReportCategory::class,
+            'redirect' => _url('admin.report.category'),
+        ]))->process();
     }
 }

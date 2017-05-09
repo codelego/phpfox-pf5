@@ -12,16 +12,16 @@ class I18nMessageLoader implements I18nMessageLoaderInterface
         $stmt = _service('db')
             ->select('*')
             ->from(':i18n_message')
-            ->where('locale in ?', ['', $locale])
-            ->where('domain=?', (string)$domain)
-            ->order('locale', 1);
+            ->where('language_id in ?', ['', $locale])
+            ->where('domain_id=?', (string)$domain)
+            ->order('language_id', 1);
 
         foreach ($stmt->all() as $row) {
 //            if ($row['is_json']) {
 //                $result[$row['var_name']]
 //                    = array_values(json_decode($row['text_value'], 1));
 //            } else {
-            $result[$row['var_name']] = $row['text_value'];
+            $result[$row['message_name']] = $row['message_value'];
 //            }
         }
         return $result;

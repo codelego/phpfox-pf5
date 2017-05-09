@@ -28,6 +28,11 @@ class FilesCacheStorage implements CacheStorageInterface
      */
     private $filePermission = 0777;
 
+    /**
+     * FilesCacheStorage constructor.
+     *
+     * @param array $configs
+     */
     public function __construct($configs = [])
     {
         $configs = array_merge([
@@ -121,8 +126,11 @@ class FilesCacheStorage implements CacheStorageInterface
     private function ensureFilename($filename)
     {
         $dir = dirname($filename);
-        if (!is_dir($dir) && !@mkdir($dir, $this->directoryPermission, true)) {
-            return false;
+        if (!is_dir($dir)) {
+            if (!@mkdir($dir, $this->directoryPermission, true)) {
+                return false;
+            }
+            @chmod($dir, $this->directoryPermission);
         }
         return true;
     }

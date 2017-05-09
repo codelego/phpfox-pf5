@@ -16,7 +16,7 @@ return [
             'controller' => 'core.admin-authorization',
             'action'     => 'index',
             'children'   => [
-                '*' => ['route' => '<action>'],
+                'role' => ['route' => '<action>'],
             ],
         ],
         'admin.core.storage'  => [
@@ -60,25 +60,28 @@ return [
             ],
         ],
         'admin.core.rad'      => [
-            'route'      => 'core/rad/*',
+            'route'      => 'core/rad(/<action>)',
             'controller' => 'core.admin-rad',
             'action'     => 'index',
-            'children'   => [
-                '*' => [
-                    'route' => '<action>',
-                ],
-            ],
         ],
         'admin.core.i18n'     => [
             'route'      => 'core/i18n/*',
-            'controller' => 'core.admin-i18n-phrase',
+            'controller' => 'core.admin-i18n-message',
             'action'     => 'index',
             'children'   => [
                 'language' => [
                     'route'      => 'language(/<action>)',
                     'controller' => 'core.admin-i18n-language',
                 ],
-                '*'        => ['route' => '<action>',],
+                'timezone' => [
+                    'route'      => 'timezone(/<action>)',
+                    'controller' => 'core.admin-i18n-timezone',
+                ],
+                'currency' => [
+                    'route'      => 'currency(/<action>)',
+                    'controller' => 'core.admin-i18n-currency',
+                ],
+                'message'  => ['route' => '<action>',],
             ],
         ],
         'admin.core.mail'     => [
@@ -93,6 +96,10 @@ return [
                 'driver'   => [
                     'route'      => 'driver(/<action>)',
                     'controller' => 'core.admin-mail-driver',
+                ],
+                'bulk'     => [
+                    'route'      => 'bulk(/<action>)',
+                    'controller' => 'core.admin-mail-bulk',
                 ],
                 '*'        => ['route' => '<action>'],
             ],
@@ -112,8 +119,9 @@ return [
             'controller' => 'core.admin-settings',
             'action'     => 'index',
             'children'   => [
-                'general' => [
-                    'route' => 'general',
+                'edit' => [
+                    'route'  => 'edit/<setting_group>',
+                    'action' => 'edit',
                 ],
             ],
         ],

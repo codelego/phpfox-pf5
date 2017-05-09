@@ -44,7 +44,7 @@ class AdminStatusController extends AdminController
 
         return new ViewModel([
             'items' => $response,
-        ], 'core/admin-status/health-check');
+        ], 'core/admin-status/manage-health-check');
     }
 
     public function actionStatistics()
@@ -53,7 +53,7 @@ class AdminStatusController extends AdminController
 
         return new ViewModel([
             'items' => $response,
-        ], 'core/admin-status/statistics');
+        ], 'core/admin-status/manage-statistics');
     }
 
     public function actionOverview()
@@ -97,6 +97,6 @@ class AdminStatusController extends AdminController
         }
         return new ViewModel([
             'status' => $status,
-        ], 'core/admin-status/overview');
+        ], 'core/admin-status/manage-overview');
     }
 }

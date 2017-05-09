@@ -2,6 +2,18 @@
 .container {
   width: auto; }
 
+.pagination-sliding {
+  text-align: center; }
+  .pagination-sliding .pagination {
+    margin: 0; }
+
+.form-filter .form-group {
+  display: inline-block; }
+.form-filter .form-group + .form-group {
+  margin-right: 10px; }
+.form-filter .panel-body {
+  padding-bottom: 5px; }
+
 .ui-overlay {
   display: block;
   position: fixed;
@@ -204,8 +216,7 @@
   text-align: left !important; }
 
 .form-group .help-block {
-  font-size: small;
-  text-indent: 4px; }
+  font-size: small; }
 
 .form-control + .help-block {
   margin-bottom: 0 !important; }
