@@ -74,6 +74,10 @@ class FilesLogger implements LoggerInterface
      */
     public function format($level, $message, $context = [])
     {
+        if (!is_string($message)) {
+            $message = var_export($message, true);
+        }
+
         if ($context) {
             $message = $this->interpolate($message, $context);
         }
