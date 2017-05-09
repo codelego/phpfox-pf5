@@ -1,40 +1,27 @@
 <?php
-namespace Neutron\Core\Form\Admin\I18nCurrency;
+namespace Neutron\Core\Form\Admin\I18nLocale;
 
 use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
-class EditI18nCurrency extends Form{
+class AddI18nLocale extends Form{
 
     public function initialize(){
 
-        $this->setTitle(_text('Edit Currency','admin.i18n'));
-        $this->setInfo(_text('[Edit Currency Info]','admin.i18n'));
+        $this->setTitle(_text('Add Locale',''));
+        $this->setInfo(_text('[Add Locale Info]',''));
         $this->setAction(_url('#'));
         
         /** start elements **/
 
         
-        // element `currency_id`
+        // element `locale_id`
         $this->addElement(array (
-          'name' => 'currency_id',
-          'factory' => 'text',
-          'label' => _text('Currency Id',null),
-          'note' => _text('[Currency Id Note]', null),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
-          'required' => true,
-        ));
-        
-        // element `symbol`
-        $this->addElement(array (
-          'name' => 'symbol',
-          'factory' => 'text',
-          'label' => _text('Symbol',null),
-          'note' => _text('[Symbol Note]', null),
+          'name' => 'locale_id',
+          'factory' => 'select',
+          'label' => _text('Locale Id',null),
+          'note' => _text('[Locale Id Note]', null),
+          'options' => _service('core.language')->getLocaleIdOptions(),
           'attributes' => 
           array (
             'maxlength' => 255,
@@ -57,13 +44,42 @@ class EditI18nCurrency extends Form{
           'required' => true,
         ));
         
-        // element `sort_order`
+        // element `native_name`
         $this->addElement(array (
-          'name' => 'sort_order',
+          'name' => 'native_name',
           'factory' => 'text',
-          'label' => _text('Sort Order',null),
-          'note' => _text('[Sort Order Note]', null),
-          'value' => '0',
+          'label' => _text('Native Name',null),
+          'note' => _text('[Native Name Note]', null),
+          'attributes' => 
+          array (
+            'maxlength' => 255,
+            'class' => 'form-control',
+          ),
+          'required' => false,
+        ));
+        
+        // element `code_6391`
+        $this->addElement(array (
+          'name' => 'code_6391',
+          'factory' => 'text',
+          'label' => _text('Code 6391',null),
+          'note' => _text('[Code 6391 Note]', null),
+          'attributes' => 
+          array (
+            'maxlength' => 255,
+            'class' => 'form-control',
+          ),
+          'required' => true,
+        ));
+        
+        // element `direction_id`
+        $this->addElement(array (
+          'name' => 'direction_id',
+          'factory' => 'select',
+          'label' => _text('Direction Id',null),
+          'note' => _text('[Direction Id Note]', null),
+          'value' => 'ltr',
+          'options' => _service('core.language')->getDirectionIdOptions(),
           'attributes' => 
           array (
             'maxlength' => 255,
@@ -78,7 +94,7 @@ class EditI18nCurrency extends Form{
           'factory' => 'yesno',
           'label' => _text('Is Active',null),
           'note' => _text('[Is Active Note]', null),
-          'value' => '0',
+          'value' => '1',
           'required' => true,
         ));
 
@@ -93,14 +109,14 @@ class EditI18nCurrency extends Form{
         return [
             new ButtonField([
                 'name'       => 'save',
-                'label'      => _text('Save Changes'),
+                'label'      => _text('Submit'),
                 'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
             ]),
             new ButtonField([
                 'name'       => 'cancel',
                 'href'       => '#',
                 'label'      => _text('Cancel'),
-                'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
+                'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd'=>'form.cancel'],
             ]),
         ];
         /** end buttons **/

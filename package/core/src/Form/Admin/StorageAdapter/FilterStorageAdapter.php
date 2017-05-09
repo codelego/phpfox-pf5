@@ -1,10 +1,10 @@
 <?php
-namespace Neutron\Core\Form\Admin\I18nTimezone;
+namespace Neutron\Core\Form\Admin\StorageAdapter;
 
 use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
-class FilterI18nTimezone extends Form{
+class FilterStorageAdapter extends Form{
 
     public function initialize(){
 
@@ -22,12 +22,13 @@ class FilterI18nTimezone extends Form{
         
         /** start elements **/
 
-                
-        // element `timezone_id`
+                // skip element `adapter_id` #identity
+        
+        // element `adapter_name`
         $this->addElement(array (
-          'name' => 'timezone_id',
+          'name' => 'adapter_name',
           'factory' => 'text',
-          'label' => _text('Timezone',null),
+          'label' => _text('Adapter Name',null),
           'attributes' => 
           array (
             'maxlength' => 255,
@@ -35,17 +36,18 @@ class FilterI18nTimezone extends Form{
           ),
         ));
         
-        // element `timezone_location`
+        // element `driver_id`
         $this->addElement(array (
-          'name' => 'timezone_location',
+          'name' => 'driver_id',
           'factory' => 'text',
-          'label' => _text('Timezone Location',null),
+          'label' => _text('Driver',null),
           'attributes' => 
           array (
             'maxlength' => 255,
             'class' => 'form-control',
           ),
         ));
+        // skip element `params` #skips
         
         // element `is_active`
         $this->addElement(array (
@@ -71,35 +73,35 @@ class FilterI18nTimezone extends Form{
           ),
         ));
         
-        // element `sort_order`
+        // element `is_required`
         $this->addElement(array (
-          'name' => 'sort_order',
-          'factory' => 'text',
-          'label' => _text('Sort Order',null),
+          'name' => 'is_required',
+          'factory' => 'select',
+          'label' => _text('Is Required',null),
+          'options' => 
+          array (
+            0 => 
+            array (
+              'value' => 1,
+              'label' => 'Yes',
+            ),
+            1 => 
+            array (
+              'value' => 0,
+              'label' => 'No',
+            ),
+          ),
           'attributes' => 
           array (
-            'maxlength' => 255,
             'class' => 'form-control',
           ),
         ));
         
-        // element `timezone_code`
+        // element `description`
         $this->addElement(array (
-          'name' => 'timezone_code',
+          'name' => 'description',
           'factory' => 'text',
-          'label' => _text('Timezone Code',null),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
-        ));
-        
-        // element `timezone_offset`
-        $this->addElement(array (
-          'name' => 'timezone_offset',
-          'factory' => 'text',
-          'label' => _text('Timezone Offset',null),
+          'label' => _text('Description',null),
           'attributes' => 
           array (
             'maxlength' => 255,

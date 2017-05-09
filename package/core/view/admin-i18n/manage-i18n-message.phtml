@@ -16,7 +16,7 @@
                         <a data-cmd="toggle" data-rel="tr|form" role="button">edit</a>
                     </td>
                     <td><?= $item->getDomainId() ?></td>
-                    <td><?= $item->getLanguageId() ? $item->getLanguageId() : '<i>n/a</i>' ?></td>
+                    <td><?= $item->getLocaleId() ? $item->getLocaleId() : '<i>n/a</i>' ?></td>
                     <td>
                         <p class="text-danger"><?= $item->getMessageName() ?></p>
                         <p class="text-value"><?= $item->getMessageValue() ?></p>

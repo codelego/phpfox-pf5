@@ -35,7 +35,7 @@ class FileStorageFactory implements FileStorageFactoryInterface
         if (!$id) {
             $id = $this->default;
         } elseif ($id == 'fallback') {
-            $id = $this->fallback;
+            $id = $this->default;
         } elseif ($id == 'default') {
             $id = $this->default;
         }
@@ -61,20 +61,18 @@ class FileStorageFactory implements FileStorageFactoryInterface
             ->where('is_active=1')
             ->all();
 
+        $this->default = _param('core_site', 'storage_id');
+
+        if (!$this->default) {
+            $this->default = 1;
+        }
+
         foreach ($rows as $row) {
             $configs = $row['params'];
             $id = $row['adapter_id'];
 
             if (!empty($configs)) {
                 $configs = json_decode($configs, true);
-            }
-
-            if ($row['is_default']) {
-                $this->default = $row['adapter_id'];
-            }
-
-            if ($row['is_fallback']) {
-                $this->fallback = $row['adapter_id'];
             }
 
             $this->map[$id] = [

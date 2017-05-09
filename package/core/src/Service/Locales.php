@@ -3,9 +3,9 @@
 namespace Neutron\Core\Service;
 
 
-use Neutron\Core\Model\I18nLanguage;
+use Neutron\Core\Model\I18nLocale;
 
-class Languages
+class Locales
 {
     public function getDirectionIdOptions()
     {
@@ -18,13 +18,13 @@ class Languages
     /**
      * @return array
      */
-    public function getLanguageIdOptions()
+    public function getLocaleIdOptions()
     {
-        $select = _model('i18n_language')
+        $select = _model('i18n_locale')
             ->select()
             ->where('is_active=1');
 
-        return array_map(function (I18nLanguage $item) {
+        return array_map(function (I18nLocale $item) {
             return ['value' => $item->getId(), 'label' => $item->getNativeName()];
         }, $select->all());
     }

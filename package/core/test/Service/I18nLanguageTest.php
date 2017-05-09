@@ -7,8 +7,8 @@ class I18nLanguageTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new Languages();
-        $data = $obj->getLanguageIdOptions();
+        $obj = new Locales();
+        $data = $obj->getLocaleIdOptions();
         $this->assertNotEmpty($data);
 
         $this->assertContains([

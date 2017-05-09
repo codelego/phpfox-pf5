@@ -18,17 +18,17 @@ class AddMailTemplate extends Form{
         
         // element `language_id`
         $this->addElement(array (
-          'name' => 'language_id',
-          'factory' => 'select',
-          'label' => _text('Language Id','admin.core_mail'),
-          'note' => _text('[Language Id Note]', 'admin.core_mail'),
-          'options' => _service('core.language')->getLanguageIdOptions(),
-          'attributes' => 
+            'name' => 'language_id',
+            'factory' => 'select',
+            'label' => _text('Language Id','admin.core_mail'),
+            'note' => _text('[Language Id Note]', 'admin.core_mail'),
+            'options' => _service('core.language')->getLocaleIdOptions(),
+            'attributes' =>
           array (
             'maxlength' => 255,
             'class' => 'form-control',
           ),
-          'required' => true,
+            'required' => true,
         ));
         
         // element `code`

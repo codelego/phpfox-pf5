@@ -11,6 +11,15 @@ class AdminMailTemplateController extends AdminController
             ->load('admin.core.mail');
     }
 
+    protected function postDispatch($action)
+    {
+        switch ($action) {
+            case 'index':
+                _service('menu.admin.buttons')
+                    ->load('admin.core.mail.template.buttons');
+        }
+    }
+
     public function actionIndex()
     {
 

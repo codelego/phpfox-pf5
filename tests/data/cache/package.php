@@ -529,8 +529,8 @@
     ),
     'core.language' => 
     array (
-      0 => NULL,
-      1 => 'Neutron\\Core\\Service\\Languages',
+        0 => NULL,
+        1 => 'Neutron\\Core\\Service\\Locales',
     ),
     'core.timezone' => 
     array (

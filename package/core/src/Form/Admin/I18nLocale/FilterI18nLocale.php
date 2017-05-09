@@ -1,10 +1,10 @@
 <?php
-namespace Neutron\Core\Form\Admin\I18nTimezone;
+namespace Neutron\Core\Form\Admin\I18nLocale;
 
 use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
-class FilterI18nTimezone extends Form{
+class FilterI18nLocale extends Form{
 
     public function initialize(){
 
@@ -23,11 +23,12 @@ class FilterI18nTimezone extends Form{
         /** start elements **/
 
                 
-        // element `timezone_id`
+        // element `locale_id`
         $this->addElement(array (
-          'name' => 'timezone_id',
-          'factory' => 'text',
-          'label' => _text('Timezone',null),
+          'name' => 'locale_id',
+          'factory' => 'select',
+          'label' => _text('Locale',null),
+          'options' => _service('core.language')->getLocaleIdOptions(),
           'attributes' => 
           array (
             'maxlength' => 255,
@@ -35,11 +36,48 @@ class FilterI18nTimezone extends Form{
           ),
         ));
         
-        // element `timezone_location`
+        // element `name`
         $this->addElement(array (
-          'name' => 'timezone_location',
+          'name' => 'name',
           'factory' => 'text',
-          'label' => _text('Timezone Location',null),
+          'label' => _text('Name',null),
+          'attributes' => 
+          array (
+            'maxlength' => 255,
+            'class' => 'form-control',
+          ),
+        ));
+        
+        // element `native_name`
+        $this->addElement(array (
+          'name' => 'native_name',
+          'factory' => 'text',
+          'label' => _text('Native Name',null),
+          'attributes' => 
+          array (
+            'maxlength' => 255,
+            'class' => 'form-control',
+          ),
+        ));
+        
+        // element `code_6391`
+        $this->addElement(array (
+          'name' => 'code_6391',
+          'factory' => 'text',
+          'label' => _text('Code 6391',null),
+          'attributes' => 
+          array (
+            'maxlength' => 255,
+            'class' => 'form-control',
+          ),
+        ));
+        
+        // element `direction_id`
+        $this->addElement(array (
+          'name' => 'direction_id',
+          'factory' => 'select',
+          'label' => _text('Direction',null),
+          'options' => _service('core.language')->getDirectionIdOptions(),
           'attributes' => 
           array (
             'maxlength' => 255,
@@ -67,42 +105,6 @@ class FilterI18nTimezone extends Form{
           ),
           'attributes' => 
           array (
-            'class' => 'form-control',
-          ),
-        ));
-        
-        // element `sort_order`
-        $this->addElement(array (
-          'name' => 'sort_order',
-          'factory' => 'text',
-          'label' => _text('Sort Order',null),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
-        ));
-        
-        // element `timezone_code`
-        $this->addElement(array (
-          'name' => 'timezone_code',
-          'factory' => 'text',
-          'label' => _text('Timezone Code',null),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
-        ));
-        
-        // element `timezone_offset`
-        $this->addElement(array (
-          'name' => 'timezone_offset',
-          'factory' => 'text',
-          'label' => _text('Timezone Offset',null),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
             'class' => 'form-control',
           ),
         ));

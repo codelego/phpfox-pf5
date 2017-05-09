@@ -119,6 +119,7 @@ class CoreSeoSettings extends Form
             'required'   => false,
         ]);
     }
+
     public function getButtons()
     {
 
@@ -127,13 +128,13 @@ class CoreSeoSettings extends Form
             new ButtonField([
                 'name'       => 'save',
                 'label'      => _text('Submit'),
-                'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
+                'attributes' => ['class' => 'btn btn-primary', 'type' => 'submit',],
             ]),
             new ButtonField([
                 'name'       => 'cancel',
                 'href'       => '#',
                 'label'      => _text('Cancel'),
-                'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd'=>'form.cancel'],
+                'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel'],
             ]),
         ];
         /** end buttons **/

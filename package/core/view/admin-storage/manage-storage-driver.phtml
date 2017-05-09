@@ -7,6 +7,7 @@
                 <th class="w100">Driver Id</th>
                 <th class="w250">Name</th>
                 <th class="">Description</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -18,15 +19,17 @@
                                     ['action' => 'edit', 'driver_id' => $item->getId()]) ?>">
                                     <?= _text('Edit') ?>
                                 </a></li>
-                            <li><a href="<?= _url('admin.core.storage.adapter',
-                                    ['action' => 'config', 'driver_id' => $item->getId()]) ?>">
-                                    <?= _text('Add New Storage Adapter', 'admin.core_storage') ?>
-                                </a></li>
                         </ul>
                     </td>
                     <td><?= $item->getId() ?></td>
                     <td><?= $item->getDriverName() ?></td>
                     <td><?= $item->getDescription() ?></td>
+                    <td>
+                        <a class="btn btn-xs btn-link" href="<?= _url('admin.core.storage.adapter',
+                            ['action' => 'config', 'driver_id' => $item->getId()]) ?>">
+                            <i class="fa fa-plus"></i> <?= _text('New Storage', 'admin.core_storage') ?>
+                        </a>
+                    </td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

@@ -3,7 +3,8 @@
 namespace Neutron\Core\Service;
 
 
-use Phpfox\Model\ModelInterface;
+use Neutron\Core\Model\MailAdapter;
+use Neutron\Core\Model\MailDriver;
 
 class MailManager
 {
@@ -15,11 +16,28 @@ class MailManager
         $select = _model('mail_driver')
             ->select();
 
-        return array_map(function (ModelInterface $v) {
+        return array_map(function (MailDriver $item) {
             return [
-                'label' => $v->__get('name'),
-                'value' => $v->__get('driver_id'),
-                'note'  => $v->__get('description'),
+                'value' => $item->getId(),
+                'label' => $item->getDriverName(),
+                'note'  => $item->getDescription(),
+            ];
+        }, $select->all());
+    }
+
+    /**
+     * @return array
+     */
+    public function getAdapterIdOptions()
+    {
+        $select = _model('mail_adapter')
+            ->select();
+
+        return array_map(function (MailAdapter $item) {
+            return [
+                'value' => $item->getId(),
+                'label' => $item->getAdapterName(),
+                'note'  => $item->getDescription(),
             ];
         }, $select->all());
     }

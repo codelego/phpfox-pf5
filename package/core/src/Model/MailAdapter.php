@@ -26,12 +26,6 @@ class MailAdapter extends DbModel
     public function isRequired(){return $this->__get('is_required') ?1:0;}
     public function setRequired($value){$this->__set('is_required',$value?1:0);}
     
-    public function isDefault(){return $this->__get('is_default') ?1:0;}
-    public function setDefault($value){$this->__set('is_default',$value?1:0);}
-    
-    public function isFallback(){return $this->__get('is_fallback') ?1:0;}
-    public function setFallback($value){$this->__set('is_fallback',$value?1:0);}
-    
     public function getDescription(){return $this->__get('description');}
     public function setDescription($value){$this->__set('description', $value);}
     

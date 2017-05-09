@@ -50,7 +50,7 @@ return [
         'mvc.events.loader'      => [null, Service\EventLoader::class],
         'core.callback'          => [null, Service\EventListener::class],
         'navigation.loader'      => [null, Service\NavigationLoader::class],
-        'core.language'          => [null, Service\Languages::class],
+        'core.language'          => [null, Service\Locales::class],
         'core.timezone'          => [null, Service\Timezones::class],
         'core.packages'          => [null, Service\Packages::class],
         'core.themes'            => [null, Service\ThemeManager::class],

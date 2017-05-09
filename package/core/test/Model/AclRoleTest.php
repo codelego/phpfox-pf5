@@ -64,7 +64,7 @@ class AclRoleTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var AclRole $obj */
-        $obj = _with('acl_role')
+        $obj = _model('acl_role')
             ->select()->where('role_id=?',1)->first();
 
         $this->assertSame('acl_role', $obj->getModelId());
@@ -84,13 +84,13 @@ class AclRoleTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('acl_role')
+        _model('acl_role')
             ->delete()->where('role_id=?',1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('acl_role')
+        _model('acl_role')
             ->delete()->where('role_id=?',1)->execute();
     }
 }

@@ -143,4 +143,13 @@ class AdminStorageAdapterController extends AdminController
             'form' => $form,
         ], 'layout/form-edit');
     }
+
+    /**
+     * todo set default storage adapter id
+     */
+    public function actionDefault()
+    {
+
+        _redirect('admin.core.storage.adapter');
+    }
 }

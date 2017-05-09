@@ -11,7 +11,7 @@ class ColumnInfoTest extends \PHPUnit_Framework_TestCase
     public function testBase()
     {
         $meta = [
-            'Field'   => 'language_id',
+            'Field'   => 'locale_id',
             'Type'    => 'varchar(16)',
             'Null'    => 'NO',
             'Key'     => 'PRI',
@@ -21,8 +21,8 @@ class ColumnInfoTest extends \PHPUnit_Framework_TestCase
 
         $column = new ColumnInfo($meta);
 
-        $this->assertSame('language_id', $column->getName());
-        $this->assertSame('Language Id', $column->getLabel());
+        $this->assertSame('locale_id', $column->getName());
+        $this->assertSame('Locale Id', $column->getLabel());
         $this->assertSame(true, $column->isPrimary());
         $this->assertSame(false, $column->isIdentity());
         $this->assertSame(false, $column->isAllowNull());

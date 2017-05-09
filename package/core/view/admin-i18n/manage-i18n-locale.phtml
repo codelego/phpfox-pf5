@@ -19,7 +19,7 @@
                     <td class="dropdown" data-cmd="dropdown">
                         <ul>
                             <li>
-                                <a data-cmd="modal" href="<?= _url('admin.core.i18n.language',
+                                <a data-cmd="modal" href="<?= _url('admin.core.i18n.locale',
                                     ['action' => 'edit', 'language_id' => $item->getId()]) ?>">
                                     <?= _text('Edit') ?>
                                 </a>
@@ -32,7 +32,7 @@
                     <td><?= $item->getCode6391() ?></td>
                     <td><?= $item->getDirectionId() ?></td>
                     <td><?= _yesno($item->isActive(), true, true) ?></td>
-                    <td><?= _yesno($item->isDefault(), true, false) ?></td>
+                    <td><?= _yesno($item->getId() == _param('core_site','locale_id'), true, false) ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

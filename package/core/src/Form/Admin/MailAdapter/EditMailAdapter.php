@@ -8,8 +8,8 @@ class EditMailAdapter extends Form{
 
     public function initialize(){
 
-        $this->setTitle(_text('Edit Mail Adapter','admin.core_mail'));
-        $this->setInfo(_text('[Edit Mail Adapter Info]','admin.core_mail'));
+        $this->setTitle(_text('Edit Mail Adapter',''));
+        $this->setInfo(_text('[Edit Mail Adapter Info]',''));
         $this->setAction(_url('#'));
         
         /** start elements **/
@@ -20,8 +20,8 @@ class EditMailAdapter extends Form{
         $this->addElement(array (
           'name' => 'adapter_name',
           'factory' => 'text',
-          'label' => _text('Adapter Name','admin.core_mail'),
-          'note' => _text('[Adapter Name Note]', 'admin.core_mail'),
+          'label' => _text('Adapter Name',null),
+          'note' => _text('[Adapter Name Note]', null),
           'attributes' => 
           array (
             'maxlength' => 255,
@@ -34,8 +34,8 @@ class EditMailAdapter extends Form{
         $this->addElement(array (
           'name' => 'driver_id',
           'factory' => 'text',
-          'label' => _text('Driver Id','admin.core_mail'),
-          'note' => _text('[Driver Id Note]', 'admin.core_mail'),
+          'label' => _text('Driver Id',null),
+          'note' => _text('[Driver Id Note]', null),
           'attributes' => 
           array (
             'maxlength' => 255,
@@ -49,19 +49,18 @@ class EditMailAdapter extends Form{
         $this->addElement(array (
           'name' => 'is_active',
           'factory' => 'yesno',
-          'label' => _text('Is Active','admin.core_mail'),
-          'note' => _text('[Is Active Note]', 'admin.core_mail'),
+          'label' => _text('Is Active',null),
+          'note' => _text('[Is Active Note]', null),
           'value' => '0',
           'required' => true,
         ));
-        // skip element `is_default` #skips
         
-        // element `is_fallback`
+        // element `is_required`
         $this->addElement(array (
-          'name' => 'is_fallback',
+          'name' => 'is_required',
           'factory' => 'yesno',
-          'label' => _text('Is Fallback','admin.core_mail'),
-          'note' => _text('[Is Fallback Note]', 'admin.core_mail'),
+          'label' => _text('Is Required',null),
+          'note' => _text('[Is Required Note]', null),
           'value' => '0',
           'required' => true,
         ));
@@ -70,8 +69,8 @@ class EditMailAdapter extends Form{
         $this->addElement(array (
           'name' => 'description',
           'factory' => 'textarea',
-          'label' => _text('Description','admin.core_mail'),
-          'note' => _text('[Description Note]', 'admin.core_mail'),
+          'label' => _text('Description',null),
+          'note' => _text('[Description Note]', null),
           'attributes' => 
           array (
             'maxlength' => 255,
@@ -90,18 +89,15 @@ class EditMailAdapter extends Form{
         /** start buttons **/
         return [
             new ButtonField([
-                'type'       => 'submit',
                 'name'       => 'save',
                 'label'      => _text('Save Changes'),
-                'attributes' => ['class' => 'btn btn-primary'],
+                'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
             ]),
             new ButtonField([
-                'type'       => 'button',
                 'name'       => 'cancel',
                 'href'       => '#',
-                'data-cmd'   => 'form.cancel',
                 'label'      => _text('Cancel'),
-                'attributes' => ['class' => 'btn btn-link cancel'],
+                'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
             ]),
         ];
         /** end buttons **/

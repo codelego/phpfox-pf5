@@ -49,7 +49,7 @@ class ReportTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var Report $obj */
-        $obj = _with('report')
+        $obj = _model('report')
             ->select()->where('report_id=?',86)->first();
 
         $this->assertSame('report', $obj->getModelId());
@@ -64,13 +64,13 @@ class ReportTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('report')
+        _model('report')
             ->delete()->where('report_id=?',86)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('report')
+        _model('report')
             ->delete()->where('report_id=?',86)->execute();
     }
 }

@@ -1,58 +1,27 @@
 <?php
-namespace Neutron\Core\Form\Admin\I18nMessage;
+namespace Neutron\Core\Form\Admin\I18nLocale;
 
 use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
-class EditI18nMessage extends Form{
+class EditI18nLocale extends Form{
 
     public function initialize(){
 
-        $this->setTitle(_text('Edit Message','admin.i18n'));
-        $this->setInfo(_text('[Edit Message Info]','admin.i18n'));
+        $this->setTitle(_text('Edit Locale',''));
+        $this->setInfo(_text('[Edit Locale Info]',''));
         $this->setAction(_url('#'));
         
         /** start elements **/
 
-        // skip element `message_id` #identity
-        
-        // element `package_id`
-        $this->addElement(array (
-          'name' => 'package_id',
-          'factory' => 'select',
-          'label' => _text('Package Id',null),
-          'note' => _text('[Package Id Note]', null),
-          'value' => 'core',
-          'options' => _service('core.packages')->getPackageIdOptions(),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
-          'required' => true,
-        ));
         
         // element `locale_id`
         $this->addElement(array (
-            'name' => 'locale_id',
-            'factory' => 'select',
-            'label' => _text('Locale Id',null),
-            'note' => _text('[Locale Id Note]', null),
-            'options' => _service('core.language')->getLocaleIdOptions(),
-            'attributes' =>
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
-            'required' => true,
-        ));
-        
-        // element `domain_id`
-        $this->addElement(array (
-          'name' => 'domain_id',
-          'factory' => 'text',
-          'label' => _text('Domain Id',null),
-          'note' => _text('[Domain Id Note]', null),
+          'name' => 'locale_id',
+          'factory' => 'select',
+          'label' => _text('Locale Id',null),
+          'note' => _text('[Locale Id Note]', null),
+          'options' => _service('core.language')->getLocaleIdOptions(),
           'attributes' => 
           array (
             'maxlength' => 255,
@@ -61,12 +30,12 @@ class EditI18nMessage extends Form{
           'required' => true,
         ));
         
-        // element `message_name`
+        // element `name`
         $this->addElement(array (
-          'name' => 'message_name',
+          'name' => 'name',
           'factory' => 'text',
-          'label' => _text('Message Name',null),
-          'note' => _text('[Message Name Note]', null),
+          'label' => _text('Name',null),
+          'note' => _text('[Name Note]', null),
           'attributes' => 
           array (
             'maxlength' => 255,
@@ -75,12 +44,12 @@ class EditI18nMessage extends Form{
           'required' => true,
         ));
         
-        // element `message_value`
+        // element `native_name`
         $this->addElement(array (
-          'name' => 'message_value',
-          'factory' => 'textarea',
-          'label' => _text('Message Value',null),
-          'note' => _text('[Message Value Note]', null),
+          'name' => 'native_name',
+          'factory' => 'text',
+          'label' => _text('Native Name',null),
+          'note' => _text('[Native Name Note]', null),
           'attributes' => 
           array (
             'maxlength' => 255,
@@ -88,8 +57,46 @@ class EditI18nMessage extends Form{
           ),
           'required' => false,
         ));
-        // skip element `is_json` #skips
-        // skip element `is_updated` #skips
+        
+        // element `code_6391`
+        $this->addElement(array (
+          'name' => 'code_6391',
+          'factory' => 'text',
+          'label' => _text('Code 6391',null),
+          'note' => _text('[Code 6391 Note]', null),
+          'attributes' => 
+          array (
+            'maxlength' => 255,
+            'class' => 'form-control',
+          ),
+          'required' => true,
+        ));
+        
+        // element `direction_id`
+        $this->addElement(array (
+          'name' => 'direction_id',
+          'factory' => 'select',
+          'label' => _text('Direction Id',null),
+          'note' => _text('[Direction Id Note]', null),
+          'value' => 'ltr',
+          'options' => _service('core.language')->getDirectionIdOptions(),
+          'attributes' => 
+          array (
+            'maxlength' => 255,
+            'class' => 'form-control',
+          ),
+          'required' => true,
+        ));
+        
+        // element `is_active`
+        $this->addElement(array (
+          'name' => 'is_active',
+          'factory' => 'yesno',
+          'label' => _text('Is Active',null),
+          'note' => _text('[Is Active Note]', null),
+          'value' => '1',
+          'required' => true,
+        ));
 
         /** end elements **/
     }

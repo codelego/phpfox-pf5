@@ -85,7 +85,7 @@ class BlogPostTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var BlogPost $obj */
-        $obj = _with('blog_post')
+        $obj = _model('blog_post')
             ->select()->where('blog_id=?',1)->first();
 
         $this->assertSame('blog_post', $obj->getModelId());
@@ -112,13 +112,13 @@ class BlogPostTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('blog_post')
+        _model('blog_post')
             ->delete()->where('blog_id=?',1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('blog_post')
+        _model('blog_post')
             ->delete()->where('blog_id=?',1)->execute();
     }
 }

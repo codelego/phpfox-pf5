@@ -5,9 +5,9 @@ return [
         'factory' => 'select',
         'options' => '$$$_service($$' . 'core.language' . '$$)->getDirectionIdOptions()$$$',
     ],
-    'language_id'    => [
+    'locale_id'    => [
         'factory' => 'select',
-        'options' => '$$$_service($$' . 'core.language' . '$$)->getLanguageIdOptions()$$$',
+        'options' => '$$$_service($$' . 'core.language' . '$$)->getLocaleIdOptions()$$$',
     ],
     'package_id'   => [
         'factory' => 'select',

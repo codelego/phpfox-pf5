@@ -43,7 +43,7 @@ class MailTemplateTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var MailTemplate $obj */
-        $obj = _with('mail_template')
+        $obj = _model('mail_template')
             ->select()->where('id=?','')->first();
 
         $this->assertSame('mail_template', $obj->getModelId());
@@ -56,13 +56,13 @@ class MailTemplateTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('mail_template')
+        _model('mail_template')
             ->delete()->where('id=?','')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('mail_template')
+        _model('mail_template')
             ->delete()->where('id=?','')->execute();
     }
 }

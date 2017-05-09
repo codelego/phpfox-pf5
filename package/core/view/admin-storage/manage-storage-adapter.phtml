@@ -4,6 +4,7 @@
             <thead>
             <tr>
                 <th class="text-center w40">#</th>
+                <th class="w40">ID</th>
                 <th>Title</th>
                 <th class="w100">Driver</th>
                 <th class="w50">Active</th>
@@ -16,25 +17,33 @@
                 <tr>
                     <td class="dropdown" data-cmd="dropdown">
                         <ul>
+
                             <li><a href="<?= _url('admin.core.storage.adapter',
                                     ['action' => 'edit', 'adapter_id' => $item->getId()]) ?>">
-                                    <?= _text('Edit') ?>
+                                    <?= _text('Edit Settings') ?>
                                 </a></li>
+                            <li class="divider"></li>
+                            <li><a href="<?= _url('admin.core.storage.adapter',
+                                    ['action' => 'default', 'adapter_id' => $item->getId()]) ?>">
+                                    <?= _text('Set Default') ?>
+                                </a></li>
+                            <li><a href="<?= _url('admin.core.storage.adapter',
+                                    ['action' => 'transfer', 'adapter_id' => $item->getId()]) ?>">
+                                    <?= _text('Transfer To ...') ?>
+                                </a></li>
+                            <li class="divider"></li>
                             <li><a href="<?= _url('admin.core.storage.adapter',
                                     ['action' => 'delete', 'adapter_id' => $item->getId()]) ?>">
                                     <?= _text('Delete') ?>
                                 </a></li>
-                            <li><a href="<?= _url('admin.core.storage.adapter',
-                                    ['action' => 'transfer', 'adapter_id' => $item->getId()]) ?>">
-                                    <?= _text('Transfer') ?>
-                                </a></li>
                         </ul>
                     </td>
+                    <td><?= $item->getId() ?></td>
                     <td><?= $item->getAdapterName() ?></td>
                     <td><?= $item->getDriverId() ?></td>
                     <td><?= _yesno($item->isActive()) ?></td>
-                    <td><?= _yesno($item->isDefault()) ?></td>
-                    <td><?= _yesno($item->isRequired(),true,false) ?></td>
+                    <td><?= _yesno($item->getId() == _param('core_site', 'storage_id'), true, false) ?></td>
+                    <td><?= _yesno($item->isRequired(), true, false) ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

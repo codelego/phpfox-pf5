@@ -2,6 +2,7 @@
 
 namespace Neutron\Core\Controller;
 
+use Neutron\Core\Form\Admin\MailAdapter\TestEmailSettings;
 use Neutron\Core\Form\SelectMailDriver;
 use Neutron\Core\Model\MailAdapter;
 use Neutron\Core\Model\MailDriver;
@@ -98,14 +99,6 @@ class AdminMailAdapterController extends AdminController
         ], 'layout/form-edit');
     }
 
-    public function actionDefault()
-    {
-        $request = _service('request');
-        $adapterId = $request->get('adapter_id');
-        
-        _redirect('admin.core.storage.adapter');
-    }
-
     public function actionEdit()
     {
         $request = _service('request');
@@ -138,5 +131,33 @@ class AdminMailAdapterController extends AdminController
         return new ViewModel([
             'form' => $form,
         ], 'layout/form-edit');
+    }
+
+    public function actionTest()
+    {
+        $req = _service('request');
+        $form = new TestEmailSettings([]);
+
+        if ($req->isGet()) {
+
+        }
+
+        if ($req->isPost() and $form->isValid($req->all())) {
+
+        }
+
+        return new ViewModel(['form' => $form], 'layout/form-edit');
+    }
+
+    /**
+     * Set default adapter id
+     * todo implement this method
+     */
+    public function actionDefault()
+    {
+        $request = _service('request');
+        $adapterId = $request->get('adapter_id');
+
+        _redirect('admin.core.mail.adapter');
     }
 }

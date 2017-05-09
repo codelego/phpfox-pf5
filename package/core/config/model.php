@@ -3,11 +3,11 @@
 namespace Neutron\Core\Model;
 
 return [
-    'i18n_language'       => [
+    'i18n_locale' => [
         'table_factory',
-        ':i18n_language',
-        I18nLanguage::class,
-        'package/core/config/model/i18n_language.php',
+        ':i18n_locale',
+        I18nLocale::class,
+        'package/core/config/model/i18n_locale.php',
     ],
     'i18n_message'        => [
         'table_factory',

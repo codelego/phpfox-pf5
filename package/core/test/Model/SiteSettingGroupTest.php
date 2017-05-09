@@ -65,7 +65,7 @@ class SiteSettingGroupTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var SiteSettingGroup $obj */
-        $obj = _with('site_setting_group')
+        $obj = _model('site_setting_group')
             ->select()->where('group_id=?', 'core_mail')->first();
 
         $this->assertSame('site_setting_group', $obj->getModelId());
@@ -80,13 +80,13 @@ class SiteSettingGroupTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('site_setting_group')
+        _model('site_setting_group')
             ->delete()->where('group_id=?', 'core_mail')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('site_setting_group')
+        _model('site_setting_group')
             ->delete()->where('group_id=?', 'core_mail')->execute();
     }
 }

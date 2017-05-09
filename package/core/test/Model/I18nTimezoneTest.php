@@ -6,14 +6,7 @@ class I18nTimezoneTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new I18nTimezone([
-            'timezone_id'       => 'UTC-1',
-            'timezone_location' => 'Azores, Cape Verde Is.',
-            'is_active'         => 1,
-            'sort_order'        => 12,
-            'timezone_code'     => 'Atlantic/Azores',
-            'timezone_offset'   => 'UTC-1',
-        ]);
+        $obj = new I18nTimezone(array (  'timezone_id' => 'UTC-1',  'timezone_location' => 'Azores, Cape Verde Is.',  'is_active' => 1,  'sort_order' => 12,  'timezone_code' => 'Atlantic/Azores',  'timezone_offset' => 'UTC-1',));
 
         $this->assertSame('i18n_timezone', $obj->getModelId());
         $this->assertSame('UTC-1', $obj->getId());
@@ -48,20 +41,13 @@ class I18nTimezoneTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new I18nTimezone([
-            'timezone_id'       => 'UTC-1',
-            'timezone_location' => 'Azores, Cape Verde Is.',
-            'is_active'         => 1,
-            'sort_order'        => 12,
-            'timezone_code'     => 'Atlantic/Azores',
-            'timezone_offset'   => 'UTC-1',
-        ]);
+        $obj = new I18nTimezone(array (  'timezone_id' => 'UTC-1',  'timezone_location' => 'Azores, Cape Verde Is.',  'is_active' => 1,  'sort_order' => 12,  'timezone_code' => 'Atlantic/Azores',  'timezone_offset' => 'UTC-1',));
 
         $obj->save();
 
         /** @var I18nTimezone $obj */
-        $obj = _with('i18n_timezone')
-            ->select()->where('timezone_id=?', 'UTC-1')->first();
+        $obj = _model('i18n_timezone')
+            ->select()->where('timezone_id=?','UTC-1')->first();
 
         $this->assertSame('i18n_timezone', $obj->getModelId());
         $this->assertSame('UTC-1', $obj->getId());
@@ -74,13 +60,13 @@ class I18nTimezoneTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('i18n_timezone')
-            ->delete()->where('timezone_id=?', 'UTC-1')->execute();
+        _model('i18n_timezone')
+            ->delete()->where('timezone_id=?','UTC-1')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('i18n_timezone')
-            ->delete()->where('timezone_id=?', 'UTC-1')->execute();
+        _model('i18n_timezone')
+            ->delete()->where('timezone_id=?','UTC-1')->execute();
     }
 }

@@ -49,7 +49,7 @@ class AclSettingGroupTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var AclSettingGroup $obj */
-        $obj = _with('acl_setting_group')
+        $obj = _model('acl_setting_group')
             ->select()->where('group_id=?', '')->first();
 
         $this->assertSame('acl_setting_group', $obj->getModelId());
@@ -64,13 +64,13 @@ class AclSettingGroupTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('acl_setting_group')
+        _model('acl_setting_group')
             ->delete()->where('group_id=?', '')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('acl_setting_group')
+        _model('acl_setting_group')
             ->delete()->where('group_id=?', '')->execute();
     }
 }

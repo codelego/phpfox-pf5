@@ -1,103 +1,100 @@
 <?php
-
 namespace Neutron\Core\Form\Admin\I18nTimezone;
 
 use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
-class AddI18nTimezone extends Form
-{
+class AddI18nTimezone extends Form{
 
-    public function initialize()
-    {
+    public function initialize(){
 
-        $this->setTitle(_text('Add Timezone', 'admin.i18n'));
-        $this->setInfo(_text('[Add Timezone Info]', 'admin.i18n'));
+        $this->setTitle(_text('Add Timezone','admin.i18n'));
+        $this->setInfo(_text('[Add Timezone Info]','admin.i18n'));
         $this->setAction(_url('#'));
-
+        
         /** start elements **/
 
-
+        
         // element `timezone_id`
-        $this->addElement([
-            'name'       => 'timezone_id',
-            'factory'    => 'text',
-            'label'      => _text('Timezone', 'admin.i18n'),
-            'note'       => _text('[Timezone Note]', 'admin.i18n'),
-            'attributes' =>
-                [
-                    'maxlength' => 255,
-                    'class'     => 'form-control',
-                ],
-            'required'   => true,
-        ]);
-
+        $this->addElement(array (
+          'name' => 'timezone_id',
+          'factory' => 'text',
+          'label' => _text('Timezone Id',null),
+          'note' => _text('[Timezone Id Note]', null),
+          'attributes' => 
+          array (
+            'maxlength' => 255,
+            'class' => 'form-control',
+          ),
+          'required' => true,
+        ));
+        
         // element `timezone_location`
-        $this->addElement([
-            'name'       => 'timezone_location',
-            'factory'    => 'text',
-            'label'      => _text('Timezone Location', 'admin.i18n'),
-            'note'       => _text('[Timezone Location Note]', 'admin.i18n'),
-            'attributes' =>
-                [
-                    'maxlength' => 255,
-                    'class'     => 'form-control',
-                ],
-            'required'   => true,
-        ]);
-
+        $this->addElement(array (
+          'name' => 'timezone_location',
+          'factory' => 'text',
+          'label' => _text('Timezone Location',null),
+          'note' => _text('[Timezone Location Note]', null),
+          'attributes' => 
+          array (
+            'maxlength' => 255,
+            'class' => 'form-control',
+          ),
+          'required' => true,
+        ));
+        
         // element `is_active`
-        $this->addElement([
-            'name'     => 'is_active',
-            'factory'  => 'yesno',
-            'label'    => _text('Is Active', 'admin.i18n'),
-            'note'     => _text('[Is Active Note]', 'admin.i18n'),
-            'value'    => '1',
-            'required' => true,
-        ]);
-
+        $this->addElement(array (
+          'name' => 'is_active',
+          'factory' => 'yesno',
+          'label' => _text('Is Active',null),
+          'note' => _text('[Is Active Note]', null),
+          'value' => '1',
+          'required' => true,
+        ));
+        
         // element `sort_order`
-        $this->addElement([
-            'name'       => 'sort_order',
-            'factory'    => 'text',
-            'label'      => _text('Sort Order', 'admin.i18n'),
-            'note'       => _text('[Sort Order Note]', 'admin.i18n'),
-            'value'      => '0',
-            'attributes' =>
-                [
-                    'maxlength' => 255,
-                    'class'     => 'form-control',
-                ],
-            'required'   => true,
-        ]);
-
+        $this->addElement(array (
+          'name' => 'sort_order',
+          'factory' => 'text',
+          'label' => _text('Sort Order',null),
+          'note' => _text('[Sort Order Note]', null),
+          'value' => '0',
+          'attributes' => 
+          array (
+            'maxlength' => 255,
+            'class' => 'form-control',
+          ),
+          'required' => true,
+        ));
+        
         // element `timezone_code`
-        $this->addElement([
-            'name'       => 'timezone_code',
-            'factory'    => 'text',
-            'label'      => _text('Timezone Code', 'admin.i18n'),
-            'note'       => _text('[Timezone Code Note]', 'admin.i18n'),
-            'attributes' =>
-                [
-                    'maxlength' => 255,
-                    'class'     => 'form-control',
-                ],
-            'required'   => true,
-        ]);
-
+        $this->addElement(array (
+          'name' => 'timezone_code',
+          'factory' => 'text',
+          'label' => _text('Timezone Code',null),
+          'note' => _text('[Timezone Code Note]', null),
+          'attributes' => 
+          array (
+            'maxlength' => 255,
+            'class' => 'form-control',
+          ),
+          'required' => true,
+        ));
+        
         // element `timezone_offset`
-        $this->addElement([
-            'name'       => 'timezone_offset',
-            'factory'    => 'text',
-            'label'      => _text('Timezone Offset', 'admin.i18n'),
-            'note'       => _text('[Timezone Offset Note]', 'admin.i18n'),
-            'attributes' =>
-                [
-                    'maxlength' => 255,
-                    'class'     => 'form-control',
-                ],
-            'required'   => true,
-        ]);
+        $this->addElement(array (
+          'name' => 'timezone_offset',
+          'factory' => 'text',
+          'label' => _text('Timezone Offset',null),
+          'note' => _text('[Timezone Offset Note]', null),
+          'attributes' => 
+          array (
+            'maxlength' => 255,
+            'class' => 'form-control',
+          ),
+          'required' => true,
+        ));
 
         /** end elements **/
     }
@@ -109,18 +106,15 @@ class AddI18nTimezone extends Form
         /** start buttons **/
         return [
             new ButtonField([
-                'type'       => 'submit',
                 'name'       => 'save',
                 'label'      => _text('Submit'),
-                'attributes' => ['class' => 'btn btn-primary'],
+                'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
             ]),
             new ButtonField([
-                'type'       => 'button',
                 'name'       => 'cancel',
                 'href'       => '#',
-                'data-cmd'   => 'form.cancel',
                 'label'      => _text('Cancel'),
-                'attributes' => ['class' => 'btn btn-link cancel'],
+                'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd'=>'form.cancel'],
             ]),
         ];
         /** end buttons **/

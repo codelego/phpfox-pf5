@@ -70,9 +70,9 @@ return [
             'controller' => 'core.admin-i18n-message',
             'action'     => 'index',
             'children'   => [
-                'language' => [
-                    'route'      => 'language(/<action>)',
-                    'controller' => 'core.admin-i18n-language',
+                'locale' => [
+                    'route'      => 'locale(/<action>)',
+                    'controller' => 'core.admin-i18n-locale',
                 ],
                 'timezone' => [
                     'route'      => 'timezone(/<action>)',
@@ -90,6 +90,10 @@ return [
             'controller' => 'core.admin-mail',
             'action'     => 'index',
             'children'   => [
+                'settings' => [
+                    'route'      => 'settings(/<action>)',
+                    'controller' => 'core.admin-mail-settings',
+                ],
                 'template' => [
                     'route'      => 'template(/<action>)',
                     'controller' => 'core.admin-mail-template',

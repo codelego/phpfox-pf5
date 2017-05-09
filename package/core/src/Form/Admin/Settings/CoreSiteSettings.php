@@ -65,7 +65,7 @@ class CoreSiteSettings extends Form
 
         $this->addElement([
             'factory'    => 'select',
-            'name'       => 'core_site__default_timezone',
+            'name'       => 'core_site__timezone_id',
             'value'      => 'Europe/London',
             'options'    => _service('core.timezone')->getTimezoneIdOptions(),
             'label'      => _text('Default Timezone', 'core_site'),
@@ -76,9 +76,9 @@ class CoreSiteSettings extends Form
 
         $this->addElement([
             'factory'    => 'select',
-            'name'       => 'core_site__default_locale',
+            'name'       => 'core_site__locale_id',
             'value'      => 'en',
-            'options'    => _service('core.language')->getLanguageIdOptions(),
+            'options'    => _service('core.language')->getLocaleIdOptions(),
             'label'      => _text('Default Locale', 'core_site'),
             'note'       => _text('[Default Locale Note]', 'core_site'),
             'attributes' => ['class' => 'form-control'],

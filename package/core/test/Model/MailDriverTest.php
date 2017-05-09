@@ -43,7 +43,7 @@ class MailDriverTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var MailDriver $obj */
-        $obj = _with('mail_driver')
+        $obj = _model('mail_driver')
             ->select()->where('driver_id=?','smtp')->first();
 
         $this->assertSame('mail_driver', $obj->getModelId());
@@ -56,13 +56,13 @@ class MailDriverTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('mail_driver')
+        _model('mail_driver')
             ->delete()->where('driver_id=?','smtp')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('mail_driver')
+        _model('mail_driver')
             ->delete()->where('driver_id=?','smtp')->execute();
     }
 }

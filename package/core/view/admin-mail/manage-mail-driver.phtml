@@ -20,13 +20,11 @@
                                     ['action' => 'edit', 'driver_id' => $item->getId()]) ?>">
                                     <?= _text('Edit') ?>
                                 </a></li>
-                            <?php if($item->getId() != 'system'): ?>
                             <li role="menuitem">
                                 <a href="<?= _url('admin.core.mail.adapter',
                                     ['action' => 'config', 'driver_id' => $item->getId()]) ?>">
-                                    <?= _text('Add New Mail Transport', 'admin.core_mail') ?>
+                                    <?= _text('Add New Adapter', 'admin.core_mail') ?>
                                 </a></li>
-                        <?php endif; ?>
                         </ul>
                     </td>
                     <td><?= $item->getId() ?></td>

@@ -1,14 +1,1 @@
-<?php return [
-    0 => null,
-    1 => ['timezone_id' => 1,],
-    2 => 'timezone_id',
-    3 => [
-        'timezone_id'       => 1,
-        'timezone_location' => 1,
-        'is_active'         => 1,
-        'sort_order'        => 1,
-        'timezone_code'     => 1,
-        'timezone_offset'   => 1,
-    ],
-    4 => [],
-];
+<?php return array(0=>NULL,1=>array('timezone_id'=>1,),2=>'timezone_id',3=>array('timezone_id'=>1,'timezone_location'=>1,'is_active'=>1,'sort_order'=>1,'timezone_code'=>1,'timezone_offset'=>1,),4=>array(),);

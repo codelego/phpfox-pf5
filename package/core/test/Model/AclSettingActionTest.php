@@ -52,7 +52,7 @@ class AclSettingActionTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var AclSettingAction $obj */
-        $obj = _with('acl_setting_action')
+        $obj = _model('acl_setting_action')
             ->select()->where('action_id=?', '')->first();
 
         $this->assertSame('acl_setting_action', $obj->getModelId());
@@ -68,13 +68,13 @@ class AclSettingActionTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('acl_setting_action')
+        _model('acl_setting_action')
             ->delete()->where('action_id=?', '')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('acl_setting_action')
+        _model('acl_setting_action')
             ->delete()->where('action_id=?', '')->execute();
     }
 }

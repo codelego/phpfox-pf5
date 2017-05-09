@@ -3,14 +3,14 @@
 namespace Neutron\Core\Controller;
 
 
-use Neutron\Core\Form\Admin\I18nLanguage\AddI18nLanguage;
-use Neutron\Core\Form\Admin\I18nLanguage\EditI18nLanguage;
-use Neutron\Core\Model\I18nLanguage;
+use Neutron\Core\Form\Admin\I18nLocale\AddI18nLocale;
+use Neutron\Core\Form\Admin\I18nLocale\EditI18nLocale;
+use Neutron\Core\Model\I18nLocale;
 use Neutron\Core\Process\AdminAddEntryProcess;
 use Neutron\Core\Process\AdminEditEntryProcess;
 use Neutron\Core\Process\AdminManageEntryProcess;
 
-class AdminI18nLanguageController extends AdminController
+class AdminI18nLocaleController extends AdminController
 {
 
     protected function initialized()
@@ -32,39 +32,47 @@ class AdminI18nLanguageController extends AdminController
     {
         if (in_array($action, ['index'])) {
             _service('menu.admin.buttons')
-                ->load('admin.core.i18n.language.buttons');
+                ->load('admin.core.i18n.locale.buttons');
         }
     }
 
     public function actionIndex()
     {
         return (new AdminManageEntryProcess([
-            'model'    => I18nLanguage::class,
-            'template' => 'core/admin-i18n/manage-i18n-language',
+            'model'    => I18nLocale::class,
+            'template' => 'core/admin-i18n/manage-i18n-locale',
         ]))->process();
     }
 
     public function actionAdd()
     {
         return (new AdminAddEntryProcess([
-            'model'       => I18nLanguage::class,
-            'form'        => AddI18nLanguage::class,
-            'redirection' => _url('admin.core.i18n.language'),
+            'model'       => I18nLocale::class,
+            'form'        => AddI18nLocale::class,
+            'redirection' => _url('admin.core.i18n.locale'),
         ]))->process();
     }
 
     public function actionEdit()
     {
         return (new AdminEditEntryProcess([
-            'key'         => 'language_id',
-            'model'       => I18nLanguage::class,
-            'form'        => EditI18nLanguage::class,
-            'redirection' => _url('admin.core.i18n.language'),
+            'key'      => 'language_id',
+            'model'    => I18nLocale::class,
+            'form'     => EditI18nLocale::class,
+            'redirect' => _url('admin.core.i18n.locale'),
         ]))->process();
     }
 
     public function actionDelete()
     {
 
+    }
+
+    public function actionDefault()
+    {
+        $localeId = _service('request')
+            ->get('locale_id');
+
+        _redirect('admin.core.i18n.locale');
     }
 }

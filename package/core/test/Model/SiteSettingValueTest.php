@@ -70,7 +70,7 @@ class SiteSettingValueTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var SiteSettingValue $obj */
-        $obj = _with('site_setting_value')
+        $obj = _model('site_setting_value')
             ->select()->where('value_id=?', 1)->first();
 
         $this->assertSame('site_setting_value', $obj->getModelId());
@@ -86,13 +86,13 @@ class SiteSettingValueTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _with('site_setting_value')
+        _model('site_setting_value')
             ->delete()->where('value_id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _with('site_setting_value')
+        _model('site_setting_value')
             ->delete()->where('value_id=?', 1)->execute();
     }
 }
