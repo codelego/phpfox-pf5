@@ -30,6 +30,18 @@ class Routing
      */
     public static $path = '';
 
+    /**
+     * @param string $path
+     */
+    public static function setPath($path)
+    {
+        $path = trim($path, '/');
+        if (empty($path)) {
+            $path = '/';
+        }
+        self::$path = $path;
+    }
+
     public function __construct($key, $route = null)
     {
         $this->key = $key;
@@ -45,7 +57,7 @@ class Routing
     public function match($host, &$parameters)
     {
         $path = Routing::$path;
-        
+
         $result = false;
 
         if ($this->route) {

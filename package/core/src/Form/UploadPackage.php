@@ -24,13 +24,21 @@ class UploadPackage extends Form
 
     public function getButtons()
     {
+
+        /** start buttons **/
         return [
             new ButtonField([
-                'type'       => 'submit',
                 'name'       => 'save',
-                'label'      => _text('Save Changes'),
-                'attributes' => ['class' => 'btn btn-primary'],
+                'label'      => _text('Submit'),
+                'attributes' => ['class' => 'btn btn-primary', 'type' => 'submit',],
+            ]),
+            new ButtonField([
+                'name'       => 'cancel',
+                'href'       => '#',
+                'label'      => _text('Cancel'),
+                'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel'],
             ]),
         ];
+        /** end buttons **/
     }
 }

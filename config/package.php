@@ -57,6 +57,7 @@
   array (
     'yesno' => 'Phpfox\\Form\\YesnoField',
     'select' => 'Phpfox\\Form\\SelectField',
+    'password' => 'Phpfox\\Form\\InputPasswordField',
     'color_picker' => 'Phpfox\\Form\\ColorPicker',
     'editor' => 'Phpfox\\Form\\TextareaField',
     'choice' => 'Phpfox\\Form\\ChoiceField',
@@ -75,6 +76,7 @@
   'form_renders' => 
   array (
     'input' => 'Phpfox\\Form\\InputRender',
+    'password' => 'Phpfox\\Form\\PasswordRender',
     'hidden' => 'Phpfox\\Form\\InputHiddenRender',
     'form_bootstrap' => 'Phpfox\\Form\\FormRenderBootstrap',
     'form_panel' => 'Phpfox\\Form\\FormRenderPanel',

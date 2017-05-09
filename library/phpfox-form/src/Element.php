@@ -42,11 +42,11 @@ class Element implements ElementInterface
      */
     public function __construct($data = [])
     {
-        foreach ($data as $k => $v) {
-            if (method_exists($this, $method = 'set' . ucfirst($k))) {
-                $this->{$method}($v);
+        foreach ($data as $key => $value) {
+            if (method_exists($this, $method = 'set' . ucfirst($key))) {
+                $this->{$method}($value);
             } else {
-                $this->params[$k] = $v;
+                $this->params[$key] = $value;
             }
         }
         $this->initialize();
@@ -81,7 +81,11 @@ class Element implements ElementInterface
 
     public function setAttributes($attributes)
     {
-        $this->attributes = $attributes;
+        if ($this->attributes) {
+            $this->attributes = array_merge($this->attributes, $attributes);
+        } else {
+            $this->attributes = $attributes;
+        }
     }
 
     public function setAttribute($name, $value)
@@ -164,7 +168,7 @@ class Element implements ElementInterface
     {
         $this->setParam('label', (string)$label);
     }
-    
+
     /**
      * @return string
      */

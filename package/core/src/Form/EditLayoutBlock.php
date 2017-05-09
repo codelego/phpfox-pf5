@@ -2,6 +2,7 @@
 
 namespace Neutron\Core\Form;
 
+use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
 class EditLayoutBlock extends Form
@@ -64,5 +65,25 @@ class EditLayoutBlock extends Form
                     'class'     => 'form-control',
                 ],
         ]);
+    }
+
+    public function getButtons()
+    {
+
+        /** start buttons **/
+        return [
+            new ButtonField([
+                'name'       => 'save',
+                'label'      => _text('Submit'),
+                'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
+            ]),
+            new ButtonField([
+                'name'       => 'cancel',
+                'href'       => '#',
+                'label'      => _text('Cancel'),
+                'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd'=>'form.cancel'],
+            ]),
+        ];
+        /** end buttons **/
     }
 }

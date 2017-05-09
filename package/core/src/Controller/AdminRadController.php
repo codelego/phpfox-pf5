@@ -2,7 +2,7 @@
 
 namespace Neutron\Core\Controller;
 
-use Neutron\Core\Form\AdminRadModelToolSettings;
+use Neutron\Core\Form\Admin\RapidDev\RadModelToolSettings;
 use Phpfox\Form\Form;
 use Phpfox\RapidDev\FormAdminAddGenerator;
 use Phpfox\RapidDev\FormAdminEditGenerator;
@@ -41,7 +41,7 @@ class AdminRadController extends AdminController
         ];
         $req = _service('request');
 
-        $form = new AdminRadModelToolSettings([]);
+        $form = new RadModelToolSettings([]);
 
         if ($req->isGet()) {
 

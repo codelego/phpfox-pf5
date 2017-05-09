@@ -16,15 +16,12 @@ class ButtonRender implements RenderInterface
         $attributes = $element->getAttributes();
 
         if ($href) {
-            return '<a href="' . $href . '" '
-                . _attrize($attributes) . '>'
-                . $element->getLabel() . '</a>';
+            return '<a href="' . $href . '" ' . _attrize($attributes) . '>' . $element->getLabel() . '</a>';
         }
 
         $attributes['value'] = $element->getValue();
 
-        return '<button ' . _attrize($attributes) . '>' . $element->getLabel()
-            . '</button>';
+        return '<button ' . _attrize($attributes) . '>' . $element->getLabel() . '</button>';
     }
 
 }

@@ -21,10 +21,11 @@ return [
         ],
         'admin.core.storage'  => [
             'route'      => 'core/storage/*',
-            'controller' => 'core.admin-storage',
+            'controller' => 'core.admin-storage-adapter',
             'action'     => 'index',
             'children'   => [
-                '*' => ['route' => '<action>'],
+                'driver'  => ['route' => 'driver(/<action>)', 'controller' => 'core.admin-storage-driver'],
+                'adapter' => ['route' => 'adapter(/<action>)'],
             ],
         ],
         'admin.core.package'  => [
@@ -101,7 +102,7 @@ return [
                     'route'      => 'bulk(/<action>)',
                     'controller' => 'core.admin-mail-bulk',
                 ],
-                '*'        => ['route' => '<action>'],
+                'adapter'  => ['route' => 'adapter(/<action>)'],
             ],
         ],
         'admin.core.status'   => [

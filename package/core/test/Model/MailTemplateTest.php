@@ -6,20 +6,14 @@ class MailTemplateTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new MailTemplate([
-            'id'          => 1,
-            'language_id' => '',
-            'code'        => '[user_welcome]',
-            'package_id'  => '[core]',
-            'vars'        => 'abc,def, ghti',
-        ]);
+        $obj = new MailTemplate();
 
         $this->assertSame('mail_template', $obj->getModelId());
-        $this->assertSame(1, $obj->getId());
+        $this->assertSame('', $obj->getId());
         $this->assertSame('', $obj->getLanguageId());
-        $this->assertSame('[user_welcome]', $obj->getCode());
-        $this->assertSame('[core]', $obj->getPackageId());
-        $this->assertSame('abc,def, ghti', $obj->getVars());
+        $this->assertSame('', $obj->getCode());
+        $this->assertSame('', $obj->getPackageId());
+        $this->assertSame('', $obj->getVars());
     }
 
     public function testParameters()
@@ -27,54 +21,48 @@ class MailTemplateTest extends \PHPUnit_Framework_TestCase
         $obj = new MailTemplate();
 
         // set data
-        $obj->setId(1);
+        $obj->setId('');
         $obj->setLanguageId('');
-        $obj->setCode('[user_welcome]');
-        $obj->setPackageId('[core]');
-        $obj->setVars('abc,def, ghti');
+        $obj->setCode('');
+        $obj->setPackageId('');
+        $obj->setVars('');
 
         // assert same data
         $this->assertSame('mail_template', $obj->getModelId());
-        $this->assertSame(1, $obj->getId());
+        $this->assertSame('', $obj->getId());
         $this->assertSame('', $obj->getLanguageId());
-        $this->assertSame('[user_welcome]', $obj->getCode());
-        $this->assertSame('[core]', $obj->getPackageId());
-        $this->assertSame('abc,def, ghti', $obj->getVars());
+        $this->assertSame('', $obj->getCode());
+        $this->assertSame('', $obj->getPackageId());
+        $this->assertSame('', $obj->getVars());
     }
 
     public function testSave()
     {
-        $obj = new MailTemplate([
-            'id'          => 1,
-            'language_id' => '',
-            'code'        => '[user_welcome]',
-            'package_id'  => '[core]',
-            'vars'        => 'abc,def, ghti',
-        ]);
+        $obj = new MailTemplate();
 
         $obj->save();
 
         /** @var MailTemplate $obj */
-        $obj = _model('mail_template')
-            ->select()->where('id=?', 1)->first();
+        $obj = _with('mail_template')
+            ->select()->where('id=?','')->first();
 
         $this->assertSame('mail_template', $obj->getModelId());
-        $this->assertSame(1, $obj->getId());
+        $this->assertSame('', $obj->getId());
         $this->assertSame('', $obj->getLanguageId());
-        $this->assertSame('[user_welcome]', $obj->getCode());
-        $this->assertSame('[core]', $obj->getPackageId());
-        $this->assertSame('abc,def, ghti', $obj->getVars());
+        $this->assertSame('', $obj->getCode());
+        $this->assertSame('', $obj->getPackageId());
+        $this->assertSame('', $obj->getVars());
     }
 
     public static function setUpBeforeClass()
     {
-        _model('mail_template')
-            ->delete()->where('id=?', 1)->execute();
+        _with('mail_template')
+            ->delete()->where('id=?','')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('mail_template')
-            ->delete()->where('id=?', 1)->execute();
+        _with('mail_template')
+            ->delete()->where('id=?','')->execute();
     }
 }

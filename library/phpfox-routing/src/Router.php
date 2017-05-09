@@ -135,11 +135,6 @@ class Router
     public function run($path, $host = null, $method = null, $protocol = null)
     {
 
-        $path = trim($path, '/');
-        if (empty($path)) {
-            $path = '/';
-        }
-
         $parameters = new Parameters();
 
         if (!$method) {
@@ -149,7 +144,7 @@ class Router
             ;
         }
 
-        Routing::$path = $path;
+        Routing::setPath($path);
 
         foreach ($this->routes as $key => $group) {
             if ($group->match($host, $parameters)) {

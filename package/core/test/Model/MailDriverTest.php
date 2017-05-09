@@ -4,88 +4,65 @@ namespace Neutron\Core\Model;
 
 class MailDriverTest extends \PHPUnit_Framework_TestCase
 {
+    public function testBase()
+    {
+        $obj = new MailDriver(array (  'driver_id' => 'smtp',  'driver_name' => 'SMTP Mail',  'form_name' => 'Neutron\\Core\\Form\\MailDriverSmtpSettings',  'description' => 'Alternatively you can have emails sent out using SMTP, usually requiring a username and password, and optionally using an external mail server.',  'is_active' => 0,));
+
+        $this->assertSame('mail_driver', $obj->getModelId());
+        $this->assertSame('smtp', $obj->getId());
+        $this->assertSame('SMTP Mail', $obj->getDriverName());
+        $this->assertSame('Neutron\Core\Form\MailDriverSmtpSettings', $obj->getFormName());
+        $this->assertSame('Alternatively you can have emails sent out using SMTP, usually requiring a username and password, and optionally using an external mail server.', $obj->getDescription());
+        $this->assertSame(0, $obj->isActive());
+    }
+
     public function testParameters()
     {
         $obj = new MailDriver();
 
-        $this->assertEquals('mail_driver', $obj->getModelId());
+        // set data
+        $obj->setId('smtp');
+        $obj->setDriverName('SMTP Mail');
+        $obj->setFormName('Neutron\Core\Form\MailDriverSmtpSettings');
+        $obj->setDescription('Alternatively you can have emails sent out using SMTP, usually requiring a username and password, and optionally using an external mail server.');
+        $obj->setActive(0);
 
-        $obj->setName('[example name]');
-        $this->assertEquals('[example name]', $obj->getName());
-        $this->assertEquals('[example name]', $obj->getTitle());
-
-        $obj->setName(null);
-        $this->assertEquals('', $obj->getName());
-        $this->assertEquals('', $obj->getTitle());
-
-        $obj->setActive(false);
-        $this->assertEquals(0, $obj->isActive());
-        $obj->setActive(true);
-        $this->assertEquals(1, $obj->isActive());
-        $obj->setActive(null);
-        $this->assertEquals(0, $obj->isActive());
-
-        $obj->setDescription('[example description]');
-        $this->assertEquals('[example description]', $obj->getDescription());
-
-        $obj->setFormName('[example form name]');
-        $this->assertEquals('[example form name]', $obj->getFormName());
+        // assert same data
+        $this->assertSame('mail_driver', $obj->getModelId());
+        $this->assertSame('smtp', $obj->getId());
+        $this->assertSame('SMTP Mail', $obj->getDriverName());
+        $this->assertSame('Neutron\Core\Form\MailDriverSmtpSettings', $obj->getFormName());
+        $this->assertSame('Alternatively you can have emails sent out using SMTP, usually requiring a username and password, and optionally using an external mail server.', $obj->getDescription());
+        $this->assertSame(0, $obj->isActive());
     }
 
     public function testSave()
     {
-        $obj = new MailDriver([
-            'driver_id'   => 'test',
-            'name'        => '[example name]',
-            'description' => '[example description]',
-            'is_active'   => 0,
-            'form_name'   => '[example form name]',
-        ]);
+        $obj = new MailDriver(array (  'driver_id' => 'smtp',  'driver_name' => 'SMTP Mail',  'form_name' => 'Neutron\\Core\\Form\\MailDriverSmtpSettings',  'description' => 'Alternatively you can have emails sent out using SMTP, usually requiring a username and password, and optionally using an external mail server.',  'is_active' => 0,));
 
         $obj->save();
 
-        /** @var MailDriver $entry */
-        $entry = _service('db')
-            ->select('*')
-            ->from(':mail_driver')
-            ->where('driver_id=?', 'test')
-            ->setPrototype(MailDriver::class)
-            ->first();
+        /** @var MailDriver $obj */
+        $obj = _with('mail_driver')
+            ->select()->where('driver_id=?','smtp')->first();
 
-        $this->assertEquals(true, $entry instanceof MailDriver);
+        $this->assertSame('mail_driver', $obj->getModelId());
+        $this->assertSame('smtp', $obj->getId());
+        $this->assertSame('SMTP Mail', $obj->getDriverName());
+        $this->assertSame('Neutron\Core\Form\MailDriverSmtpSettings', $obj->getFormName());
+        $this->assertSame('Alternatively you can have emails sent out using SMTP, usually requiring a username and password, and optionally using an external mail server.', $obj->getDescription());
+        $this->assertSame(0, $obj->isActive());
+    }
 
-        $this->assertEquals('[example name]', $entry->getName());
-        $this->assertEquals('[example name]', $entry->getTitle());
-        $this->assertEquals('[example form name]', $entry->getFormName());
-        $this->assertEquals(0, $entry->isActive());
-        $this->assertEquals('[example description]', $entry->getDescription());
-
-        $obj->delete();
-
-        /** @var MailDriver $entry */
-        $entry = _service('db')
-            ->select('*')
-            ->from(':mail_driver')
-            ->where('driver_id=?', 'test')
-            ->setPrototype(MailDriver::class)
-            ->first();
-
-        $this->assertNull($entry);
+    public static function setUpBeforeClass()
+    {
+        _with('mail_driver')
+            ->delete()->where('driver_id=?','smtp')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _service('db')
-            ->delete(':mail_driver')
-            ->where('driver_id=?', 'test')
-            ->execute();
-    }
-
-    protected function setUp()
-    {
-        _service('db')
-            ->delete(':mail_driver')
-            ->where('driver_id=?', 'test')
-            ->execute();
+        _with('mail_driver')
+            ->delete()->where('driver_id=?','smtp')->execute();
     }
 }

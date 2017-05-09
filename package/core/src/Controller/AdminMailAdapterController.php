@@ -5,6 +5,7 @@ namespace Neutron\Core\Controller;
 use Neutron\Core\Form\SelectMailDriver;
 use Neutron\Core\Model\MailAdapter;
 use Neutron\Core\Model\MailDriver;
+use Neutron\Core\Process\AdminManageEntryProcess;
 use Phpfox\Form\Form;
 use Phpfox\View\ViewModel;
 
@@ -29,25 +30,11 @@ class AdminMailAdapterController extends AdminController
 
     public function actionIndex()
     {
-        $items = _model('mail_adapter')
-            ->select()
-            ->all();
-
-        return new ViewModel([
-            'items' => $items,
-        ], 'core/admin-mail/manage-adapter');
-    }
-
-    public function actionTransports()
-    {
-        $items = _model('mail_adapter')
-            ->select()
-            ->execute()
-            ->all();
-
-        return new ViewModel([
-            'items' => $items,
-        ], 'core/admin-mail/transports');
+        return (new AdminManageEntryProcess([
+            'noLimit'  => true,
+            'model'    => MailAdapter::class,
+            'template' => 'core/admin-mail/manage-mail-adapter',
+        ]))->process();
     }
 
     public function actionAdd()
@@ -57,8 +44,7 @@ class AdminMailAdapterController extends AdminController
 
         if (!$driverId) {
             return new ViewModel([
-                'form'    => new SelectMailDriver([]),
-                'heading' => 'Add Adapter',
+                'form' => new SelectMailDriver([]),
             ], 'layout/form-edit');
         }
 
@@ -70,39 +56,89 @@ class AdminMailAdapterController extends AdminController
         $form = new $formSettings();
 
         return new ViewModel([
-            'form'    => new $form,
-            'heading' => 'Add Adapter',
+            'form' => new $form,
         ], 'layout/form-edit');
 
     }
 
-    public function actionEdit()
+    public function actionConfig()
     {
         $request = _service('request');
-        $id = $request->get('id');
+        $driverId = $request->get('driver_id', 'local');
 
-        /** @var MailAdapter $item */
-        $item = _model('mail_adapter')->findById($id);
+        /** @var MailDriver $driverEntry */
+        $driverEntry = _model('mail_driver')->findById($driverId);
 
-        /** @var MailDriver $driver */
-        $driver = _model('mail_driver')->findById($item->getDriverId());
-
-        $formSettings = $driver->getFormName();
+        $formClass = $driverEntry->getFormName();
 
         /** @var Form $form */
-        $form = new $formSettings();
+        $form = new $formClass;
 
         if ($request->isGet()) {
 
         }
 
         if ($request->isPost() and $form->isValid($request->all())) {
+            /** @var MailAdapter $adapterEntry */
+            $adapterEntry = _model('storage_adapter')
+                ->create([
+                    'driver_id'  => $driverId,
+                    'is_active'  => 0,
+                    'is_default' => 0,
+                ]);
 
+            $data = $form->getData();
+            $adapterEntry->fromArray($data);
+            $adapterEntry->setParams(json_encode($data));
+            $adapterEntry->save();
+
+            _redirect('admin.core.mail.adapter');
         }
 
         return new ViewModel([
-            'form'    => new $form,
-            'heading' => 'Edit Adapter Settings',
+            'form' => $form,
+        ], 'layout/form-edit');
+    }
+
+    public function actionDefault()
+    {
+        $request = _service('request');
+        $adapterId = $request->get('adapter_id');
+        
+        _redirect('admin.core.storage.adapter');
+    }
+
+    public function actionEdit()
+    {
+        $request = _service('request');
+        $adapterId = $request->get('adapter_id');
+
+        /** @var MailAdapter $adapterEntry */
+        $adapterEntry = _model('mail_adapter')->findById($adapterId);
+
+        /** @var MailDriver $driverEntry */
+        $driverEntry = _model('mail_driver')->findById($adapterEntry->getDriverId());
+
+        $formClass = $driverEntry->getFormName();
+
+        /** @var Form $form */
+        $form = new $formClass([]);
+
+
+        if ($request->isGet()) {
+            $data = json_decode($adapterEntry->getParams(), true);
+            $data = array_merge($data, $adapterEntry->toArray());
+            $form->populate($data);
+        } elseif ($request->isPost() and $form->isValid($request->all())) {
+            $data = $form->getData();
+            $adapterEntry->fromArray($data);
+            $adapterEntry->setParams(json_encode($data));
+            $adapterEntry->save();
+            _redirect('admin.core.mail.adapter');
+        }
+
+        return new ViewModel([
+            'form' => $form,
         ], 'layout/form-edit');
     }
 }

@@ -24,6 +24,7 @@ return [
     'core.ajax-i18n'              => AjaxI18nController::class,
     'core.admin-status'           => AdminStatusController::class,
     'core.admin-authorization'    => AdminAclRoleController::class,
-    'core.admin-storage'          => AdminStorageController::class,
+    'core.admin-storage-adapter'  => AdminStorageAdapterController::class,
+    'core.admin-storage-driver'   => AdminStorageDriverController::class,
     'core.admin-rad'              => AdminRadController::class,
 ];

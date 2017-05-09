@@ -56,6 +56,7 @@ return [
         'core.themes'            => [null, Service\ThemeManager::class],
         'core.mails'             => [null, Service\MailManager::class],
         'core.roles'             => [null, Service\Roles::class],
+        'core.storage'          => [null, Service\StorageManager::class],
         'authorization.provider' => [null, Service\PermissionProvider::class],
         'layout_loader'          => [null, Service\LayoutManager::class],
         'menu.main.primary'      => [NavigationFactory::class, 'main'],

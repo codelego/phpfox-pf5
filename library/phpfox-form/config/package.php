@@ -5,6 +5,7 @@ namespace Phpfox\Form;
 return [
     'form_renders'  => [
         'input'                 => InputRender::class,
+        'password'              => PasswordRender::class,
         'hidden'                => InputHiddenRender::class,
         'form_bootstrap'        => FormRenderBootstrap::class,
         'form_panel'            => FormRenderPanel::class,
@@ -24,6 +25,7 @@ return [
     'form.elements' => [
         'yesno'          => YesnoField::class,
         'select'         => SelectField::class,
+        'password'       => InputPasswordField::class,
         'color_picker'   => ColorPicker::class,
         'editor'         => TextareaField::class,
         'choice'         => ChoiceField::class,

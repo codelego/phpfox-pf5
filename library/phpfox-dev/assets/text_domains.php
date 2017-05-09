@@ -9,4 +9,7 @@
   'layout_component' => 'admin.core_layout',
   'blog_category' => 'admin.core_layout',
   'blog_post' => 'admin.core_layout',
+  'storage_driver' => 'admin.core_layout',
+  'mail_template' => 'admin.core_mail',
+  'mail_driver' => 'admin.core_mail',
 );

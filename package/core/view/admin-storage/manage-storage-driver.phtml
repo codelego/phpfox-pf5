@@ -1,0 +1,35 @@
+<div class="panel panel-default">
+    <div class="table-responsive">
+        <table class="table table-admin">
+            <thead>
+            <tr>
+                <th class="text-center w40">#</th>
+                <th class="w100">Driver Id</th>
+                <th class="w250">Name</th>
+                <th class="">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item): ?>
+                <tr>
+                    <td class="dropdown" data-cmd="dropdown">
+                        <ul>
+                            <li><a href="<?= _url('admin.core.storage.driver',
+                                    ['action' => 'edit', 'driver_id' => $item->getId()]) ?>">
+                                    <?= _text('Edit') ?>
+                                </a></li>
+                            <li><a href="<?= _url('admin.core.storage.adapter',
+                                    ['action' => 'config', 'driver_id' => $item->getId()]) ?>">
+                                    <?= _text('Add New Storage Adapter', 'admin.core_storage') ?>
+                                </a></li>
+                        </ul>
+                    </td>
+                    <td><?= $item->getId() ?></td>
+                    <td><?= $item->getDriverName() ?></td>
+                    <td><?= $item->getDescription() ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

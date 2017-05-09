@@ -9,6 +9,8 @@ class InputTextField extends Element implements FieldInterface
      */
     protected $value;
 
+    protected $render = 'input';
+
     public function getValue()
     {
         return $this->value;
@@ -17,5 +19,6 @@ class InputTextField extends Element implements FieldInterface
     public function setValue($value)
     {
         $this->value = $value;
+
     }
 }

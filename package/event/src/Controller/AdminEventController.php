@@ -23,4 +23,13 @@ class AdminEventController extends AdminController
     {
 
     }
+
+    public function actionEdit()
+    {
+
+    }
+
+    public function actionAdd()
+    {
+    }
 }

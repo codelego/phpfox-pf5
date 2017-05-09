@@ -122,10 +122,15 @@ class FilterI18nLanguage extends Form
         /** start buttons **/
         return [
             new ButtonField([
-                'type'       => 'submit',
-                'name'       => 'search',
-                'label'      => _text('Search'),
-                'attributes' => ['class' => 'btn btn-primary'],
+                'name'       => 'save',
+                'label'      => _text('Submit'),
+                'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
+            ]),
+            new ButtonField([
+                'name'       => 'cancel',
+                'href'       => '#',
+                'label'      => _text('Cancel'),
+                'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd'=>'form.cancel'],
             ]),
         ];
         /** end buttons **/

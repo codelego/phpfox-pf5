@@ -160,7 +160,7 @@ class Route implements RouteInterface
         }
 
         if ($this->wildcard) {
-            Routing::$path = $params['retain'];
+            Routing::setPath($params['retain']);
         }
 
         $parameters->add($params);

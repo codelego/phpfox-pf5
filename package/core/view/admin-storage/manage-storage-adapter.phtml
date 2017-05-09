@@ -8,7 +8,7 @@
                 <th class="w100">Driver</th>
                 <th class="w50">Active</th>
                 <th class="w50">Default</th>
-                <th class="w50">Fallback</th>
+                <th class="w50">Require</th>
             </tr>
             </thead>
             <tbody>
@@ -16,25 +16,25 @@
                 <tr>
                     <td class="dropdown" data-cmd="dropdown">
                         <ul>
-                            <li><a href="<?= _url('admin.core.storage.*',
-                                    ['action' => 'edit', 'id' => $item->getId()]) ?>">
+                            <li><a href="<?= _url('admin.core.storage.adapter',
+                                    ['action' => 'edit', 'adapter_id' => $item->getId()]) ?>">
                                     <?= _text('Edit') ?>
                                 </a></li>
-                            <li><a href="<?= _url('admin.core.storage.*',
-                                    ['action' => 'delete', 'id' => $item->getId()]) ?>">
+                            <li><a href="<?= _url('admin.core.storage.adapter',
+                                    ['action' => 'delete', 'adapter_id' => $item->getId()]) ?>">
                                     <?= _text('Delete') ?>
                                 </a></li>
-                            <li><a href="<?= _url('admin.core.storage.*',
-                                    ['action' => 'transfer', 'id' => $item->getId()]) ?>">
+                            <li><a href="<?= _url('admin.core.storage.adapter',
+                                    ['action' => 'transfer', 'adapter_id' => $item->getId()]) ?>">
                                     <?= _text('Transfer') ?>
                                 </a></li>
                         </ul>
                     </td>
-                    <td><?= $item->getTitle() ?></td>
+                    <td><?= $item->getAdapterName() ?></td>
                     <td><?= $item->getDriverId() ?></td>
                     <td><?= _yesno($item->isActive()) ?></td>
                     <td><?= _yesno($item->isDefault()) ?></td>
-                    <td><?= _yesno($item->isFallback()) ?></td>
+                    <td><?= _yesno($item->isRequired(),true,false) ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
