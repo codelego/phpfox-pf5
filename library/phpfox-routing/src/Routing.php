@@ -25,6 +25,11 @@ class Routing
      */
     protected $children = [];
 
+    /**
+     * @var string
+     */
+    public static $path = '';
+
     public function __construct($key, $route = null)
     {
         $this->key = $key;
@@ -32,14 +37,15 @@ class Routing
     }
 
     /**
-     * @param string     $path
      * @param string     $host
      * @param Parameters $parameters
      *
      * @return bool
      */
-    public function match($path, $host, &$parameters)
+    public function match($host, &$parameters)
     {
+        $path = Routing::$path;
+        
         $result = false;
 
         if ($this->route) {
@@ -57,13 +63,9 @@ class Routing
             return false;
         }
 
-        if ($parameters->get('retain')) {
-            $path = $parameters->get('retain');
-        }
-
         if ($this->children) {
             foreach ($this->children as $child) {
-                if ($child->match($path, $host, $parameters)) {
+                if ($child->match($host, $parameters)) {
                     return true;
                 }
             }

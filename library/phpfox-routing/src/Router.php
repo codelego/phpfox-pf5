@@ -149,8 +149,10 @@ class Router
             ;
         }
 
+        Routing::$path = $path;
+
         foreach ($this->routes as $key => $group) {
-            if ($group->match($path, $host, $parameters)) {
+            if ($group->match($host, $parameters)) {
                 if ($parameters->isValid()) {
                     $parameters->set('info.chain', $key);
                     return $parameters;

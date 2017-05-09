@@ -46,6 +46,11 @@ class Route implements RouteInterface
     protected $defaults = [];
 
     /**
+     * @var bool
+     */
+    protected $wildcard = false;
+
+    /**
      * @param array $params
      * - wheres
      * - callback
@@ -76,9 +81,12 @@ class Route implements RouteInterface
         }
 
         if (!empty($params['route'])) {
+
             $this->route = strtr(preg_replace('/\/<([\w+\_\-]+)>\?/', '(/<$1>)',
                 $params['route']), ['/*' => '(/<retain>)',]);
             $this->route_expr = $this->prepareRegularExpression($this->route, $wheres);
+
+            $this->wildcard = substr($params['route'], -2) == '/*';
         }
 
         if (!empty($params['host'])) {
@@ -119,8 +127,6 @@ class Route implements RouteInterface
 
     public function match($path, $host, &$parameters)
     {
-
-
         // param by defaults value
         $params = $this->defaults;
 
@@ -149,14 +155,12 @@ class Route implements RouteInterface
             }
         }
 
-
-        if (!$this->filter) {
-            $parameters->add($params);
-            return true;
+        if ($this->filter AND false == _service($this->filter)->onMatch($params)) {
+            return false;
         }
 
-        if (false == _service($this->filter)->onMatch($params)) {
-            return false;
+        if ($this->wildcard) {
+            Routing::$path = $params['retain'];
         }
 
         $parameters->add($params);
@@ -283,5 +287,13 @@ class Route implements RouteInterface
     public function isExternal()
     {
         return isset($this->defaults['host']) && $this->defaults['host'];
+    }
+
+    /**
+     * @return bool
+     */
+    public function isWildcard()
+    {
+        return $this->wildcard;
     }
 }

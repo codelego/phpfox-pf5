@@ -19,4 +19,9 @@ interface RouteInterface
      * @return string
      */
     public function compile($params);
+
+    /**
+     * @return boolean
+     */
+    public function isWildcard();
 }
