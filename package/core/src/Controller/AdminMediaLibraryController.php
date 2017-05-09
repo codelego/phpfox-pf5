@@ -10,14 +10,12 @@ class AdminMediaLibraryController extends AdminController
     public function actionIndex()
     {
         _service('breadcrumb')
-            ->clear()
-            ->add([
+            ->set([
                 'href'  => _url('admin.core.mail'),
                 'label' => _text('Mail Settings', 'admin'),
             ]);
 
         _service('html.title')
-            ->clear()
             ->set(_text('Mail Settings', 'admin'));
 
     }

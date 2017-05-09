@@ -64,7 +64,6 @@ class AdminLayoutBlockController extends AdminController
 
         return new ViewModel([
             'form'    => $form,
-            'heading' => _text('Add Block', 'admin'),
         ], 'layout/form-edit');
 
     }
@@ -90,7 +89,6 @@ class AdminLayoutBlockController extends AdminController
 
         return new ViewModel([
             'form'    => $form,
-            'heading' => _text('Edit Block', 'admin'),
         ], 'layout/form-edit');
     }
 

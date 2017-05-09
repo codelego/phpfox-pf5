@@ -14,12 +14,10 @@ class AdminStorageAdapterController extends AdminController
     protected function initialized()
     {
         _service('html.title')
-            ->clear()
-            ->add(_text('Storage System', 'admin'));
+            ->set(_text('Storage System', 'admin'));
 
         _service('breadcrumb')
-            ->clear()
-            ->add([
+            ->set([
                 'href'  => _url('admin.core.storage'),
                 'label' => _text('Storage System', 'admin'),
             ]);

@@ -88,7 +88,6 @@ class AdminLayoutThemeController extends AdminController
         $form->populate($params);
 
         return new ViewModel([
-            'heading' => '',
             'form'    => $form,
         ], 'layout/form-edit');
     }

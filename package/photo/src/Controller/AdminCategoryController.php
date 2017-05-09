@@ -12,7 +12,7 @@ class AdminCategoryController extends AdminController
         _service('html.title')->set(_text('Photos'));
 
         _service('breadcrumb')
-            ->clear()->add(['href' => _url('admin.photo'), 'label' => _text('Photos')]);
+            ->set(['href' => _url('admin.photo'), 'label' => _text('Photos')]);
 
         _service('menu.admin.secondary')->load('admin.photo');
     }

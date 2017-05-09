@@ -45,6 +45,10 @@ class Element implements ElementInterface
         foreach ($data as $key => $value) {
             if (method_exists($this, $method = 'set' . ucfirst($key))) {
                 $this->{$method}($value);
+            } elseif (in_array($key, ['type', 'class', 'title'])) {
+                $this->attributes[$key] = $value;
+            } elseif (in_array(substr($key, 0, 5), ['data-', 'aria-'])) {
+                $this->attributes[$key] = $value;
             } else {
                 $this->params[$key] = $value;
             }

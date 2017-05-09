@@ -16,8 +16,7 @@ class AdminCategoryController extends AdminController
     protected function initialized()
     {
         _service('breadcrumb')
-            ->clear()
-            ->add([
+            ->set([
                 'href'  => _url('admin.report'),
                 'label' => _text('Reports'),
             ])->add([

@@ -9,11 +9,10 @@ class AdminPagesController extends AdminController
     protected function initialized()
     {
         _service('html.title')
-            ->clear()->add(_text('Pages'));
+            ->set(_text('Pages'));
 
         _service('breadcrumb')
-            ->clear()
-            ->add(['href' => _url('admin.pages'), 'label' => _text('Pages')]);
+            ->set(['href' => _url('admin.pages'), 'label' => _text('Pages')]);
 
         _service('menu.admin.secondary')->load('admin.pages');
 

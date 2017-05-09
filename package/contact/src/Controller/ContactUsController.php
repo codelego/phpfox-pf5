@@ -14,7 +14,6 @@ class ContactUsController extends ActionController
 
         return new ViewModel([
             'form'    => $form,
-            'heading' => _text('Contact Us'),
         ], 'contact/index/index');
     }
 }

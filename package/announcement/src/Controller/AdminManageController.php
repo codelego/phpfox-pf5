@@ -32,7 +32,6 @@ class AdminManageController extends AdminController
 
         $vm = new ViewModel([
             'form'    => $form,
-            'heading' => _text('Add Announcement'),
         ], 'layout/form-edit');
 
         return $vm;

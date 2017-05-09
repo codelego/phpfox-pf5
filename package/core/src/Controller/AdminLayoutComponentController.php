@@ -17,12 +17,10 @@ class AdminLayoutComponentController extends AdminController
             ->getEditingThemeId();
 
         _service('html.title')
-            ->clear()
-            ->add(_text('Layout Editor', 'admin'));
+            ->set(_text('Layout Editor', 'admin'));
 
         _service('breadcrumb')
-            ->clear()
-            ->add([
+            ->set([
                 'href'  => _url('admin.core.layout'),
                 'label' => _text('Layout Editor {0}', 'admin', null,
                     [$editingThemeId]),

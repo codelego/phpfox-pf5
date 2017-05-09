@@ -10,12 +10,10 @@ class AdminStatusController extends AdminController
     protected function initialized()
     {
         _service('html.title')
-            ->clear()
-            ->add(_text('System Status', 'admin'));
+            ->set(_text('System Status', 'admin'));
 
         _service('breadcrumb')
-            ->clear()
-            ->add([
+            ->set([
                 'href'  => _url('admin.core.status'),
                 'label' => _text('System Status', 'admin'),
             ]);
@@ -33,8 +31,7 @@ class AdminStatusController extends AdminController
         $form = new LicenseSettings();
 
         return new ViewModel([
-            'heading' => 'License Information',
-            'form'    => $form,
+            'form' => $form,
         ], 'layout/form-edit');
     }
 

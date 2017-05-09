@@ -17,14 +17,12 @@ class AdminI18nMessageController extends AdminController
     protected function initialized()
     {
         _service('breadcrumb')
-            ->clear()
-            ->add([
+            ->set([
                 'href'  => _url('admin.core.i18n'),
                 'label' => _text('International', 'admin'),
             ]);
 
         _service('html.title')
-            ->clear()
             ->set(_text('International', 'admin'));
 
         _service('menu.admin.secondary')->load('admin.core.i18n');

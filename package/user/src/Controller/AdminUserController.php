@@ -18,11 +18,9 @@ class AdminUserController extends AdminController
     {
 
         _service('breadcrumb')
-            ->clear()
-            ->add(['href' => _url('admin.user'), 'label' => _text('Members', 'admin')]);
+            ->set(['href' => _url('admin.user'), 'label' => _text('Members', 'admin')]);
 
         _service('html.title')
-            ->clear()
             ->set(_text('Members', 'admin'));
     }
 

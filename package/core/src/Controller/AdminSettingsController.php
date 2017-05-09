@@ -10,12 +10,13 @@ class AdminSettingsController extends AdminController
     protected function initialized()
     {
         _service('html.title')
-            ->clear()
-            ->add(_text('Manage Settings', 'admin'));
+            ->set(_text('Manage Settings', 'admin'));
 
         _service('breadcrumb')
-            ->clear()
-            ->add(['href' => _url('admin.core.settings'), 'label' => _text('Manage Settings', 'admin')]);
+            ->set([
+                'href'  => _url('admin.core.settings'),
+                'label' => _text('Manage Settings', 'admin'),
+            ]);
     }
 
     public function actionIndex()

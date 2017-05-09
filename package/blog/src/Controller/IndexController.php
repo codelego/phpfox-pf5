@@ -31,7 +31,6 @@ class IndexController extends ActionController
 
         return new ViewModel([
             'form'    => $form,
-            'heading' => _text('Add New Post'),
         ], 'layout/form-edit');
     }
 }

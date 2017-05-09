@@ -17,17 +17,13 @@ class AdminAclRoleController extends AdminController
     protected function initialized()
     {
         _service('breadcrumb')
-            ->clear()
-            ->add([
-                'href'  => _url('admin.core.acl'),
-                'label' => _text('Authorizations', 'admin'),
-            ]);
+            ->set(['href' => _url('admin.core.acl'), 'label' => _text('Authorizations', 'admin'),]);
 
         _service('html.title')
-            ->clear()
             ->set(_text('Authorizations', 'admin'));
 
-        _service('menu.admin.secondary')->load('admin.core.acl');
+        _service('menu.admin.secondary')
+            ->load('admin.core.acl');
     }
 
     protected function postDispatch($action)
@@ -74,10 +70,9 @@ class AdminAclRoleController extends AdminController
 
         $form = new AuthorizationSettings();
 
+        $form->setTitle(_text('#Edit "{0}" Permissions', null, null, [$role->getTitle()]));
         return new ViewModel([
-            'form'    => $form,
-            'heading' => _text('#Edit "{0}" Permissions', null, null,
-                [$role->getTitle()]),
+            'form' => $form,
         ], 'layout/form-edit');
 
     }

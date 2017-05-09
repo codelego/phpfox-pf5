@@ -46,8 +46,9 @@ class AdminLayoutContainerController extends AdminController
                     ['action_id' => $page->getActionId()]));
         }
 
-        return new ViewModel(['form' => $form, 'heading' => 'Add Container'],
-            'layout/form-edit');
+        return new ViewModel([
+            'form' => $form,
+        ], 'layout/form-edit');
     }
 
     public function actionAdd()
@@ -75,8 +76,9 @@ class AdminLayoutContainerController extends AdminController
                     ['action_id' => $page->getActionId()]));
         }
 
-        return new ViewModel(['form' => $form, 'heading' => 'Add Container'],
-            'layout/form-edit');
+        return new ViewModel([
+            'form' => $form,
+        ], 'layout/form-edit');
     }
 
     public function actionDelete()

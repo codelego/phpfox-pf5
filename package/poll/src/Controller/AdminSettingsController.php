@@ -13,7 +13,7 @@ class AdminSettingsController extends AdminController
             ->set(_text('Polls'));
 
         _service('breadcrumb')
-            ->clear()->add(['href' => _url('admin.poll'), 'label' => _text('Polls')]);
+            ->set(['href' => _url('admin.poll'), 'label' => _text('Polls')]);
 
         _service('menu.admin.secondary')
             ->load('admin.poll');

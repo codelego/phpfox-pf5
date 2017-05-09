@@ -19,7 +19,7 @@ class Breadcrumb
      */
     public function set($item)
     {
-        $this->data = $item;
+        $this->data = [$item];
         return $this;
     }
 

@@ -14,12 +14,10 @@ class AdminDepartmentController extends AdminController
     protected function initialized()
     {
         _service('breadcrumb')
-            ->clear()
-            ->add(['label' => _text('Contact Us'), 'href' => _url('admin.contact.department')]);
+            ->set(['label' => _text('Contact Us'), 'href' => _url('admin.contact.department')]);
 
         _service('html.title')
-            ->clear()
-            ->add(_text('Contact Us'));
+            ->set(_text('Contact Us'));
 
         _service('menu.admin.secondary')
             ->load('admin.contact_us');
@@ -63,9 +61,7 @@ class AdminDepartmentController extends AdminController
         }
 
         return new ViewModel([
-            'heading' => _text('Edit "{0}"', 'admin', null,
-                [$item->getTitle()]),
-            'form'    => $form,
+            'form' => $form,
         ], 'layout/form-edit');
     }
 
@@ -86,7 +82,6 @@ class AdminDepartmentController extends AdminController
         }
 
         return new ViewModel([
-            'heading' => _text('Add Department', 'admin'),
             'form'    => $form,
         ], 'layout/form-edit');
     }

@@ -11,11 +11,10 @@ class AdminSiteSettingsController extends AdminController
     protected function initialized()
     {
         _service('html.title')
-            ->clear()->add(_text('Blogs'));
+            ->set(_text('Blogs'));
 
         _service('breadcrumb')
-            ->clear()
-            ->add(['href' => _url('admin.blog'), 'label' => _text('Blogs')]);
+            ->set(['href' => _url('admin.blog'), 'label' => _text('Blogs')]);
 
         _service('menu.admin.secondary')->load('admin.blog');
 

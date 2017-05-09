@@ -12,14 +12,12 @@ class AdminPackageController extends AdminController
     protected function initialized()
     {
         _service('breadcrumb')
-            ->clear()
-            ->add([
+            ->set([
                 'href'  => _url('admin.core.package'),
                 'label' => _text('Packages', 'admin'),
             ]);
 
         _service('html.title')
-            ->clear()
             ->set(_text('Packages', 'admin'));
     }
 
@@ -38,7 +36,6 @@ class AdminPackageController extends AdminController
         $form = new UploadPackage();
 
         return new ViewModel([
-            'heading' => 'Upload Package',
             'form'    => $form,
         ], 'layout/form-edit');
     }

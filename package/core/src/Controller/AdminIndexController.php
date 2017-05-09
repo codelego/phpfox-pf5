@@ -9,7 +9,6 @@ class AdminIndexController extends AdminController
     protected function initialized()
     {
         _service('html.title')
-            ->clear()
             ->set(_text('Dashboard', 'admin'));
 
     }

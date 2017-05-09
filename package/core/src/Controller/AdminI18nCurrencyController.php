@@ -18,8 +18,7 @@ class AdminI18nCurrencyController extends AdminController
             ->set(_text('International', 'admin'));
 
         _service('breadcrumb')
-            ->clear()
-            ->add([
+            ->set([
                 'href'  => _url('admin.core.i18n'),
                 'label' => _text('International', 'admin'),
             ]);

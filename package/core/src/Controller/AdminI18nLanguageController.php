@@ -16,23 +16,23 @@ class AdminI18nLanguageController extends AdminController
     protected function initialized()
     {
         _service('breadcrumb')
-            ->clear()
-            ->add([
+            ->set([
                 'href'  => _url('admin.core.i18n'),
                 'label' => _text('International', 'admin'),
             ]);
 
         _service('html.title')
-            ->clear()
             ->set(_text('International', 'admin'));
 
-        _service('menu.admin.secondary')->load('admin.core.i18n');
+        _service('menu.admin.secondary')
+            ->load('admin.core.i18n');
     }
 
     protected function postDispatch($action)
     {
         if (in_array($action, ['index'])) {
-            _service('menu.admin.buttons')->load('admin.core.i18n.language.buttons');
+            _service('menu.admin.buttons')
+                ->load('admin.core.i18n.language.buttons');
         }
     }
 
