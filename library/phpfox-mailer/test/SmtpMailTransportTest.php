@@ -52,16 +52,16 @@ class SmtpMailTransportTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param $configs
+     * @param $params
      *
      * @dataProvider provideConfigs
      */
-    public function testSendMail($configs)
+    public function testSendMail($params)
     {
-        $transport = new SmtpMailTransport($configs);
+        $transport = new SmtpMailAdapter($params);
 
         $msg = new Message();
-        $msg->exchangeArray([
+        $msg->fromArray([
             'from'    => ['nam.ngvan@gmail.com', 'nam nguyen'],
             'subject' => 'test subject',
             'body'    => 'test body',

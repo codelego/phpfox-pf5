@@ -3,9 +3,9 @@
 namespace Phpfox\Mailer;
 
 return [
-    'mailer.transports' => [
-        'smtp'   => SmtpMailTransport::class,
-        'system' => SystemMailTransport::class,
+    'mail.drivers' => [
+        'smtp'   => SmtpMailAdapter::class,
+        'system' => SystemMailAdapter::class,
     ],
     'services'          => [
         'mailer'         => [null, MailFacades::class,],

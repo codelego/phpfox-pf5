@@ -46,7 +46,7 @@ class NavDecorator extends AbstractDecorator
             ;
         }
 
-        if ($item->acl and !_pass($item->acl)) {
+        if ($item->acl and !_pass(null,$item->acl)) {
             return '';
         }
 

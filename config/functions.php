@@ -174,7 +174,7 @@ namespace {
         if (null == $item) {
             $storage->saveItem($item = new CacheItem($key, $fallback(), $ttl));
         }
-        
+
         return $item->value;
     }
 
@@ -204,9 +204,17 @@ namespace {
             ->callback($name, $target, $argv);
     }
 
-    function _pass($action, $roleId = null)
+    /**
+     * Check acl settings user can do `action`
+     *
+     * @param int|null $roleId
+     * @param string   $action
+     *
+     * @return mixed
+     */
+    function _pass($roleId, $action)
     {
-        return _service('authorization')
+        return \Phpfox::$service->get('authorization')
             ->pass($roleId, $action);
     }
 

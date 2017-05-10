@@ -13,6 +13,69 @@ class SmtpDriverSettings extends Form
         $this->setInfo(_text('[Mail SMTP Driver Settings Info]', 'admin.core_mail'));
 
         $this->addElement([
+            'name'       => 'host',
+            'factory'    => 'text',
+            'label'      => _text('SMTP Hostname'),
+            'attributes' => ['class' => 'form-control'],
+            'value'      => '127.0.0.1',
+            'required'   => true,
+        ]);
+
+        $this->addElement([
+            'name'       => 'secure',
+            'factory'    => 'radio',
+            'label'      => _text('Security?'),
+            'value'      => 'none',
+            'attributes' => ['class' => 'form-control'],
+            'required'   => true,
+            'options'    => [
+                ['label' => 'None', 'value' => 'none'],
+                ['label' => 'TLS', 'value' => 'tls'],
+                ['label' => 'SSL', 'value' => 'ssl'],
+            ],
+        ]);
+
+        $this->addElement([
+            'name'       => 'port',
+            'factory'    => 'text',
+            'label'      => _text('SMTP Port'),
+            'value'      => '25',
+            'note'       => 'Default: 25. Also commonly on port 465 (SMTP over SSL) or port 587.',
+            'attributes' => ['class' => 'form-control'],
+            'required'   => true,
+        ]);
+
+        $this->addElement([
+            'name'       => 'authentication',
+            'factory'    => 'radio',
+            'label'      => _text('SMTP Authentication'),
+            'info'       => _text('Does your SMTP Server require authentication?', 'admin'),
+            'value'      => '0',
+            'attributes' => ['class' => 'form-control'],
+            'required'   => true,
+            'options'    => [
+                ['label' => _text('No, does not authentication'), 'value' => 0,],
+                ['label' => _text('Yes, use authentication'), 'value' => 1],
+            ],
+        ]);
+        $this->addElement([
+            'name'       => 'username',
+            'factory'    => 'text',
+            'label'      => _text('SMTP Login Username'),
+            'value'      => '',
+            'attributes' => ['class' => 'form-control'],
+            'required'   => false,
+        ]);
+        $this->addElement([
+            'name'       => 'password',
+            'factory'    => 'password',
+            'label'      => _text('SMTP Login Password'),
+            'value'      => '',
+            'attributes' => ['class' => 'form-control'],
+            'required'   => false,
+        ]);
+
+        $this->addElement([
             'factory'    => 'text',
             'name'       => 'fromAddress',
             'label'      => _text('From Address', 'admin'),
@@ -60,66 +123,6 @@ class SmtpDriverSettings extends Form
             'required'   => true,
         ]);
 
-        $this->addElement([
-            'name'       => 'host',
-            'factory'    => 'text',
-            'label'      => _text('Server Address'),
-            'attributes' => ['class' => 'form-control'],
-            'value'      => '127.0.0.1',
-            'required'   => true,
-        ]);
-
-        $this->addElement([
-            'name'       => 'port',
-            'factory'    => 'text',
-            'label'      => _text('Server Port'),
-            'value'      => '25',
-            'note'       => 'Default: 25. Also commonly on port 465 (SMTP over SSL) or port 587.',
-            'attributes' => ['class' => 'form-control'],
-            'required'   => true,
-        ]);
-        $this->addElement([
-            'name'       => 'security',
-            'factory'    => 'radio',
-            'label'      => _text('Security?'),
-            'value'      => 'none',
-            'attributes' => ['class' => 'form-control'],
-            'required'   => true,
-            'options'    => [
-                ['label' => 'None', 'value' => 'none'],
-                ['label' => 'TLS', 'value' => 'tls'],
-                ['label' => 'SSL', 'value' => 'ssl'],
-            ],
-        ]);
-        $this->addElement([
-            'name'       => 'authentication',
-            'factory'    => 'radio',
-            'label'      => _text('Authentication?'),
-            'info'       => _text('Does your SMTP Server require authentication?', 'admin'),
-            'value'      => '0',
-            'attributes' => ['class' => 'form-control'],
-            'required'   => true,
-            'options'    => [
-                ['label' => _text('No, does not authentication'), 'value' => 0,],
-                ['label' => _text('Yes, use authentication'), 'value' => 1],
-            ],
-        ]);
-        $this->addElement([
-            'name'       => 'username',
-            'factory'    => 'text',
-            'label'      => _text('SMTP Username'),
-            'value'      => '',
-            'attributes' => ['class' => 'form-control'],
-            'required'   => false,
-        ]);
-        $this->addElement([
-            'name'       => 'password',
-            'factory'    => 'password',
-            'label'      => _text('SMTP Password'),
-            'value'      => '',
-            'attributes' => ['class' => 'form-control'],
-            'required'   => false,
-        ]);
     }
 
     public function getButtons()

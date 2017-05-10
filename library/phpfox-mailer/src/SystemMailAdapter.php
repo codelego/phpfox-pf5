@@ -3,7 +3,7 @@
 namespace Phpfox\Mailer;
 
 
-class SystemMailTransport implements MailTransportInterface
+class SystemMailAdapter implements MailAdapterInterface
 {
     public function send(Message $msg)
     {
@@ -49,7 +49,7 @@ class SystemMailTransport implements MailTransportInterface
 
 
         if (!$sendResult and PHPFOX_ENV != 'production') {
-            throw new TransportException('Can not send mail using smtp '
+            throw new MailException('Can not send mail using smtp '
                 . PHP_EOL . $debugOutput);
         } elseif (!$sendResult) {
             return false;

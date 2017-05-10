@@ -57,7 +57,7 @@ class Message
      *
      * @return $this
      */
-    public function exchangeArray($data)
+    public function fromArray($data)
     {
         $keys = [
             'from',

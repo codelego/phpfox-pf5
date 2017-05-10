@@ -2,7 +2,7 @@
 
 namespace Phpfox\Mailer;
 
-class SmtpMailTransport implements MailTransportInterface
+class SmtpMailAdapter implements MailAdapterInterface
 {
     /**
      * @var \PHPMailer
@@ -12,11 +12,34 @@ class SmtpMailTransport implements MailTransportInterface
     /**
      * @var array
      */
-    private $configs = [];
+    private $params = [];
 
-    public function __construct($configs)
+    /**
+     * @var bool
+     */
+    private $debug = false;
+
+    /**
+     * @var bool
+     */
+    private $test = false;
+
+    /**
+     * SmtpMailAdapter constructor.
+     *
+     * @param array $params
+     */
+    public function __construct($params = [])
     {
-        $this->configs = $configs;
+        $this->debug = PHPFOX_ENV != 'development';
+        
+        foreach ($params as $key => $value) {
+            if (method_exists($this, $method = 'set' . ucfirst($key))) {
+                $this->{$method}($value);
+            } else {
+                $this->params[$key] = $value;
+            }
+        }
     }
 
     /**
@@ -71,18 +94,20 @@ class SmtpMailTransport implements MailTransportInterface
         $sendResult = $this->phpMailer->send();
         $debugOutput = null;
 
-        if (PHPFOX_ENV == 'development') {
+
+        if ($this->debug or $this->test) {
             $debugOutput = ob_get_clean();
         }
 
-
-        if (!$sendResult and PHPFOX_ENV != 'production') {
-            throw new TransportException('Can not send mail using smtp '
-                . PHP_EOL . $debugOutput);
-        } elseif (!$sendResult) {
+        if (!$sendResult) {
+            $msg = 'Can not send mail using smtp ' . PHP_EOL . $debugOutput;
+            if ($this->debug) {
+                throw new MailException($msg);
+            } else {
+                _service('mail.log')->error($msg);
+            }
             return false;
         }
-
         return true;
     }
 
@@ -96,19 +121,19 @@ class SmtpMailTransport implements MailTransportInterface
 
         $mail->isSMTP();
 
-        if (PHPFOX_ENV == 'development') {
+        if ($this->debug or $this->test) {
             $mail->SMTPDebug = 3;
             $mail->Debugoutput = 'echo';
         }
 
-        $mail->Host = $this->configs['host'];
-        $mail->Port = (int)$this->configs['port'];
-        $mail->SMTPSecure = $this->configs['secure'];
+        $mail->Host = $this->params['host'];
+        $mail->Port = (int)$this->params['port'];
+        $mail->SMTPSecure = $this->params['secure'];
 
-        if ($this->configs['auth']) {
+        if ($this->params['auth']) {
             $mail->SMTPAuth = true;
-            $mail->Username = $this->configs['username'];
-            $mail->Password = $this->configs['password'];
+            $mail->Username = $this->params['username'];
+            $mail->Password = $this->params['password'];
 
         }
         $this->phpMailer = $mail;
@@ -117,5 +142,37 @@ class SmtpMailTransport implements MailTransportInterface
     public function __sleep()
     {
         return ['config'];
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDebug()
+    {
+        return $this->debug;
+    }
+
+    /**
+     * @param bool $debug
+     */
+    public function setDebug($debug)
+    {
+        $this->debug = $debug;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTest()
+    {
+        return $this->test;
+    }
+
+    /**
+     * @param bool $test
+     */
+    public function setTest($test)
+    {
+        $this->test = $test;
     }
 }

@@ -3,12 +3,12 @@
 namespace Phpfox\Mailer;
 
 
-interface MailTransportFactoryInterface
+interface MailAdapterFactoryInterface
 {
     /**
      * @param mixed $id
      *
-     * @return MailTransportInterface
+     * @return MailAdapterInterface
      */
     public function factory($id);
 }

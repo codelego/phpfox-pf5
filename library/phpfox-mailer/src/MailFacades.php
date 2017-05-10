@@ -71,13 +71,20 @@ class MailFacades
         ];
     }
 
+    public function test($id, $config, $to, $subject, $message)
+    {
+
+    }
+
     public function send($id, Message $message)
     {
         try {
 
-            _service('mailer.factory')->factory($id)->send($message);
+            _service('mailer.factory')
+                ->factory($id)
+                ->send($message);
 
-        } catch (TransportException $exception) {
+        } catch (MailException $exception) {
 
             _service('main.log')
                 ->info('Oops! Could not send email use transport "{0}", retry to use configured fallback!',

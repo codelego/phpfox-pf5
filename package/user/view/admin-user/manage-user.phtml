@@ -7,8 +7,8 @@
                     <label><input type="checkbox" class="moderation-check-all"/></label>
                 </th>
                 <th class="text-center">#</th>
-                <th class="w50">ID</th>
-                <th class="w50">Role</th>
+                <th class="w50 text-center">ID</th>
+                <th class="w50 text-center">Group</th>
                 <th class="sortable asc">Name</th>
                 <th class="w300">Email</th>
             </tr>
@@ -31,8 +31,8 @@
                             <li><a href=""><?= _text('Delete this user') ?></a></li>
                         </ul>
                     </td>
-                    <td><?= $item->getId(); ?></td>
-                    <td><?= $item->getRoleId(); ?></td>
+                    <td class="text-center"><?= $item->getId(); ?></td>
+                    <td class="text-center"><?= $item->getRoleId(); ?></td>
                     <td>
                         <a target="_blank" rel="nofollow" href="<?= $item->getUrl() ?>"><?= $item->getName(); ?></a>
                     </td>

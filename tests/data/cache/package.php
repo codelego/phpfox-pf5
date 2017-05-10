@@ -57,6 +57,7 @@
   array (
     'yesno' => 'Phpfox\\Form\\YesnoField',
     'select' => 'Phpfox\\Form\\SelectField',
+    'password' => 'Phpfox\\Form\\InputPasswordField',
     'color_picker' => 'Phpfox\\Form\\ColorPicker',
     'editor' => 'Phpfox\\Form\\TextareaField',
     'choice' => 'Phpfox\\Form\\ChoiceField',
@@ -75,6 +76,7 @@
   'form_renders' => 
   array (
     'input' => 'Phpfox\\Form\\InputRender',
+    'password' => 'Phpfox\\Form\\PasswordRender',
     'hidden' => 'Phpfox\\Form\\InputHiddenRender',
     'form_bootstrap' => 'Phpfox\\Form\\FormRenderBootstrap',
     'form_panel' => 'Phpfox\\Form\\FormRenderPanel',
@@ -133,10 +135,10 @@
     'files' => 'Phpfox\\Logger\\FilesLogger',
     'db' => 'Phpfox\\Logger\\DbLogger',
   ),
-  'mailer.transports' => 
+  'mail.drivers' => 
   array (
-    'smtp' => 'Phpfox\\Mailer\\SmtpMailTransport',
-    'system' => 'Phpfox\\Mailer\\SystemMailTransport',
+    'smtp' => 'Phpfox\\Mailer\\SmtpMailAdapter',
+    'system' => 'Phpfox\\Mailer\\SystemMailAdapter',
   ),
   'navigation.decorators' => 
   array (
@@ -144,6 +146,10 @@
     'nav' => 'Phpfox\\Navigation\\NavDecorator',
     'aside' => 'Phpfox\\Navigation\\AsideDecorator',
     'toolbar' => 'Phpfox\\Navigation\\ToolbarDecorator',
+  ),
+  'pagination.decorators' => 
+  array (
+    'default' => 'Phpfox\\Paging\\SlidingDecorator',
   ),
   'services' => 
   array (
@@ -405,7 +411,7 @@
     'mailer.factory' => 
     array (
       0 => NULL,
-      1 => 'Neutron\\Core\\Service\\MailTransportFactory',
+      1 => 'Neutron\\Core\\Service\\MailAdapterFactory',
     ),
     'models' => 
     array (
@@ -416,31 +422,6 @@
     array (
       0 => NULL,
       1 => 'Phpfox\\Navigation\\NavigationManager',
-    ),
-    'menu.main.primary' => 
-    array (
-      0 => 'Phpfox\\Navigation\\NavigationFactory',
-      1 => 'main',
-    ),
-    'menu.main.secondary' => 
-    array (
-      0 => 'Phpfox\\Navigation\\NavigationFactory',
-      1 => NULL,
-    ),
-    'menu.main.mini' => 
-    array (
-      0 => 'Phpfox\\Navigation\\NavigationFactory',
-      1 => 'main.mini',
-    ),
-    'menu.admin.primary' => 
-    array (
-      0 => 'Phpfox\\Navigation\\NavigationFactory',
-      1 => 'admin',
-    ),
-    'menu.admin.secondary' => 
-    array (
-      0 => 'Phpfox\\Navigation\\NavigationFactory',
-      1 => NULL,
     ),
     'package' => 'Phpfox\\Package\\PackageManager',
     'package.loader' => 
@@ -462,6 +443,11 @@
     array (
       0 => NULL,
       1 => 'Phpfox\\Package\\RouterProvider',
+    ),
+    'pagination' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Paging\\Pagination',
     ),
     'router' => 
     array (
@@ -527,15 +513,10 @@
       0 => NULL,
       1 => 'Neutron\\Core\\Service\\NavigationLoader',
     ),
-    'core.i18n' =>
-    array (
-        0 => NULL,
-        1 => 'Neutron\\Core\\Service\\I18nManager',
-    ),
-    'core.timezone' => 
+    'core.i18n' => 
     array (
       0 => NULL,
-      1 => 'Neutron\\Core\\Service\\Timezones',
+      1 => 'Neutron\\Core\\Service\\I18nManager',
     ),
     'core.packages' => 
     array (
@@ -544,8 +525,8 @@
     ),
     'core.themes' => 
     array (
-        0 => NULL,
-        1 => 'Neutron\\Core\\Service\\LayoutThemes',
+      0 => NULL,
+      1 => 'Neutron\\Core\\Service\\LayoutThemes',
     ),
     'core.mails' => 
     array (
@@ -554,13 +535,48 @@
     ),
     'core.roles' => 
     array (
-        0 => NULL,
-        1 => 'Neutron\\Core\\Service\\AclManager',
+      0 => NULL,
+      1 => 'Neutron\\Core\\Service\\AclManager',
+    ),
+    'core.storage' => 
+    array (
+      0 => NULL,
+      1 => 'Neutron\\Core\\Service\\StorageManager',
     ),
     'layout_loader' => 
     array (
       0 => NULL,
       1 => 'Neutron\\Core\\Service\\LayoutManager',
+    ),
+    'menu.main.primary' => 
+    array (
+      0 => 'Phpfox\\Navigation\\NavigationFactory',
+      1 => 'main',
+    ),
+    'menu.main.secondary' => 
+    array (
+      0 => 'Phpfox\\Navigation\\NavigationFactory',
+      1 => NULL,
+    ),
+    'menu.main.mini' => 
+    array (
+      0 => 'Phpfox\\Navigation\\NavigationFactory',
+      1 => 'main.mini',
+    ),
+    'menu.admin.primary' => 
+    array (
+      0 => 'Phpfox\\Navigation\\NavigationFactory',
+      1 => 'admin',
+    ),
+    'menu.admin.secondary' => 
+    array (
+      0 => 'Phpfox\\Navigation\\NavigationFactory',
+      1 => NULL,
+    ),
+    'menu.admin.buttons' => 
+    array (
+      0 => 'Phpfox\\Navigation\\NavigationFactory',
+      1 => NULL,
     ),
     'user.callback' => 
     array (
@@ -752,28 +768,27 @@
   array (
     'default:layout-editor/edit-container' => 'package/core/layout-editor/edit-container',
     'default:layout-editor/edit-location' => 'package/core/layout-editor/edit-location',
-    'default:core/admin/manage-i18n-message' => 'package/core/view/admin/manage-i18n-message',
-    'default:core/admin-authorization/index' => 'package/core/view/admin-authorization/index',
-    'default:core/admin-i18n/manage-currency' => 'package/core/view/admin-i18n/manage-currency',
-    'default:core/admin-i18n/manage-language' => 'package/core/view/admin-i18n/manage-language',
-    'default:core/admin-i18n/manage-timezone' => 'package/core/view/admin-i18n/manage-timezone',
+    'default:core/admin-acl/manage-acl-role' => 'package/core/view/admin-acl/manage-acl-role',
+    'default:core/admin-i18n/manage-i18n-currency' => 'package/core/view/admin-i18n/manage-i18n-currency',
+    'default:core/admin-i18n/manage-i18n-locale' => 'package/core/view/admin-i18n/manage-i18n-locale',
+    'default:core/admin-i18n/manage-i18n-message' => 'package/core/view/admin-i18n/manage-i18n-message',
+    'default:core/admin-i18n/manage-i18n-timezone' => 'package/core/view/admin-i18n/manage-i18n-timezone',
     'default:core/admin-index/index' => 'package/core/view/admin-index/index',
     'default:core/admin-layout/clone-page' => 'package/core/view/admin-layout/clone-page',
     'default:core/admin-layout/debug-theme' => 'package/core/view/admin-layout/debug-theme',
     'default:core/admin-layout/design-page' => 'package/core/view/admin-layout/design-page',
-    'default:core/admin-layout/manage-component' => 'package/core/view/admin-layout/manage-component',
-    'default:core/admin-layout/manage-page' => 'package/core/view/admin-layout/manage-page',
+    'default:core/admin-layout/manage-layout-component' => 'package/core/view/admin-layout/manage-layout-component',
+    'default:core/admin-layout/manage-layout-page' => 'package/core/view/admin-layout/manage-layout-page',
     'default:core/admin-layout/manage-theme' => 'package/core/view/admin-layout/manage-theme',
-    'default:core/admin-mail/add-transport' => 'package/core/view/admin-mail/add-transport',
-    'default:core/admin-mail/manage-adapter' => 'package/core/view/admin-mail/manage-adapter',
-    'default:core/admin-mail/menu' => 'package/core/view/admin-mail/menu',
-    'default:core/admin-mail/transports' => 'package/core/view/admin-mail/transports',
-    'default:core/admin-package/index' => 'package/core/view/admin-package/index',
+    'default:core/admin-mail/manage-mail-adapter' => 'package/core/view/admin-mail/manage-mail-adapter',
+    'default:core/admin-mail/manage-mail-driver' => 'package/core/view/admin-mail/manage-mail-driver',
+    'default:core/admin-package/manage-core-package' => 'package/core/view/admin-package/manage-core-package',
     'default:core/admin-settings/index' => 'package/core/view/admin-settings/index',
-    'default:core/admin-status/health-check' => 'package/core/view/admin-status/health-check',
-    'default:core/admin-status/overview' => 'package/core/view/admin-status/overview',
-    'default:core/admin-status/statistics' => 'package/core/view/admin-status/statistics',
-    'default:core/admin-storage/manage-storage' => 'package/core/view/admin-storage/manage-storage',
+    'default:core/admin-status/manage-health-check' => 'package/core/view/admin-status/manage-health-check',
+    'default:core/admin-status/manage-overview' => 'package/core/view/admin-status/manage-overview',
+    'default:core/admin-status/manage-statistics' => 'package/core/view/admin-status/manage-statistics',
+    'default:core/admin-storage/manage-storage-adapter' => 'package/core/view/admin-storage/manage-storage-adapter',
+    'default:core/admin-storage/manage-storage-driver' => 'package/core/view/admin-storage/manage-storage-driver',
     'default:core/block/admin-information' => 'package/core/view/block/admin-information',
     'default:core/block/admin-update' => 'package/core/view/block/admin-update',
     'default:core/error/404' => 'package/core/view/error/404',
@@ -798,15 +813,17 @@
     'admin:layout/form-edit' => 'package/core/layout/admin/form-edit',
     'admin:layout/form-filter' => 'package/core/layout/admin/form-filter',
     'admin:layout/login' => 'package/core/layout/admin/login',
-    'default:user/admin-manage/index' => 'package/user/view/admin-manage/index',
+    'admin:layout/pagination-sliding' => 'package/core/layout/admin/pagination-sliding',
+    'default:user/admin-user/manage-user' => 'package/user/view/admin-user/manage-user',
     'default:user/auth/login' => 'package/user/view/auth/login',
     'default:user/auth/logout' => 'package/user/view/auth/logout',
     'default:user/profile/index' => 'package/user/view/profile/index',
     'default:user/register/index' => 'package/user/view/register/index',
     'default:user/settings/index' => 'package/user/view/settings/index',
     'default:user/settings/login-history' => 'package/user/view/settings/login-history',
-    'default:blog/admin-category/index' => 'package/blog/view/admin-category/index',
+    'default:blog/admin-category/manage-blog-category' => 'package/blog/view/admin-category/manage-blog-category',
     'default:blog/admin-category/menu' => 'package/blog/view/admin-category/menu',
+    'default:blog/admin-post/manage-blog-post' => 'package/blog/view/admin-post/manage-blog-post',
     'default:blog/block/category' => 'package/blog/view/block/category',
     'default:blog/index/index' => 'package/blog/view/index/index',
     'default:blog/post/view' => 'package/blog/view/post/view',
@@ -815,7 +832,8 @@
     'default:video/partial/embed' => 'package/video/view/partial/embed',
     'default:contact/admin/manage-department' => 'package/contact/view/admin/manage-department',
     'default:contact/index/index' => 'package/contact/view/index/index',
-    'default:report/admin/manage-category' => 'package/report/view/admin/manage-category',
+    'default:report/admin-category/manage-report-category' => 'package/report/view/admin-category/manage-report-category',
+    'default:report/admin-item/manage-report-item' => 'package/report/view/admin-item/manage-report-item',
   ),
   'auth.passwords' => 
   array (
@@ -853,7 +871,7 @@
     'google_analytic_enable' => '0',
     'facebook_app_name' => '',
   ),
-  'core' =>
+  'core_site' => 
   array (
     'full_ajax_mode' => '0',
     '2_step_verify' => 'Social Network',
@@ -864,6 +882,7 @@
     'allow_html' => '0',
     'allow_html_tags' => '<p><br><br /><strong><em><u><ul><li><font><ol><img><div><span><blockquote><strike><sub><sup><h1><h2><h3><h4><h5><h6><a><b><i><hr><tt><s><center><big><abbr><pre><small><object><embed><param><code>',
     'secure_image_enable' => '0',
+    'storage_id' => '1',
   ),
   'core_offline' => 
   array (
@@ -898,5 +917,28 @@
   array (
     'enable' => '1',
     'tags' => '<p><br><br /><strong><em><u><ul><li><font><ol><img><div><span><blockquote><strike><sub><sup><h1><h2><h3><h4><h5><h6><a><b><i><hr><tt><s><center><big><abbr><pre><small><object><embed><param><code>',
+  ),
+  'core_mail' => 
+  array (
+    'adapter_id' => '2',
+    'queue_enable' => '0',
+    'queue_limit' => '20',
+  ),
+  'test_mail' => 
+  array (
+    'to' => '',
+    'message' => 'Dear , 
+            
+This is test email
+ 
+ 
+- send at',
+    'subject' => 'This is test email',
+  ),
+  'core_i18n' => 
+  array (
+    'locale_id' => 'vi',
+    'timezone_id' => 'UTC+0',
+    'currency_id' => 'USD',
   ),
 );

@@ -27,7 +27,7 @@
                         <?= _yesno($item->isActive(), true, true) ?>
                     </td>
                     <td>
-                        <?= _yesno($item->getId() == _param('core','currency_id'), true, false) ?>
+                        <?= _yesno($item->getId() == _param('core_i18n','currency_id'), true, false) ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

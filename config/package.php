@@ -121,6 +121,14 @@
         'filename' => 'main.log',
       ),
     ),
+    'mail.log' => 
+    array (
+      0 => 
+      array (
+        'driver' => 'files',
+        'filename' => 'mail.log',
+      ),
+    ),
     'debug.log' => 
     array (
       0 => 
@@ -135,10 +143,10 @@
     'files' => 'Phpfox\\Logger\\FilesLogger',
     'db' => 'Phpfox\\Logger\\DbLogger',
   ),
-  'mailer.transports' => 
+  'mail.drivers' => 
   array (
-    'smtp' => 'Phpfox\\Mailer\\SmtpMailTransport',
-    'system' => 'Phpfox\\Mailer\\SystemMailTransport',
+    'smtp' => 'Phpfox\\Mailer\\SmtpMailAdapter',
+    'system' => 'Phpfox\\Mailer\\SystemMailAdapter',
   ),
   'navigation.decorators' => 
   array (
@@ -387,6 +395,12 @@
       0 => 'Phpfox\\Logger\\LogContainerFactory',
       1 => NULL,
       2 => 'main.log',
+    ),
+    'mail.log' => 
+    array (
+      0 => 'Phpfox\\Logger\\LogContainerFactory',
+      1 => NULL,
+      2 => 'mail.log',
     ),
     'debug.log' => 
     array (

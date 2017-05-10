@@ -65,7 +65,7 @@ class CoreSettings extends Form
 
         $this->addElement([
             'factory'    => 'select',
-            'name'       => 'core__timezone_id',
+            'name'       => 'core_i18n__timezone_id',
             'value'      => 'Europe/London',
             'options'    => _service('core.i18n')->getTimezoneIdOptions(),
             'label'      => _text('Default Timezone', 'admin'),
@@ -76,7 +76,7 @@ class CoreSettings extends Form
 
         $this->addElement([
             'factory'    => 'select',
-            'name'       => 'core__locale_id',
+            'name'       => 'core_i18n__locale_id',
             'value'      => 'en',
             'options'    => _service('core.i18n')->getLocaleIdOptions(),
             'label'      => _text('Default Locale', 'admin'),
@@ -87,7 +87,7 @@ class CoreSettings extends Form
 
         $this->addElement([
             'factory'    => 'select',
-            'name'       => 'core__currency_id',
+            'name'       => 'core_i18n__currency_id',
             'value'      => 'USD',
             'options'    => _service('core.i18n')->getCurrencyIdOptions(),
             'label'      => _text('Default Currency', 'admin'),

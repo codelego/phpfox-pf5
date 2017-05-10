@@ -8,10 +8,10 @@ class SystemMailTransportTest extends \PHPUnit_Framework_TestCase
 
     public function testSendMail()
     {
-        $transport = new SystemMailTransport();
+        $transport = new SystemMailAdapter();
 
         $msg = new Message();
-        $msg->exchangeArray([
+        $msg->fromArray([
             'from'    => ['nam.ngvan@gmail.com', 'nam nguyen'],
             'subject' => 'test subject',
             'body'    => 'test body',

@@ -44,7 +44,7 @@ return [
     ],
     'services'        => [
         'i18n.loader'            => [null, Service\I18nMessageLoader::class],
-        'mailer.factory'         => [null, Service\MailTransportFactory::class],
+        'mailer.factory'         => [null, Service\MailAdapterFactory::class],
         'storage.factory'        => [null, Service\FileStorageFactory::class],
         'session.save_handler'   => [Service\SessionFactory::class,],
         'mvc.events.loader'      => [null, Service\EventLoader::class],

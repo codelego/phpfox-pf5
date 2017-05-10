@@ -3,7 +3,7 @@
 namespace Phpfox\Mailer;
 
 
-interface MailTransportInterface
+interface MailAdapterInterface
 {
     /**
      * @param Message $msg
