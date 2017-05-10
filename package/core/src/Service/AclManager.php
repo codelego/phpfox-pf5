@@ -5,7 +5,7 @@ namespace Neutron\Core\Service;
 
 use Neutron\Core\Model\AclRole;
 
-class Roles
+class AclManager
 {
     /**
      * @param int $id

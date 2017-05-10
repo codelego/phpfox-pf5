@@ -7,7 +7,7 @@ use Neutron\Core\Model\LayoutThemeParams;
 use Phpfox\Assets\StylesheetCompiler;
 use Phpfox\Model\ModelInterface;
 
-class ThemeManager
+class LayoutThemes
 {
 
     /**

@@ -20,8 +20,8 @@ class EditAclRole extends Form{
         $this->addElement(array (
           'name' => 'inherit_id',
           'factory' => 'text',
-          'label' => _text('Inherit',null),
-          'note' => _text('[Inherit Note]', null),
+          'label' => _text('Inherit Id',null),
+          'note' => _text('[Inherit Id Note]', null),
           'value' => '0',
           'attributes' => 
           array (
@@ -137,14 +137,14 @@ class EditAclRole extends Form{
         return [
             new ButtonField([
                 'name'       => 'save',
-                'label'      => _text('Submit'),
+                'label'      => _text('Save Changes'),
                 'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
             ]),
             new ButtonField([
                 'name'       => 'cancel',
                 'href'       => '#',
                 'label'      => _text('Cancel'),
-                'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd'=>'form.cancel'],
+                'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
             ]),
         ];
         /** end buttons **/

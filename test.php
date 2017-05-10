@@ -7,9 +7,4 @@ date_default_timezone_set('Australia/Adelaide');
 
 include __DIR__ . '/config/bootstrap.php';
 
-echo json_encode(["val"=>"Dear , 
-            
-This is test email
- 
- 
-- send at"]);
+_dump(intval('128Kb') > intval('64M'));

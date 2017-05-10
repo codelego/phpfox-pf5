@@ -20,8 +20,8 @@ class AddAclRole extends Form{
         $this->addElement(array (
           'name' => 'inherit_id',
           'factory' => 'text',
-          'label' => _text('Inherit',null),
-          'note' => _text('[Inherit Note]', null),
+          'label' => _text('Inherit Id',null),
+          'note' => _text('[Inherit Id Note]', null),
           'value' => '0',
           'attributes' => 
           array (

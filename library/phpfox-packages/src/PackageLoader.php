@@ -115,7 +115,6 @@ class PackageLoader implements PackageLoaderInterface
         $rows = _service('db')
             ->select('*')
             ->from(':site_setting_value')
-            ->order('priority', 1)
             ->all();
 
 

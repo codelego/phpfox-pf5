@@ -42,7 +42,7 @@ class FilterI18nMessage extends Form{
             'name' => 'locale_id',
             'factory' => 'select',
             'label' => _text('Locale',null),
-            'options' => _service('core.locale')->getLocaleIdOptions(),
+            'options' => _service('core.i18n')->getLocaleIdOptions(),
             'attributes' =>
           array (
             'maxlength' => 255,

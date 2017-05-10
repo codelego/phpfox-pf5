@@ -22,7 +22,7 @@ class EditMailTemplate extends Form{
             'factory' => 'select',
             'label' => _text('Language Id','admin.core_mail'),
             'note' => _text('[Language Id Note]', 'admin.core_mail'),
-            'options' => _service('core.locale')->getLocaleIdOptions(),
+            'options' => _service('core.i18n')->getLocaleIdOptions(),
             'attributes' =>
           array (
             'maxlength' => 255,

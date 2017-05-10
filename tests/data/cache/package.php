@@ -527,10 +527,10 @@
       0 => NULL,
       1 => 'Neutron\\Core\\Service\\NavigationLoader',
     ),
-    'core.locale' =>
+    'core.i18n' =>
     array (
         0 => NULL,
-        1 => 'Neutron\\Core\\Service\\Locales',
+        1 => 'Neutron\\Core\\Service\\I18nManager',
     ),
     'core.timezone' => 
     array (
@@ -544,8 +544,8 @@
     ),
     'core.themes' => 
     array (
-      0 => NULL,
-      1 => 'Neutron\\Core\\Service\\ThemeManager',
+        0 => NULL,
+        1 => 'Neutron\\Core\\Service\\LayoutThemes',
     ),
     'core.mails' => 
     array (
@@ -554,8 +554,8 @@
     ),
     'core.roles' => 
     array (
-      0 => NULL,
-      1 => 'Neutron\\Core\\Service\\Roles',
+        0 => NULL,
+        1 => 'Neutron\\Core\\Service\\AclManager',
     ),
     'layout_loader' => 
     array (

@@ -1,27 +1,41 @@
 <?php
-namespace Neutron\Core\Form\Admin\I18nLocale;
+namespace Neutron\Core\Form\Admin\SiteSettingGroup;
 
 use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
-class EditI18nLocale extends Form{
+class AddSiteSettingGroup extends Form{
 
     public function initialize(){
 
-        $this->setTitle(_text('Edit Locale',''));
-        $this->setInfo(_text('[Edit Locale Info]',''));
+        $this->setTitle(_text('Add Site Setting Group',''));
+        $this->setInfo(_text('[Add Site Setting Group Info]',''));
         $this->setAction(_url('#'));
         
         /** start elements **/
 
         
-        // element `locale_id`
+        // element `group_id`
         $this->addElement(array (
-          'name' => 'locale_id',
+          'name' => 'group_id',
+          'factory' => 'text',
+          'label' => _text('Group Id',null),
+          'note' => _text('[Group Id Note]', null),
+          'attributes' => 
+          array (
+            'maxlength' => 255,
+            'class' => 'form-control',
+          ),
+          'required' => true,
+        ));
+        
+        // element `package_id`
+        $this->addElement(array (
+          'name' => 'package_id',
           'factory' => 'select',
-          'label' => _text('Locale Id',null),
-          'note' => _text('[Locale Id Note]', null),
-          'options' => _service('core.i18n')->getLocaleIdOptions(),
+          'label' => _text('Package Id',null),
+          'note' => _text('[Package Id Note]', null),
+          'options' => _service('core.packages')->getPackageIdOptions(),
           'attributes' => 
           array (
             'maxlength' => 255,
@@ -30,12 +44,12 @@ class EditI18nLocale extends Form{
           'required' => true,
         ));
         
-        // element `name`
+        // element `title`
         $this->addElement(array (
-          'name' => 'name',
+          'name' => 'title',
           'factory' => 'text',
-          'label' => _text('Name',null),
-          'note' => _text('[Name Note]', null),
+          'label' => _text('Title',null),
+          'note' => _text('[Title Note]', null),
           'attributes' => 
           array (
             'maxlength' => 255,
@@ -44,26 +58,12 @@ class EditI18nLocale extends Form{
           'required' => true,
         ));
         
-        // element `native_name`
+        // element `form_name`
         $this->addElement(array (
-          'name' => 'native_name',
+          'name' => 'form_name',
           'factory' => 'text',
-          'label' => _text('Native Name',null),
-          'note' => _text('[Native Name Note]', null),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
-          'required' => false,
-        ));
-        
-        // element `code_6391`
-        $this->addElement(array (
-          'name' => 'code_6391',
-          'factory' => 'text',
-          'label' => _text('Code 6391',null),
-          'note' => _text('[Code 6391 Note]', null),
+          'label' => _text('Form Name',null),
+          'note' => _text('[Form Name Note]', null),
           'attributes' => 
           array (
             'maxlength' => 255,
@@ -72,14 +72,27 @@ class EditI18nLocale extends Form{
           'required' => true,
         ));
         
-        // element `direction_id`
+        // element `description`
         $this->addElement(array (
-          'name' => 'direction_id',
-          'factory' => 'select',
-          'label' => _text('Direction Id',null),
-          'note' => _text('[Direction Id Note]', null),
-          'value' => 'ltr',
-          'options' => _service('core.i18n')->getDirectionIdOptions(),
+          'name' => 'description',
+          'factory' => 'textarea',
+          'label' => _text('Description',null),
+          'note' => _text('[Description Note]', null),
+          'attributes' => 
+          array (
+            'maxlength' => 255,
+            'class' => 'form-control',
+          ),
+          'required' => true,
+        ));
+        
+        // element `sort_order`
+        $this->addElement(array (
+          'name' => 'sort_order',
+          'factory' => 'text',
+          'label' => _text('Sort Order',null),
+          'note' => _text('[Sort Order Note]', null),
+          'value' => '1',
           'attributes' => 
           array (
             'maxlength' => 255,
@@ -109,14 +122,14 @@ class EditI18nLocale extends Form{
         return [
             new ButtonField([
                 'name'       => 'save',
-                'label'      => _text('Save Changes'),
+                'label'      => _text('Submit'),
                 'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
             ]),
             new ButtonField([
                 'name'       => 'cancel',
                 'href'       => '#',
                 'label'      => _text('Cancel'),
-                'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
+                'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd'=>'form.cancel'],
             ]),
         ];
         /** end buttons **/
