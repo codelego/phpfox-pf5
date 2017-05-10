@@ -22,7 +22,7 @@ class AddMailTemplate extends Form{
             'factory' => 'select',
             'label' => _text('Language Id','admin.core_mail'),
             'note' => _text('[Language Id Note]', 'admin.core_mail'),
-            'options' => _service('core.language')->getLocaleIdOptions(),
+            'options' => _service('core.locale')->getLocaleIdOptions(),
             'attributes' =>
           array (
             'maxlength' => 255,

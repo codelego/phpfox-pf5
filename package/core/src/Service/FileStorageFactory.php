@@ -61,7 +61,7 @@ class FileStorageFactory implements FileStorageFactoryInterface
             ->where('is_active=1')
             ->all();
 
-        $this->default = _param('core_site', 'storage_id');
+        $this->default = _param('core', 'storage_id');
 
         if (!$this->default) {
             $this->default = 1;

@@ -28,7 +28,7 @@ class FilterI18nLocale extends Form{
           'name' => 'locale_id',
           'factory' => 'select',
           'label' => _text('Locale',null),
-          'options' => _service('core.language')->getLocaleIdOptions(),
+          'options' => _service('core.locale')->getLocaleIdOptions(),
           'attributes' => 
           array (
             'maxlength' => 255,
@@ -77,7 +77,7 @@ class FilterI18nLocale extends Form{
           'name' => 'direction_id',
           'factory' => 'select',
           'label' => _text('Direction',null),
-          'options' => _service('core.language')->getDirectionIdOptions(),
+          'options' => _service('core.locale')->getDirectionIdOptions(),
           'attributes' => 
           array (
             'maxlength' => 255,

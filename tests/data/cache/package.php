@@ -527,7 +527,7 @@
       0 => NULL,
       1 => 'Neutron\\Core\\Service\\NavigationLoader',
     ),
-    'core.language' => 
+    'core.locale' =>
     array (
         0 => NULL,
         1 => 'Neutron\\Core\\Service\\Locales',
@@ -853,7 +853,7 @@
     'google_analytic_enable' => '0',
     'facebook_app_name' => '',
   ),
-  'core_site' => 
+  'core' =>
   array (
     'full_ajax_mode' => '0',
     '2_step_verify' => 'Social Network',

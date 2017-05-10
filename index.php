@@ -1,7 +1,7 @@
 <?php
 
 define('PHPFOX_NO_CACHE', 1);
-define('PHPFOX_IS_DEV', true);
+define('PHPFOX_IS_DEV', false);
 
 date_default_timezone_set('Australia/Adelaide');
 

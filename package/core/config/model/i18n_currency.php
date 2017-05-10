@@ -1,0 +1,1 @@
+<?php return array(0=>NULL,1=>array('currency_id'=>1,),2=>'currency_id',3=>array('currency_id'=>1,'symbol'=>1,'name'=>1,'sort_order'=>1,'is_active'=>1,),4=>array(),);

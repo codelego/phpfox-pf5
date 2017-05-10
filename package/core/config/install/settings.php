@@ -3,7 +3,7 @@
 namespace Neutron\Core;
 
 return [
-    'core_site' => [
+    'core' => [
         'settings' => [
 
         ],

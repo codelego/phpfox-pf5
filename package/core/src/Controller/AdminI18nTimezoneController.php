@@ -36,6 +36,7 @@ class AdminI18nTimezoneController extends AdminController
     public function actionIndex()
     {
         return (new AdminManageEntryProcess([
+            'noLimit'  => true,
             'model'    => I18nTimezone::class,
             'template' => 'core/admin-i18n/manage-i18n-timezone',
         ]))->process();

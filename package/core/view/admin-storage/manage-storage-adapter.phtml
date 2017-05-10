@@ -3,7 +3,7 @@
         <table class="table table-admin">
             <thead>
             <tr>
-                <th class="text-center w40">#</th>
+                <th class="text-center w40 dev-only">#</th>
                 <th class="w40">ID</th>
                 <th>Title</th>
                 <th class="w100">Driver</th>
@@ -15,7 +15,7 @@
             <tbody>
             <?php foreach ($items as $item): ?>
                 <tr>
-                    <td class="dropdown" data-cmd="dropdown">
+                    <td class="dropdown dev-only" data-cmd="dropdown">
                         <ul>
 
                             <li><a href="<?= _url('admin.core.storage.adapter',
@@ -42,7 +42,7 @@
                     <td><?= $item->getAdapterName() ?></td>
                     <td><?= $item->getDriverId() ?></td>
                     <td><?= _yesno($item->isActive()) ?></td>
-                    <td><?= _yesno($item->getId() == _param('core_site', 'storage_id'), true, false) ?></td>
+                    <td><?= _yesno($item->getId() == _param('core', 'storage_id'), true, false) ?></td>
                     <td><?= _yesno($item->isRequired(), true, false) ?></td>
                 </tr>
             <?php endforeach; ?>

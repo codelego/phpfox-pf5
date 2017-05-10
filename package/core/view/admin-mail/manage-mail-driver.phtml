@@ -3,7 +3,7 @@
         <table class="table table-admin">
             <thead>
             <tr>
-                <th class="text-center w40">#</th>
+                <th class="text-center w40 dev-only">#</th>
                 <th class="w100">Driver Id</th>
                 <th class="w200">Name</th>
                 <th class="">Description</th>
@@ -12,24 +12,23 @@
             <tbody>
             <?php foreach ($items as $item): ?>
                 <tr>
-                    <td class="dropdown" data-cmd="dropdown">
-
+                    <td class="dropdown dev-only" data-cmd="dropdown">
                         <ul role="menu">
-
                             <li role="menuitem"><a href="<?= _url('admin.core.mail.driver',
                                     ['action' => 'edit', 'driver_id' => $item->getId()]) ?>">
                                     <?= _text('Edit') ?>
-                                </a></li>
-                            <li role="menuitem">
-                                <a href="<?= _url('admin.core.mail.adapter',
-                                    ['action' => 'config', 'driver_id' => $item->getId()]) ?>">
-                                    <?= _text('Add New Adapter', 'admin.core_mail') ?>
                                 </a></li>
                         </ul>
                     </td>
                     <td><?= $item->getId() ?></td>
                     <td><?= $item->getDriverName() ?></td>
                     <td><?= $item->getDescription() ?></td>
+                    <td>
+                        <a role="button" class="btn btn-xs btn-link" href="<?= _url('admin.core.mail.adapter',
+                            ['action' => 'config', 'driver_id' => $item->getId()]) ?>">
+                            <i class="fa fa-plus"></i> <?= _text('Add Adapter', 'admin.core_mail') ?>
+                        </a>
+                    </td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

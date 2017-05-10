@@ -38,7 +38,7 @@ class AddI18nMessage extends Form{
             'factory' => 'select',
             'label' => _text('Locale Id',null),
             'note' => _text('[Locale Id Note]', null),
-            'options' => _service('core.language')->getLocaleIdOptions(),
+            'options' => _service('core.locale')->getLocaleIdOptions(),
             'attributes' =>
           array (
             'maxlength' => 255,

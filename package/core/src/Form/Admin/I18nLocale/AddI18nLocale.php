@@ -21,7 +21,7 @@ class AddI18nLocale extends Form{
           'factory' => 'select',
           'label' => _text('Locale Id',null),
           'note' => _text('[Locale Id Note]', null),
-          'options' => _service('core.language')->getLocaleIdOptions(),
+          'options' => _service('core.locale')->getLocaleIdOptions(),
           'attributes' => 
           array (
             'maxlength' => 255,
@@ -79,7 +79,7 @@ class AddI18nLocale extends Form{
           'label' => _text('Direction Id',null),
           'note' => _text('[Direction Id Note]', null),
           'value' => 'ltr',
-          'options' => _service('core.language')->getDirectionIdOptions(),
+          'options' => _service('core.locale')->getDirectionIdOptions(),
           'attributes' => 
           array (
             'maxlength' => 255,

@@ -45,9 +45,9 @@ class EventListener implements EventListenerInterface
             ],
             [
                 'label'  => 'Memory Limit',
-                'value'  => _yesno(ini_get('memory_limit') >= '64M', true, true),
+                'value'  => ini_get('memory_limit'),
                 'status' => $value ? '' : 'error',
-                'note'   => ini_get('memory_limit'),
+                'note'   => 'require 64MB+',
             ],
             [
                 'label'  => 'Disable magic_gpc_quotes',
@@ -69,8 +69,8 @@ class EventListener implements EventListenerInterface
             ],
             [
                 'label'  => 'Support XML extension',
-                'value'  => _yesno(($value = extension_loaded('libxml')) == false, true, true),
-                'status' => $value ? 'error' : '',
+                'value'  => _yesno($value = extension_loaded('libxml'), true, true),
+                'status' => !$value ? 'error' : '',
                 'note'   => '',
             ],
             [

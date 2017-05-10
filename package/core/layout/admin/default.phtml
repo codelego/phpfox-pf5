@@ -3,7 +3,7 @@
 <head>
     <?= _service('assets')->getStartHtml() ?>
 </head>
-<body class="">
+<body class="<?= PHPFOX_IS_DEV ? 'is_dev': '' ?>">
 <header>
 
     <?php $login = _service('auth')->getLogin(); ?>

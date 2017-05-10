@@ -1,4 +1,12 @@
 @charset "UTF-8";
+.dev-only {
+  display: none; }
+
+.is_dev .dev-only {
+  display: block; }
+.is_dev th.dev-only, .is_dev td.dev-only {
+  display: table-cell; }
+
 .container {
   width: auto; }
 

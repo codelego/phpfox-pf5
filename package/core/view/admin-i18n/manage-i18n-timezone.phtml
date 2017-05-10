@@ -25,7 +25,10 @@
                     <td><?= $item->getTimezoneLocation() ?></td>
                     <td><?= $item->getTimezoneOffset() ?></td>
                     <td>
-                        <?= _yesno($item->isActive(), true, true) ?>
+                        <?= _yesno($item->isActive(), false, true) ?>
+                    </td>
+                    <td>
+                        <?= _yesno($item->getId() == _param('core','timezone_id'), true, false) ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
