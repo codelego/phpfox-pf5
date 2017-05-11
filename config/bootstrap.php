@@ -37,17 +37,6 @@ $autoloader->addClassMap([
     'Phpfox' => __DIR__ . '/../library/phpfox-support/src/Phpfox.php',
 ]);
 
-//if (PHP_SAPI == "cli") {
-//    $whoops = new \Whoops\Run;
-//    $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler());
-//    $whoops->register();
-//} else {
-//    $whoops = new \Whoops\Run;
-//    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-//    $whoops->register();
-//}
-
-
 if (!$shouldGenerate) {
     _autoload_psr4($autoloader, include $cacheFiles['autoload']);
 

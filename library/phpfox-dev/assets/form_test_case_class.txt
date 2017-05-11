@@ -10,24 +10,4 @@ class {form_name}Test extends \PHPUnit_Framework_TestCase
         $form = new {form_name}();
         {test_has_element_assertions}
     }
-
-    public function getButtons()
-    {
-        return [
-            new ButtonField([
-                'type'       => 'submit',
-                'name'       => 'save',
-                'label'      => _text('Save Changes'),
-                'attributes' => ['class' => 'btn btn-primary'],
-            ]),
-            new ButtonField([
-                'type'       => 'submit',
-                'name'       => 'cancel',
-                'href'       => '#',
-                'data-cmd'   => 'form.cancel',
-                'label'      => _text('Cancel'),
-                'attributes' => ['class' => 'btn link'],
-            ]),
-        ];
-    }
 }

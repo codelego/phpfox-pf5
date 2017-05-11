@@ -23,8 +23,9 @@ class MultiCheckboxRender implements RenderInterface
                 ? '<p class="help-block">' . $option['note'] . '</p>' : '';
 
             if ($isInline) {
-                return _sprintf('<label class="checkbox-inline"><input {checked} type="checkbox" name="{name}[]" value="{value}" />{label}</label>{help}',
+                return _sprintf('<label class="checkbox-inline"><input {checked} {disabled} type="checkbox" name="{name}[]" value="{value}" />{label}</label>{help}',
                     [
+                        'disabled'=> isset($option['disabled'])?'disabled':'',
                         'name'    => $name,
                         'label'   => $option['label'],
                         'value'   => $option['value'],
@@ -33,8 +34,9 @@ class MultiCheckboxRender implements RenderInterface
                     ]);
             }
 
-            return _sprintf('<div class="checkbox"><label><input {checked} type="checkbox" name="{name}[]" value="{value}" />{label}</label>{help}</div>',
+            return _sprintf('<div class="checkbox"><label><input {checked} {disabled} type="checkbox" name="{name}[]" value="{value}" />{label}</label>{help}</div>',
                 [
+                    'disabled'=> isset($option['disabled'])?'disabled':'',
                     'name'    => $name,
                     'label'   => $option['label'],
                     'value'   => $option['value'],

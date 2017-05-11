@@ -31,9 +31,7 @@ class MailFacades
             if (is_string($v)) {
                 $replace['{' . $k . '}'] = $v;
             }
-
         }
-
 
         $text = strtr($info['body_text'], $replace);
         $html = strtr($info['body_html'], $replace);
@@ -71,9 +69,28 @@ class MailFacades
         ];
     }
 
-    public function test($id, $config, $to, $subject, $message)
+    /**
+     * @param string $driver options system, smtp
+     * @param array  $params array
+     * @param array  $testEmail
+     *
+     * @return array  [result, message]
+     */
+    public function test($driver, $params, $testEmail)
     {
+        try {
+            $class = _param('mail.drivers', $driver);
 
+            /** @var AdapterInterface $adapter */
+            $adapter = new $class($params);
+
+            $result = $adapter->send(new Message($testEmail));
+
+            return [$result, null];
+
+        } catch (\Exception $ex) {
+            return [false, $ex->getMessage()];
+        }
     }
 
     public function send($id, Message $message)

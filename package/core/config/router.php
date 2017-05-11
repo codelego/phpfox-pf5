@@ -24,8 +24,9 @@ return [
             'controller' => 'core.admin-storage-adapter',
             'action'     => 'index',
             'children'   => [
-                'driver'  => ['route' => 'driver(/<action>)', 'controller' => 'core.admin-storage-driver'],
-                'adapter' => ['route' => 'adapter(/<action>)'],
+                'driver'   => ['route' => 'driver(/<action>)', 'controller' => 'core.admin-storage-driver'],
+                'settings' => ['route' => 'settings(/<action>)', 'controller' => 'core.admin-storage-settings'],
+                'adapter'  => ['route' => 'adapter(/<action>)'],
             ],
         ],
         'admin.core.package'  => [
@@ -70,9 +71,13 @@ return [
             'controller' => 'core.admin-i18n-message',
             'action'     => 'index',
             'children'   => [
-                'locale' => [
+                'locale'   => [
                     'route'      => 'locale(/<action>)',
                     'controller' => 'core.admin-i18n-locale',
+                ],
+                'settings' => [
+                    'route'      => 'settings(/<action>)',
+                    'controller' => 'core.admin-i18n-settings',
                 ],
                 'timezone' => [
                     'route'      => 'timezone(/<action>)',
@@ -108,6 +113,16 @@ return [
                 ],
                 'adapter'  => ['route' => 'adapter(/<action>)'],
             ],
+        ],
+        'admin.core.cache'    => [
+            'route'      => 'core/cache(/<action>)',
+            'controller' => 'core.admin-cache',
+            'action'     => 'index',
+        ],
+        'admin.core.log'      => [
+            'route'      => 'core/log(/<action>)',
+            'controller' => 'core.admin-log',
+            'action'     => 'index',
         ],
         'admin.core.status'   => [
             'route'      => 'core/status/*',

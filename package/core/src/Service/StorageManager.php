@@ -2,10 +2,28 @@
 
 namespace Neutron\Core\Service;
 
+use Neutron\Core\Model\StorageAdapter;
 use Neutron\Core\Model\StorageDriver;
 
 class StorageManager
 {
+    /**
+     * @return array
+     */
+    public function getAdapterIdOptions()
+    {
+        $select = _model('storage_adapter')->select()
+            ->where('is_active=?', 1);
+
+        return array_map(function (StorageAdapter $adapter) {
+            return [
+                'value' => $adapter->getId(),
+                'label' => $adapter->getAdapterName(),
+                'note'  => $adapter->getDescription(),
+            ];
+        }, $select->all());
+    }
+
     /**
      * @return array
      */

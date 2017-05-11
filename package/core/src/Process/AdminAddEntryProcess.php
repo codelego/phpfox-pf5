@@ -35,8 +35,12 @@ class AdminAddEntryProcess extends AbstractProcess
             \Phpfox::$service->get('response')->redirect($this->get('redirect'));
         }
 
-        return new ViewModel([
-            'form' => $form,
-        ], 'layout/form-edit');
+        $vm = new ViewModel(['form' => $form], 'layout/form-edit');
+
+        if (is_array($data = $this->get('data'))) {
+            $vm->assign($data);
+        }
+
+        return $vm;
     }
 }

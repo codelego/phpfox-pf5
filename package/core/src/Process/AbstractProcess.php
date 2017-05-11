@@ -3,7 +3,7 @@
 namespace Neutron\Core\Process;
 
 
-abstract class AbstractProcess
+abstract class AbstractProcess implements ProcessInterface
 {
     protected $params = [];
 

@@ -1,7 +1,6 @@
 <?php
 namespace {namespace};
 
-use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
 class {shortFormClass} extends Form{
@@ -24,20 +23,13 @@ class {shortFormClass} extends Form{
 
         {initialize}
 
+        $this->addButton([
+            'name'       => 'search',
+            'factory'=>'button',
+            'label'      => _text('Search'),
+            'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
+        ]);
+
         /** end elements **/
-    }
-
-    public function getButtons()
-    {
-
-        /** start buttons **/
-        return [
-            new ButtonField([
-                'name'       => 'search',
-                'label'      => _text('Search'),
-                'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
-            ])
-        ];
-        /** end buttons **/
     }
 }

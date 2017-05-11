@@ -41,8 +41,14 @@ class AdminManageEntryProcess extends AbstractProcess
             ->prepare();
 
 
-        return new ViewModel([
+        $vm = new ViewModel([
             'items' => $items,
         ], $this->get('template'));
+
+        if (is_array($data = $this->get('data'))) {
+            $vm->assign($data);
+        }
+
+        return $vm;
     }
 }

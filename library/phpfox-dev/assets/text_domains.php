@@ -12,4 +12,8 @@
   'storage_driver' => 'admin.core_layout',
   'mail_template' => 'admin.core_mail',
   'mail_driver' => 'admin.core_mail',
+  'log_adapter' => 'core.admin_log',
+  'cache_driver' => 'admin.core_cache',
+  'log_driver' => 'core.admin_log',
+  'cache_adapter' => 'admin.core_cache',
 );

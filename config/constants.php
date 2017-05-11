@@ -37,7 +37,7 @@ defined('PHPFOX_IS_DEV') OR define('PHPFOX_IS_DEV', false);
 /**
  * @const PHPFOX_ENV string production|development|staging
  */
-defined('PHPFOX_ENV') OR define('PHPFOX_ENV', 'development');
+defined('PHPFOX_ENV') OR define('PHPFOX_ENV', 'production');
 
 /**
  * @const PHPFOX_UNIT_TEST bool

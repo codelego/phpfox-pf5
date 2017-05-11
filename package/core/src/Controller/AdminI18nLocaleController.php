@@ -9,6 +9,7 @@ use Neutron\Core\Model\I18nLocale;
 use Neutron\Core\Process\AdminAddEntryProcess;
 use Neutron\Core\Process\AdminEditEntryProcess;
 use Neutron\Core\Process\AdminManageEntryProcess;
+use Phpfox\Paging\Pagination;
 
 class AdminI18nLocaleController extends AdminController
 {
@@ -40,6 +41,7 @@ class AdminI18nLocaleController extends AdminController
     {
         return (new AdminManageEntryProcess([
             'model'    => I18nLocale::class,
+            'data'     => ['defaultValue' => _param('core.default_locale_id')],
             'template' => 'core/admin-i18n/manage-i18n-locale',
         ]))->process();
     }
@@ -56,7 +58,7 @@ class AdminI18nLocaleController extends AdminController
     public function actionEdit()
     {
         return (new AdminEditEntryProcess([
-            'key'      => 'language_id',
+            'key'      => 'locale_id',
             'model'    => I18nLocale::class,
             'form'     => EditI18nLocale::class,
             'redirect' => _url('admin.core.i18n.locale'),
@@ -70,8 +72,24 @@ class AdminI18nLocaleController extends AdminController
 
     public function actionDefault()
     {
-        $localeId = _service('request')
+        $identity = _service('request')
             ->get('locale_id');
+
+        /** @var I18nLocale $entry */
+        $entry = _model('i18n_locale')->findById($identity);
+
+        if (!$entry) {
+            throw new \InvalidArgumentException('Invalid params "locale_id"');
+        }
+
+        if(!$entry->isActive()){
+            $entry->setActive(1);
+            $entry->save();
+        }
+
+        _service('core.setting')->updateValue('core.default_locale_id', $identity);
+
+        _service('cache.local')->flush();
 
         _redirect('admin.core.i18n.locale');
     }

@@ -3,7 +3,7 @@
 namespace Neutron\Core\Service;
 
 
-use Phpfox\Mailer\MailAdapterInterface;
+use Phpfox\Mailer\AdapterInterface;
 
 class MailTransportFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -29,21 +29,21 @@ class MailTransportFactoryTest extends \PHPUnit_Framework_TestCase
         $obj = new MailAdapterFactory();
 
         $entry = $obj->factory(0);
-        $this->assertTrue($entry instanceof MailAdapterInterface);
+        $this->assertTrue($entry instanceof AdapterInterface);
     }
 
     public function testDefault()
     {
         $obj = new MailAdapterFactory();
         $entry = $obj->factory('default');
-        $this->assertTrue($entry instanceof MailAdapterInterface);
+        $this->assertTrue($entry instanceof AdapterInterface);
     }
 
     public function testFallback()
     {
         $obj = new MailAdapterFactory();
         $entry = $obj->factory('fallback');
-        $this->assertTrue($entry instanceof MailAdapterInterface);
+        $this->assertTrue($entry instanceof AdapterInterface);
     }
 
     /**
@@ -54,6 +54,6 @@ class MailTransportFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $obj = new MailAdapterFactory();
         $entry = $obj->factory(-1);
-        $this->assertTrue($entry instanceof MailAdapterInterface);
+        $this->assertTrue($entry instanceof AdapterInterface);
     }
 }

@@ -63,57 +63,20 @@ class CoreSettings extends Form
             'required' => true,
         ]);
 
-        $this->addElement([
-            'factory'    => 'select',
-            'name'       => 'core_i18n__timezone_id',
-            'value'      => 'Europe/London',
-            'options'    => _service('core.i18n')->getTimezoneIdOptions(),
-            'label'      => _text('Default Timezone', 'admin'),
-            'note'       => _text('[Default Timezone Note]', 'admin'),
-            'attributes' => ['class' => 'form-control'],
-            'required'   => true,
+        $this->addButton([
+            'factory'    => 'button',
+            'name'       => 'save',
+            'label'      => _text('Save Changes'),
+            'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
         ]);
 
-        $this->addElement([
-            'factory'    => 'select',
-            'name'       => 'core_i18n__locale_id',
-            'value'      => 'en',
-            'options'    => _service('core.i18n')->getLocaleIdOptions(),
-            'label'      => _text('Default Locale', 'admin'),
-            'note'       => _text('[Default Locale Note]', 'admin'),
-            'attributes' => ['class' => 'form-control'],
-            'required'   => true,
+        $this->addButton([
+            'factory'    => 'button',
+            'name'       => 'cancel',
+            'href'       => '#',
+            'label'      => _text('Cancel'),
+            'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
         ]);
 
-        $this->addElement([
-            'factory'    => 'select',
-            'name'       => 'core_i18n__currency_id',
-            'value'      => 'USD',
-            'options'    => _service('core.i18n')->getCurrencyIdOptions(),
-            'label'      => _text('Default Currency', 'admin'),
-            'note'       => _text('[Default Currency Note]', 'admin'),
-            'attributes' => ['class' => 'form-control'],
-            'required'   => true,
-        ]);
-    }
-
-    public function getButtons()
-    {
-
-        /** start buttons **/
-        return [
-            new ButtonField([
-                'name'       => 'save',
-                'label'      => _text('Submit'),
-                'attributes' => ['class' => 'btn btn-primary', 'type' => 'submit',],
-            ]),
-            new ButtonField([
-                'name'       => 'cancel',
-                'href'       => '#',
-                'label'      => _text('Cancel'),
-                'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel'],
-            ]),
-        ];
-        /** end buttons **/
     }
 }

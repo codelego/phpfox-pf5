@@ -26,7 +26,7 @@ class PermissionProvider implements PermissionProviderInterface
         }
 
         $items = _service('db')->select('*')
-            ->from(':core_permission')
+            ->from(':acl_setting_value')
             ->where('role_id=?', $roleId)
             ->execute()
             ->all();
@@ -35,14 +35,7 @@ class PermissionProvider implements PermissionProviderInterface
 
         foreach ($items as $item) {
             $key = sprintf('%s.%s', $item['group_name'], $item['action_name']);
-            $value = false;
-            if (!empty($item['params'])) {
-                $data = json_decode($item['params'], true);
-                if (isset($data['val'])) {
-                    $value = $data['val'];
-                }
-            }
-            $data[$key] = $value;
+            $data[$key] = json_decode($item['params'], true);
         }
         $data['is_super'] = $role->isSuper();
         $data['is_admin'] = $role->isAdmin();

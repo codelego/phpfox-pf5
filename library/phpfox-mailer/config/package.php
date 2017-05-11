@@ -4,8 +4,8 @@ namespace Phpfox\Mailer;
 
 return [
     'mail.drivers' => [
-        'smtp'   => SmtpMailAdapter::class,
-        'system' => SystemMailAdapter::class,
+        'smtp'   => SmtpAdapter::class,
+        'system' => SystemAdapter::class,
     ],
     'services'          => [
         'mailer'         => [null, MailFacades::class,],

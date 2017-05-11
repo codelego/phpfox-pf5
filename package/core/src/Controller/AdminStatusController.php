@@ -2,7 +2,6 @@
 
 namespace Neutron\Core\Controller;
 
-use Neutron\Core\Form\LicenseSettings;
 use Phpfox\View\ViewModel;
 
 class AdminStatusController extends AdminController
@@ -24,15 +23,6 @@ class AdminStatusController extends AdminController
     public function actionCache()
     {
 
-    }
-
-    public function actionLicense()
-    {
-        $form = new LicenseSettings();
-
-        return new ViewModel([
-            'form' => $form,
-        ], 'layout/form-edit');
     }
 
     public function actionHealthCheck()

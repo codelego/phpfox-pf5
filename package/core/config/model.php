@@ -3,7 +3,7 @@
 namespace Neutron\Core\Model;
 
 return [
-    'i18n_locale' => [
+    'i18n_locale'         => [
         'table_factory',
         ':i18n_locale',
         I18nLocale::class,
@@ -152,5 +152,29 @@ return [
         ':layout_container',
         LayoutContainer::class,
         'package/core/config/model/layout_container.php',
+    ],
+    'log_driver'          => [
+        'table_factory',
+        ':log_driver',
+        LogDriver::class,
+        'package/core/config/model/log_driver.php',
+    ],
+    'log_adapter'         => [
+        'table_factory',
+        ':log_adapter',
+        LogAdapter::class,
+        'package/core/config/model/log_adapter.php',
+    ],
+    'cache_driver'        => [
+        'table_factory',
+        ':cache_driver',
+        CacheDriver::class,
+        'package/core/config/model/cache_driver.php',
+    ],
+    'cache_adapter'       => [
+        'table_factory',
+        ':cache_adapter',
+        CacheAdapter::class,
+        'package/core/config/model/cache_adapter.php',
     ],
 ];

@@ -118,25 +118,21 @@ class CoreSeoSettings extends Form
             'attributes' => ['class' => 'form-control'],
             'required'   => false,
         ]);
-    }
 
-    public function getButtons()
-    {
 
-        /** start buttons **/
-        return [
-            new ButtonField([
-                'name'       => 'save',
-                'label'      => _text('Submit'),
-                'attributes' => ['class' => 'btn btn-primary', 'type' => 'submit',],
-            ]),
-            new ButtonField([
-                'name'       => 'cancel',
-                'href'       => '#',
-                'label'      => _text('Cancel'),
-                'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel'],
-            ]),
-        ];
-        /** end buttons **/
+        $this->addButton([
+            'factory'    => 'button',
+            'name'       => 'save',
+            'label'      => _text('Save Changes'),
+            'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
+        ]);
+
+        $this->addButton([
+            'factory'    => 'button',
+            'name'       => 'cancel',
+            'href'       => '#',
+            'label'      => _text('Cancel'),
+            'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
+        ]);
     }
 }

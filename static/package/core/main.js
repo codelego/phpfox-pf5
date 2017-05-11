@@ -70,15 +70,12 @@ define(['jquery', 'underscore'], function () {
     //###############################################//
 
 
-    $.ajaxForm = function (form) {
+    Core.ajaxForm = function (form) {
         var indicator = '.sending-indicator';
-        if (form.hasClass('disabled')) {
-            return false;
-        }
         return $.ajax({
-            url: form.data('url'),
+            url: form.data('url') || form.prop('action'),
             method: 'POST',
-            dataType: 'json',
+            // dataType: 'json',
             data: form.serializeJSON(),
             beforeSend: function () {
                 form.addClass('disabled sending');
@@ -95,24 +92,25 @@ define(['jquery', 'underscore'], function () {
         var ele = $(this),
             name = ele.data('cmd');
 
-        if (!commands.hasOwnProperty(name))
-            return false;
-
-        if (typeof commands[name] == 'function'){
+        if (commands.hasOwnProperty(name)
+            && typeof commands[name] == 'function') {
+            evt.preventDefault();
             return commands[name](ele, evt);
         }
     }).on('submit', '[data-submit]', function (evt) {
-        var ele = $(this),
-            name = ele.data('submit');
+        var form = $(this),
+            name = form.data('submit');
 
-        if (!commands.hasOwnProperty(name) || typeof commands[name] != 'function')
+        // prevent event
+        if (form.hasClass('disabled')) {
+            evt.preventDefault();
             return false;
+        }
 
-        evt.preventDefault();
-
-        commands[name](ele, evt);
-
-        return false;
+        if (commands.hasOwnProperty(name)
+            && typeof commands[name] == 'function') {
+            return commands[name](form, evt);
+        }
     });
     return Core;
 });

@@ -14,7 +14,7 @@ class CoreMailSettings extends Form
         $this->setInfo(_text('[Mail Settings Note]', 'admin'));
 
         $this->addElement([
-            'name'       => 'core_mail__adapter',
+            'name'       => 'core__default_mailer_id',
             'factory'    => 'select',
             'label'      => _text('Default Adapter', 'core_mail'),
             'info'       => _text('[Default Adapter Info]', 'core_mail'),
@@ -55,25 +55,20 @@ class CoreMailSettings extends Form
             'value'      => 20,
             'required'   => true,
         ]);
-    }
 
-    public function getButtons()
-    {
+        $this->addButton([
+            'factory'    => 'button',
+            'name'       => 'save',
+            'label'      => _text('Save Changes'),
+            'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
+        ]);
 
-        /** start buttons **/
-        return [
-            new ButtonField([
-                'name'       => 'save',
-                'label'      => _text('Submit'),
-                'attributes' => ['class' => 'btn btn-primary', 'type' => 'submit',],
-            ]),
-            new ButtonField([
-                'name'       => 'cancel',
-                'href'       => '#',
-                'label'      => _text('Cancel'),
-                'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel'],
-            ]),
-        ];
-        /** end buttons **/
+        $this->addButton([
+            'factory'    => 'button',
+            'name'       => 'cancel',
+            'href'       => '#',
+            'label'      => _text('Cancel'),
+            'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
+        ]);
     }
 }

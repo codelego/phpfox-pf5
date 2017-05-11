@@ -3,7 +3,7 @@
 namespace Neutron\Core\Controller;
 
 
-use Neutron\Core\Process\AdminEditSiteSettingsProcess;
+use Neutron\Core\Process\AdminManageSiteSettingsProcess;
 
 class AdminMailSettingsController extends AdminController
 {
@@ -24,7 +24,7 @@ class AdminMailSettingsController extends AdminController
 
     public function actionIndex()
     {
-        return (new AdminEditSiteSettingsProcess([
+        return (new AdminManageSiteSettingsProcess([
             'setting_group' => 'core_mail',
         ]))->process();
     }

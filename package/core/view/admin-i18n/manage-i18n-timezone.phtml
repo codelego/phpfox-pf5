@@ -1,3 +1,4 @@
+<?php $defaultValue = _param('core.default_timezone_id') ?>
 <div class="panel panel-default">
     <div class="table-responsive">
         <table class="table table-admin">
@@ -16,6 +17,8 @@
                 <tr>
                     <td class="dropdown" data-cmd="dropdown">
                         <ul>
+                            <li><a href="<?= _url('admin.core.i18n.timezone',
+                                    ['action' => 'default', 'timezone_id' => $item->getId()]) ?>"><?= _text('Set Default') ?></li>
                             <li><a data-cmd="modal" href="<?= _url('admin.core.i18n.timezone',
                                     ['action' => 'edit', 'timezone_id' => $item->getId()]) ?>"><?= _text('Edit') ?></li>
                         </ul>
@@ -28,7 +31,7 @@
                         <?= _yesno($item->isActive(), false, true) ?>
                     </td>
                     <td>
-                        <?= _yesno($item->getId() == _param('core','timezone_id'), true, false) ?>
+                        <?= _yesno($item->getId() == $defaultValue, true, false) ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

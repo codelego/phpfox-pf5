@@ -145,8 +145,8 @@
   ),
   'mail.drivers' => 
   array (
-    'smtp' => 'Phpfox\\Mailer\\SmtpMailAdapter',
-    'system' => 'Phpfox\\Mailer\\SystemMailAdapter',
+    'smtp' => 'Phpfox\\Mailer\\SmtpAdapter',
+    'system' => 'Phpfox\\Mailer\\SystemAdapter',
   ),
   'navigation.decorators' => 
   array (

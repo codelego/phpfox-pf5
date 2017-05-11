@@ -26,7 +26,7 @@
                     <td><?= $item->getAdapterName() ?></td>
                     <td><?= $item->getDriverId() ?></td>
                     <td><?= _yesno($item->isActive(), true, false) ?></td>
-                    <td><?= _yesno($item->getId() == _param('core_mail','adapter_id'), true, false) ?></td>
+                    <td><?= _yesno($item->getId() == $defaultValue, true, false) ?></td>
                     <td><?= _yesno($item->isRequired(), true, false) ?></td>
                 </tr>
             <?php endforeach; ?>

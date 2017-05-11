@@ -29,7 +29,7 @@ class SmtpDriverSettings extends Form
             'attributes' => ['class' => 'form-control'],
             'required'   => true,
             'options'    => [
-                ['label' => 'None', 'value' => 'none'],
+                ['label' => 'none', 'value' => 'none'],
                 ['label' => 'TLS', 'value' => 'tls'],
                 ['label' => 'SSL', 'value' => 'ssl'],
             ],
@@ -46,7 +46,7 @@ class SmtpDriverSettings extends Form
         ]);
 
         $this->addElement([
-            'name'       => 'authentication',
+            'name'       => 'auth',
             'factory'    => 'radio',
             'label'      => _text('SMTP Authentication'),
             'info'       => _text('Does your SMTP Server require authentication?', 'admin'),
@@ -54,8 +54,8 @@ class SmtpDriverSettings extends Form
             'attributes' => ['class' => 'form-control'],
             'required'   => true,
             'options'    => [
-                ['label' => _text('No, does not authentication'), 'value' => 0,],
-                ['label' => _text('Yes, use authentication'), 'value' => 1],
+                ['value' => 0, 'label' => _text('No, does not authentication'),],
+                ['value' => 1, 'label' => _text('Yes, use authentication')],
             ],
         ]);
         $this->addElement([

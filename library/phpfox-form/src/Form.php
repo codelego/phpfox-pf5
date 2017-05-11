@@ -33,6 +33,11 @@ class Form extends Element implements ElementInterface, CollectionInterface
     protected $error;
 
     /**
+     * @var array
+     */
+    protected $buttons = [];
+
+    /**
      * @return ElementInterface[]
      */
     public function getElements()
@@ -68,6 +73,31 @@ class Form extends Element implements ElementInterface, CollectionInterface
         $this->byNames[$element->getName()] = $element;
 
         return $this;
+    }
+
+    /**
+     * @param array|ElementInterface $button
+     *
+     * @return $this
+     */
+    public function addButton($button)
+    {
+        if (!$button instanceof ElementInterface) {
+            $button = _service('form.factory')->factory($button);
+        }
+
+        $button->setParent($this);
+        $this->buttons[$button->getName()] = $button;
+
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function removeButton($name)
+    {
+        $this->buttons[$name];
     }
 
     /**
@@ -262,6 +292,6 @@ class Form extends Element implements ElementInterface, CollectionInterface
      */
     public function getButtons()
     {
-        return [];
+        return $this->buttons;
     }
 }

@@ -8,7 +8,7 @@ interface MailAdapterFactoryInterface
     /**
      * @param mixed $id
      *
-     * @return MailAdapterInterface
+     * @return AdapterInterface
      */
     public function factory($id);
 }

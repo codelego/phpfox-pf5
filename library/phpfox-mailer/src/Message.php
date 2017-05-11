@@ -45,11 +45,25 @@ class Message
     protected $bcc = [];
 
     /**
+     * Message constructor.
+     *
+     * @param array $data
+     */
+    public function __construct($data = [])
+    {
+        if ($data) {
+            $this->fromArray($data);
+        }
+    }
+
+    /**
+     * @param array $data
+     *
      * @return Message
      */
-    public static function factory()
+    public static function factory($data = [])
     {
-        return new static();
+        return new static($data);
     }
 
     /**
@@ -273,21 +287,17 @@ class Message
 
     /**
      * Message is valid whenever
-     * - `fromAddress` must be email
      * - `to` can not be empty
      * - `subject` can not be empty
      * - `body` can not be empty
      *
      * If `altBody` is empty, it will be updated from `body`.
+     * If `fromAddress` is empty, the from will fill from adapter.
      *
      * @return bool
      */
     public function isValid()
     {
-        if (!$this->from[0]) {
-            return false;
-        }
-
         if (empty($this->to)) {
             return false;
         }

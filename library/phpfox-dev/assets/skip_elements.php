@@ -18,4 +18,5 @@ return [
     'is_updated',
     'is_json',
     'item_count',
+    'is_required',
 ];

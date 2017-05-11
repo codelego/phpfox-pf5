@@ -1,0 +1,60 @@
+<?php foreach ($allLogs as $key => $items) { ?>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="pull-right">
+                <a class="btn btn-xs btn-link" role="button"
+                   href="<?= _url('admin.core.log', ['action' => 'add', 'container_id' => $key]) ?>">
+                    <i class="fa fa-plus"></i> <?= _text('Add Log', 'admin.core_log') ?>
+                </a>
+            </div>
+            <div class="panel-title">
+                <?= $titles[$key] ?>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-admin">
+                <thead>
+                <tr>
+                    <th class="text-center w40">#</th>
+                    <th class="w40">ID</th>
+                    <th>Title</th>
+                    <th class="w100">Driver</th>
+                    <th class="w50">Enable</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($items as $item): ?>
+                    <tr>
+                        <td class="dropdown" data-cmd="dropdown">
+                            <ul>
+                                <li><a href="<?= _url('admin.core.log',
+                                        ['action' => 'enable', 'adapter_id' => $item->getId()]) ?>">
+                                        <?= _text('Enable') ?>
+                                    </a></li>
+                                <li><a href="<?= _url('admin.core.log',
+                                        ['action' => 'disable', 'adapter_id' => $item->getId()]) ?>">
+                                        <?= _text('Disable') ?>
+                                    </a></li>
+                                <li><a href="<?= _url('admin.core.log',
+                                        ['action' => 'edit', 'adapter_id' => $item->getId()]) ?>">
+                                        <?= _text('Edit Settings') ?>
+                                    </a></li>
+
+                                <li class="divider"></li>
+                                <li><a href="<?= _url('admin.core.log',
+                                        ['action' => 'delete', 'adapter_id' => $item->getId()]) ?>">
+                                        <?= _text('Delete') ?>
+                                    </a></li>
+                            </ul>
+                        </td>
+                        <td><?= $item->getId() ?></td>
+                        <td><?= $item->getAdapterName() ?></td>
+                        <td><?= $item->getDriverId() ?></td>
+                        <td><?= _yesno($item->getId(), true, true) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<?php }

@@ -39,6 +39,7 @@ class AdminStorageAdapterController extends AdminController
         return (new AdminManageEntryProcess([
             'noLimit'  => true,
             'model'    => StorageAdapter::class,
+            'data'     => ['defaultValue' => _param('core.default_storage_id')],
             'template' => 'core/admin-storage/manage-storage-adapter',
         ]))->process();
     }
@@ -144,11 +145,26 @@ class AdminStorageAdapterController extends AdminController
         ], 'layout/form-edit');
     }
 
-    /**
-     * todo set default storage adapter id
-     */
     public function actionDefault()
     {
+        $identity = _service('request')
+            ->get('adapter_id');
+
+        /** @var StorageAdapter $entry */
+        $entry = _model('storage_adapter')->findById($identity);
+
+        if (!$entry) {
+            throw new \InvalidArgumentException('Invalid params "adapter_id"');
+        }
+
+        if (!$entry->isActive()) {
+            $entry->setActive(1);
+            $entry->save();
+        }
+
+        _service('core.setting')->updateValue('core.default_storage_id', $identity);
+
+        _service('cache.local')->flush();
 
         _redirect('admin.core.storage.adapter');
     }

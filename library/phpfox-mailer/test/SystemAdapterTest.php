@@ -3,12 +3,12 @@
 namespace Phpfox\Mailer;
 
 
-class SystemMailTransportTest extends \PHPUnit_Framework_TestCase
+class SystemAdapterTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testSendMail()
     {
-        $transport = new SystemMailAdapter();
+        $transport = new SystemAdapter();
 
         $msg = new Message();
         $msg->fromArray([

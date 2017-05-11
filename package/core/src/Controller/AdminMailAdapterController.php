@@ -2,6 +2,7 @@
 
 namespace Neutron\Core\Controller;
 
+use Neutron\Core\Form\Admin\MailAdapter\AddMailAdapter;
 use Neutron\Core\Form\Admin\MailAdapter\TestEmailSettings;
 use Neutron\Core\Form\SelectMailDriver;
 use Neutron\Core\Model\MailAdapter;
@@ -32,6 +33,7 @@ class AdminMailAdapterController extends AdminController
         return (new AdminManageEntryProcess([
             'noLimit'  => true,
             'model'    => MailAdapter::class,
+            'data'     => ['defaultValue' => _param('core.default_mailer_id')],
             'template' => 'core/admin-mail/manage-mail-adapter',
         ]))->process();
     }
@@ -43,7 +45,7 @@ class AdminMailAdapterController extends AdminController
 
         if (!$driverId) {
             return new ViewModel([
-                'form' => new SelectMailDriver([]),
+                'form' => new AddMailAdapter([]),
             ], 'layout/form-edit');
         }
 
@@ -136,14 +138,38 @@ class AdminMailAdapterController extends AdminController
     public function actionTest()
     {
         $req = _service('request');
+        $adapterId = $req->get('adapter_id');
+
+        /** @var MailAdapter $adapterEntry */
+        $adapterEntry = _model('mail_adapter')->findById($adapterId);
+
         $form = new TestEmailSettings([]);
 
         if ($req->isGet()) {
-
+            $data = _param('test_mail');
+            $form->populate($data);
         }
 
         if ($req->isPost() and $form->isValid($req->all())) {
+            $data = $form->getData();
+            $params = array_merge(json_decode($adapterEntry->getParams(), true), [
+                'debug' => true,
+            ]);
+            $testEmail = [
+                'to'      => [[$data['to'], null]],
+                'subject' => $data['subject'],
+                'body'    => $data['message'],
+                'bodyAlt' => $data['message'],
+            ];
 
+            list($result, $message) = _service('mailer')
+                ->test($adapterEntry->getDriverId(), $params, $testEmail);
+
+            if (!$result) {
+                return '<pre>' . $message . '</pre>';
+            } else {
+                return '<p class="alert alert-success">Send mail successfully.</p>';
+            }
         }
 
         return new ViewModel(['form' => $form], 'layout/form-edit');
@@ -156,7 +182,23 @@ class AdminMailAdapterController extends AdminController
     public function actionDefault()
     {
         $request = _service('request');
-        $adapterId = $request->get('adapter_id');
+        $identity = $request->get('adapter_id');
+
+        /** @var MailAdapter $entry */
+        $entry = _model('mail_adapter')->findById($identity);
+
+        if (!$entry) {
+            throw new \InvalidArgumentException('Invalid params "adapter_id"');
+        }
+
+        if (!$entry->isActive()) {
+            $entry->setActive(true);
+            $entry->save();
+        }
+
+        _service('core.setting')->updateValue('core.default_mailer_id', $identity);
+
+        _service('cache.local')->flush();
 
         _redirect('admin.core.mail.adapter');
     }

@@ -37,6 +37,7 @@ class AdminI18nCurrencyController extends AdminController
     {
         return (new AdminManageEntryProcess([
             'model'    => I18nCurrency::class,
+            'data'     => ['defaultValue' => _param('core.default_currency_id')],
             'template' => 'core/admin-i18n/manage-i18n-currency',
         ]))->process();
     }
@@ -59,5 +60,29 @@ class AdminI18nCurrencyController extends AdminController
             'form'     => EditI18nCurrency::class,
             'redirect' => _url('admin.core.i18n.currency'),
         ]))->process();
+    }
+
+    public function actionDefault()
+    {
+        $identity = _service('request')
+            ->get('currency_id');
+
+        /** @var I18nCurrency $entry */
+        $entry = _model('i18n_currency')->findById($identity);
+
+        if (!$entry) {
+            throw new \InvalidArgumentException('Invalid params "currency_id"');
+        }
+
+        if(!$entry->isActive()){
+            $entry->setActive(1);
+            $entry->save();
+        }
+
+        _service('core.setting')->updateValue('core.default_currency_id', $identity);
+
+        _service('cache.local')->flush();
+
+        _redirect('admin.core.i18n.currency');
     }
 }

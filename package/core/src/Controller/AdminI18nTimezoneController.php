@@ -38,6 +38,7 @@ class AdminI18nTimezoneController extends AdminController
         return (new AdminManageEntryProcess([
             'noLimit'  => true,
             'model'    => I18nTimezone::class,
+            'data'     => ['defaultValue' => _param('core.default_timezone_id')],
             'template' => 'core/admin-i18n/manage-i18n-timezone',
         ]))->process();
     }
@@ -51,7 +52,6 @@ class AdminI18nTimezoneController extends AdminController
         ]))->process();
     }
 
-
     public function actionEdit()
     {
         return (new AdminEditEntryProcess([
@@ -60,5 +60,29 @@ class AdminI18nTimezoneController extends AdminController
             'form'     => EditI18nTimezone::class,
             'redirect' => _url('admin.core.i18n.timezone'),
         ]))->process();
+    }
+
+    public function actionDefault()
+    {
+        $identity = _service('request')
+            ->get('timezone_id');
+
+        /** @var I18nTimezone $entry */
+        $entry = _model('i18n_timezone')->findById($identity);
+
+        if (!$entry) {
+            throw new \InvalidArgumentException('Invalid params "timezone_id"');
+        }
+
+        if(!$entry->isActive()){
+            $entry->setActive(1);
+            $entry->save();
+        }
+
+        _service('core.setting')->updateValue('core.default_timezone_id', $identity);
+
+        _service('cache.local')->flush();
+
+        _redirect('admin.core.i18n.timezone');
     }
 }

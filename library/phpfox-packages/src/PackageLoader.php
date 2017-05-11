@@ -119,21 +119,14 @@ class PackageLoader implements PackageLoaderInterface
 
 
         foreach ($rows as $row) {
-            $key = $row['name'];
+            $name = $row['name'];
             $group = $row['group_id'];
+            $key = $group . '.' . $name;
 
-            if (!isset($settingVariables[$group])) {
-                $settingVariables[$group] = [];
+            if (!isset($based[$group])) {
+                $based[$group] = [];
             }
-
-            $val = json_decode($row['value_actual'], true);
-            if (isset($val['val'])) {
-                $val = $val['val'];
-            } else {
-                continue;
-            }
-
-            $based[$group][$key] = $val;
+            $based[$group][$name] = $based[$key] = json_decode($row['value_actual'], true);
         }
 
         return $based;

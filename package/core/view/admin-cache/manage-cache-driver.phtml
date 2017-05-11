@@ -1,0 +1,29 @@
+<div class="panel panel-default">
+    <div class="table-responsive">
+        <table class="table table-admin">
+            <thead>
+            <tr>
+                <th class="w100">Driver Id</th>
+                <th class="w250">Name</th>
+                <th class="">Description</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item): ?>
+                <tr>
+                    <td><?= $item->getId() ?></td>
+                    <td><?= $item->getDriverName() ?></td>
+                    <td><?= $item->getDescription() ?></td>
+                    <td>
+                        <a class="btn btn-xs btn-link" href="<?= _url('admin.core.cache',
+                            ['action' => 'config', 'driver_id' => $item->getId()]) ?>">
+                            <i class="fa fa-plus"></i> <?= _text('New Cache', 'admin.core_cache') ?>
+                        </a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

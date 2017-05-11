@@ -7,4 +7,4 @@ date_default_timezone_set('Australia/Adelaide');
 
 include __DIR__ . '/config/bootstrap.php';
 
-_dump(intval('128Kb') > intval('64M'));
+echo uniqid();

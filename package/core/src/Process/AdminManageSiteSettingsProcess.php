@@ -13,7 +13,7 @@ use Neutron\Core\Model\SiteSettingGroup;
 use Phpfox\Form\Form;
 use Phpfox\View\ViewModel;
 
-class AdminEditSiteSettingsProcess extends AbstractProcess
+class AdminManageSiteSettingsProcess extends AbstractProcess
 {
     public function process()
     {
@@ -48,8 +48,12 @@ class AdminEditSiteSettingsProcess extends AbstractProcess
 
         }
 
-        return new ViewModel([
-            'form' => $form,
-        ], 'layout/form-edit');
+        $vm = new ViewModel(['form' => $form], 'layout/form-edit');
+
+        if (is_array($data = $this->get('data'))) {
+            $vm->assign($data);
+        }
+
+        return $vm;
     }
 }

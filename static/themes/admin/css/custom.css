@@ -7,6 +7,9 @@
 .is_dev th.dev-only, .is_dev td.dev-only {
   display: table-cell; }
 
+.panel-footer .btn + .btn {
+  margin-left: 8px; }
+
 .container {
   width: auto; }
 

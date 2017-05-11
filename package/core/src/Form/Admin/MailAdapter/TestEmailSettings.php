@@ -13,6 +13,7 @@ class TestEmailSettings extends Form
         $this->setTitle(_text('Send Test Mail', ''));
         $this->setInfo(_text('[Send Test Mail Info]', ''));
         $this->setAction(_url('#'));
+        $this->setAttribute('data-submit', 'admin.i18n.testEmail');
 
         $conf = _param('test_mail');
 
@@ -51,7 +52,6 @@ class TestEmailSettings extends Form
 
     public function getButtons()
     {
-
         /** start buttons **/
         return [
             new ButtonField([

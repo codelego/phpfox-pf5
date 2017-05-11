@@ -26,6 +26,13 @@ $color: #333;
   }
 }
 
+.panel-footer{
+  .btn + .btn{
+    margin-left:8px;
+  }
+}
+
+
 
 $header-bg: #fff;
 $header-link-color: $aside-link-color;

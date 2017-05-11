@@ -1,0 +1,48 @@
+<div class="panel panel-default">
+    <div class="table-responsive">
+        <table class="table table-admin">
+            <thead>
+            <tr>
+                <th class="text-center w40">#</th>
+                <th class="w40">ID</th>
+                <th>Title</th>
+                <th class="w100">Driver</th>
+                <th class="w50">Active</th>
+                <th class="w50">Default</th>
+                <th class="w50">Require</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item): ?>
+                <tr>
+                    <td class="dropdown" data-cmd="dropdown">
+                        <ul>
+                            <li><a href="<?= _url('admin.core.cache',
+                                    ['action' => 'default', 'adapter_id' => $item->getId()]) ?>">
+                                    <?= _text('Set Default') ?>
+                                </a></li>
+                            <li><a href="<?= _url('admin.core.cache',
+                                    ['action' => 'edit', 'adapter_id' => $item->getId()]) ?>">
+                                    <?= _text('Edit Settings') ?>
+                                </a></li>
+                            <?php if(!$item->isRequired()):?>
+                            <li class="divider"></li>
+                            <li><a href="<?= _url('admin.core.cache',
+                                    ['action' => 'delete', 'adapter_id' => $item->getId()]) ?>">
+                                    <?= _text('Delete') ?>
+                                </a></li>
+                            <?php endif; ?>
+                        </ul>
+                    </td>
+                    <td><?= $item->getId() ?></td>
+                    <td><?= $item->getAdapterName() ?></td>
+                    <td><?= $item->getDriverId() ?></td>
+                    <td><?= _yesno($item->isActive()) ?></td>
+                    <td><?= _yesno($item->getId() == $defaultValue, true, false) ?></td>
+                    <td><?= _yesno($item->isRequired(), true, false) ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -9,7 +9,10 @@ return [
     'core.admin-i18n-locale'      => AdminI18nLocaleController::class,
     'core.admin-i18n-timezone'    => AdminI18nTimezoneController::class,
     'core.admin-i18n-currency'    => AdminI18nCurrencyController::class,
+    'core.admin-i18n-settings'    => AdminI18nSettingsController::class,
     'core.admin-settings'         => AdminSettingsController::class,
+    'core.admin-cache'            => AdminCacheController::class,
+    'core.admin-log'              => AdminLogController::class,
     'core.admin-package'          => AdminPackageController::class,
     'core.admin-mail'             => AdminMailAdapterController::class,
     'core.admin-mail-driver'      => AdminMailDriverController::class,
@@ -27,5 +30,6 @@ return [
     'core.admin-authorization'    => AdminAclRoleController::class,
     'core.admin-storage-adapter'  => AdminStorageAdapterController::class,
     'core.admin-storage-driver'   => AdminStorageDriverController::class,
+    'core.admin-storage-settings' => AdminStorageSettingsController::class,
     'core.admin-rad'              => AdminRadController::class,
 ];
