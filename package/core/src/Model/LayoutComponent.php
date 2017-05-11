@@ -8,7 +8,9 @@ class LayoutComponent extends DbModel
     public function getModelId(){return 'layout_component';}
 
     public function getComponentId(){return $this->__get('component_id');}
+    public function getId(){return $this->__get('component_id');}
     public function setComponentId($value){$this->__set('component_id', $value);}
+    public function setId($value){$this->__set('component_id', $value);}
     
     public function getComponentName(){return $this->__get('component_name');}
     public function setComponentName($value){$this->__set('component_name', $value);}

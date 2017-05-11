@@ -4,7 +4,6 @@ namespace Neutron\Core\Controller;
 
 use Neutron\Core\Form\Admin\MailAdapter\SelectMailDriver;
 use Neutron\Core\Form\Admin\MailAdapter\TestEmailSettings;
-use Neutron\Core\Form\SelectMailDriver;
 use Neutron\Core\Model\MailAdapter;
 use Neutron\Core\Model\MailDriver;
 use Neutron\Core\Process\AdminManageEntryProcess;
@@ -27,6 +26,9 @@ class AdminMailController extends AdminController
 
         _service('menu.admin.secondary')
             ->load('admin.core.mail');
+
+        _service('menu.admin.buttons')
+            ->load('admin.core.mail.buttons');
     }
 
     public function actionSettings()

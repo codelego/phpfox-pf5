@@ -8,7 +8,9 @@ class LayoutTheme extends DbModel
     public function getModelId(){return 'layout_theme';}
 
     public function getThemeId(){return $this->__get('theme_id');}
+    public function getId(){return $this->__get('theme_id');}
     public function setThemeId($value){$this->__set('theme_id', $value);}
+    public function setId($value){$this->__set('theme_id', $value);}
     
     public function getTitle(){return $this->__get('title');}
     public function setTitle($value){$this->__set('title', $value);}

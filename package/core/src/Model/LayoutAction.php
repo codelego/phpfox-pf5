@@ -8,7 +8,9 @@ class LayoutAction extends DbModel
     public function getModelId(){return 'layout_action';}
 
     public function getActionId(){return $this->__get('action_id');}
+    public function getId(){return $this->__get('action_id');}
     public function setActionId($value){$this->__set('action_id', $value);}
+    public function setId($value){$this->__set('action_id', $value);}
     
     public function getParentActionId(){return $this->__get('parent_action_id');}
     public function setParentActionId($value){$this->__set('parent_action_id', $value);}

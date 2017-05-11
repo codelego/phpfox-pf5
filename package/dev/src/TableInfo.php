@@ -16,6 +16,16 @@ class TableInfo
     protected $columns = [];
 
     /**
+     * @var bool
+     */
+    protected $hasIdentity = false;
+
+    /**
+     * @var array
+     */
+    protected $primary = [];
+
+    /**
      * DbTableInfo constructor.
      *
      * @param string $name
@@ -42,6 +52,38 @@ class TableInfo
         foreach ($fields as $field) {
             $columnInfo = new ColumnInfo($field);
             $this->columns[$columnInfo->getName()] = $columnInfo;
+
+            if ($columnInfo->isIdentity()) {
+                $this->hasIdentity = true;
+            }
+
+            if ($columnInfo->isPrimary()) {
+                $this->primary[] = $columnInfo->getName();
+            }
         }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHasIdentity()
+    {
+        return $this->hasIdentity;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPrimary()
+    {
+        return $this->primary;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }

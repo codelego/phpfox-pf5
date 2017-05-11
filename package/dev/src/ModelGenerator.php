@@ -202,7 +202,7 @@ class ModelGenerator extends AbstractGenerator
             $value = isset($savedData[$name]) ? $savedData[$name] : '';
             $isPrimary = false;
 
-            if ($column->isIdentity() and $name != 'id') {
+            if ($column->isPrimary() and count($tableInfo->getPrimary()) and $name != 'id') {
                 $isPrimary = true;
             }
 

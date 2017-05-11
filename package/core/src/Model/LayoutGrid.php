@@ -8,7 +8,9 @@ class LayoutGrid extends DbModel
     public function getModelId(){return 'layout_grid';}
 
     public function getGridId(){return $this->__get('grid_id');}
+    public function getId(){return $this->__get('grid_id');}
     public function setGridId($value){$this->__set('grid_id', $value);}
+    public function setId($value){$this->__set('grid_id', $value);}
     
     public function getTitle(){return $this->__get('title');}
     public function setTitle($value){$this->__set('title', $value);}

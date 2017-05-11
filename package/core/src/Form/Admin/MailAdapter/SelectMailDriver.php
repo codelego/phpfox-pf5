@@ -21,12 +21,13 @@ class SelectMailDriver extends Form
 
         // element `driver_id`
         $this->addElement([
-            'name'       => 'driver_id',
-            'factory'    => 'radio',
-            'label'      => _text('Driver Id', null),
-            'note'       => _text('[Driver Id Note]', null),
-            'options'    => _service('core.mails')->getDriverIdOptions(),
-            'required'   => true,
+            'name'     => 'driver_id',
+            'factory'  => 'radio',
+            'value'   => 'system',
+            'label'    => _text('Driver Id', null),
+            'note'     => _text('[Driver Id Note]', null),
+            'options'  => _service('core.mails')->getDriverIdOptions(),
+            'required' => true,
         ]);
         // skip element `params` #skips
 
