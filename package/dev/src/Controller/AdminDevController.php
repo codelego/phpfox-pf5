@@ -124,6 +124,10 @@ pf5_dev_action_meta.`table_name` = pf5_dev_table_meta.`table_name`';
                 $entry->save();
             }
 
+            if(!empty($selected)){
+                _service('dev.code_generator')->generate($selected);
+            }
+
 
         }
         /** @var SqlSelect $select */

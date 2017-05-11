@@ -8,8 +8,7 @@ class LayoutThemeParamsTest extends \PHPUnit_Framework_TestCase
         $obj = new LayoutThemeParams(array (  'params_id' => 3,  'theme_id' => 'galaxy',  'params' => '[]',));
 
         $this->assertSame('layout_theme_params', $obj->getModelId());
-        $this->assertSame(3, $obj->getparams_id());
-        $this->assertSame(3, $obj->getId());
+        $this->assertSame(3, $obj->getParamsId());
         $this->assertSame('galaxy', $obj->getThemeId());
         $this->assertSame('[]', $obj->getParams());    }
 
@@ -18,14 +17,12 @@ class LayoutThemeParamsTest extends \PHPUnit_Framework_TestCase
         $obj = new LayoutThemeParams();
 
         // set data
-        $obj->setparams_id(3);
-        $obj->setId(3);
+        $obj->setParamsId(3);
         $obj->setThemeId('galaxy');
         $obj->setParams('[]');
         // assert same data
         $this->assertSame('layout_theme_params', $obj->getModelId());
-        $this->assertSame(3, $obj->getparams_id());
-        $this->assertSame(3, $obj->getId());
+        $this->assertSame(3, $obj->getParamsId());
         $this->assertSame('galaxy', $obj->getThemeId());
         $this->assertSame('[]', $obj->getParams());    }
 
@@ -40,8 +37,7 @@ class LayoutThemeParamsTest extends \PHPUnit_Framework_TestCase
             ->select()->where('params_id=?',3)->first();
 
         $this->assertSame('layout_theme_params', $obj->getModelId());
-        $this->assertSame(3, $obj->getparams_id());
-        $this->assertSame(3, $obj->getId());
+        $this->assertSame(3, $obj->getParamsId());
         $this->assertSame('galaxy', $obj->getThemeId());
         $this->assertSame('[]', $obj->getParams());    }
 

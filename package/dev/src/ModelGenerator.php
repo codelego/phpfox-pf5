@@ -200,12 +200,13 @@ class ModelGenerator extends AbstractGenerator
             $name = $column->getName();
             $isBoolean = $column->isBoolean();
             $value = isset($savedData[$name]) ? $savedData[$name] : '';
+            $isPrimary = false;
 
-            if ($column->isPrimary()) {
-                $name = 'Id';
-            } else {
-                $name = _inflect(str_replace('_', ' ', $name));
+            if ($column->isIdentity() and $name != 'id') {
+                $isPrimary = true;
             }
+
+            $name = _inflect(str_replace('_', ' ', $name));
 
             if ($isBoolean) {
                 $name = substr($name, 2);
@@ -234,10 +235,24 @@ class ModelGenerator extends AbstractGenerator
                     $assertSameMethods[]
                         = _sprintf('$this->assertSame({quoted_value}, $obj->get{name}());',
                         $replacements);
+
+                    // primary only
+                    if($isPrimary){
+                        $getterAndSetterMethods[]
+                            = _sprintf('public function getId(){return (int) $this->__get(\'{column}\');}',
+                            $replacements);
+                    }
                 } else {
                     $getterAndSetterMethods[]
                         = _sprintf('public function get{name}(){return $this->__get(\'{column}\');}',
                         $replacements);
+
+                    // primary only
+                    if($isPrimary){
+                        $getterAndSetterMethods[]
+                            = _sprintf('public function getId(){return $this->__get(\'{column}\');}',
+                            $replacements);
+                    }
 
                     $assertSameMethods[]
                         = _sprintf('$this->assertSame({quoted_value}, $obj->get{name}());',
@@ -245,7 +260,7 @@ class ModelGenerator extends AbstractGenerator
                 }
             }
 
-            // process get
+            // process set
             if ($isBoolean) {
                 $getterAndSetterMethods[]
                     = _sprintf('public function set{name}($value){$this->__set(\'{column}\',$value?1:0);}',
@@ -255,6 +270,12 @@ class ModelGenerator extends AbstractGenerator
                 $getterAndSetterMethods[]
                     = _sprintf('public function set{name}($value){$this->__set(\'{column}\', $value);}',
                     $replacements);
+
+                if($isPrimary){
+                    $getterAndSetterMethods[]
+                        = _sprintf('public function setId($value){$this->__set(\'{column}\', $value);}',
+                        $replacements);
+                }
 
             }
             $setDataMethods[] = _sprintf('$obj->set{name}({quoted_value});',

@@ -8,8 +8,7 @@ class LayoutThemeTest extends \PHPUnit_Framework_TestCase
         $obj = new LayoutTheme(array (  'theme_id' => 'admin',  'title' => 'Theme Admin',  'parent_id' => 'default',  'is_default' => 0,  'is_active' => 1,  'is_editing' => 0,  'is_admin' => 1,));
 
         $this->assertSame('layout_theme', $obj->getModelId());
-        $this->assertSame('admin', $obj->gettheme_id());
-        $this->assertSame('admin', $obj->getId());
+        $this->assertSame('admin', $obj->getThemeId());
         $this->assertSame('Theme Admin', $obj->getTitle());
         $this->assertSame('default', $obj->getParentId());
         $this->assertSame(0, $obj->isDefault());
@@ -22,8 +21,7 @@ class LayoutThemeTest extends \PHPUnit_Framework_TestCase
         $obj = new LayoutTheme();
 
         // set data
-        $obj->settheme_id('admin');
-        $obj->setId('admin');
+        $obj->setThemeId('admin');
         $obj->setTitle('Theme Admin');
         $obj->setParentId('default');
         $obj->setDefault(0);
@@ -32,8 +30,7 @@ class LayoutThemeTest extends \PHPUnit_Framework_TestCase
         $obj->setAdmin(1);
         // assert same data
         $this->assertSame('layout_theme', $obj->getModelId());
-        $this->assertSame('admin', $obj->gettheme_id());
-        $this->assertSame('admin', $obj->getId());
+        $this->assertSame('admin', $obj->getThemeId());
         $this->assertSame('Theme Admin', $obj->getTitle());
         $this->assertSame('default', $obj->getParentId());
         $this->assertSame(0, $obj->isDefault());
@@ -52,8 +49,7 @@ class LayoutThemeTest extends \PHPUnit_Framework_TestCase
             ->select()->where('theme_id=?','admin')->first();
 
         $this->assertSame('layout_theme', $obj->getModelId());
-        $this->assertSame('admin', $obj->gettheme_id());
-        $this->assertSame('admin', $obj->getId());
+        $this->assertSame('admin', $obj->getThemeId());
         $this->assertSame('Theme Admin', $obj->getTitle());
         $this->assertSame('default', $obj->getParentId());
         $this->assertSame(0, $obj->isDefault());
