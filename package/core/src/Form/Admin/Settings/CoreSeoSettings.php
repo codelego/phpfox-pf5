@@ -113,8 +113,8 @@ class CoreSeoSettings extends Form
         $this->addElement([
             'factory'    => 'text',
             'name'       => 'core_seo__copyright',
-            'label'      => _text('Copyright', 'core_seo'),
-            'note'       => _text('[Copyright Note]', 'core_seo'),
+            'label'      => _text('Site Copyright', 'core_seo'),
+            'note'       => _text('[Site Copyright Note]', 'core_seo'),
             'attributes' => ['class' => 'form-control'],
             'required'   => false,
         ]);
@@ -124,7 +124,7 @@ class CoreSeoSettings extends Form
             'factory'    => 'button',
             'name'       => 'save',
             'label'      => _text('Save Changes'),
-            'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
+            'attributes' => ['class' => 'btn btn-primary', 'type' => 'submit',],
         ]);
 
         $this->addButton([
@@ -132,7 +132,7 @@ class CoreSeoSettings extends Form
             'name'       => 'cancel',
             'href'       => '#',
             'label'      => _text('Cancel'),
-            'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
+            'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);
     }
 }

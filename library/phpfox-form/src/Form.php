@@ -294,4 +294,17 @@ class Form extends Element implements ElementInterface, CollectionInterface
     {
         return $this->buttons;
     }
+
+    public function postPopulate()
+    {
+
+    }
+
+    /**
+     * Call this method after saved data
+     */
+    public function postSave()
+    {
+
+    }
 }

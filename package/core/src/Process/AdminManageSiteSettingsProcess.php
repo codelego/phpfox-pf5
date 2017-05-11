@@ -10,11 +10,58 @@ namespace Neutron\Core\Process;
 
 
 use Neutron\Core\Model\SiteSettingGroup;
+use Phpfox\Form\FieldInterface;
 use Phpfox\Form\Form;
 use Phpfox\View\ViewModel;
 
 class AdminManageSiteSettingsProcess extends AbstractProcess
 {
+    public function getSettingGroups(Form $form)
+    {
+        $settingGroups = [];
+        foreach ($form->getElements() as $element) {
+
+            $elementName = $element->getName();
+
+            if (!$element instanceof FieldInterface) {
+                continue;
+            }
+
+            if (!strpos($elementName, '__')) {
+                continue;
+            }
+
+            list($settingGroup, $settingName) = explode('__', $element->getName());
+
+            $settingGroups[$settingGroup][] = $settingName;
+        }
+
+        return $settingGroups;
+    }
+
+    public function getPostData(Form $form)
+    {
+        $data = [];
+        foreach ($form->getElements() as $element) {
+
+            $elementName = $element->getName();
+
+            if (!$element instanceof FieldInterface) {
+                continue;
+            }
+
+            if (!strpos($elementName, '__')) {
+                continue;
+            }
+
+            list($settingGroup, $settingName) = explode('__', $element->getName());
+
+            $data[$settingGroup][$settingName] = $element->getValue();
+        }
+
+        return $data;
+    }
+
     public function process()
     {
         $request = _service('request');
@@ -42,10 +89,22 @@ class AdminManageSiteSettingsProcess extends AbstractProcess
 
         if ($request->isGet()) {
 
+            $data = _service('core.setting')->getForEdit($this->getSettingGroups($form));
+
+            $form->populate($data);
+
+            $form->postPopulate();
         }
 
         if ($request->isPost() and $form->isValid($request->all())) {
 
+            $data = $this->getPostData($form);
+
+            _service('core.setting')->updateGroupValues($data);
+
+            $form->postSave();
+
+            _service('cache.local')->flush();
         }
 
         $vm = new ViewModel(['form' => $form], 'layout/form-edit');

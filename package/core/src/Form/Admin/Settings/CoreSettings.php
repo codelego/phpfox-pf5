@@ -14,7 +14,7 @@ class CoreSettings extends Form
 
         $this->addElement([
             'factory'  => 'radio',
-            'name'     => 'core__offline',
+            'name'     => 'core__site_offline',
             'value'    => 0,
             'label'    => _text('Site Offline?', 'admin'),
             'note'     => _text('[Site offline Note]', 'admin'),
