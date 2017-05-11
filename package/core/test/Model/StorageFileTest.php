@@ -1,92 +1,71 @@
 <?php
-
 namespace Neutron\Core\Model;
 
 class StorageFileTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new StorageFile([
-            'file_id'    => 11,
-            'adapter_id' => 2,
-            'file_size'  => 8749484,
-            'user_id'    => 22,
-            'file_mime'  => 'image/jpeg',
-            'paths'      => '[]',
-            'created_at' => '2015-01-12 00:00:00',
-        ]);
+        $obj = new StorageFile();
 
         $this->assertSame('storage_file', $obj->getModelId());
-        $this->assertSame(11, $obj->getId());
-        $this->assertSame(2, $obj->getAdapterId());
-        $this->assertSame(8749484, $obj->getFileSize());
-        $this->assertSame(22, $obj->getUserId());
-        $this->assertSame('image/jpeg', $obj->getFileMime());
-        $this->assertSame('[]', $obj->getPaths());
-        $this->assertSame('2015-01-12 00:00:00', $obj->getCreatedAt());
-    }
+        $this->assertSame('', $obj->getFileId());
+        $this->assertSame('', $obj->getAdapterId());
+        $this->assertSame('', $obj->getFileSize());
+        $this->assertSame('', $obj->getUserId());
+        $this->assertSame('', $obj->getFileMime());
+        $this->assertSame('', $obj->getPaths());
+        $this->assertSame('', $obj->getCreatedAt());    }
 
     public function testParameters()
     {
         $obj = new StorageFile();
 
         // set data
-        $obj->setId(11);
-        $obj->setAdapterId(2);
-        $obj->setFileSize(8749484);
-        $obj->setUserId(22);
-        $obj->setFileMime('image/jpeg');
-        $obj->setPaths('[]');
-        $obj->setCreatedAt('2015-01-12 00:00:00');
-
+        $obj->setFileId('');
+        $obj->setAdapterId('');
+        $obj->setFileSize('');
+        $obj->setUserId('');
+        $obj->setFileMime('');
+        $obj->setPaths('');
+        $obj->setCreatedAt('');
         // assert same data
         $this->assertSame('storage_file', $obj->getModelId());
-        $this->assertSame(11, $obj->getId());
-        $this->assertSame(2, $obj->getAdapterId());
-        $this->assertSame(8749484, $obj->getFileSize());
-        $this->assertSame(22, $obj->getUserId());
-        $this->assertSame('image/jpeg', $obj->getFileMime());
-        $this->assertSame('[]', $obj->getPaths());
-        $this->assertSame('2015-01-12 00:00:00', $obj->getCreatedAt());
-    }
+        $this->assertSame('', $obj->getFileId());
+        $this->assertSame('', $obj->getAdapterId());
+        $this->assertSame('', $obj->getFileSize());
+        $this->assertSame('', $obj->getUserId());
+        $this->assertSame('', $obj->getFileMime());
+        $this->assertSame('', $obj->getPaths());
+        $this->assertSame('', $obj->getCreatedAt());    }
 
     public function testSave()
     {
-        $obj = new StorageFile([
-            'file_id'    => 11,
-            'adapter_id' => 2,
-            'file_size'  => 8749484,
-            'user_id'    => 22,
-            'file_mime'  => 'image/jpeg',
-            'paths'      => '[]',
-            'created_at' => '2015-01-12 00:00:00',
-        ]);
+        $obj = new StorageFile();
 
         $obj->save();
 
         /** @var StorageFile $obj */
         $obj = _model('storage_file')
-            ->select()->where('file_id=?', 11)->first();
+            ->select()->where('file_id=?','')->first();
 
         $this->assertSame('storage_file', $obj->getModelId());
-        $this->assertSame(11, $obj->getId());
-        $this->assertSame(2, $obj->getAdapterId());
-        $this->assertSame(8749484, $obj->getFileSize());
-        $this->assertSame(22, $obj->getUserId());
-        $this->assertSame('image/jpeg', $obj->getFileMime());
-        $this->assertSame('[]', $obj->getPaths());
-        $this->assertSame('2015-01-12 00:00:00', $obj->getCreatedAt());
-    }
+        $this->assertSame('', $obj->getFileId());
+        $this->assertSame('', $obj->getAdapterId());
+        $this->assertSame('', $obj->getFileSize());
+        $this->assertSame('', $obj->getUserId());
+        $this->assertSame('', $obj->getFileMime());
+        $this->assertSame('', $obj->getPaths());
+        $this->assertSame('', $obj->getCreatedAt());    }
 
     public static function setUpBeforeClass()
     {
         _model('storage_file')
-            ->delete()->where('file_id=?', 11)->execute();
+            ->delete()->where('file_id=?','')->execute();
     }
 
     public static function tearDownAfterClass()
     {
         _model('storage_file')
-            ->delete()->where('file_id=?', 11)->execute();
+            ->delete()->where('file_id=?','')->execute();
     }
 }

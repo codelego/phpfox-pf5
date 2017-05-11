@@ -1,5 +1,4 @@
 <?php
-
 namespace Neutron\Core\Model;
 
 class MailTemplateTest extends \PHPUnit_Framework_TestCase
@@ -13,8 +12,7 @@ class MailTemplateTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getLanguageId());
         $this->assertSame('', $obj->getCode());
         $this->assertSame('', $obj->getPackageId());
-        $this->assertSame('', $obj->getVars());
-    }
+        $this->assertSame('', $obj->getVars());    }
 
     public function testParameters()
     {
@@ -26,15 +24,13 @@ class MailTemplateTest extends \PHPUnit_Framework_TestCase
         $obj->setCode('');
         $obj->setPackageId('');
         $obj->setVars('');
-
         // assert same data
         $this->assertSame('mail_template', $obj->getModelId());
         $this->assertSame('', $obj->getId());
         $this->assertSame('', $obj->getLanguageId());
         $this->assertSame('', $obj->getCode());
         $this->assertSame('', $obj->getPackageId());
-        $this->assertSame('', $obj->getVars());
-    }
+        $this->assertSame('', $obj->getVars());    }
 
     public function testSave()
     {
@@ -51,8 +47,7 @@ class MailTemplateTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getLanguageId());
         $this->assertSame('', $obj->getCode());
         $this->assertSame('', $obj->getPackageId());
-        $this->assertSame('', $obj->getVars());
-    }
+        $this->assertSame('', $obj->getVars());    }
 
     public static function setUpBeforeClass()
     {

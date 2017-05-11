@@ -1,5 +1,4 @@
 <?php
-
 namespace Neutron\Core\Model;
 
 use Phpfox\Db\DbModel;
@@ -22,5 +21,4 @@ class MailTemplate extends DbModel
     
     public function getVars(){return $this->__get('vars');}
     public function setVars($value){$this->__set('vars', $value);}
-    
-}
+    }

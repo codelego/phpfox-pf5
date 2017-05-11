@@ -1,5 +1,4 @@
 <?php
-
 namespace Neutron\Core\Model;
 
 class AclSettingValueTest extends \PHPUnit_Framework_TestCase
@@ -9,41 +8,29 @@ class AclSettingValueTest extends \PHPUnit_Framework_TestCase
         $obj = new AclSettingValue();
 
         $this->assertSame('acl_setting_value', $obj->getModelId());
-        $this->assertSame('', $obj->getId());
-        $this->assertSame('', $obj->getPackageId());
-        $this->assertSame('', $obj->getGroupId());
+        $this->assertSame('', $obj->getValueId());
+        $this->assertSame('', $obj->getActionId());
+        $this->assertSame('', $obj->getRoleId());
         $this->assertSame('', $obj->getName());
-        $this->assertSame('', $obj->getPhraseVarName());
-        $this->assertSame('', $obj->getValueActual());
-        $this->assertSame('', $obj->getPriority());
-        $this->assertSame('', $obj->isActive());
-    }
+        $this->assertSame('', $obj->getValueActual());    }
 
     public function testParameters()
     {
         $obj = new AclSettingValue();
 
         // set data
-        $obj->setId('');
-        $obj->setPackageId('');
-        $obj->setGroupId('');
+        $obj->setValueId('');
+        $obj->setActionId('');
+        $obj->setRoleId('');
         $obj->setName('');
-        $obj->setPhraseVarName('');
         $obj->setValueActual('');
-        $obj->setPriority('');
-        $obj->setActive('');
-
         // assert same data
         $this->assertSame('acl_setting_value', $obj->getModelId());
-        $this->assertSame('', $obj->getId());
-        $this->assertSame('', $obj->getPackageId());
-        $this->assertSame('', $obj->getGroupId());
+        $this->assertSame('', $obj->getValueId());
+        $this->assertSame('', $obj->getActionId());
+        $this->assertSame('', $obj->getRoleId());
         $this->assertSame('', $obj->getName());
-        $this->assertSame('', $obj->getPhraseVarName());
-        $this->assertSame('', $obj->getValueActual());
-        $this->assertSame('', $obj->getPriority());
-        $this->assertSame('', $obj->isActive());
-    }
+        $this->assertSame('', $obj->getValueActual());    }
 
     public function testSave()
     {
@@ -53,28 +40,24 @@ class AclSettingValueTest extends \PHPUnit_Framework_TestCase
 
         /** @var AclSettingValue $obj */
         $obj = _model('acl_setting_value')
-            ->select()->where('value_id=?', '')->first();
+            ->select()->where('value_id=?','')->first();
 
         $this->assertSame('acl_setting_value', $obj->getModelId());
-        $this->assertSame('', $obj->getId());
-        $this->assertSame('', $obj->getPackageId());
-        $this->assertSame('', $obj->getGroupId());
+        $this->assertSame('', $obj->getValueId());
+        $this->assertSame('', $obj->getActionId());
+        $this->assertSame('', $obj->getRoleId());
         $this->assertSame('', $obj->getName());
-        $this->assertSame('', $obj->getPhraseVarName());
-        $this->assertSame('', $obj->getValueActual());
-        $this->assertSame('', $obj->getPriority());
-        $this->assertSame('', $obj->isActive());
-    }
+        $this->assertSame('', $obj->getValueActual());    }
 
     public static function setUpBeforeClass()
     {
         _model('acl_setting_value')
-            ->delete()->where('value_id=?', '')->execute();
+            ->delete()->where('value_id=?','')->execute();
     }
 
     public static function tearDownAfterClass()
     {
         _model('acl_setting_value')
-            ->delete()->where('value_id=?', '')->execute();
+            ->delete()->where('value_id=?','')->execute();
     }
 }

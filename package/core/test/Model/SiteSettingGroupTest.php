@@ -1,92 +1,71 @@
 <?php
-
 namespace Neutron\Core\Model;
 
 class SiteSettingGroupTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new SiteSettingGroup([
-            'group_id'    => 'core_mail',
-            'package_id'  => 'core',
-            'title'       => 'Mail Setttings',
-            'form_name'   => 'Neutron\\Core\\Form\\AdminMailSettings',
-            'description' => 'Mail Setttings',
-            'sort_order'  => 4,
-            'is_active'   => 1,
-        ]);
+        $obj = new SiteSettingGroup(array (  'group_id' => 'blog',  'package_id' => 'blog',  'title' => 'Blog Settings',  'form_name' => 'Neutron\\Blog\\Form\\Admin\\Settings\\SiteSettings',  'description' => 'Blog Settings',  'sort_order' => 2,  'is_active' => 1,));
 
         $this->assertSame('site_setting_group', $obj->getModelId());
-        $this->assertSame('core_mail', $obj->getId());
-        $this->assertSame('core', $obj->getPackageId());
-        $this->assertSame('Mail Setttings', $obj->getTitle());
-        $this->assertSame('Neutron\Core\Form\AdminMailSettings', $obj->getFormName());
-        $this->assertSame('Mail Setttings', $obj->getDescription());
-        $this->assertSame(4, $obj->getSortOrder());
-        $this->assertSame(1, $obj->isActive());
-    }
+        $this->assertSame('blog', $obj->getGroupId());
+        $this->assertSame('blog', $obj->getPackageId());
+        $this->assertSame('Blog Settings', $obj->getTitle());
+        $this->assertSame('Neutron\Blog\Form\Admin\Settings\SiteSettings', $obj->getFormName());
+        $this->assertSame('Blog Settings', $obj->getDescription());
+        $this->assertSame(2, $obj->getSortOrder());
+        $this->assertSame(1, $obj->isActive());    }
 
     public function testParameters()
     {
         $obj = new SiteSettingGroup();
 
         // set data
-        $obj->setId('core_mail');
-        $obj->setPackageId('core');
-        $obj->setTitle('Mail Setttings');
-        $obj->setFormName('Neutron\Core\Form\AdminMailSettings');
-        $obj->setDescription('Mail Setttings');
-        $obj->setSortOrder(4);
+        $obj->setGroupId('blog');
+        $obj->setPackageId('blog');
+        $obj->setTitle('Blog Settings');
+        $obj->setFormName('Neutron\Blog\Form\Admin\Settings\SiteSettings');
+        $obj->setDescription('Blog Settings');
+        $obj->setSortOrder(2);
         $obj->setActive(1);
-
         // assert same data
         $this->assertSame('site_setting_group', $obj->getModelId());
-        $this->assertSame('core_mail', $obj->getId());
-        $this->assertSame('core', $obj->getPackageId());
-        $this->assertSame('Mail Setttings', $obj->getTitle());
-        $this->assertSame('Neutron\Core\Form\AdminMailSettings', $obj->getFormName());
-        $this->assertSame('Mail Setttings', $obj->getDescription());
-        $this->assertSame(4, $obj->getSortOrder());
-        $this->assertSame(1, $obj->isActive());
-    }
+        $this->assertSame('blog', $obj->getGroupId());
+        $this->assertSame('blog', $obj->getPackageId());
+        $this->assertSame('Blog Settings', $obj->getTitle());
+        $this->assertSame('Neutron\Blog\Form\Admin\Settings\SiteSettings', $obj->getFormName());
+        $this->assertSame('Blog Settings', $obj->getDescription());
+        $this->assertSame(2, $obj->getSortOrder());
+        $this->assertSame(1, $obj->isActive());    }
 
     public function testSave()
     {
-        $obj = new SiteSettingGroup([
-            'group_id'    => 'core_mail',
-            'package_id'  => 'core',
-            'title'       => 'Mail Setttings',
-            'form_name'   => 'Neutron\\Core\\Form\\AdminMailSettings',
-            'description' => 'Mail Setttings',
-            'sort_order'  => 4,
-            'is_active'   => 1,
-        ]);
+        $obj = new SiteSettingGroup(array (  'group_id' => 'blog',  'package_id' => 'blog',  'title' => 'Blog Settings',  'form_name' => 'Neutron\\Blog\\Form\\Admin\\Settings\\SiteSettings',  'description' => 'Blog Settings',  'sort_order' => 2,  'is_active' => 1,));
 
         $obj->save();
 
         /** @var SiteSettingGroup $obj */
         $obj = _model('site_setting_group')
-            ->select()->where('group_id=?', 'core_mail')->first();
+            ->select()->where('group_id=?','blog')->first();
 
         $this->assertSame('site_setting_group', $obj->getModelId());
-        $this->assertSame('core_mail', $obj->getId());
-        $this->assertSame('core', $obj->getPackageId());
-        $this->assertSame('Mail Setttings', $obj->getTitle());
-        $this->assertSame('Neutron\Core\Form\AdminMailSettings', $obj->getFormName());
-        $this->assertSame('Mail Setttings', $obj->getDescription());
-        $this->assertSame(4, $obj->getSortOrder());
-        $this->assertSame(1, $obj->isActive());
-    }
+        $this->assertSame('blog', $obj->getGroupId());
+        $this->assertSame('blog', $obj->getPackageId());
+        $this->assertSame('Blog Settings', $obj->getTitle());
+        $this->assertSame('Neutron\Blog\Form\Admin\Settings\SiteSettings', $obj->getFormName());
+        $this->assertSame('Blog Settings', $obj->getDescription());
+        $this->assertSame(2, $obj->getSortOrder());
+        $this->assertSame(1, $obj->isActive());    }
 
     public static function setUpBeforeClass()
     {
         _model('site_setting_group')
-            ->delete()->where('group_id=?', 'core_mail')->execute();
+            ->delete()->where('group_id=?','blog')->execute();
     }
 
     public static function tearDownAfterClass()
     {
         _model('site_setting_group')
-            ->delete()->where('group_id=?', 'core_mail')->execute();
+            ->delete()->where('group_id=?','blog')->execute();
     }
 }

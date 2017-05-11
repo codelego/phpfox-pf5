@@ -1,44 +1,40 @@
 <?php
-
 namespace Neutron\Core\Model;
 
 class CacheDriverTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new CacheDriver(array (  'driver_id' => 'files',  'driver_name' => 'File System',  'form_name' => 'Neutron\\Core\\Form\\Admin\\CacheDriver\\FilesDriverSettings',  'description' => 'Edit Files system settings',  'is_active' => 1,));
+        $obj = new CacheDriver(array (  'driver_id' => 'files',  'driver_name' => 'File System',  'form_name' => 'Neutron\\Core\\Form\\Admin\\CacheDriver\\FilesDriverSettings',  'description' => 'Basic cache engine on file system',  'is_active' => 1,));
 
         $this->assertSame('cache_driver', $obj->getModelId());
-        $this->assertSame('files', $obj->getId());
+        $this->assertSame('files', $obj->getDriverId());
         $this->assertSame('File System', $obj->getDriverName());
         $this->assertSame('Neutron\Core\Form\Admin\CacheDriver\FilesDriverSettings', $obj->getFormName());
-        $this->assertSame('Edit Files system settings', $obj->getDescription());
-        $this->assertSame(1, $obj->isActive());
-    }
+        $this->assertSame('Basic cache engine on file system', $obj->getDescription());
+        $this->assertSame(1, $obj->isActive());    }
 
     public function testParameters()
     {
         $obj = new CacheDriver();
 
         // set data
-        $obj->setId('files');
+        $obj->setDriverId('files');
         $obj->setDriverName('File System');
         $obj->setFormName('Neutron\Core\Form\Admin\CacheDriver\FilesDriverSettings');
-        $obj->setDescription('Edit Files system settings');
+        $obj->setDescription('Basic cache engine on file system');
         $obj->setActive(1);
-
         // assert same data
         $this->assertSame('cache_driver', $obj->getModelId());
-        $this->assertSame('files', $obj->getId());
+        $this->assertSame('files', $obj->getDriverId());
         $this->assertSame('File System', $obj->getDriverName());
         $this->assertSame('Neutron\Core\Form\Admin\CacheDriver\FilesDriverSettings', $obj->getFormName());
-        $this->assertSame('Edit Files system settings', $obj->getDescription());
-        $this->assertSame(1, $obj->isActive());
-    }
+        $this->assertSame('Basic cache engine on file system', $obj->getDescription());
+        $this->assertSame(1, $obj->isActive());    }
 
     public function testSave()
     {
-        $obj = new CacheDriver(array (  'driver_id' => 'files',  'driver_name' => 'File System',  'form_name' => 'Neutron\\Core\\Form\\Admin\\CacheDriver\\FilesDriverSettings',  'description' => 'Edit Files system settings',  'is_active' => 1,));
+        $obj = new CacheDriver(array (  'driver_id' => 'files',  'driver_name' => 'File System',  'form_name' => 'Neutron\\Core\\Form\\Admin\\CacheDriver\\FilesDriverSettings',  'description' => 'Basic cache engine on file system',  'is_active' => 1,));
 
         $obj->save();
 
@@ -47,12 +43,11 @@ class CacheDriverTest extends \PHPUnit_Framework_TestCase
             ->select()->where('driver_id=?','files')->first();
 
         $this->assertSame('cache_driver', $obj->getModelId());
-        $this->assertSame('files', $obj->getId());
+        $this->assertSame('files', $obj->getDriverId());
         $this->assertSame('File System', $obj->getDriverName());
         $this->assertSame('Neutron\Core\Form\Admin\CacheDriver\FilesDriverSettings', $obj->getFormName());
-        $this->assertSame('Edit Files system settings', $obj->getDescription());
-        $this->assertSame(1, $obj->isActive());
-    }
+        $this->assertSame('Basic cache engine on file system', $obj->getDescription());
+        $this->assertSame(1, $obj->isActive());    }
 
     public static function setUpBeforeClass()
     {

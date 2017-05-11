@@ -7,7 +7,9 @@ class AclRole extends DbModel
 {
     public function getModelId(){return 'acl_role';}
 
+    public function getRoleId(){return (int) $this->__get('role_id');}
     public function getId(){return (int) $this->__get('role_id');}
+    public function setRoleId($value){$this->__set('role_id', $value);}
     public function setId($value){$this->__set('role_id', $value);}
     
     public function getInheritId(){return (int) $this->__get('inherit_id');}

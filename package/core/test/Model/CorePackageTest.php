@@ -1,27 +1,11 @@
 <?php
-
 namespace Neutron\Core\Model;
 
 class CorePackageTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new CorePackage([
-            'id'             => 1,
-            'type_id'        => 'app',
-            'is_required'    => 1,
-            'is_active'      => 1,
-            'theme_id'       => null,
-            'priority'       => 1,
-            'title'          => 'Core',
-            'version'        => '5.0.1',
-            'latest_version' => null,
-            'author'         => 'phpFox',
-            'description'    => null,
-            'apps_icon'      => '',
-            'name'           => 'core',
-            'path'           => 'package/core',
-        ]);
+        $obj = new CorePackage(array (  'id' => 1,  'type_id' => 'app',  'is_required' => 1,  'is_active' => 1,  'theme_id' => NULL,  'priority' => 1,  'title' => 'Core',  'version' => '5.0.1',  'latest_version' => NULL,  'author' => 'phpFox',  'description' => NULL,  'apps_icon' => '',  'name' => 'core',  'path' => 'package/core',));
 
         $this->assertSame('core_package', $obj->getModelId());
         $this->assertSame(1, $obj->getId());
@@ -37,8 +21,7 @@ class CorePackageTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getDescription());
         $this->assertSame('', $obj->getAppsIcon());
         $this->assertSame('core', $obj->getName());
-        $this->assertSame('package/core', $obj->getPath());
-    }
+        $this->assertSame('package/core', $obj->getPath());    }
 
     public function testParameters()
     {
@@ -59,7 +42,6 @@ class CorePackageTest extends \PHPUnit_Framework_TestCase
         $obj->setAppsIcon('');
         $obj->setName('core');
         $obj->setPath('package/core');
-
         // assert same data
         $this->assertSame('core_package', $obj->getModelId());
         $this->assertSame(1, $obj->getId());
@@ -75,33 +57,17 @@ class CorePackageTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getDescription());
         $this->assertSame('', $obj->getAppsIcon());
         $this->assertSame('core', $obj->getName());
-        $this->assertSame('package/core', $obj->getPath());
-    }
+        $this->assertSame('package/core', $obj->getPath());    }
 
     public function testSave()
     {
-        $obj = new CorePackage([
-            'id'             => 1,
-            'type_id'        => 'app',
-            'is_required'    => 1,
-            'is_active'      => 1,
-            'theme_id'       => null,
-            'priority'       => 1,
-            'title'          => 'Core',
-            'version'        => '5.0.1',
-            'latest_version' => null,
-            'author'         => 'phpFox',
-            'description'    => null,
-            'apps_icon'      => '',
-            'name'           => 'core',
-            'path'           => 'package/core',
-        ]);
+        $obj = new CorePackage(array (  'id' => 1,  'type_id' => 'app',  'is_required' => 1,  'is_active' => 1,  'theme_id' => NULL,  'priority' => 1,  'title' => 'Core',  'version' => '5.0.1',  'latest_version' => NULL,  'author' => 'phpFox',  'description' => NULL,  'apps_icon' => '',  'name' => 'core',  'path' => 'package/core',));
 
         $obj->save();
 
         /** @var CorePackage $obj */
         $obj = _model('core_package')
-            ->select()->where('id=?', 1)->first();
+            ->select()->where('id=?',1)->first();
 
         $this->assertSame('core_package', $obj->getModelId());
         $this->assertSame(1, $obj->getId());
@@ -117,18 +83,17 @@ class CorePackageTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getDescription());
         $this->assertSame('', $obj->getAppsIcon());
         $this->assertSame('core', $obj->getName());
-        $this->assertSame('package/core', $obj->getPath());
-    }
+        $this->assertSame('package/core', $obj->getPath());    }
 
     public static function setUpBeforeClass()
     {
         _model('core_package')
-            ->delete()->where('id=?', 1)->execute();
+            ->delete()->where('id=?',1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
         _model('core_package')
-            ->delete()->where('id=?', 1)->execute();
+            ->delete()->where('id=?',1)->execute();
     }
 }

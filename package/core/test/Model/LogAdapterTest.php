@@ -1,5 +1,4 @@
 <?php
-
 namespace Neutron\Core\Model;
 
 class LogAdapterTest extends \PHPUnit_Framework_TestCase
@@ -9,35 +8,32 @@ class LogAdapterTest extends \PHPUnit_Framework_TestCase
         $obj = new LogAdapter(array (  'adapter_id' => 1,  'container_id' => 'main.log',  'adapter_name' => 'Log to files',  'driver_id' => 'files',  'params' => '[]',  'description' => 'Default file logger',));
 
         $this->assertSame('log_adapter', $obj->getModelId());
-        $this->assertSame(1, $obj->getId());
+        $this->assertSame(1, $obj->getAdapterId());
         $this->assertSame('main.log', $obj->getContainerId());
         $this->assertSame('Log to files', $obj->getAdapterName());
         $this->assertSame('files', $obj->getDriverId());
         $this->assertSame('[]', $obj->getParams());
-        $this->assertSame('Default file logger', $obj->getDescription());
-    }
+        $this->assertSame('Default file logger', $obj->getDescription());    }
 
     public function testParameters()
     {
         $obj = new LogAdapter();
 
         // set data
-        $obj->setId(1);
+        $obj->setAdapterId(1);
         $obj->setContainerId('main.log');
         $obj->setAdapterName('Log to files');
         $obj->setDriverId('files');
         $obj->setParams('[]');
         $obj->setDescription('Default file logger');
-
         // assert same data
         $this->assertSame('log_adapter', $obj->getModelId());
-        $this->assertSame(1, $obj->getId());
+        $this->assertSame(1, $obj->getAdapterId());
         $this->assertSame('main.log', $obj->getContainerId());
         $this->assertSame('Log to files', $obj->getAdapterName());
         $this->assertSame('files', $obj->getDriverId());
         $this->assertSame('[]', $obj->getParams());
-        $this->assertSame('Default file logger', $obj->getDescription());
-    }
+        $this->assertSame('Default file logger', $obj->getDescription());    }
 
     public function testSave()
     {
@@ -50,13 +46,12 @@ class LogAdapterTest extends \PHPUnit_Framework_TestCase
             ->select()->where('adapter_id=?',1)->first();
 
         $this->assertSame('log_adapter', $obj->getModelId());
-        $this->assertSame(1, $obj->getId());
+        $this->assertSame(1, $obj->getAdapterId());
         $this->assertSame('main.log', $obj->getContainerId());
         $this->assertSame('Log to files', $obj->getAdapterName());
         $this->assertSame('files', $obj->getDriverId());
         $this->assertSame('[]', $obj->getParams());
-        $this->assertSame('Default file logger', $obj->getDescription());
-    }
+        $this->assertSame('Default file logger', $obj->getDescription());    }
 
     public static function setUpBeforeClass()
     {

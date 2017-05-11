@@ -1,5 +1,4 @@
 <?php
-
 namespace Neutron\Core\Model;
 
 use Phpfox\Db\DbModel;
@@ -8,7 +7,9 @@ class I18nLocale extends DbModel
 {
     public function getModelId(){return 'i18n_locale';}
 
+    public function getLocaleId(){return $this->__get('locale_id');}
     public function getId(){return $this->__get('locale_id');}
+    public function setLocaleId($value){$this->__set('locale_id', $value);}
     public function setId($value){$this->__set('locale_id', $value);}
     
     public function getName(){return $this->__get('name');}
@@ -25,5 +26,4 @@ class I18nLocale extends DbModel
     
     public function isActive(){return $this->__get('is_active') ?1:0;}
     public function setActive($value){$this->__set('is_active',$value?1:0);}
-    
-}
+    }

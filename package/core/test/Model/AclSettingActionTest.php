@@ -1,80 +1,67 @@
 <?php
-
 namespace Neutron\Core\Model;
 
 class AclSettingActionTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new AclSettingAction();
+        $obj = new AclSettingAction(array (  'action_id' => 1,  'package_id' => 'core',  'group_id' => 'core',  'name' => 'can_clear_site_cache',  'sort_order' => 0,  'is_active' => 1,));
 
         $this->assertSame('acl_setting_action', $obj->getModelId());
-        $this->assertSame('', $obj->getId());
-        $this->assertSame('', $obj->getPackageId());
-        $this->assertSame('', $obj->getGroupId());
-        $this->assertSame('', $obj->getName());
-        $this->assertSame('', $obj->getPhraseVarName());
-        $this->assertSame('', $obj->getValueActual());
-        $this->assertSame('', $obj->getPriority());
-        $this->assertSame('', $obj->isActive());
-    }
+        $this->assertSame(1, $obj->getActionId());
+        $this->assertSame('core', $obj->getPackageId());
+        $this->assertSame('core', $obj->getGroupId());
+        $this->assertSame('can_clear_site_cache', $obj->getName());
+        $this->assertSame(0, $obj->getSortOrder());
+        $this->assertSame(1, $obj->isActive());    }
 
     public function testParameters()
     {
         $obj = new AclSettingAction();
 
         // set data
-        $obj->setId('');
-        $obj->setPackageId('');
-        $obj->setGroupId('');
-        $obj->setName('');
-        $obj->setPhraseVarName('');
-        $obj->setValueActual('');
-        $obj->setPriority('');
-        $obj->setActive('');
-
+        $obj->setActionId(1);
+        $obj->setPackageId('core');
+        $obj->setGroupId('core');
+        $obj->setName('can_clear_site_cache');
+        $obj->setSortOrder(0);
+        $obj->setActive(1);
         // assert same data
         $this->assertSame('acl_setting_action', $obj->getModelId());
-        $this->assertSame('', $obj->getId());
-        $this->assertSame('', $obj->getPackageId());
-        $this->assertSame('', $obj->getGroupId());
-        $this->assertSame('', $obj->getName());
-        $this->assertSame('', $obj->getPhraseVarName());
-        $this->assertSame('', $obj->getValueActual());
-        $this->assertSame('', $obj->getPriority());
-        $this->assertSame('', $obj->isActive());
-    }
+        $this->assertSame(1, $obj->getActionId());
+        $this->assertSame('core', $obj->getPackageId());
+        $this->assertSame('core', $obj->getGroupId());
+        $this->assertSame('can_clear_site_cache', $obj->getName());
+        $this->assertSame(0, $obj->getSortOrder());
+        $this->assertSame(1, $obj->isActive());    }
 
     public function testSave()
     {
-        $obj = new AclSettingAction();
+        $obj = new AclSettingAction(array (  'action_id' => 1,  'package_id' => 'core',  'group_id' => 'core',  'name' => 'can_clear_site_cache',  'sort_order' => 0,  'is_active' => 1,));
 
         $obj->save();
 
         /** @var AclSettingAction $obj */
         $obj = _model('acl_setting_action')
-            ->select()->where('action_id=?', '')->first();
+            ->select()->where('action_id=?',1)->first();
 
         $this->assertSame('acl_setting_action', $obj->getModelId());
-        $this->assertSame('', $obj->getId());
-        $this->assertSame('', $obj->getPackageId());
-        $this->assertSame('', $obj->getGroupId());
-        $this->assertSame('', $obj->getName());
-        $this->assertSame('', $obj->getPhraseVarName());
-        $this->assertSame('', $obj->getValueActual());
-        $this->assertSame('', $obj->getPriority());
-        $this->assertSame('', $obj->isActive());
-    }
+        $this->assertSame(1, $obj->getActionId());
+        $this->assertSame('core', $obj->getPackageId());
+        $this->assertSame('core', $obj->getGroupId());
+        $this->assertSame('can_clear_site_cache', $obj->getName());
+        $this->assertSame(0, $obj->getSortOrder());
+        $this->assertSame(1, $obj->isActive());    }
 
     public static function setUpBeforeClass()
     {
         _model('acl_setting_action')
-            ->delete()->where('action_id=?', '')->execute();
+            ->delete()->where('action_id=?',1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
         _model('acl_setting_action')
-            ->delete()->where('action_id=?', '')->execute();
+            ->delete()->where('action_id=?',1)->execute();
     }
 }

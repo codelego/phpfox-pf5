@@ -1,5 +1,4 @@
 <?php
-
 namespace Neutron\Core\Model;
 
 use Phpfox\Db\DbModel;
@@ -8,7 +7,9 @@ class LogAdapter extends DbModel
 {
     public function getModelId(){return 'log_adapter';}
 
+    public function getAdapterId(){return (int) $this->__get('adapter_id');}
     public function getId(){return (int) $this->__get('adapter_id');}
+    public function setAdapterId($value){$this->__set('adapter_id', $value);}
     public function setId($value){$this->__set('adapter_id', $value);}
     
     public function getContainerId(){return $this->__get('container_id');}
@@ -25,5 +26,4 @@ class LogAdapter extends DbModel
     
     public function getDescription(){return $this->__get('description');}
     public function setDescription($value){$this->__set('description', $value);}
-    
-}
+    }

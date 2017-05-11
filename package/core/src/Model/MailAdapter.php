@@ -1,5 +1,4 @@
 <?php
-
 namespace Neutron\Core\Model;
 
 use Phpfox\Db\DbModel;
@@ -8,7 +7,9 @@ class MailAdapter extends DbModel
 {
     public function getModelId(){return 'mail_adapter';}
 
+    public function getAdapterId(){return (int) $this->__get('adapter_id');}
     public function getId(){return (int) $this->__get('adapter_id');}
+    public function setAdapterId($value){$this->__set('adapter_id', $value);}
     public function setId($value){$this->__set('adapter_id', $value);}
     
     public function getAdapterName(){return $this->__get('adapter_name');}
@@ -28,5 +29,4 @@ class MailAdapter extends DbModel
     
     public function getDescription(){return $this->__get('description');}
     public function setDescription($value){$this->__set('description', $value);}
-    
-}
+    }

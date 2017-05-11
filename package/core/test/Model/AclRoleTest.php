@@ -8,7 +8,7 @@ class AclRoleTest extends \PHPUnit_Framework_TestCase
         $obj = new AclRole(array (  'role_id' => 1,  'inherit_id' => 0,  'title' => 'Super',  'item_count' => 0,  'is_special' => 1,  'is_super' => 1,  'is_admin' => 1,  'is_moderator' => 1,  'is_staff' => 1,  'is_registered' => 1,  'is_banned' => 0,  'is_guest' => 0,));
 
         $this->assertSame('acl_role', $obj->getModelId());
-        $this->assertSame(1, $obj->getId());
+        $this->assertSame(1, $obj->getRoleId());
         $this->assertSame(0, $obj->getInheritId());
         $this->assertSame('Super', $obj->getTitle());
         $this->assertSame(0, $obj->getItemCount());
@@ -26,7 +26,7 @@ class AclRoleTest extends \PHPUnit_Framework_TestCase
         $obj = new AclRole();
 
         // set data
-        $obj->setId(1);
+        $obj->setRoleId(1);
         $obj->setInheritId(0);
         $obj->setTitle('Super');
         $obj->setItemCount(0);
@@ -40,7 +40,7 @@ class AclRoleTest extends \PHPUnit_Framework_TestCase
         $obj->setGuest(0);
         // assert same data
         $this->assertSame('acl_role', $obj->getModelId());
-        $this->assertSame(1, $obj->getId());
+        $this->assertSame(1, $obj->getRoleId());
         $this->assertSame(0, $obj->getInheritId());
         $this->assertSame('Super', $obj->getTitle());
         $this->assertSame(0, $obj->getItemCount());
@@ -64,7 +64,7 @@ class AclRoleTest extends \PHPUnit_Framework_TestCase
             ->select()->where('role_id=?',1)->first();
 
         $this->assertSame('acl_role', $obj->getModelId());
-        $this->assertSame(1, $obj->getId());
+        $this->assertSame(1, $obj->getRoleId());
         $this->assertSame(0, $obj->getInheritId());
         $this->assertSame('Super', $obj->getTitle());
         $this->assertSame(0, $obj->getItemCount());

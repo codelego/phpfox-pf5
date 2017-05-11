@@ -1,5 +1,4 @@
 <?php
-
 namespace Neutron\Core\Model;
 
 use Phpfox\Db\DbModel;
@@ -8,7 +7,9 @@ class I18nCurrency extends DbModel
 {
     public function getModelId(){return 'i18n_currency';}
 
+    public function getCurrencyId(){return $this->__get('currency_id');}
     public function getId(){return $this->__get('currency_id');}
+    public function setCurrencyId($value){$this->__set('currency_id', $value);}
     public function setId($value){$this->__set('currency_id', $value);}
     
     public function getSymbol(){return $this->__get('symbol');}
@@ -22,5 +23,4 @@ class I18nCurrency extends DbModel
     
     public function isActive(){return $this->__get('is_active') ?1:0;}
     public function setActive($value){$this->__set('is_active',$value?1:0);}
-    
-}
+    }

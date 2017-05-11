@@ -1,5 +1,4 @@
 <?php
-
 namespace Neutron\Core\Model;
 
 class I18nCurrencyTest extends \PHPUnit_Framework_TestCase
@@ -9,32 +8,29 @@ class I18nCurrencyTest extends \PHPUnit_Framework_TestCase
         $obj = new I18nCurrency(array (  'currency_id' => 'EUR',  'symbol' => '€',  'name' => 'Euro',  'sort_order' => 2,  'is_active' => 1,));
 
         $this->assertSame('i18n_currency', $obj->getModelId());
-        $this->assertSame('EUR', $obj->getId());
+        $this->assertSame('EUR', $obj->getCurrencyId());
         $this->assertSame('€', $obj->getSymbol());
         $this->assertSame('Euro', $obj->getName());
         $this->assertSame(2, $obj->getSortOrder());
-        $this->assertSame(1, $obj->isActive());
-    }
+        $this->assertSame(1, $obj->isActive());    }
 
     public function testParameters()
     {
         $obj = new I18nCurrency();
 
         // set data
-        $obj->setId('EUR');
+        $obj->setCurrencyId('EUR');
         $obj->setSymbol('€');
         $obj->setName('Euro');
         $obj->setSortOrder(2);
         $obj->setActive(1);
-
         // assert same data
         $this->assertSame('i18n_currency', $obj->getModelId());
-        $this->assertSame('EUR', $obj->getId());
+        $this->assertSame('EUR', $obj->getCurrencyId());
         $this->assertSame('€', $obj->getSymbol());
         $this->assertSame('Euro', $obj->getName());
         $this->assertSame(2, $obj->getSortOrder());
-        $this->assertSame(1, $obj->isActive());
-    }
+        $this->assertSame(1, $obj->isActive());    }
 
     public function testSave()
     {
@@ -47,12 +43,11 @@ class I18nCurrencyTest extends \PHPUnit_Framework_TestCase
             ->select()->where('currency_id=?','EUR')->first();
 
         $this->assertSame('i18n_currency', $obj->getModelId());
-        $this->assertSame('EUR', $obj->getId());
+        $this->assertSame('EUR', $obj->getCurrencyId());
         $this->assertSame('€', $obj->getSymbol());
         $this->assertSame('Euro', $obj->getName());
         $this->assertSame(2, $obj->getSortOrder());
-        $this->assertSame(1, $obj->isActive());
-    }
+        $this->assertSame(1, $obj->isActive());    }
 
     public static function setUpBeforeClass()
     {

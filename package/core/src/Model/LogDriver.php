@@ -1,5 +1,4 @@
 <?php
-
 namespace Neutron\Core\Model;
 
 use Phpfox\Db\DbModel;
@@ -8,7 +7,9 @@ class LogDriver extends DbModel
 {
     public function getModelId(){return 'log_driver';}
 
+    public function getDriverId(){return $this->__get('driver_id');}
     public function getId(){return $this->__get('driver_id');}
+    public function setDriverId($value){$this->__set('driver_id', $value);}
     public function setId($value){$this->__set('driver_id', $value);}
     
     public function getDriverName(){return $this->__get('driver_name');}
@@ -25,5 +26,4 @@ class LogDriver extends DbModel
     
     public function getSortOrder(){return (int) $this->__get('sort_order');}
     public function setSortOrder($value){$this->__set('sort_order', $value);}
-    
-}
+    }

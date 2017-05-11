@@ -1,5 +1,4 @@
 <?php
-
 namespace Neutron\Core\Model;
 
 use Phpfox\Db\DbModel;
@@ -8,7 +7,9 @@ class I18nTimezone extends DbModel
 {
     public function getModelId(){return 'i18n_timezone';}
 
+    public function getTimezoneId(){return $this->__get('timezone_id');}
     public function getId(){return $this->__get('timezone_id');}
+    public function setTimezoneId($value){$this->__set('timezone_id', $value);}
     public function setId($value){$this->__set('timezone_id', $value);}
     
     public function getTimezoneLocation(){return $this->__get('timezone_location');}
@@ -25,5 +26,4 @@ class I18nTimezone extends DbModel
     
     public function getTimezoneOffset(){return $this->__get('timezone_offset');}
     public function setTimezoneOffset($value){$this->__set('timezone_offset', $value);}
-    
-}
+    }

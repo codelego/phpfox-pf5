@@ -1,5 +1,4 @@
 <?php
-
 namespace Neutron\Core\Model;
 
 use Phpfox\Db\DbModel;
@@ -8,7 +7,9 @@ class I18nMessage extends DbModel
 {
     public function getModelId(){return 'i18n_message';}
 
+    public function getMessageId(){return (int) $this->__get('message_id');}
     public function getId(){return (int) $this->__get('message_id');}
+    public function setMessageId($value){$this->__set('message_id', $value);}
     public function setId($value){$this->__set('message_id', $value);}
     
     public function getPackageId(){return $this->__get('package_id');}
@@ -31,5 +32,4 @@ class I18nMessage extends DbModel
     
     public function isUpdated(){return $this->__get('is_updated') ?1:0;}
     public function setUpdated($value){$this->__set('is_updated',$value?1:0);}
-    
-}
+    }

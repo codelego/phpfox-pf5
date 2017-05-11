@@ -1,1 +1,0 @@
-<?php return array(0=>NULL,1=>array('theme_id'=>1,),2=>'theme_id',3=>array('theme_id'=>1,'title'=>1,'parent_id'=>1,'is_default'=>1,'is_active'=>1,'is_editing'=>1,'is_admin'=>1,),4=>array(),);
