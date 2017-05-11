@@ -302,7 +302,7 @@ class ModelGenerator extends AbstractGenerator
 
         $this->putContents($modelClassPath, $modelClassCode);
         $this->putContents($testCasePath, $testCaseClassCode);
-        $this->putContents($modelSpecPath, $configCode . '.bk');
+        $this->putContents($modelSpecPath . '.bk', $configCode);
 
         return true;
     }

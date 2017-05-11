@@ -1,6 +1,1 @@
-'modelId' => [
-'table_factory',
-':acl_role',
-AclRole::class,
-'package/core/config/model/acl_role.php',
-],.bk
+<?php return array(0=>'role_id',1=>array('role_id'=>1,),2=>'role_id',3=>array('role_id'=>1,'inherit_id'=>1,'title'=>1,'item_count'=>1,'is_special'=>1,'is_super'=>1,'is_admin'=>1,'is_moderator'=>1,'is_staff'=>1,'is_registered'=>1,'is_banned'=>1,'is_guest'=>1,),4=>array(),);
