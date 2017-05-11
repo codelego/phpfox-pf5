@@ -8,10 +8,11 @@ use Neutron\Core\Form\SelectMailDriver;
 use Neutron\Core\Model\MailAdapter;
 use Neutron\Core\Model\MailDriver;
 use Neutron\Core\Process\AdminManageEntryProcess;
+use Neutron\Core\Process\AdminManageSiteSettingsProcess;
 use Phpfox\Form\Form;
 use Phpfox\View\ViewModel;
 
-class AdminMailAdapterController extends AdminController
+class AdminMailController extends AdminController
 {
     protected function initialized()
     {
@@ -26,6 +27,13 @@ class AdminMailAdapterController extends AdminController
 
         _service('menu.admin.secondary')
             ->load('admin.core.mail');
+    }
+
+    public function actionSettings()
+    {
+        return (new AdminManageSiteSettingsProcess([
+            'setting_group' => 'core_mail',
+        ]))->process();
     }
 
     public function actionIndex()

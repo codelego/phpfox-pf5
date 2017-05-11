@@ -150,23 +150,25 @@ class FormElement
         }
 
         $element = [
-            'name'       => $name,
-            'factory'    => 'text',
-            'label'      => '',
-            'note'       => '',
-            'value'      => $column->getDefault(),
-            'options'    => [],
-            'attributes' => [],
+            'name'      => $name,
+            'factory'   => 'text',
+            'label'     => '',
+            'note'      => '',
+            'value'     => $column->getDefault(),
+            'options'   => [],
+            'maxlength' => '',
+            'rows'      => '',
+            'cols'      => '',
+            'readonly'  => '',
+            'disabled'  => '',
         ];
 
         if ($column->isString()) {
             $element['factory'] = $column->isMultiLine() && !$this->isNoTextarea() ? 'textarea' : 'text';
-            $element['attributes']['maxlength'] = $column->getLength();
-            $element['attributes']['class'] = 'form-control';
+            $element['maxlength'] = $column->getLength();
         } elseif ($column->isBoolean()) {
             if ($this->isNoRadio()) {
                 $element['factory'] = 'select';
-                $element['attributes']['class'] = 'form-control';
                 $element['options'] = [
                     ['value' => 1, 'label' => 'Yes'],
                     ['value' => 0, 'label' => 'No'],
@@ -176,8 +178,7 @@ class FormElement
             }
         } elseif ($column->isNumber()) {
             $element['factory'] = 'text';
-            $element['attributes']['maxlength'] = $column->getLength();
-            $element['attributes']['class'] = 'form-control';
+            $element['maxlength'] = $column->getLength();
         }
 
         if (array_key_exists($name, $this->moreInfo)) {
@@ -218,7 +219,6 @@ class FormElement
                 unset($element[$key]);
             }
         }
-
 
         $template = file_get_contents(__DIR__ . '/../assets/form_element.txt');
 

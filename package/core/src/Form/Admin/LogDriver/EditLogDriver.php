@@ -20,11 +20,7 @@ class EditLogDriver extends Form{
           'factory' => 'text',
           'label' => _text('Driver Id','core.admin_log'),
           'note' => _text('[Driver Id Note]', 'core.admin_log'),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -34,11 +30,7 @@ class EditLogDriver extends Form{
           'factory' => 'text',
           'label' => _text('Driver Name','core.admin_log'),
           'note' => _text('[Driver Name Note]', 'core.admin_log'),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -48,11 +40,7 @@ class EditLogDriver extends Form{
           'factory' => 'text',
           'label' => _text('Form Name','core.admin_log'),
           'note' => _text('[Form Name Note]', 'core.admin_log'),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -62,11 +50,7 @@ class EditLogDriver extends Form{
           'factory' => 'textarea',
           'label' => _text('Description','core.admin_log'),
           'note' => _text('[Description Note]', 'core.admin_log'),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -87,11 +71,7 @@ class EditLogDriver extends Form{
           'label' => _text('Sort Order','core.admin_log'),
           'note' => _text('[Sort Order Note]', 'core.admin_log'),
           'value' => '1',
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => true,
         ));
 

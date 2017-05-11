@@ -6,10 +6,11 @@ use Neutron\Core\Form\Admin\StorageAdapter\AddStorageAdapter;
 use Neutron\Core\Model\StorageAdapter;
 use Neutron\Core\Model\StorageDriver;
 use Neutron\Core\Process\AdminManageEntryProcess;
+use Neutron\Core\Process\AdminManageSiteSettingsProcess;
 use Phpfox\Form\Form;
 use Phpfox\View\ViewModel;
 
-class AdminStorageAdapterController extends AdminController
+class AdminStorageController extends AdminController
 {
     protected function initialized()
     {
@@ -32,6 +33,22 @@ class AdminStorageAdapterController extends AdminController
             _service('menu.admin.buttons')
                 ->load('admin.core.storage.buttons');
         }
+    }
+
+    public function actionSettings()
+    {
+        return (new AdminManageSiteSettingsProcess([
+            'setting_group' => 'core_storage',
+        ]))->process();
+    }
+
+    public function actionDriver()
+    {
+        return (new AdminManageEntryProcess([
+            'noLimit'  => true,
+            'model'    => StorageDriver::class,
+            'template' => 'core/admin-storage/manage-storage-driver',
+        ]))->process();
     }
 
     public function actionIndex()

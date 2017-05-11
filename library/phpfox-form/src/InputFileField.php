@@ -12,6 +12,8 @@ class InputFileField extends Element implements FieldInterface
 
     protected $render = 'file_upload';
 
+    protected $attributes= ['type'=>'hidden'];
+
     public function getValue()
     {
         return $this->value;

@@ -4,5 +4,7 @@ namespace Phpfox\Form;
 
 class SelectField extends ChoiceField
 {
+    protected $attributes = ['class' => 'form-control',];
+
     protected $render = 'select';
 }

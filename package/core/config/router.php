@@ -20,14 +20,9 @@ return [
             ],
         ],
         'admin.core.storage'  => [
-            'route'      => 'core/storage/*',
-            'controller' => 'core.admin-storage-adapter',
+            'route'      => 'core/storage(/<action>)',
+            'controller' => 'core.admin-storage',
             'action'     => 'index',
-            'children'   => [
-                'driver'   => ['route' => 'driver(/<action>)', 'controller' => 'core.admin-storage-driver'],
-                'settings' => ['route' => 'settings(/<action>)', 'controller' => 'core.admin-storage-settings'],
-                'adapter'  => ['route' => 'adapter(/<action>)'],
-            ],
         ],
         'admin.core.package'  => [
             'route'      => 'core/package/*',
@@ -95,23 +90,15 @@ return [
             'controller' => 'core.admin-mail',
             'action'     => 'index',
             'children'   => [
-                'settings' => [
-                    'route'      => 'settings(/<action>)',
-                    'controller' => 'core.admin-mail-settings',
-                ],
                 'template' => [
                     'route'      => 'template(/<action>)',
                     'controller' => 'core.admin-mail-template',
-                ],
-                'driver'   => [
-                    'route'      => 'driver(/<action>)',
-                    'controller' => 'core.admin-mail-driver',
                 ],
                 'bulk'     => [
                     'route'      => 'bulk(/<action>)',
                     'controller' => 'core.admin-mail-bulk',
                 ],
-                'adapter'  => ['route' => 'adapter(/<action>)'],
+                'adapter'  => ['route' => '(<action>)'],
             ],
         ],
         'admin.core.cache'    => [

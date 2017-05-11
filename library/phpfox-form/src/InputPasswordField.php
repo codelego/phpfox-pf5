@@ -10,7 +10,9 @@ class InputPasswordField extends Element implements FieldInterface
      */
     protected $value;
 
-    protected $render = 'password';
+    protected $render = 'input';
+
+    protected $attributes= ['class' => 'form-control', 'maxlength' => 255,'type'=>'password'];
 
     public function getValue()
     {

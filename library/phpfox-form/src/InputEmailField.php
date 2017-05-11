@@ -3,7 +3,7 @@
 namespace Phpfox\Form;
 
 
-class InputHiddenField extends Element implements FieldInterface
+class InputEmailField extends Element implements FieldInterface
 {
     /**
      * @var mixed
@@ -12,7 +12,7 @@ class InputHiddenField extends Element implements FieldInterface
 
     protected $render = 'input';
 
-    protected $attributes = ['type' => 'hidden'];
+    protected $attributes = ['class' => 'form-control', 'maxlength' => 255, 'type' => 'email'];
 
     public function getValue()
     {
@@ -22,15 +22,5 @@ class InputHiddenField extends Element implements FieldInterface
     public function setValue($value)
     {
         $this->value = $value;
-    }
-
-    public function noWrap()
-    {
-        return true;
-    }
-
-    public function noLabel()
-    {
-        return true;
     }
 }

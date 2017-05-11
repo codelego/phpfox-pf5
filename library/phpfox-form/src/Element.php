@@ -35,6 +35,23 @@ class Element implements ElementInterface
      */
     protected $required;
 
+    static $attributeKeys
+        = [
+            'type'        => 1,
+            'class'       => 1,
+            'onclick'     => 1,
+            'onchange'    => 1,
+            'maxlength'   => 1,
+            'onsubmit'    => 1,
+            'title'       => 1,
+            'rows'        => 1,
+            'cols'        => 1,
+            'placeholder' => 1,
+            'disabled'    => 1,
+            'readonly'    => 1,
+            'editable'    => 1,
+        ];
+
     /**
      * Element constructor.
      *
@@ -45,7 +62,7 @@ class Element implements ElementInterface
         foreach ($data as $key => $value) {
             if (method_exists($this, $method = 'set' . ucfirst($key))) {
                 $this->{$method}($value);
-            } elseif (in_array($key, ['type', 'class', 'title', 'rows', 'cols', 'placeholder'])) {
+            } elseif (isset(self::$attributeKeys[$key])) {
                 $this->attributes[$key] = $value;
             } elseif (in_array(substr($key, 0, 5), ['data-', 'aria-'])) {
                 $this->attributes[$key] = $value;
