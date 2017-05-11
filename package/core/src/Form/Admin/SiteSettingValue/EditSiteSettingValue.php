@@ -1,7 +1,6 @@
 <?php
 namespace Neutron\Core\Form\Admin\SiteSettingValue;
 
-use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
 class EditSiteSettingValue extends Form{
@@ -24,11 +23,7 @@ class EditSiteSettingValue extends Form{
           'note' => _text('[Package Id Note]', null),
           'value' => 'core',
           'options' => _service('core.packages')->getPackageIdOptions(),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -38,11 +33,7 @@ class EditSiteSettingValue extends Form{
           'factory' => 'text',
           'label' => _text('Group Id',null),
           'note' => _text('[Group Id Note]', null),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -52,11 +43,7 @@ class EditSiteSettingValue extends Form{
           'factory' => 'text',
           'label' => _text('Name',null),
           'note' => _text('[Name Note]', null),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -66,27 +53,8 @@ class EditSiteSettingValue extends Form{
           'factory' => 'textarea',
           'label' => _text('Value Actual',null),
           'note' => _text('[Value Actual Note]', null),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => false,
-        ));
-        
-        // element `type_id`
-        $this->addElement(array (
-          'name' => 'type_id',
-          'factory' => 'text',
-          'label' => _text('Type Id',null),
-          'note' => _text('[Type Id Note]', null),
-          'value' => 'yesno',
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
-          'required' => true,
         ));
         
         // element `sort_order`
@@ -95,12 +63,8 @@ class EditSiteSettingValue extends Form{
           'factory' => 'text',
           'label' => _text('Sort Order',null),
           'note' => _text('[Sort Order Note]', null),
-          'value' => '0',
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'value' => '99',
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -115,26 +79,20 @@ class EditSiteSettingValue extends Form{
         ));
 
         /** end elements **/
-    }
 
+        $this->addButton([
+            'factory'    => 'button',
+            'name'       => 'save',
+            'label'      => _text('Save Changes'),
+            'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
+        ]);
 
-    public function getButtons()
-    {
-
-        /** start buttons **/
-        return [
-            new ButtonField([
-                'name'       => 'save',
-                'label'      => _text('Save Changes'),
-                'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
-            ]),
-            new ButtonField([
-                'name'       => 'cancel',
-                'href'       => '#',
-                'label'      => _text('Cancel'),
-                'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
-            ]),
-        ];
-        /** end buttons **/
+         $this->addButton([
+            'factory'    => 'button',
+            'name'       => 'cancel',
+            'href'       => '#',
+            'label'      => _text('Cancel'),
+            'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
+        ]);
     }
 }

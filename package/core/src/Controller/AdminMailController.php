@@ -2,7 +2,7 @@
 
 namespace Neutron\Core\Controller;
 
-use Neutron\Core\Form\Admin\MailAdapter\AddMailAdapter;
+use Neutron\Core\Form\Admin\MailAdapter\SelectMailDriver;
 use Neutron\Core\Form\Admin\MailAdapter\TestEmailSettings;
 use Neutron\Core\Form\SelectMailDriver;
 use Neutron\Core\Model\MailAdapter;
@@ -53,7 +53,7 @@ class AdminMailController extends AdminController
 
         if (!$driverId) {
             return new ViewModel([
-                'form' => new AddMailAdapter([]),
+                'form' => new SelectMailDriver([]),
             ], 'layout/form-edit');
         }
 

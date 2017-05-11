@@ -1,7 +1,6 @@
 <?php
 namespace Neutron\Core\Form\Admin\I18nTimezone;
 
-use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
 class EditI18nTimezone extends Form{
@@ -21,11 +20,7 @@ class EditI18nTimezone extends Form{
           'factory' => 'text',
           'label' => _text('Timezone Id',null),
           'note' => _text('[Timezone Id Note]', null),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -35,11 +30,7 @@ class EditI18nTimezone extends Form{
           'factory' => 'text',
           'label' => _text('Timezone Location',null),
           'note' => _text('[Timezone Location Note]', null),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -60,11 +51,7 @@ class EditI18nTimezone extends Form{
           'label' => _text('Sort Order',null),
           'note' => _text('[Sort Order Note]', null),
           'value' => '0',
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -74,11 +61,7 @@ class EditI18nTimezone extends Form{
           'factory' => 'text',
           'label' => _text('Timezone Code',null),
           'note' => _text('[Timezone Code Note]', null),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -88,35 +71,25 @@ class EditI18nTimezone extends Form{
           'factory' => 'text',
           'label' => _text('Timezone Offset',null),
           'note' => _text('[Timezone Offset Note]', null),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => true,
         ));
 
         /** end elements **/
-    }
 
+        $this->addButton([
+            'factory'    => 'button',
+            'name'       => 'save',
+            'label'      => _text('Save Changes'),
+            'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
+        ]);
 
-    public function getButtons()
-    {
-
-        /** start buttons **/
-        return [
-            new ButtonField([
-                'name'       => 'save',
-                'label'      => _text('Save Changes'),
-                'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
-            ]),
-            new ButtonField([
-                'name'       => 'cancel',
-                'href'       => '#',
-                'label'      => _text('Cancel'),
-                'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
-            ]),
-        ];
-        /** end buttons **/
+         $this->addButton([
+            'factory'    => 'button',
+            'name'       => 'cancel',
+            'href'       => '#',
+            'label'      => _text('Cancel'),
+            'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
+        ]);
     }
 }

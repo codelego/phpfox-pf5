@@ -56,11 +56,6 @@ return [
                 ],
             ],
         ],
-        'admin.core.rad'      => [
-            'route'      => 'core/rad(/<action>)',
-            'controller' => 'core.admin-rad',
-            'action'     => 'index',
-        ],
         'admin.core.i18n'     => [
             'route'      => 'core/i18n/*',
             'controller' => 'core.admin-i18n-message',

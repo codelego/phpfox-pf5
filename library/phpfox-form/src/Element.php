@@ -50,6 +50,8 @@ class Element implements ElementInterface
             'disabled'    => 1,
             'readonly'    => 1,
             'editable'    => 1,
+            'size'        => 1,
+            'multiple'    => 1,
         ];
 
     /**

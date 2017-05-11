@@ -44,11 +44,6 @@
       2 => 'cache.files',
     ),
   ),
-  'code_generator' => 
-  array (
-    0 => NULL,
-    1 => 'Phpfox\\RapidDev\\CodeGenerator',
-  ),
   'db.drivers' => 
   array (
     'mysqli' => 'Phpfox\\Mysqli\\MysqliDbAdapter',
@@ -76,8 +71,6 @@
   'form_renders' => 
   array (
     'input' => 'Phpfox\\Form\\InputRender',
-    'password' => 'Phpfox\\Form\\PasswordRender',
-    'hidden' => 'Phpfox\\Form\\InputHiddenRender',
     'form_bootstrap' => 'Phpfox\\Form\\FormRenderBootstrap',
     'form_panel' => 'Phpfox\\Form\\FormRenderPanel',
     'form_panel_horizontal' => 'Phpfox\\Form\\FormRenderPanelHorizontal',

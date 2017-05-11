@@ -18,10 +18,7 @@ class AmazonS3DriverSettings extends Form
             'factory'    => 'text',
             'label'      => _text('Amazon Access Key', 'admin.core_storage'),
             'note'       => _text('[Amazon Access Key Note]', 'admin.core_storage'),
-            'attributes' => [
-                'class'     => 'form-control',
-                'maxlength' => 500,
-            ],
+            'maxlength' => 500,
             'required'   => true,
         ]);
 
@@ -30,10 +27,7 @@ class AmazonS3DriverSettings extends Form
             'factory'    => 'text',
             'label'      => _text('Amazon Secret Key', 'admin.core_storage'),
             'note'       => _text('[Amazon Secret Key Note]', 'admin.core_storage'),
-            'attributes' => [
-                'class'     => 'form-control',
-                'maxlength' => 500,
-            ],
+            'maxlength' => 500,
             'required'   => true,
         ]);
 
@@ -42,10 +36,7 @@ class AmazonS3DriverSettings extends Form
             'factory'    => 'text',
             'label'      => _text('Amazon Budget', 'admin.core_storage'),
             'note'       => _text('[Amazon Budget Note]', 'admin.core_storage'),
-            'attributes' => [
-                'class'     => 'form-control',
-                'maxlength' => 500,
-            ],
+            'maxlength' => 500,
             'required'   => true,
         ]);
 
@@ -54,10 +45,7 @@ class AmazonS3DriverSettings extends Form
             'factory'    => 'select',
             'label'      => _text('Amazon Region', 'admin.core_storage'),
             'note'       => _text('[Amazon Region Note]', 'admin.core_storage'),
-            'attributes' => [
-                'class'     => 'form-control',
-                'maxlength' => 500,
-            ],
+            'maxlength' => 500,
             'options'    => _service('core.storage')->getS3RegionIdOptions(),
             'required'   => true,
         ]);
@@ -67,10 +55,7 @@ class AmazonS3DriverSettings extends Form
             'factory'    => 'text',
             'label'      => _text('Base Path', 'admin.core_storage'),
             'note'       => _text('[Base Path Note]', 'admin.core_storage'),
-            'attributes' => [
-                'class'     => 'form-control',
-                'maxlength' => 500,
-            ],
+            'maxlength' => 500,
             'required'   => true,
         ]);
 
@@ -79,10 +64,7 @@ class AmazonS3DriverSettings extends Form
             'factory'    => 'text',
             'label'      => _text('Base Url', 'admin.core_storage'),
             'note'       => _text('[Base Url Note]', 'admin.core_storage'),
-            'attributes' => [
-                'class'     => 'form-control',
-                'maxlength' => 500,
-            ],
+            'maxlength' => 500,
             'required'   => true,
         ]);
 
@@ -91,10 +73,7 @@ class AmazonS3DriverSettings extends Form
             'factory'    => 'text',
             'label'      => _text('Base CDN Url', 'admin.core_storage'),
             'note'       => _text('[Base CDN Url Note]', 'admin.core_storage'),
-            'attributes' => [
-                'class'     => 'form-control',
-                'maxlength' => 500,
-            ],
+            'maxlength' => 500,
             'required'   => false,
         ]);
 

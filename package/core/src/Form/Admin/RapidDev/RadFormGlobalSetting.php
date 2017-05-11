@@ -46,11 +46,7 @@ class RadFormGlobalSetting extends Form
             'factory'    => 'select',
             'name'       => 'package_id',
             'inline'     => true,
-            'attributes' =>
-                [
-                    'size'  => 5,
-                    'class' => 'form-control',
-                ],
+            'size'  => 5,
             'value'      => 'core',
             'options'    => $this->getPackageIdOptions(),
             'label'      => _text('Select Package'),
@@ -61,11 +57,7 @@ class RadFormGlobalSetting extends Form
             'factory'    => 'multi_select',
             'name'       => 'tables',
             'inline'     => true,
-            'attributes' =>
-                [
-                    'size'  => 5,
-                    'class' => 'form-control',
-                ],
+            'size'  => 5,
             'value'      => 'core',
             'options'    => $this->getGroupIdOptions(),
             'label'      => _text('Select Group Settings'),
@@ -75,11 +67,6 @@ class RadFormGlobalSetting extends Form
         $this->addElement([
             'factory'    => 'multi_checkbox',
             'name'       => 'cmds',
-            'attributes' =>
-                [
-                    'size'  => 3,
-                    'class' => 'form-control',
-                ],
             'value'      => ['test_case'],
             'options'    => [
                 ['value' => 'model', 'label' => 'Model Table Class'],

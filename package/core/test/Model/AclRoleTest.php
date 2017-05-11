@@ -1,5 +1,4 @@
 <?php
-
 namespace Neutron\Core\Model;
 
 class AclRoleTest extends \PHPUnit_Framework_TestCase
@@ -20,8 +19,7 @@ class AclRoleTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->isStaff());
         $this->assertSame(1, $obj->isRegistered());
         $this->assertSame(0, $obj->isBanned());
-        $this->assertSame(0, $obj->isGuest());
-    }
+        $this->assertSame(0, $obj->isGuest());    }
 
     public function testParameters()
     {
@@ -40,7 +38,6 @@ class AclRoleTest extends \PHPUnit_Framework_TestCase
         $obj->setRegistered(1);
         $obj->setBanned(0);
         $obj->setGuest(0);
-
         // assert same data
         $this->assertSame('acl_role', $obj->getModelId());
         $this->assertSame(1, $obj->getId());
@@ -54,8 +51,7 @@ class AclRoleTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->isStaff());
         $this->assertSame(1, $obj->isRegistered());
         $this->assertSame(0, $obj->isBanned());
-        $this->assertSame(0, $obj->isGuest());
-    }
+        $this->assertSame(0, $obj->isGuest());    }
 
     public function testSave()
     {
@@ -79,8 +75,7 @@ class AclRoleTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->isStaff());
         $this->assertSame(1, $obj->isRegistered());
         $this->assertSame(0, $obj->isBanned());
-        $this->assertSame(0, $obj->isGuest());
-    }
+        $this->assertSame(0, $obj->isGuest());    }
 
     public static function setUpBeforeClass()
     {

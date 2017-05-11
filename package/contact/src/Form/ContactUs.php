@@ -24,28 +24,24 @@ class ContactUs extends Form
                 'factory'    => 'text',
                 'required'   => true,
                 'label'      => _text('Name', 'contact-form'),
-                'attributes' => ['class' => 'form-control'],
             ],
             [
                 'name'       => 'email',
                 'factory'    => 'text',
                 'required'   => true,
                 'label'      => _text('Email', 'contact-form'),
-                'attributes' => ['class' => 'form-control'],
             ],
             [
                 'name'       => 'subject',
                 'factory'    => 'text',
                 'required'   => true,
                 'label'      => _text('Subject', 'contact-form'),
-                'attributes' => ['class' => 'form-control'],
             ],
             [
                 'name'       => 'message',
                 'factory'    => 'textarea',
                 'required'   => true,
                 'label'      => _text('Message', 'contact-form'),
-                'attributes' => ['class' => 'form-control', 'rows' => '8'],
             ],
         ]);
     }

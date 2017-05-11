@@ -1,3 +1,0 @@
-
-// element `{name}`
-$this->addElement({element});

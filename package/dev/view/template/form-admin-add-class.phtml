@@ -1,0 +1,39 @@
+<?php echo '<?php' ?>
+
+namespace <?= $namespace ?>;
+
+use Phpfox\Form\Form;
+
+class <?= $shortFormClass?> extends Form {
+
+    public function initialize(){
+
+        $this->setTitle(_text('<?= $formTitle ?>','<?= $textDomain ?>'));
+        $this->setInfo(_text('[<?= $formTitle ?> Info]','<?= $textDomain ?>'));
+        $this->setAction(_url('#'));
+
+        /** start elements **/
+
+        <?php foreach($columns as $column): ?>
+
+        <?php echo $elementGenerator->convert($column); ?>
+        <?php endforeach; ?>
+
+        /** end elements **/
+
+        $this->addButton([
+            'factory'    => 'button',
+            'name'       => 'save',
+            'label'      => _text('Submit'),
+            'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
+        ]);
+
+        $this->addButton([
+            'factory'    => 'button',
+            'name'       => 'cancel',
+            'href'       => '#',
+            'label'      => _text('Cancel'),
+            'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
+            ]);
+    }
+}

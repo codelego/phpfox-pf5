@@ -20,7 +20,6 @@ class CoreStorageSettings extends Form
             'options'    => _service('core.storage')->getAdapterIdOptions(),
             'label'      => _text('Default Storage', 'admin'),
             'note'       => _text('[Default Storage Note]', 'admin'),
-            'attributes' => ['class' => 'form-control'],
             'required'   => true,
         ]);
 

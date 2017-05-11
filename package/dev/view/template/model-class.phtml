@@ -1,0 +1,12 @@
+<?php echo '<?php' ?>
+
+namespace <?= $namespace ?>;
+
+use Phpfox\Db\DbModel;
+
+class <?= $modelName ?> extends DbModel
+{
+    public function getModelId(){return '<?= $modelId ?>';}
+
+    <?= $getterAndSetter ?>
+}

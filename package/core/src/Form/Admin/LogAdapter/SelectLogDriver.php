@@ -34,18 +34,13 @@ class SelectLogDriver extends Form
 
         // element `driver_id`
         $this->addElement([
-            'name'       => 'driver_id',
-            'factory'    => 'radio',
-            'value'      => 'files',
-            'label'      => _text('Driver Id', 'core.admin_log'),
-            'note'       => _text('[Driver Id Note]', 'core.admin_log'),
-            'options'    => _service('core.log')->getDriverIdOptions(),
-            'attributes' =>
-                [
-                    'maxlength' => 255,
-                    'class'     => 'form-control',
-                ],
-            'required'   => true,
+            'name'     => 'driver_id',
+            'factory'  => 'radio',
+            'value'    => 'files',
+            'label'    => _text('Driver Id', 'core.admin_log'),
+            'note'     => _text('[Driver Id Note]', 'core.admin_log'),
+            'options'  => _service('core.log')->getDriverIdOptions(),
+            'required' => true,
         ]);
         // skip element `params` #skips
 

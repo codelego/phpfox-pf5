@@ -1,5 +1,4 @@
 <?php
-
 namespace Neutron\Core\Model;
 
 use Phpfox\Db\DbModel;
@@ -43,5 +42,4 @@ class AclRole extends DbModel
     
     public function isGuest(){return $this->__get('is_guest') ?1:0;}
     public function setGuest($value){$this->__set('is_guest',$value?1:0);}
-    
-}
+    }

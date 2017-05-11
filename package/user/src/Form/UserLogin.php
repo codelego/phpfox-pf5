@@ -26,27 +26,19 @@ class UserLogin extends Form
                 'required'   => true,
                 'attributes' => [
                     'placeholder' => $texts['username'],
-                    'class'       => 'form-control username',
                 ],
             ],
             [
-                'factory'    => 'text',
-                'name'       => 'password',
-                'label'      => $texts['password'],
-                'required'   => true,
-                'attributes' => [
-                    'type'        => 'password',
-                    'placeholder' => $texts['password'],
-                    'class'       => 'form-control password',
-                ],
+                'factory'     => 'text',
+                'name'        => 'password',
+                'label'       => $texts['password'],
+                'required'    => true,
+                'placeholder' => $texts['password'],
             ],
             [
-                'factory'    => 'checkbox',
-                'name'       => 'remember',
-                'label'      => $texts['remember'],
-                'attributes' => [
-                    'class' => '',
-                ],
+                'factory' => 'checkbox',
+                'name'    => 'remember',
+                'label'   => $texts['remember'],
             ],
         ]);
     }

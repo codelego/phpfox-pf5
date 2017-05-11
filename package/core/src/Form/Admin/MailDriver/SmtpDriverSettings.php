@@ -16,7 +16,6 @@ class SmtpDriverSettings extends Form
             'name'       => 'host',
             'factory'    => 'text',
             'label'      => _text('SMTP Hostname'),
-            'attributes' => ['class' => 'form-control'],
             'value'      => '127.0.0.1',
             'required'   => true,
         ]);
@@ -26,7 +25,6 @@ class SmtpDriverSettings extends Form
             'factory'    => 'radio',
             'label'      => _text('Security?'),
             'value'      => 'none',
-            'attributes' => ['class' => 'form-control'],
             'required'   => true,
             'options'    => [
                 ['label' => 'none', 'value' => 'none'],
@@ -41,7 +39,6 @@ class SmtpDriverSettings extends Form
             'label'      => _text('SMTP Port'),
             'value'      => '25',
             'note'       => 'Default: 25. Also commonly on port 465 (SMTP over SSL) or port 587.',
-            'attributes' => ['class' => 'form-control'],
             'required'   => true,
         ]);
 
@@ -51,7 +48,6 @@ class SmtpDriverSettings extends Form
             'label'      => _text('SMTP Authentication'),
             'info'       => _text('Does your SMTP Server require authentication?', 'admin'),
             'value'      => '0',
-            'attributes' => ['class' => 'form-control'],
             'required'   => true,
             'options'    => [
                 ['value' => 0, 'label' => _text('No, does not authentication'),],
@@ -63,7 +59,6 @@ class SmtpDriverSettings extends Form
             'factory'    => 'text',
             'label'      => _text('SMTP Login Username'),
             'value'      => '',
-            'attributes' => ['class' => 'form-control'],
             'required'   => false,
         ]);
         $this->addElement([
@@ -71,7 +66,6 @@ class SmtpDriverSettings extends Form
             'factory'    => 'password',
             'label'      => _text('SMTP Login Password'),
             'value'      => '',
-            'attributes' => ['class' => 'form-control'],
             'required'   => false,
         ]);
 
@@ -79,10 +73,7 @@ class SmtpDriverSettings extends Form
             'factory'    => 'text',
             'name'       => 'fromAddress',
             'label'      => _text('From Address', 'admin'),
-            'attributes' => [
-                'class'       => 'form-control',
-                'placeholder' => 'your@domain.com',
-            ],
+            'placeholder' => 'your@domain.com',
             'value'      => '',
             'required'   => true,
         ]);
@@ -91,10 +82,7 @@ class SmtpDriverSettings extends Form
             'name'       => 'fromName',
             'factory'    => 'text',
             'label'      => _text('From Name', 'admin'),
-            'attributes' => [
-                'class'       => 'form-control',
-                'placeholder' => 'Admin',
-            ],
+            'placeholder' => 'Admin',
             'value'      => '',
             'required'   => true,
         ]);
@@ -103,10 +91,7 @@ class SmtpDriverSettings extends Form
             'name'       => 'replyAddress',
             'factory'    => 'text',
             'label'      => _text('Reply To Address', 'admin'),
-            'attributes' => [
-                'class'       => 'form-control',
-                'placeholder' => 'no-reply@domain.com',
-            ],
+            'placeholder' => 'no-reply@domain.com',
             'value'      => '',
             'required'   => true,
         ]);
@@ -115,10 +100,7 @@ class SmtpDriverSettings extends Form
             'name'       => 'replyName',
             'factory'    => 'text',
             'label'      => _text('Reply To Name', 'admin'),
-            'attributes' => [
-                'class'       => 'form-control',
-                'placeholder' => 'No-Reply',
-            ],
+            'placeholder' => 'No-Reply',
             'value'      => '',
             'required'   => true,
         ]);

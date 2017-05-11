@@ -1,7 +1,6 @@
 <?php
 namespace Neutron\Core\Form\Admin\I18nCurrency;
 
-use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
 class AddI18nCurrency extends Form{
@@ -21,11 +20,7 @@ class AddI18nCurrency extends Form{
           'factory' => 'text',
           'label' => _text('Currency Id',null),
           'note' => _text('[Currency Id Note]', null),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -35,11 +30,7 @@ class AddI18nCurrency extends Form{
           'factory' => 'text',
           'label' => _text('Symbol',null),
           'note' => _text('[Symbol Note]', null),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -49,11 +40,7 @@ class AddI18nCurrency extends Form{
           'factory' => 'text',
           'label' => _text('Name',null),
           'note' => _text('[Name Note]', null),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -64,11 +51,7 @@ class AddI18nCurrency extends Form{
           'label' => _text('Sort Order',null),
           'note' => _text('[Sort Order Note]', null),
           'value' => '0',
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -83,26 +66,19 @@ class AddI18nCurrency extends Form{
         ));
 
         /** end elements **/
-    }
+        $this->addButton([
+            'factory'    => 'button',
+            'name'       => 'save',
+            'label'      => _text('Save Changes'),
+            'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
+        ]);
 
-
-    public function getButtons()
-    {
-
-        /** start buttons **/
-        return [
-            new ButtonField([
-                'name'       => 'save',
-                'label'      => _text('Submit'),
-                'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
-            ]),
-            new ButtonField([
-                'name'       => 'cancel',
-                'href'       => '#',
-                'label'      => _text('Cancel'),
-                'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd'=>'form.cancel'],
-            ]),
-        ];
-        /** end buttons **/
+         $this->addButton([
+            'factory'    => 'button',
+            'name'       => 'cancel',
+            'href'       => '#',
+            'label'      => _text('Cancel'),
+            'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
+        ]);
     }
 }

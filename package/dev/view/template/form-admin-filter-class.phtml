@@ -1,0 +1,29 @@
+<?php echo '<?php' ?>
+
+namespace <?= $namespace ?>;
+
+use Phpfox\Form\Form;
+
+class <?= $shortFormClass?> extends Form {
+
+    public function initialize(){
+
+        $this->setMethod('get');
+
+        /** start elements **/
+
+        <?php foreach($columns as $column): ?>
+
+        <?php echo $elementGenerator->convert($column); ?>
+        <?php endforeach; ?>
+
+        /** end elements **/
+
+        $this->addButton([
+            'name'       => 'search',
+            'factory'=>'button',
+            'label'      => _text('Search'),
+            'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
+        ]);
+    }
+}

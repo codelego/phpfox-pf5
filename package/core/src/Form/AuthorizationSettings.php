@@ -67,7 +67,6 @@ class AuthorizationSettings extends Form
                 'value'      => 0,
                 'name'       => 'core__storage_quota',
                 'label'      => _text('Storage Quota?', 'admin'),
-                'attributes' => ['class' => 'form-control'],
                 'required'   => true,
                 'note'       => _text('[storage quota note]', 'admin'),
                 'options'    => $this->getStorageLimitOptions(),

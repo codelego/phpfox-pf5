@@ -15,20 +15,14 @@ class AdminFilterUser extends Form
             [
                 'factory'    => 'text',
                 'name'       => 'q',
-                'attributes' => [
-                    'class'       => 'form-control',
-                    'placeholder' => 'Id, Name, Email',
-                ],
+                'placeholder' => 'Id, Name, Email',
             ],
             [
                 'factory'    => 'choice',
                 'name'       => 'role_id',
                 'render'     => 'select',
                 'required'   => false,
-                'attributes' => [
-                    'placeholder' => _text('Role', 'admin'),
-                    'class'       => 'form-control',
-                ],
+                'placeholder' => _text('Role', 'admin'),
                 'options'    => [
                     ['value' => '1', 'label' => 'default'],
                 ],
@@ -37,10 +31,7 @@ class AdminFilterUser extends Form
                 'factory'    => 'select',
                 'name'       => 'verify',
                 'required'   => false,
-                'attributes' => [
-                    'placeholder' => _text('Both'),
-                    'class'       => 'form-control',
-                ],
+                'placeholder' => _text('Both'),
                 'options'    => [
                     ['value' => 1, 'label' => 'Verified'],
                     ['value' => 0, 'label' => 'Un-Verified'],

@@ -1,7 +1,6 @@
 <?php
 namespace Neutron\Core\Form\Admin\StorageDriver;
 
-use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
 class EditStorageDriver extends Form{
@@ -19,13 +18,9 @@ class EditStorageDriver extends Form{
         $this->addElement(array (
           'name' => 'driver_id',
           'factory' => 'text',
-          'label' => _text('Driver Id','admin.core_layout'),
-          'note' => _text('[Driver Id Note]', 'admin.core_layout'),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'label' => _text('Driver Id',null),
+          'note' => _text('[Driver Id Note]', null),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -33,13 +28,9 @@ class EditStorageDriver extends Form{
         $this->addElement(array (
           'name' => 'driver_name',
           'factory' => 'text',
-          'label' => _text('Driver Name','admin.core_layout'),
-          'note' => _text('[Driver Name Note]', 'admin.core_layout'),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'label' => _text('Driver Name',null),
+          'note' => _text('[Driver Name Note]', null),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -47,13 +38,9 @@ class EditStorageDriver extends Form{
         $this->addElement(array (
           'name' => 'form_name',
           'factory' => 'text',
-          'label' => _text('Form Name','admin.core_layout'),
-          'note' => _text('[Form Name Note]', 'admin.core_layout'),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'label' => _text('Form Name',null),
+          'note' => _text('[Form Name Note]', null),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -61,13 +48,9 @@ class EditStorageDriver extends Form{
         $this->addElement(array (
           'name' => 'description',
           'factory' => 'textarea',
-          'label' => _text('Description','admin.core_layout'),
-          'note' => _text('[Description Note]', 'admin.core_layout'),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'label' => _text('Description',null),
+          'note' => _text('[Description Note]', null),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -75,8 +58,8 @@ class EditStorageDriver extends Form{
         $this->addElement(array (
           'name' => 'is_active',
           'factory' => 'yesno',
-          'label' => _text('Is Active','admin.core_layout'),
-          'note' => _text('[Is Active Note]', 'admin.core_layout'),
+          'label' => _text('Is Active',null),
+          'note' => _text('[Is Active Note]', null),
           'value' => '1',
           'required' => true,
         ));
@@ -85,43 +68,27 @@ class EditStorageDriver extends Form{
         $this->addElement(array (
           'name' => 'driver_class',
           'factory' => 'text',
-          'label' => _text('Driver Class','admin.core_layout'),
-          'note' => _text('[Driver Class Note]', 'admin.core_layout'),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'label' => _text('Driver Class',null),
+          'note' => _text('[Driver Class Note]', null),
+          'maxlength' => 255,
           'required' => false,
         ));
 
         /** end elements **/
-    }
 
+        $this->addButton([
+            'factory'    => 'button',
+            'name'       => 'save',
+            'label'      => _text('Save Changes'),
+            'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
+        ]);
 
-    public function getButtons()
-    {
-
-        /** start buttons **/
-        return [
-            new ButtonField([
-                'name'       => 'save',
-                'label'      => _text('Submit'),
-                'attributes' => ['class' => 'btn btn-primary', 'type' => 'submit',],
-            ]),
-            new ButtonField([
-
-                'name' => 'cancel',
-                'href' => _url('admin.core.storage.adapter'),
-
-                'label'      => _text('Cancel'),
-                'attributes' => [
-                    'class'    => 'btn btn-link cancel',
-                    'type'     => 'button',
-                    'data-cmd' => 'form.cancel',
-                ],
-            ]),
-        ];
-        /** end buttons **/
+         $this->addButton([
+            'factory'    => 'button',
+            'name'       => 'cancel',
+            'href'       => '#',
+            'label'      => _text('Cancel'),
+            'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
+        ]);
     }
 }

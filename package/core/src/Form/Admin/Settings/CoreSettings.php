@@ -32,7 +32,6 @@ class CoreSettings extends Form
             'value'      => '',
             'label'      => _text('Offline Code', 'admin'),
             'note'       => _text('[Offline Code Note]', 'admin'),
-            'attributes' => ['class' => 'form-control'],
             'required'   => true,
         ]);
 

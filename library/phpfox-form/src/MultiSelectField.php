@@ -16,6 +16,8 @@ class MultiSelectField extends Element implements FieldInterface
 
     protected $render = 'multi_select';
 
+    protected $attributes = ['class'=>'form-control'];
+
     /**
      * @return array
      */

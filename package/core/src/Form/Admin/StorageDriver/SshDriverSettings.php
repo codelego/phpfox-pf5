@@ -18,10 +18,7 @@ class SshDriverSettings extends Form
             'label'      => _text('Ssh Server Host', 'admin.core_storage'),
             'note'       => _text('[Ssh Server Note]', 'admin.core_storage'),
             'value'      => '127.0.0.1',
-            'attributes' => [
-                'class'     => 'form-control',
-                'maxlength' => 100,
-            ],
+            'maxlength' => 100,
             'required'   => true,
         ]);
 
@@ -31,10 +28,7 @@ class SshDriverSettings extends Form
             'factory'    => 'text',
             'label'      => _text('Ssh Server Port', 'admin.core_storage'),
             'note'       => _text('[Ssh Server Port Note]', 'admin.core_storage'),
-            'attributes' => [
-                'class'     => 'form-control',
-                'maxlength' => 5,
-            ],
+            'maxlength' => 5,
             'value'      => 22,
             'required'   => true,
         ]);
@@ -44,10 +38,7 @@ class SshDriverSettings extends Form
             'factory'    => 'text',
             'label'      => _text('Connection Timeout', 'admin.core_storage'),
             'note'       => _text('[Connection Timeout Note]', 'admin.core_storage'),
-            'attributes' => [
-                'class'     => 'form-control',
-                'maxlength' => 5,
-            ],
+            'maxlength' => 5,
             'value'      => 30,
             'required'   => true,
         ]);
@@ -57,10 +48,7 @@ class SshDriverSettings extends Form
             'factory'    => 'text',
             'label'      => _text('Login Username', 'admin.core_storage'),
             'note'       => _text('[Login Username Note]', 'admin.core_storage'),
-            'attributes' => [
-                'class'     => 'form-control',
-                'maxlength' => 100,
-            ],
+            'maxlength' => 100,
             'required'   => true,
         ]);
 
@@ -69,10 +57,7 @@ class SshDriverSettings extends Form
             'factory'    => 'text',
             'label'      => _text('Login Password', 'admin.core_storage'),
             'note'       => _text('[Login Password Note]', 'admin.core_storage'),
-            'attributes' => [
-                'class'     => 'form-control',
-                'maxlength' => 500,
-            ],
+            'maxlength' => 500,
             'required'   => true,
         ]);
 
@@ -82,10 +67,7 @@ class SshDriverSettings extends Form
             'factory'    => 'text',
             'label'      => _text('Base Path', 'admin.core_storage'),
             'note'       => _text('[Base Path Note]', 'admin.core_storage'),
-            'attributes' => [
-                'class'     => 'form-control',
-                'maxlength' => 500,
-            ],
+            'maxlength' => 500,
             'required'   => true,
         ]);
 
@@ -94,10 +76,7 @@ class SshDriverSettings extends Form
             'factory'    => 'text',
             'label'      => _text('Base Url', 'admin.core_storage'),
             'note'       => _text('[Base Url Note]', 'admin.core_storage'),
-            'attributes' => [
-                'class'     => 'form-control',
-                'maxlength' => 500,
-            ],
+            'maxlength' => 500,
             'required'   => true,
         ]);
 
@@ -106,10 +85,7 @@ class SshDriverSettings extends Form
             'factory'    => 'text',
             'label'      => _text('Base CDN Url', 'admin.core_storage'),
             'note'       => _text('[Base CDN Url Note]', 'admin.core_storage'),
-            'attributes' => [
-                'class'     => 'form-control',
-                'maxlength' => 500,
-            ],
+            'maxlength' => 500,
             'required'   => false,
         ]);
 

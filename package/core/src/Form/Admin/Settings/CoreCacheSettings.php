@@ -14,14 +14,13 @@ class CoreCacheSettings extends Form
         $this->setInfo(_text('[Site Settings Note]', 'admin'));
 
         $this->addElement([
-            'factory'    => 'select',
-            'name'       => 'core__default_cache_id',
-            'value'      => '1',
-            'options'    => _service('core.cache')->getAdapterIdOptions(),
-            'label'      => _text('Default Cache Adapter', 'admin.core_cache'),
-            'note'       => _text('[Default Cache Adapter Note]', 'admin.core_cache'),
-            'attributes' => ['class' => 'form-control'],
-            'required'   => true,
+            'factory'  => 'select',
+            'name'     => 'core__default_cache_id',
+            'value'    => '1',
+            'options'  => _service('core.cache')->getAdapterIdOptions(),
+            'label'    => _text('Default Cache Adapter', 'admin.core_cache'),
+            'note'     => _text('[Default Cache Adapter Note]', 'admin.core_cache'),
+            'required' => true,
         ]);
 
         $this->addButton([

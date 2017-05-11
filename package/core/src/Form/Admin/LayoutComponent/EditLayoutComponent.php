@@ -1,7 +1,6 @@
 <?php
 namespace Neutron\Core\Form\Admin\LayoutComponent;
 
-use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
 class EditLayoutComponent extends Form{
@@ -19,13 +18,9 @@ class EditLayoutComponent extends Form{
         $this->addElement(array (
           'name' => 'component_id',
           'factory' => 'text',
-          'label' => _text('Component Id','admin.core_layout'),
-          'note' => _text('[Component Id Note]', 'admin.core_layout'),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'label' => _text('Component Id',null),
+          'note' => _text('[Component Id Note]', null),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -33,13 +28,9 @@ class EditLayoutComponent extends Form{
         $this->addElement(array (
           'name' => 'component_name',
           'factory' => 'text',
-          'label' => _text('Component Name','admin.core_layout'),
-          'note' => _text('[Component Name Note]', 'admin.core_layout'),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'label' => _text('Component Name',null),
+          'note' => _text('[Component Name Note]', null),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -47,13 +38,9 @@ class EditLayoutComponent extends Form{
         $this->addElement(array (
           'name' => 'component_class',
           'factory' => 'text',
-          'label' => _text('Component Class','admin.core_layout'),
-          'note' => _text('[Component Class Note]', 'admin.core_layout'),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'label' => _text('Component Class',null),
+          'note' => _text('[Component Class Note]', null),
+          'maxlength' => 255,
           'required' => false,
         ));
         
@@ -61,14 +48,10 @@ class EditLayoutComponent extends Form{
         $this->addElement(array (
           'name' => 'form_name',
           'factory' => 'text',
-          'label' => _text('Form Name','admin.core_layout'),
-          'note' => _text('[Form Name Note]', 'admin.core_layout'),
+          'label' => _text('Form Name',null),
+          'note' => _text('[Form Name Note]', null),
           'value' => 'none',
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -76,15 +59,11 @@ class EditLayoutComponent extends Form{
         $this->addElement(array (
           'name' => 'package_id',
           'factory' => 'select',
-          'label' => _text('Package Id','admin.core_layout'),
-          'note' => _text('[Package Id Note]', 'admin.core_layout'),
+          'label' => _text('Package Id',null),
+          'note' => _text('[Package Id Note]', null),
           'value' => 'core',
           'options' => _service('core.packages')->getPackageIdOptions(),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -92,8 +71,8 @@ class EditLayoutComponent extends Form{
         $this->addElement(array (
           'name' => 'is_active',
           'factory' => 'yesno',
-          'label' => _text('Is Active','admin.core_layout'),
-          'note' => _text('[Is Active Note]', 'admin.core_layout'),
+          'label' => _text('Is Active',null),
+          'note' => _text('[Is Active Note]', null),
           'value' => '1',
           'required' => true,
         ));
@@ -102,14 +81,10 @@ class EditLayoutComponent extends Form{
         $this->addElement(array (
           'name' => 'sort_order',
           'factory' => 'text',
-          'label' => _text('Sort Order','admin.core_layout'),
-          'note' => _text('[Sort Order Note]', 'admin.core_layout'),
+          'label' => _text('Sort Order',null),
+          'note' => _text('[Sort Order Note]', null),
           'value' => '1',
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -117,40 +92,27 @@ class EditLayoutComponent extends Form{
         $this->addElement(array (
           'name' => 'description',
           'factory' => 'textarea',
-          'label' => _text('Description','admin.core_layout'),
-          'note' => _text('[Description Note]', 'admin.core_layout'),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'label' => _text('Description',null),
+          'note' => _text('[Description Note]', null),
+          'maxlength' => 255,
           'required' => false,
         ));
 
         /** end elements **/
-    }
 
+        $this->addButton([
+            'factory'    => 'button',
+            'name'       => 'save',
+            'label'      => _text('Save Changes'),
+            'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
+        ]);
 
-    public function getButtons()
-    {
-
-        /** start buttons **/
-        return [
-            new ButtonField([
-                'type'       => 'submit',
-                'name'       => 'save',
-                'label'      => _text('Save Changes'),
-                'attributes' => ['class' => 'btn btn-primary'],
-            ]),
-            new ButtonField([
-                'type'       => 'button',
-                'name'       => 'cancel',
-                'href'       => '#',
-                'data-cmd'   => 'form.cancel',
-                'label'      => _text('Cancel'),
-                'attributes' => ['class' => 'btn btn-link cancel'],
-            ]),
-        ];
-        /** end buttons **/
+         $this->addButton([
+            'factory'    => 'button',
+            'name'       => 'cancel',
+            'href'       => '#',
+            'label'      => _text('Cancel'),
+            'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
+        ]);
     }
 }

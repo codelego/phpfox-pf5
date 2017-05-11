@@ -20,7 +20,6 @@ class CoreLogSettings extends Form
             'options'    => _service('core.log')->getAdapterIdOptions('main.log'),
             'label'      => _text('Main Log', 'admin'),
             'note'       => _text('[Main Log Note]', 'admin'),
-            'attributes' => ['class' => 'form-control'],
             'required'   => true,
         ]);
 
@@ -31,7 +30,6 @@ class CoreLogSettings extends Form
             'options'    => _service('core.log')->getAdapterIdOptions('mail.log'),
             'label'      => _text('Mail Log', 'admin'),
             'note'       => _text('[Mail Log Note]', 'admin'),
-            'attributes' => ['class' => 'form-control'],
             'required'   => true,
         ]);
 
@@ -42,7 +40,6 @@ class CoreLogSettings extends Form
             'options'    => _service('core.log')->getAdapterIdOptions('debug.log'),
             'label'      => _text('Debug Log', 'admin'),
             'note'       => _text('[Debug Log Note]', 'admin'),
-            'attributes' => ['class' => 'form-control'],
             'required'   => true,
         ]);
 

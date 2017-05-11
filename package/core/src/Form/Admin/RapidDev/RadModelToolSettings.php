@@ -35,33 +35,24 @@ class RadModelToolSettings extends Form
         $this->setAction(_url('#'));
 
         $this->addElement([
-            'factory'    => 'select',
-            'name'       => 'package_id',
-            'inline'     => true,
-            'attributes' =>
-                [
-                    'size'  => 5,
-                    'class' => 'form-control',
-                ],
-            'value'      => 'core',
-            'options'    => $this->getPackageIdOptions(),
-            'label'      => _text('Select Package'),
-            'required'   => true,
+            'factory'  => 'select',
+            'name'     => 'package_id',
+            'inline'   => true,
+            'value'    => 'core',
+            'options'  => $this->getPackageIdOptions(),
+            'label'    => _text('Select Package'),
+            'required' => true,
         ]);
 
         $this->addElement([
-            'factory'    => 'multi_select',
-            'name'       => 'tables',
-            'inline'     => true,
-            'attributes' =>
-                [
-                    'size'  => 5,
-                    'class' => 'form-control',
-                ],
-            'value'      => 'core',
-            'options'    => $this->getTableIdOptions(),
-            'label'      => _text('Select Tables'),
-            'required'   => true,
+            'factory'  => 'multi_select',
+            'name'     => 'tables',
+            'inline'   => true,
+            'size'     => 10,
+            'value'    => 'core',
+            'options'  => $this->getTableIdOptions(),
+            'label'    => _text('Select Tables'),
+            'required' => true,
         ]);
 
         $this->addElement([
@@ -69,20 +60,12 @@ class RadModelToolSettings extends Form
             'label'      => 'Text Domain',
             'factory'    => 'text',
             'value'      => '',
-            'attributes' => [
-                'class' => 'form-control',
-            ],
             'required'   => false,
         ]);
 
         $this->addElement([
             'factory'    => 'multi_checkbox',
             'name'       => 'cmds',
-            'attributes' =>
-                [
-                    'size'  => 3,
-                    'class' => 'form-control',
-                ],
             'value'      => ['form_admin_add', 'form_admin_edit', 'form_admin_filter'],
             'options'    => [
                 ['value' => 'form_admin_add', 'label' => 'Generate Form Admin Creation'],
@@ -104,13 +87,13 @@ class RadModelToolSettings extends Form
             new ButtonField([
                 'name'       => 'save',
                 'label'      => _text('Submit'),
-                'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
+                'attributes' => ['class' => 'btn btn-primary', 'type' => 'submit',],
             ]),
             new ButtonField([
                 'name'       => 'cancel',
                 'href'       => '#',
                 'label'      => _text('Cancel'),
-                'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd'=>'form.cancel'],
+                'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel'],
             ]),
         ];
         /** end buttons **/

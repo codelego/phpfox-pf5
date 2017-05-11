@@ -20,7 +20,6 @@ class LicenseKeySettings extends Form
             'value'      => _param('core_license', 'level_id'),
             'label'      => _text('License Package', 'admin'),
             'note'       => _text('[License Package Note]', 'admin'),
-            'attributes' => ['class' => 'form-control'],
             'required'   => true,
         ]);
 
@@ -29,7 +28,6 @@ class LicenseKeySettings extends Form
             'name'       => 'core_license__email',
             'label'      => _text('License Email', 'admin'),
             'note'       => _text('[License Email Note]', 'admin'),
-            'attributes' => ['class' => 'form-control'],
             'value'      => '',
             'required'   => true,
         ]);
@@ -39,7 +37,6 @@ class LicenseKeySettings extends Form
             'name'       => 'core_license__key',
             'label'      => _text('License Key', 'admin'),
             'note'       => _text('[License Key Note]', 'admin'),
-            'attributes' => ['class' => 'form-control'],
             'value'      => '',
             'required'   => true,
         ]);

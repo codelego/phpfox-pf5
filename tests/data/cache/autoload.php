@@ -287,4 +287,9 @@
     0 => 'package/link/src',
     1 => 'package/link/test',
   ),
+  'Neutron\\Dev' => 
+  array (
+    0 => 'package/dev/src',
+    1 => 'package/dev/test',
+  ),
 );

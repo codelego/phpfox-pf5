@@ -1,7 +1,6 @@
 <?php
 namespace Neutron\Core\Form\Admin\I18nLocale;
 
-use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
 class EditI18nLocale extends Form{
@@ -22,11 +21,7 @@ class EditI18nLocale extends Form{
           'label' => _text('Locale Id',null),
           'note' => _text('[Locale Id Note]', null),
           'options' => _service('core.i18n')->getLocaleIdOptions(),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -36,11 +31,7 @@ class EditI18nLocale extends Form{
           'factory' => 'text',
           'label' => _text('Name',null),
           'note' => _text('[Name Note]', null),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -50,11 +41,7 @@ class EditI18nLocale extends Form{
           'factory' => 'text',
           'label' => _text('Native Name',null),
           'note' => _text('[Native Name Note]', null),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => false,
         ));
         
@@ -64,11 +51,7 @@ class EditI18nLocale extends Form{
           'factory' => 'text',
           'label' => _text('Code 6391',null),
           'note' => _text('[Code 6391 Note]', null),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -80,11 +63,7 @@ class EditI18nLocale extends Form{
           'note' => _text('[Direction Id Note]', null),
           'value' => 'ltr',
           'options' => _service('core.i18n')->getDirectionIdOptions(),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
           'required' => true,
         ));
         
@@ -99,26 +78,20 @@ class EditI18nLocale extends Form{
         ));
 
         /** end elements **/
-    }
 
+        $this->addButton([
+            'factory'    => 'button',
+            'name'       => 'save',
+            'label'      => _text('Save Changes'),
+            'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
+        ]);
 
-    public function getButtons()
-    {
-
-        /** start buttons **/
-        return [
-            new ButtonField([
-                'name'       => 'save',
-                'label'      => _text('Save Changes'),
-                'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
-            ]),
-            new ButtonField([
-                'name'       => 'cancel',
-                'href'       => '#',
-                'label'      => _text('Cancel'),
-                'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
-            ]),
-        ];
-        /** end buttons **/
+         $this->addButton([
+            'factory'    => 'button',
+            'name'       => 'cancel',
+            'href'       => '#',
+            'label'      => _text('Cancel'),
+            'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
+        ]);
     }
 }

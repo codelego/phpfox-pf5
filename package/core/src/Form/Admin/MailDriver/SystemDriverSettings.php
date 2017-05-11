@@ -17,10 +17,7 @@ class SystemDriverSettings extends Form
             'factory'    => 'text',
             'name'       => 'fromAddress',
             'label'      => _text('From Address', 'admin'),
-            'attributes' => [
-                'class'       => 'form-control',
-                'placeholder' => 'your@domain.com',
-            ],
+            'placeholder' => 'your@domain.com',
             'value'      => '',
             'required'   => true,
         ]);
@@ -29,10 +26,7 @@ class SystemDriverSettings extends Form
             'name'       => 'fromName',
             'factory'    => 'text',
             'label'      => _text('From Name', 'admin'),
-            'attributes' => [
-                'class'       => 'form-control',
-                'placeholder' => 'Admin',
-            ],
+            'placeholder' => 'Admin',
             'value'      => '',
             'required'   => true,
         ]);
@@ -41,10 +35,7 @@ class SystemDriverSettings extends Form
             'name'       => 'replyAddress',
             'factory'    => 'text',
             'label'      => _text('Reply To Address', 'admin'),
-            'attributes' => [
-                'class'       => 'form-control',
-                'placeholder' => 'no-reply@domain.com',
-            ],
+            'placeholder' => 'no-reply@domain.com',
             'value'      => '',
             'required'   => true,
         ]);
@@ -53,10 +44,7 @@ class SystemDriverSettings extends Form
             'name'       => 'replyName',
             'factory'    => 'text',
             'label'      => _text('Reply To Name', 'admin'),
-            'attributes' => [
-                'class'       => 'form-control',
-                'placeholder' => 'No-Reply',
-            ],
+            'placeholder' => 'No-Reply',
             'value'      => '',
             'required'   => true,
         ]);

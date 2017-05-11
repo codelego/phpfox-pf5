@@ -14,7 +14,6 @@ class EmbedVideo extends Form
                 'name'       => 'origin_url',
                 'label'      => _text('Video Url', 'video'),
                 'required'   => true,
-                'attributes' => ['class' => 'form-control'],
             ],
         ]);
     }

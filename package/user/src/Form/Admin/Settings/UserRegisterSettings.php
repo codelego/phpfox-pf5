@@ -142,7 +142,6 @@ class UserRegisterSettings extends Form
             'value'      => 0,
             'label'      => _text('Verify Email Timeout', 'user_register'),
             'note'       => _text('[Verify Email Timeout Note]', 'user_register'),
-            'attributes' => ['class' => 'form-control'],
             'required'   => true,
         ]);
 
@@ -152,7 +151,6 @@ class UserRegisterSettings extends Form
             'value'      => '',
             'label'      => _text('Auto Make Friends', 'user_register'),
             'note'       => _text('[Auto Make Friends Note]', 'user_register'),
-            'attributes' => ['class' => 'form-control'],
             'required'   => true,
         ]);
 
@@ -189,7 +187,6 @@ class UserRegisterSettings extends Form
             'value'      => '',
             'label'      => _text('Redirection URL', 'user_register'),
             'note'       => _text('[Redirection URL Note]', 'user_register'),
-            'attributes' => ['class' => 'form-control'],
             'required'   => true,
         ]);
     }

@@ -2,7 +2,7 @@
 
 namespace Neutron\Core\Controller;
 
-use Neutron\Core\Form\Admin\StorageAdapter\AddStorageAdapter;
+use Neutron\Core\Form\Admin\StorageAdapter\SelectStorageDriver;
 use Neutron\Core\Model\StorageAdapter;
 use Neutron\Core\Model\StorageDriver;
 use Neutron\Core\Process\AdminManageEntryProcess;
@@ -65,7 +65,7 @@ class AdminStorageController extends AdminController
     {
         $request = _service('request');
 
-        $form = new AddStorageAdapter([]);
+        $form = new SelectStorageDriver([]);
 
         if ($request->isGet()) {
 

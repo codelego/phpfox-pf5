@@ -1,7 +1,6 @@
 <?php
 namespace Neutron\Core\Form\Admin\I18nMessage;
 
-use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
 class FilterI18nMessage extends Form{
@@ -30,24 +29,16 @@ class FilterI18nMessage extends Form{
           'factory' => 'select',
           'label' => _text('Package',null),
           'options' => _service('core.packages')->getPackageIdOptions(),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
         ));
         
         // element `locale_id`
         $this->addElement(array (
-            'name' => 'locale_id',
-            'factory' => 'select',
-            'label' => _text('Locale',null),
-            'options' => _service('core.i18n')->getLocaleIdOptions(),
-            'attributes' =>
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'name' => 'locale_id',
+          'factory' => 'select',
+          'label' => _text('Locale',null),
+          'options' => _service('core.i18n')->getLocaleIdOptions(),
+          'maxlength' => 255,
         ));
         
         // element `domain_id`
@@ -55,11 +46,7 @@ class FilterI18nMessage extends Form{
           'name' => 'domain_id',
           'factory' => 'text',
           'label' => _text('Domain',null),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
         ));
         
         // element `message_name`
@@ -67,11 +54,7 @@ class FilterI18nMessage extends Form{
           'name' => 'message_name',
           'factory' => 'text',
           'label' => _text('Message Name',null),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
         ));
         
         // element `message_value`
@@ -79,29 +62,18 @@ class FilterI18nMessage extends Form{
           'name' => 'message_value',
           'factory' => 'text',
           'label' => _text('Message Value',null),
-          'attributes' => 
-          array (
-            'maxlength' => 255,
-            'class' => 'form-control',
-          ),
+          'maxlength' => 255,
         ));
         // skip element `is_json` #skips
         // skip element `is_updated` #skips
 
+        $this->addButton([
+            'name'       => 'search',
+            'factory'=>'button',
+            'label'      => _text('Search'),
+            'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
+        ]);
+
         /** end elements **/
-    }
-
-    public function getButtons()
-    {
-
-        /** start buttons **/
-        return [
-            new ButtonField([
-                'name'       => 'search',
-                'label'      => _text('Search'),
-                'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
-            ])
-        ];
-        /** end buttons **/
     }
 }

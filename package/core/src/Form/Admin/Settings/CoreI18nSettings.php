@@ -20,7 +20,6 @@ class CoreI18nSettings extends Form
             'options'    => _service('core.i18n')->getTimezoneIdOptions(),
             'label'      => _text('Default Timezone', 'admin'),
             'note'       => _text('[Default Timezone Note]', 'admin'),
-            'attributes' => ['class' => 'form-control'],
             'required'   => true,
         ]);
 
@@ -31,7 +30,6 @@ class CoreI18nSettings extends Form
             'options'    => _service('core.i18n')->getLocaleIdOptions(),
             'label'      => _text('Default Locale', 'admin'),
             'note'       => _text('[Default Locale Note]', 'admin'),
-            'attributes' => ['class' => 'form-control'],
             'required'   => true,
         ]);
 
@@ -42,7 +40,6 @@ class CoreI18nSettings extends Form
             'options'    => _service('core.i18n')->getCurrencyIdOptions(),
             'label'      => _text('Default Currency', 'admin'),
             'note'       => _text('[Default Currency Note]', 'admin'),
-            'attributes' => ['class' => 'form-control'],
             'required'   => true,
         ]);
 

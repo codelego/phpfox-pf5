@@ -12,7 +12,6 @@ class AddLayoutBlock extends Form
         $this->addElement([
             'factory'    => 'radio',
             'name'       => 'component_id',
-            'attributes' => ['class' => 'form-control',],
             'label'      => _text('Component'),
             'required'   => true,
             'options'    => _service('layout_loader')->getComponentIdOptions(),

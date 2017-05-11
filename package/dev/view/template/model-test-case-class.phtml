@@ -1,0 +1,49 @@
+<?php echo '<?php' ?>
+
+namespace <?= $namespace ?>;
+
+class <?= $modelName ?>Test extends \PHPUnit_Framework_TestCase
+{
+    public function testBase()
+    {
+        $obj = new <?= $modelName ?>(<?= $initialData ?>);
+
+        <?= $assertSameMethod ?>
+    }
+
+    public function testParameters()
+    {
+        $obj = new <?= $modelName ?>();
+
+        // set data
+        <?= $setDataMethods ?>
+
+        // assert same data
+        <?= $assertSameMethod ?>
+    }
+
+    public function testSave()
+    {
+        $obj = new <?= $modelName ?>(<?= $initialData ?>);
+
+        $obj->save();
+
+        /** @var <?= $modelName ?> $obj */
+        $obj = _model('<?= $modelId ?>')
+            ->select()<?= $whereConditions ?>->first();
+
+        <?= $assertSameMethod ?>
+    }
+
+    public static function setUpBeforeClass()
+    {
+        _model('<?= $modelId ?>')
+            ->delete()<?= $whereConditions ?>->execute();
+    }
+
+    public static function tearDownAfterClass()
+    {
+        _model('<?= $modelId ?>')
+            ->delete()<?= $whereConditions ?>->execute();
+    }
+}
