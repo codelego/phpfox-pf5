@@ -11,6 +11,7 @@ class CoreAclSettings extends Form
     {
         $this->setTitle(_text('User Group Settings', 'admin'));
         $this->setInfo(_text('[User Group Settings Note]', 'admin'));
+        $this->setEncType('multipart/form-data');
 
         /** start elements */
 

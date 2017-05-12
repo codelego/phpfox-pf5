@@ -12,13 +12,13 @@ class FormRenderPanelHorizontal implements FormRenderInterface
             $name = $v->getName();
             $note = $v->getParam('note', '');
             if ($note) {
-                $note = '<div class="help-block">' . $note . '</div>';
+                $note = '<div class="control-note">' . $note . '</div>';
             }
 
             $info = $v->getParam('info', '');
 
             if ($info) {
-                $info = '<div class="help-block">' . $info . '</div>';
+                $info = '<div class="control-info">' . $info . '</div>';
             }
 
             $required = $v->isRequired() ? 'required' : '';

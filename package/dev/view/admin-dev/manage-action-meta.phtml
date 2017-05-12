@@ -8,6 +8,7 @@
                     <th class="w30">
                         <label><input type="checkbox" class="moderation-check-all"/></label>
                     </th>
+                    <th>ID</th>
                     <th>Action</th>
                     <th>Options</th>
                 </tr>
@@ -15,9 +16,13 @@
                 <tbody>
                 <?php foreach ($items as $item): ?>
                     <tr>
+
                         <td>
                             <label><input id="cb" type="checkbox" name="selected[]" <?= in_array($item->getId(),$selected)?'checked':'' ?> value="<?= $item->getId() ?>"
                                           class="item_checkbox"/></label>
+                        </td>
+                        <td>
+                            <?= $item->getId() ?>
                         </td>
                         <td>
                             <?= $item->getActionName(); ?>

@@ -9,7 +9,7 @@ class TextareaField extends Element implements FieldInterface
      */
     protected $value;
 
-    protected $render = 'textarea';
+    protected $decorator = 'textarea';
 
     protected $attributes= ['class' => 'form-control', 'maxlength' => 255,'type'=>'text'];
 

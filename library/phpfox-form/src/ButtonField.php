@@ -12,7 +12,7 @@ class ButtonField extends Element implements FieldInterface
     /**
      * @var string
      */
-    protected $render = 'button';
+    protected $decorator = 'button';
 
     /**
      * @return mixed

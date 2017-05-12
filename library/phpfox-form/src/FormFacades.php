@@ -16,7 +16,7 @@ class FormFacades
      */
     public function render($element)
     {
-        return $this->getRender($element->getRender())
+        return $this->getRender($element->getDecorator())
             ->render($element);
     }
 

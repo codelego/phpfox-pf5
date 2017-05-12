@@ -4,7 +4,7 @@ namespace Phpfox\Form;
 
 class CheckboxField extends Element implements FieldInterface
 {
-    protected $render = 'checkbox';
+    protected $decorator = 'checkbox';
 
     /**
      * @var mixed

@@ -21,14 +21,14 @@ interface ElementInterface
     /**
      * @return string
      */
-    public function getRender();
+    public function getDecorator();
 
     /**
      * @param $render
      *
      * @return $this
      */
-    public function setRender($render);
+    public function setDecorator($render);
 
     /**
      * @param string $name
@@ -120,6 +120,9 @@ interface ElementInterface
      */
     public function noLabel();
 
+    /**
+     * @return bool
+     */
     public function noWrap();
 
     /**

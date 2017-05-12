@@ -10,7 +10,7 @@ class InputFileField extends Element implements FieldInterface
      */
     protected $value;
 
-    protected $render = 'file_upload';
+    protected $decorator = 'file_upload';
 
     protected $attributes= ['type'=>'hidden'];
 

@@ -17,7 +17,7 @@ class ChoiceField extends Element implements FieldInterface
     /**
      * @var string
      */
-    protected $render = 'select';
+    protected $decorator = 'select';
 
     /**
      * @return mixed

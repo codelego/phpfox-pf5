@@ -15,7 +15,6 @@ return [
         'radio'                 => InputRadioRender::class,
         'file_upload'           => FileUploadRender::class,
         'textarea'              => TextareaRender::class,
-        'yesno'                 => YesnoRender::class,
         'static_text'           => StaticRender::class,
         'multi_checkbox'        => MultiCheckboxRender::class,
         'multi_select'          => MultiSelectRender::class,

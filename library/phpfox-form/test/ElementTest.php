@@ -50,9 +50,9 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(100, $obj->getAttribute('maxlength'));
         $this->assertFalse($obj->noLabel());
         $this->assertFalse($obj->noWrap());
-        $this->assertEquals('text', $obj->getRender());
-        $obj->setRender('input');
-        $this->assertEquals('input', $obj->getRender());
+        $this->assertEquals('text', $obj->getDecorator());
+        $obj->setDecorator('input');
+        $this->assertEquals('input', $obj->getDecorator());
 
         $this->assertNull($obj->getParent());
 

@@ -8,8 +8,9 @@ class <?= $shortFormClass?> extends Form {
 
     public function initialize(){
 
-        $this->setTitle(_text('<?= $formTitle ?>','<?= $textDomain ?>'));
-        $this->setInfo(_text('[<?= $formTitle ?> Info]','<?= $textDomain ?>'));
+        $this->setTitle(_text('User Group Settings', 'admin'));
+        $this->setInfo(_text('[User Group Settings Note]', 'admin'));
+        $this->setEncType('multipart/form-data');
         $this->setAction(_url('#'));
 
         /** start elements **/

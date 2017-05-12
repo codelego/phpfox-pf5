@@ -2,19 +2,16 @@
 
 namespace Neutron\Dev;
 
-use Neutron\Dev\Model\DevAction;
 
-class FormElementGenerator
+use Neutron\Dev\Model\DevElement;
+
+class ElementGenerator
 {
-    /**
-     * @var DevAction
-     */
-    protected $meta;
-
     /**
      * @var array
      */
-    protected $params;
+    protected $params = [];
+
 
     /**
      * @var array
@@ -27,41 +24,25 @@ class FormElementGenerator
     protected $moreInfo = [];
 
     /**
-     * FormElement constructor.
+     * ElementGenerator constructor.
      *
-     * @param DevAction $meta
-     * @param array     $params
+     * @param array $params
      */
-    public function __construct($meta, $params = [])
+    public function __construct($params)
     {
-        $this->meta = $meta;
         $this->params = $params;
-
-        $this->skips = include(__DIR__ . '/../assets/skip_elements.php');
-        $this->moreInfo = include(__DIR__ . '/../assets/element_meta.php');
     }
 
     /**
-     * @param string $key
-     * @param string $default
-     *
-     * @return mixed
-     */
-    public function get($key, $default = null)
-    {
-        return isset($this->params[$key]) ? $this->params[$key] : $default;
-    }
-
-
-    /**
-     * @param ColumnInfo $column
+     * @param DevElement $devElement
      *
      * @return string
      */
-    public function convert(ColumnInfo $column)
+    public function convert($devElement)
     {
-        $textDomain = $this->meta->getTextDomain();
         $formType = $this->get('formType');
+
+        $textDomain = $this->get('textDomain');
 
         if (empty($textDomain)) {
             $textDomain = 'null';
@@ -69,8 +50,8 @@ class FormElementGenerator
             $textDomain = '$$' . (string)$textDomain . '$$';
         }
 
-        $name = $column->getName();
-        $label = $column->getLabel();
+        $name = $devElement->getElementName();
+        $label = $devElement->getLabel();
 
         if ($this->isShortLabel()) {
             if (substr($label, -2) == 'Id') {
@@ -78,69 +59,58 @@ class FormElementGenerator
             }
         }
 
+        $factoryId = $devElement->getFactoryId();
+        $isHidden = $factoryId == 'hidden';
+
         $element = [
             'name'      => $name,
-            'factory'   => 'text',
-            'label'     => '',
-            'note'      => '',
-            'value'     => $column->getDefault(),
+            'factory'   => $factoryId,
+            'label'     => $devElement->getLabel(),
+            'note'      => $devElement->getNote(),
+            'info'      => $devElement->getInfo(),
+            'value'     => $devElement->getDefaultValue(),
+            'class'     => $devElement->getClassName(),
             'options'   => [],
-            'maxlength' => '',
-            'rows'      => '',
-            'cols'      => '',
-            'readonly'  => '',
-            'disabled'  => '',
+            'maxlength' => $devElement->getMaxLength(),
+            'rows'      => $devElement->getRows(),
+            'cols'      => $devElement->getCols(),
+            'required'  => $devElement->isRequire() ? '1' : '',
+            'readonly'  => $devElement->isReadonly() ? '1' : '',
+            'disabled'  => $devElement->isDisabled() ? '1' : '',
+            'data-cmd'  => $devElement->getDataCmd(),
         ];
 
-        if ($column->isString()) {
-            $element['factory'] = $column->isMultiLine() && !$this->isNoTextarea() ? 'textarea' : 'text';
-            $element['maxlength'] = $column->getLength();
-        } elseif ($column->isBoolean()) {
-            if ($this->isNoRadio()) {
-                $element['factory'] = 'select';
-                $element['options'] = [
-                    ['value' => 1, 'label' => 'Yes'],
-                    ['value' => 0, 'label' => 'No'],
-                ];
-            } else {
-                $element['factory'] = 'yesno';
-            }
-        } elseif ($column->isNumber()) {
-            $element['factory'] = 'text';
-            $element['maxlength'] = $column->getLength();
+
+        if ($factoryId == 'radio' and $this->isNoRadio()) {
+            $element['decorator'] = 'select';
+        } elseif ($factoryId == 'textarea' and $this->isNoTextarea()) {
+            $element['decorator'] = 'text';
         }
 
-        if (array_key_exists($name, $this->moreInfo)) {
-            $element = array_merge($element, $this->moreInfo[$name]);
-        }
-
-        $element['label'] = '$$$_text($$' . $label . '$$,' . $textDomain . ')$$$';
-        $element['note'] = '$$$_text($$[' . $label . ' Note]$$, ' . $textDomain . ')$$$';
-
-        $element['required'] = $column->isRequired();
-
-        if (in_array($name, $this->skips)) {
-            return '/** skip element `' . $name . '` #skips **/';
-        }
-
-        if ($this->isNoNote()) {
-            unset($element['note']);
-        }
-
-        if ($this->isNoLabel()) {
+        if ($isHidden or $this->isNoLabel()) {
             unset($element['label']);
+        } elseif ($label) {
+            $element['label'] = '$$$_text($$' . $label . '$$,' . $textDomain . ')$$$';
         }
 
-        if ($this->isNoRequire()) {
+        if ($isHidden or $this->isNoNote()) {
+            unset($element['note']);
+        } elseif ($element['note']) {
+            $element['note'] = '$$$_text($$' . $element['note'] . '$$, ' . $textDomain . ')$$$';
+        }
+
+        if ($isHidden or $this->isNoInfo()) {
+            unset($element['info']);
+        } elseif ($element['info']) {
+            $element['info'] = '$$$_text($$' . $element['info'] . '$$, ' . $textDomain . ')$$$';
+        }
+
+        if ($isHidden or $this->isNoRequire()) {
             unset($element['required']);
         }
 
-        if ($this->isNoDefault()) {
+        if ($isHidden or $this->isNoDefault()) {
             unset($element['value']);
-        }
-
-        if ($column->isIdentity()) {
-            return '/** skip element `' . $name . '` #identity **/';
         }
 
         foreach (array_keys($element) as $key) {
@@ -174,6 +144,17 @@ class FormElementGenerator
 
 
         return $string;
+    }
+
+    /**
+     * @param string $key
+     * @param string $default
+     *
+     * @return mixed
+     */
+    public function get($key, $default = null)
+    {
+        return isset($this->params[$key]) ? $this->params[$key] : $default;
     }
 
     /**

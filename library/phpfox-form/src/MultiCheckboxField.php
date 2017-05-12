@@ -14,7 +14,7 @@ class MultiCheckboxField extends Element implements FieldInterface
      */
     protected $options = [];
 
-    protected $render = 'multi_checkbox';
+    protected $decorator = 'multi_checkbox';
 
     /**
      * @return array

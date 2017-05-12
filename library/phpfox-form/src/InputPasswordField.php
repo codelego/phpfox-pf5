@@ -10,7 +10,7 @@ class InputPasswordField extends Element implements FieldInterface
      */
     protected $value;
 
-    protected $render = 'input';
+    protected $decorator = 'input';
 
     protected $attributes= ['class' => 'form-control', 'maxlength' => 255,'type'=>'password'];
 

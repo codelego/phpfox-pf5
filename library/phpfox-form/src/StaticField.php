@@ -10,7 +10,7 @@ class StaticField extends Element implements FieldInterface
      */
     protected $value;
 
-    protected $render = 'static_text';
+    protected $decorator = 'static_text';
 
     public function getValue()
     {

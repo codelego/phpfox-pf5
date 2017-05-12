@@ -14,38 +14,42 @@ class AddAclRole extends Form {
         /** start elements **/
 
         
-        /** skip element `role_id` #identity **/        
+        
+/** element `role_id` **/
+$this->addElement(array ( 'name' => 'role_id', 'factory' => 'text', 'label' => _text('Role Id',null), 'info' => '[Role Id Info]', 'required' => '1', ));        
         
 /** element `inherit_id` **/
-$this->addElement(array ( 'name' => 'inherit_id', 'factory' => 'text', 'label' => _text('Inherit Id',null), 'note' => _text('[Inherit Id Note]', null), 'value' => '0', 'maxlength' => 255, 'required' => true, ));        
+$this->addElement(array ( 'name' => 'inherit_id', 'factory' => 'text', 'label' => _text('Inherit Id',null), 'info' => '[Inherit Id Info]', 'value' => '0', 'required' => '1', ));        
         
 /** element `title` **/
-$this->addElement(array ( 'name' => 'title', 'factory' => 'text', 'label' => _text('Title',null), 'note' => _text('[Title Note]', null), 'maxlength' => 255, 'required' => true, ));        
-        /** skip element `item_count` #skips **/        
+$this->addElement(array ( 'name' => 'title', 'factory' => 'text', 'label' => _text('Title',null), 'info' => '[Title Info]', 'required' => '1', ));        
+        
+/** element `item_count` **/
+$this->addElement(array ( 'name' => 'item_count', 'factory' => 'text', 'label' => _text('Item Count',null), 'info' => '[Item Count Info]', 'value' => '0', 'required' => '1', ));        
         
 /** element `is_special` **/
-$this->addElement(array ( 'name' => 'is_special', 'factory' => 'yesno', 'label' => _text('Is Special',null), 'note' => _text('[Is Special Note]', null), 'value' => '0', 'required' => true, ));        
+$this->addElement(array ( 'name' => 'is_special', 'factory' => 'yesno', 'label' => _text('Is Special',null), 'info' => '[Is Special Info]', 'value' => '0', 'required' => '1', ));        
         
 /** element `is_super` **/
-$this->addElement(array ( 'name' => 'is_super', 'factory' => 'yesno', 'label' => _text('Is Super',null), 'note' => _text('[Is Super Note]', null), 'value' => '0', 'required' => true, ));        
+$this->addElement(array ( 'name' => 'is_super', 'factory' => 'yesno', 'label' => _text('Is Super',null), 'info' => '[Is Super Info]', 'value' => '0', 'required' => '1', ));        
         
 /** element `is_admin` **/
-$this->addElement(array ( 'name' => 'is_admin', 'factory' => 'yesno', 'label' => _text('Is Admin',null), 'note' => _text('[Is Admin Note]', null), 'value' => '0', 'required' => true, ));        
+$this->addElement(array ( 'name' => 'is_admin', 'factory' => 'yesno', 'label' => _text('Is Admin',null), 'info' => '[Is Admin Info]', 'value' => '0', 'required' => '1', ));        
         
 /** element `is_moderator` **/
-$this->addElement(array ( 'name' => 'is_moderator', 'factory' => 'yesno', 'label' => _text('Is Moderator',null), 'note' => _text('[Is Moderator Note]', null), 'value' => '0', 'required' => true, ));        
+$this->addElement(array ( 'name' => 'is_moderator', 'factory' => 'yesno', 'label' => _text('Is Moderator',null), 'info' => '[Is Moderator Info]', 'value' => '0', 'required' => '1', ));        
         
 /** element `is_staff` **/
-$this->addElement(array ( 'name' => 'is_staff', 'factory' => 'yesno', 'label' => _text('Is Staff',null), 'note' => _text('[Is Staff Note]', null), 'value' => '0', 'required' => true, ));        
+$this->addElement(array ( 'name' => 'is_staff', 'factory' => 'yesno', 'label' => _text('Is Staff',null), 'info' => '[Is Staff Info]', 'value' => '0', 'required' => '1', ));        
         
 /** element `is_registered` **/
-$this->addElement(array ( 'name' => 'is_registered', 'factory' => 'yesno', 'label' => _text('Is Registered',null), 'note' => _text('[Is Registered Note]', null), 'value' => '0', 'required' => true, ));        
+$this->addElement(array ( 'name' => 'is_registered', 'factory' => 'yesno', 'label' => _text('Is Registered',null), 'info' => '[Is Registered Info]', 'value' => '0', 'required' => '1', ));        
         
 /** element `is_banned` **/
-$this->addElement(array ( 'name' => 'is_banned', 'factory' => 'yesno', 'label' => _text('Is Banned',null), 'note' => _text('[Is Banned Note]', null), 'value' => '0', 'required' => true, ));        
+$this->addElement(array ( 'name' => 'is_banned', 'factory' => 'yesno', 'label' => _text('Is Banned',null), 'info' => '[Is Banned Info]', 'value' => '0', 'required' => '1', ));        
         
 /** element `is_guest` **/
-$this->addElement(array ( 'name' => 'is_guest', 'factory' => 'yesno', 'label' => _text('Is Guest',null), 'note' => _text('[Is Guest Note]', null), 'value' => '0', 'required' => true, ));        
+$this->addElement(array ( 'name' => 'is_guest', 'factory' => 'yesno', 'label' => _text('Is Guest',null), 'info' => '[Is Guest Info]', 'value' => '0', 'required' => '1', ));        
         /** end elements **/
 
         $this->addButton([

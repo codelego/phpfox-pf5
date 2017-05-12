@@ -12,9 +12,9 @@ class <?= $shortFormClass?> extends Form {
 
         /** start elements **/
 
-        <?php foreach($columns as $column): ?>
+        <?php foreach($elements as $element): ?>
 
-        <?php echo $elementGenerator->convert($column); ?>
+        <?php echo $elementGenerator->convert($element); ?>
         <?php endforeach; ?>
 
         /** end elements **/

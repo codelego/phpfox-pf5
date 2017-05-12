@@ -4,15 +4,27 @@ namespace Neutron\Dev\Service;
 
 use Neutron\Core\Model\AclSettingAction;
 use Neutron\Core\Model\AclSettingGroup;
+use Neutron\Dev\FormAdminAclSettingGenerator;
 use Neutron\Dev\FormAdminAddGenerator;
 use Neutron\Dev\FormAdminEditGenerator;
 use Neutron\Dev\FormAdminFilterGenerator;
 use Neutron\Dev\Model\DevAction;
+use Neutron\Dev\Model\DevElement;
+use Neutron\Dev\Model\DevTable;
 use Neutron\Dev\ModelGenerator;
+use Neutron\Dev\TableInfo;
 
 class CodeGenerator
 {
     CONST FORM_ACL_SETTINGS = 'admin_acl_settings';
+
+    protected $formToScanFromTables
+        = [
+            'admin_add',
+            'admin_edit',
+            'admin_delete',
+            'admin_filter',
+        ];
 
     /**
      * @return AclSettingGroup[]
@@ -52,6 +64,8 @@ class CodeGenerator
                     break;
                 case 'admin_filter':
                     return (new FormAdminFilterGenerator($actionMeta))->process();
+                case self::FORM_ACL_SETTINGS:
+                    return (new FormAdminAclSettingGenerator($actionMeta))->process();
                 case 'model_class':
                     return (new ModelGenerator($actionMeta))->process();
             }
@@ -113,13 +127,14 @@ class CodeGenerator
                 ])->save();
         }
 
-        $this->updatePackageIdInfo();
-        $this->scanUserGroupSettings();
-        $this->scanUserGroupElements();
+        $this->updateMetaPackageId();
+        $this->updateUserGroupSettings();
+        $this->updateUserGroupElements();
+        $this->upgradeElements();
 
     }
 
-    protected function scanUserGroupSettings()
+    protected function updateUserGroupSettings()
     {
         $actionType = self::FORM_ACL_SETTINGS;
 
@@ -144,7 +159,7 @@ class CodeGenerator
         }
     }
 
-    protected function scanUserGroupElements()
+    protected function updateUserGroupElements()
     {
         $actionType = self::FORM_ACL_SETTINGS;
         foreach ($this->getUserSettingGroups() as $settingGroup) {
@@ -199,8 +214,96 @@ class CodeGenerator
         }
     }
 
+    /**
+     *
+     */
+    protected function upgradeElements()
+    {
+        /** @var DevTable[] $tables */
+        $tables = _model('dev_table')
+            ->select()
+            ->where('package_id<>?', 'undefined')
+            ->all();
 
-    protected function updatePackageIdInfo()
+        foreach ($tables as $table) {
+            $tableName = $table->getId();
+            $tableInfo = new TableInfo($tableName);
+
+            $actions = $this->getActionByTableName($tableName);
+
+            foreach ($actions as $action) {
+                $this->scanTableInfoToUpgradeElement($tableInfo, $action);
+            }
+            // check column exists
+        }
+    }
+
+    public function getActionByTableName($tableName)
+    {
+        return _model('dev_action')
+            ->select()
+            ->where('table_name=?', $tableName)
+            ->all();
+    }
+
+    /**
+     * @param TableInfo $tableInfo
+     * @param DevAction $devAction
+     */
+    public function scanTableInfoToUpgradeElement($tableInfo, $devAction)
+    {
+        /** @var DevElement[] $elements */
+        $elements = _model('dev_element')
+            ->select()
+            ->where('meta_id=?', $devAction->getMetaId())
+            ->all();
+
+        $currents = [];
+        foreach ($elements as $element) {
+            $currents[] = $element->getElementName();
+        }
+        $insertColumnNames = array_diff(array_keys($tableInfo->getColumns()), $currents);
+
+        $sort_order = count($tableInfo->getColumns());
+        foreach ($insertColumnNames as $insertColumnName) {
+            $column = $tableInfo->getColumn($insertColumnName);
+
+            $factoryId = 'text';
+            $maxLength = '';
+
+            if ($column->isString()) {
+                $factoryId = $column->isMultiLine() ? 'textarea' : 'text';
+                $maxLength = $column->getLength();
+            } elseif ($column->isBoolean()) {
+                $factoryId = 'yesno';
+            } elseif ($column->isNumber()) {
+                $factoryId = 'text';
+            }
+
+            _model('dev_element')
+                ->create([
+                    'meta_id'        => $devAction->getMetaId(),
+                    'package_id'     => $devAction->getPackageId(),
+                    'is_identity'    => $column->isIdentity(),
+                    'is_primary'     => $column->isPrimary(),
+                    'primary_length' => count($tableInfo->getPrimary()),
+                    'element_name'   => $column->getName(),
+                    'label'          => $column->getLabel(),
+                    'info'           => '[' . $column->getLabel() . ' Info]',
+                    'note'           => '[' . $column->getLabel() . ' Note]',
+                    'placeholder'    => $column->getLabel(),
+                    'is_require'     => $column->isRequired(),
+                    'maxlength'      => $maxLength,
+                    'default_value'  => $column->getDefault(),
+                    'factory_id'     => $factoryId,
+                    'sort_order'     => ++$sort_order,
+                ])
+                ->save();
+        }
+    }
+
+
+    protected function updateMetaPackageId()
     {
         $sql
             = 'UPDATE `pf5_dev_action`, `pf5_dev_table` SET pf5_dev_action.package_id = pf5_dev_table.package_id WHERE

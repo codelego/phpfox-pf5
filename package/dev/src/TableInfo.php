@@ -44,6 +44,16 @@ class TableInfo
         return $this->columns;
     }
 
+    /**
+     * @param string $name
+     *
+     * @return ColumnInfo|null
+     */
+    public function getColumn($name)
+    {
+        return isset($this->columns[$name]) ? $this->columns[$name] : null;
+    }
+
     protected function describe()
     {
         $sql = _sprintf('describe {0}{1}', [PHPFOX_TABLE_PREFIX, $this->name]);

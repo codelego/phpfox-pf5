@@ -15,7 +15,7 @@ class Form extends Element implements ElementInterface, CollectionInterface
     /**
      * @var string
      */
-    protected $render = 'form_panel';
+    protected $decorator = 'form_panel';
 
     /**
      * @var string

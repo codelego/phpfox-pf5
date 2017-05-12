@@ -28,7 +28,7 @@ class Element implements ElementInterface
     /**
      * @var string
      */
-    protected $render = 'text';
+    protected $decorator = 'text';
 
     /**
      * @var bool
@@ -145,14 +145,14 @@ class Element implements ElementInterface
         $this->parent = $parent;
     }
 
-    public function getRender()
+    public function getDecorator()
     {
-        return $this->render;
+        return $this->decorator;
     }
 
-    public function setRender($render)
+    public function setDecorator($decorator)
     {
-        $this->render = $render;
+        $this->decorator = $decorator;
     }
 
     public function hasAttribute($name)

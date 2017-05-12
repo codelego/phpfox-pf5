@@ -10,7 +10,7 @@ class InputHiddenField extends Element implements FieldInterface
      */
     protected $value;
 
-    protected $render = 'input';
+    protected $decorator = 'input';
 
     protected $attributes = ['type' => 'hidden'];
 

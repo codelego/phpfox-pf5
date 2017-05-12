@@ -12,7 +12,12 @@ class FormRenderPanel implements FormRenderInterface
             $name = $v->getName();
             $note = $v->getParam('note', '');
             if ($note) {
-                $note = '<p class="help-block">' . $note . '</p>';
+                $note = '<p class="control-note">' . $note . '</p>';
+            }
+
+            $info = $v->getParam('note', '');
+            if ($info) {
+                $info = '<p class="control-info">' . $info . '</p>';
             }
 
             $required = $v->isRequired() ? 'required' : '';
@@ -27,7 +32,7 @@ class FormRenderPanel implements FormRenderInterface
             }
 
             return '<div class="form-group input-' . $name . '">' . $label
-                . $note . $fc->render($v) . '</div>';
+                . $info . $fc->render($v) . $note.'</div>';
         }, $form->getElements());
 
         return implode(PHP_EOL, $result);

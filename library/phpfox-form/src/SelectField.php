@@ -6,5 +6,5 @@ class SelectField extends ChoiceField
 {
     protected $attributes = ['class' => 'form-control',];
 
-    protected $render = 'select';
+    protected $decorator = 'select';
 }

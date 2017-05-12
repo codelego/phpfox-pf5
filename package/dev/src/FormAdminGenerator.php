@@ -78,7 +78,7 @@ class FormAdminGenerator extends AbstractGenerator
 
     }
 
-    protected function getElementParams()
+    protected function getElementGeneratorParams()
     {
         return [];
     }
@@ -88,23 +88,15 @@ class FormAdminGenerator extends AbstractGenerator
      */
     public function process()
     {
-        $options = $this->getElementParams();
+        $elementGeneratorParams = $this->getElementGeneratorParams();
+        $elementGenerator = new ElementGenerator($elementGeneratorParams);
 
-        $tableInfo = new TableInfo($this->tableName);
-
-        $elements = [];
-
-        $elementGenerator = new FormElementGenerator($this->meta, $options);
-
-        /** @var ColumnInfo[] $columns */
-        $columns = [];
-
-        foreach ($tableInfo->getColumns() as $column) {
-            if (false) {
-                // check skip column name
-            }
-            $columns[] = $column;
-        }
+        $elements = _model('dev_element')
+            ->select()
+            ->where('is_active=?', 1)
+            ->where('meta_id=?', $this->meta->getMetaId())
+            ->order('sort_order', 1)
+            ->all();
 
         $namespace = $this->getNameSpace();
         $shortFormClass = $this->getShortFormClass();
@@ -129,12 +121,11 @@ class FormAdminGenerator extends AbstractGenerator
 
         $formCode = (new ViewModel([
             'elementGenerator' => $elementGenerator,
-            'columns'          => $columns,
+            'elements'         => $elements,
             'fullFormClass'    => $fullFormClass,
             'namespace'        => $namespace,
             'component'        => $component,
             'shortFormClass'   => $shortFormClass,
-            'initialize'       => $this->fixTab(8, implode(PHP_EOL, $elements)),
             'heading'          => 'Table to Form',
             'tableName'        => $this->tableName,
             'moduleName'       => $this->packageId,

@@ -8,7 +8,7 @@ class FormAdminFilterGenerator extends FormAdminGenerator
 
     protected $template = 'dev/template/form-admin-filter-class';
 
-    protected function getElementParams()
+    protected function getElementGeneratorParams()
     {
         return [
             'noLabel'    => false,

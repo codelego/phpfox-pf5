@@ -18,7 +18,7 @@ class InputRadioField extends ChoiceField
     /**
      * @var string
      */
-    protected $render = 'radio';
+    protected $decorator = 'radio';
 
     /**
      * @return mixed
