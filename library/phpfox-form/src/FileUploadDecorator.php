@@ -3,7 +3,7 @@
 namespace Phpfox\Form;
 
 
-class FileUploadRender implements RenderInterface
+class FileUploadDecorator implements DecoratorInterface
 {
     /**
      * @param InputFileField $element

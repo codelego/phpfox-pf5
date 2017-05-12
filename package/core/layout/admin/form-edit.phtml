@@ -1,7 +1,7 @@
 <?php
 if (isset($render)) {
-    $form->setRender($render);
+    $form->setDecorator($render);
 } else {
-    $form->setRender('form_panel_horizontal');
+    $form->setDecorator('form_panel_horizontal');
 }
-echo $form->toHtml();
+echo $form->render();

@@ -2,7 +2,7 @@
 
 namespace Phpfox\Form;
 
-class FormRenderPanelHorizontal implements FormRenderInterface
+class FormRenderPanelHorizontal implements FormDecoratorInterface
 {
     public function renderElements($form)
     {

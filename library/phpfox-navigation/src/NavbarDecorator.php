@@ -55,7 +55,7 @@ class NavbarDecorator extends AbstractDecorator
         $params = $item->params;
 
         // validate passed acl
-        if ($item->acl and !_pass(null,$item->acl)) {
+        if ($item->acl and !_pass(null, $item->acl)) {
             return '';
         }
 

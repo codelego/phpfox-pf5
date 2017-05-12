@@ -3,24 +3,25 @@
 namespace Phpfox\Form;
 
 
-class InputRender implements RenderInterface
+class TextareaDecorator implements DecoratorInterface
 {
     /**
-     * @param InputTextField $element
+     * @param TextareaField $element
      *
      * @return string
      */
     public function render($element)
     {
         $attributes = $element->getAttributes();
-        $attributes['value'] = $element->getValue();
         $attributes['name'] = $element->getName();
+
         if (!$element->isRequired()) {
             unset($attributes['required']);
         } else {
             $attributes['required'] = true;
         }
-        
-        return '<input ' . _attrize($attributes) . '/>';
+
+        return '<textarea ' . _attrize($attributes) . '>' . $element->getValue()
+            . '</textarea>';
     }
 }

@@ -18,6 +18,27 @@ class CodeGenerator
 {
     CONST FORM_ACL_SETTINGS = 'admin_acl_settings';
 
+    protected $hideFields
+        = [
+            'created_at',
+            'updated_at',
+            'user_id',
+            'parent_id',
+            'parent_type',
+            'poster_id',
+            'poster_type',
+            'view_count',
+            'comment_count',
+            'like_count',
+            'share_count',
+            'rating_avg',
+            'is_default',
+            'is_updated',
+            'is_json',
+            'item_count',
+            'is_required',
+        ];
+
     protected $formToScanFromTables
         = [
             'admin_add',
@@ -280,6 +301,16 @@ class CodeGenerator
                 $factoryId = 'text';
             }
 
+            $isActive = 1;
+            if (!in_array($column->getName(), $this->hideFields)) {
+                $isActive = 0;
+            }
+
+            if ($column->isIdentity()) {
+                $isActive = 0;
+            }
+
+
             _model('dev_element')
                 ->create([
                     'meta_id'        => $devAction->getMetaId(),
@@ -297,8 +328,44 @@ class CodeGenerator
                     'default_value'  => $column->getDefault(),
                     'factory_id'     => $factoryId,
                     'sort_order'     => ++$sort_order,
+                    'is_active'      => $isActive,
                 ])
                 ->save();
+        }
+
+        if ($devAction->getActionType() == 'admin_filter') {
+            // add query options
+            /** @var DevElement[] $elements */
+            $queryElement = _model('dev_element')
+                ->select()
+                ->where('meta_id=?', $devAction->getMetaId())
+                ->where('element_name=?', 'q')
+                ->first();
+
+            if ($queryElement) {
+
+            } else {
+                _model('dev_element')
+                    ->create([
+                        'meta_id'        => $devAction->getMetaId(),
+                        'package_id'     => $devAction->getPackageId(),
+                        'is_identity'    => 0,
+                        'is_primary'     => 0,
+                        'primary_length' => 0,
+                        'element_name'   => 'q',
+                        'label'          => 'Keywords',
+                        'info'           => '',
+                        'note'           => '',
+                        'placeholder'    => 'Keywords',
+                        'is_require'     => 0,
+                        'maxlength'      => 100,
+                        'default_value'  => '',
+                        'factory_id'     => 'text',
+                        'sort_order'     => 1,
+                        'is_active'      => 1,
+                    ])
+                    ->save();
+            }
         }
     }
 

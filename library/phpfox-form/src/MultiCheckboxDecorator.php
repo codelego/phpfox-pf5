@@ -3,7 +3,7 @@
 namespace Phpfox\Form;
 
 
-class MultiCheckboxRender implements RenderInterface
+class MultiCheckboxDecorator implements DecoratorInterface
 {
     /**
      * @param MultiCheckboxField $element
@@ -25,23 +25,23 @@ class MultiCheckboxRender implements RenderInterface
             if ($isInline) {
                 return _sprintf('<label class="checkbox-inline"><input {checked} {disabled} type="checkbox" name="{name}[]" value="{value}" />{label}</label>{help}',
                     [
-                        'disabled'=> isset($option['disabled'])?'disabled':'',
-                        'name'    => $name,
-                        'label'   => $option['label'],
-                        'value'   => $option['value'],
-                        'checked' => $checked ? 'checked' : '',
-                        'help'    => $help,
+                        'disabled' => isset($option['disabled']) ? 'disabled' : '',
+                        'name'     => $name,
+                        'label'    => $option['label'],
+                        'value'    => $option['value'],
+                        'checked'  => $checked ? 'checked' : '',
+                        'help'     => $help,
                     ]);
             }
 
             return _sprintf('<div class="checkbox"><label><input {checked} {disabled} type="checkbox" name="{name}[]" value="{value}" />{label}</label>{help}</div>',
                 [
-                    'disabled'=> isset($option['disabled'])?'disabled':'',
-                    'name'    => $name,
-                    'label'   => $option['label'],
-                    'value'   => $option['value'],
-                    'checked' => $checked ? 'checked' : '',
-                    'help'    => $help,
+                    'disabled' => isset($option['disabled']) ? 'disabled' : '',
+                    'name'     => $name,
+                    'label'    => $option['label'],
+                    'value'    => $option['value'],
+                    'checked'  => $checked ? 'checked' : '',
+                    'help'     => $help,
                 ]);
         }, $element->getOptions());
 

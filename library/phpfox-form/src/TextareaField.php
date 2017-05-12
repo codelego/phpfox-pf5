@@ -11,7 +11,7 @@ class TextareaField extends Element implements FieldInterface
 
     protected $decorator = 'textarea';
 
-    protected $attributes= ['class' => 'form-control', 'maxlength' => 255,'type'=>'text'];
+    protected $attributes = ['class' => 'form-control', 'maxlength' => 255, 'type' => 'text'];
 
     public function getValue()
     {

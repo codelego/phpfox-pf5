@@ -266,7 +266,7 @@ class Element implements ElementInterface
     /**
      * @return string
      */
-    public function toHtml()
+    public function render()
     {
         return _service('form_render')->render($this);
     }

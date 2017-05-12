@@ -19,7 +19,7 @@ class LayoutContent
     /**
      * LayoutPage constructor.
      *
-     * @param array  $params
+     * @param array $params
      */
     public function __construct($params = [])
     {

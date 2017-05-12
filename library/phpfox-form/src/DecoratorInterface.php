@@ -3,7 +3,7 @@
 namespace Phpfox\Form;
 
 
-interface RenderInterface
+interface DecoratorInterface
 {
     /**
      * @param $element

@@ -116,6 +116,6 @@ class DevAction extends DbModel
             ],
         ]);
 
-        return $select->toHtml();
+        return $select->render();
     }
 }

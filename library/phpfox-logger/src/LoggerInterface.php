@@ -6,7 +6,7 @@ interface LoggerInterface
 {
     /**
      * @param mixed $message
-     * @param array  $context
+     * @param array $context
      */
     public function emergency($message, $context = []);
 
@@ -14,7 +14,7 @@ interface LoggerInterface
      * action must be taken immediately
      *
      * @param mixed $message
-     * @param array  $context
+     * @param array $context
      */
     public function alert($message, $context = []);
 

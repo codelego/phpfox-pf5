@@ -71,4 +71,10 @@ class DevElement extends DbModel
     
     public function getDataCmd(){return $this->__get('data_cmd');}
     public function setDataCmd($value){$this->__set('data_cmd', $value);}
+    
+    public function getPrimaryLength(){return (int) $this->__get('primary_length');}
+    public function setPrimaryLength($value){$this->__set('primary_length', $value);}
+    
+    public function getOptionsText(){return $this->__get('options_text');}
+    public function setOptionsText($value){$this->__set('options_text', $value);}
     }

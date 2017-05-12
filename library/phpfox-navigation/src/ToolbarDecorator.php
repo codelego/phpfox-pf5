@@ -46,7 +46,7 @@ class ToolbarDecorator extends AbstractDecorator
             ;
         }
 
-        if ($item->acl and !_pass(null,$item->acl)) {
+        if ($item->acl and !_pass(null, $item->acl)) {
             return '';
         }
 
@@ -89,7 +89,7 @@ class ToolbarDecorator extends AbstractDecorator
             $cls .= ' active';
         }
 
-        $extra = _attrize(array_merge(['class' => 'btn btn-default'],$item->get('extra')));
+        $extra = _attrize(array_merge(['class' => 'btn btn-default'], $item->get('extra')));
 
         if (!empty($item->children)) {
             $childrenHtml = $this->renderChildren($level + 1, $item->children);

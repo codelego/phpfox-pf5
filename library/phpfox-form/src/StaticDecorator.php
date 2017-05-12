@@ -2,7 +2,7 @@
 
 namespace Phpfox\Form;
 
-class StaticRender implements RenderInterface
+class StaticDecorator implements DecoratorInterface
 {
     /**
      * @param StaticField $element

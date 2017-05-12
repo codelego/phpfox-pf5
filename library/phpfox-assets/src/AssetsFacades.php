@@ -2,8 +2,6 @@
 
 namespace Phpfox\Assets;
 
-use Phpfox;
-
 class AssetsFacades
 {
     public function __construct()

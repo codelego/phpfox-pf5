@@ -117,7 +117,7 @@ class ErrorHandler
 
         _service('main.log')->error($message);
 
-        if(!PHPFOX_UNIT_TEST){
+        if (!PHPFOX_UNIT_TEST) {
             $this->_sendFatalResponse();
         }
 

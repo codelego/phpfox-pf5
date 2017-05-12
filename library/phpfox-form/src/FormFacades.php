@@ -23,7 +23,7 @@ class FormFacades
     /**
      * @param string $id
      *
-     * @return RenderInterface
+     * @return DecoratorInterface
      */
     public function getRender($id)
     {
@@ -37,7 +37,7 @@ class FormFacades
     /**
      * @param string $id
      *
-     * @return RenderInterface
+     * @return DecoratorInterface
      */
     public function factory($id)
     {

@@ -17,7 +17,7 @@ class SlidingDecorator extends AbstractDecorator
             $start = 1;
         }
 
-        $end = $start + $width -1 ;
+        $end = $start + $width - 1;
 
         if ($end > $paging->getPageCount()) {
             $end = $paging->getPageCount();

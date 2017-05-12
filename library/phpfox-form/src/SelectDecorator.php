@@ -3,7 +3,7 @@
 namespace Phpfox\Form;
 
 
-class SelectRender implements RenderInterface
+class SelectDecorator implements DecoratorInterface
 {
     /**
      * @param ChoiceField $element
@@ -14,6 +14,9 @@ class SelectRender implements RenderInterface
     {
         $attributes = $element->getAttributes();
         $attributes['name'] = $element->getName();
+        if (empty($attributes['class'])) {
+            $attributes['class'] = 'form-control';
+        }
         $value = $element->getValue();
         $options = $element->getOptions();
 

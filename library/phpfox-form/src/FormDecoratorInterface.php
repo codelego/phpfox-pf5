@@ -2,7 +2,7 @@
 
 namespace Phpfox\Form;
 
-interface FormRenderInterface extends RenderInterface
+interface FormDecoratorInterface extends DecoratorInterface
 {
     /**
      * @param Form $form

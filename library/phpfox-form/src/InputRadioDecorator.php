@@ -3,7 +3,7 @@
 namespace Phpfox\Form;
 
 
-class InputRadioRender implements RenderInterface
+class InputRadioDecorator implements DecoratorInterface
 {
     /**
      * @param InputRadioField $element
@@ -22,7 +22,7 @@ class InputRadioRender implements RenderInterface
             $help = (isset($option['note']) and !empty($option['note']))
                 ? '<p class="help-block">' . $option['note'] . '</p>' : '';
 
-            if($isInline){
+            if ($isInline) {
                 return _sprintf('<label class="radio-inline"><input {selected} type="radio" name="{name}" value="{value}" />{label}</label>{help}',
                     [
                         'name'     => $name,

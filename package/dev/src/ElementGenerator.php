@@ -12,17 +12,6 @@ class ElementGenerator
      */
     protected $params = [];
 
-
-    /**
-     * @var array
-     */
-    protected $skips = [];
-
-    /**
-     * @var array
-     */
-    protected $moreInfo = [];
-
     /**
      * ElementGenerator constructor.
      *
@@ -31,6 +20,42 @@ class ElementGenerator
     public function __construct($params)
     {
         $this->params = $params;
+    }
+
+    /**
+     * @param $factoryId
+     *
+     * @return bool
+     */
+    public function isChoiceField($factoryId)
+    {
+        return in_array($factoryId, [
+            'select',
+            'radio',
+            'multi_checkbox',
+            'gender',
+            'multi_select',
+        ]);
+    }
+
+    /**
+     * @param $factoryId
+     *
+     * @return bool
+     */
+    public function isRadio($factoryId)
+    {
+        return in_array($factoryId, ['yesno', 'radio']);
+    }
+
+    /**
+     * @param $factoryId
+     *
+     * @return bool
+     */
+    public function isTextarea($factoryId)
+    {
+        return in_array($factoryId, ['textarea']);
     }
 
     /**
@@ -81,10 +106,14 @@ class ElementGenerator
         ];
 
 
-        if ($factoryId == 'radio' and $this->isNoRadio()) {
+        if ($this->isRadio($factoryId) and $this->isNoRadio()) {
             $element['decorator'] = 'select';
-        } elseif ($factoryId == 'textarea' and $this->isNoTextarea()) {
+        } elseif ($this->isTextarea($factoryId) and $this->isNoTextarea()) {
             $element['decorator'] = 'text';
+        }
+
+        if ($this->isChoiceField($factoryId) and $devElement->getOptionsText()) {
+            $element['options'] = '$$$'.str_replace("'",'$$',$devElement->getOptionsText()) . '$$$';
         }
 
         if ($isHidden or $this->isNoLabel()) {
@@ -119,9 +148,9 @@ class ElementGenerator
             }
         }
 
-        $template = file_get_contents(__DIR__ . '/../assets/form_element.txt');
-
-        $content = _sprintf($template, [
+        $content = _sprintf('
+            /** element `{name}` **/
+            $this->addElement({element});', [
             'element'    => $this->cleanExport($element),
             'name'       => $name,
             'label'      => $label,

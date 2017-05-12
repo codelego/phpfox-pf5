@@ -5,7 +5,6 @@ namespace Neutron\Dev;
 
 class AbstractGenerator
 {
-
     protected function putContents($filename, $data)
     {
         $errors = $this->ensureWritable([
@@ -17,30 +16,12 @@ class AbstractGenerator
         }
 
         $filename = PHPFOX_DIR . $filename;
-
-
+        
         file_put_contents($filename, $data);
 
         if (file_exists($filename)) {
             @chmod($filename, 0777);
         }
-    }
-
-    /**
-     * @param string $file         template file name under ./core/assets
-     * @param array  $replacements array data
-     *
-     * @return string
-     */
-    protected function translate($file, $replacements)
-    {
-        $filename = $this->getAssetsDirectory() . '/' . $file;
-        return _sprintf(file_get_contents($filename), $replacements);
-    }
-
-    protected function getAssetsDirectory()
-    {
-        return realpath(__DIR__ . '/../assets');
     }
 
 

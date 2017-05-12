@@ -3,7 +3,7 @@
 namespace Phpfox\Form;
 
 
-class MultiSelectRender implements RenderInterface
+class MultiSelectDecorator implements DecoratorInterface
 {
     /**
      * @param InputRadioField $element

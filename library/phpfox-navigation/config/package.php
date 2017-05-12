@@ -10,6 +10,6 @@ return [
         'toolbar' => ToolbarDecorator::class,
     ],
     'services'              => [
-        'navigation'           => [null, NavigationManager::class],
+        'navigation' => [null, NavigationManager::class],
     ],
 ];

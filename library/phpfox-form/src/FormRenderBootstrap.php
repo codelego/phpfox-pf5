@@ -2,7 +2,7 @@
 
 namespace Phpfox\Form;
 
-class FormRenderBootstrap implements FormRenderInterface
+class FormRenderBootstrap implements FormDecoratorInterface
 {
     public function renderElements($form)
     {
@@ -32,7 +32,7 @@ class FormRenderBootstrap implements FormRenderInterface
             }
 
             return '<div class="form-group input-' . $name . '">' . $label
-                .$info . $fc->render($v) . $note. '</div>';
+                . $info . $fc->render($v) . $note . '</div>';
         }, $form->getElements());
 
         return implode(PHP_EOL, $result);

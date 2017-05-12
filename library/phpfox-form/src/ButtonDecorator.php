@@ -3,7 +3,7 @@
 namespace Phpfox\Form;
 
 
-class ButtonRender implements RenderInterface
+class ButtonDecorator implements DecoratorInterface
 {
     /**
      * @param ButtonField $element

@@ -10,6 +10,6 @@ class ResetPasswordAdminSettingFormTest extends \PHPUnit_Framework_TestCase
     {
         $form = new ResetPasswordAdminSettingForm();
 
-        $this->assertNotEmpty($form->toHtml());
+        $this->assertNotEmpty($form->render());
     }
 }

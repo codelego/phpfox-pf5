@@ -33,7 +33,7 @@ class LayoutManager extends ViewModel
 
         _emit('onViewLayoutPrepare', $this);
 
-        $content =  _service('layout_loader')
+        $content = _service('layout_loader')
             ->loadForRender($this->getPageName(), $this->getThemeId())
             ->render();
 

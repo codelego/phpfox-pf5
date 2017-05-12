@@ -7,7 +7,7 @@ return [
         'smtp'   => SmtpAdapter::class,
         'system' => SystemAdapter::class,
     ],
-    'services'          => [
+    'services'     => [
         'mailer'         => [null, MailFacades::class,],
         'mailer.factory' => null,
     ],

@@ -2,7 +2,7 @@
 
 namespace Phpfox\Form;
 
-class FormRenderPanelFlat implements FormRenderInterface
+class FormRenderPanelFlat implements FormDecoratorInterface
 {
     public function renderElements($form)
     {
@@ -32,7 +32,7 @@ class FormRenderPanelFlat implements FormRenderInterface
             }
 
             return '<div class="form-group input-' . $name . '">' . $label
-                . $info . $fc->render($v) . $note. '</div>';
+                . $info . $fc->render($v) . $note . '</div>';
         }, $form->getElements());
 
         return implode(PHP_EOL, $result);
@@ -75,7 +75,7 @@ class FormRenderPanelFlat implements FormRenderInterface
         $array = [];
         $facade = _service('form_render');
         foreach ($form->getButtons() as $button) {
-            $array[] = '<div class="form-group">'.$facade->render($button) . '</div>';
+            $array[] = '<div class="form-group">' . $facade->render($button) . '</div>';
         }
 
         if (empty($array)) {

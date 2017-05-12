@@ -3,7 +3,7 @@
 namespace Phpfox\Form;
 
 
-class CheckboxRender implements RenderInterface
+class CheckboxDecorator implements DecoratorInterface
 {
     /**
      * @param CheckboxField $element
