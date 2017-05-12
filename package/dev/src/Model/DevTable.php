@@ -4,9 +4,9 @@ namespace Neutron\Dev\Model;
 
 use Phpfox\Db\DbModel;
 
-class DevTableMeta extends DbModel
+class DevTable extends DbModel
 {
-    public function getModelId(){return 'dev_table_meta';}
+    public function getModelId(){return 'dev_table';}
 
     public function getId(){return $this->__get('table_name');}
     public function setId($value){$this->__set('table_name', $value);}

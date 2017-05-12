@@ -33,6 +33,24 @@ return [
         AclRole::class,
         'package/core/config/model/acl_role.php',
     ],
+    'acl_setting_action'  => [
+        'table_factory',
+        ':acl_setting_action',
+        AclSettingAction::class,
+        'package/core/config/model/acl_setting_action.php',
+    ],
+    'acl_setting_value'   => [
+        'table_factory',
+        ':acl_setting_value',
+        AclSettingValue::class,
+        'package/core/config/model/acl_setting_value.php',
+    ],
+    'acl_setting_group'   => [
+        'table_factory',
+        ':acl_setting_group',
+        AclSettingGroup::class,
+        'package/core/config/model/acl_setting_group.php',
+    ],
     'core_package'        => [
         'table_factory',
         ':core_package',

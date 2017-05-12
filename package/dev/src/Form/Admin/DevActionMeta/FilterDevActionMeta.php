@@ -38,12 +38,13 @@ class FilterDevActionMeta extends Form
             'factory'   => 'select',
             'label'     => _text('Action Type', null),
             'maxlength' => 255,
-            'options'     => [
-                ['value'=>'admin_add','label'=>'admin_add'],
-                ['value'=>'admin_edit','label'=>'admin_edit'],
-                ['value'=>'admin_delete','label'=>'admin_delete'],
-                ['value'=>'admin_filter','label'=>'admin_filter'],
-                ['value'=>'model_class','label'=>'model_class'],
+            'options'   => [
+                ['value' => 'admin_add', 'label' => 'admin_add'],
+                ['value' => 'admin_edit', 'label' => 'admin_edit'],
+                ['value' => 'admin_delete', 'label' => 'admin_delete'],
+                ['value' => 'admin_filter', 'label' => 'admin_filter'],
+                ['value' => 'model_class', 'label' => 'model_class'],
+                ['value' => 'admin_acl_settings', 'label' => 'Acl Settings'],
             ],
         ]);
 

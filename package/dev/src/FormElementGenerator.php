@@ -2,12 +2,12 @@
 
 namespace Neutron\Dev;
 
-use Neutron\Dev\Model\DevActionMeta;
+use Neutron\Dev\Model\DevAction;
 
 class FormElementGenerator
 {
     /**
-     * @var DevActionMeta
+     * @var DevAction
      */
     protected $meta;
 
@@ -29,8 +29,8 @@ class FormElementGenerator
     /**
      * FormElement constructor.
      *
-     * @param DevActionMeta $meta
-     * @param array         $params
+     * @param DevAction $meta
+     * @param array     $params
      */
     public function __construct($meta, $params = [])
     {

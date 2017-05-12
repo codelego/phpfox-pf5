@@ -3,7 +3,7 @@
 namespace Neutron\Dev;
 
 use Neutron\Core\Model\CorePackage;
-use Neutron\Dev\Model\DevActionMeta;
+use Neutron\Dev\Model\DevAction;
 use Phpfox\View\ViewModel;
 
 class FormAdminGenerator extends AbstractGenerator
@@ -14,7 +14,7 @@ class FormAdminGenerator extends AbstractGenerator
     protected $category = 'Form';
 
     /**
-     * @var DevActionMeta $meta
+     * @var DevAction $meta
      */
     protected $meta;
 
@@ -53,9 +53,9 @@ class FormAdminGenerator extends AbstractGenerator
     /**
      * AbstractGenerator constructor.
      *
-     * @param DevActionMeta $meta
+     * @param DevAction $meta
      */
-    public function __construct(DevActionMeta $meta)
+    public function __construct(DevAction $meta)
     {
         $this->meta = $meta;
 

@@ -6,8 +6,8 @@ use Neutron\Core\Controller\AdminController;
 use Neutron\Core\Form\Admin\RapidDev\RadModelToolSettings;
 use Neutron\Core\Process\AdminManageSiteSettingsProcess;
 use Neutron\Dev\Form\Admin\DevActionMeta\FilterDevActionMeta;
-use Neutron\Dev\Model\DevActionMeta;
-use Neutron\Dev\Model\DevTableMeta;
+use Neutron\Dev\Model\DevAction;
+use Neutron\Dev\Model\DevTable;
 use Phpfox\Db\SqlSelect;
 use Phpfox\View\ViewModel;
 
@@ -41,56 +41,8 @@ class AdminDevController extends AdminController
 
     public function actionScan()
     {
-        $tables = array_map(function ($tableName) {
-            return substr($tableName, strlen(PHPFOX_TABLE_PREFIX));
-        }, _service('db')->tables());
-
-        $formTypes = [
-            'admin_add',
-            'admin_edit',
-            'admin_delete',
-            'admin_filter',
-            'model_class',
-        ];
-
-        foreach ($formTypes as $formType) {
-            foreach ($tables as $tableName) {
-                $entry = _model('dev_action_meta')
-                    ->select()
-                    ->where('action_type=?', $formType)
-                    ->where('table_name=?', $tableName)
-                    ->first();
-
-                if ($entry) {
-                    continue;
-                }
-
-                _model('dev_action_meta')
-                    ->create([
-                        'action_type' => $formType,
-                        'table_name'  => $tableName,
-                    ])->save();
-            }
-        }
-
-        foreach ($tables as $tableName) {
-            $entry = _model('dev_table_meta')
-                ->findById($tableName);
-
-            if ($entry) {
-                continue;
-            }
-
-            _model('dev_table_meta')
-                ->create([
-                    'table_name' => $tableName,
-                ])->save();
-        }
-
-        $sql
-            = 'UPDATE `pf5_dev_action_meta`, `pf5_dev_table_meta` SET pf5_dev_action_meta.package_id = pf5_dev_table_meta.package_id WHERE
-pf5_dev_action_meta.`table_name` = pf5_dev_table_meta.`table_name`';
-        _service('db')->execute($sql);
+        _service('dev.code_generator')
+            ->scans();
         _redirect('admin.dev');
     }
 
@@ -114,8 +66,8 @@ pf5_dev_action_meta.`table_name` = pf5_dev_table_meta.`table_name`';
             $actions = $_POST['actions'];
             $selected = $_POST['selected'];
 
-            /** @var DevActionMeta[] $entries */
-            $entries = _model('dev_action_meta')
+            /** @var DevAction[] $entries */
+            $entries = _model('dev_action')
                 ->select()
                 ->where('meta_id in ?', array_keys($actions))
                 ->all();
@@ -124,14 +76,14 @@ pf5_dev_action_meta.`table_name` = pf5_dev_table_meta.`table_name`';
                 $entry->save();
             }
 
-            if(!empty($selected)){
-                _service('dev.code_generator')->generate($selected);
+            if (!empty($selected)) {
+                _service('dev.code_generator')->generateFromActionMetaIds($selected);
             }
 
 
         }
         /** @var SqlSelect $select */
-        $select = _model('dev_action_meta')
+        $select = _model('dev_action')
             ->select()
             ->order('table_name, action_type', 1);
 
@@ -149,7 +101,7 @@ pf5_dev_action_meta.`table_name` = pf5_dev_table_meta.`table_name`';
             $select->where('action_type like ?', $filterData['action_type'] . '%');
         }
 
-        /** @var DevTableMeta[] $items */
+        /** @var DevTable[] $items */
         $items = $select->all();
 
         return new ViewModel([
@@ -197,8 +149,6 @@ pf5_dev_action_meta.`table_name` = pf5_dev_table_meta.`table_name`';
             'form' => $form,
         ], 'layout/form-edit');
     }
-
-
 
 
     public function actionAddFormUserSettings()

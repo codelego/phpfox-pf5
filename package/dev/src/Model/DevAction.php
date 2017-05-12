@@ -5,11 +5,16 @@ namespace Neutron\Dev\Model;
 use Phpfox\Db\DbModel;
 use Phpfox\Form\InputRadioField;
 
-class DevActionMeta extends DbModel
+class DevAction extends DbModel
 {
     public function getModelId()
     {
-        return 'dev_action_meta';
+        return 'dev_action';
+    }
+
+    public function getMetaId()
+    {
+        return (int)$this->__get('meta_id');
     }
 
     public function getId()
@@ -17,19 +22,14 @@ class DevActionMeta extends DbModel
         return (int)$this->__get('meta_id');
     }
 
-    public function setId($value)
+    public function setMetaId($value)
     {
         $this->__set('meta_id', $value);
     }
 
-    public function getTableName()
+    public function setId($value)
     {
-        return $this->__get('table_name');
-    }
-
-    public function setTableName($value)
-    {
-        $this->__set('table_name', $value);
+        $this->__set('meta_id', $value);
     }
 
     public function getPackageId()
@@ -40,6 +40,16 @@ class DevActionMeta extends DbModel
     public function setPackageId($value)
     {
         $this->__set('package_id', $value);
+    }
+
+    public function getTableName()
+    {
+        return $this->__get('table_name');
+    }
+
+    public function setTableName($value)
+    {
+        $this->__set('table_name', $value);
     }
 
     public function getActionType()
@@ -72,6 +82,7 @@ class DevActionMeta extends DbModel
         $this->__set('text_domain', $value);
     }
 
+
     public function getActionName()
     {
         switch ($this->getActionType()) {
@@ -83,6 +94,8 @@ class DevActionMeta extends DbModel
                 return "<strong>Admin Delete</strong> `{$this->getTableName()}`";
             case 'admin_filter':
                 return "<strong>Admin Filter</strong> `{$this->getTableName()}`";
+            case 'admin_acl_settings':
+                return "<strong>Admin Acl Settings</strong> `{$this->getTableName()}`";
             case 'model_class':
                 return "Model `{$this->getTableName()}`";
         }
@@ -105,5 +118,4 @@ class DevActionMeta extends DbModel
 
         return $select->toHtml();
     }
-
 }

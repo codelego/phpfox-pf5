@@ -3,17 +3,22 @@
 namespace Neutron\Dev\Model;
 
 return [
-    'dev_action_meta' => [
+    'dev_action' => [
         'table_factory',
-        ':dev_action_meta',
-        DevActionMeta::class,
-        'package/dev/config/model/dev_action_meta.php',
+        ':dev_action',
+        DevAction::class,
+        'package/dev/config/model/dev_action.php',
     ],
-    'dev_table_meta'  => [
+    'dev_table'  => [
         'table_factory',
-        ':dev_table_meta',
-        DevTableMeta::class,
-        'package/dev/config/model/dev_table_meta.php',
+        ':dev_table',
+        DevTable::class,
+        'package/dev/config/model/dev_table.php',
+    ],
+    'dev_element' => [
+        'table_factory',
+        ':dev_element',
+        DevElement::class,
+        'package/dev/config/model/dev_element.php',
     ],
 ];
-

@@ -4,7 +4,7 @@ namespace Neutron\Dev;
 
 
 use Neutron\Core\Model\CorePackage;
-use Neutron\Dev\Model\DevActionMeta;
+use Neutron\Dev\Model\DevAction;
 use Phpfox\Db\DbTableGatewayFactory;
 use Phpfox\View\ViewModel;
 
@@ -17,7 +17,7 @@ class ModelGenerator extends AbstractGenerator
     protected $category = 'Model';
 
     /**
-     * @var DevActionMeta $meta
+     * @var DevAction $meta
      */
     protected $meta;
 
@@ -56,9 +56,9 @@ class ModelGenerator extends AbstractGenerator
     /**
      * AbstractGenerator constructor.
      *
-     * @param DevActionMeta $meta
+     * @param DevAction $meta
      */
-    public function __construct(DevActionMeta $meta)
+    public function __construct(DevAction $meta)
     {
         $this->meta = $meta;
 
