@@ -3,6 +3,7 @@
 namespace Neutron\Core\Process;
 
 
+use Phpfox\Db\SqlSelect;
 use Phpfox\Form\Form;
 use Phpfox\Model\ModelInterface;
 use Phpfox\View\ViewModel;
@@ -23,15 +24,20 @@ class AdminManageEntryProcess extends AbstractProcess
                 ->set('search.filter', $filter);
         }
 
-        /** @var ModelInterface $model */
-        $model = (new \ReflectionClass($this->get('model')))->newInstanceArgs([]);
+        /** @var SqlSelect $select */
+        $select = $this->get('select');
 
-        /** @var string $modelId */
-        $modelId = $model->getModelId();
+        if (!$select) {
+            /** @var ModelInterface $model */
+            $model = (new \ReflectionClass($this->get('model')))->newInstanceArgs([]);
 
+            /** @var string $modelId */
+            $modelId = $model->getModelId();
 
-        $select = _model($modelId)
-            ->select();
+            $select = _model($modelId)
+                ->select();
+
+        }
 
         $items = _service('pagination')
             ->factory($select)

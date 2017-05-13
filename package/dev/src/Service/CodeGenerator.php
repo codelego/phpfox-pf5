@@ -4,10 +4,13 @@ namespace Neutron\Dev\Service;
 
 use Neutron\Core\Model\AclSettingAction;
 use Neutron\Core\Model\AclSettingGroup;
+use Neutron\Core\Model\SiteSettingGroup;
+use Neutron\Core\Model\SiteSettingValue;
 use Neutron\Dev\FormAdminAclSettingGenerator;
 use Neutron\Dev\FormAdminAddGenerator;
 use Neutron\Dev\FormAdminEditGenerator;
 use Neutron\Dev\FormAdminFilterGenerator;
+use Neutron\Dev\FormAdminSiteSettingGenerator;
 use Neutron\Dev\Model\DevAction;
 use Neutron\Dev\Model\DevElement;
 use Neutron\Dev\Model\DevTable;
@@ -17,6 +20,8 @@ use Neutron\Dev\TableInfo;
 class CodeGenerator
 {
     CONST FORM_ACL_SETTINGS = 'admin_acl_settings';
+
+    CONST FORM_SITE_SETTINGS = 'admin_site_settings';
 
     protected $hideFields
         = [
@@ -58,6 +63,17 @@ class CodeGenerator
     }
 
     /**
+     * @return SiteSettingGroup[]
+     */
+    public function getSiteSettingGroups()
+    {
+        return _model('site_setting_group')
+            ->select()
+            ->order('sort_order', 1)
+            ->all();
+    }
+
+    /**
      * @param array $selected List of action meta id
      *
      * @return bool
@@ -78,17 +94,25 @@ class CodeGenerator
         foreach ($actionMetas as $actionMeta) {
             switch ($actionMeta->getActionType()) {
                 case 'admin_add':
-                    return (new FormAdminAddGenerator($actionMeta))->process();
+                    (new FormAdminAddGenerator($actionMeta))->process();
+                    break;
                 case 'admin_edit':
-                    return (new FormAdminEditGenerator($actionMeta))->process();
+                    (new FormAdminEditGenerator($actionMeta))->process();
+                    break;
                 case 'admin_delete':
                     break;
                 case 'admin_filter':
-                    return (new FormAdminFilterGenerator($actionMeta))->process();
+                    (new FormAdminFilterGenerator($actionMeta))->process();
+                    break;
                 case self::FORM_ACL_SETTINGS:
-                    return (new FormAdminAclSettingGenerator($actionMeta))->process();
+                    (new FormAdminAclSettingGenerator($actionMeta))->process();
+                    break;
+                case self::FORM_SITE_SETTINGS:
+                    (new FormAdminSiteSettingGenerator($actionMeta))->process();
+                    break;
                 case 'model_class':
-                    return (new ModelGenerator($actionMeta))->process();
+                    (new ModelGenerator($actionMeta))->process();
+                    break;
             }
         }
 
@@ -147,12 +171,129 @@ class CodeGenerator
                     'table_name' => $tableName,
                 ])->save();
         }
+        /** update meta package id */
+        $this->cleanDirtyData();
 
-        $this->updateMetaPackageId();
+
+        /** update site settings */
+        $this->updateSiteSettings();
+        $this->updateSiteSettingElements();
+
+
+        /** update user group settings */
         $this->updateUserGroupSettings();
         $this->updateUserGroupElements();
+
+        /** upgrade admin model settings */
         $this->upgradeElements();
 
+        /** update meta package id */
+        $this->cleanDirtyData();
+    }
+
+    protected function updateSiteSettings()
+    {
+        $actionType = self::FORM_SITE_SETTINGS;
+
+        foreach ($this->getSiteSettingGroups() as $settingGroup) {
+            $entry = _model('dev_action')
+                ->select()
+                ->where('action_type=?', $actionType)
+                ->where('table_name=?', $settingGroup->getGroupId())
+                ->first();
+
+            if ($entry) {
+                continue;
+            }
+
+            _model('dev_action')
+                ->create([
+                    'package_id'  => $settingGroup->getPackageId(),
+                    'text_domain' => 'admin.' . $settingGroup->getGroupId() . '_setting',
+                    'action_type' => $actionType,
+                    'table_name'  => $settingGroup->getGroupId(),
+                ])->save();
+        }
+    }
+
+    protected function updateSiteSettingElements()
+    {
+        $actionType = self::FORM_SITE_SETTINGS;
+        foreach ($this->getSiteSettingGroups() as $settingGroup) {
+            /** @var DevAction $devAction */
+            $devAction = _model('dev_action')
+                ->select()
+                ->where('action_type=?', $actionType)
+                ->where('table_name=?', $settingGroup->getGroupId())
+                ->first();
+
+            if (!$devAction) {
+                continue;
+            }
+
+            /** @var SiteSettingValue[] $settingValues */
+            $settingValues = _model('site_setting_value')
+                ->select()
+                ->where('group_id=?', $settingGroup->getId())
+                ->order('sort_order', 1)
+                ->all();
+
+            $sortOrder = 1;
+            foreach ($settingValues as $settingValue) {
+                $elementName = $settingValue->getGroupId() . '__' . $settingValue->getName();
+                $devElement = _model('dev_element')
+                    ->select()
+                    ->where('meta_id=?', $devAction->getMetaId())
+                    ->where('element_name=?', $elementName)
+                    ->first();
+
+                if ($devElement) {
+                    continue;
+                }
+                $label = implode(' ', array_map(function ($v) {
+                    return ucfirst($v);
+                }, explode('_', $settingValue->getName())));
+
+                $factoryId = 'text';
+
+
+                if (substr($elementName, -3) == '_id') {
+                    $factoryId = 'select';
+                }
+
+                if (preg_match('/(_enable|_disable|_active|_allow)/', $elementName)) {
+                    $factoryId = 'yesno';
+                }
+
+                if (preg_match('/(_html_)/', $elementName)) {
+                    $factoryId = 'textarea';
+                }
+
+                if (preg_match('/(_code|_path|_domain|_prefix)/', $elementName)) {
+                    $factoryId = 'text';
+                }
+
+                if ($settingValue->getValueActual() == "1" or $settingValue->getValueActual() == "0") {
+                    $factoryId = 'yesno';
+                }
+
+                $devAction = _model('dev_element')
+                    ->create([
+                        'meta_id'      => $devAction->getMetaId(),
+                        'factory_id'   => $factoryId,
+                        'element_name' => $elementName,
+                        'sort_order'   => $sortOrder,
+                        'label'        => $label,
+                        'note'         => '[' . $label . ' Note]',
+                        'info'         => '[' . $label . ' Info]',
+                        'required'     => 1,
+                        'is_active'    => 1,
+                    ]);
+
+                $devAction->save();
+                ++$sortOrder;
+            }
+        }
     }
 
     protected function updateUserGroupSettings()
@@ -226,6 +367,7 @@ class CodeGenerator
                         'note'         => '[' . $label . ' Note]',
                         'info'         => '[' . $label . ' Info]',
                         'factory_id'   => 'yesno',
+                        'required'     => 1,
                         'is_active'    => 1,
                     ]);
 
@@ -370,11 +512,24 @@ class CodeGenerator
     }
 
 
-    protected function updateMetaPackageId()
+    protected function cleanDirtyData()
     {
+
+
+        $sql
+            = 'delete FROM pf5_dev_action WHERE
+action_type IN (\'admin_add\',\'admin_edit\',\'admin_filter\',\'admin_delete\')
+AND TABLE_NAME NOT IN (SELECT TABLE_NAME FROM pf5_dev_table);';
+
+        _service('db')->execute($sql);
+
         $sql
             = 'UPDATE `pf5_dev_action`, `pf5_dev_table` SET pf5_dev_action.package_id = pf5_dev_table.package_id WHERE
 pf5_dev_action.`table_name` = pf5_dev_table.`table_name`';
+
+        _service('db')->execute($sql);
+
+        $sql = 'DELETE FROM pf5_dev_element WHERE meta_id NOT IN (SELECT meta_id FROM pf5_dev_action);';
 
         _service('db')->execute($sql);
     }

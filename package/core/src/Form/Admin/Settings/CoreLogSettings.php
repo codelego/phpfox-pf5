@@ -11,7 +11,7 @@ class CoreLogSettings extends Form
     protected function initialize()
     {
         $this->setTitle(_text('Log Settings', 'admin'));
-        $this->setInfo(_text('[Site Settings Note]', 'admin'));
+        $this->setInfo(_text('[Site Settings Info]', 'admin'));
 
         $this->addElement([
             'factory'    => 'multi_checkbox',

@@ -15,8 +15,8 @@ class CacheAdapter extends DbModel
     public function getAdapterName(){return $this->__get('adapter_name');}
     public function setAdapterName($value){$this->__set('adapter_name', $value);}
     
-    public function getDriverId(){return $this->__get('driver_id');}
-    public function setDriverId($value){$this->__set('driver_id', $value);}
+    public function getDriverName(){return $this->__get('driver_name');}
+    public function setDriverName($value){$this->__set('driver_name', $value);}
     
     public function getParams(){return $this->__get('params');}
     public function setParams($value){$this->__set('params', $value);}

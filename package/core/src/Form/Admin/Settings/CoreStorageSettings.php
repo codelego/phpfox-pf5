@@ -11,7 +11,7 @@ class CoreStorageSettings extends Form
     protected function initialize()
     {
         $this->setTitle(_text('Storage Settings', 'admin'));
-        $this->setInfo(_text('[Site Settings Note]', 'admin'));
+        $this->setInfo(_text('[Site Settings Info]', 'admin'));
 
         $this->addElement([
             'factory'    => 'select',

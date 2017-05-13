@@ -57,29 +57,11 @@ return [
         CorePackage::class,
         'package/core/config/model/core_package.php',
     ],
-    'mail_adapter'        => [
-        'table_factory',
-        ':mail_adapter',
-        MailAdapter::class,
-        'package/core/config/model/mail_adapter.php',
-    ],
-    'mail_driver'         => [
-        'table_factory',
-        ':mail_driver',
-        MailDriver::class,
-        'package/core/config/model/mail_driver.php',
-    ],
     'storage_adapter'     => [
         'table_factory',
         ':storage_adapter',
         StorageAdapter::class,
         'package/core/config/model/storage_adapter.php',
-    ],
-    'storage_driver'      => [
-        'table_factory',
-        ':storage_driver',
-        StorageDriver::class,
-        'package/core/config/model/storage_driver.php',
     ],
     'storage_file'        => [
         'table_factory',
@@ -92,12 +74,6 @@ return [
         ':session',
         Session::class,
         'package/core/config/model/session.php',
-    ],
-    'session_driver'      => [
-        'table_factory',
-        ':session_driver',
-        SessionDriver::class,
-        'package/core/config/model/session_driver.php',
     ],
     'mail_template'       => [
         'table_factory',
@@ -171,28 +147,22 @@ return [
         LayoutContainer::class,
         'package/core/config/model/layout_container.php',
     ],
-    'log_driver'          => [
-        'table_factory',
-        ':log_driver',
-        LogDriver::class,
-        'package/core/config/model/log_driver.php',
-    ],
     'log_adapter'         => [
         'table_factory',
         ':log_adapter',
         LogAdapter::class,
         'package/core/config/model/log_adapter.php',
     ],
-    'cache_driver'        => [
+    'core_driver'         => [
         'table_factory',
-        ':cache_driver',
-        CacheDriver::class,
-        'package/core/config/model/cache_driver.php',
+        ':core_driver',
+        CoreDriver::class,
+        'package/core/config/model/core_driver.php',
     ],
-    'cache_adapter'       => [
+    'core_adapter'        => [
         'table_factory',
-        ':cache_adapter',
-        CacheAdapter::class,
-        'package/core/config/model/cache_adapter.php',
+        ':core_adapter',
+        CoreAdapter::class,
+        'package/core/config/model/core_adapter.php',
     ],
 ];

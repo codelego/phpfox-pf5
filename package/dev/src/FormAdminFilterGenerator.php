@@ -19,6 +19,8 @@ class FormAdminFilterGenerator extends FormAdminGenerator
             'noTextarea' => true,
             'noRadio'    => true,
             'shortLabel' => true,
+            'textDomain' => $this->meta->getTextDomain(),
+            'packageId'  => $this->meta->getPackageId(),
         ];
     }
 }

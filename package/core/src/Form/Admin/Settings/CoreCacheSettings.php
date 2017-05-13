@@ -2,7 +2,6 @@
 
 namespace Neutron\Core\Form\Admin\Settings;
 
-use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
 class CoreCacheSettings extends Form
@@ -11,7 +10,7 @@ class CoreCacheSettings extends Form
     protected function initialize()
     {
         $this->setTitle(_text('Cache Settings', 'admin.core_cache'));
-        $this->setInfo(_text('[Site Settings Note]', 'admin'));
+        $this->setInfo(_text('[Site Settings Info]', 'admin'));
 
         $this->addElement([
             'factory'  => 'select',

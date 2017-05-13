@@ -3,16 +3,19 @@
 namespace Neutron\Core\Controller;
 
 
-use Neutron\Core\Form\Admin\CacheAdapter\AddCacheAdapter;
-use Neutron\Core\Model\CacheAdapter;
-use Neutron\Core\Model\CacheDriver;
-use Neutron\Core\Process\AdminManageSiteSettingsProcess;
+use Neutron\Core\Form\Admin\CoreAdapter\SelectCoreDriver;
+use Neutron\Core\Model\CoreAdapter;
 use Neutron\Core\Process\AdminManageEntryProcess;
-use Phpfox\Form\Form;
+use Neutron\Core\Process\AdminManageSiteSettingsProcess;
 use Phpfox\View\ViewModel;
 
 class AdminCacheController extends AdminController
 {
+    /**
+     * @const DRIVER_TYPE string
+     */
+    const DRIVER_TYPE = 'cache';
+
     protected function initialized()
     {
         _service('breadcrumb')
@@ -36,18 +39,13 @@ class AdminCacheController extends AdminController
 
     public function actionIndex()
     {
-        return (new AdminManageEntryProcess([
-            'model'    => CacheAdapter::class,
-            'template' => 'core/admin-cache/manage-cache-adapter',
-            'data'     => ['defaultValue' => _param('core.default_cache_id')],
-        ]))->process();
-    }
+        $select = _model('core_adapter')
+            ->select()
+            ->where('driver_type=?', self::DRIVER_TYPE);
 
-    public function actionDriver()
-    {
         return (new AdminManageEntryProcess([
-            'model'    => CacheDriver::class,
-            'template' => 'core/admin-cache/manage-cache-driver',
+            'select'   => $select,
+            'template' => 'core/admin-cache/manage-cache-adapter',
             'data'     => ['defaultValue' => _param('core.default_cache_id')],
         ]))->process();
     }
@@ -62,55 +60,45 @@ class AdminCacheController extends AdminController
     public function actionAdd()
     {
         $request = _service('request');
+        $driverId = $request->get('driver_id');
 
-        $form = new AddCacheAdapter([]);
-
-        if ($request->isGet()) {
-
+        if (!$driverId) {
+            return new ViewModel([
+                'form' => new SelectCoreDriver(['driverType' => self::DRIVER_TYPE]),
+            ], 'layout/form-edit');
         }
 
-        if ($request->isPost() and $form->isValid($request->all())) {
-            $data = $form->getData();
-
-            _redirect('admin.core.cache', [
-                'action'    => 'config',
-                'driver_id' => $data['driver_id'],
-            ]);
-        }
-
-        return new ViewModel([
-            'form' => $form,
-        ], 'layout/form-edit');
+        _redirect('admin.core.cache', [
+            'action'    => 'config',
+            'driver_id' => $driverId,
+        ]);
     }
 
     public function actionConfig()
     {
         $request = _service('request');
-        $driverId = $request->get('driver_id', 'local');
+        $driverId = $request->get('driver_id', 'files');
 
-        /** @var CacheDriver $driverEntry */
-        $driverEntry = _model('cache_driver')->findById($driverId);
-
-        $formClass = $driverEntry->getFormName();
-
-        /** @var Form $form */
-        $form = new $formClass;
+        $form = _service('core.adapter')
+            ->getEditingForm($driverId, 'cache');
 
         if ($request->isGet()) {
 
         }
 
         if ($request->isPost() and $form->isValid($request->all())) {
-            /** @var CacheAdapter $adapterEntry */
-            $adapterEntry = _model('cache_adapter')
+
+            /** @var CoreAdapter $adapterEntry */
+            $adapterEntry = _model('core_adapter')
                 ->create([
-                    'driver_id'  => $driverId,
-                    'is_active'  => 0,
-                    'is_default' => 0,
+                    'driver_id'   => $driverId,
+                    'driver_type' => self::DRIVER_TYPE,
+                    'is_active'   => 0,
                 ]);
 
             // how to get name
             $data = $form->getData();
+            $adapterEntry->setDriverType('cache');
             $adapterEntry->fromArray($data);
             $adapterEntry->setParams(json_encode($data));
             $adapterEntry->save();
@@ -128,16 +116,11 @@ class AdminCacheController extends AdminController
         $request = _service('request');
         $adapterId = $request->get('adapter_id');
 
-        /** @var CacheAdapter $adapterEntry */
-        $adapterEntry = _model('cache_adapter')->findById($adapterId);
+        /** @var CoreAdapter $adapterEntry */
+        $adapterEntry = _model('core_adapter')->findById($adapterId);
 
-        /** @var CacheDriver $driverEntry */
-        $driverEntry = _model('cache_driver')->findById($adapterEntry->getDriverId());
-
-        $formClass = $driverEntry->getFormName();
-
-        /** @var Form $form */
-        $form = new $formClass();
+        $form = _service('core.adapter')
+            ->getEditingForm($adapterEntry->getDriverId(), self::DRIVER_TYPE);
 
         if ($request->isGet()) {
             $data = json_decode($adapterEntry->getParams(), true);
@@ -164,8 +147,8 @@ class AdminCacheController extends AdminController
         $identity = _service('request')
             ->get('adapter_id');
 
-        /** @var CacheAdapter $entry */
-        $entry = _model('cache_adapter')->findById($identity);
+        /** @var CoreAdapter $entry */
+        $entry = _model('core_adapter')->findById($identity);
 
         if (!$entry) {
             throw new \InvalidArgumentException('Invalid params "adapter_id"');

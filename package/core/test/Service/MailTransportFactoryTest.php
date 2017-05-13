@@ -26,7 +26,7 @@ class MailTransportFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testInitialize()
     {
-        $obj = new MailAdapterFactory();
+        $obj = new MailManager();
 
         $entry = $obj->factory(0);
         $this->assertTrue($entry instanceof AdapterInterface);
@@ -34,14 +34,14 @@ class MailTransportFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testDefault()
     {
-        $obj = new MailAdapterFactory();
+        $obj = new MailManager();
         $entry = $obj->factory('default');
         $this->assertTrue($entry instanceof AdapterInterface);
     }
 
     public function testFallback()
     {
-        $obj = new MailAdapterFactory();
+        $obj = new MailManager();
         $entry = $obj->factory('fallback');
         $this->assertTrue($entry instanceof AdapterInterface);
     }
@@ -52,7 +52,7 @@ class MailTransportFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testFalure()
     {
-        $obj = new MailAdapterFactory();
+        $obj = new MailManager();
         $entry = $obj->factory(-1);
         $this->assertTrue($entry instanceof AdapterInterface);
     }

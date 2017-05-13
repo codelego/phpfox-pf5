@@ -25,6 +25,6 @@ return [
     'core.admin-auth'             => AdminAuthController::class,
     'core.ajax-i18n'              => AjaxI18nController::class,
     'core.admin-status'           => AdminStatusController::class,
-    'core.admin-authorization'    => AdminAclRoleController::class,
+    'core.admin-acl'              => AdminAclController::class,
     'core.admin-storage'          => AdminStorageController::class,
 ];

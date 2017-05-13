@@ -2,17 +2,20 @@
 
 namespace Neutron\Core\Controller;
 
-use Neutron\Core\Form\Admin\MailAdapter\SelectMailDriver;
+use Neutron\Core\Form\Admin\CoreAdapter\SelectCoreDriver;
 use Neutron\Core\Form\Admin\MailAdapter\TestEmailSettings;
-use Neutron\Core\Model\MailAdapter;
-use Neutron\Core\Model\MailDriver;
+use Neutron\Core\Model\CoreAdapter;
 use Neutron\Core\Process\AdminManageEntryProcess;
 use Neutron\Core\Process\AdminManageSiteSettingsProcess;
-use Phpfox\Form\Form;
 use Phpfox\View\ViewModel;
 
 class AdminMailController extends AdminController
 {
+    /**
+     * @const DRIVER_TYPE string
+     */
+    const DRIVER_TYPE = 'mail';
+
     protected function initialized()
     {
         _service('breadcrumb')
@@ -40,9 +43,13 @@ class AdminMailController extends AdminController
 
     public function actionIndex()
     {
+        $select = _model('core_adapter')
+            ->select()
+            ->where('driver_type=?', self::DRIVER_TYPE);
+
         return (new AdminManageEntryProcess([
             'noLimit'  => true,
-            'model'    => MailAdapter::class,
+            'select'   => $select,
             'data'     => ['defaultValue' => _param('core.default_mailer_id')],
             'template' => 'core/admin-mail/manage-mail-adapter',
         ]))->process();
@@ -51,24 +58,15 @@ class AdminMailController extends AdminController
     public function actionAdd()
     {
         $request = _service('request');
-        $driverId = $request->get('driver_id');
+        $driverName = $request->get('driver_id');
 
-        if (!$driverId) {
+        if (!$driverName) {
             return new ViewModel([
-                'form' => new SelectMailDriver([]),
+                'form' => new SelectCoreDriver(['driverType' => self::DRIVER_TYPE]),
             ], 'layout/form-edit');
         }
 
-        /** @var MailDriver $driver */
-        $driver = _model('mail_driver')->findById($driverId);
-
-        $formSettings = $driver->getFormName();
-
-        $form = new $formSettings();
-
-        return new ViewModel([
-            'form' => new $form,
-        ], 'layout/form-edit');
+        _redirect('admin.core.mail.adapter', ['action' => 'config', 'driver_id' => $driverName]);
 
     }
 
@@ -77,25 +75,20 @@ class AdminMailController extends AdminController
         $request = _service('request');
         $driverId = $request->get('driver_id', 'local');
 
-        /** @var MailDriver $driverEntry */
-        $driverEntry = _model('mail_driver')->findById($driverId);
-
-        $formClass = $driverEntry->getFormName();
-
-        /** @var Form $form */
-        $form = new $formClass;
+        $form = _service('core.adapter')
+            ->getEditingForm($driverId, self::DRIVER_TYPE);
 
         if ($request->isGet()) {
 
         }
 
         if ($request->isPost() and $form->isValid($request->all())) {
-            /** @var MailAdapter $adapterEntry */
-            $adapterEntry = _model('storage_adapter')
+            /** @var CoreAdapter $adapterEntry */
+            $adapterEntry = _model('core_adapter')
                 ->create([
-                    'driver_id'  => $driverId,
-                    'is_active'  => 0,
-                    'is_default' => 0,
+                    'driver_id'   => $driverId,
+                    'is_active'   => 0,
+                    'driver_type' => self::DRIVER_TYPE,
                 ]);
 
             $data = $form->getData();
@@ -116,16 +109,11 @@ class AdminMailController extends AdminController
         $request = _service('request');
         $adapterId = $request->get('adapter_id');
 
-        /** @var MailAdapter $adapterEntry */
-        $adapterEntry = _model('mail_adapter')->findById($adapterId);
+        /** @var CoreAdapter $adapterEntry */
+        $adapterEntry = _model('core_adapter')->findById($adapterId);
 
-        /** @var MailDriver $driverEntry */
-        $driverEntry = _model('mail_driver')->findById($adapterEntry->getDriverId());
-
-        $formClass = $driverEntry->getFormName();
-
-        /** @var Form $form */
-        $form = new $formClass([]);
+        $form = _service('core.adapter')
+            ->getEditingForm($adapterEntry->getDriverId(), self::DRIVER_TYPE);
 
 
         if ($request->isGet()) {
@@ -150,8 +138,8 @@ class AdminMailController extends AdminController
         $req = _service('request');
         $adapterId = $req->get('adapter_id');
 
-        /** @var MailAdapter $adapterEntry */
-        $adapterEntry = _model('mail_adapter')->findById($adapterId);
+        /** @var CoreAdapter $adapterEntry */
+        $adapterEntry = _model('core_adapter')->findById($adapterId);
 
         $form = new TestEmailSettings([]);
 
@@ -194,8 +182,8 @@ class AdminMailController extends AdminController
         $request = _service('request');
         $identity = $request->get('adapter_id');
 
-        /** @var MailAdapter $entry */
-        $entry = _model('mail_adapter')->findById($identity);
+        /** @var CoreAdapter $entry */
+        $entry = _model('core_adapter')->findById($identity);
 
         if (!$entry) {
             throw new \InvalidArgumentException('Invalid params "adapter_id"');

@@ -10,7 +10,7 @@ class SiteSettings extends Form
     protected function initialize()
     {
         $this->setTitle(_text('Blog Settings', 'admin.blog'));
-        $this->setInfo(_text('[Site Settings Note]', 'admin'));
+        $this->setInfo(_text('[Site Settings Info]', 'admin'));
     }
 
     public function getButtons()

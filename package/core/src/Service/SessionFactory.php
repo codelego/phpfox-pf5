@@ -22,24 +22,10 @@ class SessionFactory implements SessionFactoryInterface
      */
     protected function getConfigs()
     {
-        $row = _service('db')->select('*')
-            ->from(':session_driver')
-            ->where('is_default=?', 1)
-            ->limit(1, 0)
-            ->execute()
-            ->first();
-
-        $params = [];
-
-        if (!empty($row['params'])) {
-            $params = json_decode($row['params'], true);
-        }
-
-        $driver = $row['driver_id'];
 
         return [
-            'driver'  => $driver,
-            'configs' => $params,
+            'driver'  => 'database',
+            'configs' => [],
         ];
     }
 }

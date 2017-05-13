@@ -3,43 +3,29 @@
 namespace Neutron\Core\Service;
 
 
-use Neutron\Core\Model\CacheAdapter;
-use Neutron\Core\Model\CacheDriver;
+use Neutron\Core\Model\CoreDriver;
 
 class CacheManager
 {
+    /**
+     * @const DRIVER_TYPE string
+     */
+    const DRIVER_TYPE = 'cache';
 
     /**
      * @return array
      */
     public function getAdapterIdOptions()
     {
-        $select = _model('cache_adapter')
+        $select = _model('core_adapter')
             ->select()
+            ->where('driver_type=?', self::DRIVER_TYPE)
             ->where('is_active=?', 1);
 
-        return array_map(function (CacheAdapter $entry) {
+        return array_map(function (CoreDriver $entry) {
             return [
                 'value' => $entry->getId(),
-                'label' => $entry->getAdapterName(),
-                'note'  => $entry->getDescription(),
-            ];
-        }, $select->all());
-    }
-
-    /**
-     * @return array
-     */
-    public function getDriverIdOptions()
-    {
-        $select = _model('cache_driver')
-            ->select()
-            ->where('is_active=?', 1);
-
-        return array_map(function (CacheDriver $entry) {
-            return [
-                'value' => $entry->getId(),
-                'label' => $entry->getDriverName(),
+                'label' => $entry->getTitle(),
                 'note'  => $entry->getDescription(),
             ];
         }, $select->all());

@@ -3,16 +3,16 @@
 namespace Neutron\Core\Controller;
 
 
-use Neutron\Core\Form\Admin\LogAdapter\SelectLogDriver;
+use Neutron\Core\Form\Admin\CoreAdapter\SelectCoreDriver;
+use Neutron\Core\Model\CoreAdapter;
 use Neutron\Core\Model\LogAdapter;
-use Neutron\Core\Model\LogDriver;
 use Neutron\Core\Process\AdminManageSiteSettingsProcess;
-use Neutron\Core\Process\AdminManageEntryProcess;
-use Phpfox\Form\Form;
 use Phpfox\View\ViewModel;
 
 class AdminLogController extends AdminController
 {
+    const DRIVER_TYPE = 'log';
+
     protected function initialized()
     {
         _service('breadcrumb')
@@ -68,7 +68,7 @@ class AdminLogController extends AdminController
         $containerId = $request->get('container_id');
         $driverId = $request->get('driver_id');
 
-        $form = new SelectLogDriver(['containerId' => $containerId]);
+        $form = new SelectCoreDriver(['driverType' => self::DRIVER_TYPE]);
 
         if ($containerId and $driverId) {
             _redirect('admin.core.log', [
@@ -88,13 +88,8 @@ class AdminLogController extends AdminController
         $request = _service('request');
         $driverId = $request->get('driver_id', 'local');
 
-        /** @var LogDriver $driverEntry */
-        $driverEntry = _model('log_driver')->findById($driverId);
-
-        $formClass = $driverEntry->getFormName();
-
-        /** @var Form $form */
-        $form = new $formClass;
+        $form = _service('core.adapter')
+            ->getEditingForm($driverId, 'log');
 
         if ($request->isGet()) {
 
@@ -128,16 +123,12 @@ class AdminLogController extends AdminController
         $request = _service('request');
         $adapterId = $request->get('adapter_id');
 
-        /** @var LogAdapter $adapterEntry */
-        $adapterEntry = _model('log_adapter')->findById($adapterId);
+        /** @var CoreAdapter $adapterEntry */
+        $adapterEntry = _model('log_adapter')
+            ->findById($adapterId);
 
-        /** @var LogDriver $driverEntry */
-        $driverEntry = _model('log_driver')->findById($adapterEntry->getDriverId());
-
-        $formClass = $driverEntry->getFormName();
-
-        /** @var Form $form */
-        $form = new $formClass();
+        $form = _service('core.adapter')
+            ->getEditingForm($adapterEntry->getDriverId(), self::DRIVER_TYPE);
 
         if ($request->isGet()) {
             $data = json_decode($adapterEntry->getParams(), true);

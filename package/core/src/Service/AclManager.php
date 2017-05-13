@@ -4,6 +4,7 @@ namespace Neutron\Core\Service;
 
 
 use Neutron\Core\Model\AclRole;
+use Neutron\Core\Model\AclSettingGroup;
 
 class AclManager
 {
@@ -19,8 +20,17 @@ class AclManager
 
     }
 
+    public function getSettingGroupIdOptions()
+    {
+        $select = _model('acl_setting_group')->select()->order('sort_order', 1);
+        return array_map(function (AclSettingGroup $settingGroup) {
+            return ['value' => $settingGroup->getId(), 'label' => $settingGroup->getTitle()];
+        }, $select->all());
+    }
+
     public function findRoleIdOptions($typeId)
     {
+        _service('core.roles')->getSettingGroupIdOptions();
 
     }
 }

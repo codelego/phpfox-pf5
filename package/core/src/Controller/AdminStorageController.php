@@ -2,12 +2,10 @@
 
 namespace Neutron\Core\Controller;
 
-use Neutron\Core\Form\Admin\StorageAdapter\SelectStorageDriver;
+use Neutron\Core\Form\Admin\CoreAdapter\SelectCoreDriver;
 use Neutron\Core\Model\StorageAdapter;
-use Neutron\Core\Model\StorageDriver;
 use Neutron\Core\Process\AdminManageEntryProcess;
 use Neutron\Core\Process\AdminManageSiteSettingsProcess;
-use Phpfox\Form\Form;
 use Phpfox\View\ViewModel;
 
 class AdminStorageController extends AdminController
@@ -42,15 +40,6 @@ class AdminStorageController extends AdminController
         ]))->process();
     }
 
-    public function actionDriver()
-    {
-        return (new AdminManageEntryProcess([
-            'noLimit'  => true,
-            'model'    => StorageDriver::class,
-            'template' => 'core/admin-storage/manage-storage-driver',
-        ]))->process();
-    }
-
     public function actionIndex()
     {
         return (new AdminManageEntryProcess([
@@ -65,7 +54,7 @@ class AdminStorageController extends AdminController
     {
         $request = _service('request');
 
-        $form = new SelectStorageDriver([]);
+        $form = new SelectCoreDriver(['driverType' => 'storage']);
 
         if ($request->isGet()) {
 
@@ -90,13 +79,8 @@ class AdminStorageController extends AdminController
         $request = _service('request');
         $driverId = $request->get('driver_id', 'local');
 
-        /** @var StorageDriver $driverEntry */
-        $driverEntry = _model('storage_driver')->findById($driverId);
-
-        $formClass = $driverEntry->getFormName();
-
-        /** @var Form $form */
-        $form = new $formClass;
+        $form = _service('core.adapter')
+            ->getEditingForm($driverId, 'storage');
 
         if ($request->isGet()) {
 
@@ -133,13 +117,8 @@ class AdminStorageController extends AdminController
         /** @var StorageAdapter $adapterEntry */
         $adapterEntry = _model('storage_adapter')->findById($adapterId);
 
-        /** @var StorageDriver $driverEntry */
-        $driverEntry = _model('storage_driver')->findById($adapterEntry->getDriverId());
-
-        $formClass = $driverEntry->getFormName();
-
-        /** @var Form $form */
-        $form = new $formClass();
+        $form = _service('core.adapter')
+            ->getEditingForm($adapterEntry->getDriverId(), 'storage');
 
         if ($request->isGet()) {
             $data = json_decode($adapterEntry->getParams(), true);

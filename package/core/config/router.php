@@ -12,12 +12,9 @@ return [
             'action'     => 'index',
         ],
         'admin.core.acl'      => [
-            'route'      => 'core/acl/*',
-            'controller' => 'core.admin-authorization',
+            'route'      => 'core/acl(/<action>)',
+            'controller' => 'core.admin-acl',
             'action'     => 'index',
-            'children'   => [
-                'role' => ['route' => '<action>'],
-            ],
         ],
         'admin.core.storage'  => [
             'route'      => 'core/storage(/<action>)',

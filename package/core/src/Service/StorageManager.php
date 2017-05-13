@@ -2,11 +2,13 @@
 
 namespace Neutron\Core\Service;
 
+use Neutron\Core\Model\CoreDriver;
 use Neutron\Core\Model\StorageAdapter;
-use Neutron\Core\Model\StorageDriver;
 
 class StorageManager
 {
+    const DRIVER_TYPE = 'storage';
+
     /**
      * @return array
      */
@@ -25,19 +27,35 @@ class StorageManager
     }
 
     /**
+     * @param string $name
+     *
+     * @return CoreDriver
+     */
+    public function findDriverByName($name)
+    {
+        return _model('core_driver')
+            ->select()
+            ->where('driver_type=?', self::DRIVER_TYPE)
+            ->where('driver_name=?', $name)
+            ->first();
+    }
+
+    /**
      * @return array
      */
     public function getDriverIdOptions()
     {
-        $select = _model('storage_driver')
+        $select = _model('core_driver')
             ->select()
-            ->where('is_active=?', 1);
+            ->where('driver_type=?', self::DRIVER_TYPE)
+            ->where('is_active=?', 1)
+            ->order('sort_order', 1);
 
-        return array_map(function (StorageDriver $item) {
+        return array_map(function (CoreDriver $entry) {
             return [
-                'value' => $item->getId(),
-                'label' => $item->getDriverName(),
-                'note'  => $item->getDescription(),
+                'value' => $entry->getDriverName(),
+                'label' => $entry->getTitle(),
+                'note'  => $entry->getDescription(),
             ];
         }, $select->all());
     }

@@ -44,7 +44,7 @@ return [
     ],
     'services'        => [
         'i18n.loader'            => [null, Service\I18nMessageLoader::class],
-        'mailer.factory'         => [null, Service\MailAdapterFactory::class],
+        'mailer.factory'         => [null, Service\MailManager::class],
         'storage.factory'        => [null, Service\FileStorageFactory::class],
         'session.save_handler'   => [Service\SessionFactory::class,],
         'mvc.events.loader'      => [null, Service\EventLoader::class],
@@ -59,6 +59,7 @@ return [
         'core.setting'           => [null, Service\SettingManager::class],
         'core.cache'             => [null, Service\CacheManager::class],
         'core.log'               => [null, Service\LogManager::class],
+        'core.adapter'           => [null, Service\AdapterManager::class],
         'authorization.provider' => [null, Service\PermissionProvider::class],
         'layout_loader'          => [null, Service\LayoutManager::class],
         'menu.main.primary'      => [NavigationFactory::class, 'main'],

@@ -1,0 +1,40 @@
+<?php echo '<?php' ?>
+
+namespace <?= $namespace ?>;
+
+use Phpfox\Form\Form;
+
+class <?= $shortFormClass?> extends Form {
+
+    public function initialize(){
+
+        $this->setTitle(_text('<?= $formTitle ?>', '<?= $textDomain ?>'));
+        $this->setInfo(_text('[Site Settings Info]', 'admin'));
+        $this->setEncType('multipart/form-data');
+        $this->setAction(_url('#'));
+
+        /** start elements **/
+
+        <?php foreach($elements as $element): ?>
+
+        <?php echo $elementGenerator->convert($element); ?>
+        <?php endforeach; ?>
+
+        /** end elements **/
+
+        $this->addButton([
+            'factory'    => 'button',
+            'name'       => 'save',
+            'label'      => _text('Save Changes'),
+            'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
+        ]);
+
+        $this->addButton([
+            'factory'    => 'button',
+            'name'       => 'cancel',
+            'href'       => '#',
+            'label'      => _text('Cancel'),
+            'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
+        ]);
+    }
+}

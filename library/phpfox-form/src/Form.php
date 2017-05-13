@@ -83,6 +83,7 @@ class Form extends Element implements ElementInterface, CollectionInterface
     public function addButton($button)
     {
         if (!$button instanceof ElementInterface) {
+            $button['factory'] = 'button';
             $button = _service('form.factory')->factory($button);
         }
 

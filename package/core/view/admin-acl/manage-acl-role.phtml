@@ -23,16 +23,14 @@
                 <tr>
                     <td class="dropdown" data-cmd="dropdown">
                         <ul>
-                            <li><a href="<?= _url('admin.core.acl.role',
+                            <li><a href="<?= _url('admin.core.acl',
                                     ['action' => 'edit', 'role_id' => $item->getId()]) ?>">
-                                    <?= _text('Edit') ?></a></li>
-                            <li><a href="<?= _url('admin.core.acl.role',
+                                    <?= _text('Edit Group') ?></a></li>
+                            <div class="divider"></div>
+                            <li><a href="<?= _url('admin.core.acl',
                                     ['action' => 'delete', 'role_id' => $item->getId()]) ?>">
-                                    <?= _text('Delete') ?></a></li>
-                            <li>
-                                <a href="<?= _url('admin.core.acl.role',
-                                    ['action' => 'settings', 'role_id' => $item->getId()]) ?>">
-                                    <?= _text('Settings') ?></a></li>
+                                    <?= _text('Delete Group') ?></a></li>
+
                         </ul>
                     </td>
                     <td><?php echo $item->getId() ?></td>

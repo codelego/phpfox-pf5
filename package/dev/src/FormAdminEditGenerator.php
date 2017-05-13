@@ -12,6 +12,8 @@ class FormAdminEditGenerator extends FormAdminGenerator
     {
         return [
             'noNote'     => true,
+            'textDomain' => $this->meta->getTextDomain(),
+            'packageId'=>$this->meta->getPackageId(),
         ];
     }
 }

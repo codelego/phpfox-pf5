@@ -70,21 +70,20 @@
   ),
   'form_renders' => 
   array (
-      'input' => 'Phpfox\\Form\\InputDecorator',
-      'form_bootstrap' => 'Phpfox\\Form\\FormRenderBootstrap',
-      'form_panel' => 'Phpfox\\Form\\FormRenderPanel',
-      'form_panel_horizontal' => 'Phpfox\\Form\\FormRenderPanelHorizontal',
-      'form_panel_flat' => 'Phpfox\\Form\\FormRenderPanelFlat',
-      'button' => 'Phpfox\\Form\\ButtonDecorator',
-      'checkbox' => 'Phpfox\\Form\\CheckboxDecorator',
-      'select' => 'Phpfox\\Form\\SelectDecorator',
-      'radio' => 'Phpfox\\Form\\InputRadioDecorator',
-      'file_upload' => 'Phpfox\\Form\\FileUploadDecorator',
-      'textarea' => 'Phpfox\\Form\\TextareaDecorator',
-      'yesno' => 'Phpfox\\Form\\YesnoRender',
-      'static_text' => 'Phpfox\\Form\\StaticDecorator',
-      'multi_checkbox' => 'Phpfox\\Form\\MultiCheckboxDecorator',
-      'multi_select' => 'Phpfox\\Form\\MultiSelectDecorator',
+    'input' => 'Phpfox\\Form\\InputDecorator',
+    'form_bootstrap' => 'Phpfox\\Form\\FormRenderBootstrap',
+    'form_panel' => 'Phpfox\\Form\\FormRenderPanel',
+    'form_panel_horizontal' => 'Phpfox\\Form\\FormRenderPanelHorizontal',
+    'form_panel_flat' => 'Phpfox\\Form\\FormRenderPanelFlat',
+    'button' => 'Phpfox\\Form\\ButtonDecorator',
+    'checkbox' => 'Phpfox\\Form\\CheckboxDecorator',
+    'select' => 'Phpfox\\Form\\SelectDecorator',
+    'radio' => 'Phpfox\\Form\\InputRadioDecorator',
+    'file_upload' => 'Phpfox\\Form\\FileUploadDecorator',
+    'textarea' => 'Phpfox\\Form\\TextareaDecorator',
+    'static_text' => 'Phpfox\\Form\\StaticDecorator',
+    'multi_checkbox' => 'Phpfox\\Form\\MultiCheckboxDecorator',
+    'multi_select' => 'Phpfox\\Form\\MultiSelectDecorator',
   ),
   'job.handlers' => 
   array (
@@ -418,7 +417,7 @@
     'mailer.factory' => 
     array (
       0 => NULL,
-      1 => 'Neutron\\Core\\Service\\MailAdapterFactory',
+      1 => 'Neutron\\Core\\Service\\MailManager',
     ),
     'models' => 
     array (
@@ -564,6 +563,11 @@
     array (
       0 => NULL,
       1 => 'Neutron\\Core\\Service\\LogManager',
+    ),
+    'core.adapter' => 
+    array (
+      0 => NULL,
+      1 => 'Neutron\\Core\\Service\\AdapterManager',
     ),
     'layout_loader' => 
     array (
@@ -797,7 +801,6 @@
     'default:layout-editor/edit-location' => 'package/core/layout-editor/edit-location',
     'default:core/admin-acl/manage-acl-role' => 'package/core/view/admin-acl/manage-acl-role',
     'default:core/admin-cache/manage-cache-adapter' => 'package/core/view/admin-cache/manage-cache-adapter',
-    'default:core/admin-cache/manage-cache-driver' => 'package/core/view/admin-cache/manage-cache-driver',
     'default:core/admin-i18n/manage-i18n-currency' => 'package/core/view/admin-i18n/manage-i18n-currency',
     'default:core/admin-i18n/manage-i18n-locale' => 'package/core/view/admin-i18n/manage-i18n-locale',
     'default:core/admin-i18n/manage-i18n-message' => 'package/core/view/admin-i18n/manage-i18n-message',
@@ -817,7 +820,6 @@
     'default:core/admin-status/manage-overview' => 'package/core/view/admin-status/manage-overview',
     'default:core/admin-status/manage-statistics' => 'package/core/view/admin-status/manage-statistics',
     'default:core/admin-storage/manage-storage-adapter' => 'package/core/view/admin-storage/manage-storage-adapter',
-    'default:core/admin-storage/manage-storage-driver' => 'package/core/view/admin-storage/manage-storage-driver',
     'default:core/block/admin-information' => 'package/core/view/block/admin-information',
     'default:core/block/admin-update' => 'package/core/view/block/admin-update',
     'default:core/error/404' => 'package/core/view/error/404',
@@ -865,9 +867,11 @@
     'default:report/admin-item/manage-report-item' => 'package/report/view/admin-item/manage-report-item',
     'default:dev/admin-dev/manage-action-meta' => 'package/dev/view/admin-dev/manage-action-meta',
     'default:dev/admin-dev/manage-table-meta' => 'package/dev/view/admin-dev/manage-table-meta',
+    'default:dev/template/form-admin-acl-settings-class' => 'package/dev/view/template/form-admin-acl-settings-class',
     'default:dev/template/form-admin-add-class' => 'package/dev/view/template/form-admin-add-class',
     'default:dev/template/form-admin-edit-class' => 'package/dev/view/template/form-admin-edit-class',
     'default:dev/template/form-admin-filter-class' => 'package/dev/view/template/form-admin-filter-class',
+    'default:dev/template/form-admin-site-settings-class' => 'package/dev/view/template/form-admin-site-settings-class',
     'default:dev/template/form-test-case-class' => 'package/dev/view/template/form-test-case-class',
     'default:dev/template/model-class' => 'package/dev/view/template/model-class',
     'default:dev/template/model-config' => 'package/dev/view/template/model-config',
@@ -892,193 +896,4 @@
   'views' => 
   array (
   ),
-  'core_seo' => 
-  array (
-    'title_separator' => '&#187;',
-    'site_title' => 'Social Network',
-    'keyword' => '',
-    'description' => '',
-    'site_copyright' => 'Copyright &copyright;',
-    'google_api_key' => '',
-    'google_analytic_id' => '',
-    'facebook_app_id' => '',
-    'keyword_limit' => '',
-    'description_limit' => '',
-    'facebook_enable' => '',
-    'google_api_enable' => '0',
-    'google_analytic_enable' => '0',
-    'facebook_app_name' => '',
-  ),
-  'core_seo.title_separator' => '&#187;',
-  'core_seo.site_title' => 'Social Network',
-  'core_seo.keyword' => '',
-  'core_seo.description' => '',
-  'core_seo.site_copyright' => 'Copyright &copyright;',
-  'core' => 
-  array (
-    'full_ajax_mode' => '1',
-    '2_step_verify' => 'Social Network',
-    'private_network' => '1',
-    'cookie_path' => '/',
-    'cookie_domain' => '',
-    'cookie_prefix' => 'f',
-    'site_offline' => '0',
-    'offline_code' => '5913ead9807a5',
-    'allow_html' => '0',
-    'allow_html_tags' => '<p><br><br /><strong><em><u><ul><li><font><ol><img><div><span><blockquote><strike><sub><sup><h1><h2><h3><h4><h5><h6><a><b><i><hr><tt><s><center><big><abbr><pre><small><object><embed><param><code>',
-    'secure_image_enable' => '0',
-    'default_mailer_id' => '1',
-    'default_locale_id' => 'en',
-    'default_timezone_id' => 'UTC-1',
-    'default_currency_id' => 'EUR',
-    'default_storage_id' => '1',
-    'default_cache_id' => '1',
-  ),
-  'core.full_ajax_mode' => '1',
-  'core.2_step_verify' => 'Social Network',
-  'core.private_network' => '1',
-  'core.cookie_path' => '/',
-  'core.cookie_domain' => '',
-  'core.cookie_prefix' => 'f',
-  'core.site_offline' => '0',
-  'core.offline_code' => '5913ead9807a5',
-  'user_register' => 
-  array (
-    'display_dob' => '0',
-    'display_gender' => '0',
-    'display_location' => '0',
-    'display_timezone' => '0',
-    'display_username' => '1',
-    'display_reenter_email' => '0',
-    'display_reenter_password' => '0',
-    'redirection_url' => '0',
-    'display_term_of_use' => '0',
-    'auto_friend_list' => '0',
-    'welcome_email' => '0',
-    'require_verify_email' => '0',
-    'verify_email_timeout' => '0',
-    'display_password' => '0',
-    'notify_admin' => '0',
-    'auto_approval' => '0',
-    'register_mode' => '0',
-    'upload_avatar' => '0',
-    'invite_friends' => '0',
-    'choose_subscription' => '0',
-    'auto_login' => '1',
-  ),
-  'user_register.display_dob' => '0',
-  'user_register.display_gender' => '0',
-  'user_register.display_location' => '0',
-  'user_register.display_timezone' => '0',
-  'user_register.display_username' => '1',
-  'user_register.display_reenter_email' => '0',
-  'user_register.display_reenter_password' => '0',
-  'user_register.redirection_url' => '0',
-  'user_register.display_term_of_use' => '0',
-  'user_register.auto_friend_list' => '0',
-  'user_register.welcome_email' => '0',
-  'user_register.require_verify_email' => '0',
-  'user_register.verify_email_timeout' => '0',
-  'core_seo.google_api_key' => '',
-  'core_seo.google_analytic_id' => '',
-  'core_seo.facebook_app_id' => '',
-  'core_allow_html' => 
-  array (
-    'enable' => '1',
-    'tags' => '<p><br><br /><strong><em><u><ul><li><font><ol><img><div><span><blockquote><strike><sub><sup><h1><h2><h3><h4><h5><h6><a><b><i><hr><tt><s><center><big><abbr><pre><small><object><embed><param><code>',
-  ),
-  'core_allow_html.enable' => '1',
-  'core_allow_html.tags' => '<p><br><br /><strong><em><u><ul><li><font><ol><img><div><span><blockquote><strike><sub><sup><h1><h2><h3><h4><h5><h6><a><b><i><hr><tt><s><center><big><abbr><pre><small><object><embed><param><code>',
-  'core_seo.keyword_limit' => '',
-  'core_seo.description_limit' => '',
-  'core_seo.facebook_enable' => '',
-  'core_seo.google_api_enable' => '0',
-  'core_seo.google_analytic_enable' => '0',
-  'core.allow_html' => '0',
-  'core.allow_html_tags' => '<p><br><br /><strong><em><u><ul><li><font><ol><img><div><span><blockquote><strike><sub><sup><h1><h2><h3><h4><h5><h6><a><b><i><hr><tt><s><center><big><abbr><pre><small><object><embed><param><code>',
-  'core.secure_image_enable' => '0',
-  'core_seo.facebook_app_name' => '',
-  'user_register.display_password' => '0',
-  'user_register.notify_admin' => '0',
-  'user_register.auto_approval' => '0',
-  'user_register.register_mode' => '0',
-  'user_register.upload_avatar' => '0',
-  'user_register.invite_friends' => '0',
-  'user_register.choose_subscription' => '0',
-  'user_register.auto_login' => '1',
-  'core.default_mailer_id' => '1',
-  'core_mail' => 
-  array (
-    'queue_enable' => '0',
-    'queue_limit' => '20',
-  ),
-  'core_mail.queue_enable' => '0',
-  'core_mail.queue_limit' => '20',
-  'test_mail' => 
-  array (
-    'to' => '',
-    'message' => 'Dear , 
-            
-This is test email
- 
- 
-- send at',
-    'subject' => 'This is test email',
-  ),
-  'test_mail.to' => '',
-  'test_mail.message' => 'Dear , 
-            
-This is test email
- 
- 
-- send at',
-  'test_mail.subject' => 'This is test email',
-  'core.default_locale_id' => 'en',
-  'core.default_timezone_id' => 'UTC-1',
-  'core.default_currency_id' => 'EUR',
-  'core.default_storage_id' => '1',
-  'core_license' => 
-  array (
-    'level_id' => 'TRIAL',
-    'email' => '',
-    'key' => '',
-  ),
-  'core_license.level_id' => 'TRIAL',
-  'core_license.email' => '',
-  'core_license.key' => '',
-  'core.default_cache_id' => '1',
-  'log' => 
-  array (
-    'main_log' => 
-    array (
-      0 => 1,
-    ),
-    'mail_log' => 
-    array (
-      0 => 1,
-    ),
-    'debug_log' => 
-    array (
-      0 => 1,
-    ),
-  ),
-  'log.main_log' => 
-  array (
-    0 => 1,
-  ),
-  'log.mail_log' => 
-  array (
-    0 => 1,
-  ),
-  'log.debug_log' => 
-  array (
-    0 => 1,
-  ),
-  'dev' => 
-  array (
-    'default_package_id' => 'core',
-    'table_prefix' => '',
-  ),
-  'dev.default_package_id' => 'core',
-  'dev.table_prefix' => '',
 );

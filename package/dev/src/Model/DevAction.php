@@ -95,7 +95,9 @@ class DevAction extends DbModel
             case 'admin_filter':
                 return "<strong>Admin Filter</strong> `{$this->getTableName()}`";
             case 'admin_acl_settings':
-                return "<strong>Admin Acl Settings</strong> `{$this->getTableName()}`";
+                return "<strong>Acl Settings</strong> `{$this->getTableName()}`";
+            case 'admin_site_settings':
+                return "<strong>Site Settings</strong> `{$this->getTableName()}`";
             case 'model_class':
                 return "Model `{$this->getTableName()}`";
         }

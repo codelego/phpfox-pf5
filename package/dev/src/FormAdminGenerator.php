@@ -80,7 +80,10 @@ class FormAdminGenerator extends AbstractGenerator
 
     protected function getElementGeneratorParams()
     {
-        return [];
+        return [
+            'textDomain' => $this->meta->getTextDomain(),
+            'packageId'  => $this->meta->getPackageId(),
+        ];
     }
 
     /**
@@ -90,6 +93,8 @@ class FormAdminGenerator extends AbstractGenerator
     {
         $elementGeneratorParams = $this->getElementGeneratorParams();
         $elementGenerator = new ElementGenerator($elementGeneratorParams);
+        $messageContainer = new MessageContainer($this->meta->getTextDomain());
+        $elementGenerator->setMessageContainer($messageContainer);
 
         $elements = _model('dev_element')
             ->select()
@@ -133,6 +138,8 @@ class FormAdminGenerator extends AbstractGenerator
             'textDomain'       => $this->textDomain,
             'formTitle'        => $formTitle,
         ], $this->template))->render();
+
+        _service('core.i18n')->insertDomainMessages($messageContainer->all(), $this->packageId, '');
 
         $this->putContents($formClassPath, $formCode);
     }

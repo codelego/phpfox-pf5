@@ -10,7 +10,7 @@ class UserRegisterSettings extends Form
     protected function initialize()
     {
         $this->setTitle(_text('User Registration Settings', 'user_register'));
-        $this->setInfo(_text('[Site Settings Note]', 'admin'));
+        $this->setInfo(_text('[Site Settings Info]', 'admin'));
 
         $this->addElement([
             'factory'  => 'radio',

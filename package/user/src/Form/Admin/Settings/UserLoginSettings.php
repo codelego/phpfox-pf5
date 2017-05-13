@@ -10,7 +10,7 @@ class UserLoginSettings extends Form
     protected function initialize()
     {
         $this->setTitle(_text('User Registration Settings', 'user_login'));
-        $this->setInfo(_text('[Site Settings Note]', 'admin'));
+        $this->setInfo(_text('[Site Settings Info]', 'admin'));
     }
 
     public function getButtons()

@@ -5,10 +5,63 @@ namespace Neutron\Core\Service;
 
 use Neutron\Core\Model\I18nCurrency;
 use Neutron\Core\Model\I18nLocale;
+use Neutron\Core\Model\I18nMessage;
 use Neutron\Core\Model\I18nTimezone;
 
 class I18nManager
 {
+    /**
+     * @param array  $domainMessages
+     * @param string $packageId
+     * @param string $localeId
+     */
+    public function insertDomainMessages($domainMessages, $packageId, $localeId = '')
+    {
+        $localeId = (string)$localeId;
+        $packageId = (string)$packageId;
+
+        foreach ($domainMessages as $domainId => $messages) {
+            if (!$domainId) {
+                $domainId = '';
+            }
+
+            $expectedNames = array_keys($messages);
+
+            if (empty($expectedNames)) {
+                continue;
+            }
+
+            /** @var I18nMessage[] $entries */
+            $entries = _model('i18n_message')
+                ->select()
+                ->where('locale_id=?', $localeId)
+                ->where('domain_id=?', $domainId)
+                ->where('message_name in ?', $expectedNames)
+                ->all();
+
+            $currentNames = [];
+
+            array_walk($entries, function (I18nMessage $msg) use (&$currentNames) {
+                $currentNames[] = $msg->getMessageName();
+            });
+
+            $shouldInsertNames = array_diff($expectedNames, $currentNames);
+
+            foreach ($shouldInsertNames as $messageName) {
+                _model('i18n_message')
+                    ->insert([
+                        'locale_id'     => $localeId,
+                        'message_name'  => $messageName,
+                        'message_value' => $messages[$messageName],
+                        'domain_id'     => $domainId,
+                        'package_id'    => $packageId,
+                        'is_json'       => 0,
+                        'is_updated'    => 0,
+                    ]);
+            }
+        }
+    }
+
     public function getDirectionIdOptions()
     {
         return [

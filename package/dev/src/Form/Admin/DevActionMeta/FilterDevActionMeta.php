@@ -45,6 +45,7 @@ class FilterDevActionMeta extends Form
                 ['value' => 'admin_filter', 'label' => 'admin_filter'],
                 ['value' => 'model_class', 'label' => 'model_class'],
                 ['value' => 'admin_acl_settings', 'label' => 'Acl Settings'],
+                ['value' => 'admin_site_settings', 'label' => 'Site Settings'],
             ],
         ]);
 

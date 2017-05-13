@@ -13,6 +13,11 @@ class ElementGenerator
     protected $params = [];
 
     /**
+     * @var MessageContainer
+     */
+    protected $messageContainer;
+
+    /**
      * ElementGenerator constructor.
      *
      * @param array $params
@@ -66,7 +71,6 @@ class ElementGenerator
     public function convert($devElement)
     {
         $formType = $this->get('formType');
-
         $textDomain = $this->get('textDomain');
 
         if (empty($textDomain)) {
@@ -113,24 +117,27 @@ class ElementGenerator
         }
 
         if ($this->isChoiceField($factoryId) and $devElement->getOptionsText()) {
-            $element['options'] = '$$$'.str_replace("'",'$$',$devElement->getOptionsText()) . '$$$';
+            $element['options'] = '$$$' . str_replace("'", '$$', $devElement->getOptionsText()) . '$$$';
         }
 
         if ($isHidden or $this->isNoLabel()) {
             unset($element['label']);
         } elseif ($label) {
+            $this->addMessage($element['label']);
             $element['label'] = '$$$_text($$' . $label . '$$,' . $textDomain . ')$$$';
         }
 
         if ($isHidden or $this->isNoNote()) {
             unset($element['note']);
         } elseif ($element['note']) {
+            $this->addMessage($element['note']);
             $element['note'] = '$$$_text($$' . $element['note'] . '$$, ' . $textDomain . ')$$$';
         }
 
         if ($isHidden or $this->isNoInfo()) {
             unset($element['info']);
         } elseif ($element['info']) {
+            $this->addMessage($element['info']);
             $element['info'] = '$$$_text($$' . $element['info'] . '$$, ' . $textDomain . ')$$$';
         }
 
@@ -161,6 +168,7 @@ class ElementGenerator
 
         return $this->escape($content);
     }
+
 
     protected function cleanExport($data)
     {
@@ -266,5 +274,41 @@ class ElementGenerator
     public function isShortLabel()
     {
         return $this->get('sortLabel', false);
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getPackageId()
+    {
+        return $this->get('packageId');
+    }
+
+    /**
+     * @return MessageContainer
+     */
+    public function getMessageContainer()
+    {
+        return $this->messageContainer;
+    }
+
+    /**
+     * @param MessageContainer $messageContainer
+     */
+    public function setMessageContainer($messageContainer)
+    {
+        $this->messageContainer = $messageContainer;
+    }
+
+    /**
+     * @param string $name
+     * @param string $value
+     */
+    public function addMessage($name, $value = null)
+    {
+        if ($this->messageContainer) {
+            $this->messageContainer->add(null, $name, $value);
+        }
     }
 }

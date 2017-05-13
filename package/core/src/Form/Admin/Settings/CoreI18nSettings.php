@@ -11,7 +11,7 @@ class CoreI18nSettings extends Form
     protected function initialize()
     {
         $this->setTitle(_text('International Settings', 'admin'));
-        $this->setInfo(_text('[Site Settings Note]', 'admin'));
+        $this->setInfo(_text('[Site Settings Info]', 'admin'));
 
         $this->addElement([
             'factory'    => 'select',
