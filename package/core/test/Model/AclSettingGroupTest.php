@@ -1,11 +1,20 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class AclSettingGroupTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new AclSettingGroup(array (  'group_id' => 'core',  'package_id' => 'core',  'title' => 'Core Settings',  'form_name' => '',  'description' => '',  'sort_order' => 1,  'is_active' => 1,));
+        $obj = new AclSettingGroup([
+            'group_id'    => 'core',
+            'package_id'  => 'core',
+            'title'       => 'Core Settings',
+            'form_name'   => '',
+            'description' => '',
+            'sort_order'  => 1,
+            'is_active'   => 1,
+        ]);
 
         $this->assertSame('acl_setting_group', $obj->getModelId());
         $this->assertSame('core', $obj->getGroupId());
@@ -14,7 +23,8 @@ class AclSettingGroupTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getFormName());
         $this->assertSame('', $obj->getDescription());
         $this->assertSame(1, $obj->getSortOrder());
-        $this->assertSame(1, $obj->isActive());    }
+        $this->assertSame(1, $obj->isActive());
+    }
 
     public function testParameters()
     {
@@ -36,17 +46,26 @@ class AclSettingGroupTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getFormName());
         $this->assertSame('', $obj->getDescription());
         $this->assertSame(1, $obj->getSortOrder());
-        $this->assertSame(1, $obj->isActive());    }
+        $this->assertSame(1, $obj->isActive());
+    }
 
     public function testSave()
     {
-        $obj = new AclSettingGroup(array (  'group_id' => 'core',  'package_id' => 'core',  'title' => 'Core Settings',  'form_name' => '',  'description' => '',  'sort_order' => 1,  'is_active' => 1,));
+        $obj = new AclSettingGroup([
+            'group_id'    => 'core',
+            'package_id'  => 'core',
+            'title'       => 'Core Settings',
+            'form_name'   => '',
+            'description' => '',
+            'sort_order'  => 1,
+            'is_active'   => 1,
+        ]);
 
         $obj->save();
 
         /** @var AclSettingGroup $obj */
         $obj = _model('acl_setting_group')
-            ->select()->where('group_id=?','core')->first();
+            ->select()->where('group_id=?', 'core')->first();
 
         $this->assertSame('acl_setting_group', $obj->getModelId());
         $this->assertSame('core', $obj->getGroupId());
@@ -55,17 +74,18 @@ class AclSettingGroupTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getFormName());
         $this->assertSame('', $obj->getDescription());
         $this->assertSame(1, $obj->getSortOrder());
-        $this->assertSame(1, $obj->isActive());    }
+        $this->assertSame(1, $obj->isActive());
+    }
 
     public static function setUpBeforeClass()
     {
         _model('acl_setting_group')
-            ->delete()->where('group_id=?','core')->execute();
+            ->delete()->where('group_id=?', 'core')->execute();
     }
 
     public static function tearDownAfterClass()
     {
         _model('acl_setting_group')
-            ->delete()->where('group_id=?','core')->execute();
+            ->delete()->where('group_id=?', 'core')->execute();
     }
 }

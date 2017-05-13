@@ -74,7 +74,7 @@ class AdminI18nCurrencyController extends AdminController
             throw new \InvalidArgumentException('Invalid params "currency_id"');
         }
 
-        if(!$entry->isActive()){
+        if (!$entry->isActive()) {
             $entry->setActive(1);
             $entry->save();
         }

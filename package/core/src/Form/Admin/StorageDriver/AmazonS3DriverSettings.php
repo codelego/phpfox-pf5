@@ -14,67 +14,67 @@ class AmazonS3DriverSettings extends Form
         $this->setInfo(_text('[Amazon S3 Storage Settings Note]', 'admin.core_storage'));
 
         $this->addElement([
-            'name'       => 'accessKey',
-            'factory'    => 'text',
-            'label'      => _text('Amazon Access Key', 'admin.core_storage'),
-            'note'       => _text('[Amazon Access Key Note]', 'admin.core_storage'),
+            'name'      => 'accessKey',
+            'factory'   => 'text',
+            'label'     => _text('Amazon Access Key', 'admin.core_storage'),
+            'note'      => _text('[Amazon Access Key Note]', 'admin.core_storage'),
             'maxlength' => 500,
-            'required'   => true,
+            'required'  => true,
         ]);
 
         $this->addElement([
-            'name'       => 'secretKey',
-            'factory'    => 'text',
-            'label'      => _text('Amazon Secret Key', 'admin.core_storage'),
-            'note'       => _text('[Amazon Secret Key Note]', 'admin.core_storage'),
+            'name'      => 'secretKey',
+            'factory'   => 'text',
+            'label'     => _text('Amazon Secret Key', 'admin.core_storage'),
+            'note'      => _text('[Amazon Secret Key Note]', 'admin.core_storage'),
             'maxlength' => 500,
-            'required'   => true,
+            'required'  => true,
         ]);
 
         $this->addElement([
-            'name'       => 'budget',
-            'factory'    => 'text',
-            'label'      => _text('Amazon Budget', 'admin.core_storage'),
-            'note'       => _text('[Amazon Budget Note]', 'admin.core_storage'),
+            'name'      => 'budget',
+            'factory'   => 'text',
+            'label'     => _text('Amazon Budget', 'admin.core_storage'),
+            'note'      => _text('[Amazon Budget Note]', 'admin.core_storage'),
             'maxlength' => 500,
-            'required'   => true,
+            'required'  => true,
         ]);
 
         $this->addElement([
-            'name'       => 'region',
-            'factory'    => 'select',
-            'label'      => _text('Amazon Region', 'admin.core_storage'),
-            'note'       => _text('[Amazon Region Note]', 'admin.core_storage'),
+            'name'      => 'region',
+            'factory'   => 'select',
+            'label'     => _text('Amazon Region', 'admin.core_storage'),
+            'note'      => _text('[Amazon Region Note]', 'admin.core_storage'),
             'maxlength' => 500,
-            'options'    => _service('core.storage')->getS3RegionIdOptions(),
-            'required'   => true,
+            'options'   => _service('core.storage')->getS3RegionIdOptions(),
+            'required'  => true,
         ]);
 
         $this->addElement([
-            'name'       => 'basePath',
-            'factory'    => 'text',
-            'label'      => _text('Base Path', 'admin.core_storage'),
-            'note'       => _text('[Base Path Note]', 'admin.core_storage'),
+            'name'      => 'basePath',
+            'factory'   => 'text',
+            'label'     => _text('Base Path', 'admin.core_storage'),
+            'note'      => _text('[Base Path Note]', 'admin.core_storage'),
             'maxlength' => 500,
-            'required'   => true,
+            'required'  => true,
         ]);
 
         $this->addElement([
-            'name'       => 'baseUrl',
-            'factory'    => 'text',
-            'label'      => _text('Base Url', 'admin.core_storage'),
-            'note'       => _text('[Base Url Note]', 'admin.core_storage'),
+            'name'      => 'baseUrl',
+            'factory'   => 'text',
+            'label'     => _text('Base Url', 'admin.core_storage'),
+            'note'      => _text('[Base Url Note]', 'admin.core_storage'),
             'maxlength' => 500,
-            'required'   => true,
+            'required'  => true,
         ]);
 
         $this->addElement([
-            'name'       => 'baseCdnUrl',
-            'factory'    => 'text',
-            'label'      => _text('Base CDN Url', 'admin.core_storage'),
-            'note'       => _text('[Base CDN Url Note]', 'admin.core_storage'),
+            'name'      => 'baseCdnUrl',
+            'factory'   => 'text',
+            'label'     => _text('Base CDN Url', 'admin.core_storage'),
+            'note'      => _text('[Base CDN Url Note]', 'admin.core_storage'),
             'maxlength' => 500,
-            'required'   => false,
+            'required'  => false,
         ]);
 
         $this->addElement([

@@ -15,11 +15,20 @@
                     <td class="dropdown" data-cmd="dropdown">
                         <ul>
                             <li><a href="<?= _url('admin.core.mail.adapter',
-                                    ['action'=>'edit','adapter_id' => $item->getId()]) ?>"><?= _text('Edit Settings') ?></a></li>
+                                    [
+                                        'action'     => 'edit',
+                                        'adapter_id' => $item->getId(),
+                                    ]) ?>"><?= _text('Edit Settings') ?></a></li>
                             <li><a href="<?= _url('admin.core.mail.adapter',
-                                    ['action'=>'default','adapter_id' => $item->getId()]) ?>"><?= _text('Set Default') ?></a></li>
+                                    [
+                                        'action'     => 'default',
+                                        'adapter_id' => $item->getId(),
+                                    ]) ?>"><?= _text('Set Default') ?></a></li>
                             <li><a data-cmd="modal" href="<?= _url('admin.core.mail.adapter',
-                                    ['action'=>'test','adapter_id' => $item->getId()]) ?>"><?= _text('Send Test Email') ?></a></li>
+                                    [
+                                        'action'     => 'test',
+                                        'adapter_id' => $item->getId(),
+                                    ]) ?>"><?= _text('Send Test Email') ?></a></li>
                         </ul>
                     </td>
                     <td><?= $item->getId() ?></td>

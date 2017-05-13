@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class CoreJobLogTest extends \PHPUnit_Framework_TestCase
@@ -12,7 +13,8 @@ class CoreJobLogTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getIp());
         $this->assertSame('', $obj->getUpdated());
         $this->assertSame('', $obj->getLevel());
-        $this->assertSame('', $obj->getMessage());    }
+        $this->assertSame('', $obj->getMessage());
+    }
 
     public function testParameters()
     {
@@ -30,7 +32,8 @@ class CoreJobLogTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getIp());
         $this->assertSame('', $obj->getUpdated());
         $this->assertSame('', $obj->getLevel());
-        $this->assertSame('', $obj->getMessage());    }
+        $this->assertSame('', $obj->getMessage());
+    }
 
     public function testSave()
     {
@@ -40,24 +43,25 @@ class CoreJobLogTest extends \PHPUnit_Framework_TestCase
 
         /** @var CoreJobLog $obj */
         $obj = _model('core_job_log')
-            ->select()->where('id=?','')->first();
+            ->select()->where('id=?', '')->first();
 
         $this->assertSame('core_job_log', $obj->getModelId());
         $this->assertSame('', $obj->getId());
         $this->assertSame('', $obj->getIp());
         $this->assertSame('', $obj->getUpdated());
         $this->assertSame('', $obj->getLevel());
-        $this->assertSame('', $obj->getMessage());    }
+        $this->assertSame('', $obj->getMessage());
+    }
 
     public static function setUpBeforeClass()
     {
         _model('core_job_log')
-            ->delete()->where('id=?','')->execute();
+            ->delete()->where('id=?', '')->execute();
     }
 
     public static function tearDownAfterClass()
     {
         _model('core_job_log')
-            ->delete()->where('id=?','')->execute();
+            ->delete()->where('id=?', '')->execute();
     }
 }

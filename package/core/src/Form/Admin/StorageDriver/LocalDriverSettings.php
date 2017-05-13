@@ -13,30 +13,30 @@ class LocalDriverSettings extends Form
         $this->setInfo(_text('[Local Storage Settings Note]', 'admin.core_storage'));
 
         $this->addElement([
-            'name'       => 'basePath',
-            'factory'    => 'text',
-            'label'      => _text('Base Path', 'admin.core_storage'),
-            'note'       => _text('[Base Path Note]', 'admin.core_storage'),
+            'name'      => 'basePath',
+            'factory'   => 'text',
+            'label'     => _text('Base Path', 'admin.core_storage'),
+            'note'      => _text('[Base Path Note]', 'admin.core_storage'),
             'maxlength' => 500,
-            'required'   => true,
+            'required'  => true,
         ]);
 
         $this->addElement([
-            'name'       => 'baseUrl',
-            'factory'    => 'text',
-            'label'      => _text('Base Url', 'admin.core_storage'),
-            'note'       => _text('[Base Url Note]', 'admin.core_storage'),
+            'name'      => 'baseUrl',
+            'factory'   => 'text',
+            'label'     => _text('Base Url', 'admin.core_storage'),
+            'note'      => _text('[Base Url Note]', 'admin.core_storage'),
             'maxlength' => 500,
-            'required'   => true,
+            'required'  => true,
         ]);
 
         $this->addElement([
-            'name'       => 'baseCdnUrl',
-            'factory'    => 'text',
-            'label'      => _text('Base CDN Url', 'admin.core_storage'),
-            'note'       => _text('[Base CDN Url Note]', 'admin.core_storage'),
+            'name'      => 'baseCdnUrl',
+            'factory'   => 'text',
+            'label'     => _text('Base CDN Url', 'admin.core_storage'),
+            'note'      => _text('[Base CDN Url Note]', 'admin.core_storage'),
             'maxlength' => 500,
-            'required'   => false,
+            'required'  => false,
         ]);
 
         $this->addElement([

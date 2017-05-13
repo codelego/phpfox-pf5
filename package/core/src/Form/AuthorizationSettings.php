@@ -62,14 +62,14 @@ class AuthorizationSettings extends Form
                 'value'   => 1,
             ],
             [
-                'factory'    => 'choice',
-                'render'     => 'select',
-                'value'      => 0,
-                'name'       => 'core__storage_quota',
-                'label'      => _text('Storage Quota?', 'admin'),
-                'required'   => true,
-                'note'       => _text('[storage quota note]', 'admin'),
-                'options'    => $this->getStorageLimitOptions(),
+                'factory'  => 'choice',
+                'render'   => 'select',
+                'value'    => 0,
+                'name'     => 'core__storage_quota',
+                'label'    => _text('Storage Quota?', 'admin'),
+                'required' => true,
+                'note'     => _text('[storage quota note]', 'admin'),
+                'options'  => $this->getStorageLimitOptions(),
             ],
         ]);
 
@@ -84,13 +84,13 @@ class AuthorizationSettings extends Form
             new ButtonField([
                 'name'       => 'save',
                 'label'      => _text('Submit'),
-                'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
+                'attributes' => ['class' => 'btn btn-primary', 'type' => 'submit',],
             ]),
             new ButtonField([
                 'name'       => 'cancel',
                 'href'       => '#',
                 'label'      => _text('Cancel'),
-                'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd'=>'form.cancel'],
+                'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel'],
             ]),
         ];
         /** end buttons **/

@@ -2,7 +2,6 @@
 
 namespace Neutron\Core\Form\Admin\Settings;
 
-use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
 class CoreStorageSettings extends Form
@@ -14,20 +13,20 @@ class CoreStorageSettings extends Form
         $this->setInfo(_text('[Site Settings Info]', 'admin'));
 
         $this->addElement([
-            'factory'    => 'select',
-            'name'       => 'core__default_storage_id',
-            'value'      => '1',
-            'options'    => _service('core.storage')->getAdapterIdOptions(),
-            'label'      => _text('Default Storage', 'admin'),
-            'note'       => _text('[Default Storage Note]', 'admin'),
-            'required'   => true,
+            'factory'  => 'select',
+            'name'     => 'core__default_storage_id',
+            'value'    => '1',
+            'options'  => _service('core.storage')->getAdapterIdOptions(),
+            'label'    => _text('Default Storage', 'admin'),
+            'note'     => _text('[Default Storage Note]', 'admin'),
+            'required' => true,
         ]);
 
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'save',
             'label'      => _text('Save Changes'),
-            'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
+            'attributes' => ['class' => 'btn btn-primary', 'type' => 'submit',],
         ]);
 
         $this->addButton([
@@ -35,7 +34,7 @@ class CoreStorageSettings extends Form
             'name'       => 'cancel',
             'href'       => '#',
             'label'      => _text('Cancel'),
-            'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
+            'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);
     }
 }

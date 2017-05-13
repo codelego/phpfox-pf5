@@ -36,7 +36,7 @@ class AdminPackageController extends AdminController
         $form = new UploadPackage();
 
         return new ViewModel([
-            'form'    => $form,
+            'form' => $form,
         ], 'layout/form-edit');
     }
 }

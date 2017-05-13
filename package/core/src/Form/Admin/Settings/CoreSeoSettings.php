@@ -2,7 +2,6 @@
 
 namespace Neutron\Core\Form\Admin\Settings;
 
-use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
 class CoreSeoSettings extends Form

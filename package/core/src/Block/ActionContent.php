@@ -18,7 +18,7 @@ class ActionContent extends Component
         if ($data instanceof ViewModel) {
             return $data->render();
         }
-        
+
         return '';
     }
 }

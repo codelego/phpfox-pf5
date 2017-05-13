@@ -67,40 +67,40 @@ class FtpDriverSettings extends Form
         ]);
 
         $this->addElement([
-            'name'       => 'password',
-            'factory'    => 'text',
-            'label'      => _text('Login Password', 'admin.core_storage'),
-            'note'       => _text('[Login Password Note]', 'admin.core_storage'),
+            'name'      => 'password',
+            'factory'   => 'text',
+            'label'     => _text('Login Password', 'admin.core_storage'),
+            'note'      => _text('[Login Password Note]', 'admin.core_storage'),
             'maxlength' => 500,
-            'required'   => true,
+            'required'  => true,
         ]);
 
 
         $this->addElement([
-            'name'       => 'basePath',
-            'factory'    => 'text',
-            'label'      => _text('Base Path', 'admin.core_storage'),
-            'note'       => _text('[Base Path Note]', 'admin.core_storage'),
+            'name'      => 'basePath',
+            'factory'   => 'text',
+            'label'     => _text('Base Path', 'admin.core_storage'),
+            'note'      => _text('[Base Path Note]', 'admin.core_storage'),
             'maxlength' => 500,
-            'required'   => true,
+            'required'  => true,
         ]);
 
         $this->addElement([
-            'name'       => 'baseUrl',
-            'factory'    => 'text',
-            'label'      => _text('Base Url', 'admin.core_storage'),
-            'note'       => _text('[Base Url Note]', 'admin.core_storage'),
+            'name'      => 'baseUrl',
+            'factory'   => 'text',
+            'label'     => _text('Base Url', 'admin.core_storage'),
+            'note'      => _text('[Base Url Note]', 'admin.core_storage'),
             'maxlength' => 500,
-            'required'   => true,
+            'required'  => true,
         ]);
 
         $this->addElement([
-            'name'       => 'baseCdnUrl',
-            'factory'    => 'text',
-            'label'      => _text('Base CDN Url', 'admin.core_storage'),
-            'note'       => _text('[Base CDN Url Note]', 'admin.core_storage'),
+            'name'      => 'baseCdnUrl',
+            'factory'   => 'text',
+            'label'     => _text('Base CDN Url', 'admin.core_storage'),
+            'note'      => _text('[Base CDN Url Note]', 'admin.core_storage'),
             'maxlength' => 500,
-            'required'   => false,
+            'required'  => false,
         ]);
 
         $this->addElement([

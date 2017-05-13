@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class CoreAdapterTest extends \PHPUnit_Framework_TestCase
@@ -15,7 +16,8 @@ class CoreAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->isRequired());
         $this->assertSame('', $obj->getParams());
         $this->assertSame('', $obj->getTitle());
-        $this->assertSame('', $obj->getDescription());    }
+        $this->assertSame('', $obj->getDescription());
+    }
 
     public function testParameters()
     {
@@ -39,7 +41,8 @@ class CoreAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->isRequired());
         $this->assertSame('', $obj->getParams());
         $this->assertSame('', $obj->getTitle());
-        $this->assertSame('', $obj->getDescription());    }
+        $this->assertSame('', $obj->getDescription());
+    }
 
     public function testSave()
     {
@@ -49,7 +52,7 @@ class CoreAdapterTest extends \PHPUnit_Framework_TestCase
 
         /** @var CoreAdapter $obj */
         $obj = _model('core_adapter')
-            ->select()->where('adapter_id=?','')->first();
+            ->select()->where('adapter_id=?', '')->first();
 
         $this->assertSame('core_adapter', $obj->getModelId());
         $this->assertSame('', $obj->getAdapterId());
@@ -59,17 +62,18 @@ class CoreAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->isRequired());
         $this->assertSame('', $obj->getParams());
         $this->assertSame('', $obj->getTitle());
-        $this->assertSame('', $obj->getDescription());    }
+        $this->assertSame('', $obj->getDescription());
+    }
 
     public static function setUpBeforeClass()
     {
         _model('core_adapter')
-            ->delete()->where('adapter_id=?','')->execute();
+            ->delete()->where('adapter_id=?', '')->execute();
     }
 
     public static function tearDownAfterClass()
     {
         _model('core_adapter')
-            ->delete()->where('adapter_id=?','')->execute();
+            ->delete()->where('adapter_id=?', '')->execute();
     }
 }

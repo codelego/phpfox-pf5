@@ -25,12 +25,12 @@
                                     ['action' => 'edit', 'adapter_id' => $item->getId()]) ?>">
                                     <?= _text('Edit Settings') ?>
                                 </a></li>
-                            <?php if(!$item->isRequired()):?>
-                            <li class="divider"></li>
-                            <li><a href="<?= _url('admin.core.cache',
-                                    ['action' => 'delete', 'adapter_id' => $item->getId()]) ?>">
-                                    <?= _text('Delete') ?>
-                                </a></li>
+                            <?php if (!$item->isRequired()): ?>
+                                <li class="divider"></li>
+                                <li><a href="<?= _url('admin.core.cache',
+                                        ['action' => 'delete', 'adapter_id' => $item->getId()]) ?>">
+                                        <?= _text('Delete') ?>
+                                    </a></li>
                             <?php endif; ?>
                         </ul>
                     </td>

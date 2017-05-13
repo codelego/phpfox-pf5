@@ -1,11 +1,29 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class CoreMenuTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new CoreMenu(array (  'id' => 1,  'sort_order' => 1,  'menu' => 'admin',  'name' => 'dashboard',  'parent_name' => NULL,  'package_id' => 'core',  'label' => 'Dashboard',  'route' => 'admin',  'params' => '',  'extra' => '[]',  'acl' => NULL,  'event' => '',  'plugin' => NULL,  'is_active' => 1,  'is_custom' => 0,  'type' => 'route',));
+        $obj = new CoreMenu([
+            'id'          => 1,
+            'sort_order'  => 1,
+            'menu'        => 'admin',
+            'name'        => 'dashboard',
+            'parent_name' => null,
+            'package_id'  => 'core',
+            'label'       => 'Dashboard',
+            'route'       => 'admin',
+            'params'      => '',
+            'extra'       => '[]',
+            'acl'         => null,
+            'event'       => '',
+            'plugin'      => null,
+            'is_active'   => 1,
+            'is_custom'   => 0,
+            'type'        => 'route',
+        ]);
 
         $this->assertSame('core_menu', $obj->getModelId());
         $this->assertSame(1, $obj->getId());
@@ -23,7 +41,8 @@ class CoreMenuTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getPlugin());
         $this->assertSame(1, $obj->isActive());
         $this->assertSame(0, $obj->isCustom());
-        $this->assertSame('route', $obj->getType());    }
+        $this->assertSame('route', $obj->getType());
+    }
 
     public function testParameters()
     {
@@ -63,17 +82,35 @@ class CoreMenuTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getPlugin());
         $this->assertSame(1, $obj->isActive());
         $this->assertSame(0, $obj->isCustom());
-        $this->assertSame('route', $obj->getType());    }
+        $this->assertSame('route', $obj->getType());
+    }
 
     public function testSave()
     {
-        $obj = new CoreMenu(array (  'id' => 1,  'sort_order' => 1,  'menu' => 'admin',  'name' => 'dashboard',  'parent_name' => NULL,  'package_id' => 'core',  'label' => 'Dashboard',  'route' => 'admin',  'params' => '',  'extra' => '[]',  'acl' => NULL,  'event' => '',  'plugin' => NULL,  'is_active' => 1,  'is_custom' => 0,  'type' => 'route',));
+        $obj = new CoreMenu([
+            'id'          => 1,
+            'sort_order'  => 1,
+            'menu'        => 'admin',
+            'name'        => 'dashboard',
+            'parent_name' => null,
+            'package_id'  => 'core',
+            'label'       => 'Dashboard',
+            'route'       => 'admin',
+            'params'      => '',
+            'extra'       => '[]',
+            'acl'         => null,
+            'event'       => '',
+            'plugin'      => null,
+            'is_active'   => 1,
+            'is_custom'   => 0,
+            'type'        => 'route',
+        ]);
 
         $obj->save();
 
         /** @var CoreMenu $obj */
         $obj = _model('core_menu')
-            ->select()->where('id=?',1)->first();
+            ->select()->where('id=?', 1)->first();
 
         $this->assertSame('core_menu', $obj->getModelId());
         $this->assertSame(1, $obj->getId());
@@ -91,17 +128,18 @@ class CoreMenuTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getPlugin());
         $this->assertSame(1, $obj->isActive());
         $this->assertSame(0, $obj->isCustom());
-        $this->assertSame('route', $obj->getType());    }
+        $this->assertSame('route', $obj->getType());
+    }
 
     public static function setUpBeforeClass()
     {
         _model('core_menu')
-            ->delete()->where('id=?',1)->execute();
+            ->delete()->where('id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
         _model('core_menu')
-            ->delete()->where('id=?',1)->execute();
+            ->delete()->where('id=?', 1)->execute();
     }
 }

@@ -63,7 +63,7 @@ class AdminLayoutBlockController extends AdminController
         }
 
         return new ViewModel([
-            'form'    => $form,
+            'form' => $form,
         ], 'layout/form-edit');
 
     }
@@ -88,7 +88,7 @@ class AdminLayoutBlockController extends AdminController
         }
 
         return new ViewModel([
-            'form'    => $form,
+            'form' => $form,
         ], 'layout/form-edit');
     }
 

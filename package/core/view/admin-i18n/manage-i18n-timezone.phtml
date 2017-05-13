@@ -18,7 +18,10 @@
                     <td class="dropdown" data-cmd="dropdown">
                         <ul>
                             <li><a href="<?= _url('admin.core.i18n.timezone',
-                                    ['action' => 'default', 'timezone_id' => $item->getId()]) ?>"><?= _text('Set Default') ?></li>
+                                    [
+                                        'action'      => 'default',
+                                        'timezone_id' => $item->getId(),
+                                    ]) ?>"><?= _text('Set Default') ?></li>
                             <li><a data-cmd="modal" href="<?= _url('admin.core.i18n.timezone',
                                     ['action' => 'edit', 'timezone_id' => $item->getId()]) ?>"><?= _text('Edit') ?></li>
                         </ul>

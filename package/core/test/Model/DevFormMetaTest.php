@@ -6,7 +6,14 @@ class DevFormMetaTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new DevFormMeta(array (  'meta_id' => 9,  'table_name' => 'acl_perm_allow',  'package_id' => NULL,  'form_type' => 'admin_add',  'action_id' => 'skip',  'text_domain' => NULL,));
+        $obj = new DevFormMeta([
+            'meta_id'     => 9,
+            'table_name'  => 'acl_perm_allow',
+            'package_id'  => null,
+            'form_type'   => 'admin_add',
+            'action_id'   => 'skip',
+            'text_domain' => null,
+        ]);
 
         $this->assertSame('dev_form_meta', $obj->getModelId());
         $this->assertSame(9, $obj->getId());
@@ -41,13 +48,20 @@ class DevFormMetaTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new DevFormMeta(array (  'meta_id' => 9,  'table_name' => 'acl_perm_allow',  'package_id' => NULL,  'form_type' => 'admin_add',  'action_id' => 'skip',  'text_domain' => NULL,));
+        $obj = new DevFormMeta([
+            'meta_id'     => 9,
+            'table_name'  => 'acl_perm_allow',
+            'package_id'  => null,
+            'form_type'   => 'admin_add',
+            'action_id'   => 'skip',
+            'text_domain' => null,
+        ]);
 
         $obj->save();
 
         /** @var DevFormMeta $obj */
         $obj = _model('dev_form_meta')
-            ->select()->where('meta_id=?',9)->first();
+            ->select()->where('meta_id=?', 9)->first();
 
         $this->assertSame('dev_form_meta', $obj->getModelId());
         $this->assertSame(9, $obj->getId());
@@ -61,12 +75,12 @@ class DevFormMetaTest extends \PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         _model('dev_form_meta')
-            ->delete()->where('meta_id=?',9)->execute();
+            ->delete()->where('meta_id=?', 9)->execute();
     }
 
     public static function tearDownAfterClass()
     {
         _model('dev_form_meta')
-            ->delete()->where('meta_id=?',9)->execute();
+            ->delete()->where('meta_id=?', 9)->execute();
     }
 }

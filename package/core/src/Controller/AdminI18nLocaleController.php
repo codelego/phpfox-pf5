@@ -9,7 +9,6 @@ use Neutron\Core\Model\I18nLocale;
 use Neutron\Core\Process\AdminAddEntryProcess;
 use Neutron\Core\Process\AdminEditEntryProcess;
 use Neutron\Core\Process\AdminManageEntryProcess;
-use Phpfox\Paging\Pagination;
 
 class AdminI18nLocaleController extends AdminController
 {
@@ -82,7 +81,7 @@ class AdminI18nLocaleController extends AdminController
             throw new \InvalidArgumentException('Invalid params "locale_id"');
         }
 
-        if(!$entry->isActive()){
+        if (!$entry->isActive()) {
             $entry->setActive(1);
             $entry->save();
         }

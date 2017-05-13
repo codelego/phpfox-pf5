@@ -1,18 +1,26 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class LayoutGridTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new LayoutGrid(array (  'grid_id' => 'simple',  'title' => 'Simple 1 column',  'sort_order' => 1,  'description' => 'Single column',  'locations' => '["main"]',));
+        $obj = new LayoutGrid([
+            'grid_id'     => 'simple',
+            'title'       => 'Simple 1 column',
+            'sort_order'  => 1,
+            'description' => 'Single column',
+            'locations'   => '["main"]',
+        ]);
 
         $this->assertSame('layout_grid', $obj->getModelId());
         $this->assertSame('simple', $obj->getGridId());
         $this->assertSame('Simple 1 column', $obj->getTitle());
         $this->assertSame(1, $obj->getSortOrder());
         $this->assertSame('Single column', $obj->getDescription());
-        $this->assertSame('["main"]', $obj->getLocations());    }
+        $this->assertSame('["main"]', $obj->getLocations());
+    }
 
     public function testParameters()
     {
@@ -30,34 +38,42 @@ class LayoutGridTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('Simple 1 column', $obj->getTitle());
         $this->assertSame(1, $obj->getSortOrder());
         $this->assertSame('Single column', $obj->getDescription());
-        $this->assertSame('["main"]', $obj->getLocations());    }
+        $this->assertSame('["main"]', $obj->getLocations());
+    }
 
     public function testSave()
     {
-        $obj = new LayoutGrid(array (  'grid_id' => 'simple',  'title' => 'Simple 1 column',  'sort_order' => 1,  'description' => 'Single column',  'locations' => '["main"]',));
+        $obj = new LayoutGrid([
+            'grid_id'     => 'simple',
+            'title'       => 'Simple 1 column',
+            'sort_order'  => 1,
+            'description' => 'Single column',
+            'locations'   => '["main"]',
+        ]);
 
         $obj->save();
 
         /** @var LayoutGrid $obj */
         $obj = _model('layout_grid')
-            ->select()->where('grid_id=?','simple')->first();
+            ->select()->where('grid_id=?', 'simple')->first();
 
         $this->assertSame('layout_grid', $obj->getModelId());
         $this->assertSame('simple', $obj->getGridId());
         $this->assertSame('Simple 1 column', $obj->getTitle());
         $this->assertSame(1, $obj->getSortOrder());
         $this->assertSame('Single column', $obj->getDescription());
-        $this->assertSame('["main"]', $obj->getLocations());    }
+        $this->assertSame('["main"]', $obj->getLocations());
+    }
 
     public static function setUpBeforeClass()
     {
         _model('layout_grid')
-            ->delete()->where('grid_id=?','simple')->execute();
+            ->delete()->where('grid_id=?', 'simple')->execute();
     }
 
     public static function tearDownAfterClass()
     {
         _model('layout_grid')
-            ->delete()->where('grid_id=?','simple')->execute();
+            ->delete()->where('grid_id=?', 'simple')->execute();
     }
 }

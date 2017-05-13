@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class CoreJobMessageTest extends \PHPUnit_Framework_TestCase
@@ -13,7 +14,8 @@ class CoreJobMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getData());
         $this->assertSame('', $obj->getExpiration());
         $this->assertSame('', $obj->getStatusId());
-        $this->assertSame('', $obj->getDeliveredAt());    }
+        $this->assertSame('', $obj->getDeliveredAt());
+    }
 
     public function testParameters()
     {
@@ -33,7 +35,8 @@ class CoreJobMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getData());
         $this->assertSame('', $obj->getExpiration());
         $this->assertSame('', $obj->getStatusId());
-        $this->assertSame('', $obj->getDeliveredAt());    }
+        $this->assertSame('', $obj->getDeliveredAt());
+    }
 
     public function testSave()
     {
@@ -43,7 +46,7 @@ class CoreJobMessageTest extends \PHPUnit_Framework_TestCase
 
         /** @var CoreJobMessage $obj */
         $obj = _model('core_job_message')
-            ->select()->where('id=?','')->first();
+            ->select()->where('id=?', '')->first();
 
         $this->assertSame('core_job_message', $obj->getModelId());
         $this->assertSame('', $obj->getId());
@@ -51,17 +54,18 @@ class CoreJobMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getData());
         $this->assertSame('', $obj->getExpiration());
         $this->assertSame('', $obj->getStatusId());
-        $this->assertSame('', $obj->getDeliveredAt());    }
+        $this->assertSame('', $obj->getDeliveredAt());
+    }
 
     public static function setUpBeforeClass()
     {
         _model('core_job_message')
-            ->delete()->where('id=?','')->execute();
+            ->delete()->where('id=?', '')->execute();
     }
 
     public static function tearDownAfterClass()
     {
         _model('core_job_message')
-            ->delete()->where('id=?','')->execute();
+            ->delete()->where('id=?', '')->execute();
     }
 }

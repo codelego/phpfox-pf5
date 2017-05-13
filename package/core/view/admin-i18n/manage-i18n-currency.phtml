@@ -1,4 +1,4 @@
-<?php $defaultValue = _param('core.default_currency_id')?>
+<?php $defaultValue = _param('core.default_currency_id') ?>
 <div class="panel panel-default">
     <div class="table-responsive">
         <table class="table table-admin">
@@ -18,7 +18,10 @@
                     <td class="dropdown" data-cmd="dropdown">
                         <ul>
                             <li><a href="<?= _url('admin.core.i18n.currency',
-                                    ['action' => 'default', 'currency_id' => $item->getId()]) ?>"><?= _text('Set Default') ?></li>
+                                    [
+                                        'action'      => 'default',
+                                        'currency_id' => $item->getId(),
+                                    ]) ?>"><?= _text('Set Default') ?></li>
                             <li><a data-cmd="modal" href="<?= _url('admin.core.i18n.currency',
                                     ['action' => 'edit', 'currency_id' => $item->getId()]) ?>"><?= _text('Edit') ?></li>
                         </ul>

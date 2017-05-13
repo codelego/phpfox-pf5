@@ -1,1 +1,7 @@
-<?php return array(0=>NULL,1=>array('container_id'=>1,'location_id'=>1,),2=>NULL,3=>array('container_id'=>1,'location_id'=>1,'params'=>1,),4=>array(),);
+<?php return [
+    0 => null,
+    1 => ['container_id' => 1, 'location_id' => 1,],
+    2 => null,
+    3 => ['container_id' => 1, 'location_id' => 1, 'params' => 1,],
+    4 => [],
+];

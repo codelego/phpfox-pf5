@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class CoreJobDriverTest extends \PHPUnit_Framework_TestCase
@@ -13,7 +14,8 @@ class CoreJobDriverTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getJsonConfigs());
         $this->assertSame('', $obj->isActive());
         $this->assertSame('', $obj->isDefault());
-        $this->assertSame('', $obj->isFallback());    }
+        $this->assertSame('', $obj->isFallback());
+    }
 
     public function testParameters()
     {
@@ -33,7 +35,8 @@ class CoreJobDriverTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getJsonConfigs());
         $this->assertSame('', $obj->isActive());
         $this->assertSame('', $obj->isDefault());
-        $this->assertSame('', $obj->isFallback());    }
+        $this->assertSame('', $obj->isFallback());
+    }
 
     public function testSave()
     {
@@ -43,7 +46,7 @@ class CoreJobDriverTest extends \PHPUnit_Framework_TestCase
 
         /** @var CoreJobDriver $obj */
         $obj = _model('core_job_driver')
-            ->select()->where('id=?','')->first();
+            ->select()->where('id=?', '')->first();
 
         $this->assertSame('core_job_driver', $obj->getModelId());
         $this->assertSame('', $obj->getId());
@@ -51,17 +54,18 @@ class CoreJobDriverTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getJsonConfigs());
         $this->assertSame('', $obj->isActive());
         $this->assertSame('', $obj->isDefault());
-        $this->assertSame('', $obj->isFallback());    }
+        $this->assertSame('', $obj->isFallback());
+    }
 
     public static function setUpBeforeClass()
     {
         _model('core_job_driver')
-            ->delete()->where('id=?','')->execute();
+            ->delete()->where('id=?', '')->execute();
     }
 
     public static function tearDownAfterClass()
     {
         _model('core_job_driver')
-            ->delete()->where('id=?','')->execute();
+            ->delete()->where('id=?', '')->execute();
     }
 }

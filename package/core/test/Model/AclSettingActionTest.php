@@ -1,11 +1,19 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class AclSettingActionTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new AclSettingAction(array (  'action_id' => 1,  'package_id' => 'core',  'group_id' => 'core',  'name' => 'can_clear_site_cache',  'sort_order' => 0,  'is_active' => 1,));
+        $obj = new AclSettingAction([
+            'action_id'  => 1,
+            'package_id' => 'core',
+            'group_id'   => 'core',
+            'name'       => 'can_clear_site_cache',
+            'sort_order' => 0,
+            'is_active'  => 1,
+        ]);
 
         $this->assertSame('acl_setting_action', $obj->getModelId());
         $this->assertSame(1, $obj->getActionId());
@@ -13,7 +21,8 @@ class AclSettingActionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('core', $obj->getGroupId());
         $this->assertSame('can_clear_site_cache', $obj->getName());
         $this->assertSame(0, $obj->getSortOrder());
-        $this->assertSame(1, $obj->isActive());    }
+        $this->assertSame(1, $obj->isActive());
+    }
 
     public function testParameters()
     {
@@ -33,17 +42,25 @@ class AclSettingActionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('core', $obj->getGroupId());
         $this->assertSame('can_clear_site_cache', $obj->getName());
         $this->assertSame(0, $obj->getSortOrder());
-        $this->assertSame(1, $obj->isActive());    }
+        $this->assertSame(1, $obj->isActive());
+    }
 
     public function testSave()
     {
-        $obj = new AclSettingAction(array (  'action_id' => 1,  'package_id' => 'core',  'group_id' => 'core',  'name' => 'can_clear_site_cache',  'sort_order' => 0,  'is_active' => 1,));
+        $obj = new AclSettingAction([
+            'action_id'  => 1,
+            'package_id' => 'core',
+            'group_id'   => 'core',
+            'name'       => 'can_clear_site_cache',
+            'sort_order' => 0,
+            'is_active'  => 1,
+        ]);
 
         $obj->save();
 
         /** @var AclSettingAction $obj */
         $obj = _model('acl_setting_action')
-            ->select()->where('action_id=?',1)->first();
+            ->select()->where('action_id=?', 1)->first();
 
         $this->assertSame('acl_setting_action', $obj->getModelId());
         $this->assertSame(1, $obj->getActionId());
@@ -51,17 +68,18 @@ class AclSettingActionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('core', $obj->getGroupId());
         $this->assertSame('can_clear_site_cache', $obj->getName());
         $this->assertSame(0, $obj->getSortOrder());
-        $this->assertSame(1, $obj->isActive());    }
+        $this->assertSame(1, $obj->isActive());
+    }
 
     public static function setUpBeforeClass()
     {
         _model('acl_setting_action')
-            ->delete()->where('action_id=?',1)->execute();
+            ->delete()->where('action_id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
         _model('acl_setting_action')
-            ->delete()->where('action_id=?',1)->execute();
+            ->delete()->where('action_id=?', 1)->execute();
     }
 }

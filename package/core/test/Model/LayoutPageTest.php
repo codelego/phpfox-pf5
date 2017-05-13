@@ -1,18 +1,26 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class LayoutPageTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new LayoutPage(array (  'page_id' => 1,  'action_id' => 'default',  'theme_id' => 'default',  'is_active' => 1,  'params' => '[]',));
+        $obj = new LayoutPage([
+            'page_id'   => 1,
+            'action_id' => 'default',
+            'theme_id'  => 'default',
+            'is_active' => 1,
+            'params'    => '[]',
+        ]);
 
         $this->assertSame('layout_page', $obj->getModelId());
         $this->assertSame(1, $obj->getPageId());
         $this->assertSame('default', $obj->getActionId());
         $this->assertSame('default', $obj->getThemeId());
         $this->assertSame(1, $obj->isActive());
-        $this->assertSame('[]', $obj->getParams());    }
+        $this->assertSame('[]', $obj->getParams());
+    }
 
     public function testParameters()
     {
@@ -30,34 +38,42 @@ class LayoutPageTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('default', $obj->getActionId());
         $this->assertSame('default', $obj->getThemeId());
         $this->assertSame(1, $obj->isActive());
-        $this->assertSame('[]', $obj->getParams());    }
+        $this->assertSame('[]', $obj->getParams());
+    }
 
     public function testSave()
     {
-        $obj = new LayoutPage(array (  'page_id' => 1,  'action_id' => 'default',  'theme_id' => 'default',  'is_active' => 1,  'params' => '[]',));
+        $obj = new LayoutPage([
+            'page_id'   => 1,
+            'action_id' => 'default',
+            'theme_id'  => 'default',
+            'is_active' => 1,
+            'params'    => '[]',
+        ]);
 
         $obj->save();
 
         /** @var LayoutPage $obj */
         $obj = _model('layout_page')
-            ->select()->where('page_id=?',1)->first();
+            ->select()->where('page_id=?', 1)->first();
 
         $this->assertSame('layout_page', $obj->getModelId());
         $this->assertSame(1, $obj->getPageId());
         $this->assertSame('default', $obj->getActionId());
         $this->assertSame('default', $obj->getThemeId());
         $this->assertSame(1, $obj->isActive());
-        $this->assertSame('[]', $obj->getParams());    }
+        $this->assertSame('[]', $obj->getParams());
+    }
 
     public static function setUpBeforeClass()
     {
         _model('layout_page')
-            ->delete()->where('page_id=?',1)->execute();
+            ->delete()->where('page_id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
         _model('layout_page')
-            ->delete()->where('page_id=?',1)->execute();
+            ->delete()->where('page_id=?', 1)->execute();
     }
 }

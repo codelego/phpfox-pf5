@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class StorageFileTest extends \PHPUnit_Framework_TestCase
@@ -14,7 +15,8 @@ class StorageFileTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getUserId());
         $this->assertSame('', $obj->getFileMime());
         $this->assertSame('', $obj->getPaths());
-        $this->assertSame('', $obj->getCreatedAt());    }
+        $this->assertSame('', $obj->getCreatedAt());
+    }
 
     public function testParameters()
     {
@@ -36,7 +38,8 @@ class StorageFileTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getUserId());
         $this->assertSame('', $obj->getFileMime());
         $this->assertSame('', $obj->getPaths());
-        $this->assertSame('', $obj->getCreatedAt());    }
+        $this->assertSame('', $obj->getCreatedAt());
+    }
 
     public function testSave()
     {
@@ -46,7 +49,7 @@ class StorageFileTest extends \PHPUnit_Framework_TestCase
 
         /** @var StorageFile $obj */
         $obj = _model('storage_file')
-            ->select()->where('file_id=?','')->first();
+            ->select()->where('file_id=?', '')->first();
 
         $this->assertSame('storage_file', $obj->getModelId());
         $this->assertSame('', $obj->getFileId());
@@ -55,17 +58,18 @@ class StorageFileTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getUserId());
         $this->assertSame('', $obj->getFileMime());
         $this->assertSame('', $obj->getPaths());
-        $this->assertSame('', $obj->getCreatedAt());    }
+        $this->assertSame('', $obj->getCreatedAt());
+    }
 
     public static function setUpBeforeClass()
     {
         _model('storage_file')
-            ->delete()->where('file_id=?','')->execute();
+            ->delete()->where('file_id=?', '')->execute();
     }
 
     public static function tearDownAfterClass()
     {
         _model('storage_file')
-            ->delete()->where('file_id=?','')->execute();
+            ->delete()->where('file_id=?', '')->execute();
     }
 }

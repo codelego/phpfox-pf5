@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class MailTemplateTest extends \PHPUnit_Framework_TestCase
@@ -12,7 +13,8 @@ class MailTemplateTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getLanguageId());
         $this->assertSame('', $obj->getCode());
         $this->assertSame('', $obj->getPackageId());
-        $this->assertSame('', $obj->getVars());    }
+        $this->assertSame('', $obj->getVars());
+    }
 
     public function testParameters()
     {
@@ -30,7 +32,8 @@ class MailTemplateTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getLanguageId());
         $this->assertSame('', $obj->getCode());
         $this->assertSame('', $obj->getPackageId());
-        $this->assertSame('', $obj->getVars());    }
+        $this->assertSame('', $obj->getVars());
+    }
 
     public function testSave()
     {
@@ -40,24 +43,25 @@ class MailTemplateTest extends \PHPUnit_Framework_TestCase
 
         /** @var MailTemplate $obj */
         $obj = _model('mail_template')
-            ->select()->where('id=?','')->first();
+            ->select()->where('id=?', '')->first();
 
         $this->assertSame('mail_template', $obj->getModelId());
         $this->assertSame('', $obj->getId());
         $this->assertSame('', $obj->getLanguageId());
         $this->assertSame('', $obj->getCode());
         $this->assertSame('', $obj->getPackageId());
-        $this->assertSame('', $obj->getVars());    }
+        $this->assertSame('', $obj->getVars());
+    }
 
     public static function setUpBeforeClass()
     {
         _model('mail_template')
-            ->delete()->where('id=?','')->execute();
+            ->delete()->where('id=?', '')->execute();
     }
 
     public static function tearDownAfterClass()
     {
         _model('mail_template')
-            ->delete()->where('id=?','')->execute();
+            ->delete()->where('id=?', '')->execute();
     }
 }

@@ -14,39 +14,39 @@ class SystemDriverSettings extends Form
         $this->setInfo(_text('[System Driver Settings Info]', 'admin.core_mail'));
 
         $this->addElement([
-            'factory'    => 'text',
-            'name'       => 'fromAddress',
-            'label'      => _text('From Address', 'admin'),
+            'factory'     => 'text',
+            'name'        => 'fromAddress',
+            'label'       => _text('From Address', 'admin'),
             'placeholder' => 'your@domain.com',
-            'value'      => '',
-            'required'   => true,
+            'value'       => '',
+            'required'    => true,
         ]);
 
         $this->addElement([
-            'name'       => 'fromName',
-            'factory'    => 'text',
-            'label'      => _text('From Name', 'admin'),
+            'name'        => 'fromName',
+            'factory'     => 'text',
+            'label'       => _text('From Name', 'admin'),
             'placeholder' => 'Admin',
-            'value'      => '',
-            'required'   => true,
+            'value'       => '',
+            'required'    => true,
         ]);
 
         $this->addElement([
-            'name'       => 'replyAddress',
-            'factory'    => 'text',
-            'label'      => _text('Reply To Address', 'admin'),
+            'name'        => 'replyAddress',
+            'factory'     => 'text',
+            'label'       => _text('Reply To Address', 'admin'),
             'placeholder' => 'no-reply@domain.com',
-            'value'      => '',
-            'required'   => true,
+            'value'       => '',
+            'required'    => true,
         ]);
 
         $this->addElement([
-            'name'       => 'replyName',
-            'factory'    => 'text',
-            'label'      => _text('Reply To Name', 'admin'),
+            'name'        => 'replyName',
+            'factory'     => 'text',
+            'label'       => _text('Reply To Name', 'admin'),
             'placeholder' => 'No-Reply',
-            'value'      => '',
-            'required'   => true,
+            'value'       => '',
+            'required'    => true,
         ]);
     }
 

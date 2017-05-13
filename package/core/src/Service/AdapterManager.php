@@ -36,7 +36,7 @@ class AdapterManager
 
         $formSettingClass = $coreDriver->getFormSettingsClass();
 
-        if (!class_exists($formSettingClass,true)) {
+        if (!class_exists($formSettingClass, true)) {
             throw new \Exception('Oop!, Can not find form edit settings ' . $formSettingClass);
         }
 

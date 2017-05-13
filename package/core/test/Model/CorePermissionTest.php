@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class CorePermissionTest extends \PHPUnit_Framework_TestCase
@@ -12,7 +13,8 @@ class CorePermissionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getRoleId());
         $this->assertSame('', $obj->getGroupName());
         $this->assertSame('', $obj->getActionName());
-        $this->assertSame('', $obj->getParams());    }
+        $this->assertSame('', $obj->getParams());
+    }
 
     public function testParameters()
     {
@@ -30,7 +32,8 @@ class CorePermissionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getRoleId());
         $this->assertSame('', $obj->getGroupName());
         $this->assertSame('', $obj->getActionName());
-        $this->assertSame('', $obj->getParams());    }
+        $this->assertSame('', $obj->getParams());
+    }
 
     public function testSave()
     {
@@ -40,24 +43,25 @@ class CorePermissionTest extends \PHPUnit_Framework_TestCase
 
         /** @var CorePermission $obj */
         $obj = _model('core_permission')
-            ->select()->where('id=?','')->first();
+            ->select()->where('id=?', '')->first();
 
         $this->assertSame('core_permission', $obj->getModelId());
         $this->assertSame('', $obj->getId());
         $this->assertSame('', $obj->getRoleId());
         $this->assertSame('', $obj->getGroupName());
         $this->assertSame('', $obj->getActionName());
-        $this->assertSame('', $obj->getParams());    }
+        $this->assertSame('', $obj->getParams());
+    }
 
     public static function setUpBeforeClass()
     {
         _model('core_permission')
-            ->delete()->where('id=?','')->execute();
+            ->delete()->where('id=?', '')->execute();
     }
 
     public static function tearDownAfterClass()
     {
         _model('core_permission')
-            ->delete()->where('id=?','')->execute();
+            ->delete()->where('id=?', '')->execute();
     }
 }
