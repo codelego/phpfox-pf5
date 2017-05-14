@@ -20,7 +20,7 @@ class ActionProvider implements ActionProviderInterface
     {
         $this->initialized = true;
 
-        $paths = _service('package.loader')->loadEnablePaths();
+        $paths = _get('package.loader')->loadEnablePaths();
 
         foreach ($paths as $path) {
 

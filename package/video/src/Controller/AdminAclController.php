@@ -9,13 +9,13 @@ class AdminAclController extends AdminController
 {
     protected function initialized()
     {
-        _service('html.title')
+        _get('html.title')
             ->set(_text('Videos'));
 
-        _service('breadcrumb')
+        _get('breadcrumb')
             ->set(['href' => _url('admin.video'), 'label' => _text('Videos')]);
 
-        _service('menu.admin.secondary')
+        _get('menu.admin.secondary')
             ->load('admin.video');
     }
 

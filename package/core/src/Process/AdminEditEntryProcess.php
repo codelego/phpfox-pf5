@@ -13,7 +13,7 @@ class AdminEditEntryProcess extends AbstractProcess
 
     public function process()
     {
-        $req = _service('request');
+        $req = _get('request');
 
         $idKey = $req->get($this->get('key'));
 

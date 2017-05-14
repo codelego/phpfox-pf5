@@ -28,7 +28,7 @@ class ProfileNameFilter
         }
 
 
-        $item = _service('user.browse')
+        $item = _get('user.browse')
             ->findByProfileName($name);
 
         if (!$item) {

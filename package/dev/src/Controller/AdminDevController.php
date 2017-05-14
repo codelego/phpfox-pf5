@@ -17,19 +17,19 @@ class AdminDevController extends AdminController
 
     protected function initialized()
     {
-        _service('breadcrumb')
+        _get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.mail'),
                 'label' => _text('Rapid Development Tools', 'admin'),
             ]);
 
-        _service('html.title')
+        _get('html.title')
             ->set(_text('Rapid Development Tools', 'admin'));
 
-        _service('menu.admin.secondary')
+        _get('menu.admin.secondary')
             ->load('admin.dev');
 
-        _service('menu.admin.buttons')
+        _get('menu.admin.buttons')
             ->load('admin.dev.buttons');
     }
 
@@ -52,14 +52,14 @@ class AdminDevController extends AdminController
 
     public function actionScan()
     {
-        _service('dev.code_generator')
+        _get('dev.code_generator')
             ->scans();
         _redirect('admin.dev');
     }
 
     public function actionIndex()
     {
-        $request = _service('request');
+        $request = _get('request');
         $filter = new FilterDevActionMeta([]);
 
         $filter->populate($request->all());
@@ -67,7 +67,7 @@ class AdminDevController extends AdminController
         $filterData = $filter->getData();
         $selected = [];
 
-        _service('registry')
+        _get('registry')
             ->set('search.filter', $filter);
 
         if ($request->isGet()) {
@@ -88,7 +88,7 @@ class AdminDevController extends AdminController
             }
 
             if (!empty($selected)) {
-                _service('dev.code_generator')->generateFromActionMetaIds($selected);
+                _get('dev.code_generator')->generateFromActionMetaIds($selected);
             }
 
 

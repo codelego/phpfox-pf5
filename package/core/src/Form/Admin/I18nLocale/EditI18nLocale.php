@@ -23,7 +23,7 @@ class EditI18nLocale extends Form
             'factory'   => 'select',
             'label'     => _text('Locale Id', null),
             'note'      => _text('[Locale Id Note]', null),
-            'options'   => _service('core.i18n')->getLocaleIdOptions(),
+            'options'   => _get('core.i18n')->getLocaleIdOptions(),
             'maxlength' => 255,
             'required'  => true,
         ]);
@@ -65,7 +65,7 @@ class EditI18nLocale extends Form
             'label'     => _text('Direction Id', null),
             'note'      => _text('[Direction Id Note]', null),
             'value'     => 'ltr',
-            'options'   => _service('core.i18n')->getDirectionIdOptions(),
+            'options'   => _get('core.i18n')->getDirectionIdOptions(),
             'maxlength' => 255,
             'required'  => true,
         ]);

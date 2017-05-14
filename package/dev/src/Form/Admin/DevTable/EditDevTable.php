@@ -19,7 +19,7 @@ class EditDevTable extends Form {
             $this->addElement(array ( 'name' => 'table_name', 'factory' => 'text', 'label' => _text('Table Name',null), 'info' => _text('[Table Name Info]', null), 'required' => '1', ));        
         
             /** element `package_id` **/
-            $this->addElement(array ( 'name' => 'package_id', 'factory' => 'select', 'label' => _text('Package Id',null), 'info' => _text('[Package Id Info]', null), 'value' => 'undefined', 'options' => _service('core.packages')->getPackageIdOptions(), 'required' => '1', ));        
+            $this->addElement(array ('name' => 'package_id', 'factory' => 'select', 'label' => _text('Package Id',null), 'info' => _text('[Package Id Info]', null), 'value' => 'undefined', 'options' => _get('core.packages')->getPackageIdOptions(), 'required' => '1', ));
         
             /** element `action_id` **/
             $this->addElement(array ( 'name' => 'action_id', 'factory' => 'text', 'label' => _text('Action Id',null), 'info' => _text('[Action Id Info]', null), 'value' => 'default', 'required' => '1', ));        

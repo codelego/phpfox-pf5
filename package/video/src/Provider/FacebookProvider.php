@@ -41,7 +41,7 @@ class FacebookProvider implements ProviderInterface
                 'fields'       => 'id,title,description,thumbnails,picture,length,captions,embed_html,embeddable',
             ]);
 
-        $info = _service('curl')->factory($endpoint)->getJSON();
+        $info = _get('curl')->factory($endpoint)->getJSON();
 
         if (empty($info['id'])) {
             throw new ParseException($info['error']['message']);

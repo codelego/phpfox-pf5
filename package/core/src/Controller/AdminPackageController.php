@@ -11,19 +11,19 @@ class AdminPackageController extends AdminController
 {
     protected function initialized()
     {
-        _service('breadcrumb')
+        _get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.package'),
                 'label' => _text('Packages', 'admin'),
             ]);
 
-        _service('html.title')
+        _get('html.title')
             ->set(_text('Packages', 'admin'));
 
-        _service('menu.admin.secondary')
+        _get('menu.admin.secondary')
             ->load('_core.package');
 
-        _service('menu.admin.buttons')
+        _get('menu.admin.buttons')
             ->load('_core.package.buttons');
     }
 
@@ -45,7 +45,7 @@ class AdminPackageController extends AdminController
 
     public function actionEnable()
     {
-        $request = _service('request');
+        $request = _get('request');
 
         /** @var CorePackage $corePackage */
         $corePackage = _find('core_package', $request->get('package_id'));
@@ -57,14 +57,14 @@ class AdminPackageController extends AdminController
         $corePackage->setActive(1);
         $corePackage->save();
 
-        _service('cache.local')->flush();
+        _get('cache.local')->flush();
 
         _redirect('admin.core.package');
     }
 
     public function actionDisable()
     {
-        $request = _service('request');
+        $request = _get('request');
 
         /** @var CorePackage $corePackage */
         $corePackage = _find('core_package', $request->get('package_id'));

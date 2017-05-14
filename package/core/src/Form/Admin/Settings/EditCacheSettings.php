@@ -16,7 +16,7 @@ class EditCacheSettings extends Form
             'factory'  => 'select',
             'name'     => 'core__default_cache_id',
             'value'    => '1',
-            'options'  => _service('core.cache')->getAdapterIdOptions(),
+            'options'  => _get('core.cache')->getAdapterIdOptions(),
             'label'    => _text('Default Cache Adapter', 'admin.core_cache'),
             'note'     => _text('[Default Cache Adapter Note]', 'admin.core_cache'),
             'required' => true,

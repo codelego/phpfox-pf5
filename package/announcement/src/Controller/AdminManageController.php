@@ -14,7 +14,7 @@ class AdminManageController extends AdminController
     {
         $form = new AddAnnouncement();
 
-        $request = _service('request');
+        $request = _get('request');
 
         if ($request->isGet()) {
 

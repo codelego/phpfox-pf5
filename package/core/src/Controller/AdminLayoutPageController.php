@@ -15,20 +15,20 @@ class AdminLayoutPageController extends AdminController
 {
     public function initialized()
     {
-        $editingThemeId = _service('layout_loader')
+        $editingThemeId = _get('layout_loader')
             ->getEditingThemeId();
 
-        _service('html.title')
+        _get('html.title')
             ->set(_text('Layout Editor', 'admin'));
 
-        _service('breadcrumb')
+        _get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.layout'),
                 'label' => _text('Layout Editor {0}', 'admin', null,
                     [$editingThemeId]),
             ]);
 
-        _service('menu.admin.secondary')
+        _get('menu.admin.secondary')
             ->load('admin.core.layout');
 
     }
@@ -36,7 +36,7 @@ class AdminLayoutPageController extends AdminController
     protected function postDispatch($action)
     {
         if (in_array($action, ['index'])) {
-            _service('menu.admin.buttons')
+            _get('menu.admin.buttons')
                 ->load('admin.core.layout.page.buttons');
         }
     }
@@ -76,11 +76,11 @@ class AdminLayoutPageController extends AdminController
     public function actionDesign()
     {
 
-        $request = _service('request');
+        $request = _get('request');
         $actionId = $request->get('action_id');
         $themeId = $request->get('theme_id', 'default');
 
-        $layoutService = _service('layout_loader');
+        $layoutService = _get('layout_loader');
 
         $pageId = $layoutService->findPageIdForEdit($actionId, $themeId);
 
@@ -88,13 +88,13 @@ class AdminLayoutPageController extends AdminController
 
 
         if (!$layoutContent) {
-            _service('response')
+            _get('response')
                 ->redirect(_url('admin.core.layout.action',
                     ['action' => 'clone-page', 'action_id' => $actionId, 'theme_id' => $themeId]));
         }
 
 
-        _service('menu.admin.buttons')
+        _get('menu.admin.buttons')
             ->add([
                 'label' => 'Add Container',
                 'extra' => [
@@ -105,7 +105,7 @@ class AdminLayoutPageController extends AdminController
                 ],
             ]);
 
-        _service('require_js')
+        _get('require_js')
             ->deps('package/core/layout-editor');
 
         return new ViewModel(['layoutPage' => $layoutContent,],
@@ -115,18 +115,18 @@ class AdminLayoutPageController extends AdminController
 
     public function actionClone()
     {
-        $request = _service('request');
+        $request = _get('request');
         $actionId = $request->get('action_id');
         $themeId = $request->get('theme_id');
         $confirmed = $request->get('confirmed', false);
-        $layoutService = _service('layout_loader');
+        $layoutService = _get('layout_loader');
         $parentPageId = $layoutService->findPageIdForRender($actionId, $themeId);
         /** @var LayoutPage $parentPage */
         $parentPage = _model('layout_page')->findById($parentPageId);
 
         if ($confirmed) {
             $layoutService->clonePage($actionId, $themeId);
-            _service('response')
+            _get('response')
                 ->redirect(_url('admin.core.layout.design-page', ['action_id' => $actionId]));
         }
 

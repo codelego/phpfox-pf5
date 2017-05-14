@@ -69,7 +69,7 @@ class StorageManager
      */
     public function getDriverIdOptions()
     {
-        return _service('core.adapter')
+        return _get('core.adapter')
             ->getDriverIdOptions(self::DRIVER_TYPE);
     }
 

@@ -24,7 +24,7 @@ class FilterI18nMessage extends Form
             'factory' => 'select',
             'label'   => _text('Package Id', null),
             'value'   => 'core',
-            'options' => _service('core.packages')->getPackageIdOptions(),
+            'options' => _get('core.packages')->getPackageIdOptions(),
         ]);
 
         /** element `locale_id` **/
@@ -32,7 +32,7 @@ class FilterI18nMessage extends Form
             'name'    => 'locale_id',
             'factory' => 'select',
             'label'   => _text('Locale Id', null),
-            'options' => _service('core.i18n')->getDirectionIdOptions(),
+            'options' => _get('core.i18n')->getDirectionIdOptions(),
         ]);
 
         /** element `domain_id` **/

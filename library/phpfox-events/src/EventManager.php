@@ -51,7 +51,7 @@ class EventManager
         try {
             foreach ($this->events[$name] as $key) {
 
-                $result = _service($key)->{$name}($event);
+                $result = _get($key)->{$name}($event);
 
                 $response->push($result);
 
@@ -61,7 +61,7 @@ class EventManager
             }
 
         } catch (\Exception $exception) {
-            _service('main.log')->error($exception->getMessage());
+            _get('main.log')->error($exception->getMessage());
         }
 
         return $response;
@@ -80,7 +80,7 @@ class EventManager
             return null;
         }
 
-        return _service($this->events[0])->{$name}(new Event($name,
+        return _get($this->events[0])->{$name}(new Event($name,
             $target,
             $params));
     }
@@ -96,7 +96,7 @@ class EventManager
             return false;
         }
         $this->initialized = true;
-        $this->events = _service('mvc.events.loader')->load();
+        $this->events = _get('mvc.events.loader')->load();
 
         return true;
     }

@@ -81,7 +81,7 @@ class VerifyTokenManager
      */
     public function clean()
     {
-        _service('db')->delete(':user_verify_token')
+        _get('db')->delete(':user_verify_token')
             ->where('expires_at<?', date('Y-m-d H:i:s', time()))->execute();
 
         return true;

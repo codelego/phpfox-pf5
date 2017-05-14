@@ -182,7 +182,7 @@ class Container
     public function render()
     {
         $data = [];
-        $layouts = _service('layouts');
+        $layouts = _get('layouts');
 
         foreach ($this->locations as $locationId => $location) {
             $data[$locationId] = '';

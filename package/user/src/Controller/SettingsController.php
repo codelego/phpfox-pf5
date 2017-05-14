@@ -20,10 +20,10 @@ class SettingsController extends ActionController
 
     public function actionLoginHistory()
     {
-        $userId = _service('auth')->getLoginId();
+        $userId = _get('auth')->getLoginId();
 
 
-        $items = _service('user.auth_history')
+        $items = _get('user.auth_history')
             ->getByUserId($userId);
 
         return new ViewModel([

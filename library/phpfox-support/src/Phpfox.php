@@ -54,9 +54,9 @@ namespace {
 
         public static function bootstrap()
         {
-            _service('error.handler')->register();
+            _get('error.handler')->register();
 
-            _service('mvc.events')->initialize();
+            _get('mvc.events')->initialize();
         }
     }
 }

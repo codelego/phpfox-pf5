@@ -16,28 +16,28 @@ class AdminI18nMessageController extends AdminController
 
     protected function initialized()
     {
-        _service('breadcrumb')
+        _get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.i18n'),
                 'label' => _text('International', 'admin'),
             ]);
 
-        _service('html.title')
+        _get('html.title')
             ->set(_text('International', 'admin'));
 
-        _service('menu.admin.secondary')->load('admin.core.i18n');
+        _get('menu.admin.secondary')->load('admin.core.i18n');
     }
 
     protected function postDispatch($action)
     {
         if (in_array($action, ['index'])) {
-            _service('menu.admin.buttons')->load('admin.core.i18n.message.buttons');
+            _get('menu.admin.buttons')->load('admin.core.i18n.message.buttons');
         }
     }
 
     public function actionIndex()
     {
-        _service('require_js')
+        _get('require_js')
             ->deps('package/core/admin-i18n');
 
         return (new AdminManageEntryProcess([

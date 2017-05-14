@@ -13,13 +13,13 @@ class AdminDepartmentController extends AdminController
 
     protected function initialized()
     {
-        _service('breadcrumb')
+        _get('breadcrumb')
             ->set(['label' => _text('Contact Us'), 'href' => _url('admin.contact.department')]);
 
-        _service('html.title')
+        _get('html.title')
             ->set(_text('Contact Us'));
 
-        _service('menu.admin.secondary')
+        _get('menu.admin.secondary')
             ->load('admin.contact_us');
     }
 
@@ -38,10 +38,10 @@ class AdminDepartmentController extends AdminController
 
     public function actionEdit()
     {
-        $request = _service('request');
+        $request = _get('request');
         $departmentId = $request->get('department_id');
 
-        $item = _service('contact_us')
+        $item = _get('contact_us')
             ->findDepartmentById($departmentId);
 
         $form = new EditContactDepartment([]);
@@ -67,7 +67,7 @@ class AdminDepartmentController extends AdminController
 
     public function actionAdd()
     {
-        $request = _service('request');
+        $request = _get('request');
 
         $form = new EditContactDepartment([]);
 

@@ -16,7 +16,7 @@ class DevSettings extends Form
             'factory'  => 'select',
             'name'     => 'dev__default_package_id',
             'value'    => 'core',
-            'options'  => _service('core.packages')->getPackageIdOptions(),
+            'options'  => _get('core.packages')->getPackageIdOptions(),
             'label'    => "Default Package ID",
             'note'     => "Development for current package.",
             'required' => true,

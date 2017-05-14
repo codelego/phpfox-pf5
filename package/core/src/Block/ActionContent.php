@@ -9,7 +9,7 @@ class ActionContent extends Component
 {
     public function run()
     {
-        $data = _service('response')->getData();
+        $data = _get('response')->getData();
 
         if (is_string($data)) {
             return $data;

@@ -9,13 +9,13 @@ class AdminPollController extends AdminController
 
     protected function initialized()
     {
-        _service('html.title')
+        _get('html.title')
             ->set(_text('Polls'));
 
-        _service('breadcrumb')
+        _get('breadcrumb')
             ->set(['href' => _url('admin.poll'), 'label' => _text('Polls')]);
 
-        _service('menu.admin.secondary')
+        _get('menu.admin.secondary')
             ->load('admin.poll');
     }
 

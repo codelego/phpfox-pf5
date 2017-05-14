@@ -56,7 +56,7 @@ class Navigation
         $this->menu = $menu;
 
         if ($this->menu) {
-            $this->data = _service('navigation.loader')->load($menu);
+            $this->data = _get('navigation.loader')->load($menu);
         }
         return $this;
     }

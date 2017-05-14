@@ -17,10 +17,10 @@ class AdminUserController extends AdminController
     protected function initialized()
     {
 
-        _service('breadcrumb')
+        _get('breadcrumb')
             ->set(['href' => _url('admin.user'), 'label' => _text('Members', 'admin')]);
 
-        _service('html.title')
+        _get('html.title')
             ->set(_text('Members', 'admin'));
     }
 

@@ -26,7 +26,7 @@ class AdminCategoryControllerTest extends \PHPUnit_Framework_TestCase
             'method' => 'get',
         ]);
 
-        _service('manager')
+        _get('manager')
             ->set('request', $request);
 
         $obj = new AdminCategoryController();
@@ -46,7 +46,7 @@ class AdminCategoryControllerTest extends \PHPUnit_Framework_TestCase
             'is_active'   => 0,
         ]);
 
-        _service('manager')
+        _get('manager')
             ->set('request', $request);
 
         $obj = new AdminCategoryController();

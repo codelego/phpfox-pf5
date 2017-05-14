@@ -8,11 +8,11 @@ class VerifyEmailController extends ActionController
 {
     public function actionIndex()
     {
-        $request = _service('request');
+        $request = _get('request');
         $tokenId = $request->get('token');
 
-        $verifyService = _service('user.verify_email');
-        $browseService = _service('user.browse');
+        $verifyService = _get('user.verify_email');
+        $browseService = _get('user.browse');
 
         $token = $verifyService->findById($tokenId);
 

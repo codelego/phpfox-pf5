@@ -191,7 +191,7 @@ class Request
      */
     public function singleton()
     {
-        _service('manager')->set('request', $this);
+        _get('manager')->set('request', $this);
     }
 
     public function isAjax()

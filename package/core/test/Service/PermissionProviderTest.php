@@ -11,7 +11,7 @@ class PermissionProviderTest extends \PHPUnit_Framework_TestCase
     {
 
         // clear cache
-        _service('cache.local')
+        _get('cache.local')
             ->deleteItem('permission_provider.1');
 
         $obj = new PermissionProvider();
@@ -25,7 +25,7 @@ class PermissionProviderTest extends \PHPUnit_Framework_TestCase
     {
 
         // clear cache
-        _service('cache.local')
+        _get('cache.local')
             ->deleteItem('permission_provider.2');
 
         $obj = new PermissionProvider();
@@ -39,7 +39,7 @@ class PermissionProviderTest extends \PHPUnit_Framework_TestCase
     {
 
         // clear cache
-        _service('cache.local')
+        _get('cache.local')
             ->deleteItem('permission_provider.5');
 
         $obj = new PermissionProvider();
@@ -53,7 +53,7 @@ class PermissionProviderTest extends \PHPUnit_Framework_TestCase
     {
 
         // clear cache
-        _service('cache.local')
+        _get('cache.local')
             ->deleteItem('permission_provider.6');
 
         $obj = new PermissionProvider();
@@ -67,7 +67,7 @@ class PermissionProviderTest extends \PHPUnit_Framework_TestCase
     {
 
         // clear cache
-        _service('cache.local')
+        _get('cache.local')
             ->deleteItem('permission_provider.7');
 
         $obj = new PermissionProvider();
@@ -81,7 +81,7 @@ class PermissionProviderTest extends \PHPUnit_Framework_TestCase
     {
 
         // clear cache
-        _service('cache.local')
+        _get('cache.local')
             ->deleteItem('permission_provider.-1');
 
         $obj = new PermissionProvider();

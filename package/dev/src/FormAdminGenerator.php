@@ -139,7 +139,7 @@ class FormAdminGenerator extends AbstractGenerator
             'formTitle'        => $formTitle,
         ], $this->template))->render();
 
-        _service('core.i18n')->insertDomainMessages($messageContainer->all(), $this->packageId, '');
+        _get('core.i18n')->insertDomainMessages($messageContainer->all(), $this->packageId, '');
 
         $this->putContents($formClassPath, $formCode);
     }

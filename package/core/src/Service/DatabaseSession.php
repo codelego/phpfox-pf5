@@ -25,7 +25,7 @@ class DatabaseSession implements SessionInterface, \SessionHandlerInterface
 
     public function destroy($session_id)
     {
-        _service('db')
+        _get('db')
             ->delete(':session', ['id=?' => (string)$session_id])
             ->execute();
         return true;
@@ -34,7 +34,7 @@ class DatabaseSession implements SessionInterface, \SessionHandlerInterface
 
     public function gc($maxlifetime)
     {
-        _service('db')->delete(':session',
+        _get('db')->delete(':session',
             new SqlLiteral('lifetime + modified < ' . $maxlifetime));
 
         return true;
@@ -50,7 +50,7 @@ class DatabaseSession implements SessionInterface, \SessionHandlerInterface
 
     public function read($session_id)
     {
-        $row = _service('db')->select('*')->from(':session')
+        $row = _get('db')->select('*')->from(':session')
             ->where('id=?', $session_id)->first();
 
         if (!$row) {
@@ -66,7 +66,7 @@ class DatabaseSession implements SessionInterface, \SessionHandlerInterface
 
     public function write($session_id, $session_data)
     {
-        $db = _service('db');
+        $db = _get('db');
         $exists = $db->select('id')->from(':session')
                 ->where('id=?', $session_id)
                 ->execute()

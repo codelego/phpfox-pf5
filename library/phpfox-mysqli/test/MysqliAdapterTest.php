@@ -65,7 +65,7 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase
      */
     public function getAdapter()
     {
-        return _service('db');
+        return _get('db');
     }
 
     public function testSqlSelect()
@@ -98,7 +98,7 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testPackages()
     {
-        $result = _service('db')->select()->from(':core_package')->select('*')
+        $result = _get('db')->select()->from(':core_package')->select('*')
             ->where('is_active=?', 1)->order('is_core', 1)->order('priority', 1)
             ->execute();
 

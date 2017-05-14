@@ -12,9 +12,9 @@ class ProviderManagerTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
     {
-        _service('db')->delete(':video_provider')->execute();
+        _get('db')->delete(':video_provider')->execute();
 
-        _service('db')->insert(':video_provider', [
+        _get('db')->insert(':video_provider', [
             'provider_id'    => 'facebook',
             'name'           => 'Facebook',
             'form_name'      => '[example form name]',
@@ -23,7 +23,7 @@ class ProviderManagerTest extends \PHPUnit_Framework_TestCase
             'params'         => '',
             'provider_class' => FacebookProvider::class,
         ])->execute();
-        _service('db')->insert(':video_provider', [
+        _get('db')->insert(':video_provider', [
             'provider_id'    => 'vimeo',
             'name'           => 'Vimeo',
             'form_name'      => '[example form name]',
@@ -32,7 +32,7 @@ class ProviderManagerTest extends \PHPUnit_Framework_TestCase
             'params'         => '',
             'provider_class' => VimeoProvider::class,
         ])->execute();
-        _service('db')->insert(':video_provider', [
+        _get('db')->insert(':video_provider', [
             'provider_id'    => 'upload',
             'name'           => 'Upload',
             'form_name'      => '[example form name]',
@@ -41,7 +41,7 @@ class ProviderManagerTest extends \PHPUnit_Framework_TestCase
             'params'         => '',
             'provider_class' => UploadProvider::class,
         ])->execute();
-        _service('db')->insert(':video_provider', [
+        _get('db')->insert(':video_provider', [
             'provider_id'    => 'youtube',
             'name'           => 'YouTube',
             'form_name'      => '[example form name]',

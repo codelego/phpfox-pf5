@@ -9,16 +9,16 @@ class AdminI18nSettingsController extends AdminController
 {
     protected function initialized()
     {
-        _service('breadcrumb')
+        _get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.i18n'),
                 'label' => _text('International', 'admin'),
             ]);
 
-        _service('html.title')
+        _get('html.title')
             ->set(_text('International', 'admin'));
 
-        _service('menu.admin.secondary')->load('admin.core.i18n');
+        _get('menu.admin.secondary')->load('admin.core.i18n');
     }
 
     public function actionIndex()

@@ -11,7 +11,7 @@ class NavigationLoader implements NavigationLoaderInterface
 
     public function loadFromRepository($menu)
     {
-        $select = _service('db')
+        $select = _get('db')
             ->select('*')
             ->from(':core_menu')
             ->where('menu=?', trim($menu))

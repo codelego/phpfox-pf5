@@ -83,7 +83,7 @@ if (!$shouldGenerate) {
     /**
      * load extension package
      */
-    $packageLoader = _service('package.loader');
+    $packageLoader = _get('package.loader');
 
     $paths = $packageLoader->loadEnablePaths();
 
@@ -91,7 +91,7 @@ if (!$shouldGenerate) {
 
 
     $autoloadConfigs = array_merge($autoloadConfigs,
-        _service('package.loader')->loadAutoloadConfigs());
+        _get('package.loader')->loadAutoloadConfigs());
 
 
     _autoload_psr4($autoloader, $autoloadConfigs);

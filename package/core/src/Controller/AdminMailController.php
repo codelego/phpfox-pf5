@@ -18,19 +18,19 @@ class AdminMailController extends AdminController
 
     protected function initialized()
     {
-        _service('breadcrumb')
+        _get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.mail'),
                 'label' => _text('Mail Settings', 'menu'),
             ]);
 
-        _service('html.title')
+        _get('html.title')
             ->set(_text('Mail Settings', 'menu'));
 
-        _service('menu.admin.secondary')
+        _get('menu.admin.secondary')
             ->load('admin.core.mail');
 
-        _service('menu.admin.buttons')
+        _get('menu.admin.buttons')
             ->load('admin.core.mail.buttons');
     }
 
@@ -57,7 +57,7 @@ class AdminMailController extends AdminController
 
     public function actionAdd()
     {
-        $request = _service('request');
+        $request = _get('request');
         $driverName = $request->get('driver_id');
 
         if (!$driverName) {
@@ -72,10 +72,10 @@ class AdminMailController extends AdminController
 
     public function actionConfig()
     {
-        $request = _service('request');
+        $request = _get('request');
         $driverId = $request->get('driver_id', 'local');
 
-        $form = _service('core.adapter')
+        $form = _get('core.adapter')
             ->getEditingForm($driverId, self::DRIVER_TYPE);
 
         if ($request->isGet()) {
@@ -106,13 +106,13 @@ class AdminMailController extends AdminController
 
     public function actionEdit()
     {
-        $request = _service('request');
+        $request = _get('request');
         $adapterId = $request->get('adapter_id');
 
         /** @var CoreAdapter $adapterEntry */
         $adapterEntry = _model('core_adapter')->findById($adapterId);
 
-        $form = _service('core.adapter')
+        $form = _get('core.adapter')
             ->getEditingForm($adapterEntry->getDriverId(), self::DRIVER_TYPE);
 
 
@@ -135,7 +135,7 @@ class AdminMailController extends AdminController
 
     public function actionTest()
     {
-        $req = _service('request');
+        $req = _get('request');
         $adapterId = $req->get('adapter_id');
 
         /** @var CoreAdapter $adapterEntry */
@@ -160,7 +160,7 @@ class AdminMailController extends AdminController
                 'bodyAlt' => $data['message'],
             ];
 
-            list($result, $message) = _service('mailer')
+            list($result, $message) = _get('mailer')
                 ->test($adapterEntry->getDriverId(), $params, $testEmail);
 
             if (!$result) {
@@ -179,7 +179,7 @@ class AdminMailController extends AdminController
      */
     public function actionDefault()
     {
-        $request = _service('request');
+        $request = _get('request');
         $identity = $request->get('adapter_id');
 
         /** @var CoreAdapter $entry */
@@ -194,9 +194,9 @@ class AdminMailController extends AdminController
             $entry->save();
         }
 
-        _service('core.setting')->updateValue('core.default_mailer_id', $identity);
+        _get('core.setting')->updateValue('core.default_mailer_id', $identity);
 
-        _service('cache.local')->flush();
+        _get('cache.local')->flush();
 
         _redirect('admin.core.mail.adapter');
     }

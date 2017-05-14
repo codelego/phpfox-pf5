@@ -40,7 +40,7 @@ class AddLayoutBlock extends Form
             'name'     => 'component_id',
             'label'    => _text('Component'),
             'required' => true,
-            'options'  => _service('layout_loader')->getComponentIdOptions(),
+            'options'  => _get('layout_loader')->getComponentIdOptions(),
         ]);
 
         /** elements */

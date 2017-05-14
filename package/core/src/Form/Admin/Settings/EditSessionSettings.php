@@ -53,7 +53,7 @@ class EditSessionSettings extends Form
             'label'    => _text('Session Type', 'admin.core_session_setting'),
             'info'     => _text('[Session Type Info]', 'admin.core_session_setting'),
             'value'    => 'files',
-            'options'  => _service('core.adapter')->getAdapterIdOptions('session'),
+            'options'  => _get('core.adapter')->getAdapterIdOptions('session'),
             'required' => '1',
         ]);
         /** end elements **/

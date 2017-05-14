@@ -64,7 +64,7 @@ class AdminManageSiteSettingsProcess extends AbstractProcess
 
     public function process()
     {
-        $request = _service('request');
+        $request = _get('request');
         $settingGroupId = $this->get('setting_group');
 
         if (!$settingGroupId) {
@@ -91,7 +91,7 @@ class AdminManageSiteSettingsProcess extends AbstractProcess
 
         if ($request->isGet()) {
 
-            $data = _service('core.setting')->getForEdit($this->getSettingGroups($form));
+            $data = _get('core.setting')->getForEdit($this->getSettingGroups($form));
 
             $form->populate($data);
 
@@ -102,11 +102,11 @@ class AdminManageSiteSettingsProcess extends AbstractProcess
 
             $data = $this->getPostData($form);
 
-            _service('core.setting')->updateGroupValues($data);
+            _get('core.setting')->updateGroupValues($data);
 
             $form->postSave();
 
-            _service('cache.local')->flush();
+            _get('cache.local')->flush();
         }
 
         $vm = new ViewModel(['form' => $form], 'layout/form-edit');

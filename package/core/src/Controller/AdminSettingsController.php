@@ -8,10 +8,10 @@ class AdminSettingsController extends AdminController
 {
     protected function initialized()
     {
-        _service('html.title')
+        _get('html.title')
             ->set(_text('Manage Settings', 'admin'));
 
-        _service('breadcrumb')
+        _get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.settings'),
                 'label' => _text('Manage Settings', 'admin'),

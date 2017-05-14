@@ -15,17 +15,17 @@ class PermissionProvider implements PermissionProviderInterface
      */
     public function _load($roleId)
     {
-        $role = _service('core.roles')
+        $role = _get('core.roles')
             ->findById((int)$roleId);
 
         if (empty($role)) {
             $roleId = PHPFOX_GUEST_ID;
 
-            $role = _service('core.roles')
+            $role = _get('core.roles')
                 ->findById($roleId);
         }
 
-        $items = _service('db')->select('*')
+        $items = _get('db')->select('*')
             ->from(':acl_setting_value')
             ->where('role_id=?', $roleId)
             ->execute()

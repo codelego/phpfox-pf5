@@ -15,22 +15,22 @@ class AdminLogController extends AdminController
 
     protected function initialized()
     {
-        _service('breadcrumb')
+        _get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.log'),
                 'label' => _text('Log Settings', 'menu'),
             ]);
 
-        _service('html.title')
+        _get('html.title')
             ->set(_text('Log Settings', 'menu'));
 
-        _service('menu.admin.secondary')
+        _get('menu.admin.secondary')
             ->load('admin.core.log');
     }
 
     protected function postDispatch($action)
     {
-        _service('menu.admin.buttons')
+        _get('menu.admin.buttons')
             ->load('admin.core.log.buttons');
     }
 
@@ -64,7 +64,7 @@ class AdminLogController extends AdminController
 
     public function actionAdd()
     {
-        $request = _service('request');
+        $request = _get('request');
         $containerId = $request->get('container_id');
         $driverId = $request->get('driver_id');
 
@@ -85,10 +85,10 @@ class AdminLogController extends AdminController
 
     public function actionConfig()
     {
-        $request = _service('request');
+        $request = _get('request');
         $driverId = $request->get('driver_id', 'local');
 
-        $form = _service('core.adapter')
+        $form = _get('core.adapter')
             ->getEditingForm($driverId, 'log');
 
         if ($request->isGet()) {
@@ -120,14 +120,14 @@ class AdminLogController extends AdminController
 
     public function actionEdit()
     {
-        $request = _service('request');
+        $request = _get('request');
         $adapterId = $request->get('adapter_id');
 
         /** @var CoreAdapter $adapterEntry */
         $adapterEntry = _model('log_adapter')
             ->findById($adapterId);
 
-        $form = _service('core.adapter')
+        $form = _get('core.adapter')
             ->getEditingForm($adapterEntry->getDriverId(), self::DRIVER_TYPE);
 
         if ($request->isGet()) {

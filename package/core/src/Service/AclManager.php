@@ -30,7 +30,7 @@ class AclManager
 
     public function findRoleIdOptions($typeId)
     {
-        _service('core.roles')->getSettingGroupIdOptions();
+        _get('core.roles')->getSettingGroupIdOptions();
 
     }
 }

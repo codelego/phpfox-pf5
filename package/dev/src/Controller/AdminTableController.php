@@ -14,19 +14,19 @@ class AdminTableController extends AdminController
 {
     protected function initialized()
     {
-        _service('breadcrumb')
+        _get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.mail'),
                 'label' => _text('Rapid Development Tools', 'admin'),
             ]);
 
-        _service('html.title')
+        _get('html.title')
             ->set(_text('Rapid Development Tools', 'admin'));
 
-        _service('menu.admin.secondary')
+        _get('menu.admin.secondary')
             ->load('admin.dev');
 
-        _service('menu.admin.buttons')
+        _get('menu.admin.buttons')
             ->load('_dev.table.buttons');
     }
 
@@ -35,7 +35,7 @@ class AdminTableController extends AdminController
         $select = _model('dev_table')
             ->select();
 
-        $request = _service('request');
+        $request = _get('request');
         $tableName = $request->get('table_name');
         $packageId = $request->get('package_id');
 
@@ -75,7 +75,7 @@ class AdminTableController extends AdminController
 
     public function actionDelete()
     {
-        $request = _service('request');
+        $request = _get('request');
         $identity = $request->get('table_name');
 
         $devTable = _model('dev_table')->findById($identity);

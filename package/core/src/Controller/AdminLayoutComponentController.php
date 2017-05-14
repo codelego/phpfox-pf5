@@ -13,20 +13,20 @@ class AdminLayoutComponentController extends AdminController
 {
     public function initialized()
     {
-        $editingThemeId = _service('layout_loader')
+        $editingThemeId = _get('layout_loader')
             ->getEditingThemeId();
 
-        _service('html.title')
+        _get('html.title')
             ->set(_text('Layout Editor', 'admin'));
 
-        _service('breadcrumb')
+        _get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.layout'),
                 'label' => _text('Layout Editor {0}', 'admin', null,
                     [$editingThemeId]),
             ]);
 
-        _service('menu.admin.secondary')
+        _get('menu.admin.secondary')
             ->load('admin.core.layout');
 
     }
@@ -34,7 +34,7 @@ class AdminLayoutComponentController extends AdminController
     protected function postDispatch($action)
     {
         if (in_array($action, ['index'])) {
-            _service('menu.admin.buttons')->load('admin.core.layout.component.buttons');
+            _get('menu.admin.buttons')->load('admin.core.layout.component.buttons');
         }
     }
 

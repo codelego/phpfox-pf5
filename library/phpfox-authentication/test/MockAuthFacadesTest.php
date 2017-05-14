@@ -8,19 +8,19 @@ class AuthFacadesTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _service('manager')->set('auth.factory', new MockAuthFactory());
+        _get('manager')->set('auth.factory', new MockAuthFactory());
     }
 
     public static function tearDownAfterClass()
     {
-        _service('manager')->set('auth.factory', null);
+        _get('manager')->set('auth.factory', null);
     }
 
     public function testBase()
     {
         $auth = new AuthFacades();
 
-        $this->assertTrue(_service('auth.factory') instanceof
+        $this->assertTrue(_get('auth.factory') instanceof
             MockAuthFactory);
 
 

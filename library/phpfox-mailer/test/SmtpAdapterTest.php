@@ -29,7 +29,7 @@ class SmtpAdapterTest extends \PHPUnit_Framework_TestCase
      */
     public function testTestMailMethod($params)
     {
-        $result = _service('mailer')
+        $result = _get('mailer')
             ->test('smtp', $params, [
                 'to'      => [['namnv@younetco.com', 'Nam Nguyen']],
                 'from'    => ['nam.ngvan@gmail.com', 'nam nguyen'],

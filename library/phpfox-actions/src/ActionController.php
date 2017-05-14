@@ -55,6 +55,6 @@ class ActionController
      */
     public function forward($controller, $action)
     {
-        return _service('dispatcher')->forward($controller, $action);
+        return _get('dispatcher')->forward($controller, $action);
     }
 }

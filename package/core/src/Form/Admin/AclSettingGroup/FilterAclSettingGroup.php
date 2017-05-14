@@ -23,7 +23,7 @@ class FilterAclSettingGroup extends Form
             'name'    => 'group_id',
             'factory' => 'select',
             'label'   => _text('Group Id', null),
-            'options' => _service('core.roles')->getSettingGroupIdOptions(),
+            'options' => _get('core.roles')->getSettingGroupIdOptions(),
         ]);
 
         /** element `package_id` **/
@@ -31,7 +31,7 @@ class FilterAclSettingGroup extends Form
             'name'    => 'package_id',
             'factory' => 'select',
             'label'   => _text('Package Id', null),
-            'options' => _service('core.packages')->getPackageIdOptions(),
+            'options' => _get('core.packages')->getPackageIdOptions(),
         ]);
         /** end elements **/
 

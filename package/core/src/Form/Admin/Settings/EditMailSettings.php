@@ -17,7 +17,7 @@ class EditMailSettings extends Form
             'factory'  => 'select',
             'label'    => _text('Default Adapter', 'core_mail'),
             'info'     => _text('[Default Adapter Info]', 'core_mail'),
-            'options'  => _service('core.mails')->getAdapterIdOptions(),
+            'options'  => _get('core.mails')->getAdapterIdOptions(),
             'required' => true,
         ]);
 

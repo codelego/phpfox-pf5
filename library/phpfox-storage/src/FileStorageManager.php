@@ -34,7 +34,7 @@ class FileStorageManager implements FileStorageManagerInterface
 
         return isset($this->container[$id])
             ? $this->container[$id]
-            : $this->container[$id] = _service('storage.factory')
+            : $this->container[$id] = _get('storage.factory')
                 ->factory($id);
     }
 

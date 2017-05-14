@@ -22,7 +22,7 @@ class AuthFacades
      */
     public function __construct()
     {
-        _service('auth.storage')->initialize($this);
+        _get('auth.storage')->initialize($this);
     }
 
     protected function initialize()
@@ -40,7 +40,7 @@ class AuthFacades
      */
     public function authenticate($id, $identity, $credential, $extra)
     {
-        return _service('auth.factory')->factory($id)
+        return _get('auth.factory')->factory($id)
             ->authenticate($identity, $credential, $extra);
     }
 
@@ -75,20 +75,20 @@ class AuthFacades
             $userId = $user->getId();
         }
 
-        _service('auth.storage')
+        _get('auth.storage')
             ->remember($loginId, $userType, $userId, $remember);
     }
 
     protected function forgot()
     {
-        _service('auth.storage')->forgot();
+        _get('auth.storage')->forgot();
     }
 
     public function logout()
     {
         $this->user = null;
         $this->loginUser = null;
-        _service('auth.storage')->forgot();
+        _get('auth.storage')->forgot();
     }
 
     /**

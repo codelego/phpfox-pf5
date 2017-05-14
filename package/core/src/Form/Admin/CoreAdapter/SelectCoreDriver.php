@@ -35,7 +35,7 @@ class SelectCoreDriver extends Form
         /** start elements **/
 
         /** @var array $options */
-        $options = _service('core.adapter')->getDriverIdOptions($this->getDriverType());
+        $options = _get('core.adapter')->getDriverIdOptions($this->getDriverType());
 
         if (!empty($options)) {
             $defaultValue = $options[0]['value'];

@@ -11,7 +11,7 @@ class AdminAddEntryProcess extends AbstractProcess
 {
     public function process()
     {
-        $request = _service('request');
+        $request = _get('request');
 
         /** @var Form $form */
         $form = (new \ReflectionClass($this->get('form')))->newInstanceArgs([]);

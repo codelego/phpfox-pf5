@@ -46,7 +46,7 @@ class EditAmazonS3DriverSettings extends Form
             'label'     => _text('Amazon Region', 'admin.core_storage'),
             'note'      => _text('[Amazon Region Note]', 'admin.core_storage'),
             'maxlength' => 500,
-            'options'   => _service('core.storage')->getS3RegionIdOptions(),
+            'options'   => _get('core.storage')->getS3RegionIdOptions(),
             'required'  => true,
         ]);
 
@@ -84,7 +84,7 @@ class EditAmazonS3DriverSettings extends Form
             'value'    => 0,
             'label'    => _text('Is Active', 'admin.core_storage'),
             'info'     => _text('[Is Active Info]', 'admin.core_storage'),
-            'options'  => _service('core.storage')->getActiveIdOptions(),
+            'options'  => _get('core.storage')->getActiveIdOptions(),
             'required' => true,
         ]);
 

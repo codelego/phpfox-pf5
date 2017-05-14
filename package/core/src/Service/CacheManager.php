@@ -15,7 +15,7 @@ class CacheManager
      */
     public function getAdapterIdOptions()
     {
-        return _service('core.adapter')
+        return _get('core.adapter')
             ->getAdapterIdOptions(self::DRIVER_TYPE);
     }
 }

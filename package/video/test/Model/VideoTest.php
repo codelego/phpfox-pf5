@@ -124,7 +124,7 @@ class VideoTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        _service('db')->delete(':video')
+        _get('db')->delete(':video')
             ->where('title=?', '[title]')
             ->where('created_at=?', '2017-01-18 08:56:34')
             ->execute();
@@ -132,7 +132,7 @@ class VideoTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _service('db')->delete(':video')
+        _get('db')->delete(':video')
             ->where('title=?', '[title]')
             ->where('created_at=?', '2017-01-18 08:56:34')
             ->where('title=?', '[title]')

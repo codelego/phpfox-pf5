@@ -8,7 +8,7 @@ class CodeGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testSitSettingGroups()
     {
-        $result  = _service('dev.code_generator')
+        $result  = _get('dev.code_generator')
             ->getSiteSettingForm();
 
         _dump($result);

@@ -16,7 +16,7 @@ class EditStorageSettings extends Form
             'factory'  => 'select',
             'name'     => 'core__default_storage_id',
             'value'    => '1',
-            'options'  => _service('core.storage')->getAdapterIdOptions(),
+            'options'  => _get('core.storage')->getAdapterIdOptions(),
             'label'    => _text('Default Storage', 'admin'),
             'note'     => _text('[Default Storage Note]', 'admin'),
             'required' => true,

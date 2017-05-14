@@ -12,23 +12,23 @@ class AdminStorageController extends AdminController
 {
     protected function initialized()
     {
-        _service('html.title')
+        _get('html.title')
             ->set(_text('Storage System', 'admin'));
 
-        _service('breadcrumb')
+        _get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.storage'),
                 'label' => _text('Storage System', 'admin'),
             ]);
 
-        _service('menu.admin.secondary')
+        _get('menu.admin.secondary')
             ->load('admin.core.storage');
     }
 
     protected function postDispatch($action)
     {
         if (in_array($action, ['index'])) {
-            _service('menu.admin.buttons')
+            _get('menu.admin.buttons')
                 ->load('admin.core.storage.buttons');
         }
     }
@@ -52,7 +52,7 @@ class AdminStorageController extends AdminController
 
     public function actionAdd()
     {
-        $request = _service('request');
+        $request = _get('request');
 
         $form = new SelectCoreDriver(['driverType' => 'storage']);
 
@@ -76,10 +76,10 @@ class AdminStorageController extends AdminController
 
     public function actionConfig()
     {
-        $request = _service('request');
+        $request = _get('request');
         $driverId = $request->get('driver_id', 'local');
 
-        $form = _service('core.adapter')
+        $form = _get('core.adapter')
             ->getEditingForm($driverId, 'storage');
 
         if ($request->isGet()) {
@@ -111,13 +111,13 @@ class AdminStorageController extends AdminController
 
     public function actionEdit()
     {
-        $request = _service('request');
+        $request = _get('request');
         $adapterId = $request->get('adapter_id');
 
         /** @var StorageAdapter $adapterEntry */
         $adapterEntry = _model('storage_adapter')->findById($adapterId);
 
-        $form = _service('core.adapter')
+        $form = _get('core.adapter')
             ->getEditingForm($adapterEntry->getDriverId(), 'storage');
 
         if ($request->isGet()) {
@@ -143,7 +143,7 @@ class AdminStorageController extends AdminController
 
     public function actionDefault()
     {
-        $identity = _service('request')
+        $identity = _get('request')
             ->get('adapter_id');
 
         /** @var StorageAdapter $entry */
@@ -158,9 +158,9 @@ class AdminStorageController extends AdminController
             $entry->save();
         }
 
-        _service('core.setting')->updateValue('core.default_storage_id', $identity);
+        _get('core.setting')->updateValue('core.default_storage_id', $identity);
 
-        _service('cache.local')->flush();
+        _get('cache.local')->flush();
 
         _redirect('admin.core.storage.adapter');
     }

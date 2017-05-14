@@ -12,7 +12,7 @@ class AdminManageEntryProcess extends AbstractProcess
 {
     function process()
     {
-        $request = _service('request');
+        $request = _get('request');
 
         if ($this->get('filter')) {
             /** @var Form $filter */
@@ -20,7 +20,7 @@ class AdminManageEntryProcess extends AbstractProcess
 
             $filter->populate($_GET);
 
-            _service('registry')
+            _get('registry')
                 ->set('search.filter', $filter);
         }
 
@@ -39,7 +39,7 @@ class AdminManageEntryProcess extends AbstractProcess
 
         }
 
-        $items = _service('pagination')
+        $items = _get('pagination')
             ->factory($select)
             ->setLimit($this->get('limit', $request->get('limit', 10)))
             ->setPageNumber($this->get('page', $request->get('page', 1)))

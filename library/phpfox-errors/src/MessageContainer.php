@@ -98,6 +98,6 @@ class MessageContainer
             return '';
         }
 
-        return _service('error_formater')->format($this, $type);
+        return _get('error_formater')->format($this, $type);
     }
 }

@@ -14,22 +14,22 @@ class AdminI18nTimezoneController extends AdminController
 {
     protected function initialized()
     {
-        _service('breadcrumb')
+        _get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.i18n'),
                 'label' => _text('International', 'admin'),
             ]);
 
-        _service('html.title')
+        _get('html.title')
             ->set(_text('International', 'admin'));
 
-        _service('menu.admin.secondary')->load('admin.core.i18n');
+        _get('menu.admin.secondary')->load('admin.core.i18n');
     }
 
     protected function postDispatch($action)
     {
         if (in_array($action, ['index'])) {
-            _service('menu.admin.buttons')->load('admin.core.i18n.timezone.buttons');
+            _get('menu.admin.buttons')->load('admin.core.i18n.timezone.buttons');
         }
     }
 
@@ -64,7 +64,7 @@ class AdminI18nTimezoneController extends AdminController
 
     public function actionDefault()
     {
-        $identity = _service('request')
+        $identity = _get('request')
             ->get('timezone_id');
 
         /** @var I18nTimezone $entry */
@@ -79,9 +79,9 @@ class AdminI18nTimezoneController extends AdminController
             $entry->save();
         }
 
-        _service('core.setting')->updateValue('core.default_timezone_id', $identity);
+        _get('core.setting')->updateValue('core.default_timezone_id', $identity);
 
-        _service('cache.local')->flush();
+        _get('cache.local')->flush();
 
         _redirect('admin.core.i18n.timezone');
     }

@@ -64,7 +64,7 @@ class AsideDecorator extends AbstractDecorator
         if (!empty($params)) {
             foreach ($params as $k => $v) {
                 if (substr($v, 0, 1) == '$') {
-                    $params[$k] = _service('request')->get(substr($v, 1));
+                    $params[$k] = _get('request')->get(substr($v, 1));
                 }
             }
         }

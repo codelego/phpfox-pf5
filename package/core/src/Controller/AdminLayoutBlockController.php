@@ -13,13 +13,13 @@ class AdminLayoutBlockController extends AdminController
 {
     protected function initialized()
     {
-        _service('menu.admin.secondary')
+        _get('menu.admin.secondary')
             ->load('admin.core.layout');
     }
 
     public function actionAdd()
     {
-        $request = _service('request');
+        $request = _get('request');
         $locationId = $request->get('location_id');
         $containerId = $request->get('container_id');
 
@@ -53,7 +53,7 @@ class AdminLayoutBlockController extends AdminController
 
             $entry->save();
 
-            _service('cache.local')->flush();
+            _get('cache.local')->flush();
 
             _redirect('admin.core.layout.page', [
                 'action'    => 'design',
@@ -69,7 +69,7 @@ class AdminLayoutBlockController extends AdminController
 
     public function actionEdit()
     {
-        $request = _service('request');
+        $request = _get('request');
         $id = $request->get('id');
 
         $form = new EditLayoutBlock([]);
@@ -93,7 +93,7 @@ class AdminLayoutBlockController extends AdminController
 
     public function actionEnable()
     {
-        $request = _service('request');
+        $request = _get('request');
         $blockId = $request->get('block_id');
 
         /** @var LayoutBlock $block */
@@ -107,7 +107,7 @@ class AdminLayoutBlockController extends AdminController
         $block->setActive(1);
         $block->save();
 
-        _service('cache.local')->flush();
+        _get('cache.local')->flush();
 
         _redirect('admin.core.layout.page', [
             'action'    => 'design',
@@ -117,7 +117,7 @@ class AdminLayoutBlockController extends AdminController
 
     public function actionSettings()
     {
-        $request = _service('request');
+        $request = _get('request');
         $blockId = $request->get('block_id');
 
         /** @var LayoutBlock $block */
@@ -131,7 +131,7 @@ class AdminLayoutBlockController extends AdminController
         $block->setActive(1);
         $block->save();
 
-        _service('cache.local')->flush();
+        _get('cache.local')->flush();
 
         _redirect('admin.core.layout.page', [
             'action'    => 'design',
@@ -141,7 +141,7 @@ class AdminLayoutBlockController extends AdminController
 
     public function actionDisable()
     {
-        $request = _service('request');
+        $request = _get('request');
         $blockId = $request->get('block_id');
 
         /** @var LayoutBlock $block */
@@ -155,7 +155,7 @@ class AdminLayoutBlockController extends AdminController
         $block->setActive(0);
         $block->save();
 
-        _service('cache.local')->flush();
+        _get('cache.local')->flush();
 
         _redirect('admin.core.layout.action.page', [
             'action'    => 'design',
@@ -166,7 +166,7 @@ class AdminLayoutBlockController extends AdminController
 
     public function actionDelete()
     {
-        $request = _service('request');
+        $request = _get('request');
         $blockId = $request->get('block_id');
 
         /** @var LayoutBlock $block */
@@ -178,7 +178,7 @@ class AdminLayoutBlockController extends AdminController
 
         $block->delete();
 
-        _service('cache.local')->flush();
+        _get('cache.local')->flush();
 
         _redirect('admin.core.layout.action.page', [
             'action'    => 'design',

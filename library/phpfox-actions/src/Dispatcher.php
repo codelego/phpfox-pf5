@@ -81,8 +81,8 @@ class Dispatcher
         $runCounter = 0;
         $lastResult = null;
 
-        $mvcRequest = _service('request');
-        $router = _service('router');
+        $mvcRequest = _get('request');
+        $router = _get('router');
 
         $parameters = $router->run($mvcRequest->getPath(),
             $mvcRequest->getHost(),
@@ -103,7 +103,7 @@ class Dispatcher
             try {
                 $this->completed = true;
 
-                $class = _service('controller.provider')
+                $class = _get('controller.provider')
                     ->get($this->controller);
 
                 if (null == $class || !class_exists($class)) {
@@ -124,7 +124,7 @@ class Dispatcher
                     continue;
                 }
 
-                _service('response')
+                _get('response')
                     ->setData($lastResult)
                     ->terminate();
 

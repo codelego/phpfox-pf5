@@ -7,7 +7,7 @@ class FileNameSupportTest extends \PHPUnit_Framework_TestCase
 {
     public function testMethods()
     {
-        $fileName = _service('storage.file_name');
+        $fileName = _get('storage.file_name');
         $this->assertEquals('.txt', $fileName->getExtension('\ext\test.txt'));
         $this->assertEquals('.txt', $fileName->getExtension('/ext/test.txt'));
         $this->assertEquals('', $fileName->getExtension('/ext/test'));

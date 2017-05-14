@@ -12,13 +12,13 @@ class AdminLayoutContainerController extends AdminController
 {
     protected function initialized()
     {
-        _service('menu.admin.secondary')
+        _get('menu.admin.secondary')
             ->load('admin.core.layout');
     }
 
     public function actionEdit()
     {
-        $request = _service('request');
+        $request = _get('request');
         $id = $request->get('container_id');
 
         /** @var LayoutContainer $container */
@@ -38,7 +38,7 @@ class AdminLayoutContainerController extends AdminController
 
             $container->save();
 
-            _service('cache.local')->flush();
+            _get('cache.local')->flush();
 
             _redirect('admin.core.layout.page', [
                 'action'    => 'design',
@@ -53,9 +53,9 @@ class AdminLayoutContainerController extends AdminController
 
     public function actionAdd()
     {
-        $request = _service('request');
+        $request = _get('request');
         $pageId = $request->get('page_id');
-        $page = _service('layout_loader')->findPageById($pageId);
+        $page = _get('layout_loader')->findPageById($pageId);
 
         $form = new AddLayoutContainer(['pageId' => $pageId,]);
 
@@ -82,7 +82,7 @@ class AdminLayoutContainerController extends AdminController
 
     public function actionToggle()
     {
-        $request = _service('request');
+        $request = _get('request');
         $containerId = $request->get('container_id');
 
         /** @var LayoutContainer $container */
@@ -96,7 +96,7 @@ class AdminLayoutContainerController extends AdminController
         $container->setActive($container->isActive() ? 0 : 1);
         $container->save();
 
-        _service('cache.local')->flush();
+        _get('cache.local')->flush();
 
         _redirect('admin.core.layout.page', [
             'action'    => 'design',
@@ -106,7 +106,7 @@ class AdminLayoutContainerController extends AdminController
 
     public function actionDelete()
     {
-        $request = _service('request');
+        $request = _get('request');
         $containerId = $request->get('container_id');
 
         /** @var LayoutContainer $container */
@@ -117,10 +117,10 @@ class AdminLayoutContainerController extends AdminController
         $page = _model('layout_page')
             ->findById($container->getPageId());
 
-        _service('layout_loader')->deleteContainers([$containerId]);
+        _get('layout_loader')->deleteContainers([$containerId]);
 
 
-        _service('cache.local')->flush();
+        _get('cache.local')->flush();
 
         _redirect('admin.core.layout.page', [
             'action'    => 'design',

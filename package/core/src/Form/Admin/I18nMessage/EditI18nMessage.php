@@ -25,7 +25,7 @@ class EditI18nMessage extends Form
             'label'     => _text('Package Id', null),
             'note'      => _text('[Package Id Note]', null),
             'value'     => 'core',
-            'options'   => _service('core.packages')->getPackageIdOptions(),
+            'options'   => _get('core.packages')->getPackageIdOptions(),
             'maxlength' => 255,
             'required'  => true,
         ]);
@@ -36,7 +36,7 @@ class EditI18nMessage extends Form
             'factory'   => 'select',
             'label'     => _text('Locale Id', null),
             'note'      => _text('[Locale Id Note]', null),
-            'options'   => _service('core.i18n')->getLocaleIdOptions(),
+            'options'   => _get('core.i18n')->getLocaleIdOptions(),
             'maxlength' => 255,
             'required'  => true,
         ]);

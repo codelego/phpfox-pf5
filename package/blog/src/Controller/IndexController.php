@@ -21,7 +21,7 @@ class IndexController extends ActionController
     {
         $form = new AddBlogPost();
 
-        $request = _service('request');
+        $request = _get('request');
 
         if ($request->isPost() and $form->isValid($request->all())) {
             $data = $form->getData();

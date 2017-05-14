@@ -8,7 +8,7 @@ class AdminIndexController extends AdminController
 {
     protected function initialized()
     {
-        _service('html.title')
+        _get('html.title')
             ->set(_text('Dashboard', 'admin'));
 
     }
@@ -18,7 +18,7 @@ class AdminIndexController extends AdminController
      */
     public function actionIndex()
     {
-        _service('layouts')
+        _get('layouts')
             ->setPageName('core/admin-index/index');
 
         return new ViewModel([

@@ -15,7 +15,7 @@ class AdapterManagerTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetDriverIdOptions()
     {
-        $contents = _service('core.adapter')
+        $contents = _get('core.adapter')
             ->getDriverIdOptions('cache');
 
         $this->assertNotEmpty($contents);
@@ -23,7 +23,7 @@ class AdapterManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testFindFormObject()
     {
-        $form = _service('core.adapter')
+        $form = _get('core.adapter')
             ->getEditingForm('files', 'cache');
 
         $this->assertTrue($form instanceof Form);

@@ -8,8 +8,8 @@ class EventListener implements EventListenerInterface
 {
     public function onBootstrap()
     {
-        _service('template')
-            ->preferThemes(_service('core.themes')->preferThemes());
+        _get('template')
+            ->preferThemes(_get('core.themes')->preferThemes());
 
         return [];
     }

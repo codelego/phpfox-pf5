@@ -93,7 +93,7 @@ class AuthByPasswordTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _service('db')->delete(':user')
+        _get('db')->delete(':user')
             ->where('email=?', 'code.unitest@example.com')
             ->execute();
 
@@ -128,7 +128,7 @@ class AuthByPasswordTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        _service('db')->delete(':user')
+        _get('db')->delete(':user')
             ->where('email=?', 'code.unitest@example.com')
             ->execute();
 

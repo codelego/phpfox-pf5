@@ -54,7 +54,7 @@ class FilterLayoutAction extends Form
             'name'      => 'package_id',
             'factory'   => 'select',
             'label'     => _text('Package', null),
-            'options'   => _service('core.packages')->getPackageIdOptions(),
+            'options'   => _get('core.packages')->getPackageIdOptions(),
             'maxlength' => 255,
         ]);
 

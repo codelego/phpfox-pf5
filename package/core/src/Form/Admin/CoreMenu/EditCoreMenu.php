@@ -65,7 +65,7 @@ class EditCoreMenu extends Form
             'factory'   => 'select',
             'label'     => _text('Package Id', null),
             'note'      => _text('[Package Id Note]', null),
-            'options'   => _service('core.packages')->getPackageIdOptions(),
+            'options'   => _get('core.packages')->getPackageIdOptions(),
             'maxlength' => 255,
             'required'  => true,
         ]);

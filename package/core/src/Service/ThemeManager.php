@@ -83,12 +83,12 @@ class ThemeManager
                 [$id]));
         }
 
-        _service('db')
+        _get('db')
             ->update(':layout_theme')
             ->values(['is_editing' => 0])
             ->execute();
 
-        _service('db')
+        _get('db')
             ->update(':layout_theme')
             ->values([
                 'is_editing' => 1,
@@ -114,12 +114,12 @@ class ThemeManager
                 [$id]));
         }
 
-        _service('db')
+        _get('db')
             ->update(':layout_theme')
             ->values(['is_default' => 0])
             ->execute();
 
-        _service('db')
+        _get('db')
             ->update(':layout_theme')
             ->values([
                 'is_default' => 1,
@@ -145,7 +145,7 @@ class ThemeManager
                 [$id]));
         }
 
-        _service('db')
+        _get('db')
             ->update(':layout_theme')
             ->values([
                 'is_active' => 1,
@@ -168,7 +168,7 @@ class ThemeManager
                 [$id]));
         }
 
-        _service('db')
+        _get('db')
             ->update(':layout_theme', ['is_active' => 0,])
             ->where('theme_id=?', $id)
             ->where('is_default=?', 0)
@@ -242,7 +242,7 @@ class ThemeManager
      */
     private function updateCache()
     {
-        _service('cache.local')
+        _get('cache.local')
             ->deleteItems([
                 self::PREFER_THEME_CACHE,
                 self::PREFER_THEME_URL_CACHE,
@@ -356,7 +356,7 @@ class ThemeManager
      */
     public function getCssBaseUrl()
     {
-        return _service('cache.local')
+        return _get('cache.local')
             ->load(self::PREFER_THEME_URL_CACHE, 0, function () {
                 $theme = $this->getDefault();
                 return '/pf5/static/' . 'themes/' . $theme->getId() . '/css';
@@ -427,7 +427,7 @@ class ThemeManager
     {
 
         $variables = [];
-        $item = _service('db')
+        $item = _get('db')
             ->select('*')
             ->from(':layout_theme_params')
             ->where('theme_id=?', (string)$id)

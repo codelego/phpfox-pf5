@@ -53,7 +53,7 @@ class SystemAdapter extends AbstractAdapter
             $msg = _sprintf('System mail send failed \\n{0} \\n{1}', [
                 $this->getErrors(),
             ]);
-            _service('main.log')->error($msg);
+            _get('main.log')->error($msg);
             if ($this->isDebug()) {
                 throw new MailException($msg);
             }

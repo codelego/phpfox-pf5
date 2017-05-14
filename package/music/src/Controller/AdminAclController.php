@@ -8,13 +8,13 @@ class AdminAclController extends AdminController
 {
     protected function initialized()
     {
-        _service('html.title')
+        _get('html.title')
             ->set(_text('Music'));
 
-        _service('breadcrumb')
+        _get('breadcrumb')
             ->set(['href' => _url('admin.music'), 'label' => _text('Music')]);
 
-        _service('menu.admin.secondary')->load('admin.music');
+        _get('menu.admin.secondary')->load('admin.music');
 
     }
 

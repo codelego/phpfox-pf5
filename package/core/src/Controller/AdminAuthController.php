@@ -9,39 +9,39 @@ class AdminAuthController extends ActionController
 
     public function actionLogin()
     {
-        _service('auth');
+        _get('auth');
 
-        _service('layouts')->setThemeId('admin');
+        _get('layouts')->setThemeId('admin');
 
-        _service('require_js')
+        _get('require_js')
             ->deps('package/core/admin');
 
-        _service('template')
+        _get('template')
             ->preferThemes(['admin']);
 
-        _service('assets')
+        _get('assets')
             ->addStyle('admin.login', null);
 
-        _service('layouts')
+        _get('layouts')
             ->setTemplate('layout/login');
 
-        $request = _service('request');
+        $request = _get('request');
 
         if ($request->isPost()) {
             $email = $request->get('email');
             $password = $request->get('password');
 
-            $result = _service('auth')
+            $result = _get('auth')
                 ->authenticate(null, $email, $password, []);
 
             if ($result->isValid()) {
                 $user = _find('user', $result->getIdentity());
-                _service('auth')->login($user, true);
+                _get('auth')->login($user, true);
 
                 _redirect('admin');
 
             } else {
-                _service('layouts')->assign([
+                _get('layouts')->assign([
                     'message' => $result->getMessage(),
                 ]);
             }

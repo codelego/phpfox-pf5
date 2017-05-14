@@ -15,13 +15,13 @@ class AdminItemController extends AdminController
 {
     protected function initialized()
     {
-        _service('breadcrumb')
+        _get('breadcrumb')
             ->set([
                 'href'  => _url('admin.report'),
                 'label' => _text('Reports'),
             ]);
 
-        _service('menu.admin.secondary')->load('admin.report');
+        _get('menu.admin.secondary')->load('admin.report');
 
     }
 

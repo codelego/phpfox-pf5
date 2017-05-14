@@ -7,7 +7,7 @@ class AdminMailTemplateController extends AdminController
 {
     protected function initialized()
     {
-        _service('menu.admin.secondary')
+        _get('menu.admin.secondary')
             ->load('admin.core.mail');
     }
 
@@ -15,7 +15,7 @@ class AdminMailTemplateController extends AdminController
     {
         switch ($action) {
             case 'index':
-                _service('menu.admin.buttons')
+                _get('menu.admin.buttons')
                     ->load('admin.core.mail.template.buttons');
         }
     }

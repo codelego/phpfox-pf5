@@ -15,7 +15,7 @@ class AdminCategoryController extends AdminController
 {
     protected function initialized()
     {
-        _service('breadcrumb')
+        _get('breadcrumb')
             ->set([
                 'href'  => _url('admin.report'),
                 'label' => _text('Reports'),
@@ -24,7 +24,7 @@ class AdminCategoryController extends AdminController
                 'label' => _text('Categories'),
             ]);
 
-        _service('menu.admin.secondary')->load('admin.report');
+        _get('menu.admin.secondary')->load('admin.report');
     }
 
     public function actionIndex()

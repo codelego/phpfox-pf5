@@ -8,13 +8,13 @@ class AdminSettingsController extends AdminController
 {
     protected function initialized()
     {
-        _service('html.title')
+        _get('html.title')
             ->set(_text('Groups'));
 
-        _service('breadcrumb')
+        _get('breadcrumb')
             ->set(['href' => _url('admin.group'), 'label' => _text('Groups')]);
 
-        _service('menu.admin.secondary')->load('admin.group');
+        _get('menu.admin.secondary')->load('admin.group');
 
     }
 

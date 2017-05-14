@@ -9,7 +9,7 @@ class AdminLayoutThemeController extends AdminController
 {
     protected function initialized()
     {
-        _service('menu.admin.secondary')
+        _get('menu.admin.secondary')
             ->load('admin.core.layout');
     }
 
@@ -18,7 +18,7 @@ class AdminLayoutThemeController extends AdminController
      */
     public function actionIndex()
     {
-        $request = _service('request');
+        $request = _get('request');
 
         $cmd = $request->get('cmd');
         $themeId = $request->get('theme_id');
@@ -27,30 +27,30 @@ class AdminLayoutThemeController extends AdminController
             if ($themeId and $cmd) {
                 switch ($cmd) {
                     case 'default':
-                        _service('core.themes')
+                        _get('core.themes')
                             ->setDefault($themeId);
                         break;
                     case 'editing':
-                        _service('core.themes')
+                        _get('core.themes')
                             ->setEditing($themeId);
                         break;
                     case 'active':
-                        _service('core.themes')
+                        _get('core.themes')
                             ->setActive($themeId);
                         break;
                     case 'inactive':
-                        _service('core.themes')
+                        _get('core.themes')
                             ->setInactive($themeId);
                         break;
                     case 'rebuild-main':
-                        _service('core.themes')
+                        _get('core.themes')
                             ->rebuildMain($themeId);
                         break;
                     case 'rebuild-files':
-                        _service('core.themes')
+                        _get('core.themes')
                             ->rebuildFiles($themeId);
                 }
-                _service('response')
+                _get('response')
                     ->redirect(_url('admin.core.layout.theme', []));
             }
         } catch (\Exception $ex) {
@@ -73,12 +73,12 @@ class AdminLayoutThemeController extends AdminController
     public function actionEdit()
     {
         $form = new ThemeEditor();
-        $request = _service('request');
+        $request = _get('request');
         $id = $request->get('id');
 
 
         $params = [];
-        $custom = _service('core.themes')
+        $custom = _get('core.themes')
             ->findSettingByThemeId($id);
 
         if ($custom) {
@@ -94,18 +94,18 @@ class AdminLayoutThemeController extends AdminController
 
     public function actionDebug()
     {
-        $request = _service('request');
+        $request = _get('request');
         $id = $request->get('id');
-        $theme = _service('core.themes')
+        $theme = _get('core.themes')
             ->findById($id);
 
         if (!$id) {
             $id = 'default';
-            $theme = _service('core.themes')
+            $theme = _get('core.themes')
                 ->findById($id);
         }
 
-        $themes = _service('core.themes');
+        $themes = _get('core.themes');
 
         $tempFiles = $themes->getRebuildFiles($theme->getId());
         $main = $themes->getMainSource();

@@ -18,7 +18,7 @@ namespace {
      *
      * @return mixed
      */
-    function _service($name)
+    function _get($name)
     {
         return \Phpfox::$service->get($name);
     }
@@ -187,7 +187,7 @@ namespace {
      */
     function _emit($name, $target = null, $argv = [])
     {
-        return _service('mvc.events')
+        return _get('mvc.events')
             ->emit($name, $target, $argv);
     }
 
@@ -200,7 +200,7 @@ namespace {
      */
     function _callback($name, $target = null, $argv = [])
     {
-        return _service('mvc.event')
+        return _get('mvc.event')
             ->callback($name, $target, $argv);
     }
 
@@ -223,7 +223,7 @@ namespace {
         if (substr($table, 0, 1) == ':') {
             $table = PHPFOX_TABLE_PREFIX . substr($table, 1);
         }
-        $rows = _service('db')
+        $rows = _get('db')
             ->execute('describe ' . $table)
             ->all();
 
@@ -616,7 +616,7 @@ namespace {
      */
     function _url($key, $params = [])
     {
-        return _service('router')->getUrl($key, $params);
+        return _get('router')->getUrl($key, $params);
     }
 
     /**
@@ -629,7 +629,7 @@ namespace {
      */
     function _text($id, $domain = null, $locale = null, $context = null)
     {
-        return _service('translator')
+        return _get('translator')
             ->trans($id, $domain, $locale, $context);
     }
 

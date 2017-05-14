@@ -17,20 +17,20 @@ class AdminAclController extends AdminController
 {
     protected function initialized()
     {
-        _service('breadcrumb')
+        _get('breadcrumb')
             ->set(['href' => _url('admin.core.acl'), 'label' => _text('User Groups', 'admin'),]);
 
-        _service('html.title')
+        _get('html.title')
             ->set(_text('Authorizations', 'admin'));
 
-        _service('menu.admin.secondary')
+        _get('menu.admin.secondary')
             ->load('admin.core.acl');
     }
 
     protected function postDispatch($action)
     {
         if (in_array($action, ['index'])) {
-            _service('menu.admin.buttons')->load('admin.core.acl.buttons');
+            _get('menu.admin.buttons')->load('admin.core.acl.buttons');
         }
     }
 
@@ -64,15 +64,15 @@ class AdminAclController extends AdminController
 
     public function actionSettings()
     {
-        $request = _service('request');
+        $request = _get('request');
 
         $filter = new FilterAclSettingGroup();
 
-        _service('registry')
+        _get('registry')
             ->set('search.filter', $filter);
 
         $id = $request->get('id', 1);
-        $role = _service('core.roles')->findById($id);
+        $role = _get('core.roles')->findById($id);
 
         $form = new EditCoreAclSettings();
 

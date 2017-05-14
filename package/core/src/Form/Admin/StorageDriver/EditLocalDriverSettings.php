@@ -46,7 +46,7 @@ class EditLocalDriverSettings extends Form
             'value'    => 0,
             'label'    => _text('Is Active', 'admin.core_storage'),
             'info'     => _text('[Is Active Info]', 'admin.core_storage'),
-            'options'  => _service('core.storage')->getActiveIdOptions(),
+            'options'  => _get('core.storage')->getActiveIdOptions(),
             'required' => true,
         ]);
 

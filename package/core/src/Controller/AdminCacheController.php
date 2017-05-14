@@ -18,22 +18,22 @@ class AdminCacheController extends AdminController
 
     protected function initialized()
     {
-        _service('breadcrumb')
+        _get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.cache'),
                 'label' => _text('Cache Settings', 'menu'),
             ]);
 
-        _service('html.title')
+        _get('html.title')
             ->set(_text('Cache Settings', 'menu'));
 
-        _service('menu.admin.secondary')
+        _get('menu.admin.secondary')
             ->load('admin.core.cache');
     }
 
     protected function postDispatch($action)
     {
-        _service('menu.admin.buttons')
+        _get('menu.admin.buttons')
             ->load('admin.core.cache.buttons');
     }
 
@@ -59,7 +59,7 @@ class AdminCacheController extends AdminController
 
     public function actionAdd()
     {
-        $request = _service('request');
+        $request = _get('request');
         $driverId = $request->get('driver_id');
 
         if (!$driverId) {
@@ -76,10 +76,10 @@ class AdminCacheController extends AdminController
 
     public function actionConfig()
     {
-        $request = _service('request');
+        $request = _get('request');
         $driverId = $request->get('driver_id', 'files');
 
-        $form = _service('core.adapter')
+        $form = _get('core.adapter')
             ->getEditingForm($driverId, 'cache');
 
         if ($request->isGet()) {
@@ -113,13 +113,13 @@ class AdminCacheController extends AdminController
 
     public function actionEdit()
     {
-        $request = _service('request');
+        $request = _get('request');
         $adapterId = $request->get('adapter_id');
 
         /** @var CoreAdapter $adapterEntry */
         $adapterEntry = _model('core_adapter')->findById($adapterId);
 
-        $form = _service('core.adapter')
+        $form = _get('core.adapter')
             ->getEditingForm($adapterEntry->getDriverId(), self::DRIVER_TYPE);
 
         if ($request->isGet()) {
@@ -144,7 +144,7 @@ class AdminCacheController extends AdminController
 
     public function actionDefault()
     {
-        $identity = _service('request')
+        $identity = _get('request')
             ->get('adapter_id');
 
         /** @var CoreAdapter $entry */
@@ -159,9 +159,9 @@ class AdminCacheController extends AdminController
             $entry->save();
         }
 
-        _service('core.setting')->updateValue('core.default_cache_id', $identity);
+        _get('core.setting')->updateValue('core.default_cache_id', $identity);
 
-        _service('cache.local')->flush();
+        _get('cache.local')->flush();
 
         _redirect('admin.core.cache');
     }

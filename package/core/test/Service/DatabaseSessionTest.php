@@ -34,7 +34,7 @@ class DatabaseSessionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('example data', $obj->read($id));
 
-        _service('db')->update(':session',
+        _get('db')->update(':session',
             ['modified' => time() - 86400, 'lifetime' => 3600])
             ->where('id=?', $id)
             ->execute();

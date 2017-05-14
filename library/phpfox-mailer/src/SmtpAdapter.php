@@ -70,7 +70,7 @@ class SmtpAdapter extends AbstractAdapter
                 $this->getErrors(),
                 $this->get('host'),
             ]);
-            _service('main.log')->error($msg);
+            _get('main.log')->error($msg);
             if ($this->isDebug()) {
                 throw new MailException($msg);
             }

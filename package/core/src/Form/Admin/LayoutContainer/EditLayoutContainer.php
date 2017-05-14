@@ -37,7 +37,7 @@ class EditLayoutContainer extends Form
             'factory'  => 'select',
             'label'    => _text('Grid Id', '_core.layout'),
             'value'    => 'simple',
-            'options'  => _service('layout_loader')->getGridIdOptions(),
+            'options'  => _get('layout_loader')->getGridIdOptions(),
             'required' => true,
         ]);
 
@@ -48,7 +48,7 @@ class EditLayoutContainer extends Form
             'label'    => _text('Container Type', '_core.layout'),
             'value'    => 'container',
             'required' => true,
-            'options'  => _service('layout_loader')->getContainerTypeIdOptions(),
+            'options'  => _get('layout_loader')->getContainerTypeIdOptions(),
         ]);
 
         // element `is_active`

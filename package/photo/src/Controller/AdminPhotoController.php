@@ -9,12 +9,12 @@ class AdminPhotoController extends AdminController
 {
     protected function initialized()
     {
-        _service('html.title')->set(_text('Photos'));
+        _get('html.title')->set(_text('Photos'));
 
-        _service('breadcrumb')
+        _get('breadcrumb')
             ->set(['href' => _url('admin.photo'), 'label' => _text('Photos')]);
 
-        _service('menu.admin.secondary')->load('admin.photo');
+        _get('menu.admin.secondary')->load('admin.photo');
     }
 
     public function actionIndex()

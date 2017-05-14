@@ -66,7 +66,7 @@ class AuthHistoryTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        _service('db')
+        _get('db')
             ->delete(':auth_history')
             ->where('remote_address=?', '::0')
             ->execute();
@@ -74,7 +74,7 @@ class AuthHistoryTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _service('db')
+        _get('db')
             ->delete(':auth_history')
             ->where('remote_address=?', '::0')
             ->execute();

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <?= _service('assets')->getStartHtml() ?>
+    <?= _get('assets')->getStartHtml() ?>
 </head>
 <body class="<?= PHPFOX_IS_DEV ? 'is_dev' : '' ?>">
 <header>
 
-    <?php $login = _service('auth')->getLogin(); ?>
+    <?php $login = _get('auth')->getLogin(); ?>
     <div class="navbar">
-        <?= _service('breadcrumb')->render() ?>
+        <?= _get('breadcrumb')->render() ?>
         <form role="search" class="navbar-form navbar-right global-search-holder"
               onsubmit="return false;">
             <input type="text" placeholder="<?= _text('Search ...') ?>"
@@ -20,7 +20,7 @@
 </div>
 <aside>
     <div class="top">PHPFOX</div>
-    <?= _service('menu.admin.primary')->render('aside', []) ?>
+    <?= _get('menu.admin.primary')->render('aside', []) ?>
     <ul>
         <li><a role="button">logged as <?= $login->getName() ?></a></li>
         <li><a href="<?= _url('logout') ?>"><?= _text('Logout') ?></a></li>
@@ -28,16 +28,16 @@
 </aside>
 <section class="main-wrapper">
     <div class="container">
-        <?= _service('menu.admin.secondary')->render('toolbar', ['level0' => 'btn-group toolbar pull-left']); ?>
-        <?= _service('menu.admin.buttons')->render('toolbar', ['level0' => 'btn-group toolbar pull-right']); ?>
+        <?= _get('menu.admin.secondary')->render('toolbar', ['level0' => 'btn-group toolbar pull-left']); ?>
+        <?= _get('menu.admin.buttons')->render('toolbar', ['level0' => 'btn-group toolbar pull-right']); ?>
     </div>
     <div class="container">
-        <?= _service('layouts')->renderBlock('\Neutron\Core\Block\AdminFilter', []) ?>
+        <?= _get('layouts')->renderBlock('\Neutron\Core\Block\AdminFilter', []) ?>
     </div>
     <div class="content-wrapper">
         <?php echo @$layout_content ?>
     </div>
 </section>
-<?= _service('assets')->getShutdownHtml() ?>
+<?= _get('assets')->getShutdownHtml() ?>
 </body>
 </html>

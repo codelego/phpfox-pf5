@@ -66,7 +66,7 @@ class CodeGenerator
     {
         $this->dbTables = array_map(function ($tableName) {
             return substr($tableName, strlen(PHPFOX_TABLE_PREFIX));
-        }, _service('db')->tables());
+        }, _get('db')->tables());
     }
 
     /**
@@ -579,16 +579,16 @@ class CodeGenerator
 action_type IN (\'admin_add\',\'admin_edit\',\'admin_filter\',\'admin_delete\',\'model_class\')
 AND TABLE_NAME NOT IN (SELECT TABLE_NAME FROM pf5_dev_table);';
 
-        _service('db')->execute($sql);
+        _get('db')->execute($sql);
 
         $sql
             = 'UPDATE `pf5_dev_action`, `pf5_dev_table` SET pf5_dev_action.package_id = pf5_dev_table.package_id WHERE
 pf5_dev_action.`table_name` = pf5_dev_table.`table_name`';
 
-        _service('db')->execute($sql);
+        _get('db')->execute($sql);
 
         $sql = 'DELETE FROM pf5_dev_element WHERE meta_id NOT IN (SELECT meta_id FROM pf5_dev_action);';
 
-        _service('db')->execute($sql);
+        _get('db')->execute($sql);
     }
 }

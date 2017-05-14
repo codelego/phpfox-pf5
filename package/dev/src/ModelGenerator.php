@@ -145,7 +145,7 @@ class ModelGenerator extends AbstractGenerator
         $whereArrays = [];
         $id_value = '0';
 
-        $savedData = _service('db')
+        $savedData = _get('db')
             ->select('*')
             ->from(':' . $tableName)
             ->first();
