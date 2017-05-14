@@ -191,18 +191,18 @@ class SqlSelect
     }
 
     /**
-     * @param string|array $expression
+     * @param string|array $wheres
      * @param              $data
      *
      * @return SqlSelect
      */
-    public function where($expression, $data = null)
+    public function where($wheres, $data = null)
     {
         if (null == $this->_where) {
             $this->_where = new SqlCondition($this->adapter);
         }
 
-        $this->_where->where($expression, $data);
+        $this->_where->where($wheres, $data);
 
         return $this;
     }

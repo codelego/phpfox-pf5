@@ -51,7 +51,7 @@ return [
         'core.callback'          => [null, Service\EventListener::class],
         'navigation.loader'      => [null, Service\NavigationLoader::class],
         'core.i18n'              => [null, Service\I18nManager::class],
-        'core.packages'          => [null, Service\Packages::class],
+        'core.packages'          => [null, Service\PackageManager::class],
         'core.themes'            => [null, Service\ThemeManager::class],
         'core.mails'             => [null, Service\MailManager::class],
         'core.roles'             => [null, Service\AclManager::class],

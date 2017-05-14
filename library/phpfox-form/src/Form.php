@@ -268,12 +268,17 @@ class Form extends Element implements ElementInterface, CollectionInterface
     }
 
     /**
-     * Values application/x-www-form-urlencoded, multipart/form-data, text/plain
+     * Values application/x-www-form-urlencoded, multipart/form-data, text/plain, upload
      *
      * @param string $enctype
      */
     public function setEncType($enctype)
     {
+
+        if ($enctype == 'upload') {
+            $enctype = 'multipart/form-data';
+        }
+
         $this->setAttribute('enctype', strtolower($enctype));
     }
 

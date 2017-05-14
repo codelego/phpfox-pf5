@@ -9,7 +9,7 @@ class PackagesTest extends \PHPUnit_Framework_TestCase
 {
     public function testInitialize()
     {
-        $obj = new Packages();
+        $obj = new PackageManager();
 
         $this->assertEquals(true, $obj->findById(1) instanceof CorePackage);
 

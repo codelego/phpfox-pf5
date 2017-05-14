@@ -526,8 +526,8 @@
     ),
     'core.packages' => 
     array (
-      0 => NULL,
-      1 => 'Neutron\\Core\\Service\\Packages',
+        0 => NULL,
+        1 => 'Neutron\\Core\\Service\\PackageManager',
     ),
     'core.themes' => 
     array (
