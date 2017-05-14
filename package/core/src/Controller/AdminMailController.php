@@ -28,10 +28,10 @@ class AdminMailController extends AdminController
             ->set(_text('Mail Settings', 'menu'));
 
         _get('menu.admin.secondary')
-            ->load('admin.core.mail');
+            ->load('_core.mail');
 
         _get('menu.admin.buttons')
-            ->load('admin.core.mail.buttons');
+            ->load('_core.mail.buttons');
     }
 
     public function actionSettings()

@@ -27,14 +27,14 @@ class AdminLayoutComponentController extends AdminController
             ]);
 
         _get('menu.admin.secondary')
-            ->load('admin.core.layout');
+            ->load('_core.layout');
 
     }
 
     protected function postDispatch($action)
     {
         if (in_array($action, ['index'])) {
-            _get('menu.admin.buttons')->load('admin.core.layout.component.buttons');
+            _get('menu.admin.buttons')->load('_core.layout.component.buttons');
         }
     }
 

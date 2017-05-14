@@ -28,13 +28,13 @@ class AdminCaptchaController extends AdminController
             ->set(_text('Captcha Settings', 'menu'));
 
         _get('menu.admin.secondary')
-            ->load('admin.core.captcha');
+            ->load('_core.captcha');
     }
 
     protected function postDispatch($action)
     {
         _get('menu.admin.buttons')
-            ->load('admin.core.captcha.buttons');
+            ->load('_core.captcha.buttons');
     }
 
     public function actionIndex()

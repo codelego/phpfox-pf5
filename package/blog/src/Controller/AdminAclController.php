@@ -14,7 +14,7 @@ class AdminAclController extends AdminController
         _get('breadcrumb')
             ->set(['href' => _url('admin.blog'), 'label' => _text('Blogs')]);
 
-        _get('menu.admin.secondary')->load('admin.blog');
+        _get('menu.admin.secondary')->load('_blog');
 
     }
 

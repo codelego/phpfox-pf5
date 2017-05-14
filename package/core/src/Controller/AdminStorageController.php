@@ -22,14 +22,14 @@ class AdminStorageController extends AdminController
             ]);
 
         _get('menu.admin.secondary')
-            ->load('admin.core.storage');
+            ->load('_core.storage');
     }
 
     protected function postDispatch($action)
     {
         if (in_array($action, ['index'])) {
             _get('menu.admin.buttons')
-                ->load('admin.core.storage.buttons');
+                ->load('_core.storage.buttons');
         }
     }
 

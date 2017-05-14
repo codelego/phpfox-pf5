@@ -14,7 +14,7 @@ class AdminLayoutBlockController extends AdminController
     protected function initialized()
     {
         _get('menu.admin.secondary')
-            ->load('admin.core.layout');
+            ->load('_core.layout');
     }
 
     public function actionAdd()

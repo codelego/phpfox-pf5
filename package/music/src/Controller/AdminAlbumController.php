@@ -14,7 +14,7 @@ class AdminAlbumController extends AdminController
         _get('breadcrumb')
             ->set(['href' => _url('admin.music'), 'label' => _text('Music')]);
 
-        _get('menu.admin.secondary')->load('admin.music');
+        _get('menu.admin.secondary')->load('_music');
 
     }
 

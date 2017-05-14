@@ -28,13 +28,13 @@ class AdminCacheController extends AdminController
             ->set(_text('Cache Settings', 'menu'));
 
         _get('menu.admin.secondary')
-            ->load('admin.core.cache');
+            ->load('_core.cache');
     }
 
     protected function postDispatch($action)
     {
         _get('menu.admin.buttons')
-            ->load('admin.core.cache.buttons');
+            ->load('_core.cache.buttons');
     }
 
     public function actionIndex()

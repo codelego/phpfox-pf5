@@ -27,10 +27,10 @@ class AdminDevController extends AdminController
             ->set(_text('Rapid Development Tools', 'admin'));
 
         _get('menu.admin.secondary')
-            ->load('admin.dev');
+            ->load('_dev');
 
         _get('menu.admin.buttons')
-            ->load('admin.dev.buttons');
+            ->load('_dev.buttons');
     }
 
     public function actionEditAction()

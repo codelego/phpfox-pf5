@@ -20,7 +20,7 @@ class AdminDepartmentController extends AdminController
             ->set(_text('Contact Us'));
 
         _get('menu.admin.secondary')
-            ->load('admin.contact_us');
+            ->load('_contact_us');
     }
 
     public function actionIndex()

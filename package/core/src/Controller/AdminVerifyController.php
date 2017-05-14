@@ -28,13 +28,13 @@ class AdminVerifyController extends AdminController
             ->set(_text('Verify Service Settings', 'menu'));
 
         _get('menu.admin.secondary')
-            ->load('admin.core.verify');
+            ->load('_core.verify');
     }
 
     protected function postDispatch($action)
     {
         _get('menu.admin.buttons')
-            ->load('admin.core.verify.buttons');
+            ->load('_core.verify.buttons');
     }
 
     public function actionIndex()

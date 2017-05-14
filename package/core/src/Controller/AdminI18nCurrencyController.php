@@ -23,13 +23,13 @@ class AdminI18nCurrencyController extends AdminController
                 'label' => _text('International', 'admin'),
             ]);
 
-        _get('menu.admin.secondary')->load('admin.core.i18n');
+        _get('menu.admin.secondary')->load('_core.i18n');
     }
 
     protected function postDispatch($action)
     {
         if (in_array($action, ['index'])) {
-            _get('menu.admin.buttons')->load('admin.core.i18n.currency.buttons');
+            _get('menu.admin.buttons')->load('_core.i18n.currency.buttons');
         }
     }
 

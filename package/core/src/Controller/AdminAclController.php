@@ -24,13 +24,13 @@ class AdminAclController extends AdminController
             ->set(_text('Authorizations', 'admin'));
 
         _get('menu.admin.secondary')
-            ->load('admin.core.acl');
+            ->load('_core.acl');
     }
 
     protected function postDispatch($action)
     {
         if (in_array($action, ['index'])) {
-            _get('menu.admin.buttons')->load('admin.core.acl.buttons');
+            _get('menu.admin.buttons')->load('_core.acl.buttons');
         }
     }
 

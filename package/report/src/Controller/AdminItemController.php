@@ -21,7 +21,7 @@ class AdminItemController extends AdminController
                 'label' => _text('Reports'),
             ]);
 
-        _get('menu.admin.secondary')->load('admin.report');
+        _get('menu.admin.secondary')->load('_report');
 
     }
 

@@ -17,17 +17,14 @@ class PackageLoader implements PackageLoaderInterface
             return $this->paths;
         }
 
-        $rows = _get('db')
+        return array_map(function ($v) {
+            return $v['path'];
+        }, _get('db')
             ->select('path')
             ->from(':core_package')
             ->where('is_active=?', 1)
             ->order('priority', 1)
-            ->execute()
-            ->all();
-
-        return $this->paths = array_map(function ($v) {
-            return $v['path'];
-        }, $rows);
+            ->all());
     }
 
     public function loadAutoloadConfigs()

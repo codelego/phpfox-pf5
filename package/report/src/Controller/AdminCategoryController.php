@@ -24,7 +24,7 @@ class AdminCategoryController extends AdminController
                 'label' => _text('Categories'),
             ]);
 
-        _get('menu.admin.secondary')->load('admin.report');
+        _get('menu.admin.secondary')->load('_report');
     }
 
     public function actionIndex()

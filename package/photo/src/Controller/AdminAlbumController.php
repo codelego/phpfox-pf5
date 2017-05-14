@@ -14,7 +14,7 @@ class AdminAlbumController extends AdminController
         _get('breadcrumb')
             ->set(['href' => _url('admin.photo'), 'label' => _text('Photos')]);
 
-        _get('menu.admin.secondary')->load('admin.photo');
+        _get('menu.admin.secondary')->load('_photo');
     }
 
     public function actionIndex()

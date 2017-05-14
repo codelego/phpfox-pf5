@@ -28,13 +28,13 @@ class AdminSessionController extends AdminController
             ->set(_text('Session Settings', 'menu'));
 
         _get('menu.admin.secondary')
-            ->load('admin.core.session');
+            ->load('_core.session');
     }
 
     protected function postDispatch($action)
     {
         _get('menu.admin.buttons')
-            ->load('admin.core.session.buttons');
+            ->load('_core.session.buttons');
     }
 
     public function actionIndex()

@@ -25,13 +25,13 @@ class AdminLogController extends AdminController
             ->set(_text('Log Settings', 'menu'));
 
         _get('menu.admin.secondary')
-            ->load('admin.core.log');
+            ->load('_core.log');
     }
 
     protected function postDispatch($action)
     {
         _get('menu.admin.buttons')
-            ->load('admin.core.log.buttons');
+            ->load('_core.log.buttons');
     }
 
     public function actionIndex()

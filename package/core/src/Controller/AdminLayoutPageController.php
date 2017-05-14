@@ -29,7 +29,7 @@ class AdminLayoutPageController extends AdminController
             ]);
 
         _get('menu.admin.secondary')
-            ->load('admin.core.layout');
+            ->load('_core.layout');
 
     }
 
@@ -37,7 +37,7 @@ class AdminLayoutPageController extends AdminController
     {
         if (in_array($action, ['index'])) {
             _get('menu.admin.buttons')
-                ->load('admin.core.layout.page.buttons');
+                ->load('_core.layout.page.buttons');
         }
     }
 

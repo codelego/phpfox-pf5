@@ -28,13 +28,13 @@ class AdminMessageController extends AdminController
             ->set(_text('Push Message Service Settings', 'menu'));
 
         _get('menu.admin.secondary')
-            ->load('admin.core.message');
+            ->load('_core.message');
     }
 
     protected function postDispatch($action)
     {
         _get('menu.admin.buttons')
-            ->load('admin.core.message.buttons');
+            ->load('_core.message.buttons');
     }
 
     public function actionIndex()

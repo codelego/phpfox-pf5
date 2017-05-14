@@ -18,7 +18,7 @@ class AdminI18nSettingsController extends AdminController
         _get('html.title')
             ->set(_text('International', 'admin'));
 
-        _get('menu.admin.secondary')->load('admin.core.i18n');
+        _get('menu.admin.secondary')->load('_core.i18n');
     }
 
     public function actionIndex()

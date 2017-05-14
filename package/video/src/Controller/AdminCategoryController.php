@@ -15,7 +15,7 @@ class AdminCategoryController extends AdminController
             ->set(['href' => _url('admin.video'), 'label' => _text('Videos')]);
 
         _get('menu.admin.secondary')
-            ->load('admin.video');
+            ->load('_video');
     }
 
     public function actionIndex()

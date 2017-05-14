@@ -33,6 +33,19 @@ class PackageManager
     }
 
     /**
+     * @return array
+     */
+    public function getIds()
+    {
+        return array_map(function (CorePackage $corePackage) {
+            return $corePackage->getName();
+        }, _model('core_package')
+            ->select('name')
+            ->where('is_active=?', 1)
+            ->all());
+    }
+
+    /**
      * @return array return [value, label] array to select, radio
      */
     public function getPackageIdOptions()

@@ -16,7 +16,7 @@ class AdminMailBulkController extends AdminController
             ->set(_text('Mail Settings', 'menu'));
 
         _get('menu.admin.secondary')
-            ->load('admin.core.mail');
+            ->load('_core.mail');
     }
 
     public function actionIndex()

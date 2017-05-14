@@ -17,7 +17,7 @@ class AdminStatusController extends AdminController
                 'label' => _text('System Status', 'admin'),
             ]);
 
-        _get('menu.admin.secondary')->load('admin.core.status');
+        _get('menu.admin.secondary')->load('_core.status');
     }
 
     public function actionCache()

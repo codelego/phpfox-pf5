@@ -15,6 +15,7 @@ class NavigationLoader implements NavigationLoaderInterface
             ->select('*')
             ->from(':core_menu')
             ->where('menu=?', trim($menu))
+            ->where('package_id in ?', _get('core.packages')->getIds())
             ->where('is_active=?', 1)
             ->order('sort_order', 1);
 
