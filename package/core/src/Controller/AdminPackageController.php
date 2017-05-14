@@ -4,7 +4,7 @@ namespace Neutron\Core\Controller;
 
 use Neutron\Core\Form\Admin\CorePackage\UploadPackage;
 use Neutron\Core\Model\CorePackage;
-use Neutron\Core\Process\AdminManageEntryProcess;
+use Neutron\Core\Process\AdminListEntryProcess;
 use Phpfox\View\ViewModel;
 
 class AdminPackageController extends AdminController
@@ -34,7 +34,7 @@ class AdminPackageController extends AdminController
             _model('core_package')->select()->where('is_active=1')->count(),
         ]);
 
-        return (new AdminManageEntryProcess([
+        return (new AdminListEntryProcess([
             'model'    => CorePackage::class,
             'noLimit'  => true,
             'limit'    => 4,

@@ -6,7 +6,7 @@ namespace Neutron\User\Controller;
 use Neutron\Core\Controller\AdminController;
 use Neutron\Core\Process\AdminAddEntryProcess;
 use Neutron\Core\Process\AdminEditEntryProcess;
-use Neutron\Core\Process\AdminManageEntryProcess;
+use Neutron\Core\Process\AdminListEntryProcess;
 use Neutron\User\Form\Admin\User\AddUser;
 use Neutron\User\Form\Admin\User\EditUser;
 use Neutron\User\Form\AdminFilterUser;
@@ -27,7 +27,7 @@ class AdminUserController extends AdminController
 
     public function actionIndex()
     {
-        return (new AdminManageEntryProcess([
+        return (new AdminListEntryProcess([
             'filter'   => AdminFilterUser::class,
             'model'    => User::class,
             'template' => 'user/admin-user/manage-user',

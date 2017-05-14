@@ -8,7 +8,7 @@ use Phpfox\Form\Form;
 use Phpfox\Model\ModelInterface;
 use Phpfox\View\ViewModel;
 
-class AdminManageEntryProcess extends AbstractProcess
+class AdminListEntryProcess extends AbstractProcess
 {
     function process()
     {

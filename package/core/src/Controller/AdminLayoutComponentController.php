@@ -7,7 +7,7 @@ use Neutron\Core\Form\Admin\LayoutComponent\EditLayoutComponent;
 use Neutron\Core\Model\LayoutComponent;
 use Neutron\Core\Process\AdminAddEntryProcess;
 use Neutron\Core\Process\AdminEditEntryProcess;
-use Neutron\Core\Process\AdminManageEntryProcess;
+use Neutron\Core\Process\AdminListEntryProcess;
 
 class AdminLayoutComponentController extends AdminController
 {
@@ -40,7 +40,7 @@ class AdminLayoutComponentController extends AdminController
 
     public function actionIndex()
     {
-        return (new AdminManageEntryProcess([
+        return (new AdminListEntryProcess([
             'model'    => LayoutComponent::class,
             'template' => 'core/admin-layout/manage-layout-component',
         ]))->process();

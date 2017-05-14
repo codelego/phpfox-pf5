@@ -6,7 +6,7 @@ namespace Neutron\Core\Controller;
 use Neutron\Core\Form\Admin\CoreAdapter\SelectCoreDriver;
 use Neutron\Core\Model\CoreAdapter;
 use Neutron\Core\Model\LogAdapter;
-use Neutron\Core\Process\AdminManageSiteSettingsProcess;
+use Neutron\Core\Process\AdminSiteSettingsProcess;
 use Phpfox\View\ViewModel;
 
 class AdminLogController extends AdminController
@@ -57,7 +57,7 @@ class AdminLogController extends AdminController
 
     public function actionSettings()
     {
-        return (new AdminManageSiteSettingsProcess(
+        return (new AdminSiteSettingsProcess(
             ['setting_group' => 'core_log',]
         ))->process();
     }

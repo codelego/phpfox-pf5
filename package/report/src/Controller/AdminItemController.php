@@ -6,7 +6,7 @@ namespace Neutron\Report\Controller;
 use Neutron\Core\Controller\AdminController;
 use Neutron\Core\Process\AdminAddEntryProcess;
 use Neutron\Core\Process\AdminEditEntryProcess;
-use Neutron\Core\Process\AdminManageEntryProcess;
+use Neutron\Core\Process\AdminListEntryProcess;
 use Neutron\Report\Form\Admin\ReportItem\AddReportItem;
 use Neutron\Report\Form\Admin\ReportItem\EditReportItem;
 use Neutron\Report\Model\ReportItem;
@@ -27,7 +27,7 @@ class AdminItemController extends AdminController
 
     public function actionIndex()
     {
-        return (new AdminManageEntryProcess([
+        return (new AdminListEntryProcess([
             'model'    => ReportItem::class,
             'template' => 'report/admin-item/manage-report-item',
         ]))->process();

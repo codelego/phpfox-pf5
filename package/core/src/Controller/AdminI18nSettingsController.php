@@ -3,7 +3,7 @@
 namespace Neutron\Core\Controller;
 
 
-use Neutron\Core\Process\AdminManageSiteSettingsProcess;
+use Neutron\Core\Process\AdminSiteSettingsProcess;
 
 class AdminI18nSettingsController extends AdminController
 {
@@ -23,7 +23,7 @@ class AdminI18nSettingsController extends AdminController
 
     public function actionIndex()
     {
-        return (new AdminManageSiteSettingsProcess([
+        return (new AdminSiteSettingsProcess([
             'setting_group' => 'core_i18n',
         ]))->process();
     }

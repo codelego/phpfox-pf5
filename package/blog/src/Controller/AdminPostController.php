@@ -7,7 +7,7 @@ use Neutron\Blog\Form\Admin\BlogPost\EditBlogPost;
 use Neutron\Blog\Model\BlogPost;
 use Neutron\Core\Controller\AdminController;
 use Neutron\Core\Process\AdminAddEntryProcess;
-use Neutron\Core\Process\AdminManageEntryProcess;
+use Neutron\Core\Process\AdminListEntryProcess;
 
 class AdminPostController extends AdminController
 {
@@ -33,7 +33,7 @@ class AdminPostController extends AdminController
 
     public function actionIndex()
     {
-        return (new AdminManageEntryProcess([
+        return (new AdminListEntryProcess([
                 'model'    => BlogPost::class,
                 'template' => 'blog/admin-post/manage-blog-post',
             ]

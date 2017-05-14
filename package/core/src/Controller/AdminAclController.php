@@ -10,7 +10,7 @@ use Neutron\Core\Form\Admin\Settings\EditCoreAclSettings;
 use Neutron\Core\Model\AclRole;
 use Neutron\Core\Process\AdminAddEntryProcess;
 use Neutron\Core\Process\AdminEditEntryProcess;
-use Neutron\Core\Process\AdminManageEntryProcess;
+use Neutron\Core\Process\AdminListEntryProcess;
 use Phpfox\View\ViewModel;
 
 class AdminAclController extends AdminController
@@ -36,7 +36,7 @@ class AdminAclController extends AdminController
 
     public function actionIndex()
     {
-        return (new AdminManageEntryProcess([
+        return (new AdminListEntryProcess([
             'model'    => AclRole::class,
             'template' => 'core/admin-acl/manage-acl-role',
         ]))->process();

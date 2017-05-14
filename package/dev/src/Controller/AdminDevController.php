@@ -4,7 +4,7 @@ namespace Neutron\Dev\Controller;
 
 use Neutron\Core\Controller\AdminController;
 use Neutron\Core\Process\AdminEditEntryProcess;
-use Neutron\Core\Process\AdminManageSiteSettingsProcess;
+use Neutron\Core\Process\AdminSiteSettingsProcess;
 use Neutron\Dev\Form\Admin\DevAction\EditDevAction;
 use Neutron\Dev\Form\Admin\DevActionMeta\FilterDevActionMeta;
 use Neutron\Dev\Model\DevAction;
@@ -45,7 +45,7 @@ class AdminDevController extends AdminController
 
     public function actionSettings()
     {
-        return (new AdminManageSiteSettingsProcess([
+        return (new AdminSiteSettingsProcess([
             'setting_group' => 'dev',
         ]))->process();
     }

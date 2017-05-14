@@ -8,7 +8,7 @@ use Neutron\Core\Model\LayoutAction;
 use Neutron\Core\Model\LayoutPage;
 use Neutron\Core\Process\AdminAddEntryProcess;
 use Neutron\Core\Process\AdminEditEntryProcess;
-use Neutron\Core\Process\AdminManageEntryProcess;
+use Neutron\Core\Process\AdminListEntryProcess;
 use Phpfox\View\ViewModel;
 
 class AdminLayoutPageController extends AdminController
@@ -43,7 +43,7 @@ class AdminLayoutPageController extends AdminController
 
     public function actionIndex()
     {
-        return (new AdminManageEntryProcess([
+        return (new AdminListEntryProcess([
             'model'    => LayoutAction::class,
             'template' => 'core/admin-layout/manage-layout-page',
         ]))->process();

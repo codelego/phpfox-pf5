@@ -5,7 +5,7 @@ namespace Neutron\Dev\Controller;
 use Neutron\Core\Controller\AdminController;
 use Neutron\Core\Process\AdminAddEntryProcess;
 use Neutron\Core\Process\AdminEditEntryProcess;
-use Neutron\Core\Process\AdminManageEntryProcess;
+use Neutron\Core\Process\AdminListEntryProcess;
 use Neutron\Dev\Form\Admin\DevTable\AddDevTable;
 use Neutron\Dev\Form\Admin\DevTable\FilterDevTable;
 use Neutron\Dev\Model\DevTable;
@@ -46,7 +46,7 @@ class AdminTableController extends AdminController
             $select->where('table_name like ?', '%' . $tableName . '%');
         }
 
-        return (new AdminManageEntryProcess([
+        return (new AdminListEntryProcess([
             'filter'   => FilterDevTable::class,
             'select'   => $select,
             'noLimit'  => true,

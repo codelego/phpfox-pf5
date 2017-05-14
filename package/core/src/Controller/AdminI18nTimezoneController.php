@@ -8,7 +8,7 @@ use Neutron\Core\Form\Admin\I18nTimezone\EditI18nTimezone;
 use Neutron\Core\Model\I18nTimezone;
 use Neutron\Core\Process\AdminAddEntryProcess;
 use Neutron\Core\Process\AdminEditEntryProcess;
-use Neutron\Core\Process\AdminManageEntryProcess;
+use Neutron\Core\Process\AdminListEntryProcess;
 
 class AdminI18nTimezoneController extends AdminController
 {
@@ -35,7 +35,7 @@ class AdminI18nTimezoneController extends AdminController
 
     public function actionIndex()
     {
-        return (new AdminManageEntryProcess([
+        return (new AdminListEntryProcess([
             'noLimit'  => true,
             'model'    => I18nTimezone::class,
             'data'     => ['defaultValue' => _param('core.default_timezone_id')],

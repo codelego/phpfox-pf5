@@ -8,7 +8,7 @@ use Neutron\Core\Form\Admin\I18nLocale\EditI18nLocale;
 use Neutron\Core\Model\I18nLocale;
 use Neutron\Core\Process\AdminAddEntryProcess;
 use Neutron\Core\Process\AdminEditEntryProcess;
-use Neutron\Core\Process\AdminManageEntryProcess;
+use Neutron\Core\Process\AdminListEntryProcess;
 
 class AdminI18nLocaleController extends AdminController
 {
@@ -38,7 +38,7 @@ class AdminI18nLocaleController extends AdminController
 
     public function actionIndex()
     {
-        return (new AdminManageEntryProcess([
+        return (new AdminListEntryProcess([
             'model'    => I18nLocale::class,
             'data'     => ['defaultValue' => _param('core.default_locale_id')],
             'template' => 'core/admin-i18n/manage-i18n-locale',

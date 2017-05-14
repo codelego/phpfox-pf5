@@ -4,13 +4,13 @@ namespace Neutron\User\Controller;
 
 
 use Neutron\Core\Controller\AdminController;
-use Neutron\Core\Process\AdminManageSiteSettingsProcess;
+use Neutron\Core\Process\AdminSiteSettingsProcess;
 
 class AdminSettingController extends AdminController
 {
     public function actionIndex()
     {
-        return (new AdminManageSiteSettingsProcess([
+        return (new AdminSiteSettingsProcess([
             'setting_group' => 'user_register',
         ]))->process();
     }

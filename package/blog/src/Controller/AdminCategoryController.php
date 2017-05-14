@@ -8,7 +8,7 @@ use Neutron\Blog\Form\Admin\BlogCategory\EditBlogCategory;
 use Neutron\Blog\Model\BlogCategory;
 use Neutron\Core\Controller\AdminController;
 use Neutron\Core\Process\AdminAddEntryProcess;
-use Neutron\Core\Process\AdminManageEntryProcess;
+use Neutron\Core\Process\AdminListEntryProcess;
 
 class AdminCategoryController extends AdminController
 {
@@ -34,7 +34,7 @@ class AdminCategoryController extends AdminController
 
     public function actionIndex()
     {
-        return (new AdminManageEntryProcess([
+        return (new AdminListEntryProcess([
                 'filter'   => null,
                 'model'    => BlogCategory::class,
                 'template' => 'blog/admin-category/manage-blog-category',

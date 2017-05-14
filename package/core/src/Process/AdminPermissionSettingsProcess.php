@@ -14,7 +14,7 @@ use Phpfox\Form\FieldInterface;
 use Phpfox\Form\Form;
 use Phpfox\View\ViewModel;
 
-class AdminManageSiteSettingsProcess extends AbstractProcess
+class AdminPermissionSettingsProcess extends AbstractProcess
 {
     public function getSettingGroups(Form $form)
     {
@@ -84,10 +84,8 @@ class AdminManageSiteSettingsProcess extends AbstractProcess
             throw new \InvalidArgumentException(_sprintf('Invalid group [{0}]', [$settingGroupId]));
         }
 
-
         /** @var Form $form */
         $form = (new \ReflectionClass($formName))->newInstanceArgs([]);
-
 
         if ($request->isGet()) {
 

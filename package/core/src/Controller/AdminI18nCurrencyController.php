@@ -8,7 +8,7 @@ use Neutron\Core\Form\Admin\I18nCurrency\EditI18nCurrency;
 use Neutron\Core\Model\I18nCurrency;
 use Neutron\Core\Process\AdminAddEntryProcess;
 use Neutron\Core\Process\AdminEditEntryProcess;
-use Neutron\Core\Process\AdminManageEntryProcess;
+use Neutron\Core\Process\AdminListEntryProcess;
 
 class AdminI18nCurrencyController extends AdminController
 {
@@ -35,7 +35,7 @@ class AdminI18nCurrencyController extends AdminController
 
     public function actionIndex()
     {
-        return (new AdminManageEntryProcess([
+        return (new AdminListEntryProcess([
             'model'    => I18nCurrency::class,
             'data'     => ['defaultValue' => _param('core.default_currency_id')],
             'template' => 'core/admin-i18n/manage-i18n-currency',

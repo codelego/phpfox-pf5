@@ -8,7 +8,7 @@ use Neutron\Core\Form\Admin\I18nTimezone\EditI18nTimezone;
 use Neutron\Core\Model\I18nMessage;
 use Neutron\Core\Model\I18nTimezone;
 use Neutron\Core\Process\AdminEditEntryProcess;
-use Neutron\Core\Process\AdminManageEntryProcess;
+use Neutron\Core\Process\AdminListEntryProcess;
 use Phpfox\View\ViewModel;
 
 class AdminI18nMessageController extends AdminController
@@ -40,7 +40,7 @@ class AdminI18nMessageController extends AdminController
         _get('require_js')
             ->deps('package/core/admin-i18n');
 
-        return (new AdminManageEntryProcess([
+        return (new AdminListEntryProcess([
             'filter'   => FilterI18nMessage::class,
             'model'    => I18nMessage::class,
             'template' => 'core/admin-i18n/manage-i18n-message',

@@ -5,8 +5,8 @@ namespace Neutron\Core\Controller;
 
 use Neutron\Core\Form\Admin\CoreAdapter\SelectCoreDriver;
 use Neutron\Core\Model\CoreAdapter;
-use Neutron\Core\Process\AdminManageEntryProcess;
-use Neutron\Core\Process\AdminManageSiteSettingsProcess;
+use Neutron\Core\Process\AdminListEntryProcess;
+use Neutron\Core\Process\AdminSiteSettingsProcess;
 use Phpfox\View\ViewModel;
 
 class AdminMessageController extends AdminController
@@ -43,7 +43,7 @@ class AdminMessageController extends AdminController
             ->select()
             ->where('driver_type=?', self::DRIVER_TYPE);
 
-        return (new AdminManageEntryProcess([
+        return (new AdminListEntryProcess([
             'select'   => $select,
             'template' => 'core/admin-message/manage-message-adapter',
             'data'     => ['defaultValue' => _param('core.default_message_id')],
@@ -52,7 +52,7 @@ class AdminMessageController extends AdminController
 
     public function actionSettings()
     {
-        return (new AdminManageSiteSettingsProcess(
+        return (new AdminSiteSettingsProcess(
             ['setting_group' => 'core_message',]
         ))->process();
     }
