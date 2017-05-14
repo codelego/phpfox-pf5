@@ -9,7 +9,7 @@
 namespace Neutron\Core\Process;
 
 
-use Neutron\Core\Model\SiteSettingGroup;
+use Neutron\Core\Model\SiteSettingForm;
 use Phpfox\Form\FieldInterface;
 use Phpfox\Form\Form;
 use Phpfox\View\ViewModel;
@@ -71,8 +71,8 @@ class AdminManageAclSettingsProcess extends AbstractProcess
             $settingGroupId = $request->get('setting_group');
         }
 
-        /** @var SiteSettingGroup $settingGroup */
-        $settingGroup = _find('site_setting_group', $settingGroupId);
+        /** @var SiteSettingForm $settingGroup */
+        $settingGroup = _find('site_setting_form', $settingGroupId);
 
         if (!$settingGroup) {
             throw new \InvalidArgumentException(_sprintf('Invalid group [{0}]', [$settingGroupId]));

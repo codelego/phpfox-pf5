@@ -10,7 +10,7 @@ class CoreDriverTest extends \PHPUnit_Framework_TestCase
             'driver_identity'     => 1,
             'driver_id'           => 'files',
             'driver_type'         => 'cache',
-            'form_settings_class' => 'Neutron\\Core\\Form\\Admin\\CacheDriver\\FilesDriverSettings',
+            'form_settings_class' => 'Neutron\\Core\\Form\\Admin\\CacheDriver\\EditFilesDriverSettings',
             'is_active'           => 1,
             'sort_order'          => 1,
             'package_id'          => 'core',
@@ -22,7 +22,7 @@ class CoreDriverTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->getDriverIdentity());
         $this->assertSame('files', $obj->getDriverId());
         $this->assertSame('cache', $obj->getDriverType());
-        $this->assertSame('Neutron\Core\Form\Admin\CacheDriver\FilesDriverSettings', $obj->getFormSettingsClass());
+        $this->assertSame('Neutron\Core\Form\Admin\CacheDriver\EditFilesDriverSettings', $obj->getFormSettingsClass());
         $this->assertSame(1, $obj->isActive());
         $this->assertSame(1, $obj->getSortOrder());
         $this->assertSame('core', $obj->getPackageId());
@@ -38,7 +38,7 @@ class CoreDriverTest extends \PHPUnit_Framework_TestCase
         $obj->setDriverIdentity(1);
         $obj->setDriverId('files');
         $obj->setDriverType('cache');
-        $obj->setFormSettingsClass('Neutron\Core\Form\Admin\CacheDriver\FilesDriverSettings');
+        $obj->setFormSettingsClass('Neutron\Core\Form\Admin\CacheDriver\EditFilesDriverSettings');
         $obj->setActive(1);
         $obj->setSortOrder(1);
         $obj->setPackageId('core');
@@ -49,7 +49,7 @@ class CoreDriverTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->getDriverIdentity());
         $this->assertSame('files', $obj->getDriverId());
         $this->assertSame('cache', $obj->getDriverType());
-        $this->assertSame('Neutron\Core\Form\Admin\CacheDriver\FilesDriverSettings', $obj->getFormSettingsClass());
+        $this->assertSame('Neutron\Core\Form\Admin\CacheDriver\EditFilesDriverSettings', $obj->getFormSettingsClass());
         $this->assertSame(1, $obj->isActive());
         $this->assertSame(1, $obj->getSortOrder());
         $this->assertSame('core', $obj->getPackageId());
@@ -63,7 +63,7 @@ class CoreDriverTest extends \PHPUnit_Framework_TestCase
             'driver_identity'     => 1,
             'driver_id'           => 'files',
             'driver_type'         => 'cache',
-            'form_settings_class' => 'Neutron\\Core\\Form\\Admin\\CacheDriver\\FilesDriverSettings',
+            'form_settings_class' => 'Neutron\\Core\\Form\\Admin\\CacheDriver\\EditFilesDriverSettings',
             'is_active'           => 1,
             'sort_order'          => 1,
             'package_id'          => 'core',
@@ -81,7 +81,7 @@ class CoreDriverTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->getDriverIdentity());
         $this->assertSame('files', $obj->getDriverId());
         $this->assertSame('cache', $obj->getDriverType());
-        $this->assertSame('Neutron\Core\Form\Admin\CacheDriver\FilesDriverSettings', $obj->getFormSettingsClass());
+        $this->assertSame('Neutron\Core\Form\Admin\CacheDriver\EditFilesDriverSettings', $obj->getFormSettingsClass());
         $this->assertSame(1, $obj->isActive());
         $this->assertSame(1, $obj->getSortOrder());
         $this->assertSame('core', $obj->getPackageId());

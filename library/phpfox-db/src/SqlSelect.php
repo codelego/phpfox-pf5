@@ -208,6 +208,28 @@ class SqlSelect
     }
 
     /**
+     * @param bool               $if
+     * @param string|array       $expression
+     * @param string|array|mixed $data
+     *
+     * @return $this
+     */
+    public function whereIf($if, $expression, $data)
+    {
+        if (!$if) {
+            return $this;
+        }
+
+        if (null == $this->_where) {
+            $this->_where = new SqlCondition($this->adapter);
+        }
+
+        $this->_where->where($expression, $data);
+
+        return $this;
+    }
+
+    /**
      * @param $expression
      * @param $data
      *

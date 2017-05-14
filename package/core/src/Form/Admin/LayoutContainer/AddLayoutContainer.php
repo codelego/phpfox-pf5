@@ -7,11 +7,17 @@ use Phpfox\Form\Form;
 class AddLayoutContainer extends Form
 {
 
+    /**
+     * @var string
+     */
+    protected $pageId;
+
+
     public function initialize()
     {
 
-        $this->setTitle(_text('Add Layout Container', ''));
-        $this->setInfo(_text('[Add Layout Container Info]', ''));
+        $this->setTitle(_text('Add Layout Container', '_core.layout'));
+        $this->setInfo(_text('[Add Layout Container Info]', '_core.layout'));
         $this->setAction(_url('#'));
 
         /** start elements **/
@@ -21,54 +27,44 @@ class AddLayoutContainer extends Form
 
         /** element `page_id` **/
         $this->addElement([
-            'name'      => 'page_id',
-            'factory'   => 'text',
-            'label'     => _text('Page Id', null),
-            'note'      => _text('[Page Id Note]', null),
-            'maxlength' => 255,
-            'required'  => true,
+            'name'    => 'page_id',
+            'factory' => 'hidden',
+            'value'   => $this->pageId,
+        ]);
+
+        $this->addElement([
+            'name'    => 'is_active',
+            'factory' => 'hidden',
+            'value'   => 1,
         ]);
 
         /** element `grid_id` **/
         $this->addElement([
-            'name'      => 'grid_id',
-            'factory'   => 'text',
-            'label'     => _text('Grid Id', null),
-            'note'      => _text('[Grid Id Note]', null),
-            'value'     => 'simple',
-            'maxlength' => 255,
-            'required'  => true,
+            'name'     => 'grid_id',
+            'factory'  => 'select',
+            'label'    => _text('Grid Id', '_core.layout'),
+            'value'    => 'simple',
+            'options'  => _service('layout_loader')->getGridIdOptions(),
+            'required' => true,
         ]);
 
         /** element `type_id` **/
         $this->addElement([
-            'name'      => 'type_id',
-            'factory'   => 'text',
-            'label'     => _text('Type Id', null),
-            'note'      => _text('[Type Id Note]', null),
-            'value'     => 'container',
-            'maxlength' => 255,
-            'required'  => true,
-        ]);
-
-        /** element `is_active` **/
-        $this->addElement([
-            'name'     => 'is_active',
-            'factory'  => 'yesno',
-            'label'    => _text('Is Active', null),
-            'note'     => _text('[Is Active Note]', null),
-            'value'    => '0',
+            'name'     => 'type_id',
+            'factory'  => 'radio',
+            'label'    => _text('Container Type', '_core.layout'),
+            'value'    => 'container',
             'required' => true,
+            'options'  => _service('layout_loader')->getContainerTypeIdOptions(),
         ]);
 
         /** element `sort_order` **/
         $this->addElement([
             'name'      => 'sort_order',
             'factory'   => 'text',
-            'label'     => _text('Sort Order', null),
-            'note'      => _text('[Sort Order Note]', null),
-            'value'     => '1',
-            'maxlength' => 255,
+            'label'     => _text('Ordering', '_core.layout'),
+            'value'     => 1,
+            'maxlength' => 3,
             'required'  => true,
         ]);
         /** skip element `params` #skips **/
@@ -88,5 +84,22 @@ class AddLayoutContainer extends Form
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getPageId()
+    {
+        return $this->pageId;
+    }
+
+    /**
+     * @param string $pageId
+     */
+    public function setPageId($pageId)
+    {
+        $this->pageId = $pageId;
     }
 }

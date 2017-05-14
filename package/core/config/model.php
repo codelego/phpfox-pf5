@@ -165,4 +165,10 @@ return [
         CoreAdapter::class,
         'package/core/config/model/core_adapter.php',
     ],
+    'site_setting_form'   => [
+        'table_factory',
+        ':site_setting_form',
+        SiteSettingForm::class,
+        'package/core/config/model/site_setting_form.php',
+    ],
 ];

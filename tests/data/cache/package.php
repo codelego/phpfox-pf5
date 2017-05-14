@@ -531,8 +531,8 @@
     ),
     'core.themes' => 
     array (
-      0 => NULL,
-      1 => 'Neutron\\Core\\Service\\LayoutThemes',
+        0 => NULL,
+        1 => 'Neutron\\Core\\Service\\ThemeManager',
     ),
     'core.mails' => 
     array (
@@ -801,6 +801,7 @@
     'default:layout-editor/edit-location' => 'package/core/layout-editor/edit-location',
     'default:core/admin-acl/manage-acl-role' => 'package/core/view/admin-acl/manage-acl-role',
     'default:core/admin-cache/manage-cache-adapter' => 'package/core/view/admin-cache/manage-cache-adapter',
+    'default:core/admin-captcha/manage-captcha-adapter' => 'package/core/view/admin-captcha/manage-captcha-adapter',
     'default:core/admin-i18n/manage-i18n-currency' => 'package/core/view/admin-i18n/manage-i18n-currency',
     'default:core/admin-i18n/manage-i18n-locale' => 'package/core/view/admin-i18n/manage-i18n-locale',
     'default:core/admin-i18n/manage-i18n-message' => 'package/core/view/admin-i18n/manage-i18n-message',
@@ -896,4 +897,9 @@
   'views' => 
   array (
   ),
+  'captcha' => 
+  array (
+    'adapter_id' => 'captcha',
+  ),
+  'captcha.adapter_id' => 'captcha',
 );

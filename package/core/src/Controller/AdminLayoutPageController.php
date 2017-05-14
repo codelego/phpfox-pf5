@@ -94,14 +94,14 @@ class AdminLayoutPageController extends AdminController
         }
 
 
-        _service('menu.admin.secondary')
+        _service('menu.admin.buttons')
             ->add([
                 'label' => 'Add Container',
                 'extra' => [
-                    'class'    => 'btn btn-success',
+                    'class'    => 'btn btn-danger',
                     'data-cmd' => 'modal',
-                    'href'     => _url('admin.core.layout.action',
-                        ['action' => 'add-container', 'page_id' => $pageId]),
+                    'href'     => _url('admin.core.layout.container',
+                        ['action' => 'add', 'page_id' => $pageId]),
                 ],
             ]);
 

@@ -2,8 +2,8 @@
 
 namespace Neutron\Core\Controller;
 
-use Neutron\Core\Form\AddLayoutBlock;
-use Neutron\Core\Form\EditLayoutBlock;
+use Neutron\Core\Form\Admin\LayoutBlock\AddLayoutBlock;
+use Neutron\Core\Form\Admin\LayoutBlock\EditLayoutBlock;
 use Neutron\Core\Model\LayoutBlock;
 use Neutron\Core\Model\LayoutContainer;
 use Neutron\Core\Model\LayoutPage;
@@ -29,13 +29,10 @@ class AdminLayoutBlockController extends AdminController
         /** @var LayoutPage $page */
         $page = _find('layout_page', $container->getPageId());
 
-        $form = new AddLayoutBlock();
-
-        $form->setAction(_url('admin.core.layout.action', [
-            'action'       => 'add-block',
-            'location_id'  => $locationId,
-            'container_id' => $containerId,
-        ]));
+        $form = new AddLayoutBlock([
+            'locationId'  => $locationId,
+            'containerId' => $containerId,
+        ]);
 
         if ($request->isGet()) {
 
@@ -58,8 +55,10 @@ class AdminLayoutBlockController extends AdminController
 
             _service('cache.local')->flush();
 
-            _redirect('admin.core.layout.design-page',
-                ['action_id' => $page->getActionId()]);
+            _redirect('admin.core.layout.page', [
+                'action'    => 'design',
+                'action_id' => $page->getActionId(),
+            ]);
         }
 
         return new ViewModel([
@@ -92,6 +91,79 @@ class AdminLayoutBlockController extends AdminController
         ], 'layout/form-edit');
     }
 
+    public function actionEnable()
+    {
+        $request = _service('request');
+        $blockId = $request->get('block_id');
+
+        /** @var LayoutBlock $block */
+        $block = _find('layout_block', $blockId);
+
+        $container = _find('layout_container', $block->getContainerId());
+
+        /** @var LayoutPage $page */
+        $page = _find('layout_page', $container->getPageId());
+
+        $block->setActive(1);
+        $block->save();
+
+        _service('cache.local')->flush();
+
+        _redirect('admin.core.layout.page', [
+            'action'    => 'design',
+            'action_id' => $page->getActionId(),
+        ]);
+    }
+
+    public function actionSettings()
+    {
+        $request = _service('request');
+        $blockId = $request->get('block_id');
+
+        /** @var LayoutBlock $block */
+        $block = _find('layout_block', $blockId);
+
+        $container = _find('layout_container', $block->getContainerId());
+
+        /** @var LayoutPage $page */
+        $page = _find('layout_page', $container->getPageId());
+
+        $block->setActive(1);
+        $block->save();
+
+        _service('cache.local')->flush();
+
+        _redirect('admin.core.layout.page', [
+            'action'    => 'design',
+            'action_id' => $page->getActionId(),
+        ]);
+    }
+
+    public function actionDisable()
+    {
+        $request = _service('request');
+        $blockId = $request->get('block_id');
+
+        /** @var LayoutBlock $block */
+        $block = _find('layout_block', $blockId);
+
+        $container = _find('layout_container', $block->getContainerId());
+
+        /** @var LayoutPage $page */
+        $page = _find('layout_page', $container->getPageId());
+
+        $block->setActive(0);
+        $block->save();
+
+        _service('cache.local')->flush();
+
+        _redirect('admin.core.layout.action.page', [
+            'action'    => 'design',
+            'action_id' => $page->getActionId(),
+        ]);
+
+    }
+
     public function actionDelete()
     {
         $request = _service('request');
@@ -99,6 +171,7 @@ class AdminLayoutBlockController extends AdminController
 
         /** @var LayoutBlock $block */
         $block = _find('layout_block', $blockId);
+
         $container = _find('layout_container', $block->getContainerId());
         /** @var LayoutPage $page */
         $page = _find('layout_page', $container->getPageId());
@@ -107,8 +180,8 @@ class AdminLayoutBlockController extends AdminController
 
         _service('cache.local')->flush();
 
-        _redirect('admin.core.layout.action', [
-            'action'    => 'design-page',
+        _redirect('admin.core.layout.action.page', [
+            'action'    => 'design',
             'action_id' => $page->getActionId(),
         ]);
     }

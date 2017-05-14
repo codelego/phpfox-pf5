@@ -19,6 +19,22 @@ class AdapterManager
             ->findById($identity);
     }
 
+    public function getAdapterIdOptions($driverType)
+    {
+        $select = _model('core_adapter')
+            ->select()
+            ->where('driver_type=?', $driverType)
+            ->where('is_active=?', 1);
+
+        return array_map(function (CoreAdapter $coreAdapter) {
+            return [
+                'value' => $coreAdapter->getId(),
+                'label' => $coreAdapter->getTitle(),
+                'note'  => $coreAdapter->getDescription(),
+            ];
+        }, $select->all());
+    }
+
     /**
      * @param string $driverId
      * @param string $driverType

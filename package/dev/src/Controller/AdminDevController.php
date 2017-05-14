@@ -3,8 +3,9 @@
 namespace Neutron\Dev\Controller;
 
 use Neutron\Core\Controller\AdminController;
-use Neutron\Core\Form\Admin\RapidDev\RadModelToolSettings;
+use Neutron\Core\Process\AdminEditEntryProcess;
 use Neutron\Core\Process\AdminManageSiteSettingsProcess;
+use Neutron\Dev\Form\Admin\DevAction\EditDevAction;
 use Neutron\Dev\Form\Admin\DevActionMeta\FilterDevActionMeta;
 use Neutron\Dev\Model\DevAction;
 use Neutron\Dev\Model\DevTable;
@@ -30,6 +31,16 @@ class AdminDevController extends AdminController
 
         _service('menu.admin.buttons')
             ->load('admin.dev.buttons');
+    }
+
+    public function actionEditAction()
+    {
+        return (new AdminEditEntryProcess([
+            'key'      => 'meta_id',
+            'model'    => DevAction::class,
+            'form'     => EditDevAction::class,
+            'redirect' => _url('admin.dev'),
+        ]))->process();
     }
 
     public function actionSettings()
@@ -107,52 +118,7 @@ class AdminDevController extends AdminController
         return new ViewModel([
             'items'    => $items,
             'selected' => $selected,
-        ], 'dev/admin-dev/manage-action-meta');
-
-    }
-
-    public function actionMore()
-    {
-        $methodMaps = [
-            'form_admin_add'    => 'generateFormAdminAdd',
-            'form_admin_edit'   => 'generateFormAdminEdit',
-            'form_admin_delete' => 'generateFormAdminDelete',
-            'form_admin_filter' => 'generateFormAdminFilter',
-            'model'             => 'generateModel',
-        ];
-        $req = _service('request');
-
-        $form = new RadModelToolSettings([]);
-
-        if ($req->isGet()) {
-
-        }
-        if ($req->isPost() and $form->isValid($req->all())) {
-            $data = $form->getData();
-            $packageId = $data['package_id'];
-            $tables = $data['tables'];
-            $cmds = $data['cmds'];
-            $textDomain = $data['text_domain'];
-
-            foreach ($tables as $table) {
-                foreach ($cmds as $cmd) {
-                    if (method_exists($this, $method = $methodMaps[$cmd])) {
-                        $this->{$method}($form, $packageId, $table, $textDomain);
-                    }
-                }
-            }
-
-        }
-
-
-        return new ViewModel([
-            'form' => $form,
-        ], 'layout/form-edit');
-    }
-
-
-    public function actionAddFormUserSettings()
-    {
+        ], 'dev/admin-dev/manage-dev-action');
 
     }
 }

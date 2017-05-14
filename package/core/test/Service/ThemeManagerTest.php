@@ -8,7 +8,7 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetSassVariablesByEmpty()
     {
-        $mn = new LayoutThemes();
+        $mn = new ThemeManager();
 
         $this->assertNotEmpty($mn->getSassVariables(0));
         $this->assertNotEmpty($mn->getSassVariables(null));
@@ -16,7 +16,7 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testGetRebuildFileByEmpty()
     {
-        $mn = new LayoutThemes();
+        $mn = new ThemeManager();
 
         $this->assertNotEmpty($mn->getRebuildFiles(null));
         $this->assertNotEmpty($mn->getRebuildFiles('default'));
@@ -49,14 +49,14 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSassVariablesByValidId($id)
     {
-        $mn = new LayoutThemes();
+        $mn = new ThemeManager();
 
         $this->assertNotEmpty($mn->getSassVariables($id));
     }
 
     public function testFindByIdByEmpty()
     {
-        $mn = new LayoutThemes();
+        $mn = new ThemeManager();
 
         $this->assertNull($mn->findById(null));
         $this->assertNull($mn->findById(0));
@@ -87,7 +87,7 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testFindByIdWithValidValue($id)
     {
-        $mn = new LayoutThemes();
+        $mn = new ThemeManager();
         $theme = $mn->findById($id);
 
         $this->assertTrue($theme instanceof LayoutTheme);
@@ -103,7 +103,7 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetDefaultWithValidThemeId($id)
     {
-        $mn = new LayoutThemes();
+        $mn = new ThemeManager();
 
         $mn->setDefault($id);
 
@@ -118,7 +118,7 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetDefaultWithInvalidTheme()
     {
-        $mn = new LayoutThemes();
+        $mn = new ThemeManager();
 
         $mn->setDefault('no theme');
     }
@@ -128,7 +128,7 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetActiveByInvalidThemeId()
     {
-        $mn = new LayoutThemes();
+        $mn = new ThemeManager();
 
         $mn->setActive('no theme');
     }
@@ -140,7 +140,7 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetActiveByValidThemeId($id)
     {
-        $mn = new LayoutThemes();
+        $mn = new ThemeManager();
 
         $mn->setActive($id);
 
@@ -154,7 +154,7 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetInactiveByInvalidThemeId()
     {
-        $mn = new LayoutThemes();
+        $mn = new ThemeManager();
 
         $mn->setInactive('no theme');
     }
@@ -182,7 +182,7 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetInactiveByValidThemeId($id)
     {
-        $mn = new LayoutThemes();
+        $mn = new ThemeManager();
 
         $mn->setInactive($id);
 
@@ -205,7 +205,7 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
             ->where('theme_id=?', 'galaxy')
             ->execute();
 
-        $mn = new LayoutThemes();
+        $mn = new ThemeManager();
 
         /** @var LayoutTheme $obj */
         $obj = $mn->getDefault();
@@ -241,7 +241,7 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testRebuildMainByEmpty()
     {
-        $mn = new LayoutThemes();
+        $mn = new ThemeManager();
 
         $mn->rebuildMain(null);
     }
@@ -252,7 +252,7 @@ class ThemeManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testRebuildMainDefault()
     {
-        $mn = new LayoutThemes();
+        $mn = new ThemeManager();
 
         $mn->rebuildMain('default');
         $this->assertFalse(false);

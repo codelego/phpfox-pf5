@@ -1,0 +1,60 @@
+<form method="post">
+    <div class="panel panel-default">
+        <div class="table table-responsive">
+            <table class="table table-admin">
+                <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="w30">
+                        <label><input type="checkbox" class="moderation-check-all"/></label>
+                    </th>
+                    <th>Table</th>
+                    <th>Package</th>
+                    <th>Options</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($items as $item): ?>
+                    <tr>
+                        <td class="dropdown" data-cmd="dropdown">
+                            <ul role="menu">
+                                <li role="menuitem">
+                                    <a href="<?= _url('admin.dev.table',
+                                        ['action' => 'delete', 'table_name' => $item->getId()]) ?>">Delete Table</a>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <label><input id="cb" type="checkbox" name="tables[]" value="<?= $item->getId() ?>"
+                                          class="item_checkbox"/></label>
+                        </td>
+                        <td>
+                            <?= $item->getTableName(); ?>
+                        </td>
+                        <td>
+                            <?= $item->getPackageId(); ?>
+                        </td>
+                        <td>
+                            <?= (new \Phpfox\Form\InputRadioField([
+                                'name'     => 'actions[' . $item->getId() . ']',
+                                'value'    => $item->getActionId(),
+                                'required' => true,
+                                'inline'   => true,
+                                'options'  => [
+                                    ['value' => 'skip', 'label' => 'Nothing'],
+                                    ['value' => 'delete', 'label' => 'Delete'],
+                                    ['value' => 'create', 'label' => 'Create'],
+                                    ['value' => 'refresh', 'label' => 'Re-Create'],
+                                ],
+                            ]))->render() ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="panel-footer">
+            <button class="btn btn-primary" name="cmd" type="submit" value="process">Process</button>
+        </div>
+    </div>
+</form>

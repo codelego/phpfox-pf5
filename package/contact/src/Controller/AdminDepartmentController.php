@@ -3,7 +3,7 @@
 namespace Neutron\Contact\Controller;
 
 
-use Neutron\Contact\Form\EditContactDepartment;
+use Neutron\Contact\Form\Admin\ContactDepartment\EditContactDepartment;
 use Neutron\Contact\Model\Department;
 use Neutron\Core\Controller\AdminController;
 use Phpfox\View\ViewModel;

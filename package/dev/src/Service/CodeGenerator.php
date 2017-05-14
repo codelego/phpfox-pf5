@@ -4,13 +4,13 @@ namespace Neutron\Dev\Service;
 
 use Neutron\Core\Model\AclSettingAction;
 use Neutron\Core\Model\AclSettingGroup;
-use Neutron\Core\Model\SiteSettingGroup;
+use Neutron\Core\Model\SiteSettingForm;
 use Neutron\Core\Model\SiteSettingValue;
-use Neutron\Dev\FormAdminAclSettingGenerator;
+use Neutron\Dev\FormAclSettingGenerator;
 use Neutron\Dev\FormAdminAddGenerator;
 use Neutron\Dev\FormAdminEditGenerator;
 use Neutron\Dev\FormAdminFilterGenerator;
-use Neutron\Dev\FormAdminSiteSettingGenerator;
+use Neutron\Dev\FormSiteSettingGenerator;
 use Neutron\Dev\Model\DevAction;
 use Neutron\Dev\Model\DevElement;
 use Neutron\Dev\Model\DevTable;
@@ -53,6 +53,23 @@ class CodeGenerator
         ];
 
     /**
+     * Database tables
+     *
+     * @var array
+     */
+    protected $dbTables = [];
+
+    /**
+     * CodeGenerator constructor.
+     */
+    public function __construct()
+    {
+        $this->dbTables = array_map(function ($tableName) {
+            return substr($tableName, strlen(PHPFOX_TABLE_PREFIX));
+        }, _service('db')->tables());
+    }
+
+    /**
      * @return AclSettingGroup[]
      */
     public function getUserSettingGroups()
@@ -63,13 +80,12 @@ class CodeGenerator
     }
 
     /**
-     * @return SiteSettingGroup[]
+     * @return SiteSettingForm[]
      */
-    public function getSiteSettingGroups()
+    public function getSiteSettingForm()
     {
-        return _model('site_setting_group')
+        return _model('site_setting_form')
             ->select()
-            ->order('sort_order', 1)
             ->all();
     }
 
@@ -84,34 +100,41 @@ class CodeGenerator
             return false;
         }
 
-        /** @var DevAction[] $actionMetas */
-        $actionMetas = _model('dev_action')
+        /** @var DevAction[] $devActions */
+        $devActions = _model('dev_action')
             ->select()
             ->where('meta_id in ?', $selected)
             ->where('action_type <> ?', 'skip')
             ->all();
 
-        foreach ($actionMetas as $actionMeta) {
-            switch ($actionMeta->getActionType()) {
+        foreach ($devActions as $devAction) {
+            switch ($devAction->getActionType()) {
                 case 'admin_add':
-                    (new FormAdminAddGenerator($actionMeta))->process();
+                    $this->updateElementsByTableInfo($devAction, null);
+                    (new FormAdminAddGenerator($devAction))->process();
                     break;
                 case 'admin_edit':
-                    (new FormAdminEditGenerator($actionMeta))->process();
+                    $this->updateElementsByTableInfo($devAction, null);
+                    (new FormAdminEditGenerator($devAction))->process();
                     break;
                 case 'admin_delete':
+                    $this->updateElementsByTableInfo($devAction, null);
                     break;
                 case 'admin_filter':
-                    (new FormAdminFilterGenerator($actionMeta))->process();
+                    $this->updateElementsByTableInfo($devAction, null);
+                    (new FormAdminFilterGenerator($devAction))->process();
                     break;
                 case self::FORM_ACL_SETTINGS:
-                    (new FormAdminAclSettingGenerator($actionMeta))->process();
+                    $this->updateElementsByAclSettingForm($devAction, null);
+                    (new FormAclSettingGenerator($devAction))->process();
                     break;
                 case self::FORM_SITE_SETTINGS:
-                    (new FormAdminSiteSettingGenerator($actionMeta))->process();
+                    $this->updateElementsBySiteSettingsForm($devAction, null);
+                    (new FormSiteSettingGenerator($devAction))->process();
                     break;
                 case 'model_class':
-                    (new ModelGenerator($actionMeta))->process();
+                    $this->updateElementsByTableInfo($devAction, null);
+                    (new ModelGenerator($devAction))->process();
                     break;
             }
         }
@@ -126,9 +149,7 @@ class CodeGenerator
      */
     public function scans()
     {
-        $tables = array_map(function ($tableName) {
-            return substr($tableName, strlen(PHPFOX_TABLE_PREFIX));
-        }, _service('db')->tables());
+        $tables = $this->dbTables;
 
         $formTypes = [
             'admin_add',
@@ -195,11 +216,11 @@ class CodeGenerator
     {
         $actionType = self::FORM_SITE_SETTINGS;
 
-        foreach ($this->getSiteSettingGroups() as $settingGroup) {
+        foreach ($this->getSiteSettingForm() as $settingForm) {
             $entry = _model('dev_action')
                 ->select()
                 ->where('action_type=?', $actionType)
-                ->where('table_name=?', $settingGroup->getGroupId())
+                ->where('table_name=?', $settingForm->getId())
                 ->first();
 
             if ($entry) {
@@ -208,10 +229,10 @@ class CodeGenerator
 
             _model('dev_action')
                 ->create([
-                    'package_id'  => $settingGroup->getPackageId(),
-                    'text_domain' => 'admin.' . $settingGroup->getGroupId() . '_setting',
+                    'package_id'  => $settingForm->getPackageId(),
+                    'text_domain' => 'admin.' . $settingForm->getFormId() . '_setting',
                     'action_type' => $actionType,
-                    'table_name'  => $settingGroup->getGroupId(),
+                    'table_name'  => $settingForm->getFormId(),
                 ])->save();
         }
     }
@@ -219,80 +240,18 @@ class CodeGenerator
     protected function updateSiteSettingElements()
     {
         $actionType = self::FORM_SITE_SETTINGS;
-        foreach ($this->getSiteSettingGroups() as $settingGroup) {
+        foreach ($this->getSiteSettingForm() as $settingForm) {
             /** @var DevAction $devAction */
             $devAction = _model('dev_action')
                 ->select()
                 ->where('action_type=?', $actionType)
-                ->where('table_name=?', $settingGroup->getGroupId())
+                ->where('table_name=?', $settingForm->getFormId())
                 ->first();
 
             if (!$devAction) {
                 continue;
             }
-
-            /** @var SiteSettingValue[] $settingValues */
-            $settingValues = _model('site_setting_value')
-                ->select()
-                ->where('group_id=?', $settingGroup->getId())
-                ->order('sort_order', 1)
-                ->all();
-
-            $sortOrder = 1;
-            foreach ($settingValues as $settingValue) {
-                $elementName = $settingValue->getGroupId() . '__' . $settingValue->getName();
-                $devElement = _model('dev_element')
-                    ->select()
-                    ->where('meta_id=?', $devAction->getMetaId())
-                    ->where('element_name=?', $elementName)
-                    ->first();
-
-                if ($devElement) {
-                    continue;
-                }
-                $label = implode(' ', array_map(function ($v) {
-                    return ucfirst($v);
-                }, explode('_', $settingValue->getName())));
-
-                $factoryId = 'text';
-
-
-                if (substr($elementName, -3) == '_id') {
-                    $factoryId = 'select';
-                }
-
-                if (preg_match('/(_enable|_disable|_active|_allow)/', $elementName)) {
-                    $factoryId = 'yesno';
-                }
-
-                if (preg_match('/(_html_)/', $elementName)) {
-                    $factoryId = 'textarea';
-                }
-
-                if (preg_match('/(_code|_path|_domain|_prefix)/', $elementName)) {
-                    $factoryId = 'text';
-                }
-
-                if ($settingValue->getValueActual() == "1" or $settingValue->getValueActual() == "0") {
-                    $factoryId = 'yesno';
-                }
-
-                $devAction = _model('dev_element')
-                    ->create([
-                        'meta_id'      => $devAction->getMetaId(),
-                        'factory_id'   => $factoryId,
-                        'element_name' => $elementName,
-                        'sort_order'   => $sortOrder,
-                        'label'        => $label,
-                        'note'         => '[' . $label . ' Note]',
-                        'info'         => '[' . $label . ' Info]',
-                        'required'     => 1,
-                        'is_active'    => 1,
-                    ]);
-
-                $devAction->save();
-                ++$sortOrder;
-            }
+            $this->updateElementsBySiteSettingsForm($devAction, $settingForm);
         }
     }
 
@@ -335,45 +294,7 @@ class CodeGenerator
             if (!$devAction) {
                 continue;
             }
-
-            /** @var AclSettingAction[] $settingActions */
-            $settingActions = _model('acl_setting_action')
-                ->select()
-                ->where('group_id=?', $settingGroup->getId())
-                ->all();
-
-            $sortOrder = 1;
-            foreach ($settingActions as $settingAction) {
-                $elementName = $settingAction->getGroupId() . '__' . $settingAction->getName();
-                $devElement = _model('dev_element')
-                    ->select()
-                    ->where('meta_id=?', $devAction->getMetaId())
-                    ->where('element_name=?', $elementName)
-                    ->first();
-
-                if ($devElement) {
-                    continue;
-                }
-                $label = implode(' ', array_map(function ($v) {
-                    return ucfirst($v);
-                }, explode('_', $settingAction->getName())));
-
-                $devAction = _model('dev_element')
-                    ->create([
-                        'meta_id'      => $devAction->getMetaId(),
-                        'element_name' => $elementName,
-                        'sort_order'   => $sortOrder,
-                        'label'        => $label,
-                        'note'         => '[' . $label . ' Note]',
-                        'info'         => '[' . $label . ' Info]',
-                        'factory_id'   => 'yesno',
-                        'required'     => 1,
-                        'is_active'    => 1,
-                    ]);
-
-                $devAction->save();
-                ++$sortOrder;
-            }
+            $this->updateElementsByAclSettingForm($devAction, $settingGroup);
         }
     }
 
@@ -382,20 +303,25 @@ class CodeGenerator
      */
     protected function upgradeElements()
     {
-        /** @var DevTable[] $tables */
-        $tables = _model('dev_table')
+        /** @var DevTable[] $devTables */
+        $devTables = _model('dev_table')
             ->select()
             ->where('package_id<>?', 'undefined')
             ->all();
 
-        foreach ($tables as $table) {
+        foreach ($devTables as $table) {
+
+            if (!in_array($table, $this->dbTables)) {
+                continue;
+            }
+
             $tableName = $table->getId();
             $tableInfo = new TableInfo($tableName);
 
             $actions = $this->getActionByTableName($tableName);
 
             foreach ($actions as $action) {
-                $this->scanTableInfoToUpgradeElement($tableInfo, $action);
+                $this->updateElementsByTableInfo($action, $tableInfo);
             }
             // check column exists
         }
@@ -413,8 +339,14 @@ class CodeGenerator
      * @param TableInfo $tableInfo
      * @param DevAction $devAction
      */
-    public function scanTableInfoToUpgradeElement($tableInfo, $devAction)
+    public function updateElementsByTableInfo($devAction, $tableInfo)
     {
+        if (!$tableInfo) {
+            $tableInfo = new TableInfo($devAction->getTableName());
+        }
+
+
+
         /** @var DevElement[] $elements */
         $elements = _model('dev_element')
             ->select()
@@ -444,7 +376,7 @@ class CodeGenerator
             }
 
             $isActive = 1;
-            if (!in_array($column->getName(), $this->hideFields)) {
+            if (in_array($column->getName(), $this->hideFields)) {
                 $isActive = 0;
             }
 
@@ -512,13 +444,139 @@ class CodeGenerator
     }
 
 
+    /**
+     * @param DevAction       $devAction
+     * @param SiteSettingForm $settingForm
+     */
+    protected function updateElementsBySiteSettingsForm($devAction, $settingForm)
+    {
+        if (null == $settingForm) {
+            $settingForm = _model('site_setting_form')
+                ->findById($devAction->getTableName());
+        }
+
+        /** @var SiteSettingValue[] $settingValues */
+        $settingValues = _model('site_setting_value')
+            ->select()
+            ->where('form_id=?', $settingForm->getFormId())
+            ->order('sort_order', 1)
+            ->all();
+
+        $sortOrder = 1;
+        foreach ($settingValues as $settingValue) {
+            $elementName = $settingValue->getGroupId() . '__' . $settingValue->getName();
+            $devElement = _model('dev_element')
+                ->select()
+                ->where('meta_id=?', $devAction->getMetaId())
+                ->where('element_name=?', $elementName)
+                ->first();
+
+            if ($devElement) {
+                continue;
+            }
+            $label = implode(' ', array_map(function ($v) {
+                return ucfirst($v);
+            }, explode('_', $settingValue->getName())));
+
+            $factoryId = 'text';
+
+
+            if (substr($elementName, -3) == '_id') {
+                $factoryId = 'select';
+            }
+
+            if (preg_match('/(_enable|_disable|_active|_allow)/', $elementName)) {
+                $factoryId = 'yesno';
+            }
+
+            if (preg_match('/(_html_)/', $elementName)) {
+                $factoryId = 'textarea';
+            }
+
+            if (preg_match('/(_code|_path|_domain|_prefix)/', $elementName)) {
+                $factoryId = 'text';
+            }
+
+            if ($settingValue->getValueActual() == "1" or $settingValue->getValueActual() == "0") {
+                $factoryId = 'yesno';
+            }
+
+            $devAction = _model('dev_element')
+                ->create([
+                    'meta_id'      => $devAction->getMetaId(),
+                    'factory_id'   => $factoryId,
+                    'element_name' => $elementName,
+                    'sort_order'   => $sortOrder,
+                    'label'        => $label,
+                    'note'         => '[' . $label . ' Note]',
+                    'info'         => '[' . $label . ' Info]',
+                    'required'     => 1,
+                    'is_active'    => 1,
+                ]);
+
+            $devAction->save();
+            ++$sortOrder;
+        }
+    }
+
+    /**
+     * @param DevAction       $devAction
+     * @param AclSettingGroup $settingGroup
+     */
+    protected function updateElementsByAclSettingForm($devAction, $settingGroup)
+    {
+        if (!$settingGroup) {
+            $settingGroup = _model('acl_setting_group')
+                ->findById($devAction->getTableName());
+        }
+
+        /** @var AclSettingAction[] $settingActions */
+        $settingActions = _model('acl_setting_action')
+            ->select()
+            ->where('group_id=?', $settingGroup->getId())
+            ->all();
+
+        $sortOrder = 1;
+        foreach ($settingActions as $settingAction) {
+            $elementName = $settingAction->getGroupId() . '__' . $settingAction->getName();
+            $devElement = _model('dev_element')
+                ->select()
+                ->where('meta_id=?', $devAction->getMetaId())
+                ->where('element_name=?', $elementName)
+                ->first();
+
+            if ($devElement) {
+                continue;
+            }
+            $label = implode(' ', array_map(function ($v) {
+                return ucfirst($v);
+            }, explode('_', $settingAction->getName())));
+
+            $devAction = _model('dev_element')
+                ->create([
+                    'meta_id'      => $devAction->getMetaId(),
+                    'element_name' => $elementName,
+                    'sort_order'   => $sortOrder,
+                    'label'        => $label,
+                    'note'         => '[' . $label . ' Note]',
+                    'info'         => '[' . $label . ' Info]',
+                    'factory_id'   => 'yesno',
+                    'required'     => 1,
+                    'is_active'    => 1,
+                ]);
+
+            $devAction->save();
+            ++$sortOrder;
+        }
+    }
+
     protected function cleanDirtyData()
     {
 
 
         $sql
             = 'delete FROM pf5_dev_action WHERE
-action_type IN (\'admin_add\',\'admin_edit\',\'admin_filter\',\'admin_delete\')
+action_type IN (\'admin_add\',\'admin_edit\',\'admin_filter\',\'admin_delete\',\'model_class\')
 AND TABLE_NAME NOT IN (SELECT TABLE_NAME FROM pf5_dev_table);';
 
         _service('db')->execute($sql);

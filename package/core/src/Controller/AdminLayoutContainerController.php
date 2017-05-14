@@ -2,10 +2,10 @@
 
 namespace Neutron\Core\Controller;
 
-
-use Neutron\Core\Form\AddLayoutContainer;
-use Neutron\Core\Form\EditLayoutContainer;
+use Neutron\Core\Form\Admin\LayoutContainer\AddLayoutContainer;
+use Neutron\Core\Form\Admin\LayoutContainer\EditLayoutContainer;
 use Neutron\Core\Model\LayoutContainer;
+use Neutron\Core\Model\LayoutPage;
 use Phpfox\View\ViewModel;
 
 class AdminLayoutContainerController extends AdminController
@@ -20,14 +20,13 @@ class AdminLayoutContainerController extends AdminController
     {
         $request = _service('request');
         $id = $request->get('container_id');
+
         /** @var LayoutContainer $container */
         $container = _find('layout_container', $id);
+
         $page = _find('layout_page', $container->getPageId());
 
-        $form = new EditLayoutContainer();
-
-        $form->setAction(_url('admin.core.layout.action',
-            ['container_id' => $id, 'action' => 'edit-container']));
+        $form = new EditLayoutContainer(['pageId' => $page->getId()]);
 
         if ($request->isGet()) {
             $form->populate($container);
@@ -41,9 +40,10 @@ class AdminLayoutContainerController extends AdminController
 
             _service('cache.local')->flush();
 
-            _service('response')
-                ->redirect(_url('admin.core.layout.design-page',
-                    ['action_id' => $page->getActionId()]));
+            _redirect('admin.core.layout.page', [
+                'action'    => 'design',
+                'action_id' => $page->getActionId(),
+            ]);
         }
 
         return new ViewModel([
@@ -56,12 +56,10 @@ class AdminLayoutContainerController extends AdminController
         $request = _service('request');
         $pageId = $request->get('page_id');
         $page = _service('layout_loader')->findPageById($pageId);
-        $form = new AddLayoutContainer();
 
-        $form->setAction(_url('admin.core.layout.action', ['action' => 'add-container', 'page_id' => $pageId]));
+        $form = new AddLayoutContainer(['pageId' => $pageId,]);
 
         if ($request->isGet()) {
-
         }
 
         if ($request->isPost() and $form->isValid($request->all())) {
@@ -71,9 +69,10 @@ class AdminLayoutContainerController extends AdminController
             $entry = new LayoutContainer($data);
             $entry->save();
 
-            _service('response')
-                ->redirect(_url('admin.core.layout.design-page',
-                    ['action_id' => $page->getActionId()]));
+            _redirect('admin.core.layout.page', [
+                'action'    => 'design',
+                'action_id' => $page->getActionId(),
+            ]);
         }
 
         return new ViewModel([
@@ -81,11 +80,51 @@ class AdminLayoutContainerController extends AdminController
         ], 'layout/form-edit');
     }
 
+    public function actionToggle()
+    {
+        $request = _service('request');
+        $containerId = $request->get('container_id');
+
+        /** @var LayoutContainer $container */
+        $container = _model('layout_container')
+            ->findById($containerId);
+
+        /** @var LayoutPage $page */
+        $page = _model('layout_page')
+            ->findById($container->getPageId());
+
+        $container->setActive($container->isActive() ? 0 : 1);
+        $container->save();
+
+        _service('cache.local')->flush();
+
+        _redirect('admin.core.layout.page', [
+            'action'    => 'design',
+            'action_id' => $page->getActionId(),
+        ]);
+    }
+
     public function actionDelete()
     {
         $request = _service('request');
         $containerId = $request->get('container_id');
 
+        /** @var LayoutContainer $container */
+        $container = _model('layout_container')
+            ->findById($containerId);
+
+        /** @var LayoutPage $page */
+        $page = _model('layout_page')
+            ->findById($container->getPageId());
+
         _service('layout_loader')->deleteContainers([$containerId]);
+
+
+        _service('cache.local')->flush();
+
+        _redirect('admin.core.layout.page', [
+            'action'    => 'design',
+            'action_id' => $page->getActionId(),
+        ]);
     }
 }

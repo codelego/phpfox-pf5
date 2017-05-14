@@ -52,7 +52,7 @@ return [
         'navigation.loader'      => [null, Service\NavigationLoader::class],
         'core.i18n'              => [null, Service\I18nManager::class],
         'core.packages'          => [null, Service\Packages::class],
-        'core.themes'            => [null, Service\LayoutThemes::class],
+        'core.themes'            => [null, Service\ThemeManager::class],
         'core.mails'             => [null, Service\MailManager::class],
         'core.roles'             => [null, Service\AclManager::class],
         'core.storage'           => [null, Service\StorageManager::class],

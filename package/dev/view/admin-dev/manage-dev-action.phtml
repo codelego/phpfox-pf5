@@ -1,0 +1,82 @@
+<?php
+
+function getActionName($item)
+{
+    switch ($item->getActionType()) {
+        case 'admin_add':
+            return "<strong>Admin Add</strong> `{$item->getTableName()}`";
+        case 'admin_edit':
+            return "<strong>Admin Edit</strong> `{$item->getTableName()}`";
+        case 'admin_delete':
+            return "<strong>Admin Delete</strong> `{$item->getTableName()}`";
+        case 'admin_filter':
+            return "<strong>Admin Filter</strong> `{$item->getTableName()}`";
+        case 'admin_acl_settings':
+            return "<strong>Acl Settings</strong> `{$item->getTableName()}`";
+        case 'admin_site_settings':
+            return "<strong>Site Settings</strong> `{$item->getTableName()}`";
+        case 'model_class':
+            return "Model `{$item->getTableName()}`";
+    }
+}
+?>
+<form method="post">
+    <div class="panel panel-default">
+        <div class="table table-responsive">
+            <table class="table table-bordered table-hover table-striped">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th class="w30">
+                        <label><input type="checkbox" class="moderation-check-all"/></label>
+                    </th>
+                    <th>ID</th>
+                    <th>Action</th>
+                    <th>Options</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($items as $item): ?>
+                    <tr>
+                        <td class="dropdown" data-cmd="dropdown">
+                            <ul role="menu">
+                                <li role="menuitem">
+                                    <a data-cmd="modal" href="dev/edit-action?meta_id=<?= $item->getId() ?>">Edit</a>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <label><input id="cb" type="checkbox" name="selected[]" <?= in_array($item->getId(),
+                                    $selected) ? 'checked' : '' ?> value="<?= $item->getId() ?>"
+                                          class="item_checkbox"/></label>
+                        </td>
+                        <td>
+                            <?= $item->getId() ?>
+                        </td>
+                        <td>
+                            <?= getActionName($item); ?>
+                        </td>
+                        <td>
+                            <?= (new \Phpfox\Form\InputRadioField([
+                                'name'     => 'actions[' . $item->getId() . ']',
+                                'value'    => $item->getActionId(),
+                                'required' => true,
+                                'inline'   => true,
+                                'options'  => [
+                                    ['value' => 'skip', 'label' => 'Nothing'],
+                                    ['value' => 'delete', 'label' => 'Delete'],
+                                    ['value' => 'create', 'label' => 'Create'],
+                                    ['value' => 'refresh', 'label' => 'Re-Create'],
+                                ],
+                            ]))->render() ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="panel-footer">
+            <button class="btn btn-primary" name="cmd" type="submit" value="save">Process</button>
+        </div>
+    </div>
+</form>

@@ -83,7 +83,7 @@ class ElementGenerator
         $label = $devElement->getLabel();
 
         if ($this->isShortLabel()) {
-            if (substr($label, -2) == 'Id') {
+            if (substr($label, -3) == ' Id') {
                 $label = substr($label, 0, strlen($label) - 3);
             }
         }
@@ -123,7 +123,7 @@ class ElementGenerator
         if ($isHidden or $this->isNoLabel()) {
             unset($element['label']);
         } elseif ($label) {
-            $this->addMessage($element['label']);
+            $this->addMessage($label);
             $element['label'] = '$$$_text($$' . $label . '$$,' . $textDomain . ')$$$';
         }
 
@@ -273,7 +273,7 @@ class ElementGenerator
      */
     public function isShortLabel()
     {
-        return $this->get('sortLabel', false);
+        return $this->get('shortLabel', false);
     }
 
 

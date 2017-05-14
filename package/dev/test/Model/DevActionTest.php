@@ -5,7 +5,7 @@ class DevActionTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new DevAction(array (  'meta_id' => 9,  'package_id' => 'core',  'table_name' => 'acl_perm_allow',  'action_type' => 'admin_add',  'action_id' => 'delete',  'text_domain' => NULL,));
+        $obj = new DevAction(array (  'meta_id' => 9,  'package_id' => 'core',  'table_name' => 'acl_perm_allow',  'action_type' => 'admin_add',  'action_id' => 'delete',  'text_domain' => NULL,  'form_title' => NULL,  'form_info' => NULL,));
 
         $this->assertSame('dev_action', $obj->getModelId());
         $this->assertSame(9, $obj->getMetaId());
@@ -13,7 +13,9 @@ class DevActionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('acl_perm_allow', $obj->getTableName());
         $this->assertSame('admin_add', $obj->getActionType());
         $this->assertSame('delete', $obj->getActionId());
-        $this->assertSame('', $obj->getTextDomain());    }
+        $this->assertSame('', $obj->getTextDomain());
+        $this->assertSame('', $obj->getFormTitle());
+        $this->assertSame('', $obj->getFormInfo());    }
 
     public function testParameters()
     {
@@ -26,6 +28,8 @@ class DevActionTest extends \PHPUnit_Framework_TestCase
         $obj->setActionType('admin_add');
         $obj->setActionId('delete');
         $obj->setTextDomain('');
+        $obj->setFormTitle('');
+        $obj->setFormInfo('');
         // assert same data
         $this->assertSame('dev_action', $obj->getModelId());
         $this->assertSame(9, $obj->getMetaId());
@@ -33,11 +37,13 @@ class DevActionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('acl_perm_allow', $obj->getTableName());
         $this->assertSame('admin_add', $obj->getActionType());
         $this->assertSame('delete', $obj->getActionId());
-        $this->assertSame('', $obj->getTextDomain());    }
+        $this->assertSame('', $obj->getTextDomain());
+        $this->assertSame('', $obj->getFormTitle());
+        $this->assertSame('', $obj->getFormInfo());    }
 
     public function testSave()
     {
-        $obj = new DevAction(array (  'meta_id' => 9,  'package_id' => 'core',  'table_name' => 'acl_perm_allow',  'action_type' => 'admin_add',  'action_id' => 'delete',  'text_domain' => NULL,));
+        $obj = new DevAction(array (  'meta_id' => 9,  'package_id' => 'core',  'table_name' => 'acl_perm_allow',  'action_type' => 'admin_add',  'action_id' => 'delete',  'text_domain' => NULL,  'form_title' => NULL,  'form_info' => NULL,));
 
         $obj->save();
 
@@ -51,7 +57,9 @@ class DevActionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('acl_perm_allow', $obj->getTableName());
         $this->assertSame('admin_add', $obj->getActionType());
         $this->assertSame('delete', $obj->getActionId());
-        $this->assertSame('', $obj->getTextDomain());    }
+        $this->assertSame('', $obj->getTextDomain());
+        $this->assertSame('', $obj->getFormTitle());
+        $this->assertSame('', $obj->getFormInfo());    }
 
     public static function setUpBeforeClass()
     {

@@ -11,50 +11,92 @@ return [
             'controller' => 'core.admin-index',
             'action'     => 'index',
         ],
+        'admin.core'          => [
+            'route'      => 'core/*',
+            'controller' => 'core.admin-index',
+            'action'     => 'index',
+        ],
         'admin.core.acl'      => [
-            'route'      => 'core/acl(/<action>)',
+            'route'      => 'acl(/<action>)',
             'controller' => 'core.admin-acl',
             'action'     => 'index',
         ],
         'admin.core.storage'  => [
-            'route'      => 'core/storage(/<action>)',
+            'route'      => 'storage(/<action>)',
             'controller' => 'core.admin-storage',
             'action'     => 'index',
         ],
+        'admin.core.session'  => [
+            'route'      => 'session(/<action>)',
+            'controller' => 'core.admin-session',
+            'action'     => 'index',
+        ],
+        'admin.core.message'  => [
+            'route'      => 'message(/<action>)',
+            'controller' => 'core.admin-message',
+            'action'     => 'index',
+        ],
+        'admin.core.captcha'  => [
+            'route'      => 'captcha(/<action>)',
+            'controller' => 'core.admin-captcha',
+            'action'     => 'index',
+        ],
+        'admin.core.verify'   => [
+            'route'      => 'verify(/<action>)',
+            'controller' => 'core.admin-verify',
+            'action'     => 'index',
+        ],
         'admin.core.package'  => [
-            'route'      => 'core/package/*',
+            'route'      => 'core/package(/<action>)',
             'controller' => 'core.admin-package',
             'action'     => 'index',
-            'children'   => [
-                '*' => [
-                    'route' => '<action>',
-                ],
-            ],
         ],
         'admin.core.layout'   => [
-            'route'      => 'core/layout/*',
+            'route'      => 'layout/*',
             'controller' => 'core.admin-layout',
             'action'     => 'index',
             'children'   => [
-                'component' => [
-                    'route'      => 'component(/<action>)',
-                    'controller' => 'core.admin-layout-component',
-                ],
-                'theme'     => [
-                    'route'      => 'theme(/<action>)',
-                    'controller' => 'core.admin-layout-theme',
+                'page'      => [
+                    'route'      => 'page(/<action>)',
+                    'controller' => 'core.admin-layout',
                 ],
                 'block'     => [
                     'route'      => 'block(/<action>)',
                     'controller' => 'core.admin-layout-block',
                 ],
-                '*'         => [
-                    'route' => '<action>',
+                'theme'     => [
+                    'route'      => 'theme(/<action>)',
+                    'controller' => 'core.admin-layout-theme',
+                    'action'     => 'index',
+                ],
+                'component' => [
+                    'route'      => 'component(/<action>)',
+                    'controller' => 'core.admin-layout-component',
+                ],
+                'container' => [
+                    'route'      => 'container(/<action>)',
+                    'controller' => 'core.admin-layout-container',
                 ],
             ],
+
+        ],
+        'admin.core.cache'    => [
+            'route'      => 'core/cache(/<action>)',
+            'controller' => 'core.admin-cache',
+            'action'     => 'index',
+        ],
+        'admin.core.log'      => [
+            'route'      => 'core/log(/<action>)',
+            'controller' => 'core.admin-log',
+            'action'     => 'index',
+        ],
+        'admin.core.status'   => [
+            'route'      => 'core/status(/<action>)',
+            'controller' => 'core.admin-status',
+            'action'     => 'overview',
         ],
         'admin.core.i18n'     => [
-            'route'      => 'core/i18n/*',
+            'route'      => 'i18n/*',
             'controller' => 'core.admin-i18n-message',
             'action'     => 'index',
             'children'   => [
@@ -91,26 +133,6 @@ return [
                     'controller' => 'core.admin-mail-bulk',
                 ],
                 'adapter'  => ['route' => '(<action>)'],
-            ],
-        ],
-        'admin.core.cache'    => [
-            'route'      => 'core/cache(/<action>)',
-            'controller' => 'core.admin-cache',
-            'action'     => 'index',
-        ],
-        'admin.core.log'      => [
-            'route'      => 'core/log(/<action>)',
-            'controller' => 'core.admin-log',
-            'action'     => 'index',
-        ],
-        'admin.core.status'   => [
-            'route'      => 'core/status/*',
-            'controller' => 'core.admin-status',
-            'action'     => 'overview',
-            'children'   => [
-                '*' => [
-                    'route' => '<action>',
-                ],
             ],
         ],
         'admin.core.settings' => [

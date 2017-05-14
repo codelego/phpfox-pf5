@@ -16,8 +16,8 @@
                 <tr>
                     <td class="dropdown" data-cmd="dropdown">
                         <ul>
-                            <li><a href="<?= _url('admin.core.layout.design-page',
-                                    ['action_id' => $item->getId()]) ?>"><?= _text('Design Page') ?></a></li>
+                            <li><a href="<?= _url('admin.core.layout.page',
+                                    ['action'=>'design','action_id' => $item->getId()]) ?>"><?= _text('Design Page') ?></a></li>
                             <?php if (PHPFOX_IS_DEV): ?>
                                 <li>
                                     <a href="<?= _url('admin.core.layout.action',

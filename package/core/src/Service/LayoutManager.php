@@ -2,7 +2,6 @@
 
 namespace Neutron\Core\Service;
 
-
 use Neutron\Core\Model\LayoutBlock;
 use Neutron\Core\Model\LayoutContainer;
 use Neutron\Core\Model\LayoutGrid;
@@ -106,7 +105,6 @@ class LayoutManager implements LoaderInterface
 
         foreach ($themeIdList as $themeId) {
             $temp = [];
-
             /** @var LayoutPage[] $rows */
             $rows = _model('layout_page')
                 ->select()
@@ -115,9 +113,10 @@ class LayoutManager implements LoaderInterface
                 ->where('action_id IN ?', $actionIdList)
                 ->all();
 
-            foreach ($rows as $row) {
-                $temp[$row->getActionId()] = $row->getId();
-            }
+            array_walk($rows, function (LayoutPage $page) use (&$temp) {
+                $temp[$page->getActionId()] = $page->getId();
+            });
+
             foreach ($actionIdList as $actionId) {
                 if (isset($temp[$actionId]) and $temp[$actionId]) {
                     return $temp[$actionId];
@@ -149,12 +148,13 @@ class LayoutManager implements LoaderInterface
         $layoutContainers = _model('layout_container')
             ->select()
             ->where('page_id=?', $pageId)
-            ->where('is_active=?', 1)
+            ->whereIf($activeOnly, 'is_active=?', 1)
             ->order('sort_order', 1)
             ->all();
 
         foreach ($layoutContainers as $layoutContainer) {
-            $container = new Container(array_merge(json_decode($layoutContainer->getParams(), true), [
+            $params = (array)json_decode($layoutContainer->getParams(), true);
+            $container = new Container(array_merge($params, [
                 'container_id' => $layoutContainer->getId(),
                 'type_id'      => $layoutContainer->getTypeId(),
                 'grid_id'      => $layoutContainer->getGridId(),
@@ -180,10 +180,10 @@ class LayoutManager implements LoaderInterface
                 ->all();
 
             foreach ($containerLocations as $containerLocation) {
+                $params = (array)json_decode($containerLocation->getParams(), true);
                 $container->mergeLocation($containerLocation->getLocationId(),
-                    json_decode($containerLocation->getParams(), true));
+                    $params);
             }
-
 
             $selectBlocks = _service('db')
                 ->select('blk.*, cmp.component_class, cmp.component_name')
@@ -191,11 +191,9 @@ class LayoutManager implements LoaderInterface
                 ->join(':layout_component', 'cmp',
                     'cmp.component_id=blk.component_id')
                 ->where('blk.container_id=?', $layoutContainer->getId())
+                ->whereIf($activeOnly, 'blk.is_active=?', 1)
                 ->order('blk.location_id, blk.sort_order', 1);
 
-            if ($activeOnly) {
-                $selectBlocks->where('blk.is_active=?', 1);
-            }
 
             foreach ($selectBlocks->all() as $block) {
                 $container->addBlock($block['location_id'], [

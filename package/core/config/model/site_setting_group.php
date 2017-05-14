@@ -1,15 +1,1 @@
-<?php return [
-    0 => null,
-    1 => ['group_id' => 1,],
-    2 => 'group_id',
-    3 => [
-        'group_id'    => 1,
-        'package_id'  => 1,
-        'title'       => 1,
-        'form_name'   => 1,
-        'description' => 1,
-        'sort_order'  => 1,
-        'is_active'   => 1,
-    ],
-    4 => [],
-];
+<?php return array(0=>'group_identity',1=>array('group_identity'=>1,),2=>'group_identity',3=>array('group_identity'=>1,'group_id'=>1,'package_id'=>1,'title'=>1,'form_name'=>1,'description'=>1,'sort_order'=>1,'is_active'=>1,),4=>array(),);
