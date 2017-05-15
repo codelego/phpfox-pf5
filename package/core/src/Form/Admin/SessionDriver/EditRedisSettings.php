@@ -9,15 +9,15 @@ class EditRedisSettings extends Form
 {
     protected function initialize()
     {
-        $this->setTitle(_text('Redis Settings', 'admin.core_session'));
-        $this->setInfo(_text('[Redis Settings Info]', 'core_session'));
+        $this->setTitle(_text('Redis Settings', '_core.session'));
+        $this->setInfo(_text('[Redis Settings Info]', '_core.session'));
 
         $this->addElement([
             'factory'  => 'text',
             'name'     => 'host',
             'value'    => '127.0.0.1',
-            'label'    => _text('Redis Host', 'admin.core_session'),
-            'info'     => _text('[Redis Host Info]', 'admin.core_session'),
+            'label'    => _text('Redis Host', '_core.session'),
+            'info'     => _text('[Redis Host Info]', '_core.session'),
             'required' => true,
         ]);
 
@@ -25,8 +25,8 @@ class EditRedisSettings extends Form
             'factory'  => 'text',
             'name'     => 'port',
             'value'    => '6379',
-            'label'    => _text('Redis Port', 'admin.core_session'),
-            'info'     => _text('[Redis Port Info]', 'admin.core_session'),
+            'label'    => _text('Redis Port', '_core.session'),
+            'info'     => _text('[Redis Port Info]', '_core.session'),
             'required' => true,
         ]);
 
@@ -37,15 +37,15 @@ class EditRedisSettings extends Form
             'options'  => [
                 ['value' => 'tcp', 'label' => 'tcp'],
             ],
-            'label'    => _text('Select Redis Protocol', 'admin.core_session'),
-            'info'     => _text('[Select Redis Protocol Info]', 'admin.core_session'),
+            'label'    => _text('Select Redis Protocol', '_core.session'),
+            'info'     => _text('[Select Redis Protocol Info]', '_core.session'),
             'required' => true,
         ]);
         $this->addElement([
             'factory'  => 'text',
             'name'     => 'auth',
-            'label'    => _text('Redis Password', 'admin.core_session'),
-            'info'     => _text('[Redis Password]', 'admin.core_session'),
+            'label'    => _text('Redis Password', '_core.session'),
+            'info'     => _text('[Redis Password]', '_core.session'),
             'required' => false,
         ]);
 
@@ -59,7 +59,7 @@ class EditRedisSettings extends Form
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'cancel',
-            'href'       => '#',
+            'href'       => _url('admin.core.session'),
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);

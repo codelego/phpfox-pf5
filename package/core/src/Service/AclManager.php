@@ -22,7 +22,7 @@ class AclManager
 
     public function getSettingGroupIdOptions()
     {
-        $select = _model('acl_setting_group')->select()->order('sort_order', 1);
+        $select = _model('acl_setting_group')->select()->order('ordering', 1);
         return array_map(function (AclSettingGroup $settingGroup) {
             return ['value' => $settingGroup->getId(), 'label' => $settingGroup->getTitle()];
         }, $select->all());

@@ -1,6 +1,7 @@
 define(['jquery', 'underscore', 'core'], function () {
     var Core = require('core'),
-        _ = require('underscore');
+        _ = require('underscore'),
+        $ = require('jquery');
 
     /**
      * modal Constructor
@@ -35,14 +36,23 @@ define(['jquery', 'underscore', 'core'], function () {
                 container.remove();
             });
         }
+
         $(document).one('modal.close', function () {
             container.remove();
         });
 
-        console.log(opts);
-
         if (opts.url) {
-            content.load(opts.url, function () {
+            $.ajax({
+                url: opts.url,
+                type: 'get',
+                dataType: 'json',
+                headers: {requestType: 'update_content'}
+            }).done(function (data) {
+                if (_.isString(data.redirect)) {
+                    $(document).trigger('modal.close');
+                    Core.loadPage(data.redirect);
+                }
+                content.html(data.content);
                 loading.animate({opacity: 0}, 50);
                 dialog.animate({opacity: 1}, 100, function () {
                     content.animate({opacity: 1}, 100);
@@ -51,8 +61,6 @@ define(['jquery', 'underscore', 'core'], function () {
                     $(_.template(close)({})).appendTo(content);
                 }
             });
-        } else if (opts.target) {
-
         }
     };
 

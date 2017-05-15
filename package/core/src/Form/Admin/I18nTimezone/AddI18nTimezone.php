@@ -47,12 +47,12 @@ class AddI18nTimezone extends Form
             'required' => true,
         ]);
 
-        /** element `sort_order` **/
+        /** element `ordering` **/
         $this->addElement([
-            'name'      => 'sort_order',
+            'name'      => 'ordering',
             'factory'   => 'text',
-            'label'     => _text('Sort Order', null),
-            'note'      => _text('[Sort Order Note]', null),
+            'label'     => _text('Ordering', null),
+            'note'      => _text('[Ordering Note]', null),
             'value'     => '0',
             'maxlength' => 255,
             'required'  => true,

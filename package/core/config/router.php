@@ -81,17 +81,17 @@ return [
 
         ],
         'admin.core.cache'    => [
-            'route'      => 'core/cache(/<action>)',
+            'route'      => 'cache(/<action>)',
             'controller' => 'core.admin-cache',
             'action'     => 'index',
         ],
         'admin.core.log'      => [
-            'route'      => 'core/log(/<action>)',
+            'route'      => 'log(/<action>)',
             'controller' => 'core.admin-log',
             'action'     => 'index',
         ],
         'admin.core.status'   => [
-            'route'      => 'core/status(/<action>)',
+            'route'      => 'status(/<action>)',
             'controller' => 'core.admin-status',
             'action'     => 'overview',
         ],

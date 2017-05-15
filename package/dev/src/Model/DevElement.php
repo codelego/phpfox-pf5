@@ -30,8 +30,8 @@ class DevElement extends DbModel
     public function getLabel(){return $this->__get('label');}
     public function setLabel($value){$this->__set('label', $value);}
     
-    public function getSortOrder(){return (int) $this->__get('sort_order');}
-    public function setSortOrder($value){$this->__set('sort_order', $value);}
+    public function getOrdering(){return (int) $this->__get('ordering');}
+    public function setOrdering($value){$this->__set('ordering', $value);}
     
     public function isActive(){return $this->__get('is_active') ?1:0;}
     public function setActive($value){$this->__set('is_active',$value?1:0);}

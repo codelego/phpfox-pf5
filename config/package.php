@@ -183,10 +183,15 @@
       0 => NULL,
       1 => 'Phpfox\\Action\\JsonResponse',
     ),
-    'response.ajax_push_state' => 
+    'response.load_full_ajax' => 
     array (
-        0 => NULL,
-        1 => 'Phpfox\\Action\\FullAjaxResponse',
+      0 => NULL,
+      1 => 'Phpfox\\Action\\FullAjaxResponse',
+    ),
+    'response.load_content_ajax' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Action\\ContentAjaxResponse',
     ),
     'assets' => 
     array (

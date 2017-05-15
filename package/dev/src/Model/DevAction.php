@@ -32,4 +32,28 @@ class DevAction extends DbModel
     
     public function getFormInfo(){return $this->__get('form_info');}
     public function setFormInfo($value){$this->__set('form_info', $value);}
+    
+    public function getDataSubmit(){return $this->__get('data_submit');}
+    public function setDataSubmit($value){$this->__set('data_submit', $value);}
+    
+    public function getCancelUrl(){return $this->__get('cancel_url');}
+    public function setCancelUrl($value){$this->__set('cancel_url', $value);}
+    
+    public function getActionUrl(){return $this->__get('action_url');}
+    public function setActionUrl($value){$this->__set('action_url', $value);}
+    
+    public function getTitleDomain(){return $this->__get('title_domain');}
+    public function setTitleDomain($value){$this->__set('title_domain', $value);}
+    
+    public function getInfoDomain(){return $this->__get('info_domain');}
+    public function setInfoDomain($value){$this->__set('info_domain', $value);}
+    
+    public function getSubmitLabel(){return $this->__get('submit_label');}
+    public function setSubmitLabel($value){$this->__set('submit_label', $value);}
+    
+    public function getFormEnctype(){return $this->__get('form_enctype');}
+    public function setFormEnctype($value){$this->__set('form_enctype', $value);}
+    
+    public function getFormMethod(){return $this->__get('form_method');}
+    public function setFormMethod($value){$this->__set('form_method', $value);}
     }

@@ -11,7 +11,7 @@ class AclSettingActionTest extends \PHPUnit_Framework_TestCase
             'package_id' => 'core',
             'group_id'   => 'core',
             'name'       => 'can_clear_site_cache',
-            'sort_order' => 0,
+            'ordering' => 0,
             'is_active'  => 1,
         ]);
 
@@ -20,7 +20,7 @@ class AclSettingActionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('core', $obj->getPackageId());
         $this->assertSame('core', $obj->getGroupId());
         $this->assertSame('can_clear_site_cache', $obj->getName());
-        $this->assertSame(0, $obj->getSortOrder());
+        $this->assertSame(0, $obj->getOrdering());
         $this->assertSame(1, $obj->isActive());
     }
 
@@ -33,7 +33,7 @@ class AclSettingActionTest extends \PHPUnit_Framework_TestCase
         $obj->setPackageId('core');
         $obj->setGroupId('core');
         $obj->setName('can_clear_site_cache');
-        $obj->setSortOrder(0);
+        $obj->setOrdering(0);
         $obj->setActive(1);
         // assert same data
         $this->assertSame('acl_setting_action', $obj->getModelId());
@@ -41,7 +41,7 @@ class AclSettingActionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('core', $obj->getPackageId());
         $this->assertSame('core', $obj->getGroupId());
         $this->assertSame('can_clear_site_cache', $obj->getName());
-        $this->assertSame(0, $obj->getSortOrder());
+        $this->assertSame(0, $obj->getOrdering());
         $this->assertSame(1, $obj->isActive());
     }
 
@@ -52,7 +52,7 @@ class AclSettingActionTest extends \PHPUnit_Framework_TestCase
             'package_id' => 'core',
             'group_id'   => 'core',
             'name'       => 'can_clear_site_cache',
-            'sort_order' => 0,
+            'ordering' => 0,
             'is_active'  => 1,
         ]);
 
@@ -67,7 +67,7 @@ class AclSettingActionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('core', $obj->getPackageId());
         $this->assertSame('core', $obj->getGroupId());
         $this->assertSame('can_clear_site_cache', $obj->getName());
-        $this->assertSame(0, $obj->getSortOrder());
+        $this->assertSame(0, $obj->getOrdering());
         $this->assertSame(1, $obj->isActive());
     }
 

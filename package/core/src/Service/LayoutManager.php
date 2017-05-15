@@ -149,7 +149,7 @@ class LayoutManager implements LoaderInterface
             ->select()
             ->where('page_id=?', $pageId)
             ->whereIf($activeOnly, 'is_active=?', 1)
-            ->order('sort_order', 1)
+            ->order('ordering', 1)
             ->all();
 
         foreach ($layoutContainers as $layoutContainer) {
@@ -192,7 +192,7 @@ class LayoutManager implements LoaderInterface
                     'cmp.component_id=blk.component_id')
                 ->where('blk.container_id=?', $layoutContainer->getId())
                 ->whereIf($activeOnly, 'blk.is_active=?', 1)
-                ->order('blk.location_id, blk.sort_order', 1);
+                ->order('blk.location_id, blk.ordering', 1);
 
 
             foreach ($selectBlocks->all() as $block) {
@@ -201,7 +201,7 @@ class LayoutManager implements LoaderInterface
                     'parent_id'      => $block['parent_id'],
                     'location_id'    => $block['location_id'],
                     'container_id'   => $block['container_id'],
-                    'sort_order'     => $block['sort_order'],
+                    'ordering'     => $block['ordering'],
                     'container_type' => $layoutContainer->getTypeId(),
                     'block_name'     => $block['component_name'],
                     'block_class'    => $block['component_class'],

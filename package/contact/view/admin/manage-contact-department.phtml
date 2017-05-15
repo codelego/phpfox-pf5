@@ -17,12 +17,12 @@
                     <td class="dropdown" data-cmd="dropdown">
                         <ul>
                             <li>
-                                <a href="<?= _url('admin.contact.department', [
+                                <a data-cmd="modal" href="<?= _url('admin.contact.department', [
                                         'action' => 'edit', 'department_id' => $item->getId()]) ?>">
                                     <?= _text('Edit') ?></a>
                             </li>
                             <li>
-                                <a href="<?= _url('admin.contact.department', [
+                                <a data-cmd="modal" href="<?= _url('admin.contact.department', [
                                     'action' => 'delete', 'department_id' => $item->getId()]) ?>">
                                     <?= _text('Delete') ?></a>
                             </li>
@@ -32,7 +32,7 @@
                     <td><?= $item->getName() ?></td>
                     <td><?= _yesno($item->isActive()) ?></td>
                     <td><?= _yesno($item->isDefault()) ?></td>
-                    <td><?= $item->getMessageCount() ?></td>
+                    <td><?= '0' ?></td>
 
                 </tr>
             <?php endforeach; ?>

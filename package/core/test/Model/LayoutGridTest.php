@@ -9,7 +9,7 @@ class LayoutGridTest extends \PHPUnit_Framework_TestCase
         $obj = new LayoutGrid([
             'grid_id'     => 'simple',
             'title'       => 'Simple 1 column',
-            'sort_order'  => 1,
+            'ordering'  => 1,
             'description' => 'Single column',
             'locations'   => '["main"]',
         ]);
@@ -17,7 +17,7 @@ class LayoutGridTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('layout_grid', $obj->getModelId());
         $this->assertSame('simple', $obj->getGridId());
         $this->assertSame('Simple 1 column', $obj->getTitle());
-        $this->assertSame(1, $obj->getSortOrder());
+        $this->assertSame(1, $obj->getOrdering());
         $this->assertSame('Single column', $obj->getDescription());
         $this->assertSame('["main"]', $obj->getLocations());
     }
@@ -29,14 +29,14 @@ class LayoutGridTest extends \PHPUnit_Framework_TestCase
         // set data
         $obj->setGridId('simple');
         $obj->setTitle('Simple 1 column');
-        $obj->setSortOrder(1);
+        $obj->setOrdering(1);
         $obj->setDescription('Single column');
         $obj->setLocations('["main"]');
         // assert same data
         $this->assertSame('layout_grid', $obj->getModelId());
         $this->assertSame('simple', $obj->getGridId());
         $this->assertSame('Simple 1 column', $obj->getTitle());
-        $this->assertSame(1, $obj->getSortOrder());
+        $this->assertSame(1, $obj->getOrdering());
         $this->assertSame('Single column', $obj->getDescription());
         $this->assertSame('["main"]', $obj->getLocations());
     }
@@ -46,7 +46,7 @@ class LayoutGridTest extends \PHPUnit_Framework_TestCase
         $obj = new LayoutGrid([
             'grid_id'     => 'simple',
             'title'       => 'Simple 1 column',
-            'sort_order'  => 1,
+            'ordering'  => 1,
             'description' => 'Single column',
             'locations'   => '["main"]',
         ]);
@@ -60,7 +60,7 @@ class LayoutGridTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('layout_grid', $obj->getModelId());
         $this->assertSame('simple', $obj->getGridId());
         $this->assertSame('Simple 1 column', $obj->getTitle());
-        $this->assertSame(1, $obj->getSortOrder());
+        $this->assertSame(1, $obj->getOrdering());
         $this->assertSame('Single column', $obj->getDescription());
         $this->assertSame('["main"]', $obj->getLocations());
     }

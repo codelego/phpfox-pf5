@@ -51,14 +51,14 @@ class I18nCurrency extends DbModel
         $this->__set('name', $value);
     }
 
-    public function getSortOrder()
+    public function getOrdering()
     {
-        return (int)$this->__get('sort_order');
+        return (int)$this->__get('ordering');
     }
 
-    public function setSortOrder($value)
+    public function setOrdering($value)
     {
-        $this->__set('sort_order', $value);
+        $this->__set('ordering', $value);
     }
 
     public function isActive()

@@ -4,7 +4,7 @@ namespace Neutron\Core\Form\Admin\CacheDriver;
 
 use Phpfox\Form\Form;
 
-class EditFilesDriverSettings extends Form
+class EditFilesSettings extends Form
 {
     protected function initialize()
     {
@@ -23,7 +23,7 @@ class EditFilesDriverSettings extends Form
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'cancel',
-            'href'       => '#',
+            'href'       => _url('admin.core.cache'),
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);

@@ -5,7 +5,7 @@ class DevElementTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new DevElement(array (  'element_id' => 1,  'meta_id' => 569,  'is_identity' => 0,  'is_primary' => 0,  'element_name' => 'core__clear_cache',  'factory_id' => 'yesno',  'label' => 'Clear Cache',  'sort_order' => 1,  'is_active' => 1,  'default_value' => NULL,  'note' => '[Clear Cache Note]',  'info' => '[Clear Cache Info]',  'placeholder' => '',  'max_length' => NULL,  'rows' => NULL,  'cols' => NULL,  'is_require' => 0,  'is_readonly' => 0,  'is_disabled' => 0,  'class_name' => '',  'data_cmd' => '',  'primary_length' => 0,  'options_text' => NULL,));
+        $obj = new DevElement(array (  'element_id' => 1,  'meta_id' => 569,  'is_identity' => 0,  'is_primary' => 0,  'element_name' => 'core__clear_cache',  'factory_id' => 'yesno',  'label' => 'Clear Cache',  'ordering' => 1,  'is_active' => 1,  'default_value' => NULL,  'note' => '[Clear Cache Note]',  'info' => '[Clear Cache Info]',  'placeholder' => '',  'max_length' => NULL,  'rows' => NULL,  'cols' => NULL,  'is_require' => 0,  'is_readonly' => 0,  'is_disabled' => 0,  'class_name' => '',  'data_cmd' => '',  'primary_length' => 0,  'options_text' => NULL,));
 
         $this->assertSame('dev_element', $obj->getModelId());
         $this->assertSame(1, $obj->getElementId());
@@ -15,7 +15,7 @@ class DevElementTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('core__clear_cache', $obj->getElementName());
         $this->assertSame('yesno', $obj->getFactoryId());
         $this->assertSame('Clear Cache', $obj->getLabel());
-        $this->assertSame(1, $obj->getSortOrder());
+        $this->assertSame(1, $obj->getOrdering());
         $this->assertSame(1, $obj->isActive());
         $this->assertSame('', $obj->getDefaultValue());
         $this->assertSame('[Clear Cache Note]', $obj->getNote());
@@ -44,7 +44,7 @@ class DevElementTest extends \PHPUnit_Framework_TestCase
         $obj->setElementName('core__clear_cache');
         $obj->setFactoryId('yesno');
         $obj->setLabel('Clear Cache');
-        $obj->setSortOrder(1);
+        $obj->setOrdering(1);
         $obj->setActive(1);
         $obj->setDefaultValue('');
         $obj->setNote('[Clear Cache Note]');
@@ -69,7 +69,7 @@ class DevElementTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('core__clear_cache', $obj->getElementName());
         $this->assertSame('yesno', $obj->getFactoryId());
         $this->assertSame('Clear Cache', $obj->getLabel());
-        $this->assertSame(1, $obj->getSortOrder());
+        $this->assertSame(1, $obj->getOrdering());
         $this->assertSame(1, $obj->isActive());
         $this->assertSame('', $obj->getDefaultValue());
         $this->assertSame('[Clear Cache Note]', $obj->getNote());
@@ -88,7 +88,7 @@ class DevElementTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new DevElement(array (  'element_id' => 1,  'meta_id' => 569,  'is_identity' => 0,  'is_primary' => 0,  'element_name' => 'core__clear_cache',  'factory_id' => 'yesno',  'label' => 'Clear Cache',  'sort_order' => 1,  'is_active' => 1,  'default_value' => NULL,  'note' => '[Clear Cache Note]',  'info' => '[Clear Cache Info]',  'placeholder' => '',  'max_length' => NULL,  'rows' => NULL,  'cols' => NULL,  'is_require' => 0,  'is_readonly' => 0,  'is_disabled' => 0,  'class_name' => '',  'data_cmd' => '',  'primary_length' => 0,  'options_text' => NULL,));
+        $obj = new DevElement(array (  'element_id' => 1,  'meta_id' => 569,  'is_identity' => 0,  'is_primary' => 0,  'element_name' => 'core__clear_cache',  'factory_id' => 'yesno',  'label' => 'Clear Cache',  'ordering' => 1,  'is_active' => 1,  'default_value' => NULL,  'note' => '[Clear Cache Note]',  'info' => '[Clear Cache Info]',  'placeholder' => '',  'max_length' => NULL,  'rows' => NULL,  'cols' => NULL,  'is_require' => 0,  'is_readonly' => 0,  'is_disabled' => 0,  'class_name' => '',  'data_cmd' => '',  'primary_length' => 0,  'options_text' => NULL,));
 
         $obj->save();
 
@@ -104,7 +104,7 @@ class DevElementTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('core__clear_cache', $obj->getElementName());
         $this->assertSame('yesno', $obj->getFactoryId());
         $this->assertSame('Clear Cache', $obj->getLabel());
-        $this->assertSame(1, $obj->getSortOrder());
+        $this->assertSame(1, $obj->getOrdering());
         $this->assertSame(1, $obj->isActive());
         $this->assertSame('', $obj->getDefaultValue());
         $this->assertSame('[Clear Cache Note]', $obj->getNote());

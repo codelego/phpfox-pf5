@@ -6,7 +6,7 @@ use Phpfox\Form\Form;
 
 class EditI18nLocale extends Form
 {
-
+    /** lock */
     public function initialize()
     {
 
@@ -16,24 +16,11 @@ class EditI18nLocale extends Form
 
         /** start elements **/
 
-
-        // element `locale_id`
-        $this->addElement([
-            'name'      => 'locale_id',
-            'factory'   => 'select',
-            'label'     => _text('Locale Id', null),
-            'note'      => _text('[Locale Id Note]', null),
-            'options'   => _get('core.i18n')->getLocaleIdOptions(),
-            'maxlength' => 255,
-            'required'  => true,
-        ]);
-
         // element `name`
         $this->addElement([
             'name'      => 'name',
             'factory'   => 'text',
-            'label'     => _text('Name', null),
-            'note'      => _text('[Name Note]', null),
+            'label'     => _text('Name', 'admin'),
             'maxlength' => 255,
             'required'  => true,
         ]);
@@ -42,18 +29,8 @@ class EditI18nLocale extends Form
         $this->addElement([
             'name'      => 'native_name',
             'factory'   => 'text',
-            'label'     => _text('Native Name', null),
-            'note'      => _text('[Native Name Note]', null),
-            'maxlength' => 255,
-            'required'  => false,
-        ]);
-
-        // element `code_6391`
-        $this->addElement([
-            'name'      => 'code_6391',
-            'factory'   => 'text',
-            'label'     => _text('Code 6391', null),
-            'note'      => _text('[Code 6391 Note]', null),
+            'label'     => _text('Native Name', '_core.i18n_locale'),
+            'info'      => _text('[Native Name Info]', '_core.i18n_locale'),
             'maxlength' => 255,
             'required'  => true,
         ]);
@@ -62,8 +39,8 @@ class EditI18nLocale extends Form
         $this->addElement([
             'name'      => 'direction_id',
             'factory'   => 'select',
-            'label'     => _text('Direction Id', null),
-            'note'      => _text('[Direction Id Note]', null),
+            'label'     => _text('Direction', '_core.i18n_locale'),
+            'info'      => _text('[Language Direction Info]', '_core.i18n_locale'),
             'value'     => 'ltr',
             'options'   => _get('core.i18n')->getDirectionIdOptions(),
             'maxlength' => 255,
@@ -74,8 +51,8 @@ class EditI18nLocale extends Form
         $this->addElement([
             'name'     => 'is_active',
             'factory'  => 'yesno',
-            'label'    => _text('Is Active', null),
-            'note'     => _text('[Is Active Note]', null),
+            'label'    => _text('Is Active', 'admin'),
+            'info'     => _text('[Is Active Info]', '_core.i18n_locale'),
             'value'    => '1',
             'required' => true,
         ]);

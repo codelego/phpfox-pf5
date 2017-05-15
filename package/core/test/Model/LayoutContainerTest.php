@@ -12,7 +12,7 @@ class LayoutContainerTest extends \PHPUnit_Framework_TestCase
             'grid_id'      => 'simple',
             'type_id'      => 'container',
             'is_active'    => 1,
-            'sort_order'   => 0,
+            'ordering'   => 0,
             'params'       => '[]',
         ]);
 
@@ -22,7 +22,7 @@ class LayoutContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('simple', $obj->getGridId());
         $this->assertSame('container', $obj->getTypeId());
         $this->assertSame(1, $obj->isActive());
-        $this->assertSame(0, $obj->getSortOrder());
+        $this->assertSame(0, $obj->getOrdering());
         $this->assertSame('[]', $obj->getParams());
     }
 
@@ -36,7 +36,7 @@ class LayoutContainerTest extends \PHPUnit_Framework_TestCase
         $obj->setGridId('simple');
         $obj->setTypeId('container');
         $obj->setActive(1);
-        $obj->setSortOrder(0);
+        $obj->setOrdering(0);
         $obj->setParams('[]');
         // assert same data
         $this->assertSame('layout_container', $obj->getModelId());
@@ -45,7 +45,7 @@ class LayoutContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('simple', $obj->getGridId());
         $this->assertSame('container', $obj->getTypeId());
         $this->assertSame(1, $obj->isActive());
-        $this->assertSame(0, $obj->getSortOrder());
+        $this->assertSame(0, $obj->getOrdering());
         $this->assertSame('[]', $obj->getParams());
     }
 
@@ -57,7 +57,7 @@ class LayoutContainerTest extends \PHPUnit_Framework_TestCase
             'grid_id'      => 'simple',
             'type_id'      => 'container',
             'is_active'    => 1,
-            'sort_order'   => 0,
+            'ordering'   => 0,
             'params'       => '[]',
         ]);
 
@@ -73,7 +73,7 @@ class LayoutContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('simple', $obj->getGridId());
         $this->assertSame('container', $obj->getTypeId());
         $this->assertSame(1, $obj->isActive());
-        $this->assertSame(0, $obj->getSortOrder());
+        $this->assertSame(0, $obj->getOrdering());
         $this->assertSame('[]', $obj->getParams());
     }
 

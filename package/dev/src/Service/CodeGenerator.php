@@ -8,6 +8,7 @@ use Neutron\Core\Model\SiteSettingForm;
 use Neutron\Core\Model\SiteSettingValue;
 use Neutron\Dev\FormAclSettingGenerator;
 use Neutron\Dev\FormAdminAddGenerator;
+use Neutron\Dev\FormAdminDeleteGenerator;
 use Neutron\Dev\FormAdminEditGenerator;
 use Neutron\Dev\FormAdminFilterGenerator;
 use Neutron\Dev\FormSiteSettingGenerator;
@@ -119,6 +120,7 @@ class CodeGenerator
                     break;
                 case 'admin_delete':
                     $this->updateElementsByTableInfo($devAction, null);
+                    (new FormAdminDeleteGenerator($devAction))->process();
                     break;
                 case 'admin_filter':
                     $this->updateElementsByTableInfo($devAction, null);
@@ -346,7 +348,6 @@ class CodeGenerator
         }
 
 
-
         /** @var DevElement[] $elements */
         $elements = _model('dev_element')
             ->select()
@@ -359,7 +360,7 @@ class CodeGenerator
         }
         $insertColumnNames = array_diff(array_keys($tableInfo->getColumns()), $currents);
 
-        $sort_order = count($tableInfo->getColumns());
+        $ordering = count($tableInfo->getColumns());
         foreach ($insertColumnNames as $insertColumnName) {
             $column = $tableInfo->getColumn($insertColumnName);
 
@@ -401,7 +402,7 @@ class CodeGenerator
                     'maxlength'      => $maxLength,
                     'default_value'  => $column->getDefault(),
                     'factory_id'     => $factoryId,
-                    'sort_order'     => ++$sort_order,
+                    'ordering'     => ++$ordering,
                     'is_active'      => $isActive,
                 ])
                 ->save();
@@ -435,7 +436,7 @@ class CodeGenerator
                         'maxlength'      => 100,
                         'default_value'  => '',
                         'factory_id'     => 'text',
-                        'sort_order'     => 1,
+                        'ordering'     => 1,
                         'is_active'      => 1,
                     ])
                     ->save();
@@ -459,12 +460,13 @@ class CodeGenerator
         $settingValues = _model('site_setting_value')
             ->select()
             ->where('form_id=?', $settingForm->getFormId())
-            ->order('sort_order', 1)
+            ->order('ordering', 1)
             ->all();
 
-        $sortOrder = 1;
+        $setting = 1;
         foreach ($settingValues as $settingValue) {
             $elementName = $settingValue->getGroupId() . '__' . $settingValue->getName();
+            /** @var DevElement $devElement */
             $devElement = _model('dev_element')
                 ->select()
                 ->where('meta_id=?', $devAction->getMetaId())
@@ -472,7 +474,7 @@ class CodeGenerator
                 ->first();
 
             if ($devElement) {
-                continue;
+                $devElement->setOrdering($settingValue->getOrdering());
             }
             $label = implode(' ', array_map(function ($v) {
                 return ucfirst($v);
@@ -506,16 +508,15 @@ class CodeGenerator
                     'meta_id'      => $devAction->getMetaId(),
                     'factory_id'   => $factoryId,
                     'element_name' => $elementName,
-                    'sort_order'   => $sortOrder,
+                    'ordering'   => $settingValue->getOrdering(),
                     'label'        => $label,
                     'note'         => '[' . $label . ' Note]',
                     'info'         => '[' . $label . ' Info]',
-                    'required'     => 1,
+                    'is_require'   => 1,
                     'is_active'    => 1,
                 ]);
 
             $devAction->save();
-            ++$sortOrder;
         }
     }
 
@@ -556,12 +557,12 @@ class CodeGenerator
                 ->create([
                     'meta_id'      => $devAction->getMetaId(),
                     'element_name' => $elementName,
-                    'sort_order'   => $sortOrder,
+                    'ordering'   => $sortOrder,
                     'label'        => $label,
                     'note'         => '[' . $label . ' Note]',
                     'info'         => '[' . $label . ' Info]',
                     'factory_id'   => 'yesno',
-                    'required'     => 1,
+                    'is_require'   => 1,
                     'is_active'    => 1,
                 ]);
 

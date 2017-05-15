@@ -9,8 +9,8 @@ class EditDatabaseSettings extends Form
 {
     protected function initialize()
     {
-        $this->setTitle(_text('Database Settings', 'admin.core_session'));
-        $this->setInfo(_text('[Database Info]', 'core_session'));
+        $this->setTitle(_text('Database Settings', '_core.session'));
+        $this->setInfo(_text('[Database Info]', '_core.session'));
 
 
         $this->addButton([
@@ -23,7 +23,7 @@ class EditDatabaseSettings extends Form
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'cancel',
-            'href'       => '#',
+            'href'       => _url('admin.core.session'),
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);

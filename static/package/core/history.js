@@ -14,7 +14,9 @@ define(['jquery', 'core'], function () {
             headers: {},
             statusCode: {},
             type: 'get',
-            dataType: 'json'
+            dataType: 'json',
+            data: {},
+            requestType: 'update_page'
         };
 
     var loadingBar = {
@@ -27,7 +29,7 @@ define(['jquery', 'core'], function () {
         complete: function () {
             if (this.element) {
                 this.element.width("101%").delay(200).fadeOut(400, function () {
-                    // $(this).remove();
+                    $(this).remove();
                 });
             }
         }
@@ -35,7 +37,8 @@ define(['jquery', 'core'], function () {
 
     Core.loadPage = function (href, options) {
         var settings = $.extend({}, _defaults, options),
-            target = $(settings.target);
+            target = $(settings.target),
+            headers = $.extend(settings.headers, {requestType: settings.requestType});
 
         // 1. check state is support
         if (!window.history.replaceState) {
@@ -58,12 +61,12 @@ define(['jquery', 'core'], function () {
         //3. send ajax request, return prefer object
         _lastXhr = $.ajax({
             type: settings.type,
-            data: {fal: 'ok'},
+            data: settings.data,
             url: href,
             async: settings.async,
             cache: settings.cache,
             global: settings.global,
-            headers: settings.headers,
+            headers: headers,
             statusCode: settings.statusCode,
             dataType: settings.dataType,
             beforeSend: function () {
@@ -73,8 +76,8 @@ define(['jquery', 'core'], function () {
             if (settings.showLoadingBar) loadingBar.complete();
             $(document).trigger('ajax.load.end');
         }).done(function (data) {
-            if (typeof data.redirect != 'undefined' && data.redirect != href) {
-                Core.loadPage(data.redirect);
+            if (typeof data.redirect != 'undefined') {
+                Core.loadPage(data.redirect, {});
                 return;
             } else {
                 $(target).html(data.content);
@@ -94,11 +97,60 @@ define(['jquery', 'core'], function () {
         }
     });
 
+    $(document).on('submit', 'form', function (evt) {
+        var form = $(this),
+            method = form.prop('method').toString().toLowerCase(),
+            action = form.prop('action'),
+            data = form.serializeJSON,
+            isModal = form.closest('.ibox-content').length > 0,
+            target = false;
+
+        if (isModal) {
+            target = form.closest('.ibox-content');
+        }
+
+        // request with modal
+
+
+        // request in full page.
+
+        if (isModal) {
+            // form with search.
+            if (method == 'get') {
+                evt.preventDefault();
+                Core.loadPage(action, {data: data, type: method, requestType: 'FAL'});
+                return false;
+            }
+            if (method == 'post') {
+                evt.preventDefault();
+
+                $.ajax({
+                    url: action,
+                    type: 'post',
+                    dataType: 'json',
+                    data: form.serializeJSON(),
+                    headers: {requestType: 'update_content'}
+                }).done(function (data) {
+                    if(_.isString(data.redirect)){
+                        Core.loadPage(data.redirect,{});
+                        $(document).trigger('modal.close');
+                    }
+                    if(_.isEmpty(data.content)){
+                        $(document).trigger('modal.close');
+                    }
+                });
+
+                return false;
+            }
+        }
+    });
+
     $(document).on('click', 'a', function (evt) {
         var link = $(this),
             href = link.prop('href') || link.data('url'),
             target = link.prop('target'),
             toggle = link.data('toggle'),
+            cmd = link.data('cmd'),
             onclick = link.prop('onclick');
 
         // 1. check control + click to new page.
@@ -119,7 +171,7 @@ define(['jquery', 'core'], function () {
         if (href.trim() == '') return;
 
         // 6. has toggle, target or onclick
-        if (toggle || target || onclick) return true;
+        if (toggle || target || onclick || cmd) return true;
 
         evt.preventDefault();
 

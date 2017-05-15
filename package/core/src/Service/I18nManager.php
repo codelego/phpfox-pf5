@@ -78,7 +78,7 @@ class I18nManager
         $select = _model('i18n_timezone')
             ->select()
             ->where('is_active=?', 1)
-            ->order('sort_order', 1);
+            ->order('ordering', 1);
         return array_map(function (I18nTimezone $tz) {
             return [
                 'value' => $tz->getTimezoneCode(),
@@ -94,7 +94,7 @@ class I18nManager
     {
         $select = _model('i18n_currency')
             ->select()
-            ->order('sort_order', 1);
+            ->order('ordering', 1);
 
         return array_map(function (I18nCurrency $entry) {
             return [

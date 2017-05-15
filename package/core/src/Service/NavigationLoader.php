@@ -17,7 +17,7 @@ class NavigationLoader implements NavigationLoaderInterface
             ->where('menu=?', trim($menu))
             ->where('package_id in ?', _get('core.packages')->getIds())
             ->where('is_active=?', 1)
-            ->order('sort_order', 1);
+            ->order('ordering', 1);
 
         return array_map(function ($row) {
             $row['params'] = (array)json_decode($row['params'], 1);

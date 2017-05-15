@@ -8,7 +8,7 @@
         'package_id'  => 1,
         'group_id'    => 1,
         'name'        => 1,
-        'sort_order'  => 1,
+        'ordering'  => 1,
         'is_active'   => 1,
     ],
     4 => [],

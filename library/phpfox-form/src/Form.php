@@ -37,6 +37,12 @@ class Form extends Element implements ElementInterface, CollectionInterface
      */
     protected $buttons = [];
 
+    protected $attributes = [
+            'method' => 'post',
+            'action' => '',
+            'enctype'=> 'multipart/form-data',
+        ];
+
     /**
      * @return ElementInterface[]
      */

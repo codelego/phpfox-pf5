@@ -10,7 +10,7 @@ class I18nTimezoneTest extends \PHPUnit_Framework_TestCase
             'timezone_id'       => 'UTC-1',
             'timezone_location' => 'Azores, Cape Verde Is.',
             'is_active'         => 1,
-            'sort_order'        => 12,
+            'ordering'        => 12,
             'timezone_code'     => 'Atlantic/Azores',
             'timezone_offset'   => 'UTC-1',
         ]);
@@ -19,7 +19,7 @@ class I18nTimezoneTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('UTC-1', $obj->getTimezoneId());
         $this->assertSame('Azores, Cape Verde Is.', $obj->getTimezoneLocation());
         $this->assertSame(1, $obj->isActive());
-        $this->assertSame(12, $obj->getSortOrder());
+        $this->assertSame(12, $obj->getOrdering());
         $this->assertSame('Atlantic/Azores', $obj->getTimezoneCode());
         $this->assertSame('UTC-1', $obj->getTimezoneOffset());
     }
@@ -32,7 +32,7 @@ class I18nTimezoneTest extends \PHPUnit_Framework_TestCase
         $obj->setTimezoneId('UTC-1');
         $obj->setTimezoneLocation('Azores, Cape Verde Is.');
         $obj->setActive(1);
-        $obj->setSortOrder(12);
+        $obj->setOrdering(12);
         $obj->setTimezoneCode('Atlantic/Azores');
         $obj->setTimezoneOffset('UTC-1');
         // assert same data
@@ -40,7 +40,7 @@ class I18nTimezoneTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('UTC-1', $obj->getTimezoneId());
         $this->assertSame('Azores, Cape Verde Is.', $obj->getTimezoneLocation());
         $this->assertSame(1, $obj->isActive());
-        $this->assertSame(12, $obj->getSortOrder());
+        $this->assertSame(12, $obj->getOrdering());
         $this->assertSame('Atlantic/Azores', $obj->getTimezoneCode());
         $this->assertSame('UTC-1', $obj->getTimezoneOffset());
     }
@@ -51,7 +51,7 @@ class I18nTimezoneTest extends \PHPUnit_Framework_TestCase
             'timezone_id'       => 'UTC-1',
             'timezone_location' => 'Azores, Cape Verde Is.',
             'is_active'         => 1,
-            'sort_order'        => 12,
+            'ordering'        => 12,
             'timezone_code'     => 'Atlantic/Azores',
             'timezone_offset'   => 'UTC-1',
         ]);
@@ -66,7 +66,7 @@ class I18nTimezoneTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('UTC-1', $obj->getTimezoneId());
         $this->assertSame('Azores, Cape Verde Is.', $obj->getTimezoneLocation());
         $this->assertSame(1, $obj->isActive());
-        $this->assertSame(12, $obj->getSortOrder());
+        $this->assertSame(12, $obj->getOrdering());
         $this->assertSame('Atlantic/Azores', $obj->getTimezoneCode());
         $this->assertSame('UTC-1', $obj->getTimezoneOffset());
     }

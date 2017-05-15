@@ -8,7 +8,7 @@
         'title'       => 1,
         'form_name'   => 1,
         'description' => 1,
-        'sort_order'  => 1,
+        'ordering'  => 1,
         'is_active'   => 1,
     ],
     4 => [],

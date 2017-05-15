@@ -12,7 +12,7 @@ class LayoutBlockTest extends \PHPUnit_Framework_TestCase
             'container_id' => 1,
             'location_id'  => 'main',
             'component_id' => 'core.action_content',
-            'sort_order'   => 1,
+            'ordering'   => 1,
             'is_active'    => 1,
             'params'       => '[]',
         ]);
@@ -23,7 +23,7 @@ class LayoutBlockTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->getContainerId());
         $this->assertSame('main', $obj->getLocationId());
         $this->assertSame('core.action_content', $obj->getComponentId());
-        $this->assertSame(1, $obj->getSortOrder());
+        $this->assertSame(1, $obj->getOrdering());
         $this->assertSame(1, $obj->isActive());
         $this->assertSame('[]', $obj->getParams());
     }
@@ -38,7 +38,7 @@ class LayoutBlockTest extends \PHPUnit_Framework_TestCase
         $obj->setContainerId(1);
         $obj->setLocationId('main');
         $obj->setComponentId('core.action_content');
-        $obj->setSortOrder(1);
+        $obj->setOrdering(1);
         $obj->setActive(1);
         $obj->setParams('[]');
         // assert same data
@@ -48,7 +48,7 @@ class LayoutBlockTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->getContainerId());
         $this->assertSame('main', $obj->getLocationId());
         $this->assertSame('core.action_content', $obj->getComponentId());
-        $this->assertSame(1, $obj->getSortOrder());
+        $this->assertSame(1, $obj->getOrdering());
         $this->assertSame(1, $obj->isActive());
         $this->assertSame('[]', $obj->getParams());
     }
@@ -61,7 +61,7 @@ class LayoutBlockTest extends \PHPUnit_Framework_TestCase
             'container_id' => 1,
             'location_id'  => 'main',
             'component_id' => 'core.action_content',
-            'sort_order'   => 1,
+            'ordering'   => 1,
             'is_active'    => 1,
             'params'       => '[]',
         ]);
@@ -78,7 +78,7 @@ class LayoutBlockTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->getContainerId());
         $this->assertSame('main', $obj->getLocationId());
         $this->assertSame('core.action_content', $obj->getComponentId());
-        $this->assertSame(1, $obj->getSortOrder());
+        $this->assertSame(1, $obj->getOrdering());
         $this->assertSame(1, $obj->isActive());
         $this->assertSame('[]', $obj->getParams());
     }

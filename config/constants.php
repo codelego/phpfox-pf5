@@ -11,6 +11,16 @@ defined('PHPFOX_VERSION') OR define('PHPFOX_VERSION', '4.5.2');
 defined('DS') OR define('DS', DIRECTORY_SEPARATOR);
 
 /**
+ * @const PHPFOX_FULL_AJAX_LOAD string
+ */
+defined('PHPFOX_FULL_AJAX_LOAD') OR define('PHPFOX_FULL_AJAX_LOAD', 'update_page');
+
+/**
+ * @const PHPFOX_CONTENT_AJAX_LOAD string
+ */
+defined('PHPFOX_CONTENT_AJAX_LOAD') OR define('PHPFOX_CONTENT_AJAX_LOAD', 'update_content');
+
+/**
  * phpfox root directory
  *
  * @const PHPFOX_DIR string

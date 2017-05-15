@@ -9,8 +9,8 @@ class EditFilesSettings extends Form
 {
     protected function initialize()
     {
-        $this->setTitle(_text('Filesystem Settings', 'admin.core_session'));
-        $this->setInfo(_text('[Filesystem Info]', 'core_session'));
+        $this->setTitle(_text('Filesystem Settings', '_core.session'));
+        $this->setInfo(_text('[Filesystem Info]', '_core.session'));
 
 
         $this->addButton([
@@ -23,7 +23,7 @@ class EditFilesSettings extends Form
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'cancel',
-            'href'       => '#',
+            'href'       => _url('admin.core.session'),
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);

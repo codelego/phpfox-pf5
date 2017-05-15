@@ -28,8 +28,8 @@ class SelectCoreDriver extends Form
     public function initialize()
     {
 
-        $this->setTitle(_text('Add Cache Adapter', ''));
-        $this->setInfo(_text('[Add Cache Adapter Info]', ''));
+        $this->setTitle(_text('Select Driver', 'admin'));
+        $this->setInfo(_text('[Select Driver Info]', 'admin'));
         $this->setAction(_url('#'));
 
         /** start elements **/

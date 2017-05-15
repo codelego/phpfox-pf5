@@ -13,27 +13,47 @@ $color: #333;
 
 // header
 
-.dev-only{
+// feature
+
+.form-info {
+  margin-bottom: 30px;
+  font-size:110%
+}
+
+.control-info, .control-note {
+  @extend .help-block;
+  color: lighten($color, 20%);
+}
+
+.control-info {
+  margin-bottom: 5px;
+}
+
+.control-note {
+  margin-top: 5px;
+}
+
+.dev-only {
   display: none;
 }
 
 .is_dev {
-  .dev-only{
+  .dev-only {
     display: block;
   }
-  th.dev-only,td.dev-only{
+  th.dev-only, td.dev-only {
     display: table-cell;
   }
 }
 
-.panel-footer{
-  .btn + .btn{
-    margin-left:8px;
+.panel-footer {
+  .btn + .btn {
+    margin-left: 8px;
   }
 }
 
-.toolbar + .toolbar .btn{
-  margin-left:4px;
+.toolbar + .toolbar .btn {
+  margin-left: 4px;
 }
 
 $header-bg: #fff;
@@ -442,7 +462,7 @@ th.sortable {
   -webkit-transition: all 500ms ease-in-out;
   transition: all 500ms ease-in-out;
   &.waiting dd,
-  &.waiting dt{
+  &.waiting dt {
     -moz-animation: pulse 2s ease-out 0s infinite;
     -ms-animation: pulse 2s ease-out 0s infinite;
     -o-animation: pulse 2s ease-out 0s infinite;
@@ -454,13 +474,13 @@ th.sortable {
     opacity: .6;
     width: 180px;
     right: -80px;
-    clip: rect(-6px,90px,14px,-6px);
+    clip: rect(-6px, 90px, 14px, -6px);
   }
   dd {
     opacity: .6;
     width: 20px;
     right: 0;
-    clip: rect(-6px,22px,14px,10px);
+    clip: rect(-6px, 22px, 14px, 10px);
   }
   dd, dt {
     position: absolute;
@@ -477,28 +497,49 @@ th.sortable {
 }
 
 @keyframes pulse {
-  30% { opacity:0.6; }
-  60% { opacity:0; }
-  100% { opacity:0.6; }
+  30% {
+    opacity: 0.6;
+  }
+  60% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.6;
+  }
 }
 
-@-moz-keyframes pulse
-{
-  30% { opacity:0.6; }
-  60% { opacity:0; }
-  100% { opacity:0.6; }
+@-moz-keyframes pulse {
+  30% {
+    opacity: 0.6;
+  }
+  60% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.6;
+  }
 }
 
-@-ms-keyframes pulse
-{
-  30% { opacity:0.6; }
-  60% { opacity:0; }
-  100% { opacity:0.6; }
+@-ms-keyframes pulse {
+  30% {
+    opacity: 0.6;
+  }
+  60% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.6;
+  }
 }
 
-@-webkit-keyframes pulse
-{
-  30% { opacity:0.6; }
-  60% { opacity:0; }
-  100% { opacity:0.6; }
+@-webkit-keyframes pulse {
+  30% {
+    opacity: 0.6;
+  }
+  60% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.6;
+  }
 }

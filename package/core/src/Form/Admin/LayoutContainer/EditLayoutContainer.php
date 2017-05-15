@@ -61,12 +61,12 @@ class EditLayoutContainer extends Form
             'required' => true,
         ]);
 
-        // element `sort_order`
+        // element `ordering`
         $this->addElement([
-            'name'      => 'sort_order',
+            'name'      => 'ordering',
             'factory'   => 'text',
-            'label'     => _text('Sort Order', '_core.layout'),
-            'info'      => _text('[Sort Order Info]', '_core.layout'),
+            'label'     => _text('Ordering', '_core.layout'),
+            'info'      => _text('[Ordering Info]', '_core.layout'),
             'value'     => '1',
             'maxlength' => 255,
             'required'  => true,

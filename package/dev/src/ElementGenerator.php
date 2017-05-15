@@ -91,6 +91,8 @@ class ElementGenerator
         $factoryId = $devElement->getFactoryId();
         $isHidden = $factoryId == 'hidden';
 
+        $trueValue = '$$$true$$$';
+
         $element = [
             'name'      => $name,
             'factory'   => $factoryId,
@@ -103,9 +105,9 @@ class ElementGenerator
             'maxlength' => $devElement->getMaxLength(),
             'rows'      => $devElement->getRows(),
             'cols'      => $devElement->getCols(),
-            'required'  => $devElement->isRequire() ? '1' : '',
-            'readonly'  => $devElement->isReadonly() ? '1' : '',
-            'disabled'  => $devElement->isDisabled() ? '1' : '',
+            'required'  => $devElement->isRequire() ? $trueValue : '',
+            'readonly'  => $devElement->isReadonly() ? $trueValue : '',
+            'disabled'  => $devElement->isDisabled() ? $trueValue : '',
             'data-cmd'  => $devElement->getDataCmd(),
         ];
 

@@ -100,13 +100,12 @@ class FormAdminGenerator extends AbstractGenerator
             ->select()
             ->where('is_active=?', 1)
             ->where('meta_id=?', $this->meta->getMetaId())
-            ->order('sort_order', 1)
+            ->order('ordering', 1)
             ->all();
 
         $namespace = $this->getNameSpace();
         $shortFormClass = $this->getShortFormClass();
         $fullFormClass = $this->getFullFormClass();
-        $formTitle = $this->getFormTitle();
         $component = $this->getComponent();
 
         $modulePath = $this->packageInfo->getPath();
@@ -124,6 +123,32 @@ class FormAdminGenerator extends AbstractGenerator
             default:
         }
 
+        $formTitle = $this->meta->getFormTitle();
+        if (!$formTitle) {
+            $formTitle = $this->getFormTitle();
+        }
+
+        $formInfo = $this->meta->getFormInfo();
+        if (!$formInfo) {
+            $formInfo = '[' . $formTitle . ' Info]';
+        }
+
+        $titleDomain = $this->textDomain;
+        if ($this->meta->getTitleDomain()) {
+            $titleDomain = $this->meta->getTitleDomain();
+        }
+
+        $infoDomain = $this->textDomain;
+        if ($this->meta->getInfoDomain()) {
+            $infoDomain = $this->meta->getInfoDomain();
+        }
+
+        $cancelUrl = '#';
+
+        if ($this->meta->getCancelUrl()) {
+            $cancelUrl = $this->meta->getCancelUrl();
+        }
+
         $formCode = (new ViewModel([
             'elementGenerator' => $elementGenerator,
             'elements'         => $elements,
@@ -137,6 +162,13 @@ class FormAdminGenerator extends AbstractGenerator
             'formType'         => $this->formType,
             'textDomain'       => $this->textDomain,
             'formTitle'        => $formTitle,
+            'formInfo'         => $formInfo,
+            'titleDomain'      => $titleDomain,
+            'infoDomain'       => $infoDomain,
+            'cancelUrl'        => $cancelUrl,
+            'formMethod'       => $this->meta->getFormMethod(),
+            'formEncType'      => $this->meta->getFormEnctype(),
+            'submitLabel'      => $this->meta->getSubmitLabel(),
         ], $this->template))->render();
 
         _get('core.i18n')->insertDomainMessages($messageContainer->all(), $this->packageId, '');

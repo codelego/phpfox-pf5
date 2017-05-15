@@ -187,6 +187,33 @@ class Request
     }
 
     /**
+     * @param string $name
+     * @param mixed  $default
+     *
+     * @return mixed
+     */
+    public function getHeader($name, $default = null)
+    {
+        if (isset($_SERVER[$test = $name])) {
+            return $_SERVER[$test];
+        }
+
+        if (isset($_SERVER[$test = strtoupper($name)])) {
+            return $_SERVER[$test];
+        }
+
+        if (isset($_SERVER[$test = 'HTTP_' . strtoupper($name)])) {
+            return $_SERVER[$test];
+        }
+
+        if (isset($_SERVER[$test = 'HTTP_X_' . strtoupper($name)])) {
+            return $_SERVER[$test];
+        }
+
+        return $default;
+    }
+
+    /**
      * Put current object to singleton
      */
     public function singleton()
@@ -194,10 +221,11 @@ class Request
         _get('manager')->set('request', $this);
     }
 
+    /**
+     * @return bool
+     */
     public function isAjax()
     {
-        if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
-            return true;
-        }
+        return $this->getHeader('X_REQUESTED_WITH') != '';
     }
 }

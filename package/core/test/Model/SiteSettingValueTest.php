@@ -5,7 +5,7 @@ class SiteSettingValueTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new SiteSettingValue(array (  'value_id' => 1,  'package_id' => 'core',  'group_id' => 'captcha',  'form_id' => 'captcha',  'name' => 'adapter_id',  'value_actual' => '"3"',  'sort_order' => 1,  'is_active' => 1,));
+        $obj = new SiteSettingValue(array (  'value_id' => 1,  'package_id' => 'core',  'group_id' => 'captcha',  'form_id' => 'captcha',  'name' => 'adapter_id',  'value_actual' => '"3"',  'ordering' => 1,  'is_active' => 1,));
 
         $this->assertSame('site_setting_value', $obj->getModelId());
         $this->assertSame(1, $obj->getValueId());
@@ -14,7 +14,7 @@ class SiteSettingValueTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('captcha', $obj->getFormId());
         $this->assertSame('adapter_id', $obj->getName());
         $this->assertSame('"3"', $obj->getValueActual());
-        $this->assertSame(1, $obj->getSortOrder());
+        $this->assertSame(1, $obj->getOrdering());
         $this->assertSame(1, $obj->isActive());    }
 
     public function testParameters()
@@ -28,7 +28,7 @@ class SiteSettingValueTest extends \PHPUnit_Framework_TestCase
         $obj->setFormId('captcha');
         $obj->setName('adapter_id');
         $obj->setValueActual('"3"');
-        $obj->setSortOrder(1);
+        $obj->setOrdering(1);
         $obj->setActive(1);
         // assert same data
         $this->assertSame('site_setting_value', $obj->getModelId());
@@ -38,12 +38,12 @@ class SiteSettingValueTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('captcha', $obj->getFormId());
         $this->assertSame('adapter_id', $obj->getName());
         $this->assertSame('"3"', $obj->getValueActual());
-        $this->assertSame(1, $obj->getSortOrder());
+        $this->assertSame(1, $obj->getOrdering());
         $this->assertSame(1, $obj->isActive());    }
 
     public function testSave()
     {
-        $obj = new SiteSettingValue(array (  'value_id' => 1,  'package_id' => 'core',  'group_id' => 'captcha',  'form_id' => 'captcha',  'name' => 'adapter_id',  'value_actual' => '"3"',  'sort_order' => 1,  'is_active' => 1,));
+        $obj = new SiteSettingValue(array (  'value_id' => 1,  'package_id' => 'core',  'group_id' => 'captcha',  'form_id' => 'captcha',  'name' => 'adapter_id',  'value_actual' => '"3"',  'ordering' => 1,  'is_active' => 1,));
 
         $obj->save();
 
@@ -58,7 +58,7 @@ class SiteSettingValueTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('captcha', $obj->getFormId());
         $this->assertSame('adapter_id', $obj->getName());
         $this->assertSame('"3"', $obj->getValueActual());
-        $this->assertSame(1, $obj->getSortOrder());
+        $this->assertSame(1, $obj->getOrdering());
         $this->assertSame(1, $obj->isActive());    }
 
     public static function setUpBeforeClass()

@@ -8,9 +8,10 @@ class <?= $shortFormClass?> extends Form {
 
     public function initialize(){
 
-        $this->setTitle(_text('<?= $formTitle ?>', '<?= $textDomain ?>'));
-        $this->setInfo(_text('[Site Settings Info]', 'admin'));
-        $this->setEncType('multipart/form-data');
+        $this->setTitle(_text('<?= $formTitle ?>', '<?= $titleDomain ?>'));
+        $this->setInfo(_text('<?= $formInfo ?>', '<?= $infoDomain?>'));
+        <?php if($formMethod):?>$this->setMethod('<?= $formMethod ?>'); <?php endif;?>
+        <?php if($formEncType):?>$this->setEncType('<?= $encType ?>'); <?php endif;?>
         $this->setAction(_url('#'));
 
         /** start elements **/
@@ -25,14 +26,14 @@ class <?= $shortFormClass?> extends Form {
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'save',
-            'label'      => _text('Save Changes'),
+            'label'      => _text('<?= $submitLabel?$submitLabel: 'Save Changes'?>'),
             'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
         ]);
 
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'cancel',
-            'href'       => '#',
+            'href'       => _url('<?= $cancelUrl ?>'),
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
         ]);

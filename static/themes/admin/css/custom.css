@@ -1,4 +1,17 @@
 @charset "UTF-8";
+.form-info {
+  margin-bottom: 30px;
+  font-size: 110%; }
+
+.control-info, .control-note {
+  color: #666666; }
+
+.control-info {
+  margin-bottom: 5px; }
+
+.control-note {
+  margin-top: 5px; }
+
 .dev-only {
   display: none; }
 
@@ -229,10 +242,10 @@
 .form-horizontal .control-label {
   text-align: left !important; }
 
-.form-group .help-block {
+.form-group .help-block, .form-group .control-info, .form-group .control-note {
   font-size: small; }
 
-.form-control + .help-block {
+.form-control + .help-block, .form-control + .control-info, .form-control + .control-note {
   margin-bottom: 0 !important; }
 
 .dots a + a:before {

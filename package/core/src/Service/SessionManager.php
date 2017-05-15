@@ -32,7 +32,7 @@ class SessionManager
             ->select()
             ->where('driver_type=?', self::DRIVER_TYPE)
             ->where('is_active=?', 1)
-            ->order('sort_order', 1);
+            ->order('ordering', 1);
 
         return array_map(function (CoreDriver $entry) {
             return [

@@ -8,7 +8,7 @@ class CoreMenuTest extends \PHPUnit_Framework_TestCase
     {
         $obj = new CoreMenu([
             'id'          => 1,
-            'sort_order'  => 1,
+            'ordering'  => 1,
             'menu'        => 'admin',
             'name'        => 'dashboard',
             'parent_name' => null,
@@ -27,7 +27,7 @@ class CoreMenuTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('core_menu', $obj->getModelId());
         $this->assertSame(1, $obj->getId());
-        $this->assertSame(1, $obj->getSortOrder());
+        $this->assertSame(1, $obj->getOrdering());
         $this->assertSame('admin', $obj->getMenu());
         $this->assertSame('dashboard', $obj->getName());
         $this->assertSame('', $obj->getParentName());
@@ -50,7 +50,7 @@ class CoreMenuTest extends \PHPUnit_Framework_TestCase
 
         // set data
         $obj->setId(1);
-        $obj->setSortOrder(1);
+        $obj->setOrdering(1);
         $obj->setMenu('admin');
         $obj->setName('dashboard');
         $obj->setParentName('');
@@ -68,7 +68,7 @@ class CoreMenuTest extends \PHPUnit_Framework_TestCase
         // assert same data
         $this->assertSame('core_menu', $obj->getModelId());
         $this->assertSame(1, $obj->getId());
-        $this->assertSame(1, $obj->getSortOrder());
+        $this->assertSame(1, $obj->getOrdering());
         $this->assertSame('admin', $obj->getMenu());
         $this->assertSame('dashboard', $obj->getName());
         $this->assertSame('', $obj->getParentName());
@@ -89,7 +89,7 @@ class CoreMenuTest extends \PHPUnit_Framework_TestCase
     {
         $obj = new CoreMenu([
             'id'          => 1,
-            'sort_order'  => 1,
+            'ordering'  => 1,
             'menu'        => 'admin',
             'name'        => 'dashboard',
             'parent_name' => null,
@@ -114,7 +114,7 @@ class CoreMenuTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('core_menu', $obj->getModelId());
         $this->assertSame(1, $obj->getId());
-        $this->assertSame(1, $obj->getSortOrder());
+        $this->assertSame(1, $obj->getOrdering());
         $this->assertSame('admin', $obj->getMenu());
         $this->assertSame('dashboard', $obj->getName());
         $this->assertSame('', $obj->getParentName());

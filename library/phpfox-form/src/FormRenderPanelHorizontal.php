@@ -69,7 +69,7 @@ class FormRenderPanelHorizontal implements FormDecoratorInterface
             return '';
         }
 
-        return '<p class="form-desc">' . $string . '</p>';
+        return '<p class="form-info">' . $string . '</p>';
     }
 
     public function renderButtons($form)

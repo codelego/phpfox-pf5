@@ -10,7 +10,7 @@ class I18nCurrencyTest extends \PHPUnit_Framework_TestCase
             'currency_id' => 'EUR',
             'symbol'      => '€',
             'name'        => 'Euro',
-            'sort_order'  => 2,
+            'ordering'  => 2,
             'is_active'   => 1,
         ]);
 
@@ -18,7 +18,7 @@ class I18nCurrencyTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('EUR', $obj->getCurrencyId());
         $this->assertSame('€', $obj->getSymbol());
         $this->assertSame('Euro', $obj->getName());
-        $this->assertSame(2, $obj->getSortOrder());
+        $this->assertSame(2, $obj->getOrdering());
         $this->assertSame(1, $obj->isActive());
     }
 
@@ -30,14 +30,14 @@ class I18nCurrencyTest extends \PHPUnit_Framework_TestCase
         $obj->setCurrencyId('EUR');
         $obj->setSymbol('€');
         $obj->setName('Euro');
-        $obj->setSortOrder(2);
+        $obj->setOrdering(2);
         $obj->setActive(1);
         // assert same data
         $this->assertSame('i18n_currency', $obj->getModelId());
         $this->assertSame('EUR', $obj->getCurrencyId());
         $this->assertSame('€', $obj->getSymbol());
         $this->assertSame('Euro', $obj->getName());
-        $this->assertSame(2, $obj->getSortOrder());
+        $this->assertSame(2, $obj->getOrdering());
         $this->assertSame(1, $obj->isActive());
     }
 
@@ -47,7 +47,7 @@ class I18nCurrencyTest extends \PHPUnit_Framework_TestCase
             'currency_id' => 'EUR',
             'symbol'      => '€',
             'name'        => 'Euro',
-            'sort_order'  => 2,
+            'ordering'  => 2,
             'is_active'   => 1,
         ]);
 
@@ -61,7 +61,7 @@ class I18nCurrencyTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('EUR', $obj->getCurrencyId());
         $this->assertSame('€', $obj->getSymbol());
         $this->assertSame('Euro', $obj->getName());
-        $this->assertSame(2, $obj->getSortOrder());
+        $this->assertSame(2, $obj->getOrdering());
         $this->assertSame(1, $obj->isActive());
     }
 

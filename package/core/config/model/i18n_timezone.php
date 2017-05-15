@@ -6,7 +6,7 @@
         'timezone_id'       => 1,
         'timezone_location' => 1,
         'is_active'         => 1,
-        'sort_order'        => 1,
+        'ordering'        => 1,
         'timezone_code'     => 1,
         'timezone_offset'   => 1,
     ],

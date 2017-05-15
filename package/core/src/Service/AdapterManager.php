@@ -70,7 +70,7 @@ class AdapterManager
             ->select()
             ->where('driver_type=?', $driverType)
             ->where('is_active=?', 1)
-            ->order('sort_order', 1);
+            ->order('ordering', 1);
 
         return array_map(function (CoreDriver $coreDriver) {
             return [

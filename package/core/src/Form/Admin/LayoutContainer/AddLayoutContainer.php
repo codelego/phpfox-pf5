@@ -58,9 +58,9 @@ class AddLayoutContainer extends Form
             'options'  => _get('layout_loader')->getContainerTypeIdOptions(),
         ]);
 
-        /** element `sort_order` **/
+        /** element `ordering` **/
         $this->addElement([
-            'name'      => 'sort_order',
+            'name'      => 'ordering',
             'factory'   => 'text',
             'label'     => _text('Ordering', '_core.layout'),
             'value'     => 1,

@@ -71,14 +71,14 @@ class CoreDriver extends DbModel
         $this->__set('is_active', $value ? 1 : 0);
     }
 
-    public function getSortOrder()
+    public function getOrdering()
     {
-        return (int)$this->__get('sort_order');
+        return (int)$this->__get('ordering');
     }
 
-    public function setSortOrder($value)
+    public function setOrdering($value)
     {
-        $this->__set('sort_order', $value);
+        $this->__set('ordering', $value);
     }
 
     public function getPackageId()

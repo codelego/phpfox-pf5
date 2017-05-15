@@ -8,7 +8,7 @@
         'grid_id'      => 1,
         'type_id'      => 1,
         'is_active'    => 1,
-        'sort_order'   => 1,
+        'ordering'   => 1,
         'params'       => 1,
     ],
     4 => [],

@@ -6,7 +6,7 @@ return [
     'contact_department' => [
         'table_factory',
         ':contact_department',
-        Department::class,
-        'package/contact/config/model/department.php',
+        ContactDepartment::class,
+        'package/contact/config/model/contact_department.php',
     ],
 ];

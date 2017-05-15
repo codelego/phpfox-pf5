@@ -6,7 +6,7 @@ use Phpfox\Form\Form;
 
 class EditLogSettings extends Form
 {
-
+    /** lock */
     protected function initialize()
     {
         $this->setTitle(_text('Log Settings', 'admin'));
@@ -18,7 +18,7 @@ class EditLogSettings extends Form
             'value'    => [1],
             'options'  => _get('core.log')->getAdapterIdOptions('main.log'),
             'label'    => _text('Main Log', 'admin'),
-            'note'     => _text('[Main Log Note]', 'admin'),
+            'info'     => _text('[Main Log Info]', 'admin'),
             'required' => true,
         ]);
 
@@ -28,7 +28,7 @@ class EditLogSettings extends Form
             'value'    => [3],
             'options'  => _get('core.log')->getAdapterIdOptions('mail.log'),
             'label'    => _text('Mail Log', 'admin'),
-            'note'     => _text('[Mail Log Note]', 'admin'),
+            'info'     => _text('[Mail Log Info]', 'admin'),
             'required' => true,
         ]);
 
@@ -38,7 +38,7 @@ class EditLogSettings extends Form
             'value'    => [5],
             'options'  => _get('core.log')->getAdapterIdOptions('debug.log'),
             'label'    => _text('Debug Log', 'admin'),
-            'note'     => _text('[Debug Log Note]', 'admin'),
+            'info'     => _text('[Debug Log Info]', 'admin'),
             'required' => true,
         ]);
 

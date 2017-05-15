@@ -61,11 +61,11 @@ class FilterI18nTimezone extends Form
                 ],
         ]);
 
-        // element `sort_order`
+        // element `ordering`
         $this->addElement([
-            'name'      => 'sort_order',
+            'name'      => 'ordering',
             'factory'   => 'text',
-            'label'     => _text('Sort Order', null),
+            'label'     => _text('Ordering', null),
             'maxlength' => 255,
         ]);
 
