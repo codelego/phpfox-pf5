@@ -16,4 +16,13 @@ class HtmlResponse implements ResponsePrototypeInterface
 
         return _get('layouts')->prepare()->render();
     }
+
+    public function redirect($url, $code)
+    {
+        if (!headers_sent()) {
+            http_response_code($code);
+            header('location: ' . $url);
+        }
+        exit;
+    }
 }

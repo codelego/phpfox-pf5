@@ -20,4 +20,9 @@ class JsonResponse implements ResponsePrototypeInterface
 
         return json_encode($data);
     }
+
+    public function redirect($url, $code)
+    {
+        exit(json_encode(['redirect' => $url]));
+    }
 }

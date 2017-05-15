@@ -49,12 +49,9 @@ class Response
     {
         $this->code = intval($code);
 
-        if (!headers_sent()) {
-            http_response_code($code);
-            header('location: ' . $url);
-        }
-
-        echo $this->terminate();
+        /** @var ResponsePrototypeInterface $obj */
+        $obj = _get($this->prototype);
+        $obj->redirect($url,$code);
 
         return false;
     }

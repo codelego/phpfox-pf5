@@ -67,6 +67,10 @@ define(['jquery', 'underscore', 'core'], function () {
         });
     };
 
+    $(document).on('ajax.load.start',function(){
+        $('#id_td_dropdown').remove();
+    });
+
     Core.cmd('dropdown', function (ele) {
         new DropDown(ele);
     });

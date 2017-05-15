@@ -53,8 +53,10 @@ define(['jquery', 'core'], function () {
 
         }
 
+        $(document).trigger('ajax.load.start');
+
         //3. send ajax request, return prefer object
-        return _lastXhr = $.ajax({
+        _lastXhr = $.ajax({
             type: settings.type,
             data: {fal: 'ok'},
             url: href,
@@ -69,8 +71,15 @@ define(['jquery', 'core'], function () {
             }
         }).always(function () {
             if (settings.showLoadingBar) loadingBar.complete();
+            $(document).trigger('ajax.load.end');
         }).done(function (data) {
-            $(target).html(data.content);
+            if (typeof data.redirect != 'undefined' && data.redirect != href) {
+                Core.loadPage(data.redirect);
+                return;
+            } else {
+                $(target).html(data.content);
+            }
+
             if (data.meta) {
                 $('title').text(data.meta.title);
                 $('meta[name="description"]').text(data.meta.description);
@@ -95,15 +104,22 @@ define(['jquery', 'core'], function () {
         // 1. check control + click to new page.
         if (evt.metaKey || evt.ctrlKey || evt.altKey) return true;
 
+        // 2. link has 'no-ajax' class
+        if (link.hasClass('no-ajax')) return true;
+
         // todo fix issues go to another domain
-        if (typeof href == 'undefined') return;
-        // check go to another domain.
+        if (typeof href == 'undefined') return true;
+        // 3. check go to another domain.
         // if (href.indexOf(document.domain) > -1) return;
+
+        // 4. ajax type
         if (href.indexOf('javascript') > -1) return;
+
+        // 5. empty href
         if (href.trim() == '') return;
-        if (toggle) return true;
-        if (target) return true;
-        if (onclick) return true;
+
+        // 6. has toggle, target or onclick
+        if (toggle || target || onclick) return true;
 
         evt.preventDefault();
 

@@ -22,4 +22,9 @@ class AjaxPushStateResponse implements ResponsePrototypeInterface
 
         return json_encode($jsonArray);
     }
+
+    public function redirect($url, $code)
+    {
+        exit(json_encode(['redirect' => $url]));
+    }
 }
