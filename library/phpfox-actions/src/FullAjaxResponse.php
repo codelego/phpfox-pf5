@@ -3,7 +3,7 @@
 namespace Phpfox\Action;
 
 
-class AjaxPushStateResponse implements ResponsePrototypeInterface
+class FullAjaxResponse implements ResponsePrototypeInterface
 {
     public function run(Response $response)
     {

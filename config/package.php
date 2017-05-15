@@ -185,8 +185,8 @@
     ),
     'response.ajax_push_state' => 
     array (
-      0 => NULL,
-      1 => 'Phpfox\\Action\\AjaxPushStateResponse',
+        0 => NULL,
+        1 => 'Phpfox\\Action\\FullAjaxResponse',
     ),
     'assets' => 
     array (
