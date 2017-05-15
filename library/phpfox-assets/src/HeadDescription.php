@@ -31,6 +31,14 @@ class HeadDescription implements HtmlElementInterface
         $this->data = [];
     }
 
+    /**
+     * @return string
+     */
+    public function getContent()
+    {
+        return htmlentities(implode(',', $this->data));
+    }
+
     public function getHtml()
     {
         if (empty($this->data)) {

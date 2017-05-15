@@ -112,11 +112,6 @@
     0 => 'library/phpfox-payments/src',
     1 => 'library/phpfox-payments/test',
   ),
-  'Phpfox\\RapidDev' => 
-  array (
-    0 => 'library/phpfox-dev/src',
-    1 => 'library/phpfox-dev/test',
-  ),
   'Phpfox\\Routing' => 
   array (
     0 => 'library/phpfox-routing/src',
@@ -167,25 +162,20 @@
     0 => 'package/blog/src',
     1 => 'package/blog/test',
   ),
+  'Neutron\\ThemeGalaxy' => 
+  array (
+    0 => 'package/theme-galaxy/src',
+    1 => 'package/theme-galaxy/test',
+  ),
   'Neutron\\Pages' => 
   array (
     0 => 'package/pages/src',
     1 => 'package/pages/test',
   ),
-  'Neutron\\Cms' => 
-  array (
-    0 => 'package/cms/src',
-    1 => 'package/cms/test',
-  ),
   'Neutron\\Group' => 
   array (
     0 => 'package/group/src',
     1 => 'package/group/test',
-  ),
-  'Neutron\\Event' => 
-  array (
-    0 => 'package/event/src',
-    1 => 'package/event/test',
   ),
   'Neutron\\Photo' => 
   array (
@@ -231,11 +221,6 @@
   array (
     0 => 'package/comment/src',
     1 => 'package/comment/test',
-  ),
-  'Neutron\\Share' => 
-  array (
-    0 => 'package/share/src',
-    1 => 'package/share/test',
   ),
   'Neutron\\Activity' => 
   array (

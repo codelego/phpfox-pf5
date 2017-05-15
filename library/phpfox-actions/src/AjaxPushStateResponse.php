@@ -1,0 +1,25 @@
+<?php
+
+namespace Phpfox\Action;
+
+
+class AjaxPushStateResponse implements ResponsePrototypeInterface
+{
+    public function run(Response $response)
+    {
+        $jsonArray = [];
+
+        $jsonArray['content'] = _get('layouts')
+            ->prepare()
+            ->setAjaxLoad(true)
+            ->render();
+
+        $jsonArray['meta'] = [
+            'title'       => _get('html.title')->getContent(),
+            'description' => _get('html.description')->getContent(),
+            'keyword'     => _get('html.keyword')->getContent(),
+        ];
+
+        return json_encode($jsonArray);
+    }
+}

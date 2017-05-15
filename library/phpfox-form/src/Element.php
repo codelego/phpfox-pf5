@@ -52,6 +52,7 @@ class Element implements ElementInterface
             'editable'    => 1,
             'size'        => 1,
             'multiple'    => 1,
+            'target'      => 1,
         ];
 
     /**
@@ -223,7 +224,6 @@ class Element implements ElementInterface
     {
         $this->setParam('info', (string)$label);
     }
-
 
 
     /**

@@ -26,10 +26,10 @@
         <li><a href="<?= _url('logout') ?>"><?= _text('Logout') ?></a></li>
     </ul>
 </aside>
-<section class="main-wrapper">
+<div class="main-wrapper" id="layout_containers">
     <div class="container">
         <?= _get('menu.admin.secondary')->render('toolbar', ['level0' => 'btn-group toolbar pull-left']); ?>
-        <?= _get('menu.admin.buttons')->render('toolbar', ['level0' => 'btn-group toolbar pull-right']); ?>
+        <?= _get('menu.admin.buttons')->render('toolbar', ['level0' => 'toolbar pull-right']); ?>
     </div>
     <div class="container">
         <?= _get('layouts')->renderBlock('\Neutron\Core\Block\AdminFilter', []) ?>
@@ -37,7 +37,7 @@
     <div class="content-wrapper">
         <?php echo @$layout_content ?>
     </div>
-</section>
+</div>
 <?= _get('assets')->getShutdownHtml() ?>
 </body>
 </html>

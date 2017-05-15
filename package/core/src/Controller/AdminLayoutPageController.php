@@ -24,8 +24,7 @@ class AdminLayoutPageController extends AdminController
         _get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.layout'),
-                'label' => _text('Layout Editor {0}', 'admin', null,
-                    [$editingThemeId]),
+                'label' => _text('Layout Editor {0}', 'admin', [$editingThemeId]),
             ]);
 
         _get('menu.admin.secondary')

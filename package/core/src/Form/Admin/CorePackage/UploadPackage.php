@@ -17,7 +17,6 @@ class UploadPackage extends Form
             [
                 'factory'    => 'file',
                 'name'       => 'package',
-                'label'      => 'Upload Package',
                 'attributes' => [
                     'class'    => 'upload',
                     'accept'   => 'application/zip',
@@ -34,7 +33,7 @@ class UploadPackage extends Form
 
         $this->addButton([
             'name'       => 'cancel',
-            'href'       => '#',
+            'href'       => _url('admin.core.package'),
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel'],
         ]);

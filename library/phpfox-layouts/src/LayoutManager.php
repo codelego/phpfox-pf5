@@ -17,6 +17,11 @@ class LayoutManager extends ViewModel
     protected $themeId = 'default';
 
     /**
+     * @var bool
+     */
+    protected $ajaxLoad = false;
+
+    /**
      * @return $this
      */
     public function prepare()
@@ -42,6 +47,33 @@ class LayoutManager extends ViewModel
         ]);
 
         return $this;
+    }
+
+    /**
+     * @param bool $ajaxLoad
+     *
+     * @return $this
+     */
+    public function setAjaxLoad($ajaxLoad)
+    {
+        if ($ajaxLoad) {
+            if (!$this->ajaxLoad) {
+                $this->setTemplate($this->getTemplate() . '-ajax');
+            }
+        } else {
+
+        }
+
+        $this->ajaxLoad = $ajaxLoad;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAjaxLoad()
+    {
+        return $this->ajaxLoad;
     }
 
     /**

@@ -3,12 +3,13 @@
 namespace Neutron\Core\Service;
 
 
-use Neutron\Core\Model\CoreDriver;
 use Neutron\Core\Model\LogAdapter;
 
 class LogManager
 {
-
+    /**
+     * @const DRIVER_TYPE string
+     */
     const  DRIVER_TYPE = 'log';
 
     /**
@@ -56,36 +57,10 @@ class LogManager
     }
 
     /**
-     * @param string $name
-     *
-     * @return CoreDriver
-     */
-    public function findDriverByName($name)
-    {
-        return _model('core_driver')
-            ->select()
-            ->where('driver_type=?', self::DRIVER_TYPE)
-            ->where('driver_name=?', $name)
-            ->first();
-    }
-
-    /**
      * @return array
      */
     public function getDriverIdOptions()
     {
-        $select = _model('core_driver')
-            ->select()
-            ->where('driver_type=?', self::DRIVER_TYPE)
-            ->where('is_active=?', 1)
-            ->order('sort_order', 1);
-
-        return array_map(function (CoreDriver $entry) {
-            return [
-                'value' => $entry->getDriverName(),
-                'label' => $entry->getTitle(),
-                'note'  => $entry->getDescription(),
-            ];
-        }, $select->all());
+        return _get('core.adapter')->getDriverIdOptions(self::DRIVER_TYPE);
     }
 }

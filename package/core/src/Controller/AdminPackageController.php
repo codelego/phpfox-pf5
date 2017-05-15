@@ -2,6 +2,7 @@
 
 namespace Neutron\Core\Controller;
 
+use Neutron\Core\Form\Admin\CorePackage\FilterCorePackage;
 use Neutron\Core\Form\Admin\CorePackage\UploadPackage;
 use Neutron\Core\Model\CorePackage;
 use Neutron\Core\Process\AdminListEntryProcess;
@@ -29,12 +30,13 @@ class AdminPackageController extends AdminController
 
     public function actionIndex()
     {
-        $message = _text('summary_packages_message', '_core.package', null, [
+        $message = _text('summary_packages_message', '_core.package', [
             _model('core_package')->select()->count(),
             _model('core_package')->select()->where('is_active=1')->count(),
         ]);
 
         return (new AdminListEntryProcess([
+            'filter'   => FilterCorePackage::class,
             'model'    => CorePackage::class,
             'noLimit'  => true,
             'limit'    => 4,

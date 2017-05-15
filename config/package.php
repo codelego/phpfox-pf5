@@ -183,6 +183,11 @@
       0 => NULL,
       1 => 'Phpfox\\Action\\JsonResponse',
     ),
+    'response.ajax_push_state' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\Action\\AjaxPushStateResponse',
+    ),
     'assets' => 
     array (
       0 => NULL,
@@ -364,6 +369,11 @@
     array (
       0 => NULL,
       1 => 'Phpfox\\I18n\\Translator',
+    ),
+    'i18n' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\I18n\\I18n',
     ),
     'queues' => 
     array (

@@ -141,6 +141,12 @@ class FormAdminGenerator extends AbstractGenerator
 
         _get('core.i18n')->insertDomainMessages($messageContainer->all(), $this->packageId, '');
 
+        if (file_exists($formClassPath)) {
+            if (strpos(file_get_contents($formClassPath), '/** lock')) {
+                return true;
+            }
+        }
+
         $this->putContents($formClassPath, $formCode);
     }
 

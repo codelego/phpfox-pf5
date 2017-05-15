@@ -6,6 +6,7 @@ namespace Neutron\Core\Process;
 use Phpfox\Db\SqlSelect;
 use Phpfox\Form\Form;
 use Phpfox\Model\ModelInterface;
+use Phpfox\Support\AbstractProcess;
 use Phpfox\View\ViewModel;
 
 class AdminListEntryProcess extends AbstractProcess
@@ -20,8 +21,7 @@ class AdminListEntryProcess extends AbstractProcess
 
             $filter->populate($_GET);
 
-            _get('registry')
-                ->set('search.filter', $filter);
+            _get('registry')->set('filter', $filter);
         }
 
         /** @var SqlSelect $select */
@@ -36,7 +36,6 @@ class AdminListEntryProcess extends AbstractProcess
 
             $select = _model($modelId)
                 ->select();
-
         }
 
         $items = _get('pagination')

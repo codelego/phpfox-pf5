@@ -62,6 +62,14 @@ class HeadTitle implements HtmlElementInterface
     /**
      * @return string
      */
+    public function getContent()
+    {
+        return implode($this->separator, $this->data);
+    }
+
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return implode($this->separator, $this->data);

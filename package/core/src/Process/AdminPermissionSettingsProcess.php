@@ -12,6 +12,7 @@ namespace Neutron\Core\Process;
 use Neutron\Core\Model\SiteSettingForm;
 use Phpfox\Form\FieldInterface;
 use Phpfox\Form\Form;
+use Phpfox\Support\AbstractProcess;
 use Phpfox\View\ViewModel;
 
 class AdminPermissionSettingsProcess extends AbstractProcess

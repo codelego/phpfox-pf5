@@ -69,7 +69,7 @@ class AdminAclController extends AdminController
         $filter = new FilterAclSettingGroup();
 
         _get('registry')
-            ->set('search.filter', $filter);
+            ->set('filter', $filter);
 
         $id = $request->get('id', 1);
         $role = _get('core.roles')->findById($id);

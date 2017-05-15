@@ -94,7 +94,6 @@ define(['jquery', 'underscore'], function () {
 
         if (commands.hasOwnProperty(name)
             && typeof commands[name] == 'function') {
-            evt.preventDefault();
             return commands[name](ele, evt);
         }
     }).on('submit', '[data-submit]', function (evt) {

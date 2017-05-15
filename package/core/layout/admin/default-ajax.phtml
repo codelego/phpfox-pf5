@@ -1,0 +1,11 @@
+<div class="container">
+    <?= _get('menu.admin.secondary')->render('toolbar', ['level0' => 'btn-group toolbar pull-left']); ?>
+    <?= _get('menu.admin.buttons')->render('toolbar', ['level0' => 'toolbar pull-right']); ?>
+</div>
+<div class="container">
+    <?= _get('layouts')->renderBlock('\Neutron\Core\Block\AdminFilter', []) ?>
+</div>
+<div class="content-wrapper">
+    <?php echo @$layout_content ?>
+</div>
+<?= _get('assets')->getShutdownHtml() ?>

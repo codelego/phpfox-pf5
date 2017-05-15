@@ -2,11 +2,20 @@
 
 namespace Neutron\Core\Service;
 
-use Phpfox\I18n\I18nMessageLoaderInterface;
+use Phpfox\I18n\I18nLoaderInterface;
 
-class I18nMessageLoader implements I18nMessageLoaderInterface
+class I18nLoader implements I18nLoaderInterface
 {
-    public function load($locale, $domain)
+    public function loadCurrencies()
+    {
+        return [
+            'USD' => '$',
+            'VND' => 'vnd',
+            'EUR' => '€',
+        ];
+    }
+
+    public function loadMessage($locale, $domain)
     {
         $result = [];
         $stmt = _get('db')

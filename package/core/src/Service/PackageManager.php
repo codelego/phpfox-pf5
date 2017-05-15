@@ -32,6 +32,22 @@ class PackageManager
             ->first();
     }
 
+    public function getTypeIdOptions()
+    {
+        return [
+            ['value' => 'app', 'label' => 'App'],
+            ['value' => 'library', 'label' => 'Library'],
+            ['value' => 'theme', 'label' => 'Theme'],
+        ];
+    }
+
+    public function getAuthorIdOptions()
+    {
+        return array_map(function ($item) {
+            return ['label' => $item['author'], 'value' => $item['author']];
+        }, _model('core_package')->select('distinct author')->setPrototype(null)->all());
+    }
+
     /**
      * @return array
      */
@@ -56,7 +72,7 @@ class PackageManager
                     'label' => $v->getTitle(),
                     'value' => $v->getName(),
                 ];
-            }, _model('core_package')->select()->all());
+            }, _model('core_package')->select()->order('title',1)->all());
         });
     }
 }

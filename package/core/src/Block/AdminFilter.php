@@ -11,7 +11,7 @@ class AdminFilter extends Component
 {
     public function run()
     {
-        $form = _get('registry')->get('search.filter');
+        $form = _get('registry')->get('filter');
 
         if (!$form instanceof Form) {
             return false;

@@ -47,7 +47,7 @@ return [
             'action'     => 'index',
         ],
         'admin.core.package'  => [
-            'route'      => 'core/package(/<action>)',
+            'route'      => 'package(/<action>)',
             'controller' => 'core.admin-package',
             'action'     => 'index',
         ],

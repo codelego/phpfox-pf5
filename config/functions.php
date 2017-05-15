@@ -7,8 +7,8 @@ namespace {
 
     function _dump()
     {
-        var_dump(func_get_args());
-        exit;
+        exit(var_export(func_get_args(), true));
+
     }
 
     /**
@@ -540,7 +540,7 @@ namespace {
      */
     function _pathize($array)
     {
-        return preg_replace('//', PATH_SEPARATOR, implode('/', $array));
+        return preg_replace('//', DIRECTORY_SEPARATOR, implode('/', $array));
     }
 
     /**
@@ -622,17 +622,54 @@ namespace {
     /**
      * @param string $id
      * @param string $domain
-     * @param string $locale
      * @param array  $context
+     * @param string $locale
      *
      * @return string
      */
-    function _text($id, $domain = null, $locale = null, $context = null)
+    function _text($id, $domain = null, $context = null, $locale = null)
     {
-        return _get('translator')
-            ->trans($id, $domain, $locale, $context);
+        return _get('i18n')->get($locale)->trans($id, $domain, $context);
     }
 
+    function _choice($id, $domain = null, $number = null, $context = null, $locale = null)
+    {
+        return _get('i18n')->get($locale)->choice($id, $domain, $number, $context);
+    }
+
+    /**
+     * @param string $number
+     * @param int    $precision
+     * @param string $locale
+     *
+     * @return string
+     */
+    function _number($number, $precision = null, $locale = null)
+    {
+        return _get('i18n')->get($locale)->formatNumber($number, $precision);
+    }
+
+    /**
+     * @param mixed  $number
+     * @param string $code
+     * @param int    $precision
+     * @param string $symbol
+     * @param string $locale
+     *
+     * @return mixed
+     */
+    function _currency($number, $code, $precision = null, $symbol = null, $locale)
+    {
+        return _get('i18n')->get($locale)->formatCurrency($number, $code, $precision, $symbol, $locale);
+    }
+
+    /**
+     * @param bool $flag
+     * @param bool $label_yes
+     * @param bool $label_false
+     *
+     * @return string
+     */
     function _yesno($flag, $label_yes = false, $label_false = false)
     {
         if ($flag && $label_yes) {

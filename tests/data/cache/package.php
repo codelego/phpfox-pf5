@@ -369,6 +369,11 @@
       0 => NULL,
       1 => 'Phpfox\\I18n\\Translator',
     ),
+    'i18n' => 
+    array (
+      0 => NULL,
+      1 => 'Phpfox\\I18n\\I18n',
+    ),
     'queues' => 
     array (
       0 => NULL,
@@ -507,7 +512,7 @@
     'i18n.loader' => 
     array (
       0 => NULL,
-      1 => 'Neutron\\Core\\Service\\I18nMessageLoader',
+      1 => 'Neutron\\Core\\Service\\I18nLoader',
     ),
     'core.callback' => 
     array (
@@ -526,13 +531,13 @@
     ),
     'core.packages' => 
     array (
-        0 => NULL,
-        1 => 'Neutron\\Core\\Service\\PackageManager',
+      0 => NULL,
+      1 => 'Neutron\\Core\\Service\\PackageManager',
     ),
     'core.themes' => 
     array (
-        0 => NULL,
-        1 => 'Neutron\\Core\\Service\\ThemeManager',
+      0 => NULL,
+      1 => 'Neutron\\Core\\Service\\ThemeManager',
     ),
     'core.mails' => 
     array (
@@ -644,14 +649,14 @@
       0 => NULL,
       1 => 'Neutron\\Blog\\Service\\BlogCategoryManager',
     ),
+    'theme_galaxy.callback' => 
+    array (
+      0 => NULL,
+      1 => 'Neutron\\ThemeGalaxy\\Service\\EventListener',
+    ),
     'pages.callback' => 'Neutron\\Pages\\Service\\EventListener',
     'pages.browse' => 'Neutron\\Pages\\Service\\Browse',
     'pages.profile_filter' => 'Neutron\\Pages\\Service\\ProfileNameFilter',
-    'cms.callback' => 
-    array (
-      0 => NULL,
-      1 => 'Neutron\\Cms\\Service\\EventListener',
-    ),
     'group.callback' => 
     array (
       0 => NULL,
@@ -662,7 +667,6 @@
       0 => NULL,
       1 => 'Neutron\\Group\\Service\\ProfileNameFilter',
     ),
-    'event.profile_filter' => 'Neutron\\Event\\Service\\ProfileNameFilter',
     'photo.callback' => 'Neutron\\Photo\\Service\\EventListener',
     'photo' => 'Neutron\\Photo\\Service\\photo',
     'video.callback' => 
@@ -806,6 +810,7 @@
     'default:core/admin-i18n/manage-i18n-locale' => 'package/core/view/admin-i18n/manage-i18n-locale',
     'default:core/admin-i18n/manage-i18n-message' => 'package/core/view/admin-i18n/manage-i18n-message',
     'default:core/admin-i18n/manage-i18n-timezone' => 'package/core/view/admin-i18n/manage-i18n-timezone',
+    'default:core/admin-index/coming-soon' => 'package/core/view/admin-index/coming-soon',
     'default:core/admin-index/index' => 'package/core/view/admin-index/index',
     'default:core/admin-layout/clone-page' => 'package/core/view/admin-layout/clone-page',
     'default:core/admin-layout/debug-theme' => 'package/core/view/admin-layout/debug-theme',
@@ -815,12 +820,15 @@
     'default:core/admin-layout/manage-theme' => 'package/core/view/admin-layout/manage-theme',
     'default:core/admin-log/manage-log-adapter' => 'package/core/view/admin-log/manage-log-adapter',
     'default:core/admin-mail/manage-mail-adapter' => 'package/core/view/admin-mail/manage-mail-adapter',
+    'default:core/admin-message/manage-message-adapter' => 'package/core/view/admin-message/manage-message-adapter',
     'default:core/admin-package/manage-core-package' => 'package/core/view/admin-package/manage-core-package',
+    'default:core/admin-session/manage-session-adapter' => 'package/core/view/admin-session/manage-session-adapter',
     'default:core/admin-settings/index' => 'package/core/view/admin-settings/index',
     'default:core/admin-status/manage-health-check' => 'package/core/view/admin-status/manage-health-check',
     'default:core/admin-status/manage-overview' => 'package/core/view/admin-status/manage-overview',
     'default:core/admin-status/manage-statistics' => 'package/core/view/admin-status/manage-statistics',
     'default:core/admin-storage/manage-storage-adapter' => 'package/core/view/admin-storage/manage-storage-adapter',
+    'default:core/admin-verify/manage-verify-adapter' => 'package/core/view/admin-verify/manage-verify-adapter',
     'default:core/block/admin-information' => 'package/core/view/block/admin-information',
     'default:core/block/admin-update' => 'package/core/view/block/admin-update',
     'default:core/error/404' => 'package/core/view/error/404',
@@ -866,13 +874,14 @@
     'default:contact/index/index' => 'package/contact/view/index/index',
     'default:report/admin-category/manage-report-category' => 'package/report/view/admin-category/manage-report-category',
     'default:report/admin-item/manage-report-item' => 'package/report/view/admin-item/manage-report-item',
-    'default:dev/admin-dev/manage-action-meta' => 'package/dev/view/admin-dev/manage-action-meta',
-    'default:dev/admin-dev/manage-table-meta' => 'package/dev/view/admin-dev/manage-table-meta',
-    'default:dev/template/form-admin-acl-settings-class' => 'package/dev/view/template/form-admin-acl-settings-class',
+    'default:dev/admin-dev/manage-dev-action' => 'package/dev/view/admin-dev/manage-dev-action',
+    'default:dev/admin-dev/manage-dev-model' => 'package/dev/view/admin-dev/manage-dev-model',
+    'default:dev/admin-dev/manage-dev-table' => 'package/dev/view/admin-dev/manage-dev-table',
+    'default:dev/template/form-acl-settings-class' => 'package/dev/view/template/form-acl-settings-class',
     'default:dev/template/form-admin-add-class' => 'package/dev/view/template/form-admin-add-class',
     'default:dev/template/form-admin-edit-class' => 'package/dev/view/template/form-admin-edit-class',
     'default:dev/template/form-admin-filter-class' => 'package/dev/view/template/form-admin-filter-class',
-    'default:dev/template/form-admin-site-settings-class' => 'package/dev/view/template/form-admin-site-settings-class',
+    'default:dev/template/form-site-settings-class' => 'package/dev/view/template/form-site-settings-class',
     'default:dev/template/form-test-case-class' => 'package/dev/view/template/form-test-case-class',
     'default:dev/template/model-class' => 'package/dev/view/template/model-class',
     'default:dev/template/model-config' => 'package/dev/view/template/model-config',
@@ -897,9 +906,25 @@
   'views' => 
   array (
   ),
-  'captcha' => 
+  'core' => 
   array (
-    'adapter_id' => 'captcha',
+    'default_captcha_id' => '3',
+    'default_verify_id' => '',
+    'license_key' => '',
+    'license_email' => '',
+    'license_package' => '',
+    'session_type' => '5',
+    'cookie_path' => '/',
+    'cookie_domain' => '',
+    'http_only' => '0',
   ),
-  'captcha.adapter_id' => 'captcha',
+  'core.default_captcha_id' => '3',
+  'core.default_verify_id' => '',
+  'core.license_key' => '',
+  'core.license_email' => '',
+  'core.license_package' => '',
+  'core.session_type' => '5',
+  'core.cookie_path' => '/',
+  'core.cookie_domain' => '',
+  'core.http_only' => '0',
 );

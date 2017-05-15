@@ -43,7 +43,7 @@ return [
         ],
     ],
     'services'        => [
-        'i18n.loader'            => [null, Service\I18nMessageLoader::class],
+        'i18n.loader'            => [null, Service\I18nLoader::class],
         'mailer.factory'         => [null, Service\MailManager::class],
         'storage.factory'        => [null, Service\FileStorageFactory::class],
         'session.save_handler'   => [Service\SessionFactory::class,],

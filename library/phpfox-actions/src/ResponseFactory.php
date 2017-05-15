@@ -16,7 +16,12 @@ class ResponseFactory
         $request = _get('request');
 
         if ($request->isAjax()) {
-            $response->setPrototype('response.ajax');
+            if ($request->get('fal')) {
+                $response->setPrototype('response.ajax_push_state');
+            }else{
+
+                $response->setPrototype('response.ajax');
+            }
         }
 
         return $response;

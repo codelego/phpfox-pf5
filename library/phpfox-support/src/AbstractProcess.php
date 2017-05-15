@@ -1,6 +1,6 @@
 <?php
 
-namespace Neutron\Core\Process;
+namespace Phpfox\Support;
 
 
 abstract class AbstractProcess implements ProcessInterface

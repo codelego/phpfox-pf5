@@ -6,6 +6,7 @@ namespace Neutron\Core\Process;
 use Phpfox\Db\DbModel;
 use Phpfox\Form\Form;
 use Phpfox\Model\ModelInterface;
+use Phpfox\Support\AbstractProcess;
 use Phpfox\View\ViewModel;
 
 class AdminEditEntryProcess extends AbstractProcess

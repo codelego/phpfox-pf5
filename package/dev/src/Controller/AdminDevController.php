@@ -68,7 +68,7 @@ class AdminDevController extends AdminController
         $selected = [];
 
         _get('registry')
-            ->set('search.filter', $filter);
+            ->set('filter', $filter);
 
         if ($request->isGet()) {
 

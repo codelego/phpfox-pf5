@@ -30,6 +30,14 @@ class HeadKeyword implements HtmlElementInterface
     /**
      * @return string
      */
+    public function getContent()
+    {
+        return htmlentities(implode(', ', $this->data));
+    }
+
+    /**
+     * @return string
+     */
     public function getHtml()
     {
         if (empty($this->data)) {
