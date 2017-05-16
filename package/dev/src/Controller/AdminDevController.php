@@ -105,11 +105,11 @@ class AdminDevController extends AdminController
         }
 
         if ($filterData['table_name']) {
-            $select->where('table_name like ?', $filterData['table_name'] . '%');
+            $select->where('table_name like ?', '%'.$filterData['table_name'] . '%');
         }
 
         if ($filterData['action_type']) {
-            $select->where('action_type like ?', $filterData['action_type'] . '%');
+            $select->where('action_type like ?', '%'.$filterData['action_type'] . '%');
         }
 
         /** @var DevTable[] $items */

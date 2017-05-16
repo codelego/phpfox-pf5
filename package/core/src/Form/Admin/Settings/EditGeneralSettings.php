@@ -15,11 +15,14 @@ class EditGeneralSettings extends Form {
 
         
         
-            /** element `core__running_mode` **/
-            $this->addElement(array ( 'name' => 'core__running_mode', 'factory' => 'radio', 'label' => _text('Running Mode','_core.general_settings'), 'info' => _text('[Running Mode Info]', '_core.general_settings'), 'value' => 'online', 'options' => _get('core.setting')->getSiteModeIdOptions(), 'required' => true, ));        
+            /** element `core__offline` **/
+            $this->addElement(array ( 'name' => 'core__offline', 'factory' => 'radio', 'label' => _text('Offline Mode','_core.general_settings'), 'value' => 'online', 'options' => _get('core.setting')->getSiteModeIdOptions(), 'required' => true, ));        
         
-            /** element `core__offline_code` **/
-            $this->addElement(array ( 'name' => 'core__offline_code', 'factory' => 'text', 'label' => _text('Offline Code','_core.general_settings'), 'info' => _text('[Offline Code Info]', '_core.general_settings'), 'maxlength' => '20', 'required' => true, ));        
+            /** element `core__private_site` **/
+            $this->addElement(array ( 'name' => 'core__private_site', 'factory' => 'radio', 'label' => _text('Private Site','_core.general_settings'), 'info' => _text('[Private Site Info]', '_core.general_settings'), 'options' => _get('core.setting')->getPrivateSiteIdOptions(), 'required' => true, ));        
+        
+            /** element `core__access_key` **/
+            $this->addElement(array ( 'name' => 'core__access_key', 'factory' => 'text', 'label' => _text('Access Key','_core.general_settings'), 'info' => _text('[Access Key Info]', '_core.general_settings'), 'value' => '9cafc', 'maxlength' => '5', 'required' => true, ));        
         
             /** element `core__ajax_mode` **/
             $this->addElement(array ( 'name' => 'core__ajax_mode', 'factory' => 'radio', 'label' => _text('Ajax Mode','_core.general_settings'), 'info' => _text('[Ajax Mode Info]', '_core.general_settings'), 'options' => _get('core.setting')->getAjaxModeIdOptions(), 'required' => true, ));        

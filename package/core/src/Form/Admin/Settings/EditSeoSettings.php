@@ -7,8 +7,8 @@ class EditSeoSettings extends Form {
 
     public function initialize(){
 
-        $this->setTitle(_text('Edit Settings', '_core.seo_settings'));
-        $this->setInfo(_text('[Edit Site Settings Info]', '_core.seo_settings'));
+        $this->setTitle(_text('Edit Seo Settings', '_core.seo_settings'));
+        $this->setInfo(_text('[Edit Site Settings Info]', 'admin'));
         $this->setMethod('post');                 $this->setAction(_url('#'));
 
         /** start elements **/

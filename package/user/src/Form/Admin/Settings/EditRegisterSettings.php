@@ -5,7 +5,7 @@ namespace Neutron\User\Form\Admin\Settings;
 use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
-class EditUserRegisterSettings extends Form
+class EditRegisterSettings extends Form
 {
     protected function initialize()
     {

@@ -44,7 +44,7 @@ class StorageManager
         return array_map(function (StorageAdapter $adapter) {
             return [
                 'value' => $adapter->getId(),
-                'label' => $adapter->getAdapterName(),
+                'label' => $adapter->getTitle(),
                 'note'  => $adapter->getDescription(),
             ];
         }, $select->all());

@@ -50,7 +50,7 @@ class LogManager
         return array_map(function (LogAdapter $entry) {
             return [
                 'value' => $entry->getId(),
-                'label' => $entry->getAdapterName(),
+                'label' => $entry->getTitle(),
                 'note'  => $entry->getDescription(),
             ];
         }, $select->all());

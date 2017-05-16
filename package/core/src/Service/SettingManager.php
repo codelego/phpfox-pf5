@@ -7,11 +7,19 @@ use Neutron\Core\Model\SiteSettingValue;
 
 class SettingManager
 {
+    public function getPrivateSiteIdOptions()
+    {
+        return [
+            ['value' => '0', 'label' => _text('[Private Site Option No]', '_core.general_settings')],
+            ['value' => '1', 'label' => _text('[Private Site Option Yes]', '_core.general_settings')],
+        ];
+    }
+
     public function getSiteModeIdOptions()
     {
         return [
-            ['value' => 'offline', 'label' => _text('[Site Offline]', '_core.general_settings')],
-            ['value' => 'online', 'label' => _text('[Site Online]', '_core.general_settings')],
+            ['value' => '1', 'label' => _text('[Site Offline]', '_core.general_settings')],
+            ['value' => '0', 'label' => _text('[Site Online]', '_core.general_settings')],
         ];
     }
 

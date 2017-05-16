@@ -70,6 +70,6 @@ class EditLocalDriverSettings extends Form
 
     protected function afterGetData(&$data)
     {
-        $data['title'] = 'Local path ' . $data['basePath'];
+        $data['title'] = 'Local `' . $data['basePath'].'`';
     }
 }

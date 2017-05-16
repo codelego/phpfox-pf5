@@ -73,10 +73,22 @@ class AdapterManager
             ->order('ordering', 1);
 
         return array_map(function (CoreDriver $coreDriver) {
+            $deps = $coreDriver->getDependency();
+            $enable = true;
+            $error = '';
+            if ($deps) {
+                list($enable, $error) = _get('package')
+                    ->checkDependencies($deps);
+            }
+
+            if ($error) {
+                $error = '<span class="text-danger">' . $error . '</span><br/>' . $coreDriver->getDescription();
+            }
             return [
-                'value' => $coreDriver->getDriverId(),
-                'label' => $coreDriver->getTitle(),
-                'note'  => $coreDriver->getDescription(),
+                'value'    => $coreDriver->getDriverId(),
+                'label'    => $coreDriver->getTitle(),
+                'note'     => $enable ? $coreDriver->getDescription() : $error,
+                'disabled' => !$enable,
             ];
         }, $select->all());
     }

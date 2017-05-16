@@ -26,15 +26,13 @@ class RedisSession implements SessionInterface
      */
     public function register()
     {
-        // @codeCoverageIgnoreStart
+
         if (!extension_loaded('redis')) {
-            throw new \InvalidArgumentException("Redis is required.");
+            trigger_error("Redis extension is required to run session.", E_USER_WARNING);
+        } else {
+            ini_set('session.save_handler', 'redis');
+            ini_set('session.save_path', $this->savePath);
         }
-        // @codeCoverageIgnoreEnd
-
-        ini_set('session.save_handler', 'redis');
-        ini_set('session.save_path', $this->savePath);
-
         return true;
     }
 
