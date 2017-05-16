@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Support;
+namespace Phpfox\Payments;
 
 
 class Parameters

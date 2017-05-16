@@ -2,7 +2,7 @@
 
 namespace Phpfox\Support;
 
-final class Configs
+final class ParameterContainer
 {
     /**
      * @var array

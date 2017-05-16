@@ -2,8 +2,6 @@
 
 namespace Phpfox\Payments;
 
-use Phpfox\Support\Parameters;
-
 class CreditCard
 {
     const BRAND_VISA               = 'visa';

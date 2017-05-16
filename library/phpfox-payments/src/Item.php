@@ -2,8 +2,6 @@
 
 namespace Phpfox\Payments;
 
-use Phpfox\Support\Parameters;
-
 class Item implements ItemInterface
 {
     /**

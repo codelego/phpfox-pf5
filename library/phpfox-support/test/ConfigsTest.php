@@ -9,7 +9,7 @@ class ConfigsTest extends PHPUnit_Framework_TestCase
 {
     public function testConfigs()
     {
-        $configs = new Configs();
+        $configs = new ParameterContainer();
 
         $this->assertEmpty($configs->all());
 

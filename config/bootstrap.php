@@ -17,17 +17,33 @@ $cacheFiles = [
 ];
 
 $configFiles = [
-    'package'  => PHPFOX_CONFIG_DIR . 'package.php',
-    'autoload' => PHPFOX_CONFIG_DIR . 'autoload.php',
+    'package'  => PHPFOX_SUPER_DIR . 'package.php',
+    'autoload' => PHPFOX_SUPER_DIR . 'autoload.php',
 ];
 
-$shouldGenerate = PHPFOX_ENV != 'production';
+$shouldGenerate = PHPFOX_ENV == 'development';
 
 foreach ($cacheFiles as $file) {
     if (!file_exists($file)) {
         $shouldGenerate = true;
         break;
     }
+}
+
+if ($shouldGenerate) {
+    foreach ($cacheFiles as $file) {
+        if (file_exists($file)) {
+            @unlink($file);
+        }
+    }
+}
+
+/**
+ * this method is called to build library settings.
+ */
+function _rebuild()
+{
+
 }
 
 $autoloader = include __DIR__ . '/../vendor/autoload.php';

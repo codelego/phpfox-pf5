@@ -7,4 +7,4 @@ date_default_timezone_set('Australia/Adelaide');
 
 include __DIR__ . '/config/bootstrap.php';
 
-_get('cache.super')->getItems('database');
+_get('cache.super')->setItem('abc', '123');

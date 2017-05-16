@@ -10,15 +10,6 @@ defined('PHPFOX_VERSION') OR define('PHPFOX_VERSION', '4.5.2');
  */
 defined('DS') OR define('DS', DIRECTORY_SEPARATOR);
 
-/**
- * @const PHPFOX_FULL_AJAX_LOAD string
- */
-defined('PHPFOX_FULL_AJAX_LOAD') OR define('PHPFOX_FULL_AJAX_LOAD', 'update_page');
-
-/**
- * @const PHPFOX_CONTENT_AJAX_LOAD string
- */
-defined('PHPFOX_CONTENT_AJAX_LOAD') OR define('PHPFOX_CONTENT_AJAX_LOAD', 'update_content');
 
 /**
  * phpfox root directory
@@ -28,7 +19,7 @@ defined('PHPFOX_CONTENT_AJAX_LOAD') OR define('PHPFOX_CONTENT_AJAX_LOAD', 'updat
 defined('PHPFOX_DIR') OR define('PHPFOX_DIR', dirname(__DIR__) . DS);
 
 /**
- * @const "config"
+ * @const PHPFOX_CONFIG_DIR string
  */
 defined('PHPFOX_CONFIG_DIR') OR define('PHPFOX_CONFIG_DIR', PHPFOX_DIR . 'config' . DS);
 
@@ -111,6 +102,12 @@ defined('PHPFOX_TEMP_DIR') OR define('PHPFOX_TEMP_DIR', PHPFOX_DATA_DIR . 'temp'
  * @const PHPFOX_CACHE_DIR string
  */
 defined('PHPFOX_CACHE_DIR') OR define('PHPFOX_CACHE_DIR', PHPFOX_DATA_DIR . 'cache' . DS);
+
+/**
+ * @const PHPFOX_SUPER_DIR string
+ */
+defined('PHPFOX_SUPER_DIR') OR define('PHPFOX_SUPER_DIR', PHPFOX_DIR . 'super' . DS);
+
 
 /**
  * @const PHPFOX_GUEST_ID 6

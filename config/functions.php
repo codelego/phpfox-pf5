@@ -80,7 +80,7 @@ namespace {
      */
     function _param($section, $item = null)
     {
-        return \Phpfox::$config->get($section, $item);
+        return \Phpfox::$params->get($section, $item);
     }
 
 

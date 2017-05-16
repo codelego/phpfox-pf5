@@ -2,7 +2,7 @@
 
 namespace {
 
-    use Phpfox\Support\Configs;
+    use Phpfox\Support\ParameterContainer;
     use Phpfox\Support\ServiceManager;
 
     /**
@@ -16,9 +16,9 @@ namespace {
         public static $service;
 
         /**
-         * @var \Phpfox\Support\Configs
+         * @var \Phpfox\Support\ParameterContainer
          */
-        public static $config;
+        public static $params;
 
         /**
          * @var bool
@@ -40,15 +40,15 @@ namespace {
 
             self::$initialized = true;
             self::$service = new ServiceManager();
-            self::$config = new Configs();
+            self::$params = new ParameterContainer();
         }
 
         /**
-         * @return \Phpfox\Support\Configs
+         * @return \Phpfox\Support\ParameterContainer
          */
         public static function configs()
         {
-            return self::$config;
+            return self::$params;
         }
 
 

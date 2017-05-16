@@ -3,6 +3,8 @@
 namespace Phpfox\Support;
 
 
+use Phpfox\Payments\Parameters;
+
 class ParametersTest extends \PHPUnit_Framework_TestCase
 {
 
