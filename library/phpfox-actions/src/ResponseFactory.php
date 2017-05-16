@@ -14,12 +14,11 @@ class ResponseFactory
         $response = new Response();
 
         $request = _get('request');
-        $requestType = $request->getHeader('RequestType');
         if ($request->isAjax()) {
-            if ($requestType == PHPFOX_FULL_AJAX_LOAD) {
-                $response->setPrototype('response.load_full_ajax');
-            } elseif ($requestType == PHPFOX_CONTENT_AJAX_LOAD) {
-                $response->setPrototype('response.load_content_ajax');
+            if ($request->isUpdateContainers()) {
+                $response->setPrototype('response.update_containers');
+            } elseif ($request->isUpdateContent()) {
+                $response->setPrototype('response.update_content');
             } else {
                 $response->setPrototype('response.ajax');
             }

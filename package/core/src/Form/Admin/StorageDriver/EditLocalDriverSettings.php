@@ -67,4 +67,9 @@ class EditLocalDriverSettings extends Form
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);
     }
+
+    protected function afterGetData(&$data)
+    {
+        $data['title'] = 'Local path ' . $data['basePath'];
+    }
 }

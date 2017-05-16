@@ -31,6 +31,11 @@ class Request
     protected $host;
 
     /**
+     * @var string
+     */
+    protected $updateType;
+
+    /**
      * @param array $data
      *
      * @return Request
@@ -211,6 +216,41 @@ class Request
         }
 
         return $default;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUpdateType()
+    {
+        if (null === $this->updateType) {
+            $this->updateType = $this->getHeader('RequestType', 'update_page');
+        }
+        return $this->updateType;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isUpdateContainers()
+    {
+        return $this->getUpdateType() == 'containers';
+    }
+
+    /**
+     * @return bool
+     */
+    public function isUpdatePage()
+    {
+        return $this->getUpdateType() == 'page';
+    }
+
+    /**
+     * @return bool
+     */
+    public function isUpdateContent()
+    {
+        return $this->getUpdateType() == 'content';
     }
 
     /**

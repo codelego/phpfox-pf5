@@ -1,11 +1,32 @@
-<div class="container">
-    <?= _get('menu.admin.secondary')->render('toolbar', ['level0' => 'btn-group toolbar pull-left']); ?>
-    <?= _get('menu.admin.buttons')->render('toolbar', ['level0' => 'toolbar pull-right']); ?>
+<header>
+    <div class="left">
+        <a role="button" class="aside-toggle" data-cmd="toggle" data-target="//body;aside-closed">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+        <a role="link" class="brand" href="#">PHPFOX</a>
+    </div>
+    <div class="main">
+        <div class="navbar">
+            <?= _get('breadcrumb')->render() ?>
+            <form role="search" class="navbar-form navbar-right global-search-holder"
+                  onsubmit="return false;">
+                <input type="text" placeholder="<?= _text('Search ...') ?>"
+                       class="form-control">
+            </form>
+        </div>
+    </div>
+</header>
+<div class="main-wrapper">
+    <div class="container">
+        <?= _get('menu.admin.secondary')->render('toolbar', ['level0' => 'btn-group toolbar pull-left']); ?>
+        <?= _get('menu.admin.buttons')->render('toolbar', ['level0' => 'toolbar pull-right']); ?>
+    </div>
+    <div class="container">
+        <?= _get('layouts')->renderBlock('\Neutron\Core\Block\AdminFilter', []) ?>
+    </div>
+    <div class="content-wrapper">
+        <?php echo @$layout_content ?>
+    </div>
 </div>
-<div class="container">
-    <?= _get('layouts')->renderBlock('\Neutron\Core\Block\AdminFilter', []) ?>
-</div>
-<div class="content-wrapper">
-    <?php echo @$layout_content ?>
-</div>
-<?= _get('assets')->getShutdownHtml() ?>

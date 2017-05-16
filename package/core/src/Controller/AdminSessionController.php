@@ -142,6 +142,15 @@ class AdminSessionController extends AdminController
         ], 'layout/form-edit');
     }
 
+    public function actionDelete()
+    {
+        $entry = _get('core.adapter')->getAdapterById(_get('request')->get('adapter_id'));
+
+        $entry->delete();
+
+        _redirect('admin.core.session');
+    }
+
     public function actionDefault()
     {
         $identity = _get('request')

@@ -12,7 +12,6 @@ class EditDatabaseSettings extends Form
         $this->setTitle(_text('Database Settings', '_core.session'));
         $this->setInfo(_text('[Database Info]', '_core.session'));
 
-
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'save',
@@ -27,5 +26,10 @@ class EditDatabaseSettings extends Form
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);
+    }
+
+    protected function afterGetData(&$data)
+    {
+        $data['title'] = 'Database ';
     }
 }

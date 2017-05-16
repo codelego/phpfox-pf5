@@ -6,7 +6,3 @@ define('PHPFOX_IS_DEV', true);
 date_default_timezone_set('Australia/Adelaide');
 
 include __DIR__ . '/config/bootstrap.php';
-
-_dump(_param('log.containers'));
-
-?>

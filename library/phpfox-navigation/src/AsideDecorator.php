@@ -109,7 +109,7 @@ class AsideDecorator extends AbstractDecorator
             $childrenHtml = $this->renderChildren($level + 1, $item->children);
 
             return '<li class="' . $cls . '">'
-                . '<a role="button" data-cmd="toggle" data-rel="li|:active">'
+                . '<a role="button" data-cmd="toggle" data-target=":li;.active">'
                 . $label . $this->context['dropdownIcon'] . '</a>'
                 . $childrenHtml . '</li>';
         } else {

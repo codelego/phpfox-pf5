@@ -12,7 +12,6 @@ class EditFilesSettings extends Form
         $this->setTitle(_text('Filesystem Settings', '_core.session'));
         $this->setInfo(_text('[Filesystem Info]', '_core.session'));
 
-
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'save',
@@ -27,5 +26,10 @@ class EditFilesSettings extends Form
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);
+    }
+
+    protected function afterGetData(&$data)
+    {
+        $data['title'] = 'Filesystem ';
     }
 }

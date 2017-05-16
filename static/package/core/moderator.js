@@ -14,55 +14,5 @@ define(['jquery', 'core'], function () {
 
     });
 
-    Core.cmd('toggle', function (btn) {
-        var prop = btn.data('rel').split(':'),
-            rel = prop[0].split('|'),
-            classes = prop[1];
 
-        switch (rel.length) {
-            case 0:
-                btn.toggleClass(classes);
-                break;
-            case 2:
-                if (rel[1] != '') {
-                    btn.closest(rel[0])
-                        .find(rel[1])
-                        .toggleClass(classes);
-                } else {
-                    btn.closest(rel[0])
-                        .toggleClass(classes);
-                }
-                break;
-            case 1:
-                $(rel[0]).toggleClass(classes);
-                break;
-            case 3:
-
-        }
-    }).cmd('form.cmd', function (ele) {
-        var rel = ele.data('rel') || '',
-            form = ele.closest('form'),
-            hidden = form.find('input[name=cmd]');
-
-        if (!hidden.length) {
-            hidden = $('<input name="cmd" type="hidden" />').appendTo(form);
-        }
-        hidden.val(rel);
-        form.submit();
-    }).cmd('form.confirm', function (ele) {
-        var rel = ele.data('rel') || '',
-            form = ele.closest('form'),
-            msg = ele.data('msg') || 'Are you sure?',
-            hidden = form.find('input[name=cmd]');
-
-        if (!hidden.length) {
-            hidden = $('<input name="cmd" type="hidden" />').appendTo(form);
-        }
-
-        // todo improve confirm box, it's ugly
-        if (window.confirm(msg)) {
-            hidden.val(rel);
-            form.submit();
-        }
-    })
 });

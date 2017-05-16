@@ -178,20 +178,15 @@
       0 => NULL,
       1 => 'Phpfox\\Action\\HtmlResponse',
     ),
-    'response.partial' => 
+    'response.update_containers' => 
     array (
       0 => NULL,
-      1 => 'Phpfox\\Action\\JsonResponse',
+      1 => 'Phpfox\\Action\\UpdateContainersResponse',
     ),
-    'response.load_full_ajax' => 
+    'response.update_content' => 
     array (
       0 => NULL,
-      1 => 'Phpfox\\Action\\FullAjaxResponse',
-    ),
-    'response.load_content_ajax' => 
-    array (
-      0 => NULL,
-      1 => 'Phpfox\\Action\\ContentAjaxResponse',
+      1 => 'Phpfox\\Action\\UpdateContentResponse',
     ),
     'assets' => 
     array (

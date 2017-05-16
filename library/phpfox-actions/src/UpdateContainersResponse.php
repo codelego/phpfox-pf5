@@ -3,7 +3,7 @@
 namespace Phpfox\Action;
 
 
-class FullAjaxResponse implements ResponsePrototypeInterface
+class UpdateContainersResponse implements ResponsePrototypeInterface
 {
     public function run(Response $response)
     {

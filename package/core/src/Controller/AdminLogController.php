@@ -150,6 +150,15 @@ class AdminLogController extends AdminController
         ], 'layout/form-edit');
     }
 
+    public function actionDelete()
+    {
+        $entry = _get('core.adapter')->getAdapterById(_get('request')->get('adapter_id'));
+
+        $entry->delete();
+
+        _redirect('admin.core.log');
+    }
+
     public function actionEnable()
     {
         _redirect('admin.core.log');

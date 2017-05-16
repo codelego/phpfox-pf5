@@ -15,6 +15,8 @@ class EditFilesDriverSettings extends Form
 
         /** end elements */
 
+        $this->addElement(['factory' => 'hidden', 'name' => 'title']);
+
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'save',
@@ -30,5 +32,4 @@ class EditFilesDriverSettings extends Form
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);
     }
-
 }

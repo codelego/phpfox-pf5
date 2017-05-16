@@ -93,8 +93,6 @@ class AdminPermissionSettingsProcess extends AbstractProcess
             $data = _get('core.setting')->getForEdit($this->getSettingGroups($form));
 
             $form->populate($data);
-
-            $form->postPopulate();
         }
 
         if ($request->isPost() and $form->isValid($request->all())) {
@@ -102,8 +100,6 @@ class AdminPermissionSettingsProcess extends AbstractProcess
             $data = $this->getPostData($form);
 
             _get('core.setting')->updateGroupValues($data);
-
-            $form->postSave();
 
             _get('cache.local')->flush();
         }

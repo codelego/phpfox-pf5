@@ -6,6 +6,8 @@ class YesnoField extends ChoiceField
 {
     protected $decorator = 'radio';
 
+    protected $params = ['inline'=>true];
+
     protected function initialize()
     {
         if (empty($this->options)) {

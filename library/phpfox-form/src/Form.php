@@ -37,10 +37,11 @@ class Form extends Element implements ElementInterface, CollectionInterface
      */
     protected $buttons = [];
 
-    protected $attributes = [
-            'method' => 'post',
-            'action' => '',
-            'enctype'=> 'multipart/form-data',
+    protected $attributes
+        = [
+            'method'  => 'post',
+            'action'  => '',
+            'enctype' => 'multipart/form-data',
         ];
 
     /**
@@ -143,11 +144,13 @@ class Form extends Element implements ElementInterface, CollectionInterface
      */
     public function populate($data)
     {
+        $this->beforePopulate($data);
         foreach ($this->byNames as $name => $element) {
             if (isset($data[$name]) && $element instanceof FieldInterface) {
                 $element->setValue($data[$name]);
             }
         }
+        $this->afterPopulate();
         return true;
     }
 
@@ -228,11 +231,14 @@ class Form extends Element implements ElementInterface, CollectionInterface
     {
         $data = [];
 
+        $this->beforeGetData();
         foreach ($this->byNames as $name => $element) {
             if ($element instanceof FieldInterface) {
                 $data[$name] = $element->getValue();
             }
         }
+
+        $this->afterGetData($data);
 
         return $data;
     }
@@ -307,15 +313,34 @@ class Form extends Element implements ElementInterface, CollectionInterface
         return $this->buttons;
     }
 
-    public function postPopulate()
+    /**
+     * @param array $data
+     */
+    protected function beforePopulate(&$data)
     {
 
     }
 
     /**
-     * Call this method after saved data
+     * this method called after populate
      */
-    public function postSave()
+    protected function afterPopulate()
+    {
+
+    }
+
+    /**
+     * this method call before getData
+     */
+    protected function beforeGetData()
+    {
+
+    }
+
+    /**
+     * @param array $data
+     */
+    protected function afterGetData(&$data)
     {
 
     }

@@ -2,7 +2,6 @@
 
 namespace Neutron\Core\Form\Admin\MailDriver;
 
-use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
 class EditSmtpDriverSettings extends Form
@@ -11,6 +10,8 @@ class EditSmtpDriverSettings extends Form
     {
         $this->setTitle(_text('SMTP Driver Settings', 'admin.core_mail'));
         $this->setInfo(_text('[Mail SMTP Driver Settings Info]', 'admin.core_mail'));
+
+        $this->addElement(['factory' => 'hidden', 'name' => 'title']);
 
         $this->addElement([
             'name'     => 'host',
@@ -121,6 +122,10 @@ class EditSmtpDriverSettings extends Form
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);
+    }
 
+    protected function afterGetData(&$data)
+    {
+        $data['title'] = 'SMTP ' . $data['host'] . ':' . $data['port'];
     }
 }

@@ -173,6 +173,15 @@ class AdminMailController extends AdminController
         return new ViewModel(['form' => $form], 'layout/form-edit');
     }
 
+    public function actionDelete()
+    {
+        $entry = _get('core.adapter')->getAdapterById(_get('request')->get('adapter_id'));
+
+        $entry->delete();
+
+        _redirect('admin.core.mail.adapter');
+    }
+
     /**
      * Set default adapter id
      * todo implement this method

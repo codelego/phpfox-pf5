@@ -64,4 +64,9 @@ class EditRedisSettings extends Form
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);
     }
+
+    protected function afterGetData(&$data)
+    {
+        $data['title'] = 'Redis ' . $data['host'] . ':' . $data['port'];
+    }
 }

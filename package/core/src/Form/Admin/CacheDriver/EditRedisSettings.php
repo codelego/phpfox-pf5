@@ -13,6 +13,11 @@ class EditRedisSettings extends Form
         $this->setInfo(_text('[Redis Settings Info]', '_core.cache'));
 
         $this->addElement([
+            'factory' => 'hidden',
+            'name'    => 'title',
+        ]);
+
+        $this->addElement([
             'factory'  => 'text',
             'name'     => 'host',
             'value'    => '127.0.0.1',
@@ -63,5 +68,10 @@ class EditRedisSettings extends Form
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);
+    }
+
+    protected function afterGetData(&$data)
+    {
+        $data['title'] = 'Redis ' . $data['host'] . ':' . $data['port'];
     }
 }

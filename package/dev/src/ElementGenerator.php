@@ -71,13 +71,26 @@ class ElementGenerator
     public function convert($devElement)
     {
         $formType = $this->get('formType');
-        $textDomain = $this->get('textDomain');
+        $textDomain = $devElement->getTextDomain();
+        $infoDomain = $devElement->getInfoDomain();
+        $noteDomain = $devElement->getNoteDomain();
 
-        if (empty($textDomain)) {
-            $textDomain = 'null';
-        } else {
-            $textDomain = '$$' . (string)$textDomain . '$$';
+        if (!$textDomain) {
+            $textDomain = $this->get('textDomain');
         }
+
+        if (!$infoDomain) {
+            $infoDomain = $textDomain;
+        }
+
+        if (!$noteDomain) {
+            $noteDomain = $infoDomain;
+        }
+
+        $textDomain = $this->quoteString($textDomain);
+        $infoDomain = $this->quoteString($infoDomain);
+        $noteDomain = $this->quoteString($noteDomain);
+
 
         $name = $devElement->getElementName();
         $label = $devElement->getLabel();
@@ -122,25 +135,26 @@ class ElementGenerator
             $element['options'] = '$$$' . str_replace("'", '$$', $devElement->getOptionsText()) . '$$$';
         }
 
-        if ($isHidden or $this->isNoLabel()) {
+        if (($isHidden or $this->isNoLabel())) {
             unset($element['label']);
         } elseif ($label) {
             $this->addMessage($label);
             $element['label'] = '$$$_text($$' . $label . '$$,' . $textDomain . ')$$$';
         }
 
-        if ($isHidden or $this->isNoNote()) {
+
+        if (!$devElement->getHasNote() and ($isHidden or $this->isNoNote())) {
             unset($element['note']);
         } elseif ($element['note']) {
             $this->addMessage($element['note']);
-            $element['note'] = '$$$_text($$' . $element['note'] . '$$, ' . $textDomain . ')$$$';
+            $element['note'] = '$$$_text($$' . $element['note'] . '$$, ' . $noteDomain . ')$$$';
         }
 
-        if ($isHidden or $this->isNoInfo()) {
+        if (!$devElement->getHasInfo() and ($isHidden or $this->isNoInfo())) {
             unset($element['info']);
         } elseif ($element['info']) {
             $this->addMessage($element['info']);
-            $element['info'] = '$$$_text($$' . $element['info'] . '$$, ' . $textDomain . ')$$$';
+            $element['info'] = '$$$_text($$' . $element['info'] . '$$, ' . $infoDomain . ')$$$';
         }
 
         if ($isHidden or $this->isNoRequire()) {
@@ -171,6 +185,18 @@ class ElementGenerator
         return $this->escape($content);
     }
 
+    /**
+     * @param $string
+     *
+     * @return string
+     */
+    protected function quoteString($string)
+    {
+        if (empty($string)) {
+            return 'null';
+        }
+        return '$$' . (string)$string . '$$';
+    }
 
     protected function cleanExport($data)
     {

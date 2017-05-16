@@ -17,20 +17,19 @@ $color: #333;
 
 .form-info {
   margin-bottom: 30px;
-  font-size:110%
-}
-
-.control-info, .control-note {
-  @extend .help-block;
-  color: lighten($color, 20%);
+  font-size: 110%
 }
 
 .control-info {
   margin-bottom: 5px;
+  color: lighten($color, 20%);
+  font-size: small;
 }
 
 .control-note {
   margin-top: 5px;
+  color: lighten($color, 40%);
+  font-size: smaller;
 }
 
 .dev-only {
@@ -249,6 +248,9 @@ body {
 .main-wrapper {
   padding-left: $aside-width;
   margin-top: $header-height + $padding-base;
+  .aside-closed & {
+    padding-left: 0;
+  }
 }
 
 header {
@@ -256,25 +258,20 @@ header {
   height: $header-height;
   position: fixed;
   z-index: 98;
-  left: $aside-width;
+  left: 0;
   top: 0;
   right: 0;
-  padding: 0 $padding-base;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
-}
 
-aside {
-  padding: 0 0 40px 0;
-  width: $aside-width;
-  background-color: $aside-bg;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
+  .main {
+    padding: 0 $padding-base 0 $aside-width + $padding-base;
+    .aside-closed & {
+      padding-left: $padding-base + $padding-base + 22;
+    }
+  }
 
-  .top {
+  .left {
+    float: left;
     margin-bottom: 20px;
     line-height: $header-height;
     width: $aside-width;
@@ -282,7 +279,51 @@ aside {
     padding-left: $padding-base;
     background-color: lighten($aside-bg, 5%);
     border-bottom: 1px solid darken($aside-bg, 4%);
+    .aside-closed & {
+      background-color: transparent;
+      border-bottom: none;
+      width: auto;
+    }
   }
+
+  .brand {
+    color: $header-link-color;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    padding: 0 $padding-base;
+    .aside-closed & {
+      display: none;
+    }
+  }
+
+  .aside-toggle {
+    float: left;
+    margin-top: 14px;
+  }
+
+  .icon-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    border-radius: 1px;
+    margin-top: 4px;
+    background-color: #fff;
+    .aside-closed & {
+      background-color: $color;
+    }
+  }
+}
+
+aside {
+  padding: $padding-base 0 40px 0;
+  width: $aside-width;
+  background-color: $aside-bg;
+  position: fixed;
+  top: $header-height;
+  left: 0;
+  bottom: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
 
   a:hover, a:focus {
     text-decoration: none;
@@ -328,6 +369,10 @@ aside {
   }
   li li a {
     padding-left: $padding-base *2;
+  }
+
+  .aside-closed & {
+    display: none;
   }
 }
 

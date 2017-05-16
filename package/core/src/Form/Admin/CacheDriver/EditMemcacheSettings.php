@@ -62,4 +62,9 @@ class EditMemcacheSettings extends Form
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);
     }
+
+    protected function afterGetData(&$data)
+    {
+        $data['title'] = 'Memcache ' . $data['host'] . ':' . $data['port'];
+    }
 }

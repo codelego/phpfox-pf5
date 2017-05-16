@@ -475,6 +475,8 @@ class CodeGenerator
 
             if ($devElement) {
                 $devElement->setOrdering($settingValue->getOrdering());
+                $devElement->save();
+                continue;
             }
             $label = implode(' ', array_map(function ($v) {
                 return ucfirst($v);
@@ -512,7 +514,7 @@ class CodeGenerator
                     'label'        => $label,
                     'note'         => '[' . $label . ' Note]',
                     'info'         => '[' . $label . ' Info]',
-                    'is_require'   => 1,
+                    'is_require'   => $settingValue->getValueActual() !='""',
                     'is_active'    => 1,
                 ]);
 
@@ -540,6 +542,7 @@ class CodeGenerator
         $sortOrder = 1;
         foreach ($settingActions as $settingAction) {
             $elementName = $settingAction->getGroupId() . '__' . $settingAction->getName();
+            /** @var DevElement $devElement */
             $devElement = _model('dev_element')
                 ->select()
                 ->where('meta_id=?', $devAction->getMetaId())
@@ -547,6 +550,8 @@ class CodeGenerator
                 ->first();
 
             if ($devElement) {
+                $devElement->setOrdering($settingAction->getOrdering());
+                $devElement->save();
                 continue;
             }
             $label = implode(' ', array_map(function ($v) {

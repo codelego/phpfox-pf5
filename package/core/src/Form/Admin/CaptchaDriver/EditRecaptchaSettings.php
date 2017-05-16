@@ -50,4 +50,9 @@ class EditRecaptchaSettings extends Form
         ]);
 
     }
+
+    protected function afterGetData(&$data)
+    {
+        $data['title'] = 'Recaptcha `' . $data['site_key'].'`';
+    }
 }

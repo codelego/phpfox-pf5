@@ -16,18 +16,18 @@
             <?php foreach ($items as $item): ?>
                 <tr>
                     <td class="dropdown" data-cmd="dropdown">
-                        <ul>
-                            <li><a href="<?= _url('admin.core.cache',
+                        <ul role="menu">
+                            <li role="menuitem"><a data-cmd="modal" href="<?= _url('admin.core.captcha',
                                     ['action' => 'default', 'adapter_id' => $item->getId()]) ?>">
                                     <?= _text('Set Default') ?>
                                 </a></li>
-                            <li><a href="<?= _url('admin.core.cache',
+                            <li role="menuitem"><a data-cmd="modal" href="<?= _url('admin.core.captcha',
                                     ['action' => 'edit', 'adapter_id' => $item->getId()]) ?>">
                                     <?= _text('Edit Settings') ?>
                                 </a></li>
                             <?php if (!$item->isRequired()): ?>
                                 <li class="divider"></li>
-                                <li><a href="<?= _url('admin.core.cache',
+                                <li role="menuitem"><a data-cmd="modal" href="<?= _url('admin.core.captcha',
                                         ['action' => 'delete', 'adapter_id' => $item->getId()]) ?>">
                                         <?= _text('Delete') ?>
                                     </a></li>

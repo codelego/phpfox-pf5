@@ -105,4 +105,9 @@ class EditAmazonS3DriverSettings extends Form
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);
     }
+
+    protected function afterGetData(&$data)
+    {
+        $data['title'] = 'S3 bucket ' . $data['budget'] . ' - region ' . $data['region'];
+    }
 }

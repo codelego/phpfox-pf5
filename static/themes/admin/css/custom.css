@@ -3,14 +3,15 @@
   margin-bottom: 30px;
   font-size: 110%; }
 
-.control-info, .control-note {
-  color: #666666; }
-
 .control-info {
-  margin-bottom: 5px; }
+  margin-bottom: 5px;
+  color: #666666;
+  font-size: small; }
 
 .control-note {
-  margin-top: 5px; }
+  margin-top: 5px;
+  color: #999999;
+  font-size: smaller; }
 
 .dev-only {
   display: none; }
@@ -242,10 +243,10 @@
 .form-horizontal .control-label {
   text-align: left !important; }
 
-.form-group .help-block, .form-group .control-info, .form-group .control-note {
+.form-group .help-block {
   font-size: small; }
 
-.form-control + .help-block, .form-control + .control-info, .form-control + .control-note {
+.form-control + .help-block {
   margin-bottom: 0 !important; }
 
 .dots a + a:before {
@@ -259,29 +260,24 @@ body {
 .main-wrapper {
   padding-left: 220px;
   margin-top: 66px; }
+  .aside-closed .main-wrapper {
+    padding-left: 0; }
 
 header {
   background-color: #fff;
   height: 50px;
   position: fixed;
   z-index: 98;
-  left: 220px;
+  left: 0;
   top: 0;
   right: 0;
-  padding: 0 16px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15); }
-
-aside {
-  padding: 0 0 40px 0;
-  width: 220px;
-  background-color: #363e4a;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  overflow-x: hidden;
-  overflow-y: auto; }
-  aside .top {
+  header .main {
+    padding: 0 16px 0 236px; }
+    .aside-closed header .main {
+      padding-left: 54px; }
+  header .left {
+    float: left;
     margin-bottom: 20px;
     line-height: 50px;
     width: 220px;
@@ -289,6 +285,40 @@ aside {
     padding-left: 16px;
     background-color: #414a59;
     border-bottom: 1px solid #2d343e; }
+    .aside-closed header .left {
+      background-color: transparent;
+      border-bottom: none;
+      width: auto; }
+  header .brand {
+    color: #93a3af;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    padding: 0 16px; }
+    .aside-closed header .brand {
+      display: none; }
+  header .aside-toggle {
+    float: left;
+    margin-top: 14px; }
+  header .icon-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    border-radius: 1px;
+    margin-top: 4px;
+    background-color: #fff; }
+    .aside-closed header .icon-bar {
+      background-color: #333; }
+
+aside {
+  padding: 16px 0 40px 0;
+  width: 220px;
+  background-color: #363e4a;
+  position: fixed;
+  top: 50px;
+  left: 0;
+  bottom: 0;
+  overflow-x: hidden;
+  overflow-y: auto; }
   aside a:hover, aside a:focus {
     text-decoration: none; }
   aside ul {
@@ -316,6 +346,8 @@ aside {
     color: #a5b2bc; }
   aside li li a {
     padding-left: 32px; }
+  .aside-closed aside {
+    display: none; }
 
 .toolbar {
   margin-bottom: 16px;

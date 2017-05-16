@@ -12,6 +12,8 @@ class EditSystemDriverSettings extends Form
         $this->setTitle(_text('System Driver Settings', 'admin.core_mail'));
         $this->setInfo(_text('[System Driver Settings Info]', 'admin.core_mail'));
 
+        $this->addElement(['factory' => 'hidden', 'name' => 'title']);
+
         $this->addElement([
             'factory'     => 'text',
             'name'        => 'fromAddress',
@@ -64,5 +66,10 @@ class EditSystemDriverSettings extends Form
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);
+    }
+
+    protected function afterGetData(&$data)
+    {
+        $data['title'] = 'System mail';
     }
 }

@@ -16,7 +16,7 @@ define(['jquery', 'core'], function () {
             type: 'get',
             dataType: 'json',
             data: {},
-            requestType: 'update_page'
+            requestType: 'containers'
         };
 
     var loadingBar = {
@@ -129,7 +129,7 @@ define(['jquery', 'core'], function () {
                     type: 'post',
                     dataType: 'json',
                     data: form.serializeJSON(),
-                    headers: {requestType: 'update_content'}
+                    headers: {requestType: 'content'}
                 }).done(function (data) {
                     if(_.isString(data.redirect)){
                         Core.loadPage(data.redirect,{});

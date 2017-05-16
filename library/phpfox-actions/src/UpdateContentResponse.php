@@ -5,7 +5,7 @@ namespace Phpfox\Action;
 
 use Phpfox\View\ViewModel;
 
-class ContentAjaxResponse implements ResponsePrototypeInterface
+class UpdateContentResponse implements ResponsePrototypeInterface
 {
     public function run(Response $response)
     {

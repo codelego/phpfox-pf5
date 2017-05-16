@@ -131,4 +131,9 @@ class EditFtpDriverSettings extends Form
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);
     }
+
+    protected function afterGetData(&$data)
+    {
+        $data['title'] = 'Ftp ' . $data['host'] . ':' . $data['port'];
+    }
 }

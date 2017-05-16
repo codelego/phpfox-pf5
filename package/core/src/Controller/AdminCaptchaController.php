@@ -116,8 +116,7 @@ class AdminCaptchaController extends AdminController
         $request = _get('request');
         $adapterId = $request->get('adapter_id');
 
-        /** @var CoreAdapter $adapterEntry */
-        $adapterEntry = _model('core_adapter')->findById($adapterId);
+        $adapterEntry = _get('core.adapter')->getAdapterById($adapterId);
 
         $form = _get('core.adapter')
             ->getEditingForm($adapterEntry->getDriverId(), self::DRIVER_TYPE);
@@ -140,6 +139,15 @@ class AdminCaptchaController extends AdminController
         return new ViewModel([
             'form' => $form,
         ], 'layout/form-edit');
+    }
+
+    public function actionDelete()
+    {
+        $entry = _get('core.adapter')->getAdapterById(_get('request')->get('adapter_id'));
+
+        $entry->delete();
+        
+        _redirect('admin.core.captcha');
     }
 
     public function actionDefault()

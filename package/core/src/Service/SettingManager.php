@@ -7,6 +7,22 @@ use Neutron\Core\Model\SiteSettingValue;
 
 class SettingManager
 {
+    public function getSiteModeIdOptions()
+    {
+        return [
+            ['value' => 'offline', 'label' => _text('[Site Offline]', '_core.general_settings')],
+            ['value' => 'online', 'label' => _text('[Site Online]', '_core.general_settings')],
+        ];
+    }
+
+    public function getAjaxModeIdOptions()
+    {
+        return [
+            ['value' => '0', 'label' => _text('No, disable ajax mode', '_core.general_settings')],
+            ['value' => '1', 'label' => _text('Yes, enable ajax mode', '_core.general_settings')],
+        ];
+    }
+
     /**
      * @param string $key
      * @param string $value

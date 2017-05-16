@@ -44,7 +44,7 @@ define(['jquery', 'underscore', 'core'], function () {
         if (url) {
             content.load(url);
         } else if (target) {
-            var obj = Core.xtarget(target, element);
+            var obj = Core.xtarget(element, target);
             if (obj.length) {
                 content.html(obj.clone().removeClass('hide').addClass('dropdown-menu'));
             }
@@ -67,7 +67,7 @@ define(['jquery', 'underscore', 'core'], function () {
         });
     };
 
-    $(document).on('ajax.load.start',function(){
+    $(document).on('ajax.load.start', function () {
         $('#id_td_dropdown').remove();
     });
 

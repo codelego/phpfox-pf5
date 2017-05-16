@@ -3,6 +3,7 @@
 namespace Neutron\Core\Service;
 
 
+use Neutron\Core\Model\CoreAdapter;
 use Phpfox\Session\SessionFactoryInterface;
 
 class SessionFactory implements SessionFactoryInterface
@@ -23,9 +24,19 @@ class SessionFactory implements SessionFactoryInterface
     protected function getConfigs()
     {
 
+        $identity = _param('core.default_session_id');
+        $adapter = _get('core.adapter')->getAdapterById($identity);
+        $driverId = 'files';
+        $configs = [];
+
+        if ($adapter instanceof CoreAdapter) {
+            $driverId = $adapter->getDriverId();
+            $configs = (array)json_decode($adapter->getParams(), true);
+        }
+
         return [
-            'driver'  => 'database',
-            'configs' => [],
+            'driver'  => $driverId,
+            'configs' => $configs,
         ];
     }
 }

@@ -41,21 +41,20 @@ define([],function(){
 
 ```html
 <a data-cmd="command-name" data-message="Hello!">Alert</a>
-<a data-cmd="toggle-div" data-rel="#div1" data-classes="hide">Toggle #Div1</a>
+<a data-cmd="toggle-div1">Toggle #Div1</a>
 <div id="div1" class="hide">
     Hello!
 </div> 
 ```
 
 ```js
-define(['main'],function(main){
-    main.cmd('command-name',function(ele){
+define(['core'],function(){
+    var Core = require('core');
+    
+    Core.cmd('command-name',function(ele){
        alert(ele.data('message')); 
        // alert "Hello!" 
-    }).cmd('toggle-div',function(ele){
-        // toggle class hide
-        $(ele.data('rel')).toggleClass(ele.data('classes'));
-    });
+    })
 });
 ```
 
@@ -78,17 +77,12 @@ admin command should has prefix, etc admin.photo.edit
 </div>
 ```
 
-data-cmd="toggle" will toggle class "hide" by finding from clicked item.
+data-cmd="hide-div1" will toggle class "hide" by finding from clicked item.
 
 ```js
-main.cmd('toggle', function (btn) {
-    var rel = btn.data('rel'),
-        selector = btn.split('|');
-
-    btn.closest(selector[0])
-        .find(selector[1])
-        .toggleClass('hide');
-
+Core.cmd('toggle-div1', function (btn) {
+    $('#div').toggleClass('hide');
+    console.log(btn);
 });
 ```
 
@@ -112,6 +106,88 @@ $.submit(url, form)
     .always(function(){})
     .done(function(){})
     .error(function(){});
+```
+
+### XTarget element
+
+> A strong way to select dom, allow front-end developer modify html structure without update javascript code.
+
+
+format `data-target="target string from current"`.
+in almost case we can not unique id for all item, it's hard to maintenance and control
+we add a method Core.xtarget to help you control where to find
+item from current.
+
+query is split by `/`
+query closest element by `:`
+query global scope by `//`
+
+
+```javascript
+Core.xtarget(element, ':form/input[type=hidden]');
+// Equal: $(element).closest('form').find('input[type=hidden]')
+
+Core.xtarget(element, ':div/.blog-closed');
+// Equal to $(element').closest('div').find('.blog-closed')
+
+Core.xtarget(element, '//body/.blog-closed');
+Core.xtarget(element, '//.blog-closed');
+// Equal to $('body').find('.blog-closed')
+```
+
+### Built-in data-cmd
+
+#### data-cmd="toggle"
+
+Togle element class name
+syntax data-cmd="toggle" data-target="xtarget;class_name"
+ 
+ Example toggle class `.hide` for menu in this article.
+```html
+<article>
+    <a data-cmd="toggle" data-target=":article/ul;.hide"></a>
+    <ul class="hide">
+        ...    
+    </ul>
+</article>
+```
+
+When wrap ul on a div structure.
+
+```html
+<div>
+    <a data-cmd="toggle" data-target=":div/ul;.in"></a>
+    <ul class="fade in">
+        ...    
+    </ul>
+</div>
+```
+
+Or move `ul` to another section
+
+```html
+<div>
+    <article>
+        <a data-cmd="toggle" data-target=":div/ul;.hide"></a>
+    </article>
+    <ul class="hide">
+        ...    
+    </ul>
+</div>
+```
+
+Or change `ul` to another html structure
+
+
+```html
+<div>
+    <article>
+        <a data-cmd="toggle" data-target=":div/article + div:first;.hide"></a>
+    </article>
+    <div class="hide">
+        // wrap link list    
+    </ul>
+</div>
 ```
 
 before submit form will be add method 'ajax'

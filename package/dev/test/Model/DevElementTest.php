@@ -5,131 +5,151 @@ class DevElementTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new DevElement(array (  'element_id' => 1,  'meta_id' => 569,  'is_identity' => 0,  'is_primary' => 0,  'element_name' => 'core__clear_cache',  'factory_id' => 'yesno',  'label' => 'Clear Cache',  'ordering' => 1,  'is_active' => 1,  'default_value' => NULL,  'note' => '[Clear Cache Note]',  'info' => '[Clear Cache Info]',  'placeholder' => '',  'max_length' => NULL,  'rows' => NULL,  'cols' => NULL,  'is_require' => 0,  'is_readonly' => 0,  'is_disabled' => 0,  'class_name' => '',  'data_cmd' => '',  'primary_length' => 0,  'options_text' => NULL,));
+        $obj = new DevElement(array (  'element_id' => 15,  'element_name' => 'id',  'factory_id' => 'text',  'is_require' => 1,  'label' => 'Id',  'ordering' => 7,  'is_active' => 1,  'default_value' => '',  'note' => '[Id Note]',  'info' => '[Id Info]',  'info_domain' => NULL,  'text_domain' => NULL,  'placeholder' => 'Id',  'max_length' => NULL,  'rows' => NULL,  'cols' => NULL,  'is_readonly' => 0,  'is_disabled' => 0,  'class_name' => '',  'is_primary' => 1,  'is_identity' => 1,  'data_cmd' => '',  'meta_id' => 9,  'primary_length' => 1,  'options_text' => NULL,  'note_domain' => NULL,  'has_note' => 0,  'has_info' => 0,));
 
         $this->assertSame('dev_element', $obj->getModelId());
-        $this->assertSame(1, $obj->getElementId());
-        $this->assertSame(569, $obj->getMetaId());
-        $this->assertSame(0, $obj->isIdentity());
-        $this->assertSame(0, $obj->isPrimary());
-        $this->assertSame('core__clear_cache', $obj->getElementName());
-        $this->assertSame('yesno', $obj->getFactoryId());
-        $this->assertSame('Clear Cache', $obj->getLabel());
-        $this->assertSame(1, $obj->getOrdering());
+        $this->assertSame(15, $obj->getElementId());
+        $this->assertSame('id', $obj->getElementName());
+        $this->assertSame('text', $obj->getFactoryId());
+        $this->assertSame(1, $obj->isRequire());
+        $this->assertSame('Id', $obj->getLabel());
+        $this->assertSame(7, $obj->getOrdering());
         $this->assertSame(1, $obj->isActive());
         $this->assertSame('', $obj->getDefaultValue());
-        $this->assertSame('[Clear Cache Note]', $obj->getNote());
-        $this->assertSame('[Clear Cache Info]', $obj->getInfo());
-        $this->assertSame('', $obj->getPlaceholder());
+        $this->assertSame('[Id Note]', $obj->getNote());
+        $this->assertSame('[Id Info]', $obj->getInfo());
+        $this->assertSame('', $obj->getInfoDomain());
+        $this->assertSame('', $obj->getTextDomain());
+        $this->assertSame('Id', $obj->getPlaceholder());
         $this->assertSame('', $obj->getMaxLength());
         $this->assertSame('', $obj->getRows());
         $this->assertSame('', $obj->getCols());
-        $this->assertSame(0, $obj->isRequire());
         $this->assertSame(0, $obj->isReadonly());
         $this->assertSame(0, $obj->isDisabled());
         $this->assertSame('', $obj->getClassName());
+        $this->assertSame(1, $obj->isPrimary());
+        $this->assertSame(1, $obj->isIdentity());
         $this->assertSame('', $obj->getDataCmd());
-        $this->assertSame(0, $obj->getPrimaryLength());
-        $this->assertSame('', $obj->getOptionsText());    }
+        $this->assertSame(9, $obj->getMetaId());
+        $this->assertSame(1, $obj->getPrimaryLength());
+        $this->assertSame('', $obj->getOptionsText());
+        $this->assertSame('', $obj->getNoteDomain());
+        $this->assertSame(0, $obj->getHasNote());
+        $this->assertSame(0, $obj->getHasInfo());    }
 
     public function testParameters()
     {
         $obj = new DevElement();
 
         // set data
-        $obj->setElementId(1);
-        $obj->setMetaId(569);
-        $obj->setIdentity(0);
-        $obj->setPrimary(0);
-        $obj->setElementName('core__clear_cache');
-        $obj->setFactoryId('yesno');
-        $obj->setLabel('Clear Cache');
-        $obj->setOrdering(1);
+        $obj->setElementId(15);
+        $obj->setElementName('id');
+        $obj->setFactoryId('text');
+        $obj->setRequire(1);
+        $obj->setLabel('Id');
+        $obj->setOrdering(7);
         $obj->setActive(1);
         $obj->setDefaultValue('');
-        $obj->setNote('[Clear Cache Note]');
-        $obj->setInfo('[Clear Cache Info]');
-        $obj->setPlaceholder('');
+        $obj->setNote('[Id Note]');
+        $obj->setInfo('[Id Info]');
+        $obj->setInfoDomain('');
+        $obj->setTextDomain('');
+        $obj->setPlaceholder('Id');
         $obj->setMaxLength('');
         $obj->setRows('');
         $obj->setCols('');
-        $obj->setRequire(0);
         $obj->setReadonly(0);
         $obj->setDisabled(0);
         $obj->setClassName('');
+        $obj->setPrimary(1);
+        $obj->setIdentity(1);
         $obj->setDataCmd('');
-        $obj->setPrimaryLength(0);
+        $obj->setMetaId(9);
+        $obj->setPrimaryLength(1);
         $obj->setOptionsText('');
+        $obj->setNoteDomain('');
+        $obj->setHasNote(0);
+        $obj->setHasInfo(0);
         // assert same data
         $this->assertSame('dev_element', $obj->getModelId());
-        $this->assertSame(1, $obj->getElementId());
-        $this->assertSame(569, $obj->getMetaId());
-        $this->assertSame(0, $obj->isIdentity());
-        $this->assertSame(0, $obj->isPrimary());
-        $this->assertSame('core__clear_cache', $obj->getElementName());
-        $this->assertSame('yesno', $obj->getFactoryId());
-        $this->assertSame('Clear Cache', $obj->getLabel());
-        $this->assertSame(1, $obj->getOrdering());
+        $this->assertSame(15, $obj->getElementId());
+        $this->assertSame('id', $obj->getElementName());
+        $this->assertSame('text', $obj->getFactoryId());
+        $this->assertSame(1, $obj->isRequire());
+        $this->assertSame('Id', $obj->getLabel());
+        $this->assertSame(7, $obj->getOrdering());
         $this->assertSame(1, $obj->isActive());
         $this->assertSame('', $obj->getDefaultValue());
-        $this->assertSame('[Clear Cache Note]', $obj->getNote());
-        $this->assertSame('[Clear Cache Info]', $obj->getInfo());
-        $this->assertSame('', $obj->getPlaceholder());
+        $this->assertSame('[Id Note]', $obj->getNote());
+        $this->assertSame('[Id Info]', $obj->getInfo());
+        $this->assertSame('', $obj->getInfoDomain());
+        $this->assertSame('', $obj->getTextDomain());
+        $this->assertSame('Id', $obj->getPlaceholder());
         $this->assertSame('', $obj->getMaxLength());
         $this->assertSame('', $obj->getRows());
         $this->assertSame('', $obj->getCols());
-        $this->assertSame(0, $obj->isRequire());
         $this->assertSame(0, $obj->isReadonly());
         $this->assertSame(0, $obj->isDisabled());
         $this->assertSame('', $obj->getClassName());
+        $this->assertSame(1, $obj->isPrimary());
+        $this->assertSame(1, $obj->isIdentity());
         $this->assertSame('', $obj->getDataCmd());
-        $this->assertSame(0, $obj->getPrimaryLength());
-        $this->assertSame('', $obj->getOptionsText());    }
+        $this->assertSame(9, $obj->getMetaId());
+        $this->assertSame(1, $obj->getPrimaryLength());
+        $this->assertSame('', $obj->getOptionsText());
+        $this->assertSame('', $obj->getNoteDomain());
+        $this->assertSame(0, $obj->getHasNote());
+        $this->assertSame(0, $obj->getHasInfo());    }
 
     public function testSave()
     {
-        $obj = new DevElement(array (  'element_id' => 1,  'meta_id' => 569,  'is_identity' => 0,  'is_primary' => 0,  'element_name' => 'core__clear_cache',  'factory_id' => 'yesno',  'label' => 'Clear Cache',  'ordering' => 1,  'is_active' => 1,  'default_value' => NULL,  'note' => '[Clear Cache Note]',  'info' => '[Clear Cache Info]',  'placeholder' => '',  'max_length' => NULL,  'rows' => NULL,  'cols' => NULL,  'is_require' => 0,  'is_readonly' => 0,  'is_disabled' => 0,  'class_name' => '',  'data_cmd' => '',  'primary_length' => 0,  'options_text' => NULL,));
+        $obj = new DevElement(array (  'element_id' => 15,  'element_name' => 'id',  'factory_id' => 'text',  'is_require' => 1,  'label' => 'Id',  'ordering' => 7,  'is_active' => 1,  'default_value' => '',  'note' => '[Id Note]',  'info' => '[Id Info]',  'info_domain' => NULL,  'text_domain' => NULL,  'placeholder' => 'Id',  'max_length' => NULL,  'rows' => NULL,  'cols' => NULL,  'is_readonly' => 0,  'is_disabled' => 0,  'class_name' => '',  'is_primary' => 1,  'is_identity' => 1,  'data_cmd' => '',  'meta_id' => 9,  'primary_length' => 1,  'options_text' => NULL,  'note_domain' => NULL,  'has_note' => 0,  'has_info' => 0,));
 
         $obj->save();
 
         /** @var DevElement $obj */
         $obj = _model('dev_element')
-            ->select()->where('element_id=?',1)->first();
+            ->select()->where('element_id=?',15)->first();
 
         $this->assertSame('dev_element', $obj->getModelId());
-        $this->assertSame(1, $obj->getElementId());
-        $this->assertSame(569, $obj->getMetaId());
-        $this->assertSame(0, $obj->isIdentity());
-        $this->assertSame(0, $obj->isPrimary());
-        $this->assertSame('core__clear_cache', $obj->getElementName());
-        $this->assertSame('yesno', $obj->getFactoryId());
-        $this->assertSame('Clear Cache', $obj->getLabel());
-        $this->assertSame(1, $obj->getOrdering());
+        $this->assertSame(15, $obj->getElementId());
+        $this->assertSame('id', $obj->getElementName());
+        $this->assertSame('text', $obj->getFactoryId());
+        $this->assertSame(1, $obj->isRequire());
+        $this->assertSame('Id', $obj->getLabel());
+        $this->assertSame(7, $obj->getOrdering());
         $this->assertSame(1, $obj->isActive());
         $this->assertSame('', $obj->getDefaultValue());
-        $this->assertSame('[Clear Cache Note]', $obj->getNote());
-        $this->assertSame('[Clear Cache Info]', $obj->getInfo());
-        $this->assertSame('', $obj->getPlaceholder());
+        $this->assertSame('[Id Note]', $obj->getNote());
+        $this->assertSame('[Id Info]', $obj->getInfo());
+        $this->assertSame('', $obj->getInfoDomain());
+        $this->assertSame('', $obj->getTextDomain());
+        $this->assertSame('Id', $obj->getPlaceholder());
         $this->assertSame('', $obj->getMaxLength());
         $this->assertSame('', $obj->getRows());
         $this->assertSame('', $obj->getCols());
-        $this->assertSame(0, $obj->isRequire());
         $this->assertSame(0, $obj->isReadonly());
         $this->assertSame(0, $obj->isDisabled());
         $this->assertSame('', $obj->getClassName());
+        $this->assertSame(1, $obj->isPrimary());
+        $this->assertSame(1, $obj->isIdentity());
         $this->assertSame('', $obj->getDataCmd());
-        $this->assertSame(0, $obj->getPrimaryLength());
-        $this->assertSame('', $obj->getOptionsText());    }
+        $this->assertSame(9, $obj->getMetaId());
+        $this->assertSame(1, $obj->getPrimaryLength());
+        $this->assertSame('', $obj->getOptionsText());
+        $this->assertSame('', $obj->getNoteDomain());
+        $this->assertSame(0, $obj->getHasNote());
+        $this->assertSame(0, $obj->getHasInfo());    }
 
     public static function setUpBeforeClass()
     {
         _model('dev_element')
-            ->delete()->where('element_id=?',1)->execute();
+            ->delete()->where('element_id=?',15)->execute();
     }
 
     public static function tearDownAfterClass()
     {
         _model('dev_element')
-            ->delete()->where('element_id=?',1)->execute();
+            ->delete()->where('element_id=?',15)->execute();
     }
 }

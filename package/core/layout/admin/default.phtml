@@ -4,38 +4,47 @@
     <?= _get('assets')->getStartHtml() ?>
 </head>
 <body class="<?= PHPFOX_IS_DEV ? 'is_dev' : '' ?>">
-<header>
 
-    <?php $login = _get('auth')->getLogin(); ?>
-    <div class="navbar">
-        <?= _get('breadcrumb')->render() ?>
-        <form role="search" class="navbar-form navbar-right global-search-holder"
-              onsubmit="return false;">
-            <input type="text" placeholder="<?= _text('Search ...') ?>"
-                   class="form-control">
-        </form>
-    </div>
-</header>
-<div class="top-left">
-</div>
 <aside>
-    <div class="top">PHPFOX</div>
     <?= _get('menu.admin.primary')->render('aside', []) ?>
     <ul>
+        <?php $login = _get('auth')->getLogin(); ?>
         <li><a role="button">logged as <?= $login->getName() ?></a></li>
         <li><a href="<?= _url('logout') ?>"><?= _text('Logout') ?></a></li>
     </ul>
 </aside>
-<div class="main-wrapper" id="layout_containers">
-    <div class="container">
-        <?= _get('menu.admin.secondary')->render('toolbar', ['level0' => 'btn-group toolbar pull-left']); ?>
-        <?= _get('menu.admin.buttons')->render('toolbar', ['level0' => 'toolbar pull-right']); ?>
-    </div>
-    <div class="container">
-        <?= _get('layouts')->renderBlock('\Neutron\Core\Block\AdminFilter', []) ?>
-    </div>
-    <div class="content-wrapper">
-        <?php echo @$layout_content ?>
+<div id="layout_containers">
+    <header>
+        <div class="left">
+            <a role="button" class="aside-toggle" data-cmd="toggle" data-target="//body;aside-closed">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a role="link" class="brand" href="#">PHPFOX</a>
+        </div>
+        <div class="main">
+            <div class="navbar">
+                <?= _get('breadcrumb')->render() ?>
+                <form role="search" class="navbar-form navbar-right global-search-holder"
+                      onsubmit="return false;">
+                    <input type="text" placeholder="<?= _text('Search ...') ?>"
+                           class="form-control">
+                </form>
+            </div>
+        </div>
+    </header>
+    <div class="main-wrapper">
+        <div class="container">
+            <?= _get('menu.admin.secondary')->render('toolbar', ['level0' => 'btn-group toolbar pull-left']); ?>
+            <?= _get('menu.admin.buttons')->render('toolbar', ['level0' => 'toolbar pull-right']); ?>
+        </div>
+        <div class="container">
+            <?= _get('layouts')->renderBlock('\Neutron\Core\Block\AdminFilter', []) ?>
+        </div>
+        <div class="content-wrapper">
+            <?php echo @$layout_content ?>
+        </div>
     </div>
 </div>
 <?= _get('assets')->getShutdownHtml() ?>

@@ -46,7 +46,7 @@ define(['jquery', 'underscore', 'core'], function () {
                 url: opts.url,
                 type: 'get',
                 dataType: 'json',
-                headers: {requestType: 'update_content'}
+                headers: {requestType: 'content'}
             }).done(function (data) {
                 if (_.isString(data.redirect)) {
                     $(document).trigger('modal.close');
