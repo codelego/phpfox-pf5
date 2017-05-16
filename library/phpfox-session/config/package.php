@@ -7,6 +7,7 @@ return [
         'files'    => FilesSession::class,
         'redis'    => RedisSession::class,
         'memcache' => MemcacheSession::class,
+        'null'     => NullSession::class,
     ],
     'services'        => [
         'session'              => [null, SessionManager::class],

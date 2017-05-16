@@ -103,7 +103,7 @@ class AdminSiteSettingsProcess extends AbstractProcess
 
             _get('core.setting')->updateGroupValues($data);
 
-            _get('cache.local')->flush();
+            _get('cache.default')->flush();
         }
 
         $vm = new ViewModel(['form' => $form], 'layout/form-edit');

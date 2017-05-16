@@ -2,35 +2,36 @@
 Memcache support use
 ```php
 return [
-    'cache.adapters'  => [
-        'cache.memcached' => [
-            'driver'         => 'memcached',
-            'port'           => 11211,
-            'timeout'        => 1,
-            'persistent'     => true,
-            'retry_interval' => 15,
-            'servers'        => ['127.0.0.1'],
+    'cache.drivers'  => [
+        'filesystem' => FilesCacheStorage::class,
+        'apc'        => ApcuCacheStorage::class,
+    ],
+    'cache.adapters' => [
+        'cache.files' => [
+            'driver' => 'filesystem',
         ],
-        'cache.memcache'  => [
-            'driver'         => 'memcache',
-            'port'           => 11211,
-            'timeout'        => 1,
-            'persistent'     => true,
-            'retry_interval' => 15,
-            'servers'        => ['127.0.0.1'],
+        'cache.apc'   => [
+            'driver' => 'apc',
         ],
     ],
-    'service.map'     => [
-        'cache.memcache'  => [
-            CacheStorageFactory::class,
-            null,
-            'cache.memcache',
-        ],
-        'cache.memcached' => [
-            CacheStorageFactory::class,
-            null,
-            'cache.memcached',
-        ],
+    'services'       => [
+        'cache.super' => '',
+        'cache.default' => [CacheStorageFactory::class, 'filesystem',[]],
     ],
-;
+];
 ```
+
+01 . Cache manager
+
+supper cache is local cache
+
+- databases
+- packages
+- autoload
+...
+
+
+cache.super: cache master settings only (can not store on remote).
+cache.default: default cache store (can store on remote).
+
+// delete super cache ? => kill all.

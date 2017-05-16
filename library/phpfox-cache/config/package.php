@@ -15,30 +15,8 @@ return [
             'driver' => 'apc',
         ],
     ],
-    'cache.map'      => [
-        'cache.local' => [
-            CacheStorageFactory::class,
-            null,
-            'cache.files',
-        ],
-        'cache.apc'   => [CacheStorageFactory::class, null, 'cache.apc'],
-        'cache'       => [
-            CacheStorageFactory::class,
-            null,
-            'cache.files',
-        ],
-    ],
     'services'       => [
-        'cache.local' => [
-            CacheStorageFactory::class,
-            null,
-            'cache.files',
-        ],
-        'cache.apc'   => [CacheStorageFactory::class, null, 'cache.apc'],
-        'cache'       => [
-            CacheStorageFactory::class,
-            null,
-            'cache.files',
-        ],
+        'cache.default' => [CacheStorageFactory::class, 'filesystem', ['directory' => 'cache']],
+        'cache.super'   => [CacheStorageFactory::class, 'filesystem', ['directory' => 'super']],
     ],
 ];

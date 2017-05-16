@@ -159,7 +159,7 @@ namespace {
     function _load($cache, $key, $ttl, $fallback)
     {
         /** @var CacheStorageInterface $storage */
-        $storage = \Phpfox::$service->get($cache ? $cache : 'cache.local');
+        $storage = \Phpfox::$service->get($cache ? $cache : 'cache.default');
 
         if (is_array($key)) {
             $key = implode('_', $key);

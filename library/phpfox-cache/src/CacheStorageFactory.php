@@ -6,20 +6,18 @@ namespace Phpfox\Cache;
 class CacheStorageFactory
 {
     /**
-     * @param string|null  $class
+     * @param string|null  $driver
      * @param string|array $options
      *
      * @return CacheStorageInterface
      */
-    public function factory($class, $options)
+    public function factory($driver, $options)
     {
-        if (is_string($options)) {
-            $options = _param('cache.adapters', $options);
+        if (!$driver) {
+            $driver = $options['driver'];
         }
+        $class = _param('cache.drivers', $driver);
 
-        if (!$class) {
-            $class = _param('cache.drivers', $options['driver']);
-        }
         return new $class($options);
     }
 }

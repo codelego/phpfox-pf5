@@ -161,7 +161,7 @@ class AdminVerifyController extends AdminController
 
         _get('core.setting')->updateValue('core.default_verify_id', $identity);
 
-        _get('cache.local')->flush();
+        _get('cache.default')->flush();
 
         _redirect('admin.core.verify');
     }

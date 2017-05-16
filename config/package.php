@@ -23,27 +23,6 @@
     'filesystem' => 'Phpfox\\Cache\\FilesCacheStorage',
     'apc' => 'Phpfox\\Cache\\ApcuCacheStorage',
   ),
-  'cache.map' => 
-  array (
-    'cache.local' => 
-    array (
-      0 => 'Phpfox\\Cache\\CacheStorageFactory',
-      1 => NULL,
-      2 => 'cache.files',
-    ),
-    'cache.apc' => 
-    array (
-      0 => 'Phpfox\\Cache\\CacheStorageFactory',
-      1 => NULL,
-      2 => 'cache.apc',
-    ),
-    'cache' => 
-    array (
-      0 => 'Phpfox\\Cache\\CacheStorageFactory',
-      1 => NULL,
-      2 => 'cache.files',
-    ),
-  ),
   'db.drivers' => 
   array (
     'mysqli' => 'Phpfox\\Mysqli\\MysqliDbAdapter',
@@ -310,23 +289,23 @@
       0 => NULL,
       1 => 'Phpfox\\Breadcrumb\\Breadcrumb',
     ),
-    'cache.local' => 
+    'cache.default' => 
     array (
       0 => 'Phpfox\\Cache\\CacheStorageFactory',
-      1 => NULL,
-      2 => 'cache.files',
+      1 => 'filesystem',
+      2 => 
+      array (
+        'directory' => 'cache',
+      ),
     ),
-    'cache.apc' => 
+    'cache.super' => 
     array (
       0 => 'Phpfox\\Cache\\CacheStorageFactory',
-      1 => NULL,
-      2 => 'cache.apc',
-    ),
-    'cache' => 
-    array (
-      0 => 'Phpfox\\Cache\\CacheStorageFactory',
-      1 => NULL,
-      2 => 'cache.files',
+      1 => 'filesystem',
+      2 => 
+      array (
+        'directory' => 'super',
+      ),
     ),
     'curl' => 
     array (
@@ -364,11 +343,6 @@
     array (
       0 => NULL,
       1 => 'Phpfox\\Form\\FormFactory',
-    ),
-    'translator' => 
-    array (
-      0 => NULL,
-      1 => 'Phpfox\\I18n\\Translator',
     ),
     'i18n' => 
     array (
@@ -505,6 +479,7 @@
     'files' => 'Phpfox\\Session\\FilesSession',
     'redis' => 'Phpfox\\Session\\RedisSession',
     'memcache' => 'Phpfox\\Session\\MemcacheSession',
+    'null' => 'Phpfox\\Session\\NullSession',
   ),
   'storage.drivers' => 
   array (

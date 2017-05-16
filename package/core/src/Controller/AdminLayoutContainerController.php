@@ -38,7 +38,7 @@ class AdminLayoutContainerController extends AdminController
 
             $container->save();
 
-            _get('cache.local')->flush();
+            _get('cache.default')->flush();
 
             _redirect('admin.core.layout.page', [
                 'action'    => 'design',
@@ -96,7 +96,7 @@ class AdminLayoutContainerController extends AdminController
         $container->setActive($container->isActive() ? 0 : 1);
         $container->save();
 
-        _get('cache.local')->flush();
+        _get('cache.default')->flush();
 
         _redirect('admin.core.layout.page', [
             'action'    => 'design',
@@ -120,7 +120,7 @@ class AdminLayoutContainerController extends AdminController
         _get('layout_loader')->deleteContainers([$containerId]);
 
 
-        _get('cache.local')->flush();
+        _get('cache.default')->flush();
 
         _redirect('admin.core.layout.page', [
             'action'    => 'design',

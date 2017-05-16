@@ -81,7 +81,7 @@ class AdminI18nTimezoneController extends AdminController
 
         _get('core.setting')->updateValue('core.default_timezone_id', $identity);
 
-        _get('cache.local')->flush();
+        _get('cache.default')->flush();
 
         _redirect('admin.core.i18n.timezone');
     }

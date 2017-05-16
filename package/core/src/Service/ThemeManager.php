@@ -242,7 +242,7 @@ class ThemeManager
      */
     private function updateCache()
     {
-        _get('cache.local')
+        _get('cache.default')
             ->deleteItems([
                 self::PREFER_THEME_CACHE,
                 self::PREFER_THEME_URL_CACHE,
@@ -356,7 +356,7 @@ class ThemeManager
      */
     public function getCssBaseUrl()
     {
-        return _get('cache.local')
+        return _get('cache.default')
             ->load(self::PREFER_THEME_URL_CACHE, 0, function () {
                 $theme = $this->getDefault();
                 return '/pf5/static/' . 'themes/' . $theme->getId() . '/css';
