@@ -8,7 +8,7 @@ class ServiceManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testBase()
     {
-        $mn = new ServiceManager();
+        $mn = new ServiceContainer();
 
         $this->assertFalse($mn->has('no-service'));
 

@@ -11,7 +11,7 @@ class ConfigsTest extends PHPUnit_Framework_TestCase
     {
         $configs = new ParameterContainer();
 
-        $this->assertEmpty($configs->all());
+        $this->assertEmpty($configs->getData());
 
         $configs->set('sample_key', 1);
 

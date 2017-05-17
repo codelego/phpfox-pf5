@@ -16,21 +16,14 @@ class ActionProvider implements ActionProviderInterface
      */
     protected $initialized = false;
 
+
     protected function initialize()
     {
         $this->initialized = true;
 
-        $paths = _get('package.loader')->loadEnablePaths();
-
-        foreach ($paths as $path) {
-
-            $data = include PHPFOX_DIR . $path
-                . '/config/controller.php';
-
-            foreach ($data as $k => $v) {
-                $this->data[$k] = $v;
-            }
-        }
+        $this->data = _load('super.cache', 'controllers', 60, function () {
+            return $this->_getControllers();
+        });
     }
 
 
@@ -41,5 +34,28 @@ class ActionProvider implements ActionProviderInterface
         }
 
         return isset($this->data[$id]) ? $this->data[$id] : null;
+    }
+
+    /**
+     * @return array
+     */
+    public function _getControllers()
+    {
+        $result = [];
+        foreach (_get('package.loader')->getPaths() as $path) {
+            if (!file_exists($filename = PHPFOX_DIR . $path . '/config/controller.php')) {
+                continue;
+            }
+
+            /** @noinspection PhpIncludeInspection */
+            if (!is_array($data = include $filename)) {
+                continue;
+            }
+
+            foreach ($data as $k => $v) {
+                $result[$k] = $v;
+            }
+        }
+        return $result;
     }
 }

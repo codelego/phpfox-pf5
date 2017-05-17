@@ -3,7 +3,7 @@
 namespace Phpfox\Package;
 
 
-class PackageLoader implements PackageLoaderInterface
+class PackageLoader
 {
 
     /**
@@ -11,7 +11,7 @@ class PackageLoader implements PackageLoaderInterface
      */
     protected $paths;
 
-    public function loadEnablePaths()
+    public function getPaths()
     {
         if (!empty($this->paths)) {
             return $this->paths;
@@ -27,13 +27,13 @@ class PackageLoader implements PackageLoaderInterface
             ->all());
     }
 
-    public function loadAutoloadConfigs()
+    public function getAutoload()
     {
         $based = [];
         /**
          * fetch package variables from package.php
          */
-        foreach ($this->loadEnablePaths() as $path) {
+        foreach ($this->getPaths() as $path) {
             _array_merge_recursive_from_file($based,
                 $path . '/config/autoload.php');
         }
@@ -41,10 +41,10 @@ class PackageLoader implements PackageLoaderInterface
         return $based;
     }
 
-    public function loadRouterConfigs()
+    public function getRoutes()
     {
         $result = ['chains' => [], 'routes' => [], 'phrases' => []];
-        foreach ($this->loadEnablePaths() as $path) {
+        foreach ($this->getPaths() as $path) {
             $data = include PHPFOX_DIR . $path . '/config/router.php';
             if (isset($data['chains'])) {
                 foreach ($data['chains'] as $value) {
@@ -85,7 +85,7 @@ class PackageLoader implements PackageLoaderInterface
         /**
          * fetch package variables from package.php
          */
-        foreach ($this->loadEnablePaths() as $path) {
+        foreach ($this->getPaths() as $path) {
             $data = include PHPFOX_DIR . $path . '/config/model.php';
 
             foreach ($data as $name => $value) {
@@ -95,13 +95,13 @@ class PackageLoader implements PackageLoaderInterface
         return $based;
     }
 
-    public function loadPackageConfigs()
+    public function getParameters()
     {
         $based = [];
         /**
          * fetch package variables from package.php
          */
-        foreach ($this->loadEnablePaths() as $path) {
+        foreach ($this->getPaths() as $path) {
             _array_merge_recursive_from_file($based,
                 $path . '/config/package.php');
         }

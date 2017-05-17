@@ -2,7 +2,7 @@
 
 namespace Phpfox\Support;
 
-class ServiceManager
+class ServiceContainer
 {
     /**
      * @var array

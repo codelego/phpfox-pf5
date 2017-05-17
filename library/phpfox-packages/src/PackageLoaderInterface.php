@@ -8,22 +8,22 @@ interface PackageLoaderInterface
     /**
      * @return array
      */
-    public function loadEnablePaths();
+    public function getPaths();
 
     /**
      * @return array
      */
-    public function loadAutoloadConfigs();
+    public function getAutoload();
 
     /**
      * @return array
      */
-    public function loadRouterConfigs();
+    public function getRoutes();
 
     /**
      * @return array
      */
-    public function loadPackageConfigs();
+    public function getParameters();
 
     /**
      * @param string $id
@@ -31,4 +31,14 @@ interface PackageLoaderInterface
      * @return array
      */
     public function loadPackageInfo($id);
+
+    /**
+     * @return array
+     */
+    public function getModels();
+
+    /**
+     * @return array
+     */
+    public function getControllers();
 }

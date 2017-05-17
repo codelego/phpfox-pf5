@@ -29,7 +29,7 @@ class Router
      */
     protected function initialize()
     {
-        $configs = _get('router.provider')->loadConfigs();
+        $configs = _get('package.loader')->getRoutes();
 
         $this->phrases = $configs['phrases'];
 
@@ -49,7 +49,9 @@ class Router
         foreach ($configs['routes'] as $key => $v) {
             if (strpos($key, '.')) {
                 list($group) = explode('.', $key, 2);
-                $this->routes[$group]->add(new Routing($key, $this->build($v)));
+                if (isset($this->routes[$group])) {
+                    $this->routes[$group]->add(new Routing($key, $this->build($v)));
+                }
             } else {
                 $this->routes[$key] = new Routing($key, $this->build($v));
             }

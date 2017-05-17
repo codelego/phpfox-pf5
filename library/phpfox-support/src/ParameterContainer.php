@@ -2,13 +2,18 @@
 
 namespace Phpfox\Support;
 
-final class ParameterContainer
+class ParameterContainer
 {
     /**
      * @var array
      */
     protected $data = [];
 
+    /**
+     * @param array $data
+     *
+     * @return $this
+     */
     public function merge($data)
     {
         if (is_array($data)) {
@@ -25,34 +30,54 @@ final class ParameterContainer
         return $this;
     }
 
-    public function get($key, $item = null)
-    {
-        if (!isset($this->data[$key])) {
-            return null;
-        }
-
-        if ($item) {
-            if (!isset($this->data[$key][$item])) {
-                return null;
-            }
-            return $this->data[$key][$item];
-        }
-
-        return $this->data[$key];
-    }
-
-
-    public function set($key, $data)
-    {
-        $this->data[$key] = $data;
-        return $this;
-    }
-
     /**
      * @return array
      */
-    public function all()
+    public function getData()
     {
         return $this->data;
     }
+
+    /**
+     * @param array $data
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+    }
+
+    /**
+     * @param string $group
+     * @param string $name
+     *
+     * @return mixed|null
+     */
+    public function get($group, $name = null)
+    {
+        if (!isset($this->data[$group])) {
+            return null;
+        }
+
+        if ($name) {
+            if (!isset($this->data[$group][$name])) {
+                return null;
+            }
+            return $this->data[$group][$name];
+        }
+
+        return $this->data[$group];
+    }
+
+    /**
+     * @param string $key
+     * @param mixed  $data
+     *
+     * @return $this
+     */
+    public function set($key, $data)
+    {
+        $this->data[$key] = $data;
+    }
+
+
 }

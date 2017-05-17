@@ -18,21 +18,32 @@ class ModelProvider implements GatewayProviderInterface
     {
         $this->initialized = true;
 
-        $paths = _get('package.loader')->loadEnablePaths();
+        $this->data = _load('super.cache', 'models', 60, function () {
+            return $this->_getModels();
+        });
+    }
 
+    public function _getModels()
+    {
+        $result = [];
+        $paths = _get('package.loader')->getPaths();
         foreach ($paths as $path) {
+            if (!file_exists($filename = PHPFOX_DIR . $path . '/config/model.php')) {
+                continue;
+            }
 
-            $data = include PHPFOX_DIR . $path
-                . '/config/model.php';
+            /** @noinspection PhpIncludeInspection */
+            $data = include $filename;
 
             if (!is_array($data)) {
                 continue;
             }
 
-            foreach ($data as $k => $v) {
-                $this->data[$k] = $v;
+            foreach ($data as $name => $value) {
+                $result[$name] = $value;
             }
         }
+        return $result;
     }
 
     public function get($id)

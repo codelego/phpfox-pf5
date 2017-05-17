@@ -30,7 +30,7 @@ class PackageManager
     {
         $this->initialized = true;
 
-        $this->data = _get('package.loader')->loadEnablePaths();
+        $this->data = _get('package.loader')->getPaths();
     }
 
     public function get($id)

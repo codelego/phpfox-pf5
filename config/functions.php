@@ -12,7 +12,7 @@ namespace {
     }
 
     /**
-     * @see ServiceManager::get()
+     * @see ServiceContainer::get()
      *
      * @param string $name
      *
@@ -24,7 +24,7 @@ namespace {
     }
 
     /**
-     * @see ServiceManager::has()
+     * @see ServiceContainer::has()
      *
      * @param string $id
      *
@@ -354,6 +354,7 @@ namespace {
     function _merge_configs($directory, $finder)
     {
         $result = [];
+        $directory =  PHPFOX_DIR . 'library';
 
         $directoryIterator
             = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory,

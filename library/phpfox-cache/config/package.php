@@ -17,6 +17,6 @@ return [
     ],
     'services'       => [
         'cache.default' => [CacheStorageFactory::class, 'filesystem', ['directory' => 'cache']],
-        'cache.super'   => [CacheStorageFactory::class, 'filesystem', ['directory' => 'super']],
+        'super.cache'   => [CacheStorageFactory::class, 'filesystem', ['directory' => 'super']],
     ],
 ];
