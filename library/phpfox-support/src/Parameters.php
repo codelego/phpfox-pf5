@@ -41,11 +41,48 @@ class Parameters
     }
 
     /**
+     * @param string $key
+     *
+     * @return bool
+     */
+    public function has($key)
+    {
+        return isset($this->data[$key]);
+    }
+
+    /**
+     * @param string $group
+     * @param string $key
+     *
+     * @return mixed
+     */
+    public function item($group, $key)
+    {
+        if (!isset($this->data[$group]) or !isset($this->data[$group][$key])) {
+            return null;
+        }
+
+        return $this->data[$group][$key];
+    }
+
+    /**
      * @return array
      */
     public function all()
     {
         return $this->data;
+    }
+
+    public function add($data)
+    {
+        foreach ($data as $key => $value) {
+            $this->data[$key] = $value;
+        }
+    }
+
+    public function reset()
+    {
+        $this->data = [];
     }
 
     /**
@@ -54,5 +91,13 @@ class Parameters
     public function setData($data)
     {
         $this->data = $data;
+    }
+
+    /**
+     * @param string $key
+     */
+    public function delete($key)
+    {
+        unset($this->data[$key]);
     }
 }

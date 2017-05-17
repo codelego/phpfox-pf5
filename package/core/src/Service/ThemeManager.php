@@ -370,7 +370,7 @@ class ThemeManager
     {
         $container = new \ArrayObject();
 
-        $response = _emit('onRebuildMain', $container);
+        $response = _trigger('onRebuildMain', $container);
 
         $source[] = '@import "main";';
 
@@ -398,7 +398,7 @@ class ThemeManager
      */
     public function getRebuildFiles($id)
     {
-        $response = _emit('onRebuildFiles');
+        $response = _trigger('onRebuildFiles');
 
         $result = [];
 

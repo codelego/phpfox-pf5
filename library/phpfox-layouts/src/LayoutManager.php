@@ -36,7 +36,7 @@ class LayoutManager extends ViewModel
             ->prependStyle('main', null)
             ->prependStyle('font', null);
 
-        _emit('onViewLayoutPrepare', $this);
+        _trigger('onViewLayoutPrepare', $this);
 
         $content = _get('layout_loader')
             ->loadForRender($this->getPageName(), $this->getThemeId())

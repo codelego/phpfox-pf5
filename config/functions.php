@@ -4,6 +4,7 @@ namespace {
 
     use Phpfox\Cache\CacheItem;
     use Phpfox\Cache\CacheStorageInterface;
+    use Phpfox\Support\Event;
 
     function _dump()
     {
@@ -179,29 +180,30 @@ namespace {
     }
 
     /**
-     * @param string      $name
-     * @param object|null $target
-     * @param array|null  $argv
+     * @param string $name
+     * @param mixed  $target
+     * @param mixed  $params
      *
-     * @return \Phpfox\Event\Response
+     * @return \Phpfox\Support\Response
      */
-    function _emit($name, $target = null, $argv = [])
+    function _trigger($name, $target = null, $params = [])
     {
         return _get('mvc.events')
-            ->emit($name, $target, $argv);
+            ->trigger(new Event($name, $target, $params));
     }
 
     /**
-     * @param string      $name
-     * @param object|null $target
-     * @param array|null  $argv
+     * @param string $name
+     * @param mixed  $target
+     * @param mixed  $params
      *
-     * @return \Phpfox\Event\Response
+     * @return \Phpfox\Support\Response
      */
-    function _callback($name, $target = null, $argv = [])
+    function _callback($name, $target = null, $params = [])
     {
-        return _get('mvc.event')
-            ->callback($name, $target, $argv);
+        return _get('mvc.events')
+            ->triggerUntil(new Event($name, $target, $params))
+            ->first();
     }
 
     /**

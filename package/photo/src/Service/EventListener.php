@@ -2,9 +2,7 @@
 
 namespace Neutron\Photo\Service;
 
-use Phpfox\Event\EventListenerInterface;
-
-class EventListener implements EventListenerInterface
+class EventListener
 {
     public function __call($name, $arguments)
     {

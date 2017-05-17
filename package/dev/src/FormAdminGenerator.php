@@ -169,6 +169,7 @@ class FormAdminGenerator extends AbstractGenerator
             'formMethod'       => $this->meta->getFormMethod(),
             'formEncType'      => $this->meta->getFormEnctype(),
             'submitLabel'      => $this->meta->getSubmitLabel(),
+            'metaId'           => $this->meta->getId(),
         ], $this->template))->render();
 
         _get('core.i18n')->insertDomainMessages($messageContainer->all(), $this->packageId, '');

@@ -2,55 +2,32 @@
 
 namespace Neutron\Core\Form\Admin\Settings;
 
-
 use Phpfox\Form\Form;
 
 class EditMailSettings extends Form
 {
-    protected function initialize()
+
+    /** id=669 */
+    public function initialize()
     {
-        $this->setTitle(_text('Mail Settings', 'core_mail'));
-        $this->setInfo(_text('[Mail Settings Note]', 'admin'));
 
+        $this->setTitle(_text('Edit Mail Settings', '_core.mail_settings'));
+        $this->setInfo(_text('[Edit Site Settings Info]', '_core'));
+        $this->setMethod('post');
+        $this->setAction(_url('#'));
+
+        /** start elements **/
+
+
+        /** element `core__default_mail_id` id=2177 **/
         $this->addElement([
-            'name'     => 'core__default_mailer_id',
+            'name'     => 'core__default_mail_id',
             'factory'  => 'select',
-            'label'    => _text('Default Adapter', 'core_mail'),
-            'info'     => _text('[Default Adapter Info]', 'core_mail'),
-            'options'  => _get('core.mails')->getAdapterIdOptions(),
+            'label'    => _text('Default Mail', '_core.mail_settings'),
+            'info'     => _text('[Default Mail Id Info]', '_core.mail_settings'),
             'required' => true,
         ]);
-
-        $this->addElement([
-            'name'     => 'core_mail__queue_enable',
-            'factory'  => 'radio',
-            'label'    => _text('Use Queue', 'core_mail'),
-            'info'     => _text('[Use Queue Info]', 'core_mail'),
-            'options'  => [
-                ['value' => 1, 'label' => 'Yes, Use queue to improve site performance.',],
-                ['value' => 0, 'label' => 'No, send mail immediately',],
-            ],
-            'value'    => 0,
-            'required' => true,
-        ]);
-
-        $this->addElement([
-            'name'     => 'core_mail__queue_limit',
-            'factory'  => 'select',
-            'label'    => _text('Queue Limit', 'core_mail'),
-            'info'     => _text('[Queue Limit Info]', 'core_mail'),
-            'options'  => [
-                ['value' => 10, 'label' => '10 items'],
-                ['value' => 20, 'label' => '20 items'],
-                ['value' => 50, 'label' => '50 items'],
-                ['value' => 100, 'label' => '100 items'],
-                ['value' => 200, 'label' => '200 items'],
-                ['value' => 500, 'label' => '500 items'],
-                ['value' => 1000, 'label' => '1,000 items'],
-            ],
-            'value'    => 20,
-            'required' => true,
-        ]);
+        /** end elements **/
 
         $this->addButton([
             'factory'    => 'button',
@@ -62,7 +39,7 @@ class EditMailSettings extends Form
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'cancel',
-            'href'       => '#',
+            'href'       => _url('#'),
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);

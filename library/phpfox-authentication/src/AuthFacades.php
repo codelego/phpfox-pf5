@@ -27,7 +27,7 @@ class AuthFacades
 
     protected function initialize()
     {
-        _emit('onAuthInit', $this);
+        _trigger('onAuthInit', $this);
     }
 
     /**
@@ -56,7 +56,7 @@ class AuthFacades
         $this->user = $user;
         $this->loginUser = $user;
 
-        _emit('onUserLogin', $user);
+        _trigger('onUserLogin', $user);
 
         $this->remember($remember);
 
@@ -132,8 +132,7 @@ class AuthFacades
     public function setLoginUser($loginUser)
     {
         $this->loginUser = $loginUser;
-
-        _emit('onLoginUser', $loginUser);
+        _trigger('onLoginUser', $loginUser);
     }
 
     public function isLoggedIn()

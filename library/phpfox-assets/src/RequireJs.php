@@ -265,7 +265,7 @@ class RequireJs
      */
     public function renderConfig()
     {
-        _emit('onBeforeJavascriptRender', $this);
+        _trigger('onBeforeJavascriptRender', $this);
 
         $config = [
             'baseUrl'     => $this->getBaseUrl(),

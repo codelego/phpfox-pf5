@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Event;
+namespace Phpfox\Support;
 
 
 class ResponseTest extends \PHPUnit_Framework_TestCase

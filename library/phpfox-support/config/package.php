@@ -4,7 +4,8 @@ namespace Phpfox\Support;
 
 return [
     'services' => [
-        'image'    => [null, InterventionImageManager::class],
-        'registry' => [null, Registry::class],
+        'image'      => [null, InterventionImageManager::class],
+        'mvc.events' => [null, EventManager::class],
+        'registry'   => [null, Registry::class],
     ],
 ];

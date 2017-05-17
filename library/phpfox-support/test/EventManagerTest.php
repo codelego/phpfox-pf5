@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Event;
+namespace Phpfox\Support;
 
 
 class EventManagerTest extends \PHPUnit_Framework_TestCase
@@ -25,16 +25,5 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
 
         $response = $mn->trigger($event);
         $this->assertTrue($response->count() == 0);
-    }
-
-    public function testBase3()
-    {
-        $mn = new EventManager();
-
-        $response = $mn->emit('onExampleEvent', new \stdClass(),
-            ['key1' => 'value1']);
-
-
-        $this->assertTrue($response instanceof Response);
     }
 }

@@ -5,7 +5,7 @@ namespace Neutron\User\Service;
 
 use Neutron\User\Model\AuthHistory;
 use Neutron\User\Model\User;
-use Phpfox\Event\Event;
+use Phpfox\Support\Event;
 
 class AuthHistoryManagerTest extends \PHPUnit_Framework_TestCase
 {

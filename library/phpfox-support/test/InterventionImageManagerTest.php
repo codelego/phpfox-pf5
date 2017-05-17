@@ -31,8 +31,7 @@ class InterventionImageManagerTest extends \PHPUnit_Framework_TestCase
 
         $destination = __DIR__ . '/assets/result_300x300.jpg';
 
-        $image
-            = $manager->make('http://www.rockpapershotgun.com/images/16/mar/foxerheader.jpg');
+        $image = $manager->make('http://www.rockpapershotgun.com/images/16/mar/foxerheader.jpg');
 
         $this->assertTrue($image instanceof Image);
 

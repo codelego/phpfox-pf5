@@ -172,11 +172,12 @@ class ElementGenerator
         }
 
         $content = _sprintf('
-            /** element `{name}` **/
+            /** element `{name}` id={id} **/
             $this->addElement({element});', [
             'element'    => $this->cleanExport($element),
             'name'       => $name,
             'label'      => $label,
+            'id'         => $devElement->getId(),
             'formType'   => $formType,
             'textDomain' => $textDomain,
         ]);

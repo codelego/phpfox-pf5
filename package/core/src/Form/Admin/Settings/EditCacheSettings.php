@@ -7,20 +7,28 @@ use Phpfox\Form\Form;
 class EditCacheSettings extends Form
 {
 
-    protected function initialize()
+    /** id=664 */
+    public function initialize()
     {
-        $this->setTitle(_text('Cache Settings', 'admin.core_cache'));
-        $this->setInfo(_text('[Site Settings Info]', 'admin'));
 
+        $this->setTitle(_text('Edit Cache Settings', '_core.cache_settings'));
+        $this->setInfo(_text('[Edit Site Settings Info]', '_core'));
+        $this->setMethod('post');
+        $this->setAction(_url('#'));
+
+        /** start elements **/
+
+
+        /** element `core__default_cache_id` id=2173 **/
         $this->addElement([
-            'factory'  => 'select',
             'name'     => 'core__default_cache_id',
-            'value'    => '1',
-            'options'  => _get('core.cache')->getAdapterIdOptions(),
-            'label'    => _text('Default Cache Adapter', 'admin.core_cache'),
-            'note'     => _text('[Default Cache Adapter Note]', 'admin.core_cache'),
+            'factory'  => 'select',
+            'label'    => _text('Default Cache', '_core.cache_settings'),
+            'info'     => _text('[Default Cache Id Info]', '_core.cache_settings'),
+            'options'  => _get('core.adapter')->getAdapterIdOptions('cache'),
             'required' => true,
         ]);
+        /** end elements **/
 
         $this->addButton([
             'factory'    => 'button',
@@ -32,7 +40,7 @@ class EditCacheSettings extends Form
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'cancel',
-            'href'       => '#',
+            'href'       => _url('#'),
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);

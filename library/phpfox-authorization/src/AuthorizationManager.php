@@ -3,7 +3,7 @@
 namespace Phpfox\Authorization;
 
 
-use Phpfox\Event\Event;
+use Phpfox\Support\Event;
 use Phpfox\Support\UserInterface;
 
 class AuthorizationManager

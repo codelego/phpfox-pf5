@@ -113,6 +113,35 @@ class PackageLoader implements PackageLoaderInterface
         });
     }
 
+    public function getEventParameters()
+    {
+        return _load('super.cache', 'loader.events', self::TTL, function () {
+            return $this->_getEventParameters();
+        });
+    }
+
+    /**
+     * @return Parameters
+     */
+    protected function _getEventParameters()
+    {
+        $rows = _get('db')
+            ->select('*')
+            ->from(':core_event')
+            ->order('event_name, priority', 1);
+
+        $result = [];
+        foreach ($rows->all() as $row) {
+            $name = $row['event_name'];
+            if (!isset($result[$name])) {
+                $result[$name] = [];
+            }
+
+            $result[$name][] = $row['listener_name'];
+        }
+        return new Parameters($result);
+    }
+
     public function getPackageInfo($id)
     {
         // TODO: Implement loadPackageInfo() method.

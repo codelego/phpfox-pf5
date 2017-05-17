@@ -105,13 +105,14 @@ namespace {
             /**
              * STEP 04. NOTIFY EVENTS
              *
-             * + Emit event `systemStart`, listener do somethings ...
-             * + Emit event `systemReady`, listener do somethings ...
+             * + Emit event `onStart`
+             * + Emit event `onReady`
+             * + Emit event `onShutdown`
              */
 
-            _emit('systemStart');
+            _trigger('onStart');
 
-            _emit('systemReady');
+            _trigger('onReady');
         }
 
         /**

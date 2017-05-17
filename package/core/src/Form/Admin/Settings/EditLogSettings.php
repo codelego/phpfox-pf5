@@ -9,8 +9,8 @@ class EditLogSettings extends Form
     /** lock */
     protected function initialize()
     {
-        $this->setTitle(_text('Log Settings', 'admin'));
-        $this->setInfo(_text('[Site Settings Info]', 'admin'));
+        $this->setTitle(_text('Edit Log Settings', '_core.log_settings'));
+        $this->setInfo(_text('[Edit Site Settings Info]', '_core'));
 
         $this->addElement([
             'factory'  => 'multi_checkbox',

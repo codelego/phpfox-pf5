@@ -402,7 +402,7 @@ class CodeGenerator
                     'maxlength'      => $maxLength,
                     'default_value'  => $column->getDefault(),
                     'factory_id'     => $factoryId,
-                    'ordering'     => ++$ordering,
+                    'ordering'       => ++$ordering,
                     'is_active'      => $isActive,
                 ])
                 ->save();
@@ -436,7 +436,7 @@ class CodeGenerator
                         'maxlength'      => 100,
                         'default_value'  => '',
                         'factory_id'     => 'text',
-                        'ordering'     => 1,
+                        'ordering'       => 1,
                         'is_active'      => 1,
                     ])
                     ->save();
@@ -456,6 +456,10 @@ class CodeGenerator
                 ->findById($devAction->getTableName());
         }
 
+        if (!$settingForm) {
+            return;
+        }
+
         /** @var SiteSettingValue[] $settingValues */
         $settingValues = _model('site_setting_value')
             ->select()
@@ -463,7 +467,6 @@ class CodeGenerator
             ->order('ordering', 1)
             ->all();
 
-        $setting = 1;
         foreach ($settingValues as $settingValue) {
             $elementName = $settingValue->getGroupId() . '__' . $settingValue->getName();
             /** @var DevElement $devElement */
@@ -510,11 +513,11 @@ class CodeGenerator
                     'meta_id'      => $devAction->getMetaId(),
                     'factory_id'   => $factoryId,
                     'element_name' => $elementName,
-                    'ordering'   => $settingValue->getOrdering(),
+                    'ordering'     => $settingValue->getOrdering(),
                     'label'        => $label,
                     'note'         => '[' . $label . ' Note]',
                     'info'         => '[' . $label . ' Info]',
-                    'is_require'   => $settingValue->getValueActual() !='""',
+                    'is_require'   => $settingValue->getValueActual() != '""',
                     'is_active'    => 1,
                 ]);
 
@@ -562,7 +565,7 @@ class CodeGenerator
                 ->create([
                     'meta_id'      => $devAction->getMetaId(),
                     'element_name' => $elementName,
-                    'ordering'   => $sortOrder,
+                    'ordering'     => $sortOrder,
                     'label'        => $label,
                     'note'         => '[' . $label . ' Note]',
                     'info'         => '[' . $label . ' Info]',

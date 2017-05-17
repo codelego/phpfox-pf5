@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Event;
+namespace Phpfox\Support;
 
 class Event
 {

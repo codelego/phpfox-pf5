@@ -4,7 +4,7 @@ namespace Neutron\User\Service;
 
 
 use Neutron\User\Model\AuthHistory;
-use Phpfox\Event\Event;
+use Phpfox\Support\Event;
 use Phpfox\Support\UserInterface;
 
 class AuthHistoryManager

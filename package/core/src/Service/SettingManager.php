@@ -67,7 +67,7 @@ class SettingManager
         $entry->setValueActual(json_encode($value));
         $entry->save();
 
-        $this->updateSettingRevision();
+        _trigger('onSettingsChanged');
 
         return true;
     }
@@ -120,7 +120,9 @@ class SettingManager
             }
         }
 
-        $this->updateSettingRevision();
+
+        _trigger('onSettingsChanged');
+
         return true;
     }
 
@@ -149,9 +151,5 @@ class SettingManager
         }
         $entry->setValueActual(json_encode($value));
         $entry->save();
-
-        // clear super cache
-        _get('shared.cache')->flush();
-        _get('super.cache')->flush();
     }
 }

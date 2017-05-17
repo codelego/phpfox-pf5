@@ -43,4 +43,9 @@ interface PackageLoaderInterface
      * @return Parameters
      */
     public function getActionParameters();
+
+    /**
+     * @return Parameters
+     */
+    public function getEventParameters();
 }

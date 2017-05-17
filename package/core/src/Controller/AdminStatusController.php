@@ -27,7 +27,7 @@ class AdminStatusController extends AdminController
 
     public function actionHealthCheck()
     {
-        $response = _emit('onSystemHealthCheck');
+        $response = _trigger('onSystemHealthCheck');
 
         return new ViewModel([
             'items' => $response,
@@ -36,7 +36,7 @@ class AdminStatusController extends AdminController
 
     public function actionStatistics()
     {
-        $response = _emit('onSiteStatistics');
+        $response = _trigger('onSiteStatistics');
 
         return new ViewModel([
             'items' => $response,
