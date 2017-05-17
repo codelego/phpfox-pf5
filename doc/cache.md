@@ -16,7 +16,7 @@ return [
     ],
     'services'       => [
         'cache.super' => '',
-        'cache.default' => [CacheStorageFactory::class, 'filesystem',[]],
+        'shared.cache' => [CacheStorageFactory::class, 'filesystem',[]],
     ],
 ];
 ```
@@ -32,6 +32,6 @@ supper cache is local cache
 
 
 cache.super: cache master settings only (can not store on remote).
-cache.default: default cache store (can store on remote).
+shared.cache: default cache store (can store on remote).
 
 // delete super cache ? => kill all.

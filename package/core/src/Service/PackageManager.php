@@ -66,7 +66,7 @@ class PackageManager
      */
     public function getPackageIdOptions()
     {
-        return _load(null, '_core_package_id_options', 0, function () {
+        return _load('shared.cache', '_core_package_id_options', 0, function () {
             return array_map(function (CorePackage $v) {
                 return [
                     'label' => $v->getTitle(),

@@ -3,6 +3,8 @@
 namespace Phpfox\Package;
 
 
+use Phpfox\Support\Parameters;
+
 interface PackageLoaderInterface
 {
     /**
@@ -11,34 +13,34 @@ interface PackageLoaderInterface
     public function getPaths();
 
     /**
-     * @return array
+     * @return Parameters
      */
-    public function getAutoload();
+    public function getAutoloadParameters();
+
+    /**
+     * @return Parameters
+     */
+    public function getRouteParameters();
 
     /**
      * @return array
      */
-    public function getRoutes();
-
-    /**
-     * @return array
-     */
-    public function getParameters();
+    public function getPackageParameters();
 
     /**
      * @param string $id
      *
      * @return array
      */
-    public function loadPackageInfo($id);
+    public function getPackageInfo($id);
 
     /**
-     * @return array
+     * @return Parameters
      */
-    public function getModels();
+    public function getModelParameters();
 
     /**
-     * @return array
+     * @return Parameters
      */
-    public function getControllers();
+    public function getActionParameters();
 }

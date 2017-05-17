@@ -96,7 +96,7 @@ class ProviderManager
     {
         return array_keys($this->classes);
     }
-
+    
     /**
      * @return array
      */

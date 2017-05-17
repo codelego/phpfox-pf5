@@ -101,7 +101,7 @@ class AdminPermissionSettingsProcess extends AbstractProcess
 
             _get('core.setting')->updateGroupValues($data);
 
-            _get('cache.default')->flush();
+            _get('shared.cache')->flush();
         }
 
         $vm = new ViewModel(['form' => $form], 'layout/form-edit');

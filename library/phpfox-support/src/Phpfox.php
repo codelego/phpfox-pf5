@@ -3,6 +3,7 @@
 namespace {
 
     use Phpfox\Support\ParameterContainer;
+    use Phpfox\Support\Parameters;
     use Phpfox\Support\ServiceContainer;
 
     /**
@@ -35,24 +36,82 @@ namespace {
             }
 
             self::$initialized = true;
+
+            $libraryFiles = [
+                'autoload' => PHPFOX_CACHE_DIR . '_autoload.library.php',
+                'package'  => PHPFOX_CACHE_DIR . '_parameters.library.php',
+            ];
+
+            $rebuild = PHPFOX_ENV == 'development';
+
+            if ($rebuild
+                or !file_exists($libraryFiles['autoload'])
+                or !file_exists($libraryFiles['package'])
+            ) {
+                if (file_exists($libraryFiles['autoload'])) {
+                    @unlink($libraryFiles['autoload']);
+                }
+            }
+
+            if ($rebuild) {
+                Phpfox::buildLibraryFiles($libraryFiles['autoload'], $libraryFiles['package']);
+            }
+
+            /**
+             *  STEP 01: INIT MINIMUM PACKAGES ENVIRONMENT
+             *
+             *  + Setup autoload (minimum)
+             *  + Register autoload (minimum)
+             *  + Create require services (minimum)
+             *  + Setup parameters (minimum)
+             *  + Init package loader
+             */
+            Phpfox::addPsr4($libraryFiles['autoload']);
+
+            // Create require services (minimum)
             self::$service = new ServiceContainer();
-            self::$params = new ParameterContainer();
-        }
 
-        /**
-         * @return \Phpfox\Support\ParameterContainer
-         */
-        public static function configs()
-        {
-            return self::$params;
-        }
+            /** @noinspection PhpIncludeInspection */
+            // Setup parameters (minimum)
+            self::$params = new ParameterContainer(include $libraryFiles['package']);
 
+            $loader = _get('package.loader');
 
-        public static function bootstrap()
-        {
+            /**
+             * STEP 02: INIT ALL PACKAGE ENVIRONMENT
+             * + Register autoload (all)
+             * + Setup parameters (all)
+             */
+
+            // Register autoload (all)
+            Phpfox::addPsr4($loader->getAutoloadParameters());
+
+            // Setup parameters (all)
+            Phpfox::$params->setData($loader->getPackageParameters());
+
+            /**
+             *  STEP 03: INIT SYSTEM REQUIRED SERVICES
+             *
+             * + Resolve conflict version of bootstrap cache & shared cache (via core.setting_version)
+             * + Register error handler
+             */
+
+            // init event dispatcher
+            _get('mvc.events')->initialize();
+
+            // register error handler
             _get('error.handler')->register();
 
-            _get('mvc.events')->initialize();
+            /**
+             * STEP 04. NOTIFY EVENTS
+             *
+             * + Emit event `systemStart`, listener do somethings ...
+             * + Emit event `systemReady`, listener do somethings ...
+             */
+
+            _emit('systemStart');
+
+            _emit('systemReady');
         }
 
         /**
@@ -114,6 +173,10 @@ namespace {
             ksort($autoloadData);
             ksort($parameters);
 
+
+            /** @noinspection PhpIncludeInspection */
+            $parameters['db.adapters']['default'] = include PHPFOX_DATABASE_FILE;
+
             self::fileExports($autoloadData, $autoloadFilename);
             self::fileExports($parameters, $parameterFilename);
         }
@@ -142,8 +205,6 @@ namespace {
 
         /**
          * @param array|string $array
-         *
-         * @return bool
          */
         public static function addPsr4($array)
         {
@@ -154,26 +215,33 @@ namespace {
                 $array = include $array;
             }
 
-            if (!is_array($array)) {
-                return false;
-            }
-
-            foreach ($array as $namespace => $paths) {
-                if (!$namespace) {
-                    continue;
-                }
-                if (is_string($paths)) {
-                    $autoloader->addPsr4($namespace . '\\', PHPFOX_DIR . '/' . $paths);
-                } elseif (is_array($paths)) {
-                    foreach ($paths as $path) {
-                        $autoloader->addPsr4($namespace . '\\', PHPFOX_DIR . '/' . $path);
+            if ($array instanceof Parameters) {
+                foreach ($array->all() as $namespace => $paths) {
+                    if (!$namespace) {
+                        continue;
+                    }
+                    if (is_string($paths)) {
+                        $autoloader->addPsr4($namespace . '\\', PHPFOX_DIR . '/' . $paths);
+                    } elseif (is_array($paths)) {
+                        foreach ($paths as $path) {
+                            $autoloader->addPsr4($namespace . '\\', PHPFOX_DIR . '/' . $path);
+                        }
                     }
                 }
-
+            } elseif (is_array($array)) {
+                foreach ($array as $namespace => $paths) {
+                    if (!$namespace) {
+                        continue;
+                    }
+                    if (is_string($paths)) {
+                        $autoloader->addPsr4($namespace . '\\', PHPFOX_DIR . '/' . $paths);
+                    } elseif (is_array($paths)) {
+                        foreach ($paths as $path) {
+                            $autoloader->addPsr4($namespace . '\\', PHPFOX_DIR . '/' . $path);
+                        }
+                    }
+                }
             }
-            return true;
         }
     }
-
-
 }

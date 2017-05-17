@@ -53,7 +53,7 @@ class AdminLayoutBlockController extends AdminController
 
             $entry->save();
 
-            _get('cache.default')->flush();
+            _get('shared.cache')->flush();
 
             _redirect('admin.core.layout.page', [
                 'action'    => 'design',
@@ -107,7 +107,7 @@ class AdminLayoutBlockController extends AdminController
         $block->setActive(1);
         $block->save();
 
-        _get('cache.default')->flush();
+        _get('shared.cache')->flush();
 
         _redirect('admin.core.layout.page', [
             'action'    => 'design',
@@ -131,7 +131,7 @@ class AdminLayoutBlockController extends AdminController
         $block->setActive(1);
         $block->save();
 
-        _get('cache.default')->flush();
+        _get('shared.cache')->flush();
 
         _redirect('admin.core.layout.page', [
             'action'    => 'design',
@@ -155,7 +155,7 @@ class AdminLayoutBlockController extends AdminController
         $block->setActive(0);
         $block->save();
 
-        _get('cache.default')->flush();
+        _get('shared.cache')->flush();
 
         _redirect('admin.core.layout.action.page', [
             'action'    => 'design',
@@ -178,7 +178,7 @@ class AdminLayoutBlockController extends AdminController
 
         $block->delete();
 
-        _get('cache.default')->flush();
+        _get('shared.cache')->flush();
 
         _redirect('admin.core.layout.action.page', [
             'action'    => 'design',

@@ -2,6 +2,8 @@
 
 namespace Phpfox\Action;
 
+use Phpfox\Support\Parameters;
+
 class Dispatcher
 {
     /**
@@ -29,6 +31,17 @@ class Dispatcher
      * Last exception
      */
     protected $lastException;
+
+    /**
+     * @var Parameters
+     */
+    protected $params;
+
+    public function __construct()
+    {
+        $this->params = _get('package.loader')
+            ->getActionParameters();
+    }
 
     /**
      * Get full action name
@@ -103,8 +116,7 @@ class Dispatcher
             try {
                 $this->completed = true;
 
-                $class = _get('controller.provider')
-                    ->get($this->controller);
+                $class = $this->params->get($this->controller);
 
                 if (null == $class || !class_exists($class)) {
                     exit("Unexpected controller '{$this->controller}'");

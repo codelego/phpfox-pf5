@@ -3,12 +3,27 @@
 namespace Phpfox\Model;
 
 
+use Phpfox\Support\ParameterContainer;
+
 class GatewayManager implements GatewayManagerInterface
 {
     /**
      * @var GatewayInterface[]
      */
     protected $container = [];
+
+    /**
+     * @var ParameterContainer
+     */
+    protected $params;
+
+    /**
+     * GatewayManager constructor.
+     */
+    public function __construct()
+    {
+        $this->params = _get('package.loader')->getModelParameters();
+    }
 
     public function set($id, $gateway)
     {
@@ -35,7 +50,7 @@ class GatewayManager implements GatewayManagerInterface
 
     public function factory($id)
     {
-        $ref = _get('models.provider')->get($id);
+        $ref = $this->params->get($id);
 
         if (!$ref) {
             throw new GatewayException("gateway `$id` does not exists");

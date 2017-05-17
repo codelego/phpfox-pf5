@@ -232,7 +232,7 @@ class ThemeManager
      */
     public function preferThemes()
     {
-        return _load(null, self::PREFER_THEME_CACHE, 0, function () {
+        return _load('shared.cache', self::PREFER_THEME_CACHE, 0, function () {
             return $this->_preferThemes();
         });
     }
@@ -242,7 +242,7 @@ class ThemeManager
      */
     private function updateCache()
     {
-        _get('cache.default')
+        _get('shared.cache')
             ->deleteItems([
                 self::PREFER_THEME_CACHE,
                 self::PREFER_THEME_URL_CACHE,
@@ -356,7 +356,7 @@ class ThemeManager
      */
     public function getCssBaseUrl()
     {
-        return _get('cache.default')
+        return _get('shared.cache')
             ->load(self::PREFER_THEME_URL_CACHE, 0, function () {
                 $theme = $this->getDefault();
                 return '/pf5/static/' . 'themes/' . $theme->getId() . '/css';

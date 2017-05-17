@@ -23,6 +23,7 @@ class EventManager
      */
     public function emit($name, $target = null, $params = [])
     {
+
         if (empty($this->events[$name])) {
             return new Response();
         }

@@ -160,7 +160,7 @@ class AdminStorageController extends AdminController
 
         _get('core.setting')->updateValue('core.default_storage_id', $identity);
 
-        _get('cache.default')->flush();
+        _get('shared.cache')->flush();
 
         _redirect('admin.core.storage.adapter');
     }

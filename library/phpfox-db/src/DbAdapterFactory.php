@@ -5,22 +5,25 @@ namespace Phpfox\Db;
 class DbAdapterFactory
 {
     /**
-     * @param string $class reversed param
-     * @param string $key   configure name under db options.
+     * @param string $driver reversed param
+     * @param string $params configure name under db options.
      *
      * @return DbAdapterInterface
      */
-    public function factory($class = null, $key = null)
+    public function factory($driver = null, $params = null)
     {
-        if (!$key) {
-            $key = 'default';
+        if (!$params) {
+            /** @noinspection PhpIncludeInspection */
+            $params = include PHPFOX_DATABASE_FILE;
+        } elseif (is_string($params)) {
+            $params = _param('db.adapters', $params);
         }
 
-        $params = _param('db.adapters', $key);
-
-        if (!$class) {
-            $class = _param('db.drivers', $params['driver']);
+        if (!$driver) {
+            $driver = $params['driver'];
         }
+
+        $class = _param('db.drivers', $driver);
 
         return new $class($params);
     }

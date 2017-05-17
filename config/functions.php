@@ -159,7 +159,7 @@ namespace {
     function _load($cache, $key, $ttl, $fallback)
     {
         /** @var CacheStorageInterface $storage */
-        $storage = \Phpfox::$service->get($cache ? $cache : 'cache.default');
+        $storage = \Phpfox::$service->get($cache ? $cache : 'shared.cache');
 
         if (is_array($key)) {
             $key = implode('_', $key);
@@ -354,7 +354,7 @@ namespace {
     function _merge_configs($directory, $finder)
     {
         $result = [];
-        $directory =  PHPFOX_DIR . 'library';
+        $directory = PHPFOX_DIR . 'library';
 
         $directoryIterator
             = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory,

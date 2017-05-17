@@ -6,14 +6,18 @@ namespace Phpfox\Model;
 interface GatewayProviderInterface
 {
     /**
+     * Get parameter of model by id
+     *
      * @param string $id
      *
      * @return array|null
      */
-    public function get($id);
+    public function getModelParameter($id);
 
     /**
+     * Get all model parameters
+     *
      * @return array
      */
-    public function all();
+    public function getModelParameters();
 }

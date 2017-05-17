@@ -2,23 +2,141 @@
 
 namespace Phpfox\Package;
 
+use Phpfox\Support\Parameters;
 
-class PackageLoader
+class PackageLoader implements PackageLoaderInterface
 {
-
     /**
      * @var array
      */
-    protected $paths;
+    protected $paths = [];
+
+    /**
+     * Super cache time to life
+     *
+     * @const TTL int
+     */
+    const TTL = 60;
+
+    /**
+     * @const CHECK_KEY string
+     */
+    const CHECK_KEY = 'setting_version';
+
+    /**
+     *
+     */
+    public function flush()
+    {
+
+    }
+
+    public function resolve()
+    {
+        // compare version or not ?
+        $versionId = _load('super.cache', self::CHECK_KEY, 0, function () {
+            return 0;
+        });
+
+        // latest version
+        $latestVersion = _load('shared.cache', 'setting_version', 0, function () {
+            return $this->getLatestVersionId();
+        });
+
+        if ($versionId < $this->getLatestVersionId()) {
+            _get('super.cache')->flush();
+        }
+
+        _get('super.cache')->setItem(self::CHECK_KEY, $latestVersion, self::TTL);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLatestVersionId()
+    {
+        $value = _get('db')
+            ->select('*')
+            ->from(':site_setting_value')
+            ->where('group_id=?', 'core')
+            ->where('name=?', 'setting_version')
+            ->first();
+
+        return $value['value_actual'];
+    }
+
+    /**
+     * @return string
+     */
+    public function getVersionId()
+    {
+        return _load('cache.super', 'loader.version_id', self::TTL, function () {
+            return 0;
+        });
+    }
 
     public function getPaths()
+    {
+        if (!$this->paths) {
+            $this->paths = _load('super.cache', 'loader.paths', self::TTL, function () {
+                return $this->_getPaths();
+            });
+        }
+        return $this->paths;
+    }
+
+    public function getModelParameters()
+    {
+        return _load('super.cache', 'loader.models', self::TTL, function () {
+            return $this->_getModelParameters();
+        });
+    }
+
+    public function getAutoloadParameters()
+    {
+        return _load('super.cache', 'loader.autoload', self::TTL, function () {
+            return $this->_getAutoloadParameters();
+        });
+    }
+
+    public function getRouteParameters()
+    {
+        return _load('super.cache', 'loader.routes', self::TTL, function () {
+            return $this->_getRouteParameters();
+        });
+    }
+
+    public function getPackageParameters()
+    {
+        return _load('super.cache', 'loader.parameters', self::TTL, function () {
+            return $this->_getPackageParameters();
+        });
+    }
+
+    public function getPackageInfo($id)
+    {
+        // TODO: Implement loadPackageInfo() method.
+    }
+
+
+    /**
+     * @return Parameters
+     */
+    public function getActionParameters()
+    {
+        return _load('super.cache', 'getActionParameters', self::TTL, function () {
+            return $this->_getActionParameters();
+        });
+    }
+
+    public function _getPaths()
     {
         if (!empty($this->paths)) {
             return $this->paths;
         }
 
-        return array_map(function ($v) {
-            return $v['path'];
+        return array_map(function ($row) {
+            return $row['path'];
         }, _get('db')
             ->select('path')
             ->from(':core_package')
@@ -27,32 +145,58 @@ class PackageLoader
             ->all());
     }
 
-    public function getAutoload()
+    public function _getAutoloadParameters()
     {
-        $based = [];
+        $result = [];
+
         /**
          * fetch package variables from package.php
          */
         foreach ($this->getPaths() as $path) {
-            _array_merge_recursive_from_file($based,
-                $path . '/config/autoload.php');
+            if (!file_exists($file = PHPFOX_DIR . $path . '/config/autoload.php')) {
+                continue;
+            }
+            /** @noinspection PhpIncludeInspection */
+            $array = include $file;
+            if (!is_array($array)) {
+                continue;
+            }
+            foreach ($array as $k => $v) {
+                if (!isset($result[$k])) {
+                    $result[$k] = $v;
+                } elseif (is_array($v)) {
+                    $result[$k] = array_merge($result[$k], $v);
+                } else {
+                    $result[$k] = $v;
+                }
+            }
         }
 
-        return $based;
+        return new Parameters($result);
     }
 
-    public function getRoutes()
+    public function _getRouteParameters()
     {
         $result = ['chains' => [], 'routes' => [], 'phrases' => []];
-        foreach ($this->getPaths() as $path) {
-            $data = include PHPFOX_DIR . $path . '/config/router.php';
-            if (isset($data['chains'])) {
+        foreach ($this->_getPaths() as $path) {
+            if (!file_exists($filename = PHPFOX_DIR . $path . '/config/router.php')) {
+                continue;
+            }
+
+            /** @noinspection PhpIncludeInspection */
+            $data = include $filename;
+
+            if (!is_array($data)) {
+                continue;
+            }
+
+            if (isset($data['chains']) and is_array($data['chains'])) {
                 foreach ($data['chains'] as $value) {
                     $result['chains'][] = $value;
                 }
             }
 
-            if (isset($data['routes'])) {
+            if (isset($data['routes']) and is_array($data['routes'])) {
                 foreach ($data['routes'] as $name => $value) {
                     $children = null;
                     if (isset($value['children'])) {
@@ -69,41 +213,90 @@ class PackageLoader
                 }
             }
 
-            if (isset($data['phrases'])) {
+            if (isset($data['phrases']) and is_array($data['phrases'])) {
                 foreach ($data['phrases'] as $name => $value) {
                     $result['phrases'][$name] = $value;
                 }
             }
         }
-
-        return $result;
+        return new Parameters($result);
     }
 
-    public function loadModelConfigs()
+    /**
+     * @return Parameters
+     */
+    public function _getActionParameters()
     {
-        $based = [];
-        /**
-         * fetch package variables from package.php
-         */
+        $result = [];
         foreach ($this->getPaths() as $path) {
-            $data = include PHPFOX_DIR . $path . '/config/model.php';
+            if (!file_exists($filename = PHPFOX_DIR . $path . '/config/controller.php')) {
+                continue;
+            }
+            if (!is_array($data = include $filename)) {
+                continue;
+            }
 
-            foreach ($data as $name => $value) {
-                $based[$name] = $value;
+            foreach ($data as $k => $v) {
+                $result[$k] = $v;
             }
         }
-        return $based;
+        return new Parameters($result);
     }
 
-    public function getParameters()
+    /**
+     * @return Parameters
+     */
+    public function _getModelParameters()
     {
-        $based = [];
+        $result = [];
         /**
          * fetch package variables from package.php
          */
+        foreach ($this->_getPaths() as $path) {
+            if (!file_exists($filename = PHPFOX_DIR . $path . '/config/model.php')) {
+                continue;
+            }
+
+            /** @noinspection PhpIncludeInspection */
+            $data = include $filename;
+
+            if (!is_array($data)) {
+                continue;
+            }
+
+            foreach ($data as $name => $value) {
+                $result[$name] = $value;
+            }
+        }
+        return new Parameters($result);
+    }
+
+    public function _getPackageParameters()
+    {
+        $result = [];
+
+        /** @noinspection PhpIncludeInspection */
+        $result['db.adapters']['default'] = include PHPFOX_DATABASE_FILE;
+
         foreach ($this->getPaths() as $path) {
-            _array_merge_recursive_from_file($based,
-                $path . '/config/package.php');
+            if (!file_exists($file = PHPFOX_DIR . $path . '/config/package.php')) {
+                continue;
+            }
+            /** @noinspection PhpIncludeInspection */
+            $array = include $file;
+
+            if (!is_array($array)) {
+                continue;
+            }
+            foreach ($array as $k => $v) {
+                if (!isset($result[$k])) {
+                    $result[$k] = $v;
+                } elseif (is_array($v)) {
+                    $result[$k] = array_merge($result[$k], $v);
+                } else {
+                    $result[$k] = $v;
+                }
+            }
         }
 
         /**
@@ -112,6 +305,8 @@ class PackageLoader
         $rows = _get('db')
             ->select('*')
             ->from(':site_setting_value')
+            ->where('is_active=1')
+            ->order('ordering', 1)
             ->all();
 
 
@@ -119,20 +314,12 @@ class PackageLoader
             $name = $row['name'];
             $group = $row['group_id'];
             $key = $group . '.' . $name;
-
-            if (!isset($based[$group])) {
-                $based[$group] = [];
+            if (!isset($result[$group])) {
+                $result[$group] = [];
             }
-            $based[$group][$name] = $based[$key] = json_decode($row['value_actual'], true);
+            $result[$group][$name] = $result[$key] = json_decode($row['value_actual'], true);
         }
 
-        return $based;
+        return $result;
     }
-
-
-    public function loadPackageInfo($id)
-    {
-
-    }
-
 }

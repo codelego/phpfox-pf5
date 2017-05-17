@@ -170,7 +170,7 @@ class AdminCacheController extends AdminController
 
         _get('core.setting')->updateValue('core.default_cache_id', $identity);
 
-        _get('cache.default')->flush();
+        _get('shared.cache')->flush();
 
         _redirect('admin.core.cache');
     }

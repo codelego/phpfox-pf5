@@ -10,9 +10,18 @@ class ParameterContainer
     protected $data = [];
 
     /**
-     * @param array $data
+     * Parameters constructor.
      *
-     * @return $this
+     * @param array $data
+     */
+    public function __construct(array $data = [])
+    {
+        $this->data = $data;
+    }
+
+
+    /**
+     * @param array $data
      */
     public function merge($data)
     {
@@ -27,7 +36,6 @@ class ParameterContainer
                 }
             }
         }
-        return $this;
     }
 
     /**
@@ -47,37 +55,33 @@ class ParameterContainer
     }
 
     /**
-     * @param string $group
-     * @param string $name
+     * @param string $key
+     * @param string $item
      *
      * @return mixed|null
      */
-    public function get($group, $name = null)
+    public function get($key, $item = null)
     {
-        if (!isset($this->data[$group])) {
+        if (!isset($this->data[$key])) {
             return null;
         }
 
-        if ($name) {
-            if (!isset($this->data[$group][$name])) {
+        if ($item) {
+            if (!isset($this->data[$key][$item])) {
                 return null;
             }
-            return $this->data[$group][$name];
+            return $this->data[$key][$item];
         }
 
-        return $this->data[$group];
+        return $this->data[$key];
     }
 
     /**
      * @param string $key
      * @param mixed  $data
-     *
-     * @return $this
      */
     public function set($key, $data)
     {
         $this->data[$key] = $data;
     }
-
-
 }

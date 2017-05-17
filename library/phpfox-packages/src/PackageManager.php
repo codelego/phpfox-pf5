@@ -69,7 +69,7 @@ class PackageManager
             throw new \InvalidArgumentException("Oops! ZipArchive extension is required.");
         }
 
-        $info = _get('package.loader')->loadPackageInfo($id);
+        $info = _get('package.loader')->getPackageInfo($id);
 
         $dir = PHPFOX_DIR . $info['path'];
 

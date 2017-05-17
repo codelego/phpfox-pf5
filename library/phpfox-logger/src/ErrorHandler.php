@@ -42,6 +42,12 @@ class ErrorHandler
         ini_set('display_errors', 1);
         error_reporting(E_ALL);
 
+        register_shutdown_function(function () {
+            if (null != ($error = error_get_last())) {
+                _get('main.log')->debug(json_encode($error, JSON_PRETTY_PRINT));
+            }
+        });
+
         set_error_handler([$this, 'handleError']);
         set_exception_handler([$this, 'handleException']);
     }

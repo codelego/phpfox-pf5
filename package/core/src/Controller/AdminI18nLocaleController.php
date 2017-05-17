@@ -88,7 +88,7 @@ class AdminI18nLocaleController extends AdminController
 
         _get('core.setting')->updateValue('core.default_locale_id', $identity);
 
-        _get('cache.default')->flush();
+        _get('shared.cache')->flush();
 
         _redirect('admin.core.i18n.locale');
     }

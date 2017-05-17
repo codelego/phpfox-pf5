@@ -5,7 +5,7 @@
   * Register autoload (library) 
   * Create require containers (1) 
   * Setup parameters (library) -> read/write to params.library.local.php
-  * Init bootstrap cache
+  * Init super cache
 
 2. Init packages (heavy task)
   * Setup autoload (package)

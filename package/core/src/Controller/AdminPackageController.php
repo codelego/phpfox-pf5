@@ -59,7 +59,7 @@ class AdminPackageController extends AdminController
         $corePackage->setActive(1);
         $corePackage->save();
 
-        _get('cache.default')->flush();
+        _get('shared.cache')->flush();
 
         _redirect('admin.core.package');
     }

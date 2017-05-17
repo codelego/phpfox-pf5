@@ -205,7 +205,7 @@ class AdminMailController extends AdminController
 
         _get('core.setting')->updateValue('core.default_mailer_id', $identity);
 
-        _get('cache.default')->flush();
+        _get('shared.cache')->flush();
 
         _redirect('admin.core.mail.adapter');
     }

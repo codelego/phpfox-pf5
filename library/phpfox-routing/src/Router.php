@@ -29,12 +29,11 @@ class Router
      */
     protected function initialize()
     {
-        $configs = _get('package.loader')->getRoutes();
+        $parameters = _get('package.loader')->getRouteParameters();
 
-        $this->phrases = $configs['phrases'];
+        $this->phrases = $parameters->get('phrases');
 
-        foreach ($configs['chains'] as $v) {
-
+        foreach ($parameters->get('chains') as $v) {
             if (!isset($v['chain'])) {
                 throw new InvalidArgumentException(var_export($v, 1));
             }
@@ -46,11 +45,13 @@ class Router
             $this->routes[$key]->chain($this->build($v));
         }
 
-        foreach ($configs['routes'] as $key => $v) {
+        foreach ($parameters->get('routes') as $key => $v) {
             if (strpos($key, '.')) {
                 list($group) = explode('.', $key, 2);
                 if (isset($this->routes[$group])) {
                     $this->routes[$group]->add(new Routing($key, $this->build($v)));
+                } else {
+                    exit("route group $group does not exist");
                 }
             } else {
                 $this->routes[$key] = new Routing($key, $this->build($v));
