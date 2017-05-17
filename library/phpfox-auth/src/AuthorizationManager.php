@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Authorization;
+namespace Phpfox\Auth;
 
 
 use Phpfox\Support\Event;

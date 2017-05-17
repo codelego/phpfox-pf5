@@ -3,8 +3,8 @@
 namespace Neutron\Core\Service;
 
 
-use Phpfox\Authorization\PermissionData;
-use Phpfox\Authorization\PermissionProviderInterface;
+use Phpfox\Auth\PermissionData;
+use Phpfox\Auth\PermissionProviderInterface;
 
 class PermissionProvider implements PermissionProviderInterface
 {

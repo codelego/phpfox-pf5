@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Authentication;
+namespace Phpfox\Auth;
 
 use Neutron\User\Model\User;
 use Phpfox\Support\UserInterface;

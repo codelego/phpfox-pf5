@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Authentication;
+namespace Phpfox\Auth;
 
 
 class AuthResultTest extends \PHPUnit_Framework_TestCase

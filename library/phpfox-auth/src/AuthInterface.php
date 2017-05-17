@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Authentication;
+namespace Phpfox\Auth;
 
 interface AuthInterface
 {
