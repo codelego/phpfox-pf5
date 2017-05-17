@@ -11,4 +11,9 @@ class RegisterController extends ActionController
     {
         return new ViewModel([], 'user/register/index');
     }
+
+    protected function passPrivateMode()
+    {
+        return true;
+    }
 }

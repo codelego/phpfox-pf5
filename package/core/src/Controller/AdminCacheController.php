@@ -31,7 +31,7 @@ class AdminCacheController extends AdminController
             ->load('_core.cache');
     }
 
-    protected function postDispatch($action)
+    protected function afterDispatch($action)
     {
         _get('menu.admin.buttons')
             ->load('_core.cache.buttons');

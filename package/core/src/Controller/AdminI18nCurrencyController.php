@@ -26,7 +26,7 @@ class AdminI18nCurrencyController extends AdminController
         _get('menu.admin.secondary')->load('_core.i18n');
     }
 
-    protected function postDispatch($action)
+    protected function afterDispatch($action)
     {
         if (in_array($action, ['index'])) {
             _get('menu.admin.buttons')->load('_core.i18n.currency.buttons');

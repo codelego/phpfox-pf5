@@ -23,7 +23,7 @@ class AdminPostController extends AdminController
 
     }
 
-    protected function postDispatch($action)
+    protected function afterDispatch($action)
     {
         if (in_array($action, ['index'])) {
             _get('menu.admin.buttons')->load('_blog.post.buttons');

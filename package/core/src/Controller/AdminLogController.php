@@ -28,7 +28,7 @@ class AdminLogController extends AdminController
             ->load('_core.log');
     }
 
-    protected function postDispatch($action)
+    protected function afterDispatch($action)
     {
         _get('menu.admin.buttons')
             ->load('_core.log.buttons');

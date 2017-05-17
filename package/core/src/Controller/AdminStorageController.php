@@ -25,7 +25,7 @@ class AdminStorageController extends AdminController
             ->load('_core.storage');
     }
 
-    protected function postDispatch($action)
+    protected function afterDispatch($action)
     {
         if (in_array($action, ['index'])) {
             _get('menu.admin.buttons')

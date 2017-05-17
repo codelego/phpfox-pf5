@@ -28,7 +28,7 @@ class AdminI18nLocaleController extends AdminController
             ->load('_core.i18n');
     }
 
-    protected function postDispatch($action)
+    protected function afterDispatch($action)
     {
         if (in_array($action, ['index'])) {
             _get('menu.admin.buttons')

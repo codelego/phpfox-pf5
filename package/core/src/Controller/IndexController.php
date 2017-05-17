@@ -11,4 +11,9 @@ class IndexController extends ActionController
     {
         return new ViewModel([], 'core/index/index');
     }
+
+    public function actionOffline()
+    {
+
+    }
 }

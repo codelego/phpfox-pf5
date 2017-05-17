@@ -28,4 +28,9 @@ class ResetPasswordController extends ActionController
     {
 
     }
+
+    protected function passPrivateMode()
+    {
+        return true;
+    }
 }

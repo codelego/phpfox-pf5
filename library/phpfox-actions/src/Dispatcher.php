@@ -14,7 +14,7 @@ class Dispatcher
     /**
      * @var bool
      */
-    protected $completed = false;
+    protected $done = false;
 
     /**
      * @var string
@@ -114,7 +114,7 @@ class Dispatcher
 
         do {
             try {
-                $this->completed = true;
+                $this->done = true;
 
                 $class = $this->params->get($this->controller);
 
@@ -125,29 +125,31 @@ class Dispatcher
                 /** @var ActionController $controller */
                 $controller = new $class();
 
-                if (!$this->completed) {
+                if (!$this->done) {
                     continue;
                 }
 
-                $lastResult = $controller->run($this->action);
+                $lastResult = $controller->dispatch($this->action);
 
                 // continue if forward
-                if (!$this->completed) {
+                if (!$this->done) {
                     continue;
                 }
 
-                _get('response')
-                    ->setData($lastResult)
-                    ->terminate();
+                _get('response')->setData($lastResult)->terminate();
 
             } catch (\Exception $exception) {
                 $this->lastException = $exception;
                 $this->forward('core.error', 'index');
             }
-        } while (!$this->completed and ++$runCounter < self::FORWARD_LIMIT);
+        } while (!$this->done and ++$runCounter < self::FORWARD_LIMIT);
 
-        if (!$this->completed) {
+        if (!$this->done and $this->lastException) {
             throw $this->lastException;
+        }
+
+        if (!$this->done) {
+            trigger_error('page not found ', E_USER_ERROR);
         }
 
         return true;
@@ -161,7 +163,7 @@ class Dispatcher
      */
     public function forward($controller, $action)
     {
-        $this->completed = false;
+        $this->done = false;
 
         if (null != $controller) {
             $this->controller = $controller;

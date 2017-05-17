@@ -23,7 +23,7 @@ class ResponseFactory
                 $response->setPrototype('response.ajax');
             }
         }
-
+        
         return $response;
     }
 

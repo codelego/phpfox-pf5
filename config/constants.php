@@ -138,3 +138,18 @@ defined('PHPFOX_TITLE_LENGTH') OR define('PHPFOX_TITLE_LENGTH', 50);
  * @const PHPFOX_DESC_ROWS 5
  */
 defined('PHPFOX_DESC_ROWS') OR define('PHPFOX_DESC_ROWS', 5);
+
+
+if (!defined('PHPFOX_IS_HTTPS')) {
+    switch (true) {
+        case isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on':
+        case isset($_SERVER['SERVER_PORT']) and $_SERVER['SERVER_PORT'] == 443:
+        case isset($_SERVER['HTTP_X_FORWARDED_PROTO']) and $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https':
+        case isset($_SERVER['HTTP_CF_VISITOR']) and strpos($_SERVER['HTTP_CF_VISITOR'], 'https'):
+            define('PHPFOX_IS_HTTPS', true);
+            break;
+        default:
+            define('PHPFOX_IS_HTTPS', false);
+    }
+
+}

@@ -11,7 +11,7 @@ class AdminMailTemplateController extends AdminController
             ->load('_core.mail');
     }
 
-    protected function postDispatch($action)
+    protected function afterDispatch($action)
     {
         switch ($action) {
             case 'index':

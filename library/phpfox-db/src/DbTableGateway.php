@@ -148,6 +148,9 @@ class DbTableGateway implements GatewayInterface
             ->execute();
     }
 
+    /**
+     * @return SqlUpdate
+     */
     public function update()
     {
         return (new SqlUpdate($this->adapter()))

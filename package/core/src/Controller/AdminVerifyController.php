@@ -31,7 +31,7 @@ class AdminVerifyController extends AdminController
             ->load('_core.verify');
     }
 
-    protected function postDispatch($action)
+    protected function afterDispatch($action)
     {
         _get('menu.admin.buttons')
             ->load('_core.verify.buttons');

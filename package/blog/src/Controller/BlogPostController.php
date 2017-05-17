@@ -9,6 +9,7 @@ class BlogPostController extends ActionController
 {
     public function actionView()
     {
+
         $request = _get('request');
         $id = $request->get('id');
 

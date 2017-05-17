@@ -4,6 +4,7 @@ namespace Neutron\Core\Controller;
 
 return [
     'core.index'                  => IndexController::class,
+    'core.offline'                => OfflineController::class,
     'core.admin-index'            => AdminIndexController::class,
     'core.admin-i18n-message'     => AdminI18nMessageController::class,
     'core.admin-i18n-locale'      => AdminI18nLocaleController::class,

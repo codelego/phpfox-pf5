@@ -31,7 +31,7 @@ class AdminCaptchaController extends AdminController
             ->load('_core.captcha');
     }
 
-    protected function postDispatch($action)
+    protected function afterDispatch($action)
     {
         _get('menu.admin.buttons')
             ->load('_core.captcha.buttons');

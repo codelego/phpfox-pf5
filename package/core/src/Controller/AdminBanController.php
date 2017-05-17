@@ -27,7 +27,7 @@ class AdminBanController extends AdminController
             ->load('_core.ban');
     }
 
-    protected function postDispatch($action)
+    protected function afterDispatch($action)
     {
         if (in_array($action, ['index'])) {
             _get('menu.admin.buttons')->load('_core.ban.buttons');

@@ -47,4 +47,14 @@ class AdminAuthController extends ActionController
             }
         }
     }
+
+    protected function passOfflineMode()
+    {
+        return true;
+    }
+
+    protected function passPrivateMode()
+    {
+        return true;
+    }
 }

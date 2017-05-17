@@ -74,11 +74,11 @@ class AdapterManager
 
         return array_map(function (CoreDriver $coreDriver) {
             $deps = $coreDriver->getDependency();
-            $enable = true;
+            $available = true;
             $error = '';
+
             if ($deps) {
-                list($enable, $error) = _get('package')
-                    ->checkDependencies($deps);
+                list($available, $error) = $this->checkDependencies($deps);
             }
 
             if ($error) {
@@ -87,10 +87,58 @@ class AdapterManager
             return [
                 'value'    => $coreDriver->getDriverId(),
                 'label'    => $coreDriver->getTitle(),
-                'note'     => $enable ? $coreDriver->getDescription() : $error,
-                'disabled' => !$enable,
+                'note'     => $available ? $coreDriver->getDescription() : $error,
+                'disabled' => !$available,
             ];
         }, $select->all());
+    }
+
+    /**
+     * @param array|string $deps
+     *
+     * @return array [available: true|false, error:string]
+     */
+    public function checkDependencies($deps)
+    {
+        $available = true;
+        $error = '';
+
+        if (is_string($deps)) {
+            $deps = (array)json_decode($deps, true);
+        }
+
+        foreach ($deps as $dep) {
+            switch ($dep['type']) {
+                case 'function':
+                    $available = function_exists($dep['value']);
+                    break;
+                case 'class':
+                    $available = class_exists($dep['value']);
+                    break;
+                case 'extension':
+                    $available = extension_loaded($dep['value']);
+                    break;
+                case 'service':
+                    $available = _has($dep['value']);
+                    break;
+                case 'callback':
+                    list($service, $method) = explode('::', $dep['value']);
+                    if (!_has($service)
+                        or !method_exists(_get($service), $method)
+                        or !call_user_func([_get($service), $method])
+                    ) {
+                        $available = false;
+                    }
+                    break;
+                default:
+            }
+            if (!$available) {
+                $error = $dep['error'];
+                break;
+            }
+        }
+
+        return [$available, $error];
     }
 
     /**

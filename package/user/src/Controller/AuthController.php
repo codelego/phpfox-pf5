@@ -61,4 +61,9 @@ class AuthController extends ActionController
 
         return new ViewModel([], 'user/auth/logout');
     }
+
+    protected function passPrivateMode()
+    {
+        return true;
+    }
 }

@@ -36,4 +36,9 @@ class VerifyEmailController extends ActionController
         }
 
     }
+
+    protected function passPrivateMode()
+    {
+        return true;
+    }
 }

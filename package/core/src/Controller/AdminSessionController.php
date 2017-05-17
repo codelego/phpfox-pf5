@@ -31,7 +31,7 @@ class AdminSessionController extends AdminController
             ->load('_core.session');
     }
 
-    protected function postDispatch($action)
+    protected function afterDispatch($action)
     {
         _get('menu.admin.buttons')
             ->load('_core.session.buttons');
@@ -77,7 +77,7 @@ class AdminSessionController extends AdminController
     public function actionConfig()
     {
         $request = _get('request');
-        $driverId = $request->get('driver_id', 'files');
+        $driverId = $request->get('driver_id');
 
         $form = _get('core.adapter')
             ->getEditingForm($driverId, 'session');
@@ -87,6 +87,7 @@ class AdminSessionController extends AdminController
         }
 
         if ($request->isPost() and $form->isValid($request->all())) {
+            $data = $form->getData();
 
             /** @var CoreAdapter $adapterEntry */
             $adapterEntry = _model('core_adapter')
@@ -94,17 +95,17 @@ class AdminSessionController extends AdminController
                     'driver_id'   => $driverId,
                     'driver_type' => self::DRIVER_TYPE,
                     'is_active'   => 0,
+                    'is_required' => 0,
+                    'title'       => $data['title'],
+                    'params'      => json_encode($data),
+                    'description' => '',
                 ]);
-
             // how to get name
-            $data = $form->getData();
-            $adapterEntry->setDriverType('session');
-            $adapterEntry->fromArray($data);
-            $adapterEntry->setParams(json_encode($data));
             $adapterEntry->save();
 
             _redirect('admin.core.session');
         }
+
 
         return new ViewModel([
             'form' => $form,
@@ -169,8 +170,6 @@ class AdminSessionController extends AdminController
         }
 
         _get('core.setting')->updateValue('core.default_session_id', $identity);
-
-        _get('session.local')->flush();
 
         _redirect('admin.core.session');
     }

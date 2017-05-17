@@ -24,9 +24,9 @@ class ActionControllerTest extends \PHPUnit_Framework_TestCase
         $controller = new ExampleActionController();
 
 
-        $this->assertEquals('result-of-abc', $controller->run('abc'));
+        $this->assertEquals('result-of-abc', $controller->dispatch('abc'));
         $this->assertEquals('result-of-action-with-long-name',
-            $controller->run('with-long-name'));
+            $controller->dispatch('with-long-name'));
 
         $controller->{'sampleMethod'}();
 
@@ -36,7 +36,7 @@ class ActionControllerTest extends \PHPUnit_Framework_TestCase
     {
         $controller = new ExampleActionController();
 
-        $result = $controller->run('no-action-name');
+        $result = $controller->dispatch('no-action-name');
 
         $this->assertFalse($result);
     }

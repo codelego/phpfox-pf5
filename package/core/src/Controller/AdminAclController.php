@@ -27,7 +27,7 @@ class AdminAclController extends AdminController
             ->load('_core.acl');
     }
 
-    protected function postDispatch($action)
+    protected function afterDispatch($action)
     {
         if (in_array($action, ['index'])) {
             _get('menu.admin.buttons')->load('_core.acl.buttons');

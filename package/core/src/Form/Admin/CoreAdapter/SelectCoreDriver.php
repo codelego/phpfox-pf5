@@ -36,9 +36,13 @@ class SelectCoreDriver extends Form
 
         /** @var array $options */
         $options = _get('core.adapter')->getDriverIdOptions($this->getDriverType());
+        $defaultValue = null;
 
-        if (!empty($options)) {
-            $defaultValue = $options[0]['value'];
+        foreach ($options as $option) {
+            if (empty($option['disabled'])) {
+                $defaultValue = $option['value'];
+                break;
+            }
         }
 
         /** element `driver_id` **/
@@ -51,21 +55,35 @@ class SelectCoreDriver extends Form
             'required' => true,
             'value'    => $defaultValue,
         ]);
+
         /** end elements **/
 
-        $this->addButton([
-            'factory'    => 'button',
-            'name'       => 'save',
-            'label'      => _text('Continue'),
-            'attributes' => ['class' => 'btn btn-primary', 'type' => 'submit',],
-        ]);
+        if (!is_null($defaultValue)) {
+            $this->addButton([
+                'factory'    => 'button',
+                'name'       => 'save',
+                'label'      => _text('Continue'),
+                'attributes' => ['class' => 'btn btn-primary', 'type' => 'submit',],
+            ]);
+            $this->addButton([
+                'factory'    => 'button',
+                'name'       => 'cancel',
+                'href'       => '#',
+                'label'      => _text('Cancel'),
+                'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
+            ]);
 
-        $this->addButton([
-            'factory'    => 'button',
-            'name'       => 'cancel',
-            'href'       => '#',
-            'label'      => _text('Cancel'),
-            'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
-        ]);
+        } else {
+            $this->getElement('driver_id')->setParam('info',_text('[Oop! There are no available drivers]', '_core'));
+            $this->addButton([
+                'factory'    => 'button',
+                'name'       => 'cancel',
+                'href'       => '#',
+                'label'      => _text('Back'),
+                'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'go.back',],
+            ]);
+        }
+
+
     }
 }

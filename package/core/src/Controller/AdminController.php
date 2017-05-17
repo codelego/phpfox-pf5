@@ -21,4 +21,15 @@ class AdminController extends ActionController
             $this->forward('core.admin-auth', 'login');
         }
     }
+
+    protected function passOfflineMode()
+    {
+        return true;
+    }
+
+    protected function passPrivateMode()
+    {
+        return true;
+    }
+
 }

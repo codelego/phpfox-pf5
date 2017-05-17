@@ -136,7 +136,7 @@ return [
             ],
         ],
         'admin.core.settings' => [
-            'route'      => 'core/settings/*',
+            'route'      => 'settings/*',
             'controller' => 'core.admin-settings',
             'action'     => 'index',
             'children'   => [
@@ -164,6 +164,11 @@ return [
         'home'                => [
             'route'      => '/',
             'controller' => 'core.index',
+            'action'     => 'index',
+        ],
+        'offline'             => [
+            'route'      => 'offline',
+            'controller' => 'core.offline',
             'action'     => 'index',
         ],
         'api.menu'            => [

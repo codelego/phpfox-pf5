@@ -67,6 +67,8 @@ class SettingManager
         $entry->setValueActual(json_encode($value));
         $entry->save();
 
+        $this->updateSettingRevision();
+
         return true;
     }
 
@@ -117,6 +119,39 @@ class SettingManager
                 $entry->save();
             }
         }
+
+        $this->updateSettingRevision();
         return true;
+    }
+
+    public function updateSettingRevision()
+    {
+        /** @var SiteSettingValue $entries */
+        $entry = _model('site_setting_value')
+            ->select()
+            ->where('group_id=?', 'core')
+            ->where('name=?', 'setting_version')
+            ->first();
+
+        $value = time();
+
+        if (!$entry) {
+            $entry = _model('site_setting_value')
+                ->create([
+                    'package_id'   => 'core',
+                    'form_id'      => 'core_general',
+                    'name'         => 'setting_version',
+                    'group'        => 'core',
+                    'is_active'    => 1,
+                    'ordering'     => 101,
+                    'value_actual' => '"0"',
+                ]);
+        }
+        $entry->setValueActual(json_encode($value));
+        $entry->save();
+
+        // clear super cache
+        _get('shared.cache')->flush();
+        _get('super.cache')->flush();
     }
 }
