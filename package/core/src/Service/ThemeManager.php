@@ -4,8 +4,8 @@ namespace Neutron\Core\Service;
 
 use Neutron\Core\Model\LayoutTheme;
 use Neutron\Core\Model\LayoutThemeParams;
-use Phpfox\Assets\StylesheetCompiler;
 use Phpfox\Model\ModelInterface;
+use Phpfox\View\StylesheetCompiler;
 
 class ThemeManager
 {

@@ -44,7 +44,6 @@ return [
     ],
     'services'        => [
         'i18n.loader'          => [null, Service\I18nLoader::class],
-        'navigation.loader'    => [null, Service\NavigationLoader::class],
         'core.i18n'            => [null, Service\I18nManager::class],
         'core.listener'        => [null, Service\EventListener::class],
         'core.packages'        => [null, Service\PackageManager::class],
