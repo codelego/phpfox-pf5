@@ -3,7 +3,7 @@
 namespace Phpfox\Storage;
 
 
-class Ssh2FileStorage implements FileStorageInterface
+class Ssh2Storage implements StorageInterface
 {
     use FileStorageTrait;
 

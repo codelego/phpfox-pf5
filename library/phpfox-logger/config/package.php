@@ -3,25 +3,14 @@
 namespace Phpfox\Logger;
 
 return [
-    'log.drivers'    => [
+    'log.drivers' => [
         'files' => FilesLogger::class,
         'db'    => DbLogger::class,
     ],
-    'log.containers' => [
-        'main.log'  => [
-            ['driver' => 'files', 'filename' => 'main.log',],
-        ],
-        'mail.log'  => [
-            ['driver' => 'files', 'filename' => 'mail.log',],
-        ],
-        'debug.log' => [
-            ['driver' => 'files', 'filename' => 'debug.log',],
-        ],
-    ],
-    'services'       => [
-        'main.log'      => [LogContainerFactory::class, null, 'main.log'],
-        'mail.log'      => [LogContainerFactory::class, null, 'mail.log'],
-        'debug.log'     => [LogContainerFactory::class, null, 'debug.log'],
+    'services'    => [
+        'main.log'      => [LogContainerFactory::class, 'main_log'],
+        'mail.log'      => [LogContainerFactory::class, 'mail_log'],
+        'debug.log'     => [LogContainerFactory::class, 'debug_log'],
         'error.handler' => [null, ErrorHandler::class],
     ],
 ];

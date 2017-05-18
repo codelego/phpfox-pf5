@@ -5,26 +5,26 @@ namespace Phpfox\Logger;
 
 class LogContainerFactory
 {
-    function factory($class = null, $key = null)
+    function factory($key = null)
     {
-        if (!$class) {
-            ;
-        }
-
         if (!$key) {
             $key = 'log.main';
         }
 
-        $drivers = _param('log.drivers');
-        $containers = _param('log.containers');
-        $loggerOptions = $containers[$key];
+        $parameter = _get('package.loader')->getLogParameter($key);
 
         $container = new LogContainer();
 
-        foreach ($loggerOptions as $loggerOption) {
-            $driver = $drivers[$loggerOption['driver']];
-            $container->add(new $driver($loggerOption));
+        if (!$parameter->get('loggers')) {
+            return $container;
         }
+
+        foreach ($parameter->get('loggers') as $logger) {
+            $driver = $logger['class'];
+
+            $container->add(new $driver ($logger['params']));
+        }
+
         return $container;
     }
 }

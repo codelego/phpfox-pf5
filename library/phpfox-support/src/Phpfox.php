@@ -44,13 +44,10 @@ namespace {
 
             $rebuild = PHPFOX_ENV == 'development';
 
-            if ($rebuild
-                or !file_exists($libraryFiles['autoload'])
-                or !file_exists($libraryFiles['package'])
+            if (!file_exists($libraryFiles['autoload'])
+                OR !file_exists($libraryFiles['package'])
             ) {
-                if (file_exists($libraryFiles['autoload'])) {
-                    @unlink($libraryFiles['autoload']);
-                }
+                $rebuild = true;
             }
 
             if ($rebuild) {

@@ -22,7 +22,7 @@ class LocalFileStorageTest extends \PHPUnit_Framework_TestCase
      */
     public function testBase($id)
     {
-        $fileStorage = _get('storage.manager')->get($id);
+        $fileStorage = _get('storage')->get($id);
         $this->assertEquals(PHPFOX_BASE_URL . 'public/path/to/url.png',
             $fileStorage->mapUrl('public/path/to/url.png'));
 

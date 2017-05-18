@@ -8,7 +8,6 @@ return [
         'system' => SystemAdapter::class,
     ],
     'services'     => [
-        'mailer'         => [null, MailFacades::class,],
-        'mailer.factory' => null,
+        'mailer' => [null, MailFacades::class,],
     ],
 ];

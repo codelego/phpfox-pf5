@@ -37,12 +37,10 @@ class AdminLogController extends AdminController
     public function actionIndex()
     {
         $allLogs = [];
-        $titles = [
-            'main.log'  => 'Main Logs',
-            'mail.log'  => 'Mail Logs',
-            'debug.log' => 'Debug Logs',
-        ];
-        foreach (['main.log', 'mail.log', 'debug.log'] as $containerId) {
+
+        $keys = _get('core.log')->getLogContainerIds();
+
+        foreach ($keys as $containerId) {
             $allLogs[$containerId] = _model('log_adapter')
                 ->select()
                 ->where('container_id=?', $containerId)
@@ -51,7 +49,6 @@ class AdminLogController extends AdminController
 
         return new ViewModel([
             'allLogs' => $allLogs,
-            'titles'  => $titles,
         ], 'core/admin-log/manage-log-adapter');
     }
 
@@ -161,11 +158,29 @@ class AdminLogController extends AdminController
 
     public function actionEnable()
     {
+        /** @var LogAdapter $adapter */
+        $adapter = _model('log_adapter')
+            ->findById(_get('request')->get('adapter_id'));
+
+        $adapter->setActive(1);
+        $adapter->save();
+
+        _trigger('onSettingChanges');
+
         _redirect('admin.core.log');
     }
 
     public function actionDisable()
     {
+        /** @var LogAdapter $adapter */
+        $adapter = _model('log_adapter')
+            ->findById(_get('request')->get('adapter_id'));
+
+        $adapter->setActive(0);
+        $adapter->save();
+
+        _trigger('onSettingChanges');
+
         _redirect('admin.core.log');
     }
 }

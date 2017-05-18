@@ -8,7 +8,7 @@
                 </a>
             </div>
             <div class="panel-title">
-                <?= $titles[$key] ?>
+                <?= _text($key . '_title', '_core.logs') ?>
             </div>
         </div>
         <div class="table-responsive">
@@ -29,11 +29,11 @@
                             <ul>
                                 <li><a href="<?= _url('admin.core.log',
                                         ['action' => 'enable', 'adapter_id' => $item->getId()]) ?>">
-                                        <?= _text('Enable') ?>
+                                        <?= _text('Enable this logger', '_core.logs') ?>
                                     </a></li>
                                 <li><a href="<?= _url('admin.core.log',
                                         ['action' => 'disable', 'adapter_id' => $item->getId()]) ?>">
-                                        <?= _text('Disable') ?>
+                                        <?= _text('Disable this logger', '_core.logs') ?>
                                     </a></li>
                                 <li><a href="<?= _url('admin.core.log',
                                         ['action' => 'edit', 'adapter_id' => $item->getId()]) ?>">
@@ -50,7 +50,7 @@
                         <td><?= $item->getId() ?></td>
                         <td><?= $item->getTitle() ?></td>
                         <td><?= $item->getDriverId() ?></td>
-                        <td><?= _yesno($item->getId(), true, true) ?></td>
+                        <td><?= _yesno($item->isActive(), true, true) ?></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>

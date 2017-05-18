@@ -24,11 +24,13 @@ class PackageLoader implements PackageLoaderInterface
     const CHECK_KEY = 'setting_version';
 
     /**
-     *
+     * PackageLoader constructor.
      */
-    public function flush()
+    public function __construct()
     {
-
+        if (PHPFOX_ENV == 'development') {
+            _get('super.cache')->flush();
+        }
     }
 
     public function resolve()
@@ -161,7 +163,7 @@ class PackageLoader implements PackageLoaderInterface
         return new Parameters($result);
     }
 
-    public function getPackageInfo($id)
+    public function getPackageInfo($packageId)
     {
         // TODO: Implement loadPackageInfo() method.
     }
@@ -388,5 +390,244 @@ class PackageLoader implements PackageLoaderInterface
         }
 
         return $result;
+    }
+
+    public function getStorageParameter($adapterId)
+    {
+        return _load('super.cache', ['storage_parameter', $adapterId], 0, function () use ($adapterId) {
+            return $this->_getStorageParameter($adapterId);
+        });
+    }
+
+    /**
+     * @param string $id
+     *
+     * @return Parameters
+     */
+    public function _getStorageParameter($id)
+    {
+        $row = [];
+        if (!$id or $id == 'default' or $id == 'fallback') {
+            $id = _param('core.default_storage_id');
+        }
+
+        if ($id) {
+            $row = _get('db')
+                ->select('*')
+                ->from(':storage_adapter')
+                ->where('adapter_id=?', (string)$id)
+                ->first();
+        }
+
+        if (empty($row)) {
+            $row = _get('db')
+                ->select('*')
+                ->from(':storage_adapter')
+                ->where('is_active=1')
+                ->first();
+        }
+
+        return new Parameters([
+            'driver' => $row['driver_id'],
+            'params' => (array)json_decode($row['params'], true),
+        ]);
+
+    }
+
+    public function getMailParameter($adapterId)
+    {
+        return _load('super.cache', ['mail_parameter', $adapterId], 0, function () use ($adapterId) {
+            return $this->_getMailParameter($adapterId);
+        });
+    }
+
+    /**
+     * @param mixed $adapterId
+     *
+     * @return Parameters
+     */
+    public function _getMailParameter($adapterId)
+    {
+        if (!$adapterId or $adapterId == 'default' or $adapterId == 'fallback') {
+            $adapterId = _param('core.default_mailer_id');
+        }
+
+        $array = _get('db')
+            ->select()
+            ->from(':core_adapter')
+            ->where('adapter_id=?', $adapterId)
+            ->first();
+
+        if (empty($array)) {
+            $array = _get('db')
+                ->select()
+                ->from(':core_adapter')
+                ->where('driver_type=?', 'mail')
+                ->where('is_active=?', 1)
+                ->first();
+        }
+
+        $driverId = $array['driver_id'];
+        $params = json_decode($array['params'], true);
+
+        return new Parameters(['driver' => $driverId, 'params' => $params]);
+    }
+
+    public function getCacheParameter($cacheId)
+    {
+        return _load('super.cache', ['cache_parameter', $cacheId], 0, function () use ($cacheId) {
+            return $this->_getCacheParameter($cacheId);
+        });
+    }
+
+
+    public function _getCacheParameter($cacheId)
+    {
+        if (!$cacheId or $cacheId == 'fallback') {
+            $cacheId = 'shared.cache';
+        }
+
+        $array = [];
+
+        $cacheName = str_replace('.', '_', $cacheId);
+
+        $adapterId = _param('core.' . $cacheName . '_cache_id');
+
+        if (!$adapterId) {
+            trigger_error("Can not init cache {$cacheId}", E_USER_WARNING);
+        } else {
+            $array = _get('db')
+                ->select()
+                ->from(':core_adapter')
+                ->where('adapter_id=?', $adapterId)
+                ->first();
+        }
+
+        if (empty($array) and $cacheId != 'shared.cache') {
+            trigger_error("Can not get setting for cache {$cacheId}, get default cache params ", E_USER_WARNING);
+            $adapterId = _param('core.shared_cache_cache_id');
+            $array = _get('db')
+                ->select()
+                ->from(':core_adapter')
+                ->where('adapter_id=?', (int)$adapterId)
+                ->where('driver_type=?', 'cache')// do not cheat custom value
+                ->first();
+        }
+
+        if (empty($array)) {
+            trigger_error("Try to get active cache instead of {$cacheId}", E_USER_WARNING);
+            $array = _get('db')
+                ->select()
+                ->from(':core_adapter')
+                ->where('driver_type=?', 'cache')
+                ->where('is_active=?', 1)
+                ->first();
+        }
+
+        if (empty($array)) {
+            trigger_error("There are no cache {$cacheId}", E_USER_WARNING);
+            $array = ['driver_id' => 'files', 'params' => '[]'];
+        }
+
+        $driverId = $array['driver_id'];
+        $params = json_decode($array['params'], true);
+
+        return new Parameters(['driver' => $driverId, 'params' => $params]);
+    }
+
+    public function getLogParameter($logId)
+    {
+        return _load('super.cache', ['log_parameter', $logId], 0, function () use ($logId) {
+            return $this->_getLogParameter($logId);
+        });
+
+    }
+
+    /**
+     * @param string $logId
+     *
+     * @return Parameters
+     */
+    public function _getLogParameter($logId)
+    {
+        if (!$logId) {
+            $logId = 'main.log';
+        }
+
+        $result = [];
+
+        $rows = _get('db')
+            ->select('*')
+            ->from(':log_adapter')
+            ->where('container_id=?', str_replace('.', '_', $logId))
+            ->where('is_active=?', 1)
+            ->all();
+
+        foreach ($rows as $row) {
+            $class = _param('log.drivers', $row['driver_id']);
+
+            if (!class_exists($class)) {
+                continue;
+            }
+
+            $result[] = [
+                'driver' => $row['driver_id'],
+                'class'  => $class,
+                'params' => (array)json_decode($row['params'], true),
+            ];
+        }
+        return new Parameters(['loggers' => $result]);
+    }
+
+    public function getSessionParameter($adapterId)
+    {
+        return _load('super.cache', ['session_parameter', $adapterId], 0, function () use ($adapterId) {
+            return $this->_getSessionParameter($adapterId);
+        });
+    }
+
+    /**
+     * @param $adapterId
+     *
+     * @return Parameters
+     */
+    public function _getSessionParameter($adapterId)
+    {
+        if ($adapterId) {
+            ;
+        }
+
+        $array = [];
+        $adapterId = _param('core.default_session_id');
+
+        if ($adapterId) {
+            $array = _get('db')
+                ->select()
+                ->from(':core_adapter')
+                ->where('driver_type=?', 'session')
+                ->where('adapter_id=?', $adapterId)
+                ->first();
+        }
+
+        if (empty($array)) {
+            $array = _get('db')
+                ->select()
+                ->from(':core_adapter')
+                ->where('driver_type=?', 'session')
+                ->where('is_active=?', 1)
+                ->order('adapter_id', -1)
+                ->first();
+        }
+
+        if (empty($array)) {
+            $array = ['driver_id' => 'files', 'params' => '[]'];
+        }
+
+        $class = _param('session.drivers', $array['driver_id']);
+
+        return new Parameters([
+            'driver' => $class,
+            'params' => (array)json_decode($array['params']),
+        ]);
     }
 }

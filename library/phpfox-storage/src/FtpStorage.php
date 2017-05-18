@@ -15,7 +15,7 @@ namespace Phpfox\Storage;
  *
  * @package Phpfox\Storage
  */
-class FtpFileStorage implements FileStorageInterface
+class FtpStorage implements StorageInterface
 {
     use FileStorageTrait;
 

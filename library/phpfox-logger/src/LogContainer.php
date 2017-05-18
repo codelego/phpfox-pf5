@@ -7,7 +7,7 @@ class LogContainer implements LogContainerInterface
     /**
      * @var LoggerInterface[]
      */
-    protected $loggers;
+    protected $loggers = [];
 
     public function add(LoggerInterface $logger)
     {
@@ -19,7 +19,6 @@ class LogContainer implements LogContainerInterface
         foreach ($this->loggers as $logger) {
             $logger->emergency($message, $context);
         }
-
     }
 
     public function alert($message, $context = [])
@@ -27,7 +26,6 @@ class LogContainer implements LogContainerInterface
         foreach ($this->loggers as $logger) {
             $logger->alert($message, $context);
         }
-
     }
 
     public function critical($message, $context = [])
@@ -35,7 +33,6 @@ class LogContainer implements LogContainerInterface
         foreach ($this->loggers as $logger) {
             $logger->critical($message, $context);
         }
-
     }
 
     public function error($message, $context = [])
@@ -43,7 +40,6 @@ class LogContainer implements LogContainerInterface
         foreach ($this->loggers as $logger) {
             $logger->error($message, $context);
         }
-
     }
 
     public function warning($message, $context = [])
@@ -51,7 +47,6 @@ class LogContainer implements LogContainerInterface
         foreach ($this->loggers as $logger) {
             $logger->warning($message, $context);
         }
-
     }
 
     public function notice($message, $context = [])
@@ -59,7 +54,6 @@ class LogContainer implements LogContainerInterface
         foreach ($this->loggers as $logger) {
             $logger->notice($message, $context);
         }
-
     }
 
     public function info($message, $context = [])
@@ -67,7 +61,6 @@ class LogContainer implements LogContainerInterface
         foreach ($this->loggers as $logger) {
             $logger->info($message, $context);
         }
-
     }
 
     public function debug($message, $context = [])
@@ -75,15 +68,12 @@ class LogContainer implements LogContainerInterface
         foreach ($this->loggers as $logger) {
             $logger->debug($message, $context);
         }
-
     }
-
 
     public function log($level, $message, $context = [])
     {
         foreach ($this->loggers as $logger) {
             $logger->log($level, $message, $context);
         }
-
     }
 }

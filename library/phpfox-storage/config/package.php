@@ -4,14 +4,13 @@ namespace Phpfox\Storage {
 
     return [
         'storage.drivers' => [
-            'local' => LocalFileStorage::class,
-            'ftp'   => FtpFileStorage::class,
-            'ssh2'  => Ssh2FileStorage::class,
+            'local' => LocalStorage::class,
+            'ftp'   => FtpStorage::class,
+            'ssh2'  => Ssh2Storage::class,
         ],
         'services'        => [
-            'storage.manager'   => [null, FileStorageManager::class],
+            'storage'   => [null, StorageFacades::class],
             'storage.file_name' => [null, FileNameSupport::class],
-            'storage.factory'   => null,
         ],
     ];
 }

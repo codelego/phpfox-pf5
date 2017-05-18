@@ -2,7 +2,7 @@
 
 namespace Phpfox\Storage;
 
-interface FileStorageInterface
+interface StorageInterface
 {
 
     /**

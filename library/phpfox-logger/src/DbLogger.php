@@ -22,7 +22,7 @@ class DbLogger implements LoggerInterface
      */
     public function __construct($config)
     {
-        $config = array_merge(['model' => '',], $config);
+        $config = array_merge(['model' => ':core_log',], $config);
 
         $this->model = $config['model'];
     }

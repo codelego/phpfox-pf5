@@ -28,11 +28,11 @@ interface PackageLoaderInterface
     public function getPackageParameters();
 
     /**
-     * @param string $id
+     * @param string $packageId
      *
      * @return array
      */
-    public function getPackageInfo($id);
+    public function getPackageInfo($packageId);
 
     /**
      * @return Parameters
@@ -53,4 +53,43 @@ interface PackageLoaderInterface
      * @return Parameters
      */
     public function getViewParameters();
+
+    /**
+     * @param string $adapterId
+     *
+     * @return Parameters
+     */
+    public function getStorageParameter($adapterId);
+
+    /**
+     * @param string $adapterId
+     *
+     * @return Parameters
+     */
+    public function getMailParameter($adapterId);
+
+    /**
+     * @param string $cacheId
+     *
+     * @return Parameters
+     */
+    public function getCacheParameter($cacheId);
+
+    /**
+     * This method get log container parameters, the result must contain loggers as arrays of each logger
+     *
+     * loggers=> [[driver=>string, params=>[]], ...]
+     *
+     * @param string $logId
+     *
+     * @return Parameters
+     */
+    public function getLogParameter($logId);
+
+    /**
+     * @param string $adapterId
+     *
+     * @return Parameters
+     */
+    public function getSessionParameter($adapterId);
 }

@@ -3,14 +3,14 @@
 namespace Phpfox\Storage;
 
 
-class FileStorageManager implements FileStorageManagerInterface
+class StorageFacades
 {
     /**
-     * @var FileStorageInterface[]
+     * @var StorageInterface[]
      */
     protected $container = [];
 
-    public function set($id, FileStorageInterface $service)
+    public function set($id, StorageInterface $service)
     {
         $this->container[$id] = $service;
         return $this;
@@ -26,6 +26,25 @@ class FileStorageManager implements FileStorageManagerInterface
         return $this->get($id)->mapUrl($name);
     }
 
+    /**
+     * @param $id
+     *
+     * @return StorageInterface
+     * @throws FileStorageException
+     */
+    private function make($id)
+    {
+        $parameter = _get('storage.params')->getStorageParameter($id);
+        $class = _param('storage.drivers', $parameter->get('driver'));
+
+        if (!$class) {
+            throw new FileStorageException("Can not create storage with id [$id]");
+        }
+
+        return $this->container[$id] = new $class($parameter->get('params'));
+
+    }
+
     public function get($id)
     {
         if (!$id) {
@@ -34,8 +53,7 @@ class FileStorageManager implements FileStorageManagerInterface
 
         return isset($this->container[$id])
             ? $this->container[$id]
-            : $this->container[$id] = _get('storage.factory')
-                ->factory($id);
+            : $this->make($id);
     }
 
     public function mapCdnUrl($id, $name)

@@ -15,6 +15,9 @@ class LogAdapter extends DbModel
     public function getContainerId(){return $this->__get('container_id');}
     public function setContainerId($value){$this->__set('container_id', $value);}
     
+    public function isActive(){return $this->__get('is_active') ?1:0;}
+    public function setActive($value){$this->__set('is_active',$value?1:0);}
+    
     public function getTitle(){return $this->__get('title');}
     public function setTitle($value){$this->__set('title', $value);}
     

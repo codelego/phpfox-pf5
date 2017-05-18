@@ -1,60 +1,38 @@
 <?php
-
 namespace Neutron\Core\Form\Admin\Settings;
 
 use Phpfox\Form\Form;
 
-class EditLogSettings extends Form
-{
-    /** lock */
-    protected function initialize()
-    {
-        $this->setTitle(_text('Edit Log Settings', '_core.log_settings'));
+class EditLogSettings extends Form {
+
+    /** id=668 */
+    public function initialize(){
+
+        $this->setTitle(_text('Edit Log Settings', '_core.logs'));
         $this->setInfo(_text('[Edit Site Settings Info]', '_core'));
+        $this->setMethod('post');                 $this->setAction(_url('#'));
 
-        $this->addElement([
-            'factory'  => 'multi_checkbox',
-            'name'     => 'core__main_log',
-            'value'    => [1],
-            'options'  => _get('core.log')->getAdapterIdOptions('main.log'),
-            'label'    => _text('Main Log', 'admin'),
-            'info'     => _text('[Main Log Info]', 'admin'),
-            'required' => true,
-        ]);
+        /** start elements **/
 
-        $this->addElement([
-            'factory'  => 'multi_checkbox',
-            'name'     => 'core__mail_log',
-            'value'    => [3],
-            'options'  => _get('core.log')->getAdapterIdOptions('mail.log'),
-            'label'    => _text('Mail Log', 'admin'),
-            'info'     => _text('[Mail Log Info]', 'admin'),
-            'required' => true,
-        ]);
-
-        $this->addElement([
-            'factory'  => 'multi_checkbox',
-            'name'     => 'core__debug_log',
-            'value'    => [5],
-            'options'  => _get('core.log')->getAdapterIdOptions('debug.log'),
-            'label'    => _text('Debug Log', 'admin'),
-            'info'     => _text('[Debug Log Info]', 'admin'),
-            'required' => true,
-        ]);
+        
+        
+            /** element `core__log_level` id=2185 **/
+            $this->addElement(array ( 'name' => 'core__log_level', 'factory' => 'select', 'label' => _text('Log Level','_core.logs'), 'info' => _text('[Log Level Info]', '_core.logs'), 'options' => _get('core.log')->getLogLevelOptions(), 'required' => true, ));        
+        /** end elements **/
 
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'save',
             'label'      => _text('Save Changes'),
-            'attributes' => ['class' => 'btn btn-primary', 'type' => 'submit',],
+            'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
         ]);
 
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'cancel',
-            'href'       => '#',
+            'href'       => _url('admin.core.log'),
             'label'      => _text('Cancel'),
-            'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
+            'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
         ]);
     }
 }

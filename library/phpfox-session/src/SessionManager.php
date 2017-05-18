@@ -26,7 +26,15 @@ class SessionManager
 
         $this->started = true;
 
-        _get('session.save_handler')->register();
+        $parameter = _get('package.loader')->getSessionParameter('');
+
+        $class = $parameter->get('driver');
+
+
+        /** @var SessionInterface $handler */
+        $handler = new $class($parameter->get('params', []));
+
+        $handler->register();
 
         if (!session_id() and !headers_sent()) {
             @session_start();

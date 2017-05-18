@@ -3,7 +3,7 @@
 namespace Phpfox\Storage;
 
 
-class LocalFileStorage implements FileStorageInterface
+class LocalStorage implements StorageInterface
 {
     use FileStorageTrait;
 

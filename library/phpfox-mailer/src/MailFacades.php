@@ -10,6 +10,11 @@ class MailFacades
     protected $data = [];
 
     /**
+     * @var AdapterInterface[]
+     */
+    protected $adapters = [];
+
+    /**
      * @param mixed $name Message Identity etc, User
      * @param array $data Data container
      *
@@ -93,21 +98,66 @@ class MailFacades
         }
     }
 
-    public function send($id, Message $message)
+    /**
+     * @param string $adapterId
+     *
+     * @return AdapterInterface
+     *
+     * @throws MailException
+     */
+    private function make($adapterId)
     {
-        try {
+        $parameter = _get('package.loader')->getMailParameter($adapterId);
+        $class = _param('mail.drivers', $parameter->get('driver'));
 
-            _get('mailer.factory')
-                ->factory($id)
-                ->send($message);
-
-        } catch (MailException $exception) {
-
-            _get('main.log')
-                ->info('Oops! Could not send email use transport "{0}", retry to use configured fallback!',
-                    [$id]);
-
-            _get('mailer.factory')->factory('fallback')->send($message);
+        if (!$class or !class_exists($class)) {
+            throw new MailException("Can not create mail " . $adapterId);
         }
+        return $this->adapters[$adapterId] = new $class($parameter->get('params'));
+    }
+
+    /**
+     * @param string|mixed $adapterId
+     *
+     * @return AdapterInterface
+     */
+    public function get($adapterId)
+    {
+        if (!$adapterId) {
+            $adapterId = 'default';
+        }
+
+        return $this->adapters[$adapterId] ? $this->adapters[$adapterId] : $this->make($adapterId);
+    }
+
+    /**
+     * @param string  $adapterId
+     * @param Message $message
+     *
+     * @return bool
+     */
+    public function send($adapterId, Message $message)
+    {
+        if (!$adapterId) {
+            $adapterId = 'default';
+        }
+        try {
+            return $this->get($adapterId)->send($message);
+        } catch (MailException $exception) {
+            if ($adapterId != 'default') {
+                _get('main.log')
+                    ->error('Oops! Could not send email use mailer "{0}", retry to use configured default mailer to retry!',
+                        [$adapterId]);
+            }
+        }
+
+        if ($adapterId != 'default') {
+            try {
+                return $this->get('default')->send($message);
+            } catch (MailException $exception) {
+                _get('main.log')->error('Oops! Could not send email use mailer "{0}"!', [$adapterId]);
+            }
+        }
+        return false;
     }
 }

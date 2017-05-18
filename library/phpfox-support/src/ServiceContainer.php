@@ -57,31 +57,31 @@ class ServiceContainer
     public function build($id)
     {
         $ref = _param('services', $id);
+        $service = null;
 
         if (!$ref) {
             throw new \InvalidArgumentException("Unexpected '{$id}'");
         }
 
         if (is_string($ref)) {
-            return new $ref();
+            $service = new $ref();
+        } else {
+            $factory = array_shift($ref);
+
+            if (is_string($factory)) {
+                $service = call_user_func_array([new $factory(), 'factory',], $ref);
+            } else {
+
+                $class = array_shift($ref);
+
+                if (empty($ref)) {
+                    $service = new $class();
+                } else {
+                    $service = (new \ReflectionClass($class))->newInstanceArgs($ref);
+                }
+            }
         }
-
-        $factory = array_shift($ref);
-
-        if (is_string($factory)) {
-            return call_user_func_array([
-                new $factory(),
-                'factory',
-            ], $ref);
-        }
-
-        $class = array_shift($ref);
-
-        if (empty($ref)) {
-            return new $class();
-        }
-
-        return (new \ReflectionClass($class))->newInstanceArgs($ref);
+        return $service;
     }
 
     /**

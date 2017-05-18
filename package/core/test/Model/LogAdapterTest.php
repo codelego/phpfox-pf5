@@ -5,11 +5,12 @@ class LogAdapterTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new LogAdapter(array (  'adapter_id' => 1,  'container_id' => 'main.log',  'title' => 'Log to files',  'driver_id' => 'files',  'params' => '[]',  'description' => 'Default file logger',));
+        $obj = new LogAdapter(array (  'adapter_id' => 1,  'container_id' => 'main_log',  'is_active' => 1,  'title' => 'Log to files',  'driver_id' => 'files',  'params' => '[]',  'description' => 'Default file logger',));
 
         $this->assertSame('log_adapter', $obj->getModelId());
         $this->assertSame(1, $obj->getAdapterId());
-        $this->assertSame('main.log', $obj->getContainerId());
+        $this->assertSame('main_log', $obj->getContainerId());
+        $this->assertSame(1, $obj->isActive());
         $this->assertSame('Log to files', $obj->getTitle());
         $this->assertSame('files', $obj->getDriverId());
         $this->assertSame('[]', $obj->getParams());
@@ -21,7 +22,8 @@ class LogAdapterTest extends \PHPUnit_Framework_TestCase
 
         // set data
         $obj->setAdapterId(1);
-        $obj->setContainerId('main.log');
+        $obj->setContainerId('main_log');
+        $obj->setActive(1);
         $obj->setTitle('Log to files');
         $obj->setDriverId('files');
         $obj->setParams('[]');
@@ -29,7 +31,8 @@ class LogAdapterTest extends \PHPUnit_Framework_TestCase
         // assert same data
         $this->assertSame('log_adapter', $obj->getModelId());
         $this->assertSame(1, $obj->getAdapterId());
-        $this->assertSame('main.log', $obj->getContainerId());
+        $this->assertSame('main_log', $obj->getContainerId());
+        $this->assertSame(1, $obj->isActive());
         $this->assertSame('Log to files', $obj->getTitle());
         $this->assertSame('files', $obj->getDriverId());
         $this->assertSame('[]', $obj->getParams());
@@ -37,7 +40,7 @@ class LogAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new LogAdapter(array (  'adapter_id' => 1,  'container_id' => 'main.log',  'title' => 'Log to files',  'driver_id' => 'files',  'params' => '[]',  'description' => 'Default file logger',));
+        $obj = new LogAdapter(array (  'adapter_id' => 1,  'container_id' => 'main_log',  'is_active' => 1,  'title' => 'Log to files',  'driver_id' => 'files',  'params' => '[]',  'description' => 'Default file logger',));
 
         $obj->save();
 
@@ -47,7 +50,8 @@ class LogAdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('log_adapter', $obj->getModelId());
         $this->assertSame(1, $obj->getAdapterId());
-        $this->assertSame('main.log', $obj->getContainerId());
+        $this->assertSame('main_log', $obj->getContainerId());
+        $this->assertSame(1, $obj->isActive());
         $this->assertSame('Log to files', $obj->getTitle());
         $this->assertSame('files', $obj->getDriverId());
         $this->assertSame('[]', $obj->getParams());

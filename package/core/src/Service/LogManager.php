@@ -37,6 +37,38 @@ class LogManager
     }
 
     /**
+     * Get list of log container id
+     *
+     * @return array
+     */
+    public function getLogContainerIds()
+    {
+        return array_map(function ($row) {
+            return $row['container_id'];
+        }, _model('log_adapter')
+            ->select('distinct container_id as container_id')
+            ->setPrototype(null)
+            ->all());
+    }
+
+    /**
+     * @return array
+     */
+    public function getLogLevelOptions()
+    {
+        return [
+            ['value' => 'emergency', 'label' => 'Emergency'],
+            ['value' => 'alert', 'label' => 'Alert'],
+            ['value' => 'critical', 'label' => 'Critical'],
+            ['value' => 'error', 'label' => 'Error'],
+            ['value' => 'warning', 'label' => 'Warning'],
+            ['value' => 'notice', 'label' => 'Notice'],
+            ['value' => 'info', 'label' => 'Info'],
+            ['value' => 'debug', 'label' => 'Debug'],
+        ];
+    }
+
+    /**
      * @param $containerId
      *
      * @return array
