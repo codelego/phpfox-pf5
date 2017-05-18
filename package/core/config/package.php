@@ -68,15 +68,6 @@ return [
         'menu.admin.secondary'   => [NavigationFactory::class, null],
         'menu.admin.buttons'     => [NavigationFactory::class, null],
     ],
-    'templates'       => _view_map([
-        'default' => [
-            'layout-editor' => 'package/core/layout-editor',
-            'core'          => 'package/core/view',
-            'layout'        => 'package/core/layout/default',
-            'grid'          => 'package/core/layout/grid',
-        ],
-        'admin'   => ['layout' => 'package/core/layout/admin'],
-    ]),
     'session.drivers' => [
         'database' => Service\DatabaseSession::class,
     ],

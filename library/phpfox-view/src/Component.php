@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Layout;
+namespace Phpfox\View;
 
 class Component
 {

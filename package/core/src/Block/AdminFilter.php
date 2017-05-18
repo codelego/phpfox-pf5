@@ -4,7 +4,7 @@ namespace Neutron\Core\Block;
 
 
 use Phpfox\Form\Form;
-use Phpfox\Layout\Component;
+use Phpfox\View\Component;
 use Phpfox\View\ViewModel;
 
 class AdminFilter extends Component

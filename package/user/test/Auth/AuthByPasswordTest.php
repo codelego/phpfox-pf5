@@ -5,7 +5,7 @@ namespace Neutron\User\Auth;
 
 use Neutron\User\Model\AuthPassword;
 use Neutron\User\Model\User;
-use Phpfox\Authentication\AuthResult;
+use Phpfox\Auth\AuthResult;
 
 class AuthByPasswordTest extends \PHPUnit_Framework_TestCase
 {

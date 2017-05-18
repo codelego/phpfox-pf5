@@ -2,7 +2,7 @@
 
 namespace Neutron\Core\Block;
 
-use Phpfox\Layout\Component;
+use Phpfox\View\Component;
 use Phpfox\View\ViewModel;
 
 class AdminUpdate extends Component

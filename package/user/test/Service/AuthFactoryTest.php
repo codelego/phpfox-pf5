@@ -3,7 +3,7 @@
 namespace Neutron\User\Service;
 
 
-use Phpfox\Authentication\AuthInterface;
+use Phpfox\Auth\AuthInterface;
 
 class AuthFactoryTest extends \PHPUnit_Framework_TestCase
 {

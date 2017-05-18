@@ -83,7 +83,7 @@ class FilesCacheStorage implements CacheStorageInterface
     private function getFilename($name)
     {
         $path = md5($name);
-        $path = substr($path, 0, 3) . DIRECTORY_SEPARATOR . $path;
+        $path = substr($path, 0, 3) . DIRECTORY_SEPARATOR . $path .'.cache';
         return $this->directory . DIRECTORY_SEPARATOR . $path;
     }
 

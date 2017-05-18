@@ -3,8 +3,8 @@
 namespace Neutron\User\Auth;
 
 use Neutron\User\Model\AuthRemote;
-use Phpfox\Authentication\AuthInterface;
-use Phpfox\Authentication\AuthResult;
+use Phpfox\Auth\AuthInterface;
+use Phpfox\Auth\AuthResult;
 
 class AuthByRemote implements AuthInterface
 {

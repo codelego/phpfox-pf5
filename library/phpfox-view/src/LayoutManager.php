@@ -1,8 +1,6 @@
 <?php
 
-namespace Phpfox\Layout;
-
-use Phpfox\View\ViewModel;
+namespace Phpfox\View;
 
 class LayoutManager extends ViewModel
 {

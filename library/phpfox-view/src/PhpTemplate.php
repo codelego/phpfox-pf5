@@ -26,7 +26,7 @@ class PhpTemplate implements ViewTemplateInterface
      */
     public function __construct()
     {
-        $this->map = _param('templates');
+        $this->map = _get('package.loader')->getViewParameters();
         $this->cached = [];
     }
 
@@ -86,9 +86,9 @@ class PhpTemplate implements ViewTemplateInterface
             return $this->cached[$name];
         }
 
-        foreach ($this->prefers as $k) {
-            if (isset($this->map[$k . $name])) {
-                return $this->cached[$name] = $this->map[$k . $name];
+        foreach ($this->prefers as $prefer) {
+            if ($this->map->has($key = $prefer . $name)) {
+                return $this->cached[$name] = $this->map->get($key);
             }
         }
 

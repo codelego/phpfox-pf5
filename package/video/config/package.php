@@ -3,11 +3,9 @@
 namespace Neutron\Video;
 
 return [
-    'view.map'  => [],
     'services'  => [
         'video.callback' => [null, Service\EventListener::class],
         'video'          => [null, Service\VideoManager::class],
         'video.provider' => [null, Service\ProviderManager::class],
     ],
-    'templates' => _view_map(['default' => ['video' => 'package/video/view']]),
 ];

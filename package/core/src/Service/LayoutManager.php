@@ -7,10 +7,10 @@ use Neutron\Core\Model\LayoutContainer;
 use Neutron\Core\Model\LayoutGrid;
 use Neutron\Core\Model\LayoutLocation;
 use Neutron\Core\Model\LayoutPage;
-use Phpfox\Layout\Container;
-use Phpfox\Layout\LayoutContent;
-use Phpfox\Layout\LoaderInterface;
 use Phpfox\Model\ModelInterface;
+use Phpfox\View\Container;
+use Phpfox\View\LayoutContent;
+use Phpfox\View\LoaderInterface;
 
 class LayoutManager implements LoaderInterface
 {

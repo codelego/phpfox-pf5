@@ -120,6 +120,25 @@ class PackageLoader implements PackageLoaderInterface
         });
     }
 
+
+    public function getViewParameters()
+    {
+        return _load('super.cache', 'loader.views', self::TTL, function () {
+            return $this->_getViewParameters();
+        });
+    }
+
+    /**
+     * @return Parameters
+     */
+    public function getActionParameters()
+    {
+        return _load('super.cache', 'getActionParameters', self::TTL, function () {
+            return $this->_getActionParameters();
+        });
+    }
+
+
     /**
      * @return Parameters
      */
@@ -151,11 +170,30 @@ class PackageLoader implements PackageLoaderInterface
     /**
      * @return Parameters
      */
-    public function getActionParameters()
+    protected function _getViewParameters()
     {
-        return _load('super.cache', 'getActionParameters', self::TTL, function () {
-            return $this->_getActionParameters();
-        });
+        $result = [];
+        foreach ($this->getPaths() as $path) {
+            if (!file_exists($file = PHPFOX_DIR . $path . '/config/view.php')) {
+                continue;
+            }
+            /** @noinspection PhpIncludeInspection */
+            $array = include $file;
+
+            if (!is_array($array)) {
+                continue;
+            }
+            foreach ($array as $k => $v) {
+                if (!isset($result[$k])) {
+                    $result[$k] = $v;
+                } elseif (is_array($v)) {
+                    $result[$k] = array_merge($result[$k], $v);
+                } else {
+                    $result[$k] = $v;
+                }
+            }
+        }
+        return new Parameters($result);
     }
 
     public function _getPaths()

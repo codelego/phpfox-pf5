@@ -1,9 +1,7 @@
 <?php
 
-namespace Phpfox\Layout;
+namespace Phpfox\View;
 
-
-use Phpfox\View\ViewModel;
 
 class Container
 {

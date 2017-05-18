@@ -2,7 +2,7 @@
 
 namespace Neutron\Blog\Block;
 
-use Phpfox\Layout\Component;
+use Phpfox\View\Component;
 use Phpfox\View\ViewModel;
 
 class CategoryComponent extends Component

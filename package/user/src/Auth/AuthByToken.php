@@ -4,8 +4,8 @@ namespace Neutron\User\Auth;
 
 
 use Neutron\User\Model\AuthToken;
-use Phpfox\Authentication\AuthInterface;
-use Phpfox\Authentication\AuthResult;
+use Phpfox\Auth\AuthInterface;
+use Phpfox\Auth\AuthResult;
 
 class AuthByToken implements AuthInterface
 {

@@ -5,9 +5,9 @@ namespace Neutron\User\Auth;
 
 use Neutron\User\Model\AuthPassword;
 use Neutron\User\Model\User;
-use Phpfox\Authentication\AuthInterface;
-use Phpfox\Authentication\AuthResult;
-use Phpfox\Authentication\PasswordCompatibleInterface;
+use Phpfox\Auth\AuthInterface;
+use Phpfox\Auth\AuthResult;
+use Phpfox\Auth\PasswordCompatibleInterface;
 
 class AuthByPassword implements AuthInterface
 {

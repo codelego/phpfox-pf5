@@ -3,7 +3,7 @@
 namespace Neutron\User\Auth;
 
 
-use Phpfox\Authentication\PasswordCompatibleInterface;
+use Phpfox\Auth\PasswordCompatibleInterface;
 
 class SePasswordCompatible implements PasswordCompatibleInterface
 {
