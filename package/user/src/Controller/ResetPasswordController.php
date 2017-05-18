@@ -3,7 +3,7 @@
 namespace Neutron\User\Controller;
 
 use Neutron\User\Form\ResetPasswordForm;
-use Phpfox\Action\ActionController;
+use Phpfox\Support\ActionController;
 use Phpfox\View\ViewModel;
 
 class ResetPasswordController extends ActionController

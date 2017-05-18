@@ -2,7 +2,7 @@
 
 namespace Neutron\Photo\Controller;
 
-use Phpfox\Action\ActionController;
+use Phpfox\Support\ActionController;
 
 class IndexController extends ActionController
 {

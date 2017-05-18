@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Action;
+namespace Phpfox\Support;
 
 class ExampleActionController extends ActionController
 {

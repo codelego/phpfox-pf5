@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Action;
+namespace Phpfox\Support;
 
 
 class DispatcherTest extends \PHPUnit_Framework_TestCase

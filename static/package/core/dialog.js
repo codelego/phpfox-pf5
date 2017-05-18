@@ -147,6 +147,7 @@ define(['jquery', 'underscore', 'core'], function () {
 
     Core.cmd('modal', function (ele) {
         var opts = {
+            size: ele.data('size') || 'sm',
             url: ele.data('url') || ele.prop('href'),
             target: ele.data('target')
         }, message = ele.data('confirm') || false;

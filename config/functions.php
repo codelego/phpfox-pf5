@@ -72,7 +72,7 @@ namespace {
 
 
     /**
-     * @see \Phpfox\Action\Configs::get()
+     * @see \Phpfox\Support\Configs::get()
      *
      * @param string $section
      * @param mixed  $item
@@ -184,7 +184,7 @@ namespace {
      * @param mixed  $target
      * @param mixed  $params
      *
-     * @return \Phpfox\Support\Response
+     * @return \Phpfox\Support\EventResponse
      */
     function _trigger($name, $target = null, $params = [])
     {
@@ -197,7 +197,7 @@ namespace {
      * @param mixed  $target
      * @param mixed  $params
      *
-     * @return \Phpfox\Support\Response
+     * @return \Phpfox\Support\EventResponse
      */
     function _callback($name, $target = null, $params = [])
     {

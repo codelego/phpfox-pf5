@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\CurlRequest;
+namespace Phpfox\Support;
 
 class CurlRequest
 {

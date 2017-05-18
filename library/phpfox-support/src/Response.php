@@ -2,120 +2,107 @@
 
 namespace Phpfox\Support;
 
-class Response implements \ArrayAccess, \Countable, \Iterator
+class Response
 {
-
-    /**
-     * @var array
-     */
-    private $data = [];
-
     /**
      * @var int
      */
-    private $position = 0;
+    protected $code = 200;
 
     /**
-     * Convenient access to the first handler return value.
-     *
-     * @return mixed The first handler return value
+     * @var mixed
      */
-    public function first()
-    {
+    protected $data;
 
-        if (count($this->data) == 0) {
-            return null;
-        }
-        return $this->data[0];
+    /**
+     * @var string
+     */
+    protected $prototype = 'response.html';
+
+    /**
+     * @return mixed
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+
+    public function setData($data)
+    {
+        $this->data = $data;
+
+        return $this;
     }
 
     /**
-     * Convenient access to the last handler return value.
-     *
-     * If the collection is empty, returns null. Otherwise, returns value
-     * returned by last handler.
-     *
-     * @return mixed The last handler return value
-     */
-    public function last()
-    {
-        if (count($this->data) == 0) {
-            return null;
-        }
-
-        return $this->data[count($this->data) - 1];
-
-    }
-
-    /**
-     * Check if any of the responses match the given value.
-     *
-     * @param  mixed $value The value to look for among responses
+     * @param string $url  External/Internal url
+     * @param int    $code Optional, default 302, 301:  Permanently, 302:
+     *                     Temporary
      *
      * @return bool
+     *
+     * @codeCoverageIgnore
+     *
      */
-    public function contains($value)
+    public function redirect($url, $code = 302)
     {
-        foreach ($this->data as $item) {
-            if ($item === $value) {
-                return true;
-            }
-        }
+        $this->code = intval($code);
+
+        /** @var ResponsePrototypeInterface $obj */
+        $obj = _get($this->prototype);
+        $obj->redirect($url,$code);
+
         return false;
     }
 
-    public function offsetExists($offset)
+    /**
+     * @return string
+     */
+    public function terminate()
     {
-        return isset($this->data[$offset]);
+        /** @var ResponsePrototypeInterface $obj */
+        $obj = _get($this->prototype);
+        echo $obj->run($this);
     }
 
-    public function offsetGet($offset)
+    public function getCode()
     {
-        return isset($this->data[$offset]) ? $this->data[$offset] : null;
+        return $this->code;
     }
 
-    public function offsetSet($offset, $value)
+    /**
+     * @return string
+     */
+    public function getPrototype()
     {
-        $this->data[$offset] = $value;
+        return $this->prototype;
     }
 
-    public function offsetUnset($offset)
+    /**
+     * @param string $prototype
+     */
+    public function setPrototype($prototype)
     {
-        unset($this->data[$offset]);
+        $this->prototype = $prototype;
     }
 
-    public function count()
+    /**
+     * @link https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     *
+     * @param int $code
+     *
+     * @return $this
+     */
+    public function setCode($code)
     {
-        return count($this->data);
-    }
+        $this->code = intval($code);
 
-    public function current()
-    {
-        return $this->data[$this->position];
-    }
-
-    public function next()
-    {
-        ++$this->position;
-    }
-
-    public function key()
-    {
-        return $this->position;
-    }
-
-    public function valid()
-    {
-        return array_key_exists($this->position, $this->data);
-    }
-
-    public function rewind()
-    {
-        $this->position = 0;
-    }
-
-    public function push($value)
-    {
-        array_push($this->data, $value);
+        //@codeCoverageIgnoreStart
+        if (!headers_sent()) {
+            http_response_code($this->code);
+        }
+        //@codeCoverageIgnoreEnd
+        return $this;
     }
 }

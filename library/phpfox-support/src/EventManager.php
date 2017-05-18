@@ -23,12 +23,12 @@ class EventManager
     /**
      * @param Event $event
      *
-     * @return Response
+     * @return EventResponse
      */
     public function trigger(Event $event)
     {
         $name = $event->getName();
-        $response = new Response();
+        $response = new EventResponse();
 
         // Initial value of stop propagation flag should be false
         if (empty($this->events->has($name))) {
@@ -52,12 +52,12 @@ class EventManager
     /**
      * @param Event $event
      *
-     * @return Response
+     * @return EventResponse
      */
     public function triggerUntil(Event $event)
     {
         $name = $event->getName();
-        $response = new Response();
+        $response = new EventResponse();
         if (null != ($first = $this->events->item($name, '_0'))) {
             _get($first)->{$name}($event, $response);
         }

@@ -1,8 +1,6 @@
 <?php
 
-namespace Phpfox\Action;
-
-use Phpfox\Support\Parameters;
+namespace Phpfox\Support;
 
 class ActionDispatcher
 {

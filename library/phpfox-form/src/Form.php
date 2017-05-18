@@ -33,7 +33,7 @@ class Form extends Element implements ElementInterface, CollectionInterface
     protected $error;
 
     /**
-     * @var array
+     * @var ButtonField[]
      */
     protected $buttons = [];
 
@@ -311,6 +311,24 @@ class Form extends Element implements ElementInterface, CollectionInterface
     public function getButtons()
     {
         return $this->buttons;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return ButtonField
+     */
+    public function getButton($name)
+    {
+        return $this->buttons[$name];
+    }
+
+    /**
+     * reset all buttons
+     */
+    public function resetButtons()
+    {
+        $this->buttons = [];
     }
 
     /**

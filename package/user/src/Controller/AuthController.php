@@ -3,7 +3,7 @@
 namespace Neutron\User\Controller;
 
 use Neutron\User\Form\UserLogin;
-use Phpfox\Action\ActionController;
+use Phpfox\Support\ActionController;
 use Phpfox\View\ViewModel;
 
 class AuthController extends ActionController

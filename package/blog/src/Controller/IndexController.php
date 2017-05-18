@@ -3,7 +3,7 @@
 namespace Neutron\Blog\Controller;
 
 use Neutron\Blog\Form\AddBlogPost;
-use Phpfox\Action\ActionController;
+use Phpfox\Support\ActionController;
 use Phpfox\View\ViewModel;
 
 class IndexController extends ActionController

@@ -1,24 +1,23 @@
 <?php
 
-namespace Phpfox\Action;
+namespace Phpfox\Support;
+
 
 use Phpfox\View\ViewModel;
 
-class JsonResponse implements ResponsePrototypeInterface
+class UpdateContentResponse implements ResponsePrototypeInterface
 {
     public function run(Response $response)
     {
         $data = $response->getData();
 
-        if (is_string($data)) {
-            return $data;
-        }
-
         if ($data instanceof ViewModel) {
-            return $data->render();
+            $data = $data->render();
+        } elseif (!is_string($data)) {
+            $data = json_encode($data);
         }
 
-        return json_encode($data);
+        return json_encode(['content' => $data]);
     }
 
     public function redirect($url, $code)

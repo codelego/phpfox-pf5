@@ -4,7 +4,7 @@ namespace Neutron\User\Controller;
 
 
 use Neutron\User\Form\AccountSettings;
-use Phpfox\Action\ActionController;
+use Phpfox\Support\ActionController;
 use Phpfox\View\ViewModel;
 
 class SettingsController extends ActionController

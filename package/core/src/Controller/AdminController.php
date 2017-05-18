@@ -3,7 +3,7 @@
 namespace Neutron\Core\Controller;
 
 
-use Phpfox\Action\ActionController;
+use Phpfox\Support\ActionController;
 
 class AdminController extends ActionController
 {

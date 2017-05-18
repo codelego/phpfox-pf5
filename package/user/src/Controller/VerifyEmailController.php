@@ -2,7 +2,7 @@
 
 namespace Neutron\User\Controller;
 
-use Phpfox\Action\ActionController;
+use Phpfox\Support\ActionController;
 
 class VerifyEmailController extends ActionController
 {

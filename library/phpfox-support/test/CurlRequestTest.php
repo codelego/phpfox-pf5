@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\CurlRequest;
+namespace Phpfox\Support;
 
 class CurlRequestTest extends \PHPUnit_Framework_TestCase
 {

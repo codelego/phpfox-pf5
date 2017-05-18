@@ -3,7 +3,7 @@
 namespace Neutron\Blog\Controller;
 
 
-use Phpfox\Action\Request;
+use Phpfox\Support\Request;
 use Phpfox\View\ViewModel;
 
 class AdminCategoryControllerTest extends \PHPUnit_Framework_TestCase

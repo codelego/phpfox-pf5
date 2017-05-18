@@ -2,7 +2,7 @@
 
 namespace Neutron\Core\Controller;
 
-use Phpfox\Action\AjaxController;
+use Phpfox\Support\AjaxController;
 use Phpfox\View\ViewModel;
 
 class AjaxI18nController extends AjaxController

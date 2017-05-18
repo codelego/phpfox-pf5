@@ -34,7 +34,7 @@ class StorageFacades
      */
     private function make($id)
     {
-        $parameter = _get('storage.params')->getStorageParameter($id);
+        $parameter = _get('package.loader')->getStorageParameter($id);
         $class = _param('storage_drivers', $parameter->get('driver'));
 
         if (!$class) {

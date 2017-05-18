@@ -9,7 +9,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
     public function testBase()
     {
-        $rp = new Response();
+        $rp = new EventResponse();
 
         $this->assertNull($rp->last());
         $this->assertNull($rp->first());
@@ -19,7 +19,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
     public function testBase2()
     {
-        $rp = new Response();
+        $rp = new EventResponse();
 
         $rp->push(['value1', 'value2']);
 

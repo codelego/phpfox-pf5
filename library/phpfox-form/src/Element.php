@@ -37,22 +37,27 @@ class Element implements ElementInterface
 
     static $attributeKeys
         = [
-            'type'        => 1,
-            'class'       => 1,
-            'onclick'     => 1,
-            'onchange'    => 1,
-            'maxlength'   => 1,
-            'onsubmit'    => 1,
-            'title'       => 1,
-            'rows'        => 1,
-            'cols'        => 1,
-            'placeholder' => 1,
-            'disabled'    => 1,
-            'readonly'    => 1,
-            'editable'    => 1,
-            'size'        => 1,
-            'multiple'    => 1,
-            'target'      => 1,
+            'type'           => 1,
+            'class'          => 1,
+            'onclick'        => 1,
+            'onchange'       => 1,
+            'maxlength'      => 1,
+            'onsubmit'       => 1,
+            'title'          => 1,
+            'rows'           => 1,
+            'cols'           => 1,
+            'placeholder'    => 1,
+            'disabled'       => 1,
+            'readonly'       => 1,
+            'editable'       => 1,
+            'size'           => 1,
+            'multiple'       => 1,
+            'target'         => 1,
+            'spellcheck'     => 1,
+            'autocomplete'   => 1,
+            'autocorrect'    => 1,
+            'autocapitalize' => 1,
+
         ];
 
     /**
@@ -73,12 +78,22 @@ class Element implements ElementInterface
                 $this->params[$key] = $value;
             }
         }
+        $this->beforeInitialize();
         $this->initialize();
+        $this->afterInitialize();
     }
 
     public function setParam($name, $value)
     {
         $this->params[$name] = $value;
+    }
+
+    protected function afterInitialize()
+    {
+    }
+
+    protected function beforeInitialize()
+    {
     }
 
     protected function initialize()

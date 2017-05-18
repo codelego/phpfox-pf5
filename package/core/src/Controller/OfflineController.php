@@ -2,7 +2,7 @@
 
 namespace Neutron\Core\Controller;
 
-use Phpfox\Action\ActionController;
+use Phpfox\Support\ActionController;
 
 class OfflineController extends ActionController
 {

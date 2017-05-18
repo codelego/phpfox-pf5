@@ -3,7 +3,7 @@
 namespace Neutron\Contact\Controller;
 
 use Neutron\Contact\Form\ContactUs;
-use Phpfox\Action\ActionController;
+use Phpfox\Support\ActionController;
 use Phpfox\View\ViewModel;
 
 class ContactUsController extends ActionController

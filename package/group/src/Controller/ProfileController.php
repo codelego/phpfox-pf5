@@ -2,7 +2,7 @@
 
 namespace Neutron\Group\Controller;
 
-use Phpfox\Action\ActionController;
+use Phpfox\Support\ActionController;
 
 class ProfileController extends ActionController
 {

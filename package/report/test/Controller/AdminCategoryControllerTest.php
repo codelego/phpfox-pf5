@@ -4,7 +4,7 @@ namespace Neutron\Report\Controller;
 
 
 use Neutron\Report\Model\ReportCategory;
-use Phpfox\Action\Request;
+use Phpfox\Support\Request;
 use Phpfox\View\ViewModel;
 
 class AdminCategoryControllerTest extends \PHPUnit_Framework_TestCase

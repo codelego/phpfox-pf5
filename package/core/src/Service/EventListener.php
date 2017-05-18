@@ -3,7 +3,7 @@
 namespace Neutron\Core\Service;
 
 use Phpfox\Support\Event;
-use Phpfox\Support\Response;
+use Phpfox\Support\EventResponse;
 
 class EventListener
 {
@@ -15,10 +15,10 @@ class EventListener
     }
 
     /**
-     * @param Event    $event
-     * @param Response $response
+     * @param Event         $event
+     * @param EventResponse $response
      */
-    public function onRebuildFiles(Event $event, Response $response)
+    public function onRebuildFiles(Event $event, EventResponse $response)
     {
         $response->push([
             PHPFOX_STATIC_DIR . 'packages/core/sass/test.scss' => 'core-test.css',
@@ -35,7 +35,7 @@ class EventListener
         _get('shared.cache')->flush();
     }
 
-    public function onSystemHealthCheck(Event $event, Response $response)
+    public function onSystemHealthCheck(Event $event, EventResponse $response)
     {
         $response->push([
             'label'  => 'PHP Version 5.6+',

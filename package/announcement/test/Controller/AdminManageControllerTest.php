@@ -3,7 +3,7 @@
 namespace Neutron\Announcement\Controller;
 
 
-use Phpfox\Action\Request;
+use Phpfox\Support\Request;
 use Phpfox\View\ViewModel;
 
 class AdminManageControllerTest extends \PHPUnit_Framework_TestCase

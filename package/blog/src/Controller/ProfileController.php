@@ -3,7 +3,7 @@
 namespace Neutron\Blog\Controller;
 
 
-use Phpfox\Action\ActionController;
+use Phpfox\Support\ActionController;
 use Phpfox\View\ViewModel;
 
 class ProfileController extends ActionController

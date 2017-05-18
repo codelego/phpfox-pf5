@@ -3,7 +3,7 @@
 namespace Neutron\User\Controller;
 
 use Neutron\User\Service\VerifyTokenManager;
-use Phpfox\Action\Request;
+use Phpfox\Support\Request;
 
 class VerifyEmailControllerTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Action;
+namespace Phpfox\Support;
 
 
 class ResponseFactoryTest extends \PHPUnit_Framework_TestCase

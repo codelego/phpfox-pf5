@@ -3,7 +3,7 @@
 namespace Neutron\Video\Controller;
 
 use Neutron\Video\Form\EmbedVideo;
-use Phpfox\Action\ActionController;
+use Phpfox\Support\ActionController;
 use Phpfox\View\ViewModel;
 
 class IndexController extends ActionController

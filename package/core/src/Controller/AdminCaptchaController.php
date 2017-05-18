@@ -3,7 +3,7 @@
 namespace Neutron\Core\Controller;
 
 
-use Neutron\Core\Form\Admin\CoreAdapter\SelectCoreDriver;
+use Neutron\Core\Form\Admin\CaptchaDriver\SelectCaptchaDriver;
 use Neutron\Core\Model\CoreAdapter;
 use Neutron\Core\Process\AdminListEntryProcess;
 use Neutron\Core\Process\AdminSiteSettingsProcess;
@@ -64,7 +64,7 @@ class AdminCaptchaController extends AdminController
 
         if (!$driverId) {
             return new ViewModel([
-                'form' => new SelectCoreDriver(['driverType' => self::DRIVER_TYPE]),
+                'form' => new SelectCaptchaDriver(),
             ], 'layout/form-edit');
         }
 
@@ -146,7 +146,7 @@ class AdminCaptchaController extends AdminController
         $entry = _get('core.adapter')->getAdapterById(_get('request')->get('adapter_id'));
 
         $entry->delete();
-        
+
         _redirect('admin.core.captcha');
     }
 
