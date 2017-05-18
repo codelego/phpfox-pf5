@@ -1,22 +1,22 @@
 <?php
 
-namespace Neutron\Core\Form\Admin\VerifyDriver;
+namespace Neutron\Core\Form\Admin\SmsDriver;
 
 
 use Phpfox\Form\Form;
 
-class EditTwilioSettings extends Form
+class EditNextmoSettings extends Form
 {
     protected function initialize()
     {
-        $this->setTitle(_text('Twilio Service Settings', 'admin.core_verify_twilio'));
-        $this->setInfo(_text('[Twilio Service Settings Info]', 'admin.core_verify'));
+        $this->setTitle(_text('Nextmo Service Settings', 'admin.core_verify_nextmo'));
+        $this->setInfo(_text('[Nextmo Service Settings Info]', 'admin.core_verify'));
 
         $this->addElement([
             'name'      => 'account_id',
             'factory'   => 'text',
-            'label'     => _text('Account ID', 'admin.core_verify_twilio'),
-            'info'      => _text('[Account ID Info]', 'admin.core_verify_twilio'),
+            'label'     => _text('Account ID', 'admin.core_verify_nextmo'),
+            'info'      => _text('[Account ID Info]', 'admin.core_verify_nextmo'),
             'maxlength' => 100,
             'required'  => true,
         ]);
@@ -24,8 +24,8 @@ class EditTwilioSettings extends Form
         $this->addElement([
             'name'      => 'auth_token',
             'factory'   => 'text',
-            'label'     => _text('Auth Token', 'admin.core_verify_twilio'),
-            'info'      => _text('[Auth Token Info]', 'admin.core_verify_twilio'),
+            'label'     => _text('Auth Token', 'admin.core_verify_nextmo'),
+            'info'      => _text('[Auth Token Info]', 'admin.core_verify_nextmo'),
             'maxlength' => 100,
             'required'  => true,
         ]);
@@ -33,8 +33,8 @@ class EditTwilioSettings extends Form
         $this->addElement([
             'name'      => 'phone_number',
             'factory'   => 'text',
-            'label'     => _text('Phone Number', 'admin.core_verify_twilio'),
-            'info'      => _text('[Phone Number Info]', 'admin.core_verify_twilio'),
+            'label'     => _text('Phone Number', 'admin.core_verify_nextmo'),
+            'info'      => _text('[Phone Number Info]', 'admin.core_verify_nextmo'),
             'maxlength' => 100,
             'required'  => true,
         ]);
@@ -50,7 +50,7 @@ class EditTwilioSettings extends Form
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'cancel',
-            'href'       => '#',
+            'href'       => _url('admin.core.sms'),
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);

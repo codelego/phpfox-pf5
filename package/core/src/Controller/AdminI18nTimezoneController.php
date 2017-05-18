@@ -74,15 +74,19 @@ class AdminI18nTimezoneController extends AdminController
             throw new \InvalidArgumentException('Invalid params "timezone_id"');
         }
 
-        if (!$entry->isActive()) {
+        if (!$entry->isDefault()) {
+
+            _model('i18n_timezone')
+                ->update()
+                ->values(['is_default' => 0])
+                ->where('timezone_id <> ?', $identity)
+                ->execute();
+
+            $entry->setDefault(1);
             $entry->setActive(1);
             $entry->save();
+            _get('core.setting')->updateValue('core.default_timezone_id', $identity);
         }
-
-        _get('core.setting')->updateValue('core.default_timezone_id', $identity);
-
-        _get('shared.cache')->flush();
-
         _redirect('admin.core.i18n.timezone');
     }
 }

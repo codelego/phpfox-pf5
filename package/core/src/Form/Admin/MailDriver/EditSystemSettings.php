@@ -5,14 +5,13 @@ namespace Neutron\Core\Form\Admin\MailDriver;
 
 use Phpfox\Form\Form;
 
-class EditSystemDriverSettings extends Form
+class EditSystemSettings extends Form
 {
     protected function initialize()
     {
         $this->setTitle(_text('System Driver Settings', 'admin.core_mail'));
         $this->setInfo(_text('[System Driver Settings Info]', 'admin.core_mail'));
-
-        $this->addElement(['factory' => 'hidden', 'name' => 'title']);
+        $this->setAction(_url('#'));
 
         $this->addElement([
             'factory'     => 'text',
@@ -62,7 +61,7 @@ class EditSystemDriverSettings extends Form
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'cancel',
-            'href'       => '#',
+            'href'       => _url('admin.core.mail.adapter'),
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);

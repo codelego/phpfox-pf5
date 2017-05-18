@@ -3,38 +3,38 @@
 namespace Neutron\Core\Controller;
 
 
-use Neutron\Core\Form\Admin\CoreAdapter\SelectCoreDriver;
+use Neutron\Core\Form\Admin\SmsDriver\SelectSmsDriver;
 use Neutron\Core\Model\CoreAdapter;
 use Neutron\Core\Process\AdminListEntryProcess;
 use Neutron\Core\Process\AdminSiteSettingsProcess;
 use Phpfox\View\ViewModel;
 
-class AdminVerifyController extends AdminController
+class AdminSmsController extends AdminController
 {
-    /**
+    /**``
      * @const DRIVER_TYPE string
      */
-    const DRIVER_TYPE = 'verify';
+    const DRIVER_TYPE = 'sms';
 
     protected function initialized()
     {
         _get('breadcrumb')
             ->set([
-                'href'  => _url('admin.core.verify'),
+                'href'  => _url('admin.core.sms'),
                 'label' => _text('Verify Service Settings', 'menu'),
             ]);
 
         _get('html.title')
-            ->set(_text('Verify Service Settings', 'menu'));
+            ->set(_text('Mobile Service Settings', 'menu'));
 
         _get('menu.admin.secondary')
-            ->load('_core.verify');
+            ->load('_core.sms');
     }
 
     protected function afterDispatch($action)
     {
         _get('menu.admin.buttons')
-            ->load('_core.verify.buttons');
+            ->load('_core.sms.buttons');
     }
 
     public function actionIndex()
@@ -45,15 +45,15 @@ class AdminVerifyController extends AdminController
 
         return (new AdminListEntryProcess([
             'select'   => $select,
-            'template' => 'core/admin-verify/manage-verify-adapter',
-            'data'     => ['defaultValue' => _param('core.default_verify_id')],
+            'template' => 'core/admin-sms/manage-sms-adapter',
+            'data'     => ['defaultValue' => _param('core.default_sms_id')],
         ]))->process();
     }
 
     public function actionSettings()
     {
         return (new AdminSiteSettingsProcess(
-            ['setting_group' => 'core_verify',]
+            ['setting_group' => 'core_sms',]
         ))->process();
     }
 
@@ -64,11 +64,11 @@ class AdminVerifyController extends AdminController
 
         if (!$driverId) {
             return new ViewModel([
-                'form' => new SelectCoreDriver(['driverType' => self::DRIVER_TYPE]),
+                'form' => new SelectSmsDriver(),
             ], 'layout/form-edit');
         }
 
-        _redirect('admin.core.verify', [
+        _redirect('admin.core.sms', [
             'action'    => 'config',
             'driver_id' => $driverId,
         ]);
@@ -80,7 +80,7 @@ class AdminVerifyController extends AdminController
         $driverId = $request->get('driver_id', 'files');
 
         $form = _get('core.adapter')
-            ->getEditingForm($driverId, 'verify');
+            ->getEditingForm($driverId, 'sms');
 
         if ($request->isGet()) {
 
@@ -98,12 +98,12 @@ class AdminVerifyController extends AdminController
 
             // how to get name
             $data = $form->getData();
-            $adapterEntry->setDriverType('verify');
+            $adapterEntry->setDriverType('sms');
             $adapterEntry->fromArray($data);
             $adapterEntry->setParams(json_encode($data));
             $adapterEntry->save();
 
-            _redirect('admin.core.verify');
+            _redirect('admin.core.sms');
         }
 
         return new ViewModel([
@@ -134,7 +134,7 @@ class AdminVerifyController extends AdminController
             $adapterEntry->setParams(json_encode($data));
             $adapterEntry->save();
 
-            _redirect('admin.core.verify');
+            _redirect('admin.core.sms');
         }
 
         return new ViewModel([
@@ -144,25 +144,31 @@ class AdminVerifyController extends AdminController
 
     public function actionDefault()
     {
-        $identity = _get('request')
+        $adapterId = _get('request')
             ->get('adapter_id');
 
         /** @var CoreAdapter $entry */
-        $entry = _model('core_adapter')->findById($identity);
+        $entry = _model('core_adapter')->findById($adapterId);
 
         if (!$entry) {
             throw new \InvalidArgumentException('Invalid params "adapter_id"');
         }
 
-        if (!$entry->isActive()) {
+        if (!$entry->isDefault()) {
+            _model('core_adapter')
+                ->update()
+                ->values(['is_default' => 0])
+                ->where('adapter_id <> ?', $adapterId)
+                ->where('driver_type = ?', self::DRIVER_TYPE)
+                ->execute();
+
+            $entry->setDefault(1);
             $entry->setActive(1);
             $entry->save();
+
+            _get('core.setting')->updateValue('core.default_sms_id', $adapterId);
         }
 
-        _get('core.setting')->updateValue('core.default_verify_id', $identity);
-
-        _get('shared.cache')->flush();
-
-        _redirect('admin.core.verify');
+        _redirect('admin.core.sms');
     }
 }

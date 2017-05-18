@@ -152,24 +152,27 @@ class AdminCaptchaController extends AdminController
 
     public function actionDefault()
     {
-        $identity = _get('request')
-            ->get('adapter_id');
+        $adapterId = _get('request')->get('adapter_id');
 
         /** @var CoreAdapter $entry */
-        $entry = _model('core_adapter')->findById($identity);
+        $entry = _model('core_adapter')->findById($adapterId);
 
         if (!$entry) {
             throw new \InvalidArgumentException('Invalid params "adapter_id"');
         }
 
-        if (!$entry->isActive()) {
-            $entry->setActive(1);
+        if (!$entry->isDefault()) {
+            _model('core_adapter')
+                ->update()
+                ->values(['is_default' => 0])
+                ->where('adapter_id <> ?', $adapterId)
+                ->where('driver_type = ?', 'captcha')
+                ->execute();
+
+            $entry->setDefault(1);
             $entry->save();
+            _get('core.setting')->updateValue('core.default_captcha_id', $adapterId);
         }
-
-        _get('core.setting')->updateValue('core.default_captcha_id', $identity);
-
-        _get('captcha.local')->flush();
 
         _redirect('admin.core.captcha');
     }

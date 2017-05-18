@@ -1,8 +1,7 @@
 @charset "UTF-8";
 .form-info {
   margin-bottom: 30px;
-  font-size: 100%;
-  white-space: pre-wrap; }
+  white-space: pre-line; }
 
 .control-info {
   margin-bottom: 5px;

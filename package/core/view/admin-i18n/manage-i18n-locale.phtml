@@ -46,7 +46,7 @@
                     <td><?= $item->getCode6391() ?></td>
                     <td><?= $item->getDirectionId() ?></td>
                     <td><?= _yesno($item->isActive(), true, true) ?></td>
-                    <td><?= _yesno($item->getId() == $defaultValue, true, false) ?></td>
+                    <td><?= _yesno($item->isDefault(), true, false) ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

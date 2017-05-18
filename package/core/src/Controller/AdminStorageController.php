@@ -2,7 +2,7 @@
 
 namespace Neutron\Core\Controller;
 
-use Neutron\Core\Form\Admin\CoreAdapter\SelectCoreDriver;
+use Neutron\Core\Form\Admin\StorageDriver\SelectStorageDriver;
 use Neutron\Core\Model\StorageAdapter;
 use Neutron\Core\Process\AdminListEntryProcess;
 use Neutron\Core\Process\AdminSiteSettingsProcess;
@@ -10,6 +10,8 @@ use Phpfox\View\ViewModel;
 
 class AdminStorageController extends AdminController
 {
+    const DRIVER_TYPE = 'storage';
+
     protected function initialized()
     {
         _get('html.title')
@@ -54,7 +56,7 @@ class AdminStorageController extends AdminController
     {
         $request = _get('request');
 
-        $form = new SelectCoreDriver(['driverType' => 'storage']);
+        $form = new SelectStorageDriver();
 
         if ($request->isGet()) {
 
@@ -143,25 +145,30 @@ class AdminStorageController extends AdminController
 
     public function actionDefault()
     {
-        $identity = _get('request')
+        $adapterId = _get('request')
             ->get('adapter_id');
 
         /** @var StorageAdapter $entry */
-        $entry = _model('storage_adapter')->findById($identity);
+        $entry = _model('storage_adapter')->findById($adapterId);
 
         if (!$entry) {
             throw new \InvalidArgumentException('Invalid params "adapter_id"');
         }
 
-        if (!$entry->isActive()) {
+        if (!$entry->isDefault()) {
+
+            _model('storage_adapter')
+                ->update()
+                ->values(['is_default' => 0])
+                ->where('adapter_id <> ?', $adapterId)
+                ->execute();
+
             $entry->setActive(1);
+            $entry->setDefault(1);
             $entry->save();
+
+            _get('core.setting')->updateValue('core.default_storage_id', $adapterId);
         }
-
-        _get('core.setting')->updateValue('core.default_storage_id', $identity);
-
-        _get('shared.cache')->flush();
-
         _redirect('admin.core.storage.adapter');
     }
 }

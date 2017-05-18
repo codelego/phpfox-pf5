@@ -35,7 +35,7 @@
                     <td><?= $item->getTitle() ?></td>
                     <td><?= $item->getDriverId() ?></td>
                     <td><?= _yesno($item->isActive(), true, false) ?></td>
-                    <td><?= _yesno($item->getId() == $defaultValue, true, false) ?></td>
+                    <td><?= _yesno($item->isDefault(), true, false) ?></td>
                     <td><?= _yesno($item->isRequired(), true, false) ?></td>
                 </tr>
             <?php endforeach; ?>

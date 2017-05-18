@@ -7,10 +7,18 @@ use Phpfox\Form\Form;
 class SelectCoreDriver extends Form
 {
 
+    /**
+     * @var string
+     */
     protected $driverType;
 
     /**
-     * @return mixed
+     * @var string
+     */
+    protected $cancelUrl = '#';
+
+    /**
+     * @return string
      */
     public function getDriverType()
     {
@@ -18,7 +26,7 @@ class SelectCoreDriver extends Form
     }
 
     /**
-     * @param mixed $driverType
+     * @param string $driverType
      */
     public function setDriverType($driverType)
     {
@@ -68,17 +76,17 @@ class SelectCoreDriver extends Form
             $this->addButton([
                 'factory'    => 'button',
                 'name'       => 'cancel',
-                'href'       => '#',
+                'href'       => _url($this->cancelUrl),
                 'label'      => _text('Cancel'),
                 'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
             ]);
 
         } else {
-            $this->getElement('driver_id')->setParam('info',_text('[Oop! There are no available drivers]', '_core'));
+            $this->getElement('driver_id')->setParam('info', _text('[Oop! There are no available drivers]', '_core'));
             $this->addButton([
                 'factory'    => 'button',
                 'name'       => 'cancel',
-                'href'       => '#',
+                'href'       => _url($this->cancelUrl),
                 'label'      => _text('Back'),
                 'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'go.back',],
             ]);

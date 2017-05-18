@@ -81,15 +81,19 @@ class AdminI18nLocaleController extends AdminController
             throw new \InvalidArgumentException('Invalid params "locale_id"');
         }
 
-        if (!$entry->isActive()) {
+        if (!$entry->isDefault()) {
+            _model('i18n_locale')
+                ->update()
+                ->values(['is_default' => 0])
+                ->where('locale_id <> ?', $identity)
+                ->execute();
+
+
+            $entry->setDefault(1);
             $entry->setActive(1);
             $entry->save();
+            _get('core.setting')->updateValue('core.default_locale_id', $identity);
         }
-
-        _get('core.setting')->updateValue('core.default_locale_id', $identity);
-
-        _get('shared.cache')->flush();
-
         _redirect('admin.core.i18n.locale');
     }
 }

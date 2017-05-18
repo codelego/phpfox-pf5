@@ -31,19 +31,14 @@ return [
             'controller' => 'core.admin-session',
             'action'     => 'index',
         ],
-        'admin.core.message'  => [
-            'route'      => 'message(/<action>)',
-            'controller' => 'core.admin-message',
-            'action'     => 'index',
-        ],
         'admin.core.captcha'  => [
             'route'      => 'captcha(/<action>)',
             'controller' => 'core.admin-captcha',
             'action'     => 'index',
         ],
-        'admin.core.verify'   => [
-            'route'      => 'verify(/<action>)',
-            'controller' => 'core.admin-verify',
+        'admin.core.sms'      => [
+            'route'      => 'sms(/<action>)',
+            'controller' => 'core.admin-sms',
             'action'     => 'index',
         ],
         'admin.core.package'  => [

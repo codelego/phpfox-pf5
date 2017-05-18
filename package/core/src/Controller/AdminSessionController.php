@@ -3,7 +3,7 @@
 namespace Neutron\Core\Controller;
 
 
-use Neutron\Core\Form\Admin\CoreAdapter\SelectCoreDriver;
+use Neutron\Core\Form\Admin\SessionDriver\SelectSessionDriver;
 use Neutron\Core\Model\CoreAdapter;
 use Neutron\Core\Process\AdminListEntryProcess;
 use Neutron\Core\Process\AdminSiteSettingsProcess;
@@ -64,7 +64,7 @@ class AdminSessionController extends AdminController
 
         if (!$driverId) {
             return new ViewModel([
-                'form' => new SelectCoreDriver(['driverType' => self::DRIVER_TYPE]),
+                'form' => new SelectSessionDriver(),
             ], 'layout/form-edit');
         }
 
@@ -154,22 +154,32 @@ class AdminSessionController extends AdminController
 
     public function actionDefault()
     {
-        $identity = _get('request')
+        $adapterId = _get('request')
             ->get('adapter_id');
 
         /** @var CoreAdapter $entry */
-        $entry = _model('core_adapter')->findById($identity);
+        $entry = _model('core_adapter')->findById($adapterId);
 
         if (!$entry) {
             throw new \InvalidArgumentException('Invalid params "adapter_id"');
         }
 
-        if (!$entry->isActive()) {
+        if (!$entry->isDefault()) {
+
+            _model('core_adapter')
+                ->update()
+                ->values(['is_default' => 0])
+                ->where('adapter_id <> ?', $adapterId)
+                ->where('driver_type = ?', self::DRIVER_TYPE)
+                ->execute();
+
+
+            $entry->setDefault(1);
             $entry->setActive(1);
             $entry->save();
+            _get('core.setting')->updateValue('core.default_session_id', $adapterId);
         }
 
-        _get('core.setting')->updateValue('core.default_session_id', $identity);
 
         _redirect('admin.core.session');
     }

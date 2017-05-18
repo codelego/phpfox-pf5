@@ -30,7 +30,6 @@ return [
     'core.admin-acl'              => AdminAclController::class,
     'core.admin-storage'          => AdminStorageController::class,
     'core.admin-captcha'          => AdminCaptchaController::class,
-    'core.admin-verify'           => AdminVerifyController::class,
+    'core.admin-sms'              => AdminSmsController::class,
     'core.admin-session'          => AdminSessionController::class,
-    'core.admin-message'          => AdminMessageController::class,
 ];

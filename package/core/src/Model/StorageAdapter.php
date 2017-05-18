@@ -29,4 +29,7 @@ class StorageAdapter extends DbModel
     
     public function isRequired(){return $this->__get('is_required') ?1:0;}
     public function setRequired($value){$this->__set('is_required',$value?1:0);}
+    
+    public function isDefault(){return $this->__get('is_default') ?1:0;}
+    public function setDefault($value){$this->__set('is_default',$value?1:0);}
     }

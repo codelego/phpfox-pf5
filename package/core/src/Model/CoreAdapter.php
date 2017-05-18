@@ -13,12 +13,12 @@ class CoreAdapter extends DbModel
 
     public function getAdapterId()
     {
-        return $this->__get('adapter_id');
+        return (int)$this->__get('adapter_id');
     }
 
     public function getId()
     {
-        return $this->__get('adapter_id');
+        return (int)$this->__get('adapter_id');
     }
 
     public function setAdapterId($value)
@@ -59,6 +59,16 @@ class CoreAdapter extends DbModel
     public function setActive($value)
     {
         $this->__set('is_active', $value ? 1 : 0);
+    }
+
+    public function isDefault()
+    {
+        return $this->__get('is_default') ? 1 : 0;
+    }
+
+    public function setDefault($value)
+    {
+        $this->__set('is_default', $value ? 1 : 0);
     }
 
     public function isRequired()

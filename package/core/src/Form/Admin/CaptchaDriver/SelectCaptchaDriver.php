@@ -8,8 +8,5 @@ class SelectCaptchaDriver extends SelectCoreDriver
 {
     protected $driverType = 'captcha';
 
-    protected function afterInitialize()
-    {
-        $this->getButton('cancel')->setParam('href', _url('admin.core.captcha'));
-    }
+    protected $cancelUrl = 'admin.core.captcha';
 }

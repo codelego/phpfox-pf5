@@ -43,7 +43,7 @@ class AdminLayoutBlockController extends AdminController
                 'location_id'  => $locationId,
                 'container_id' => $containerId,
                 'is_active'    => 1,
-                'ordering'   => 0,
+                'ordering'     => 0,
                 'params'       => '[]',
             ]);
 

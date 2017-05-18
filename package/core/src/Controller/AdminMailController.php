@@ -2,8 +2,8 @@
 
 namespace Neutron\Core\Controller;
 
-use Neutron\Core\Form\Admin\CoreAdapter\SelectCoreDriver;
 use Neutron\Core\Form\Admin\MailAdapter\TestEmailSettings;
+use Neutron\Core\Form\Admin\MailDriver\SelectMailDriver;
 use Neutron\Core\Model\CoreAdapter;
 use Neutron\Core\Process\AdminListEntryProcess;
 use Neutron\Core\Process\AdminSiteSettingsProcess;
@@ -62,7 +62,7 @@ class AdminMailController extends AdminController
 
         if (!$driverName) {
             return new ViewModel([
-                'form' => new SelectCoreDriver(['driverType' => self::DRIVER_TYPE]),
+                'form' => new SelectMailDriver(),
             ], 'layout/form-edit');
         }
 
@@ -189,24 +189,33 @@ class AdminMailController extends AdminController
     public function actionDefault()
     {
         $request = _get('request');
-        $identity = $request->get('adapter_id');
+        $adapterId = $request->get('adapter_id');
 
         /** @var CoreAdapter $entry */
-        $entry = _model('core_adapter')->findById($identity);
+        $entry = _model('core_adapter')->findById($adapterId);
 
         if (!$entry) {
             throw new \InvalidArgumentException('Invalid params "adapter_id"');
         }
 
-        if (!$entry->isActive()) {
-            $entry->setActive(true);
+        if (!$entry->isDefault()) {
+
+            _model('core_adapter')
+                ->update()
+                ->values(['is_default' => 0])
+                ->where('adapter_id <> ?', $adapterId)
+                ->where('driver_type = ?', 'mail')
+                ->execute();
+
+            $entry->setDefault(1);
+            $entry->setActive(1);
             $entry->save();
+
+            // do not put default to another type
+
+
+            _get('core.setting')->updateValue('core.default_mailer_id', $adapterId);
         }
-
-        _get('core.setting')->updateValue('core.default_mailer_id', $identity);
-
-        _get('shared.cache')->flush();
-
         _redirect('admin.core.mail.adapter');
     }
 }

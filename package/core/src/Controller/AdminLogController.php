@@ -3,7 +3,7 @@
 namespace Neutron\Core\Controller;
 
 
-use Neutron\Core\Form\Admin\CoreAdapter\SelectCoreDriver;
+use Neutron\Core\Form\Admin\LogDriver\SelectLogDriver;
 use Neutron\Core\Model\CoreAdapter;
 use Neutron\Core\Model\LogAdapter;
 use Neutron\Core\Process\AdminSiteSettingsProcess;
@@ -65,7 +65,7 @@ class AdminLogController extends AdminController
         $containerId = $request->get('container_id');
         $driverId = $request->get('driver_id');
 
-        $form = new SelectCoreDriver(['driverType' => self::DRIVER_TYPE]);
+        $form = new SelectLogDriver();
 
         if ($containerId and $driverId) {
             _redirect('admin.core.log', [
