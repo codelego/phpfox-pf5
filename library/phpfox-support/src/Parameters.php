@@ -19,6 +19,11 @@ class Parameters
         $this->data = $data;
     }
 
+    public function isEmpty()
+    {
+        return empty($this->data);
+    }
+
 
     /**
      * @param string $key

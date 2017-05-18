@@ -3,7 +3,7 @@
 namespace Neutron\ThemeGalaxy;
 
 return [
-    'services'  => [
-        'theme_galaxy.callback' => [null, Service\EventListener::class,],
+    'services' => [
+        'theme_galaxy.listener' => [null, Service\EventListener::class,],
     ],
 ];

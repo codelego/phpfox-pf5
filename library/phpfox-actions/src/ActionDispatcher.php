@@ -4,7 +4,7 @@ namespace Phpfox\Action;
 
 use Phpfox\Support\Parameters;
 
-class Dispatcher
+class ActionDispatcher
 {
     /**
      * Forward loop max

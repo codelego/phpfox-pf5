@@ -3,7 +3,7 @@
 namespace Phpfox\Mailer;
 
 return [
-    'mail.drivers' => [
+    'mail_drivers' => [
         'smtp'   => SmtpAdapter::class,
         'system' => SystemAdapter::class,
     ],

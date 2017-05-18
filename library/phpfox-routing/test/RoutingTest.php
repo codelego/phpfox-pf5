@@ -28,8 +28,7 @@ class RoutingTest extends \PHPUnit_Framework_TestCase
 
         $parameters = new Parameters();
 
-        $this->assertTrue($admin->match('admincp/core/dashboard', null,
-            $parameters));
+        $this->assertTrue($admin->match('admincp/core/dashboard', $parameters));
 
         $this->assertEquals('core.admin.index', $parameters->get('controller'));
         $this->assertEquals('dashboard', $parameters->get('action'));
@@ -58,13 +57,13 @@ class RoutingTest extends \PHPUnit_Framework_TestCase
 
         $parameters = new Parameters();
 
-        $this->assertTrue($admin->match('admincp/core/dashboard', null,
+        $this->assertTrue($admin->match('admincp/core/dashboard',
             $parameters));
 
         $this->assertEquals('core.admin.index', $parameters->get('controller'));
         $this->assertEquals('dashboard', $parameters->get('action'));
 
-        $this->assertTrue($admin->match('admincp/user', null, $parameters));
+        $this->assertTrue($admin->match('admincp/user', $parameters));
 
         $this->assertEquals('user.admin.manage',
             $parameters->get('controller'));
@@ -101,19 +100,19 @@ class RoutingTest extends \PHPUnit_Framework_TestCase
 
         $parameters = new Parameters();
 
-        $this->assertTrue($admin->match('admincp/core/dashboard', null,
+        $this->assertTrue($admin->match('admincp/core/dashboard',
             $parameters));
 
         $this->assertEquals('core.admin.index', $parameters->get('controller'));
         $this->assertEquals('dashboard', $parameters->get('action'));
 
-        $this->assertTrue($admin->match('admincp/user', null, $parameters));
+        $this->assertTrue($admin->match('admincp/user', $parameters));
 
         $this->assertEquals('user.admin.manage',
             $parameters->get('controller'));
         $this->assertEquals('index', $parameters->get('action'));
 
-        $this->assertTrue($admin->match('admincp/user/delete/2', null,
+        $this->assertTrue($admin->match('admincp/user/delete/2',
             $parameters));
 
         $this->assertEquals('user.admin.manage',
@@ -144,7 +143,7 @@ class RoutingTest extends \PHPUnit_Framework_TestCase
 
         $parameters = new Parameters();
 
-        $this->assertTrue($profile->match('profile/namnv', null, $parameters));
+        $this->assertTrue($profile->match('profile/namnv', $parameters));
 
         $this->assertEquals('namnv', $parameters->get('name'));
         $this->assertEquals('user.profile', $parameters->get('controller'));
@@ -173,16 +172,16 @@ class RoutingTest extends \PHPUnit_Framework_TestCase
 
         $parameters = new Parameters();
 
-        $this->assertTrue($profile->match('profile/namnv', null, $parameters));
+        $this->assertTrue($profile->match('profile/namnv', $parameters));
 
         $this->assertEquals('namnv', $parameters->get('name'));
         $this->assertEquals('user.profile', $parameters->get('controller'));
         $this->assertEquals('home', $parameters->get('action'));
         // where to chain the access
 
-        $this->assertFalse($profile->match('profile/apache', null,
+        $this->assertFalse($profile->match('profile/apache',
             $parameters));
-        $this->assertFalse($profile->match('namnv', null, $parameters));
+        $this->assertFalse($profile->match('namnv', $parameters));
 
 
         $this->assertEquals('profile/namnv',
@@ -217,18 +216,18 @@ class RoutingTest extends \PHPUnit_Framework_TestCase
 
         $parameters = new Parameters();
 //
-        $this->assertTrue($profile->match('profile/namnv', null, $parameters));
+        $this->assertTrue($profile->match('profile/namnv', $parameters));
 
         $this->assertEquals('namnv', $parameters->get('name'));
         $this->assertEquals('user.profile', $parameters->get('controller'));
         $this->assertEquals('home', $parameters->get('action'));
         // where to chain the access
 
-        $this->assertFalse($profile->match('profile/apache', null,
+        $this->assertFalse($profile->match('profile/apache',
             $parameters));
-        $this->assertFalse($profile->match('namnv', null, $parameters));
+        $this->assertFalse($profile->match('namnv', $parameters));
 
-        $this->assertTrue($profile->match('profile/namnv/blogs', null,
+        $this->assertTrue($profile->match('profile/namnv/blogs',
             $parameters));
 
 

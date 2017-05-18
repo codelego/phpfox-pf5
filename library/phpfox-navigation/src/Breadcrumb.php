@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Breadcrumb;
+namespace Phpfox\Navigation;
 
 
 use Phpfox\View\ViewModel;

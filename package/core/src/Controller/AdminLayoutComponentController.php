@@ -13,7 +13,7 @@ class AdminLayoutComponentController extends AdminController
 {
     public function initialized()
     {
-        $editingThemeId = _get('layout_loader')
+        $editingThemeId = _get('core.layout')
             ->getEditingThemeId();
 
         _get('html.title')

@@ -4,7 +4,7 @@ namespace Phpfox\Action;
 
 return [
     'services' => [
-        'dispatcher'                 => [null, Dispatcher::class],
+        'dispatcher'                 => [null, ActionDispatcher::class],
         'request'                    => [RequestFactory::class, null],
         'response'                   => [ResponseFactory::class, null],
         'response.ajax'              => [null, JsonResponse::class],

@@ -92,4 +92,19 @@ interface PackageLoaderInterface
      * @return Parameters
      */
     public function getSessionParameter($adapterId);
+
+    /**
+     * @param int $roleId
+     *
+     * @return Parameters
+     */
+    public function getPermissionParameter($roleId);
+
+
+    /**
+     * @param string $menu
+     *
+     * @return Parameters
+     */
+    public function getNavigationParameter($menu);
 }

@@ -10,5 +10,5 @@ interface NavigationLoaderInterface
      *
      * @return array
      */
-    public function load($menu);
+    public function getNavigationParameter($menu);
 }

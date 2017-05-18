@@ -55,7 +55,7 @@ class AdminLayoutContainerController extends AdminController
     {
         $request = _get('request');
         $pageId = $request->get('page_id');
-        $page = _get('layout_loader')->findPageById($pageId);
+        $page = _get('core.layout')->findPageById($pageId);
 
         $form = new AddLayoutContainer(['pageId' => $pageId,]);
 
@@ -117,7 +117,7 @@ class AdminLayoutContainerController extends AdminController
         $page = _model('layout_page')
             ->findById($container->getPageId());
 
-        _get('layout_loader')->deleteContainers([$containerId]);
+        _get('core.layout')->deleteContainers([$containerId]);
 
 
         _get('shared.cache')->flush();

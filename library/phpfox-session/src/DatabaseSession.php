@@ -1,10 +1,9 @@
 <?php
 
-namespace Neutron\Core\Service;
+namespace Phpfox\Session;
 
 
 use Phpfox\Db\SqlLiteral;
-use Phpfox\Session\SessionInterface;
 
 class DatabaseSession implements SessionInterface, \SessionHandlerInterface
 {

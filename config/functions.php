@@ -157,10 +157,10 @@ namespace {
      *
      * @return mixed|object
      */
-    function _load($cache, $key, $ttl, $fallback)
+    function _get_cached_value($cache, $key, $ttl, $fallback)
     {
-        /** @var CacheStorageInterface $storage */
-        $storage = \Phpfox::$service->get($cache ? $cache : 'shared.cache');
+        /** @var CacheStorageInterface $cacheStorage */
+        $cacheStorage = \Phpfox::$service->get($cache ? $cache : 'shared.cache');
 
         if (is_array($key)) {
             $key = implode('_', $key);
@@ -169,11 +169,11 @@ namespace {
         if ($ttl === false) {
             $item = new CacheItem($key, $fallback(), $ttl);
         } else {
-            $item = $storage->getItem($key);
+            $item = $cacheStorage->getItem($key);
         }
 
         if (null == $item) {
-            $storage->saveItem($item = new CacheItem($key, $fallback(), $ttl));
+            $cacheStorage->saveItem($item = new CacheItem($key, $fallback(), $ttl));
         }
 
         return $item->value;
@@ -216,45 +216,7 @@ namespace {
      */
     function _pass($roleId, $action)
     {
-        return \Phpfox::$service->get('authorization')
-            ->pass($roleId, $action);
-    }
-
-    function _describe_table($table)
-    {
-        if (substr($table, 0, 1) == ':') {
-            $table = PHPFOX_TABLE_PREFIX . substr($table, 1);
-        }
-        $rows = _get('db')
-            ->execute('describe ' . $table)
-            ->all();
-
-
-        $column = [];
-        $primary = [];
-        $identity = null;
-        $queryId = null;
-
-        foreach ($rows as $row) {
-            $column[$row['Field']] = 1;
-
-            if (strtolower($row['Key']) == 'pri') {
-                $primary[$row['Field']] = 1;
-            }
-
-            if (strtolower($row['Extra']) == 'auto_increment') {
-                $identity = $row['Field'];
-            }
-        }
-
-        if ($identity) {
-            $queryId = $identity;
-        } elseif (count($primary) == 1) {
-            $queryId = array_keys($primary)[0];
-        }
-
-
-        return [$identity, $primary, $queryId, $column];
+        return \Phpfox::$service->get('acl')->pass($roleId, $action);
     }
 
     /**

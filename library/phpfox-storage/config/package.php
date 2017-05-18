@@ -3,7 +3,7 @@
 namespace Phpfox\Storage {
 
     return [
-        'storage.drivers' => [
+        'storage_drivers' => [
             'local' => LocalStorage::class,
             'ftp'   => FtpStorage::class,
             'ssh2'  => Ssh2Storage::class,

@@ -4,12 +4,13 @@ namespace Phpfox\Auth;
 
 
 use Phpfox\Support\Event;
+use Phpfox\Support\Parameters;
 use Phpfox\Support\UserInterface;
 
-class AuthorizationManager
+class PermissionFacades
 {
     /**
-     * @var PermissionData[]
+     * @var Parameters[]
      */
     private $data = [];
 
@@ -18,15 +19,20 @@ class AuthorizationManager
      */
     private $roleId = PHPFOX_GUEST_ID;
 
+    /**
+     * @param $roleId
+     *
+     * @return Parameters
+     */
     public function get($roleId)
     {
         return isset($this->data[$roleId]) ? $this->data[$roleId]
-            : $this->data[$roleId] = $this->load($roleId);
+            : $this->data[$roleId] = _get('package.loader')->getPermissionParameter($roleId);
     }
 
     /**
-     * @param int            $roleId
-     * @param PermissionData $data
+     * @param int        $roleId
+     * @param Parameters $data
      */
     public function set($roleId, $data)
     {
@@ -46,19 +52,11 @@ class AuthorizationManager
             $roleId = $this->roleId;
         }
 
-        return (bool)$this->get($roleId)->get($action, $default);
-    }
+        if (!isset($this->data[$roleId])) {
+            $this->data[$roleId] = _get('package.loader')->_getPermissionParameter($roleId);
+        }
 
-    /**
-     * @param $roleId
-     *
-     * @return PermissionData
-     * @throws \InvalidArgumentException
-     */
-    public function load($roleId)
-    {
-        return _get('authorization.provider')
-            ->load($roleId);
+        return (bool)$this->data[$roleId]->get($action, $default);
     }
 
     /**

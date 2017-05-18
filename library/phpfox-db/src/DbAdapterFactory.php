@@ -23,7 +23,7 @@ class DbAdapterFactory
             $driver = $params['driver'];
         }
 
-        $class = _param('db.drivers', $driver);
+        $class = _param('db_drivers', $driver);
 
         return new $class($params);
     }

@@ -3,7 +3,7 @@
 namespace Phpfox\Cache;
 
 return [
-    'cache.drivers' => [
+    'cache_drivers' => [
         'filesystem' => FilesCacheStorage::class,
         'apc'        => ApcuCacheStorage::class,
     ],

@@ -15,7 +15,7 @@ class AdminLayoutPageController extends AdminController
 {
     public function initialized()
     {
-        $editingThemeId = _get('layout_loader')
+        $editingThemeId = _get('core.layout')
             ->getEditingThemeId();
 
         _get('html.title')
@@ -79,7 +79,7 @@ class AdminLayoutPageController extends AdminController
         $actionId = $request->get('action_id');
         $themeId = $request->get('theme_id', 'default');
 
-        $layoutService = _get('layout_loader');
+        $layoutService = _get('core.layout');
 
         $pageId = $layoutService->findPageIdForEdit($actionId, $themeId);
 
@@ -118,7 +118,7 @@ class AdminLayoutPageController extends AdminController
         $actionId = $request->get('action_id');
         $themeId = $request->get('theme_id');
         $confirmed = $request->get('confirmed', false);
-        $layoutService = _get('layout_loader');
+        $layoutService = _get('core.layout');
         $parentPageId = $layoutService->findPageIdForRender($actionId, $themeId);
         /** @var LayoutPage $parentPage */
         $parentPage = _model('layout_page')->findById($parentPageId);

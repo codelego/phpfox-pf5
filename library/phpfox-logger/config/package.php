@@ -3,7 +3,7 @@
 namespace Phpfox\Logger;
 
 return [
-    'log.drivers' => [
+    'log_drivers' => [
         'files' => FilesLogger::class,
         'db'    => DbLogger::class,
     ],

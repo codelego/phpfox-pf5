@@ -26,7 +26,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 
         $parameters = $router->run('admincp/core/i18n');
 
-        $this->assertEquals('core.admin-i18n', $parameters->get('controller'));
+        $this->assertEquals('core.admin-i18n-message', $parameters->get('controller'));
         $this->assertEquals('index', $parameters->get('action'));
 
         $this->assertEquals('admincp/core/i18n',

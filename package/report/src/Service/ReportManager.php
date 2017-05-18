@@ -63,7 +63,7 @@ class ReportManager
      */
     public function getActiveCategoryOptions()
     {
-        return _load('shared.cache', ['report', 'getActiveCategoryOptions'], 0, function () {
+        return _get_cached_value('shared.cache', ['report', 'getActiveCategoryOptions'], 0, function () {
             return $this->_getActiveCategoryOptions();
         });
     }

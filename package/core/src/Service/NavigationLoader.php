@@ -7,9 +7,8 @@ use Phpfox\Navigation\NavigationLoaderInterface;
 
 class NavigationLoader implements NavigationLoaderInterface
 {
-    CONST MAX_LEVEL = 4;
 
-    public function loadFromRepository($menu)
+    public function _getNavigationParameter($menu)
     {
         $select = _get('db')
             ->select('*')
@@ -31,12 +30,11 @@ class NavigationLoader implements NavigationLoaderInterface
      * Make navigation data to tree data structure
      *
      * @param string $menu
-     * @param string $parentId
      *
      * @return array
      */
-    public function load($menu, $parentId = null)
+    public function getNavigationParameter($menu)
     {
-        return $this->loadFromRepository($menu);
+        return $this->_getNavigationParameter($menu);
     }
 }

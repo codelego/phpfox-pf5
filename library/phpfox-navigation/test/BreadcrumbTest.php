@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Breadcrumb;
+namespace Phpfox\Navigation;
 
 
 class BreadcrumbTest extends \PHPUnit_Framework_TestCase

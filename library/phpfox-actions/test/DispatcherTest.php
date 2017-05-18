@@ -9,7 +9,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
     public function testBase()
     {
-        $dispatcher = new Dispatcher();
+        $dispatcher = new ActionDispatcher();
 
         $this->assertEmpty($dispatcher->getAction());
         $this->assertEmpty($dispatcher->getController());

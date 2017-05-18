@@ -3,7 +3,7 @@
 namespace Phpfox\Mysqli;
 
 return [
-    'db.drivers' => [
+    'db_drivers' => [
         'mysqli' => MysqliDbAdapter::class,
     ],
 ];

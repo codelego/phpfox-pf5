@@ -16,7 +16,7 @@ class CacheStorageFactory
         if (!$driver) {
             $driver = $options['driver'];
         }
-        $class = _param('cache.drivers', $driver);
+        $class = _param('cache_drivers', $driver);
 
         return new $class($options);
     }

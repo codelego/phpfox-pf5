@@ -84,7 +84,7 @@ class MailFacades
     public function test($driver, $params, $testEmail)
     {
         try {
-            $class = _param('mail.drivers', $driver);
+            $class = _param('mail_drivers', $driver);
 
             /** @var AdapterInterface $adapter */
             $adapter = new $class($params);
@@ -108,7 +108,7 @@ class MailFacades
     private function make($adapterId)
     {
         $parameter = _get('package.loader')->getMailParameter($adapterId);
-        $class = _param('mail.drivers', $parameter->get('driver'));
+        $class = _param('mail_drivers', $parameter->get('driver'));
 
         if (!$class or !class_exists($class)) {
             throw new MailException("Can not create mail " . $adapterId);

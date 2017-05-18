@@ -11,5 +11,6 @@ return [
     ],
     'services'              => [
         'navigation' => [null, NavigationManager::class],
+        'breadcrumb' => [null, Breadcrumb::class,],
     ],
 ];

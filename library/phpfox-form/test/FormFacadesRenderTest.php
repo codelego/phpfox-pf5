@@ -55,7 +55,7 @@ class FormFacadesRenderTest extends \PHPUnit_Framework_TestCase
         ]);
         $facades = new FormFacades();
         $this->assertNotFalse(strpos($facades->render($checkbox),
-            '<input type="text" '));
+            'type="text" '));
     }
 
     public function testSelectRender()
