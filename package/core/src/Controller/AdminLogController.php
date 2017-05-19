@@ -5,12 +5,14 @@ namespace Neutron\Core\Controller;
 
 use Neutron\Core\Form\Admin\LogDriver\SelectLogDriver;
 use Neutron\Core\Model\CoreAdapter;
-use Neutron\Core\Model\LogAdapter;
 use Neutron\Core\Process\AdminSiteSettingsProcess;
 use Phpfox\View\ViewModel;
 
 class AdminLogController extends AdminController
 {
+    /**
+     * @const DRIVER_TYPE string
+     */
     const DRIVER_TYPE = 'log';
 
     protected function initialized()
@@ -38,13 +40,11 @@ class AdminLogController extends AdminController
     {
         $allLogs = [];
 
-        $keys = _get('core.log')->getLogContainerIds();
+        $service = _get('core.adapter');
+        $options = $service->getContainerIdOptions(self::DRIVER_TYPE);
 
-        foreach ($keys as $containerId) {
-            $allLogs[$containerId] = _model('log_adapter')
-                ->select()
-                ->where('container_id=?', $containerId)
-                ->all();
+        foreach ($options as $option) {
+            $allLogs[$option['value']] = $service->getAdapterByContainerId(self::DRIVER_TYPE, $option['value']);
         }
 
         return new ViewModel([
@@ -83,7 +83,7 @@ class AdminLogController extends AdminController
     public function actionConfig()
     {
         $request = _get('request');
-        $driverId = $request->get('driver_id', 'local');
+        $driverId = $request->get('driver_id');
 
         $form = _get('core.adapter')
             ->getEditingForm($driverId, 'log');
@@ -93,12 +93,14 @@ class AdminLogController extends AdminController
         }
 
         if ($request->isPost() and $form->isValid($request->all())) {
-            /** @var LogAdapter $adapterEntry */
-            $adapterEntry = _model('log_adapter')
+            /** @var CoreAdapter $adapterEntry */
+            $adapterEntry = _model('core_adapter')
                 ->create([
-                    'driver_id'  => $driverId,
-                    'is_active'  => 0,
-                    'is_default' => 0,
+                    'driver_id'   => $driverId,
+                    'driver_type' => self::DRIVER_TYPE,
+                    'is_required' => 0,
+                    'is_active'   => 0,
+                    'is_default'  => 0,
                 ]);
 
             // how to get name
@@ -121,11 +123,10 @@ class AdminLogController extends AdminController
         $adapterId = $request->get('adapter_id');
 
         /** @var CoreAdapter $adapterEntry */
-        $adapterEntry = _model('log_adapter')
+        $adapterEntry = _model('core_adapter')
             ->findById($adapterId);
 
-        $form = _get('core.adapter')
-            ->getEditingForm($adapterEntry->getDriverId(), self::DRIVER_TYPE);
+        $form = _get('core.adapter')->getEditingForm($adapterEntry->getDriverId(), self::DRIVER_TYPE);
 
         if ($request->isGet()) {
             $data = json_decode($adapterEntry->getParams(), true);
@@ -158,8 +159,8 @@ class AdminLogController extends AdminController
 
     public function actionEnable()
     {
-        /** @var LogAdapter $adapter */
-        $adapter = _model('log_adapter')
+        /** @var CoreAdapter $adapter */
+        $adapter = _model('core_adapter')
             ->findById(_get('request')->get('adapter_id'));
 
         $adapter->setActive(1);
@@ -172,8 +173,8 @@ class AdminLogController extends AdminController
 
     public function actionDisable()
     {
-        /** @var LogAdapter $adapter */
-        $adapter = _model('log_adapter')
+        /** @var CoreAdapter $adapter */
+        $adapter = _model('core_adapter')
             ->findById(_get('request')->get('adapter_id'));
 
         $adapter->setActive(0);

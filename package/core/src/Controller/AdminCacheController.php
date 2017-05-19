@@ -155,25 +155,8 @@ class AdminCacheController extends AdminController
     {
         $adapterId = _get('request')->get('adapter_id');
 
-        /** @var CoreAdapter $entry */
-        $entry = _model('core_adapter')->findById($adapterId);
-
-        if (!$entry) {
-            throw new \InvalidArgumentException('Invalid params "adapter_id"');
-        }
-
-        if (!$entry->isDefault()) {
-
-            _model('core_adapter')
-                ->update()
-                ->values(['is_default' => 0])
-                ->where('adapter_id <> ?', $adapterId)
-                ->where('driver_type = ?', 'cache')
-                ->execute();
-
-            $entry->setDefault(1);
-            $entry->setActive(1);
-            $entry->save();
+        $result = _get('core.adapter')->setDefaultAdapterById($adapterId);
+        if ($result) {
             _get('core.setting')->updateValue('core.shared_cache_cache_id', $adapterId);
         }
         _redirect('admin.core.cache');

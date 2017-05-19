@@ -4,14 +4,14 @@ namespace Phpfox\Cache;
 
 return [
     'cache_drivers' => [
-        'filesystem' => FilesCacheStorage::class,
-        'apc'        => ApcuCacheStorage::class,
-        'memcache'   => MemcacheCacheStorage::class,
-        'memcached'  => MemcachedCacheStorage::class,
-        'redis'      => RedisCacheStorage::class,
+        'files'     => FilesStorage::class,
+        'apc'       => ApcuStorage::class,
+        'memcache'  => MemcacheStorage::class,
+        'memcached' => MemcachedStorage::class,
+        'redis'     => RedisStorage::class,
     ],
     'services'      => [
-        'shared.cache' => [CacheStorageFactory::class, null, 'shared.cache'],
-        'super.cache'  => [CacheStorageFactory::class, 'filesystem', ['directory' => 'super']],
+        'shared.cache' => [StorageFactory::class, null, 'shared.cache'],
+        'super.cache'  => [StorageFactory::class, 'files', ['directory' => 'super']],
     ],
 ];

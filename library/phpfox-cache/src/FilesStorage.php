@@ -5,7 +5,7 @@ namespace Phpfox\Cache;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
-class FilesCacheStorage implements CacheStorageInterface
+class FilesStorage implements StorageInterface
 {
 
     /**
@@ -44,16 +44,7 @@ class FilesCacheStorage implements CacheStorageInterface
         $this->debug = (bool)$configs['debug'];
     }
 
-    public function getItems($keys = [])
-    {
-        $result = [];
-        foreach ($keys as $key) {
-            $result[$key] = $this->getItem($key);
-        }
-        return $result;
-    }
-
-    public function getItem($key)
+    public function get($key)
     {
         $filename = $this->getFilename($key);
 
@@ -61,15 +52,14 @@ class FilesCacheStorage implements CacheStorageInterface
             return null;
         }
 
-        /** @var CacheItem $item */
         $item = unserialize(file_get_contents($filename));
 
         if ($item === false) {
             return null;
         }
 
-        if ($item->ttl == 0 || $item->ttl > time()) {
-            return $item;
+        if ($item[1] == 0 OR $item[1] > time()) {
+            return $item[0];
         }
 
         return null;
@@ -87,35 +77,16 @@ class FilesCacheStorage implements CacheStorageInterface
         return $this->directory . DIRECTORY_SEPARATOR . $path;
     }
 
-    public function saveItem(CacheItem $item)
+
+    public function set($key, $value, $ttl = 0)
     {
-        $filename = $this->getFilename($item->key);
+        $filename = $this->getFilename($key);
 
-        if (!$this->ensureFilename($filename)) {
-            return false;
-        }
-
-        if (!file_put_contents($filename, serialize($item))
+        if ($this->ensureFilename($filename) and
+            false !== file_put_contents($filename, serialize([$value, $ttl ? $ttl * 60 + time() : 0]))
         ) {
-            return false;
+            @chmod($filename, $this->filePermission);
         }
-
-        @chmod($filename, $this->filePermission);
-
-        return true;
-    }
-
-    public function setItem($key, $value, $ttl = 0)
-    {
-        return $this->saveItem(new CacheItem($key, $value, $ttl));
-    }
-
-    public function setItems($keyValues, $ttl = 0)
-    {
-        foreach ($keyValues as $key => $value) {
-            $this->setItem($key, $value, $ttl);
-        }
-        return true;
     }
 
     /**
@@ -135,15 +106,14 @@ class FilesCacheStorage implements CacheStorageInterface
         return true;
     }
 
-    public function hasItem($key)
+    public function has($key)
     {
         return file_exists($this->getFilename($key));
     }
 
     public function flush()
     {
-        $files
-            = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->directory,
+        $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->directory,
             RecursiveDirectoryIterator::SKIP_DOTS),
             RecursiveIteratorIterator::CHILD_FIRST);
 
@@ -158,24 +128,10 @@ class FilesCacheStorage implements CacheStorageInterface
         }
     }
 
-    public function deleteItems($keys)
-    {
-        array_walk($keys, function ($v) {
-            $this->deleteItem($v);
-        });
-
-        return true;
-    }
-
-    public function deleteItem($key)
+    public function delete($key)
     {
         if (file_exists($filename = $this->getFilename((string)$key))) {
-            if (@unlink($filename)) {
-                return true;
-            }
-            return false;
+            @unlink($filename);
         }
-
-        return true;
     }
 }

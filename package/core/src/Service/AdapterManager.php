@@ -19,6 +19,49 @@ class AdapterManager
             ->findById($identity);
     }
 
+    public function getContainerIdOptions($driverType)
+    {
+        return array_map(function (CoreAdapter $coreAdapter) {
+            $id = $coreAdapter->getContainerId();
+            return [
+                'value' => $id,
+                'label' => _text($id . '_adapter_label', '_core'),
+                'note'  => _text($id . '_adapter_note', '_core'),
+            ];
+        }, _model('core_adapter')
+            ->select('distinct container_id')->where('driver_type=?', $driverType)->all());
+    }
+
+    /**
+     * @param $driverType
+     * @param $containerId
+     *
+     * @return CoreAdapter[]
+     */
+    public function getAdapterByContainerId($driverType, $containerId)
+    {
+        return _model('core_adapter')
+            ->select()
+            ->where('container_id=?', $containerId)
+            ->where('driver_type=?', $driverType)
+            ->all();
+    }
+
+    public function setDefaultAdapterById($identity)
+    {
+        $entry = $this->getAdapterById($identity);
+
+        _model('core_adapter')->update()
+            ->values(['is_default' => 0])
+            ->where('container_id=?', $entry->getContainerId())
+            ->where('driver_type=?', $entry->getDriverType())
+            ->execute();
+
+        $entry->setActive(1);
+        $entry->setDefault(1);
+        $entry->save();
+    }
+
     public function getAdapterIdOptions($driverType)
     {
         $select = _model('core_adapter')

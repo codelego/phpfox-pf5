@@ -18,7 +18,7 @@ class EditDatabaseSettings extends Form
             'value'    => 'error',
             'label'    => _text('Log Level', '_core'),
             'info'     => _text('[Log Level Info]', '_core'),
-            'options'  => _get('core.log')->getLogLevelOptions(),
+            'options'  => _get('core.setting')->getLogLevelOptions(),
             'required' => true,
         ]);
 

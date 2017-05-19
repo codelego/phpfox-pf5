@@ -46,11 +46,30 @@ class EditRedisSettings extends Form
             'info'     => _text('[Select Redis Protocol Info]', '_core.cache'),
             'required' => true,
         ]);
+
         $this->addElement([
             'factory'  => 'text',
             'name'     => 'auth',
             'label'    => _text('Redis Password', '_core.cache'),
             'info'     => _text('[Redis Password]', '_core.cache'),
+            'required' => false,
+        ]);
+
+        $this->addElement([
+            'factory'  => 'text',
+            'name'     => 'prefix',
+            'value'    => '',
+            'label'    => _text('Redis Key Prefix', '_core.cache'),
+            'info'     => _text('[Redis Key  Prefix Info]', '_core.cache'),
+            'required' => false,
+        ]);
+
+        $this->addElement([
+            'factory'  => 'text',
+            'name'     => 'db_index',
+            'value'    => 0,
+            'label'    => _text('Redis DB', '_core.cache'),
+            'info'     => _text('[Redis DB Info]', '_core.cache'),
             'required' => false,
         ]);
 

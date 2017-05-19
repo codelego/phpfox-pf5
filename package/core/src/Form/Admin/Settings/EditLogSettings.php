@@ -17,7 +17,7 @@ class EditLogSettings extends Form {
         
         
             /** element `core__log_level` id=2185 **/
-            $this->addElement(array ( 'name' => 'core__log_level', 'factory' => 'select', 'label' => _text('Log Level','_core.logs'), 'info' => _text('[Log Level Info]', '_core.logs'), 'options' => _get('core.log')->getLogLevelOptions(), 'required' => true, ));        
+            $this->addElement(array ( 'name' => 'core__log_level', 'factory' => 'select', 'label' => _text('Log Level','_core.logs'), 'info' => _text('[Log Level Info]', '_core.logs'), 'options' => _get('core.setting')->getLogLevelOptions(), 'required' => true, ));
         /** end elements **/
 
         $this->addButton([

@@ -23,7 +23,7 @@ class EditMemcacheSettings extends Form
         $this->addElement([
             'factory'  => 'text',
             'name'     => 'port',
-            'value'    => '6379',
+            'value'    => 11211,
             'label'    => _text('Memcache Port', '_core.cache'),
             'info'     => _text('[Memcache Port Info]', '_core.cache'),
             'required' => true,
@@ -51,8 +51,8 @@ class EditMemcacheSettings extends Form
             'factory'  => 'text',
             'name'     => 'prefix',
             'value'    => '',
-            'label'    => _text('Memcache Prefix', '_core.cache'),
-            'info'     => _text('[Memcache Prefix Info]', '_core.cache'),
+            'label'    => _text('Memcache Key Prefix', '_core.cache'),
+            'info'     => _text('[Memcache Key  Prefix Info]', '_core.cache'),
             'required' => false,
         ]);
 

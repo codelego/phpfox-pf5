@@ -3,13 +3,13 @@
 namespace Phpfox\Cache;
 
 
-class CacheStorageFactory
+class StorageFactory
 {
     /**
      * @param string|null  $driver
      * @param string|array $options
      *
-     * @return CacheStorageInterface
+     * @return StorageInterface
      */
     public function factory($driver, $options)
     {
@@ -24,7 +24,7 @@ class CacheStorageFactory
         $class = _param('cache_drivers', $driver);
 
         if (!$class or !class_exists($class)) {
-            $class = FilesCacheStorage::class;
+            $class = FilesStorage::class;
             $options = ['directory' => 'cache'];
             _get('main.log')->emergency('Can not init log ' . $driver);
         }

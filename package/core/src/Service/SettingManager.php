@@ -7,6 +7,23 @@ use Neutron\Core\Model\SiteSettingValue;
 
 class SettingManager
 {
+    /**
+     * @return array
+     */
+    public function getLogLevelOptions()
+    {
+        return [
+            ['value' => 'emergency', 'label' => 'Emergency'],
+            ['value' => 'alert', 'label' => 'Alert'],
+            ['value' => 'critical', 'label' => 'Critical'],
+            ['value' => 'error', 'label' => 'Error'],
+            ['value' => 'warning', 'label' => 'Warning'],
+            ['value' => 'notice', 'label' => 'Notice'],
+            ['value' => 'info', 'label' => 'Info'],
+            ['value' => 'debug', 'label' => 'Debug'],
+        ];
+    }
+
     public function getPrivateSiteIdOptions()
     {
         return [

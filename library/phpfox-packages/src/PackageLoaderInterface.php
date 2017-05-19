@@ -69,11 +69,11 @@ interface PackageLoaderInterface
     public function getMailParameter($adapterId);
 
     /**
-     * @param string $cacheId
+     * @param string $containerId
      *
      * @return Parameters
      */
-    public function getCacheParameter($cacheId);
+    public function getCacheParameter($containerId);
 
     /**
      * This method get log container parameters, the result must contain loggers as arrays of each logger
@@ -87,11 +87,11 @@ interface PackageLoaderInterface
     public function getLogParameter($logId);
 
     /**
-     * @param string $adapterId
+     * @param string $containerId
      *
      * @return Parameters
      */
-    public function getSessionParameter($adapterId);
+    public function getSessionParameter($containerId);
 
     /**
      * @param int $roleId
@@ -107,4 +107,12 @@ interface PackageLoaderInterface
      * @return Parameters
      */
     public function getNavigationParameter($menu);
+
+
+    /**
+     * @param $containerId
+     *
+     * @return string
+     */
+    public function getCaptchaParameter($containerId);
 }

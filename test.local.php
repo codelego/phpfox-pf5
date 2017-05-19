@@ -7,4 +7,8 @@ date_default_timezone_set('Australia/Adelaide');
 
 include __DIR__ . '/config/bootstrap.php';
 
-_get('cache.super')->setItem('abc', '123');
+echo json_encode(array (
+    'type' => 'class',
+    'value' => 'Memcache',
+    'error' => '<strong>Memcache</strong> extension is required to active this option',
+));

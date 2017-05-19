@@ -5,7 +5,7 @@ class CoreAdapterTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new CoreAdapter(array (  'adapter_id' => 1,  'driver_type' => 'mail',  'driver_id' => 'system',  'is_active' => 1,  'is_default' => 0,  'is_required' => 1,  'params' => '{"fromAddress":"namnv@younetco.com","fromName":"namnv","replyAddress":"namnv@younetco.com","replyName":"namnv"}',  'title' => 'System mail',  'description' => '',));
+        $obj = new CoreAdapter(array (  'adapter_id' => 1,  'driver_type' => 'mail',  'driver_id' => 'system',  'is_active' => 1,  'is_default' => 0,  'is_required' => 1,  'container_id' => 'shared.mailer',  'params' => '{"fromAddress":"namnv@younetco.com","fromName":"namnv","replyAddress":"namnv@younetco.com","replyName":"namnv"}',  'title' => 'System mail',  'description' => '',));
 
         $this->assertSame('core_adapter', $obj->getModelId());
         $this->assertSame(1, $obj->getAdapterId());
@@ -14,6 +14,7 @@ class CoreAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->isActive());
         $this->assertSame(0, $obj->isDefault());
         $this->assertSame(1, $obj->isRequired());
+        $this->assertSame('shared.mailer', $obj->getContainerId());
         $this->assertSame('{"fromAddress":"namnv@younetco.com","fromName":"namnv","replyAddress":"namnv@younetco.com","replyName":"namnv"}', $obj->getParams());
         $this->assertSame('System mail', $obj->getTitle());
         $this->assertSame('', $obj->getDescription());    }
@@ -29,6 +30,7 @@ class CoreAdapterTest extends \PHPUnit_Framework_TestCase
         $obj->setActive(1);
         $obj->setDefault(0);
         $obj->setRequired(1);
+        $obj->setContainerId('shared.mailer');
         $obj->setParams('{"fromAddress":"namnv@younetco.com","fromName":"namnv","replyAddress":"namnv@younetco.com","replyName":"namnv"}');
         $obj->setTitle('System mail');
         $obj->setDescription('');
@@ -40,13 +42,14 @@ class CoreAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->isActive());
         $this->assertSame(0, $obj->isDefault());
         $this->assertSame(1, $obj->isRequired());
+        $this->assertSame('shared.mailer', $obj->getContainerId());
         $this->assertSame('{"fromAddress":"namnv@younetco.com","fromName":"namnv","replyAddress":"namnv@younetco.com","replyName":"namnv"}', $obj->getParams());
         $this->assertSame('System mail', $obj->getTitle());
         $this->assertSame('', $obj->getDescription());    }
 
     public function testSave()
     {
-        $obj = new CoreAdapter(array (  'adapter_id' => 1,  'driver_type' => 'mail',  'driver_id' => 'system',  'is_active' => 1,  'is_default' => 0,  'is_required' => 1,  'params' => '{"fromAddress":"namnv@younetco.com","fromName":"namnv","replyAddress":"namnv@younetco.com","replyName":"namnv"}',  'title' => 'System mail',  'description' => '',));
+        $obj = new CoreAdapter(array (  'adapter_id' => 1,  'driver_type' => 'mail',  'driver_id' => 'system',  'is_active' => 1,  'is_default' => 0,  'is_required' => 1,  'container_id' => 'shared.mailer',  'params' => '{"fromAddress":"namnv@younetco.com","fromName":"namnv","replyAddress":"namnv@younetco.com","replyName":"namnv"}',  'title' => 'System mail',  'description' => '',));
 
         $obj->save();
 
@@ -61,6 +64,7 @@ class CoreAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->isActive());
         $this->assertSame(0, $obj->isDefault());
         $this->assertSame(1, $obj->isRequired());
+        $this->assertSame('shared.mailer', $obj->getContainerId());
         $this->assertSame('{"fromAddress":"namnv@younetco.com","fromName":"namnv","replyAddress":"namnv@younetco.com","replyName":"namnv"}', $obj->getParams());
         $this->assertSame('System mail', $obj->getTitle());
         $this->assertSame('', $obj->getDescription());    }

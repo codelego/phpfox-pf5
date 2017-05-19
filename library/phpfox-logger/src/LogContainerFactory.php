@@ -8,23 +8,20 @@ class LogContainerFactory
     function factory($key = null)
     {
         if (!$key) {
-            $key = 'log.main';
+            $key = 'main.log';
         }
 
         $parameter = _get('package.loader')->getLogParameter($key);
 
         $container = new LogContainer();
 
-        if (!$parameter->get('loggers')) {
-            return $container;
-        }
-
         foreach ($parameter->get('loggers') as $logger) {
-            $driver = $logger['class'];
-
-            $container->add(new $driver ($logger['params']));
+            $driverClass = $logger['class'];
+            if (!class_exists($driverClass)) {
+                continue;
+            }
+            $container->add(new $driverClass ($logger));
         }
-
         return $container;
     }
 }

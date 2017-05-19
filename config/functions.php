@@ -2,8 +2,7 @@
 
 namespace {
 
-    use Phpfox\Cache\CacheItem;
-    use Phpfox\Cache\CacheStorageInterface;
+    use Phpfox\Cache\StorageInterface;
     use Phpfox\Support\Event;
 
     function _dump()
@@ -159,24 +158,20 @@ namespace {
      */
     function _get_cached_value($cache, $key, $ttl, $fallback)
     {
-        /** @var CacheStorageInterface $cacheStorage */
+        /** @var StorageInterface $cacheStorage */
         $cacheStorage = \Phpfox::$service->get($cache ? $cache : 'shared.cache');
 
         if (is_array($key)) {
             $key = implode('_', $key);
         }
 
-        if ($ttl === false) {
-            $item = new CacheItem($key, $fallback(), $ttl);
-        } else {
-            $item = $cacheStorage->getItem($key);
+        $item = $cacheStorage->get($key);
+
+        if (null === $item) {
+            $cacheStorage->set($key, $item = $fallback(), $ttl);
         }
 
-        if (null == $item) {
-            $cacheStorage->saveItem($item = new CacheItem($key, $fallback(), $ttl));
-        }
-
-        return $item->value;
+        return $item;
     }
 
     /**

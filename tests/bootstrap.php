@@ -3,6 +3,8 @@
 /**
  * For to development mode.
  */
+define('PHPFOX_NO_CACHE', 1);
+define('PHPFOX_IS_DEV', false);
 define('PHPFOX_ENV', 'development');
 
 /**
