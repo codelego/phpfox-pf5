@@ -115,7 +115,7 @@ return [
             ],
         ],
         'admin.core.mail'     => [
-            'route'      => 'core/mail/*',
+            'route'      => 'mail/*',
             'controller' => 'core.admin-mail',
             'action'     => 'index',
             'children'   => [

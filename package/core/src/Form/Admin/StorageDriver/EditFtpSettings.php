@@ -2,21 +2,36 @@
 
 namespace Neutron\Core\Form\Admin\StorageDriver;
 
+use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
-class EditSshDriverSettings extends Form
+class EditFtpSettings extends Form
 {
     protected function initialize()
     {
-        $this->setTitle(_text('SSH Storage Settings', 'admin.core_storage'));
-        $this->setInfo(_text('[SSH Storage Settings Note]', 'admin.core_storage'));
+        $this->setTitle(_text('FTP/FTPs Storage Settings', 'admin.core_storage'));
+        $this->setInfo(_text('[FTP/FTPs Storage Settings Note]', 'admin.core_storage'));
+        $this->setAction(_url('#'));
 
-        /** start elements */
+        $this->addElement([
+            'name'     => 'protocol',
+            'factory'  => 'radio',
+            'inline'   => false,
+            'value'    => 0,
+            'label'    => _text('Protocol', 'admin.core_storage'),
+            'info'     => _text('[Use Ftp Protocol Info]', 'admin.core_storage'),
+            'options'  => [
+                ['value' => 'ftp', 'label' => 'FTP'],
+                ['value' => 'ftps', 'label' => 'FTPs'],
+            ],
+            'required' => true,
+        ]);
+
         $this->addElement([
             'name'      => 'host',
             'factory'   => 'text',
-            'label'     => _text('Ssh Server Host', 'admin.core_storage'),
-            'note'      => _text('[Ssh Server Note]', 'admin.core_storage'),
+            'label'     => _text('Ftp Server Host', 'admin.core_storage'),
+            'note'      => _text('[Ftp Server Note]', 'admin.core_storage'),
             'value'     => '127.0.0.1',
             'maxlength' => 100,
             'required'  => true,
@@ -26,10 +41,10 @@ class EditSshDriverSettings extends Form
         $this->addElement([
             'name'      => 'port',
             'factory'   => 'text',
-            'label'     => _text('Ssh Server Port', 'admin.core_storage'),
-            'note'      => _text('[Ssh Server Port Note]', 'admin.core_storage'),
+            'label'     => _text('Ftp Server Port', 'admin.core_storage'),
+            'note'      => _text('[Ftp Server Port Note]', 'admin.core_storage'),
             'maxlength' => 5,
-            'value'     => 22,
+            'value'     => 21,
             'required'  => true,
         ]);
 
@@ -48,7 +63,7 @@ class EditSshDriverSettings extends Form
             'factory'   => 'text',
             'label'     => _text('Login Username', 'admin.core_storage'),
             'note'      => _text('[Login Username Note]', 'admin.core_storage'),
-            'maxlength' => 100,
+            'maxlength' => 500,
             'required'  => true,
         ]);
 
@@ -99,6 +114,7 @@ class EditSshDriverSettings extends Form
             'options'  => _get('core.storage')->getActiveIdOptions(),
             'required' => true,
         ]);
+
         /** end elements */
 
         $this->addButton([
@@ -111,7 +127,7 @@ class EditSshDriverSettings extends Form
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'cancel',
-            'href'       => '#',
+            'href'       => _url('admin.core.storage'),
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);
@@ -119,6 +135,6 @@ class EditSshDriverSettings extends Form
 
     protected function afterGetData(&$data)
     {
-        $data['title'] = 'Ssh ' . $data['host'] . ':' . $data['port'];
+        $data['title'] = 'Ftp ' . $data['host'] . ':' . $data['port'];
     }
 }

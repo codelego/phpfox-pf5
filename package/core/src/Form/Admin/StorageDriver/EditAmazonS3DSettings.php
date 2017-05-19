@@ -2,79 +2,54 @@
 
 namespace Neutron\Core\Form\Admin\StorageDriver;
 
+
 use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
-class EditFtpDriverSettings extends Form
+class EditAmazonS3DSettings extends Form
 {
     protected function initialize()
     {
-        $this->setTitle(_text('FTP/FTPs Storage Settings', 'admin.core_storage'));
-        $this->setInfo(_text('[FTP/FTPs Storage Settings Note]', 'admin.core_storage'));
+        $this->setTitle(_text('Amazon S3 Storage Settings', 'admin.core_storage'));
+        $this->setInfo(_text('[Amazon S3 Storage Settings Note]', 'admin.core_storage'));
+        $this->setAction(_url('#'));
 
         $this->addElement([
-            'name'     => 'protocol',
-            'factory'  => 'radio',
-            'inline'   => false,
-            'value'    => 0,
-            'label'    => _text('Protocol', 'admin.core_storage'),
-            'info'     => _text('[Use Ftp Protocol Info]', 'admin.core_storage'),
-            'options'  => [
-                ['value' => 'ftp', 'label' => 'FTP'],
-                ['value' => 'ftps', 'label' => 'FTPs'],
-            ],
-            'required' => true,
-        ]);
-
-        $this->addElement([
-            'name'      => 'host',
+            'name'      => 'accessKey',
             'factory'   => 'text',
-            'label'     => _text('Ftp Server Host', 'admin.core_storage'),
-            'note'      => _text('[Ftp Server Note]', 'admin.core_storage'),
-            'value'     => '127.0.0.1',
-            'maxlength' => 100,
-            'required'  => true,
-        ]);
-
-
-        $this->addElement([
-            'name'      => 'port',
-            'factory'   => 'text',
-            'label'     => _text('Ftp Server Port', 'admin.core_storage'),
-            'note'      => _text('[Ftp Server Port Note]', 'admin.core_storage'),
-            'maxlength' => 5,
-            'value'     => 21,
-            'required'  => true,
-        ]);
-
-        $this->addElement([
-            'name'      => 'timeout',
-            'factory'   => 'text',
-            'label'     => _text('Connection Timeout', 'admin.core_storage'),
-            'note'      => _text('[Connection Timeout Note]', 'admin.core_storage'),
-            'maxlength' => 5,
-            'value'     => 30,
-            'required'  => true,
-        ]);
-
-        $this->addElement([
-            'name'      => 'username',
-            'factory'   => 'text',
-            'label'     => _text('Login Username', 'admin.core_storage'),
-            'note'      => _text('[Login Username Note]', 'admin.core_storage'),
+            'label'     => _text('Amazon Access Key', 'admin.core_storage'),
+            'note'      => _text('[Amazon Access Key Note]', 'admin.core_storage'),
             'maxlength' => 500,
             'required'  => true,
         ]);
 
         $this->addElement([
-            'name'      => 'password',
+            'name'      => 'secretKey',
             'factory'   => 'text',
-            'label'     => _text('Login Password', 'admin.core_storage'),
-            'note'      => _text('[Login Password Note]', 'admin.core_storage'),
+            'label'     => _text('Amazon Secret Key', 'admin.core_storage'),
+            'note'      => _text('[Amazon Secret Key Note]', 'admin.core_storage'),
             'maxlength' => 500,
             'required'  => true,
         ]);
 
+        $this->addElement([
+            'name'      => 'budget',
+            'factory'   => 'text',
+            'label'     => _text('Amazon Budget', 'admin.core_storage'),
+            'note'      => _text('[Amazon Budget Note]', 'admin.core_storage'),
+            'maxlength' => 500,
+            'required'  => true,
+        ]);
+
+        $this->addElement([
+            'name'      => 'region',
+            'factory'   => 'select',
+            'label'     => _text('Amazon Region', 'admin.core_storage'),
+            'note'      => _text('[Amazon Region Note]', 'admin.core_storage'),
+            'maxlength' => 500,
+            'options'   => _get('core.storage')->getS3RegionIdOptions(),
+            'required'  => true,
+        ]);
 
         $this->addElement([
             'name'      => 'basePath',
@@ -126,7 +101,7 @@ class EditFtpDriverSettings extends Form
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'cancel',
-            'href'       => '#',
+            'href'       => _url('admin.core.storage'),
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);
@@ -134,6 +109,6 @@ class EditFtpDriverSettings extends Form
 
     protected function afterGetData(&$data)
     {
-        $data['title'] = 'Ftp ' . $data['host'] . ':' . $data['port'];
+        $data['title'] = 'S3 bucket ' . $data['budget'] . ' - region ' . $data['region'];
     }
 }

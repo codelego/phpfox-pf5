@@ -5,12 +5,13 @@ namespace Neutron\Core\Form\Admin\StorageDriver;
 use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
-class EditLocalDriverSettings extends Form
+class EditLocalSettings extends Form
 {
     protected function initialize()
     {
         $this->setTitle(_text('Local Storage Settings', 'admin.core_storage'));
         $this->setInfo(_text('[Local Storage Settings Note]', 'admin.core_storage'));
+        $this->setAction(_url('#'));
 
         $this->addElement([
             'name'      => 'basePath',
@@ -62,7 +63,7 @@ class EditLocalDriverSettings extends Form
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'cancel',
-            'href'       => '#',
+            'href'       => _url('admin.core.storage'),
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);

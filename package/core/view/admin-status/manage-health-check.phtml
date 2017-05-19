@@ -9,21 +9,18 @@
             </tr>
             </thead>
             <tbody>
-            <?php
-            $indexing = 1;
-            foreach ($items as $rows): ?>
-                <?php foreach ($rows as $item): ?>
-                    <tr class="<?= @$item['status'] ?>">
-                        <td><?= $indexing++ ?></td>
-                        <td><?= $item['label'] ?>
-                            <?php if ($item['note']): ?>
-                                <p>
-                                <small><?= $item['note'] ?></small>
-                                </p><?php endif; ?>
-                        </td>
-                        <td><?= $item['value'] ?></td>
-                    </tr>
-                <?php endforeach; ?>
+            <?php $indexing = 1; ?>
+            <?php foreach ($items as $item): ?>
+                <tr class="<?= @$item['status'] ?>">
+                    <td><?= $indexing++ ?></td>
+                    <td><?= $item['label'] ?>
+                        <?php if ($item['note']): ?>
+                            <p>
+                            <small><?= $item['note'] ?></small>
+                            </p><?php endif; ?>
+                    </td>
+                    <td><?= $item['value'] ?></td>
+                </tr>
             <?php endforeach; ?>
             </tbody>
         </table>

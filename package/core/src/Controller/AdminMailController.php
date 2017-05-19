@@ -73,7 +73,7 @@ class AdminMailController extends AdminController
     public function actionConfig()
     {
         $request = _get('request');
-        $driverId = $request->get('driver_id', 'local');
+        $driverId = $request->get('driver_id');
 
         $form = _get('core.adapter')
             ->getEditingForm($driverId, self::DRIVER_TYPE);
