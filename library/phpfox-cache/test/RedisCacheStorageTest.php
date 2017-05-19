@@ -2,29 +2,25 @@
 
 namespace Phpfox\Cache;
 
-/**
- * @requires extension apcu
- */
-class ApcuCacheStorageTest extends \PHPUnit_Framework_TestCase
+
+class RedisCacheStorageTest extends \PHPUnit_Framework_TestCase
 {
-    public static function setUpBeforeClass()
+    public function testConnect()
     {
-        $cache = new ApcuCacheStorage();
+        $cache = new RedisCacheStorage([
+            'host' => '127.0.0.1',
+            'port' => 6379,
+        ]);
 
         $cache->flush();
-    }
-
-    function testBase()
-    {
-        $cache = new ApcuCacheStorage();
 
         $key = 'example_key1';
         $this->assertNull($cache->getItem($key));
 
-        $value = new \stdClass(['value' => 1]);
-        $cache->setItem($key, $value, 0);
+        $value = "hello";
+        $cache->setItem($key, $value, 10);
 
-        $this->assertEquals($value, $cache->getItem($key));
+        $this->assertSame($value, $cache->getItem($key));
 
         $cache->deleteItem($key);
 
@@ -38,8 +34,8 @@ class ApcuCacheStorageTest extends \PHPUnit_Framework_TestCase
         $cache->setItems($arrays, 0);
 
         $data = $cache->getItems(array_keys($arrays));
-        $this->assertEquals($arrays['key1'], $data['key1']->value);
-        $this->assertEquals($arrays['key2'], $data['key2']->value);
+        $this->assertEquals($arrays['key1'], $data['key1']);
+        $this->assertEquals($arrays['key2'], $data['key2']);
 
         $this->assertEquals('value1', $cache->getItem('key1')->value);
         $this->assertEquals('value2', $cache->getItem('key2')->value);

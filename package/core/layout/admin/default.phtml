@@ -10,7 +10,7 @@
     <ul>
         <?php $login = _get('auth')->getLogin(); ?>
         <li><a role="button">logged as <?= $login->getName() ?></a></li>
-        <li><a href="<?= _url('logout') ?>"><?= _text('Logout') ?></a></li>
+        <li><a class="no-ajax" href="<?= _url('admin.core.auth', ['action' => 'logout']) ?>"><?= _text('Logout') ?></a></li>
     </ul>
 </aside>
 <div id="layout_containers">

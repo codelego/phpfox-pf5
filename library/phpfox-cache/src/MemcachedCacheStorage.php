@@ -61,7 +61,7 @@ class MemcachedCacheStorage implements CacheStorageInterface
         return true;
     }
 
-    public function ready()
+    private function ready()
     {
         if ($this->connected) {
             return;

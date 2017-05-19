@@ -24,12 +24,14 @@ $color: #333;
   margin-bottom: 5px;
   color: lighten($color, 20%);
   font-size: small;
+  white-space: pre-line;
 }
 
 .control-note {
   margin-top: 5px;
   color: lighten($color, 40%);
   font-size: smaller;
+  white-space: pre-line;
 }
 
 .dev-only {

@@ -174,7 +174,7 @@ class AdminCacheController extends AdminController
             $entry->setDefault(1);
             $entry->setActive(1);
             $entry->save();
-            _get('core.setting')->updateValue('core.default_cache_id', $adapterId);
+            _get('core.setting')->updateValue('core.shared_cache_cache_id', $adapterId);
         }
         _redirect('admin.core.cache');
     }

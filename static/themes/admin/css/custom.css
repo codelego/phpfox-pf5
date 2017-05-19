@@ -6,12 +6,14 @@
 .control-info {
   margin-bottom: 5px;
   color: #666666;
-  font-size: small; }
+  font-size: small;
+  white-space: pre-line; }
 
 .control-note {
   margin-top: 5px;
   color: #999999;
-  font-size: smaller; }
+  font-size: smaller;
+  white-space: pre-line; }
 
 .dev-only {
   display: none; }

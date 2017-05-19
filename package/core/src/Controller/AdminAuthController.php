@@ -27,7 +27,7 @@ class AdminAuthController extends ActionController
 
         $request = _get('request');
 
-        if ($request->isPost()) {
+        if ($request->isPost() and !empty($_POST['is_login'])) {
             $email = $request->get('email');
             $password = $request->get('password');
 
@@ -46,6 +46,12 @@ class AdminAuthController extends ActionController
                 ]);
             }
         }
+    }
+
+    public function actionLogout()
+    {
+        _get('auth')->logout();
+        _redirect('admin');
     }
 
     protected function passOfflineMode()

@@ -558,7 +558,7 @@ class PackageLoader implements PackageLoaderInterface
         $driverId = $array['driver_id'];
         $params = json_decode($array['params'], true);
 
-        return new Parameters(['driver' => $driverId, 'params' => $params]);
+        return new Parameters($params);
     }
 
     public function getLogParameter($logId)
@@ -651,9 +651,26 @@ class PackageLoader implements PackageLoaderInterface
 
         $class = _param('session_drivers', $array['driver_id']);
 
+        $name = (string)_param('core.session_name');
+        $max_lifetime = (int)_param('core.session_maxlifetime');
+        $lifetime = (int)_param('core.cookie_lifetime');
+        $path = trim((string)_param('core.cookie_path'));
+        $domain = _param('core.cookie_domain');
+        $httponly = (bool)_param('core.cookie_httponly');
+        $secure = (bool)_param('core.cookie_secure');
+        $php_ini = (bool)_param('core.cookie_php_ini_only');
+
         return new Parameters([
-            'driver' => $class,
-            'params' => (array)json_decode($array['params']),
+            'driver'          => $class,
+            'params'          => (array)json_decode($array['params']),
+            'name'            => $name,
+            'php_ini'         => $php_ini,
+            'gc_maxlifetime'  => $max_lifetime,
+            'cookie_lifetime' => $lifetime,
+            'cookie_path'     => $path,
+            'cookie_domain'   => $domain,
+            'cookie_httponly' => $httponly,
+            'cookie_secure'   => $secure,
         ]);
     }
 
@@ -707,22 +724,23 @@ class PackageLoader implements PackageLoaderInterface
 
     public function _getNavigationParameter($menu)
     {
-        $result = [];
+        $result = new Parameters();
         $select = _get('db')
             ->select('*')
             ->from(':core_menu')
             ->where('menu=?', trim($menu))
             ->where('package_id in ?', _get('core.packages')->getIds())
             ->where('is_active=?', 1)
-            ->order('ordering', 1);
+            ->order('ordering', 1)
+            ->all();
 
-        array_walk($select->all(), function ($row) use (&$result) {
+        array_walk($select, function ($row) use ($result) {
             $row['params'] = (array)json_decode($row['params'], 1);
             $row['extra'] = (array)json_decode($row['extra'], 1);
-            $result[$row['name']] = $row;
+            $result->set($row['name'], $row);
         });
 
-        return new Parameters($result);
+        return $result;
     }
 
     public function getNavigationParameter($menu)

@@ -2,7 +2,7 @@
 
 namespace Phpfox\Session;
 
-class SessionManager
+class SessionFacades
 {
     protected $started = false;
 
@@ -30,11 +30,53 @@ class SessionManager
 
         $class = $parameter->get('driver');
 
-
         /** @var SessionInterface $handler */
         $handler = new $class($parameter->get('params', []));
 
         $handler->register();
+
+        $php_ini = (bool)$parameter->get('php_ini');
+
+        if (!$php_ini) {
+            $name = $parameter->get('name');
+            $lifetime = (int)$parameter->get('cookie_lifetime');
+            $max_lifetime = (int)$parameter->get('gc_maxlifetime');
+            $path = $parameter->get('cookie_path');
+            $domain = $parameter->get('cookie_domain');
+            $httponly = (bool)$parameter->get('cookie_httponly');
+            $secure = (bool)$parameter->get('cookie_secure');
+
+            if (!$name) {
+                $name = 'PHPSESSID';
+            }
+
+            if ($max_lifetime < 60) {
+                $max_lifetime = 14440;
+            }
+
+            if ($lifetime < 0) {
+                $lifetime = 0;
+            }
+
+            $path = str_replace('//', '/', '/' . trim($path, '/') . '/');
+
+            if (!$domain) {
+                $domain = null;
+            }
+
+            // can not share the same cookie name between http and https
+            // let's append `_http` to original name to allow login via http://
+            // this is a browser feature not a bugs.
+            if ($secure and !PHPFOX_IS_HTTPS) {
+                $secure = false;
+                $name = $name . '_http';
+            }
+
+            session_name($name);
+            ini_set('session.gc_maxlifetime', $max_lifetime);
+            session_set_cookie_params($lifetime, $path, $domain, $secure, $httponly);
+        }
+
 
         if (!session_id() and !headers_sent()) {
             @session_start();

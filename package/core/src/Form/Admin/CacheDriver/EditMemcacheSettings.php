@@ -2,7 +2,6 @@
 
 namespace Neutron\Core\Form\Admin\CacheDriver;
 
-
 use Phpfox\Form\Form;
 
 class EditMemcacheSettings extends Form
@@ -38,6 +37,7 @@ class EditMemcacheSettings extends Form
             'info'     => _text('[Memcache Persistent Info]', '_core.cache'),
             'required' => true,
         ]);
+
         $this->addElement([
             'factory'  => 'yesno',
             'name'     => 'compression',
@@ -46,6 +46,16 @@ class EditMemcacheSettings extends Form
             'info'     => _text('[Memcache Compression Info]', '_core.cache'),
             'required' => true,
         ]);
+
+        $this->addElement([
+            'factory'  => 'text',
+            'name'     => 'prefix',
+            'value'    => '',
+            'label'    => _text('Memcache Prefix', '_core.cache'),
+            'info'     => _text('[Memcache Prefix Info]', '_core.cache'),
+            'required' => false,
+        ]);
+
 
         $this->addButton([
             'factory'    => 'button',

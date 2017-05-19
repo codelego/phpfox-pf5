@@ -9,7 +9,7 @@ class SessionManagerTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $manager = new SessionManager();
+        $manager = new SessionFacades();
 
         $manager->start();
 
@@ -37,7 +37,7 @@ class SessionManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testBase2()
     {
-        $session = new SessionManager();
+        $session = new SessionFacades();
 
         if (session_id()) {
             session_destroy();
@@ -52,7 +52,7 @@ class SessionManagerTest extends \PHPUnit_Framework_TestCase
             session_start();
         }
 
-        $manager = new SessionManager();
+        $manager = new SessionFacades();
 
         $manager->start();
 
@@ -84,7 +84,7 @@ class SessionManagerTest extends \PHPUnit_Framework_TestCase
             session_start();
         }
 
-        $manager = new SessionManager();
+        $manager = new SessionFacades();
         $this->assertFalse($manager->start());
     }
 }

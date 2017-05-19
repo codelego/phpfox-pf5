@@ -11,6 +11,6 @@ return [
         'null'     => NullSession::class,
     ],
     'services'        => [
-        'session' => [null, SessionManager::class],
+        'session' => [null, SessionFacades::class],
     ],
 ];

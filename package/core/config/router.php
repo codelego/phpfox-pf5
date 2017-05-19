@@ -16,6 +16,11 @@ return [
             'controller' => 'core.admin-index',
             'action'     => 'index',
         ],
+        'admin.core.auth'     => [
+            'route'      => 'auth/<action>',
+            'controller' => 'core.admin-auth',
+            'action'     => 'login',
+        ],
         'admin.core.acl'      => [
             'route'      => 'acl(/<action>)',
             'controller' => 'core.admin-acl',
