@@ -45,12 +45,6 @@ return [
         AclSettingValue::class,
         'package/core/config/model/acl_setting_value.php',
     ],
-    'acl_setting_group'   => [
-        'table_factory',
-        ':acl_setting_group',
-        AclSettingGroup::class,
-        'package/core/config/model/acl_setting_group.php',
-    ],
     'core_package'        => [
         'table_factory',
         ':core_package',
@@ -86,12 +80,6 @@ return [
         ':site_setting_value',
         SiteSettingValue::class,
         'package/core/config/model/site_setting_value.php',
-    ],
-    'site_setting_group'  => [
-        'table_factory',
-        ':site_setting_group',
-        SiteSettingGroup::class,
-        'package/core/config/model/site_setting_group.php',
     ],
     'layout_action'       => [
         'table_factory',
@@ -146,12 +134,6 @@ return [
         ':layout_container',
         LayoutContainer::class,
         'package/core/config/model/layout_container.php',
-    ],
-    'log_adapter'         => [
-        'table_factory',
-        ':log_adapter',
-        LogAdapter::class,
-        'package/core/config/model/log_adapter.php',
     ],
     'core_driver'         => [
         'table_factory',
