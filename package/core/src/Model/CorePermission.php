@@ -21,14 +21,14 @@ class CorePermission extends DbModel
         $this->__set('id', $value);
     }
 
-    public function getRoleId()
+    public function getLevelId()
     {
-        return $this->__get('role_id');
+        return $this->__get('level_id');
     }
 
-    public function setRoleId($value)
+    public function setLevelId($value)
     {
-        $this->__set('role_id', $value);
+        $this->__set('level_id', $value);
     }
 
     public function getGroupName()

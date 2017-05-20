@@ -2,10 +2,10 @@
 
 namespace Neutron\Dev\Service;
 
-use Neutron\Core\Model\AclSettingAction;
-use Neutron\Core\Model\AclSettingGroup;
-use Neutron\Core\Model\SiteSettingForm;
-use Neutron\Core\Model\SiteSettingValue;
+use Neutron\Core\Model\AclAction;
+use Neutron\Core\Model\AclForm;
+use Neutron\Core\Model\SettingForm;
+use Neutron\Core\Model\SettingValue;
 use Neutron\Dev\FormAclSettingGenerator;
 use Neutron\Dev\FormAdminAddGenerator;
 use Neutron\Dev\FormAdminDeleteGenerator;
@@ -71,21 +71,21 @@ class CodeGenerator
     }
 
     /**
-     * @return AclSettingGroup[]
+     * @return AclForm[]
      */
-    public function getUserSettingGroups()
+    public function getAclForms()
     {
-        return _model('acl_setting_group')
-            ->select()
+        return _model('acl_form')
+            ->select('form_id')
             ->all();
     }
 
     /**
-     * @return SiteSettingForm[]
+     * @return SettingForm[]
      */
     public function getSiteSettingForm()
     {
-        return _model('site_setting_form')
+        return _model('setting_form')
             ->select()
             ->all();
     }
@@ -261,11 +261,11 @@ class CodeGenerator
     {
         $actionType = self::FORM_ACL_SETTINGS;
 
-        foreach ($this->getUserSettingGroups() as $settingGroup) {
+        foreach ($this->getAclForms() as $settingForm) {
             $entry = _model('dev_action')
                 ->select()
                 ->where('action_type=?', $actionType)
-                ->where('table_name=?', $settingGroup->getGroupId())
+                ->where('table_name=?', $settingForm->getFormId())
                 ->first();
 
             if ($entry) {
@@ -274,10 +274,10 @@ class CodeGenerator
 
             _model('dev_action')
                 ->create([
-                    'package_id'  => $settingGroup->getPackageId(),
-                    'text_domain' => 'admin.' . $settingGroup->getGroupId() . '_acl',
+                    'package_id'  => $settingForm->getPackageId(),
+                    'text_domain' => '_' . $settingForm->getPackageId() . '.' . $settingForm->getFormId() . '_acl',
                     'action_type' => $actionType,
-                    'table_name'  => $settingGroup->getGroupId(),
+                    'table_name'  => $settingForm->getFormId(),
                 ])->save();
         }
     }
@@ -285,18 +285,18 @@ class CodeGenerator
     protected function updateUserGroupElements()
     {
         $actionType = self::FORM_ACL_SETTINGS;
-        foreach ($this->getUserSettingGroups() as $settingGroup) {
+        foreach ($this->getAclForms() as $aclForm) {
             /** @var DevAction $devAction */
             $devAction = _model('dev_action')
                 ->select()
                 ->where('action_type=?', $actionType)
-                ->where('table_name=?', $settingGroup->getGroupId())
+                ->where('table_name=?', $aclForm->getFormId())
                 ->first();
 
             if (!$devAction) {
                 continue;
             }
-            $this->updateElementsByAclSettingForm($devAction, $settingGroup);
+            $this->updateElementsByAclSettingForm($devAction, $aclForm);
         }
     }
 
@@ -446,13 +446,13 @@ class CodeGenerator
 
 
     /**
-     * @param DevAction       $devAction
-     * @param SiteSettingForm $settingForm
+     * @param DevAction   $devAction
+     * @param SettingForm $settingForm
      */
     protected function updateElementsBySiteSettingsForm($devAction, $settingForm)
     {
         if (null == $settingForm) {
-            $settingForm = _model('site_setting_form')
+            $settingForm = _model('setting_form')
                 ->findById($devAction->getTableName());
         }
 
@@ -460,8 +460,8 @@ class CodeGenerator
             return;
         }
 
-        /** @var SiteSettingValue[] $settingValues */
-        $settingValues = _model('site_setting_value')
+        /** @var SettingValue[] $settingValues */
+        $settingValues = _model('setting_value')
             ->select()
             ->where('form_id=?', $settingForm->getFormId())
             ->order('ordering', 1)
@@ -526,20 +526,20 @@ class CodeGenerator
     }
 
     /**
-     * @param DevAction       $devAction
-     * @param AclSettingGroup $settingGroup
+     * @param DevAction $devAction
+     * @param AclForm   $aclForm
      */
-    protected function updateElementsByAclSettingForm($devAction, $settingGroup)
+    protected function updateElementsByAclSettingForm($devAction, $aclForm)
     {
-        if (!$settingGroup) {
-            $settingGroup = _model('acl_setting_group')
+        if (!$aclForm) {
+            $aclForm = _model('acl_form')
                 ->findById($devAction->getTableName());
         }
 
-        /** @var AclSettingAction[] $settingActions */
-        $settingActions = _model('acl_setting_action')
+        /** @var AclAction[] $settingActions */
+        $settingActions = _model('acl_action')
             ->select()
-            ->where('group_id=?', $settingGroup->getId())
+            ->where('form_id=?', $aclForm->getId())
             ->all();
 
         $sortOrder = 1;

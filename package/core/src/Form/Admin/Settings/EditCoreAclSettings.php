@@ -122,9 +122,9 @@ class EditCoreAclSettings extends Form
             'info'    => _text('[Manage Theme Info]', 'admin.core_acl'),
         ]);
 
-        /** element `core__manage_acl_role` **/
+        /** element `core__manage_acl_level` **/
         $this->addElement([
-            'name'    => 'core__manage_acl_role',
+            'name'    => 'core__manage_acl_level',
             'factory' => 'yesno',
             'label'   => _text('Manage Acl Role', 'admin.core_acl'),
             'info'    => _text('[Manage Acl Role Info]', 'admin.core_acl'),

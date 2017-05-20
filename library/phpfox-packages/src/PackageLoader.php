@@ -84,7 +84,7 @@ class PackageLoader implements PackageLoaderInterface
     {
         $value = _get('db')
             ->select('*')
-            ->from(':site_setting_value')
+            ->from(':setting_value')
             ->where('group_id=?', 'core')
             ->where('name=?', 'setting_version')
             ->first();
@@ -395,11 +395,11 @@ class PackageLoader implements PackageLoaderInterface
         }
 
         /**
-         * fetch setting variables from table ':site_setting_value'
+         * fetch setting variables from table ':setting_value'
          */
         $rows = _get('db')
             ->select('*')
-            ->from(':site_setting_value')
+            ->from(':setting_value')
             ->where('is_active=1')
             ->order('ordering', 1)
             ->all();
@@ -561,19 +561,19 @@ class PackageLoader implements PackageLoaderInterface
      */
     public function _getPermissionParameter($roleId)
     {
-        $role = _get('core.roles')
+        $level = _get('core.roles')
             ->findById((int)$roleId);
 
-        if (empty($role)) {
+        if (empty($level)) {
             $roleId = PHPFOX_GUEST_ID;
 
-            $role = _get('core.roles')
+            $level = _get('core.roles')
                 ->findById($roleId);
         }
 
         $items = _get('db')->select('*')
-            ->from(':acl_setting_value')
-            ->where('role_id=?', $roleId)
+            ->from(':acl_value')
+            ->where('level_id=?', $roleId)
             ->execute()
             ->all();
 
@@ -583,13 +583,13 @@ class PackageLoader implements PackageLoaderInterface
             $key = sprintf('%s.%s', $item['group_name'], $item['action_name']);
             $data[$key] = json_decode($item['params'], true);
         }
-        $data['is_super'] = $role->isSuper();
-        $data['is_admin'] = $role->isAdmin();
-        $data['is_moderator'] = $role->isModerator();
-        $data['is_staff'] = $role->isStaff();
-        $data['is_banned'] = $role->isBanned();
-        $data['is_registered'] = $role->isRegistered();
-        $data['is_guest'] = $role->isGuest();
+        $data['is_super'] = $level->isSuper();
+        $data['is_admin'] = $level->isAdmin();
+        $data['is_moderator'] = $level->isModerator();
+        $data['is_staff'] = $level->isStaff();
+        $data['is_banned'] = $level->isBanned();
+        $data['is_registered'] = $level->isRegistered();
+        $data['is_guest'] = $level->isGuest();
 
         return new Parameters($data);
     }

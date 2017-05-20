@@ -3,7 +3,7 @@
 namespace Neutron\Core\Service;
 
 
-use Neutron\Core\Model\SiteSettingValue;
+use Neutron\Core\Model\SettingValue;
 
 class SettingManager
 {
@@ -70,8 +70,8 @@ class SettingManager
             throw new \InvalidArgumentException("Invalid parameters");
         }
 
-        /** @var SiteSettingValue $entry */
-        $entry = _model('site_setting_value')
+        /** @var SettingValue $entry */
+        $entry = _model('setting_value')
             ->select()
             ->where('group_id=?', (string)$group)
             ->where('name=?', (string)$name)
@@ -99,8 +99,8 @@ class SettingManager
 
         $result = [];
         foreach ($groups as $group => $names) {
-            /** @var SiteSettingValue[] $entries */
-            $entries = _model('site_setting_value')
+            /** @var SettingValue[] $entries */
+            $entries = _model('setting_value')
                 ->select()
                 ->where('group_id=?', (string)$group)
                 ->where('name in ?', $names)
@@ -123,8 +123,8 @@ class SettingManager
         foreach ($groups as $group => $values) {
             $keys = array_keys($values);
 
-            /** @var SiteSettingValue[] $entries */
-            $entries = _model('site_setting_value')
+            /** @var SettingValue[] $entries */
+            $entries = _model('setting_value')
                 ->select()
                 ->where('group_id=?', (string)$group)
                 ->where('name in ?', $keys)
@@ -145,8 +145,8 @@ class SettingManager
 
     public function updateSettingRevision()
     {
-        /** @var SiteSettingValue $entries */
-        $entry = _model('site_setting_value')
+        /** @var SettingValue $entries */
+        $entry = _model('setting_value')
             ->select()
             ->where('group_id=?', 'core')
             ->where('name=?', 'setting_version')
@@ -155,7 +155,7 @@ class SettingManager
         $value = time();
 
         if (!$entry) {
-            $entry = _model('site_setting_value')
+            $entry = _model('setting_value')
                 ->create([
                     'package_id'   => 'core',
                     'form_id'      => 'core_general',

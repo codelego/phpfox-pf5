@@ -17,7 +17,7 @@ class EditAclRole extends Form
         /** start elements **/
 
 
-        /** skip element `role_id` #identity **/
+        /** skip element `level_id` #identity **/
 
         /** element `inherit_id` **/
         $this->addElement([

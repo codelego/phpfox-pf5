@@ -41,7 +41,7 @@ class PermissionData
     /**
      * @return int
      */
-    public function getRoleId()
+    public function getLevelId()
     {
         return $this->roleId;
     }

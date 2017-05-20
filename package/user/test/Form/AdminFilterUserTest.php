@@ -14,7 +14,7 @@ class AdminFilterUserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($form->getElement('q') instanceof
             FieldInterface);
-        $this->assertTrue($form->getElement('role_id') instanceof
+        $this->assertTrue($form->getElement('level_id') instanceof
             FieldInterface);
         $this->assertTrue($form->getElement('verify') instanceof
             FieldInterface);

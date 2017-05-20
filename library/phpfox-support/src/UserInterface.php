@@ -32,7 +32,7 @@ interface UserInterface extends ResourceInterface
     /**
      * @return mixed
      */
-    public function getRoleId();
+    public function getLevelId();
 
     public function getUrl();
 }

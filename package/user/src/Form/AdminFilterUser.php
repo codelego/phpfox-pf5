@@ -19,7 +19,7 @@ class AdminFilterUser extends Form
             ],
             [
                 'factory'    => 'choice',
-                'name'       => 'role_id',
+                'name'       => 'level_id',
                 'render'     => 'select',
                 'required'   => false,
                 'placeholder' => _text('Role', 'admin'),

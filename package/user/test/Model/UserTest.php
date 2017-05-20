@@ -14,7 +14,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         $obj = new User([
             'user_id'       => 1,
-            'role_id'       => 1,
+            'level_id'       => 1,
             'user_photo_id' => 0,
             'gender_id'     => 0,
             'status_id'     => 0,
@@ -29,7 +29,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('user', $obj->getModelId());
         $this->assertSame(1, $obj->getId());
-        $this->assertSame(1, $obj->getRoleId());
+        $this->assertSame(1, $obj->getLevelId());
         $this->assertSame(0, $obj->getUserPhotoId());
         $this->assertSame(0, $obj->getGenderId());
         $this->assertSame(0, $obj->getStatusId());
@@ -48,7 +48,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
         // set data
         $obj->setId(1);
-        $obj->setRoleId(1);
+        $obj->setLevelId(1);
         $obj->setUserPhotoId(0);
         $obj->setGenderId(0);
         $obj->setStatusId(0);
@@ -63,7 +63,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         // assert same data
         $this->assertSame('user', $obj->getModelId());
         $this->assertSame(1, $obj->getId());
-        $this->assertSame(1, $obj->getRoleId());
+        $this->assertSame(1, $obj->getLevelId());
         $this->assertSame(0, $obj->getUserPhotoId());
         $this->assertSame(0, $obj->getGenderId());
         $this->assertSame(0, $obj->getStatusId());
@@ -80,7 +80,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         $obj = new User([
             'user_id'       => 1,
-            'role_id'       => 1,
+            'level_id'       => 1,
             'user_photo_id' => 0,
             'gender_id'     => 0,
             'status_id'     => 0,
@@ -103,7 +103,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('user', $obj->getModelId());
         $this->assertSame(1, $obj->getId());
-        $this->assertSame(1, $obj->getRoleId());
+        $this->assertSame(1, $obj->getLevelId());
         $this->assertSame(0, $obj->getUserPhotoId());
         $this->assertSame(0, $obj->getGenderId());
         $this->assertSame(0, $obj->getStatusId());

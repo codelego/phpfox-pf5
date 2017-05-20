@@ -17,9 +17,9 @@ class AddAclRole extends Form
         /** start elements **/
 
 
-        /** element `role_id` **/
+        /** element `level_id` **/
         $this->addElement([
-            'name'     => 'role_id',
+            'name'     => 'level_id',
             'factory'  => 'text',
             'label'    => _text('Role Id', null),
             'info'     => '[Role Id Info]',

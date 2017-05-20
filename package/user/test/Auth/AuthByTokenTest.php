@@ -62,7 +62,7 @@ class AuthByTokenTest extends \PHPUnit_Framework_TestCase
             ->execute();
 
         $user = new User([
-            'role_id'       => 1,
+            'level_id'       => 1,
             'user_photo_id' => 0,
             'gender'        => 0,
             'status_id'     => 0,

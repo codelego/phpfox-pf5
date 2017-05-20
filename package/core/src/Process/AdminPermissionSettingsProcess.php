@@ -9,7 +9,7 @@
 namespace Neutron\Core\Process;
 
 
-use Neutron\Core\Model\SiteSettingForm;
+use Neutron\Core\Model\SettingForm;
 use Phpfox\Form\FieldInterface;
 use Phpfox\Form\Form;
 use Phpfox\Support\AbstractProcess;
@@ -72,8 +72,8 @@ class AdminPermissionSettingsProcess extends AbstractProcess
             $settingGroupId = $request->get('setting_group');
         }
 
-        /** @var SiteSettingForm $settingGroup */
-        $settingGroup = _find('site_setting_form', $settingGroupId);
+        /** @var SettingForm $settingGroup */
+        $settingGroup = _find('setting_form', $settingGroupId);
 
         if (!$settingGroup) {
             throw new \InvalidArgumentException(_sprintf('Invalid group [{0}]', [$settingGroupId]));

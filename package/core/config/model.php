@@ -27,23 +27,23 @@ return [
         I18nCurrency::class,
         'package/core/config/model/i18n_currency.php',
     ],
-    'acl_role'            => [
+    'acl_level'            => [
         'table_factory',
-        ':acl_role',
-        AclRole::class,
-        'package/core/config/model/acl_role.php',
+        ':acl_level',
+        AclLevel::class,
+        'package/core/config/model/acl_level.php',
     ],
-    'acl_setting_action'  => [
+    'acl_action'  => [
         'table_factory',
-        ':acl_setting_action',
-        AclSettingAction::class,
-        'package/core/config/model/acl_setting_action.php',
+        ':acl_action',
+        AclAction::class,
+        'package/core/config/model/acl_action.php',
     ],
-    'acl_setting_value'   => [
+    'acl_value'   => [
         'table_factory',
-        ':acl_setting_value',
-        AclSettingValue::class,
-        'package/core/config/model/acl_setting_value.php',
+        ':acl_value',
+        AclValue::class,
+        'package/core/config/model/acl_value.php',
     ],
     'core_package'        => [
         'table_factory',
@@ -75,11 +75,11 @@ return [
         MailTemplate::class,
         'package/core/config/model/mail_template.php',
     ],
-    'site_setting_value'  => [
+    'setting_value'  => [
         'table_factory',
-        ':site_setting_value',
-        SiteSettingValue::class,
-        'package/core/config/model/site_setting_value.php',
+        ':setting_value',
+        SettingValue::class,
+        'package/core/config/model/setting_value.php',
     ],
     'layout_action'       => [
         'table_factory',
@@ -147,10 +147,10 @@ return [
         CoreAdapter::class,
         'package/core/config/model/core_adapter.php',
     ],
-    'site_setting_form'   => [
+    'setting_form'   => [
         'table_factory',
-        ':site_setting_form',
-        SiteSettingForm::class,
-        'package/core/config/model/site_setting_form.php',
+        ':setting_form',
+        SettingForm::class,
+        'package/core/config/model/setting_form.php',
     ],
 ];

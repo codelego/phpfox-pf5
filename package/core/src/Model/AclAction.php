@@ -3,14 +3,17 @@ namespace Neutron\Core\Model;
 
 use Phpfox\Db\DbModel;
 
-class SiteSettingValue extends DbModel
+class AclAction extends DbModel
 {
-    public function getModelId(){return 'site_setting_value';}
+    public function getModelId(){return 'acl_action';}
 
-    public function getValueId(){return (int) $this->__get('value_id');}
-    public function getId(){return (int) $this->__get('value_id');}
-    public function setValueId($value){$this->__set('value_id', $value);}
-    public function setId($value){$this->__set('value_id', $value);}
+    public function getActionId(){return (int) $this->__get('action_id');}
+    public function getId(){return (int) $this->__get('action_id');}
+    public function setActionId($value){$this->__set('action_id', $value);}
+    public function setId($value){$this->__set('action_id', $value);}
+    
+    public function getActionType(){return $this->__get('action_type');}
+    public function setActionType($value){$this->__set('action_type', $value);}
     
     public function getPackageId(){return $this->__get('package_id');}
     public function setPackageId($value){$this->__set('package_id', $value);}
@@ -23,9 +26,6 @@ class SiteSettingValue extends DbModel
     
     public function getName(){return $this->__get('name');}
     public function setName($value){$this->__set('name', $value);}
-    
-    public function getValueActual(){return $this->__get('value_actual');}
-    public function setValueActual($value){$this->__set('value_actual', $value);}
     
     public function getOrdering(){return (int) $this->__get('ordering');}
     public function setOrdering($value){$this->__set('ordering', $value);}

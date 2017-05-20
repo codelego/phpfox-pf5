@@ -7,7 +7,7 @@ use Neutron\Core\Form\Admin\AclRole\AddAclRole;
 use Neutron\Core\Form\Admin\AclRole\EditAclRole;
 use Neutron\Core\Form\Admin\AclSettingGroup\FilterAclSettingGroup;
 use Neutron\Core\Form\Admin\Settings\EditCoreAclSettings;
-use Neutron\Core\Model\AclRole;
+use Neutron\Core\Model\AclLevel;
 use Neutron\Core\Process\AdminAddEntryProcess;
 use Neutron\Core\Process\AdminEditEntryProcess;
 use Neutron\Core\Process\AdminListEntryProcess;
@@ -37,7 +37,7 @@ class AdminAclController extends AdminController
     public function actionIndex()
     {
         return (new AdminListEntryProcess([
-            'model'    => AclRole::class,
+            'model'    => AclLevel::class,
             'template' => 'core/admin-acl/manage-acl-role',
         ]))->process();
     }
@@ -45,7 +45,7 @@ class AdminAclController extends AdminController
     public function actionAdd()
     {
         return (new AdminAddEntryProcess([
-            'model'    => AclRole::class,
+            'model'    => AclLevel::class,
             'form'     => AddAclRole::class,
             'redirect' => _url('admin.core.acl'),
         ]))->process();
@@ -55,8 +55,8 @@ class AdminAclController extends AdminController
     public function actionEdit()
     {
         return (new AdminEditEntryProcess([
-            'key'      => 'role_id',
-            'model'    => AclRole::class,
+            'key'      => 'level_id',
+            'model'    => AclLevel::class,
             'form'     => EditAclRole::class,
             'redirect' => _url('admin.core.acl'),
         ]))->process();

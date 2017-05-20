@@ -63,14 +63,14 @@ class User extends DbModel implements UserInterface
         $this->__set('user_id', $value);
     }
 
-    public function getRoleId()
+    public function getLevelId()
     {
-        return (int)$this->__get('role_id');
+        return (int)$this->__get('level_id');
     }
 
-    public function setRoleId($value)
+    public function setLevelId($value)
     {
-        $this->__set('role_id', $value);
+        $this->__set('level_id', $value);
     }
 
     public function getUserPhotoId()

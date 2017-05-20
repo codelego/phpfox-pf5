@@ -24,11 +24,11 @@
                     <td class="dropdown" data-cmd="dropdown">
                         <ul>
                             <li><a href="<?= _url('admin.core.acl',
-                                    ['action' => 'edit', 'role_id' => $item->getId()]) ?>">
+                                    ['action' => 'edit', 'level_id' => $item->getId()]) ?>">
                                     <?= _text('Edit Group') ?></a></li>
                             <div class="divider"></div>
                             <li><a href="<?= _url('admin.core.acl',
-                                    ['action' => 'delete', 'role_id' => $item->getId()]) ?>">
+                                    ['action' => 'delete', 'level_id' => $item->getId()]) ?>">
                                     <?= _text('Delete Group') ?></a></li>
 
                         </ul>

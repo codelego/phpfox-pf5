@@ -68,7 +68,7 @@ class PermissionFacades
     {
         $target = $event->getTarget();
         if ($target instanceof UserInterface) {
-            $this->roleId = $target->getRoleId();
+            $this->roleId = $target->getLevelId();
         } else {
             $this->roleId = PHPFOX_GUEST_ID;
         }
@@ -77,7 +77,7 @@ class PermissionFacades
     /**
      * @return int
      */
-    public function getRoleId()
+    public function getLevelId()
     {
         return $this->roleId;
     }
@@ -85,7 +85,7 @@ class PermissionFacades
     /**
      * @param int $value
      */
-    public function setRoleId($value)
+    public function setLevelId($value)
     {
         $this->roleId = (int)$value;
     }
