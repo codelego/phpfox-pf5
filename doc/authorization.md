@@ -33,18 +33,56 @@ How to store privacy ?
  * only view  privacy, and serialize others -> YES, just correct.
 
 
-=> put access to detail.
 
-How to search on a listing base.
+> Core of permission system is `ItemInterface`+ `UserInterface`
 
-```php
-$adapter->getRoles();
-```
-
-```database table
-perm_item ($resource, $actions, $role01)
-```
-
-
-
-
+Concepts
+- permission: action name and level id
+- privacy: privacy name, privacy level and privacy value
+- owner: who is owner of item
+- poster: who post item
+- parent: which item belong to (apply when item is posted to pages, groups, events)
+- parent's owner: 
+ 
+ Examples below describe how permission work, when visitor view a blog post.
+ 
+ 1, Case 01.
+ 
+ user `user 1` -> `post` on `user 2` profile
+ user `user 3` would like to view `post`
+ 
+ permission: action = view
+ privacy: name = view_post
+ owner: `user 2`
+ poster: `user 1`
+ parent: `user 2`
+ owner of parent: `user 2`
+ 
+ Result:
+ 
+ Privacy is checked between relations of `user 1` and `user 3` (OK).
+ Privacy is control by `user 2`
+ 
+ 2, Case 02
+ 
+ user `user 1` -> `post` on a pages `page 1` posted by `user 2` 
+ user `user 3` would like to view `post`
+  
+ permission: action = view
+ privacy: name = view_post
+ owner: `user 2`
+ poster: `user 1`
+ parent: `page 1`
+ owner of parent: `user 2`
+  
+ Result:
+  
+ Privacy is checked between relations of `user 1` and `page 1` and `user 3` (OK).
+ Privacy is control by `user 2` and `page 1`
+ 
+ model `page 1` decide how to check relations by implement method `getRelationship(UserInterface $user)`.
+ 
+ Annotation:
+ owner, parent and poster has all item privacy.
+ 
+ 

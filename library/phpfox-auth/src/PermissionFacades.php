@@ -64,10 +64,11 @@ class PermissionFacades
      * @param UserInterface $user
      * @param ItemInterface $item
      * @param string        $action
+     * @param string        $privacy
      *
      * @return bool
      */
-    public function check($user, $item, $action)
+    public function check($user, $item, $action, $privacy = null)
     {
         $levelId = $user->getLevelId();
 
@@ -86,12 +87,16 @@ class PermissionFacades
         }
 
         // cache relationship between user and item's owner, in process only.
-        $relationships = $item->getOwnerRelationships($user);
+        $relationships = $item->getRelationships($user);
+
+        if (!$privacy) {
+            $privacy = '';
+        }
 
         // cache privacy of in process
-        $privacyId = $item->getPrivacyId($action);
+        $privacyValue = $item->getPrivacy($privacy);
 
-        if (in_array($privacyId, $relationships)) {
+        if (in_array($privacyValue, $relationships)) {
             return true;
         }
 
@@ -108,10 +113,10 @@ class PermissionFacades
     public function allow($user, $item, $action)
     {
         // cache relationship between user and item's owner, in process only.
-        $relationships = $item->getOwnerRelationships($user);
+        $relationships = $item->getRelationships($user);
 
         // cache privacy of in process
-        $privacyId = $item->getPrivacyId($action);
+        $privacyId = $item->getPrivacy($action);
 
         if (in_array($privacyId, $relationships)) {
             return true;

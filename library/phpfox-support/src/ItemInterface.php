@@ -18,12 +18,12 @@ interface ItemInterface extends ModelInterface
      *
      * @return array
      */
-    public function getOwnerRelationships($user);
+    public function getRelationships($user);
 
     /**
      * @param string $action
      *
      * @return int
      */
-    public function getPrivacyId($action);
+    public function getPrivacy($action);
 }
