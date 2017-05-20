@@ -16,7 +16,7 @@ class AdminMailController extends AdminController
      */
     const DRIVER_TYPE = 'mail';
 
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('breadcrumb')
             ->set([

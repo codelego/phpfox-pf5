@@ -12,7 +12,7 @@ use Neutron\Core\Process\AdminListEntryProcess;
 
 class AdminI18nTimezoneController extends AdminController
 {
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('breadcrumb')
             ->set([

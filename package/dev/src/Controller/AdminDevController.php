@@ -15,7 +15,7 @@ use Phpfox\View\ViewModel;
 class AdminDevController extends AdminController
 {
 
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('breadcrumb')
             ->set([

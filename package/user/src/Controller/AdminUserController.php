@@ -14,7 +14,7 @@ use Neutron\User\Model\User;
 
 class AdminUserController extends AdminController
 {
-    protected function initialized()
+    protected function afterInitialize()
     {
 
         _get('breadcrumb')

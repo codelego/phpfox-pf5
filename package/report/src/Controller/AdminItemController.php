@@ -13,7 +13,7 @@ use Neutron\Report\Model\ReportItem;
 
 class AdminItemController extends AdminController
 {
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('breadcrumb')
             ->set([

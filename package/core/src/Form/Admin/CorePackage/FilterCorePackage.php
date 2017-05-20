@@ -1,63 +1,40 @@
-<?php /** lock */
-
+<?php
 namespace Neutron\Core\Form\Admin\CorePackage;
 
 use Phpfox\Form\Form;
 
-class FilterCorePackage extends Form
-{
+class FilterCorePackage extends Form {
 
-    public function initialize()
-    {
+    /** id=370 */
+    public function initialize(){
 
         $this->setMethod('get');
 
-        $this->addElement([
-            'factory'    => 'text',
-            'name'       => 'q',
-            'label'      => _text('Search', 'admin'),
-            'attributes' => [
-                'class'       => 'form-control',
-                'placeholder' => _text('Search', 'admin'),
-            ],
-        ]);
-
         /** start elements **/
 
-        // skip element `id` #identity
-
-        // element `type_id`
-        $this->addElement([
-            'name'    => 'type_id',
-            'factory' => 'select',
-            'label'   => _text('Type', '_core.package'),
-            'options' => _get('core.packages')->getTypeIdOptions(),
-        ]);
-        // skip element `is_required` #skips
-
-        // element `is_active`
-        $this->addElement([
-            'name'      => 'is_active',
-            'factory'   => 'yesno',
-            'decorator' => 'select',
-            'label'     => _text('Is Active', null),
-        ]);
-
-        // element `author`
-        $this->addElement([
-            'name'    => 'author',
-            'factory' => 'select',
-            'label'   => _text('Author', null),
-            'options' => _get('core.packages')->getAuthorIdOptions(),
-        ]);
+        
+        
+            /** element `q` id=1523 **/
+            $this->addElement(array ( 'name' => 'q', 'factory' => 'text', 'placeholder' => _text('Keywords','_core.package'), ));        
+        
+            /** element `type_id` id=518 **/
+            $this->addElement(array ( 'name' => 'type_id', 'factory' => 'select', 'placeholder' => _text('Type','_core.package'), 'options' => _get('core.packages')->getTypeIdOptions(), ));        
+        
+            /** element `is_required` id=519 **/
+            $this->addElement(array ( 'name' => 'is_required', 'factory' => 'yesno', 'placeholder' => _text('Require','_core.package'), 'decorator' => 'select', ));        
+        
+            /** element `is_active` id=520 **/
+            $this->addElement(array ( 'name' => 'is_active', 'factory' => 'yesno', 'placeholder' => _text('Is Active','_core.package'), 'decorator' => 'select', ));        
+        
+            /** element `author` id=526 **/
+            $this->addElement(array ( 'name' => 'author', 'factory' => 'select', 'placeholder' => _text('Author','_core.package'), 'options' => _get('core.packages')->getAuthorIdOptions(), ));        
+        /** end elements **/
 
         $this->addButton([
             'name'       => 'search',
-            'factory'    => 'button',
+            'factory'=>'button',
             'label'      => _text('Search'),
-            'attributes' => ['class' => 'btn btn-primary', 'type' => 'submit',],
+            'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
         ]);
-
-        /** end elements **/
     }
 }

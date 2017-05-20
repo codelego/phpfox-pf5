@@ -4,6 +4,8 @@ namespace {
 
     use Phpfox\Cache\StorageInterface;
     use Phpfox\Support\Event;
+    use Phpfox\Support\ItemInterface;
+    use Phpfox\Support\UserInterface;
 
     function _dump()
     {
@@ -156,7 +158,7 @@ namespace {
      *
      * @return mixed|object
      */
-    function _get_cached_value($cache, $key, $ttl, $fallback)
+    function _try($cache, $key, $ttl, $fallback)
     {
         /** @var StorageInterface $cacheStorage */
         $cacheStorage = \Phpfox::$service->get($cache ? $cache : 'shared.cache');
@@ -204,14 +206,38 @@ namespace {
     /**
      * Check acl settings user can do `action`
      *
-     * @param int|null $roleId
+     * @param int|null $levelId
      * @param string   $action
      *
      * @return mixed
      */
-    function _pass($roleId, $action)
+    function _can($levelId, $action)
     {
-        return \Phpfox::$service->get('acl')->pass($roleId, $action);
+        return \Phpfox::$service->get('acl')->can($levelId, $action);
+    }
+
+    /**
+     * @param UserInterface $user
+     * @param ItemInterface $item
+     * @param string        $action
+     *
+     * @return bool
+     */
+    function _pass($user, $item, $action)
+    {
+        return \Phpfox::$service->get('acl')->pass($user, $item, $action);
+    }
+
+    /**
+     * @param UserInterface $user
+     * @param ItemInterface $item
+     * @param string        $action
+     *
+     * @return bool
+     */
+    function _allow($user, $item, $action)
+    {
+        return \Phpfox::$service->get('acl')->allow($user, $item, $action);
     }
 
     /**
@@ -254,121 +280,16 @@ namespace {
                     $prepare = str_replace($extension, '',
                         substr($path, $startCharacter + 1));
 
-                    $id = $template . ':' . $name . '/' . str_replace([
-                            '//',
-                            '/',
-                            '\\',
-                        ],
-                            ['/', '/', '/'], _deflect($prepare));
+                    $id = $template . ':' . $name . '/' . str_replace(['//', '/', '\\',], ['/', '/', '/'],
+                            _deflect($prepare));
 
-                    $map[$id] = str_replace([PHPFOX_DIR, $extension], ['', ''],
-                        $path);
+                    $map[$id] = str_replace([PHPFOX_DIR, $extension], ['', ''], $path);
                 }
             }
         }
 
 
         return $map;
-    }
-
-    function _file_export($file, $data)
-    {
-        if (file_exists($file)) {
-            @unlink($file);
-        }
-
-        if (!is_dir($dir = dirname($file)) && !@mkdir($dir, 0777, true)) {
-            exit('Can not open ' . $dir . ' to write export');
-        }
-
-        if (!is_string($data)) {
-            $data = var_export($data, true);
-        }
-
-        file_put_contents($file,
-            '<?php return ' . $data . ';');
-
-        if (file_exists($file)) {
-            @chmod($file, 0777);
-        }
-    }
-
-    /**
-     * @param mixed $autoloader
-     * @param array $array
-     */
-    function _autoload_psr4($autoloader, $array)
-    {
-
-        foreach ($array as $k => $vs) {
-            if (!$k) {
-                continue;
-            }
-            foreach ($vs as $v) {
-                $autoloader->addPsr4($k . '\\', PHPFOX_DIR . '/' . $v);
-            }
-        }
-    }
-
-    function _merge_configs($directory, $finder)
-    {
-        $result = [];
-        $directory = PHPFOX_DIR . 'library';
-
-        $directoryIterator
-            = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory,
-            RecursiveDirectoryIterator::SKIP_DOTS),
-            RecursiveIteratorIterator::SELF_FIRST,
-            RecursiveIteratorIterator::CATCH_GET_CHILD // Ignore "Permission denied"
-        );
-
-        foreach ($directoryIterator as $path => $entry) {
-            if ($entry->isDir()) {
-                continue;
-            }
-
-            $path = $entry->getPath() . '/' . $entry->getFilename();
-
-            if (!strpos($path, $finder)) {
-                continue;
-            }
-
-            $result = array_merge($result, include $path);
-        }
-
-        ksort($result);
-
-        return $result;
-    }
-
-    function _merge_configs_recursive($directory, $finder)
-    {
-        $result = [];
-
-        $directoryIterator
-            = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory,
-            RecursiveDirectoryIterator::SKIP_DOTS),
-            RecursiveIteratorIterator::SELF_FIRST,
-            RecursiveIteratorIterator::CATCH_GET_CHILD // Ignore "Permission denied"
-        );
-
-        foreach ($directoryIterator as $path => $entry) {
-            if ($entry->isDir()) {
-                continue;
-            }
-
-            $path = $entry->getPath() . '/' . $entry->getFilename();
-
-            if (!strpos($path, $finder)) {
-                continue;
-            }
-            $result = _array_merge_recursive_from_file($result,
-                str_replace(PHPFOX_DIR, '', $path));
-        }
-
-        ksort($result);
-
-        return $result;
     }
 
     /**
@@ -439,32 +360,7 @@ namespace {
      */
     function _deflect($string)
     {
-        return strtolower(trim(preg_replace('/([a-z0-9])([A-Z])/', '\1-\2',
-            $string), '-. '));
-    }
-
-    function _factory($ref)
-    {
-        if (is_string($ref)) {
-            return new $ref;
-        }
-
-        $factory = array_shift($ref);
-
-        if (is_string($factory)) {
-            return call_user_func_array([
-                new $factory(),
-                'factory',
-            ], $ref);
-        }
-
-        $class = array_shift($ref);
-
-        if (empty($ref)) {
-            return new $class();
-        }
-
-        return (new \ReflectionClass($class))->newInstanceArgs($ref);
+        return strtolower(trim(preg_replace('/([a-z0-9])([A-Z])/', '\1-\2', $string), '-. '));
     }
 
     /**
@@ -531,41 +427,6 @@ namespace {
             $result[] = sprintf('%s="%s"', $name, $value);
         }
         return implode(' ', $result);
-    }
-
-    /**
-     * @param $base
-     * @string $file
-     *
-     * @return mixed
-     */
-    function _array_merge_recursive_from_file(&$base, $file)
-    {
-        $array = include PHPFOX_DIR . $file;
-        if (is_array($array)) {
-            foreach ($array as $k => $v) {
-                if (!isset($base[$k])) {
-                    $base[$k] = $v;
-                } elseif (is_array($v)) {
-                    $base[$k] = array_merge($base[$k], $v);
-                } else {
-                    $base[$k] = $v;
-                }
-            }
-        }
-        return $base;
-    }
-
-    /**
-     * @param array  $base
-     * @param string $file
-     */
-    function _array_merge_from_file(&$base, $file)
-    {
-        $array = include PHPFOX_DIR . $file;
-        if (is_array($array)) {
-            $base = array_merge($base, $array);
-        }
     }
 
     /**
@@ -643,14 +504,5 @@ namespace {
         }
 
         return _text($flag ? 'Yes' : 'No');
-    }
-
-    /**
-     * @param       $message
-     * @param array $context
-     */
-    function _println($message, $context = [])
-    {
-        echo PHP_EOL, _sprintf($message, $context);
     }
 }

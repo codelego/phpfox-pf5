@@ -10,7 +10,7 @@ use Phpfox\View\ViewModel;
 
 class AdminPackageController extends AdminController
 {
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('breadcrumb')
             ->set([

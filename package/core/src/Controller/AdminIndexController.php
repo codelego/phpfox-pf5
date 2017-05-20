@@ -6,7 +6,7 @@ use Phpfox\View\ViewModel;
 
 class AdminIndexController extends AdminController
 {
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('html.title')
             ->set(_text('Dashboard', 'admin'));

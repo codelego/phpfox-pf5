@@ -16,7 +16,7 @@ class AdminSmsController extends AdminController
      */
     const DRIVER_TYPE = 'sms';
 
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('breadcrumb')
             ->set([

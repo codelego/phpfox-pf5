@@ -15,7 +15,7 @@ use Phpfox\View\ViewModel;
 
 class AdminBanController extends AdminController
 {
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('breadcrumb')
             ->set(['href' => _url('admin.core.ban'), 'label' => _text('User Groups', 'admin'),]);

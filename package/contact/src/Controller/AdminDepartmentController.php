@@ -13,7 +13,7 @@ use Phpfox\View\ViewModel;
 class AdminDepartmentController extends AdminController
 {
 
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('breadcrumb')
             ->set(['label' => _text('Contact Us'), 'href' => _url('admin.contact.department')]);

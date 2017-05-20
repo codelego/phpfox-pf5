@@ -36,12 +36,12 @@ class PackageLoader implements PackageLoaderInterface
     public function resolve()
     {
         // compare version or not ?
-        $versionId = _get_cached_value('super.cache', self::CHECK_KEY, 0, function () {
+        $versionId = _try('super.cache', self::CHECK_KEY, 0, function () {
             return 0;
         });
 
         // latest version
-        $latestVersion = _get_cached_value('shared.cache', 'setting_version', 0, function () {
+        $latestVersion = _try('shared.cache', 'setting_version', 0, function () {
             return $this->getLatestVersionId();
         });
 
@@ -57,7 +57,7 @@ class PackageLoader implements PackageLoaderInterface
      */
     public function getActivePackageIds()
     {
-        return _get_cached_value('super.cache', 'loader.active_package_id', self::TTL, function () {
+        return _try('super.cache', 'loader.active_package_id', self::TTL, function () {
             return $this->_getActivePackageIds();
         });
     }
@@ -97,7 +97,7 @@ class PackageLoader implements PackageLoaderInterface
      */
     public function getVersionId()
     {
-        return _get_cached_value('super.cache', 'loader.version_id', self::TTL, function () {
+        return _try('super.cache', 'loader.version_id', self::TTL, function () {
             return 0;
         });
     }
@@ -105,7 +105,7 @@ class PackageLoader implements PackageLoaderInterface
     public function getPaths()
     {
         if (!$this->paths) {
-            $this->paths = _get_cached_value('super.cache', 'loader.paths', self::TTL, function () {
+            $this->paths = _try('super.cache', 'loader.paths', self::TTL, function () {
                 return $this->_getPaths();
             });
         }
@@ -114,35 +114,35 @@ class PackageLoader implements PackageLoaderInterface
 
     public function getModelParameters()
     {
-        return _get_cached_value('super.cache', 'loader.models', self::TTL, function () {
+        return _try('super.cache', 'loader.models', self::TTL, function () {
             return $this->_getModelParameters();
         });
     }
 
     public function getAutoloadParameters()
     {
-        return _get_cached_value('super.cache', 'loader.autoload', self::TTL, function () {
+        return _try('super.cache', 'loader.autoload', self::TTL, function () {
             return $this->_getAutoloadParameters();
         });
     }
 
     public function getRouteParameters()
     {
-        return _get_cached_value('super.cache', 'loader.routes', self::TTL, function () {
+        return _try('super.cache', 'loader.routes', self::TTL, function () {
             return $this->_getRouteParameters();
         });
     }
 
     public function getPackageParameters()
     {
-        return _get_cached_value('super.cache', 'loader.parameters', self::TTL, function () {
+        return _try('super.cache', 'loader.parameters', self::TTL, function () {
             return $this->_getPackageParameters();
         });
     }
 
     public function getEventParameters()
     {
-        return _get_cached_value('super.cache', 'loader.events', self::TTL, function () {
+        return _try('super.cache', 'loader.events', self::TTL, function () {
             return $this->_getEventParameters();
         });
     }
@@ -150,7 +150,7 @@ class PackageLoader implements PackageLoaderInterface
 
     public function getViewParameters()
     {
-        return _get_cached_value('super.cache', 'loader.views', self::TTL, function () {
+        return _try('super.cache', 'loader.views', self::TTL, function () {
             return $this->_getViewParameters();
         });
     }
@@ -160,7 +160,7 @@ class PackageLoader implements PackageLoaderInterface
      */
     public function getActionParameters()
     {
-        return _get_cached_value('super.cache', 'getActionParameters', self::TTL, function () {
+        return _try('super.cache', 'getActionParameters', self::TTL, function () {
             return $this->_getActionParameters();
         });
     }
@@ -421,7 +421,7 @@ class PackageLoader implements PackageLoaderInterface
 
     public function getCaptchaParameter($containerId)
     {
-        return _get_cached_value('super.cache', ['captcha_parameter', $containerId], 0, function () use ($containerId) {
+        return _try('super.cache', ['captcha_parameter', $containerId], 0, function () use ($containerId) {
             return $this->_getDefaultAdapterByContainerId($containerId, 'captcha', 'recaptcha', 'captcha_drivers');
         });
     }
@@ -429,7 +429,7 @@ class PackageLoader implements PackageLoaderInterface
 
     public function getStorageParameter($adapterId)
     {
-        return _get_cached_value('super.cache', ['storage_parameter', $adapterId], 0, function () use ($adapterId) {
+        return _try('super.cache', ['storage_parameter', $adapterId], 0, function () use ($adapterId) {
             return $this->_getStorageParameter($adapterId);
         });
     }
@@ -471,7 +471,7 @@ class PackageLoader implements PackageLoaderInterface
 
     public function getMailParameter($adapterId)
     {
-        return _get_cached_value('super.cache', ['mail_parameter', $adapterId], 0, function () use ($adapterId) {
+        return _try('super.cache', ['mail_parameter', $adapterId], 0, function () use ($adapterId) {
             return $this->_getDefaultAdapterByContainerId($adapterId, 'mailer', 'system', 'mail_drivers');
         });
     }
@@ -507,7 +507,7 @@ class PackageLoader implements PackageLoaderInterface
 
     public function getCacheParameter($containerId)
     {
-        return _get_cached_value('super.cache', ['cache_parameter', $containerId], 0, function () use ($containerId) {
+        return _try('super.cache', ['cache_parameter', $containerId], 0, function () use ($containerId) {
             return $this->_getDefaultAdapterByContainerId($containerId, 'cache', 'files', 'cache_drivers');
         });
     }
@@ -515,7 +515,7 @@ class PackageLoader implements PackageLoaderInterface
 
     public function getLogParameter($logId)
     {
-        return _get_cached_value('super.cache', ['log_parameter', $logId], 0, function () use ($logId) {
+        return _try('super.cache', ['log_parameter', $logId], 0, function () use ($logId) {
             return $this->_getLogParameter($logId);
         });
 
@@ -549,7 +549,7 @@ class PackageLoader implements PackageLoaderInterface
 
     public function getSessionParameter($containerId)
     {
-        return _get_cached_value('super.cache', ['session_parameter', $containerId], 0, function () use ($containerId) {
+        return _try('super.cache', ['session_parameter', $containerId], 0, function () use ($containerId) {
             return $this->_getDefaultAdapterByContainerId($containerId, 'session', 'files', 'session_drivers');
         });
     }
@@ -597,7 +597,7 @@ class PackageLoader implements PackageLoaderInterface
     public function getPermissionParameter($roleId)
     {
 
-        return _get_cached_value('super.cache', ['permission_parameters', $roleId], 0, function () use ($roleId) {
+        return _try('super.cache', ['permission_parameters', $roleId], 0, function () use ($roleId) {
             return $this->_getPermissionParameter($roleId);
         });
     }

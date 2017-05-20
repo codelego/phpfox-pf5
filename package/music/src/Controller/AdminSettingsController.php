@@ -6,7 +6,7 @@ use Neutron\Core\Controller\AdminController;
 
 class AdminSettingsController extends AdminController
 {
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('html.title')
             ->set(_text('Music'));

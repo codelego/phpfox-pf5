@@ -6,7 +6,7 @@ use Neutron\Core\Process\AdminEditSettingsProcess;
 
 class AdminSettingsController extends AdminController
 {
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('html.title')
             ->set(_text('Manage Settings', 'admin'));

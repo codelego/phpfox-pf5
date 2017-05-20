@@ -15,7 +15,7 @@ class AdminLogController extends AdminController
      */
     const DRIVER_TYPE = 'log';
 
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('breadcrumb')
             ->set([

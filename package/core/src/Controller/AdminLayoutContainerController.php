@@ -10,7 +10,7 @@ use Phpfox\View\ViewModel;
 
 class AdminLayoutContainerController extends AdminController
 {
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('menu.admin.secondary')
             ->load('_core.layout');

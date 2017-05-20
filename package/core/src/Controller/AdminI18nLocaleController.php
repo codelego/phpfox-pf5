@@ -13,7 +13,7 @@ use Neutron\Core\Process\AdminListEntryProcess;
 class AdminI18nLocaleController extends AdminController
 {
 
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('breadcrumb')
             ->set([

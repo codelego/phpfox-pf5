@@ -18,6 +18,7 @@ return [
     'core.admin-mail'             => AdminMailController::class,
     'core.admin-mail-template'    => AdminMailTemplateController::class,
     'core.admin-mail-bulk'        => AdminMailBulkController::class,
+    'core.admin-menu'             => AdminMenuController::class,
     'core.admin-layout'           => AdminLayoutPageController::class,
     'core.admin-layout-component' => AdminLayoutComponentController::class,
     'core.admin-layout-theme'     => AdminLayoutThemeController::class,

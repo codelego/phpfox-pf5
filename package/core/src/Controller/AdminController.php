@@ -17,7 +17,7 @@ class AdminController extends ActionController
             ->deps('package/core/admin');
 
         // todo verify logged in user can access admincp.
-        if (!_pass(null, 'is_admin')) {
+        if (!_can(null, 'is_admin')) {
             $this->forward('core.admin-auth', 'login');
         }
     }

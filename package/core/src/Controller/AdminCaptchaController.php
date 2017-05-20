@@ -16,7 +16,7 @@ class AdminCaptchaController extends AdminController
      */
     const DRIVER_TYPE = 'captcha';
 
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('breadcrumb')
             ->set([

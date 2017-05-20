@@ -12,7 +12,7 @@ use Neutron\Dev\Model\DevTable;
 
 class AdminTableController extends AdminController
 {
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('breadcrumb')
             ->set([

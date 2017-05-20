@@ -13,7 +13,7 @@ use Neutron\Core\Process\AdminListEntryProcess;
 
 class AdminAclController extends AdminController
 {
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('breadcrumb')
             ->set(['href' => _url('admin.core.acl'), 'label' => _text('User Groups', 'admin'),]);

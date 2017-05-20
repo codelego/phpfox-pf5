@@ -12,7 +12,7 @@ class AdminStorageController extends AdminController
 {
     const DRIVER_TYPE = 'storage';
 
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('html.title')
             ->set(_text('Storage System', 'admin'));

@@ -14,7 +14,7 @@ use Phpfox\View\ViewModel;
 class AdminI18nMessageController extends AdminController
 {
 
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('breadcrumb')
             ->set([

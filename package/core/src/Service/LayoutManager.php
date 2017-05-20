@@ -224,7 +224,7 @@ class LayoutManager implements LoaderInterface
     {
         $pageId = $this->findPageIdForRender($actionId, $themeId);
 
-        $page = _get_cached_value('shared.cache', ['layouts', 'loadForRender', $pageId], 0,
+        $page = _try('shared.cache', ['layouts', 'loadForRender', $pageId], 0,
             function () use ($pageId) {
                 return $this->loadPageDataById($pageId, $activeOnly = true);
             });

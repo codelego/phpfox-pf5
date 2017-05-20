@@ -39,7 +39,7 @@ class ContactUs
      */
     public function getActiveDepartmentOptions()
     {
-        return _get_cached_value('shared.cache', ['core', 'contact', 'departments'], 0, function () {
+        return _try('shared.cache', ['core', 'contact', 'departments'], 0, function () {
             return $this->_getActiveDepartmentOptions();
         });
     }

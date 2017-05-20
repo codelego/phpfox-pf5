@@ -11,7 +11,7 @@ class AdminUpdate extends Component
     {
         $limit = $this->get('limit', 6);
 
-        $news = _get_cached_value('shared.cache', 'admincp.news', 600, function () use ($limit) {
+        $news = _try('shared.cache', 'admincp.news', 600, function () use ($limit) {
             $remoteUrl = 'http://feeds.feedburner.com/phpfox';
             $content = _get('curl')->factory($remoteUrl)
                 ->getString();

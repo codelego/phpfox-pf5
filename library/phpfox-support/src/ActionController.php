@@ -7,11 +7,14 @@ class ActionController
 {
     public function __construct()
     {
+
+        $this->beforeInitialize();
+
         $this->initialize();
 
         $this->checkSiteSettings();
 
-        $this->initialized();
+        $this->afterInitialize();
     }
 
     /**
@@ -61,7 +64,12 @@ class ActionController
         return true;
     }
 
-    protected function initialized()
+    protected function afterInitialize()
+    {
+
+    }
+
+    protected function beforeInitialize()
     {
 
     }

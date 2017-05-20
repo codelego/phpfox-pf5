@@ -13,7 +13,7 @@ use Neutron\Report\Model\ReportCategory;
 
 class AdminCategoryController extends AdminController
 {
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('breadcrumb')
             ->set([

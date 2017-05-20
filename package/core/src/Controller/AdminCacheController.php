@@ -16,7 +16,7 @@ class AdminCacheController extends AdminController
      */
     const DRIVER_TYPE = 'cache';
 
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('breadcrumb')
             ->set([

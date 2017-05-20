@@ -6,7 +6,7 @@ use Phpfox\View\ViewModel;
 
 class AdminStatusController extends AdminController
 {
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('html.title')
             ->set(_text('System Status', 'admin'));

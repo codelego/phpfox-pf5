@@ -12,7 +12,7 @@ use Neutron\Core\Process\AdminListEntryProcess;
 
 class AdminCategoryController extends AdminController
 {
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('html.title')
             ->set(_text('Blogs'));

@@ -11,7 +11,7 @@ use Phpfox\View\ViewModel;
 
 class AdminLayoutBlockController extends AdminController
 {
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('menu.admin.secondary')
             ->load('_core.layout');

@@ -232,7 +232,7 @@ class ThemeManager
      */
     public function preferThemes()
     {
-        return _get_cached_value('shared.cache', self::PREFER_THEME_CACHE, 0, function () {
+        return _try('shared.cache', self::PREFER_THEME_CACHE, 0, function () {
             return $this->_preferThemes();
         });
     }

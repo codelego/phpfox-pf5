@@ -5,7 +5,7 @@ namespace Neutron\Core\Controller;
 
 class AdminMailTemplateController extends AdminController
 {
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('menu.admin.secondary')
             ->load('_core.mail');

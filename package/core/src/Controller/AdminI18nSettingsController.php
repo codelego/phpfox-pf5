@@ -7,7 +7,7 @@ use Neutron\Core\Process\AdminEditSettingsProcess;
 
 class AdminI18nSettingsController extends AdminController
 {
-    protected function initialized()
+    protected function afterInitialize()
     {
         _get('breadcrumb')
             ->set([

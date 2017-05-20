@@ -107,21 +107,22 @@ class ElementGenerator
         $trueValue = '$$$true$$$';
 
         $element = [
-            'name'      => $name,
-            'factory'   => $factoryId,
-            'label'     => $devElement->getLabel(),
-            'note'      => $devElement->getNote(),
-            'info'      => $devElement->getInfo(),
-            'value'     => $devElement->getDefaultValue(),
-            'class'     => $devElement->getClassName(),
-            'options'   => [],
-            'maxlength' => $devElement->getMaxLength(),
-            'rows'      => $devElement->getRows(),
-            'cols'      => $devElement->getCols(),
-            'required'  => $devElement->isRequire() ? $trueValue : '',
-            'readonly'  => $devElement->isReadonly() ? $trueValue : '',
-            'disabled'  => $devElement->isDisabled() ? $trueValue : '',
-            'data-cmd'  => $devElement->getDataCmd(),
+            'name'        => $name,
+            'factory'     => $factoryId,
+            'label'       => '',
+            'placeholder' => '',
+            'note'        => $devElement->getNote(),
+            'info'        => $devElement->getInfo(),
+            'value'       => $devElement->getDefaultValue(),
+            'class'       => $devElement->getClassName(),
+            'options'     => [],
+            'maxlength'   => $devElement->getMaxLength(),
+            'rows'        => $devElement->getRows(),
+            'cols'        => $devElement->getCols(),
+            'required'    => $devElement->isRequire() ? $trueValue : '',
+            'readonly'    => $devElement->isReadonly() ? $trueValue : '',
+            'disabled'    => $devElement->isDisabled() ? $trueValue : '',
+            'data-cmd'    => $devElement->getDataCmd(),
         ];
 
 
@@ -138,10 +139,13 @@ class ElementGenerator
         if (($isHidden or $this->isNoLabel())) {
             unset($element['label']);
         } elseif ($label) {
-            $this->addMessage($label);
             $element['label'] = '$$$_text($$' . $label . '$$,' . $textDomain . ')$$$';
         }
 
+        if (!$isHidden) {
+            $this->addMessage($label);
+            $element['placeholder'] = '$$$_text($$' . $label . '$$,' . $textDomain . ')$$$';
+        }
 
         if (!$devElement->getHasNote() and ($isHidden or $this->isNoNote())) {
             unset($element['note']);

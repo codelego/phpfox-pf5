@@ -11,7 +11,7 @@ class FormAdminFilterGenerator extends FormAdminGenerator
     protected function getElementGeneratorParams()
     {
         return [
-            'noLabel'    => false,
+            'noLabel'    => true,
             'noNote'     => true,
             'noRequire'  => true,
             'noInfo'     => true,

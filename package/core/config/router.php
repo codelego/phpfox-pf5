@@ -85,6 +85,11 @@ return [
             'controller' => 'core.admin-cache',
             'action'     => 'index',
         ],
+        'admin.core.menu'     => [
+            'route'      => 'menu(/<action>)',
+            'controller' => 'core.admin-menu',
+            'action'     => 'index',
+        ],
         'admin.core.log'      => [
             'route'      => 'log(/<action>)',
             'controller' => 'core.admin-log',

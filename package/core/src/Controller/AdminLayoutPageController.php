@@ -13,7 +13,7 @@ use Phpfox\View\ViewModel;
 
 class AdminLayoutPageController extends AdminController
 {
-    public function initialized()
+    public function afterInitialize()
     {
         $editingThemeId = _get('core.layout')
             ->getEditingThemeId();
