@@ -11,31 +11,30 @@ class AdminUpdate extends Component
     {
         $limit = $this->get('limit', 6);
 
-//        $news = _load('shared.cache','admincp.news', 600, function () use ($limit) {
-//                $remoteUrl = 'http://feeds.feedburner.com/phpfox';
-//                $content = _service('curl')->factory($remoteUrl)
-//                    ->getString();
-//
-//                $dom = simplexml_load_string($content);
-//                $items = $dom->xpath('//channel/item');
-//                $news = [];
-//                foreach ($items as $item) {
-//                    $news[] = [
-//                        'title'       => $item->title->__toString(),
-//                        'description' => substr(strip_tags($item->description->__toString()),
-//                                0, 120) . '...',
-//                        'link'        => $item->link->__toString(),
-//                        'date'        => date('Y-m-d',
-//                            strtotime($item->pubDate->__toString())),
-//                    ];
-//                    if (count($news) >= $limit) {
-//                        break;
-//                    }
-//                }
-//                return $news;
-//            });
+        $news = _get_cached_value('shared.cache', 'admincp.news', 600, function () use ($limit) {
+            $remoteUrl = 'http://feeds.feedburner.com/phpfox';
+            $content = _get('curl')->factory($remoteUrl)
+                ->getString();
 
-        $news = [];
+            $dom = simplexml_load_string($content);
+            $items = $dom->xpath('//channel/item');
+            $news = [];
+            foreach ($items as $item) {
+                $news[] = [
+                    'title'       => $item->title->__toString(),
+                    'description' => substr(strip_tags($item->description->__toString()),
+                            0, 120) . '...',
+                    'link'        => $item->link->__toString(),
+                    'date'        => date('Y-m-d',
+                        strtotime($item->pubDate->__toString())),
+                ];
+                if (count($news) >= $limit) {
+                    break;
+                }
+            }
+            return $news;
+        });
+
         return new ViewModel([
             'items' => $news,
         ], 'core/block/admin-update');

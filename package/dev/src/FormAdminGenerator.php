@@ -130,7 +130,7 @@ class FormAdminGenerator extends AbstractGenerator
 
         $formInfo = $this->meta->getFormInfo();
         if (!$formInfo) {
-            $formInfo = '[' . $formTitle . ' Info]';
+            $formInfo = '' . $formTitle . ' [Info]';
         }
 
         $titleDomain = $this->textDomain;

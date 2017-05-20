@@ -9,7 +9,7 @@ class EditCacheSettings extends Form {
     public function initialize(){
 
         $this->setTitle(_text('Edit Cache Settings', '_core.cache_settings'));
-        $this->setInfo(_text('[Edit Site Settings Info]', '_core'));
+        $this->setInfo(_text('Edit Site Settings [Info]', '_core'));
         $this->setMethod('post');                 $this->setAction(_url('#'));
 
         /** start elements **/
@@ -17,7 +17,7 @@ class EditCacheSettings extends Form {
         
         
             /** element `core__shared_cache_cache_id` id=2173 **/
-            $this->addElement(array ( 'name' => 'core__shared_cache_cache_id', 'factory' => 'select', 'label' => _text('Default Cache','_core.cache_settings'), 'info' => _text('[Default Cache Id Info]', '_core.cache_settings'), 'options' => _get('core.adapter')->getAdapterIdOptions('cache'), 'required' => true, ));        
+            $this->addElement(array ( 'name' => 'core__shared_cache_cache_id', 'factory' => 'select', 'label' => _text('Default Cache','_core.cache_settings'), 'info' => _text('Default Cache Id [Info]', '_core.cache_settings'), 'options' => _get('core.adapter')->getAdapterIdOptions('cache'), 'required' => true, ));        
         /** end elements **/
 
         $this->addButton([

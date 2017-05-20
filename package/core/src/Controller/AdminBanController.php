@@ -5,7 +5,7 @@ namespace Neutron\Core\Controller;
 
 use Neutron\Core\Form\Admin\AclRole\AddAclRole;
 use Neutron\Core\Form\Admin\AclRole\EditAclRole;
-use Neutron\Core\Form\Admin\AclSettingGroup\FilterAclSettingGroup;
+use Neutron\Core\Form\Admin\AclSettingGroup\FilterAclPermissions;
 use Neutron\Core\Form\Admin\Settings\EditCoreAclSettings;
 use Neutron\Core\Model\AclLevel;
 use Neutron\Core\Process\AdminAddEntryProcess;
@@ -66,7 +66,7 @@ class AdminBanController extends AdminController
     {
         $request = _get('request');
 
-        $filter = new FilterAclSettingGroup();
+        $filter = new FilterAclPermissions();
 
         _get('registry')
             ->set('filter', $filter);

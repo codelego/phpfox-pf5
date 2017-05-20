@@ -42,7 +42,7 @@
 .form-filter .form-group + .form-group {
   margin-right: 10px; }
 .form-filter .panel-body {
-  padding-bottom: 5px; }
+  padding: 0 15px; }
 
 .ui-overlay {
   display: block;

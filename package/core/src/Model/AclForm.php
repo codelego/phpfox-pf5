@@ -24,7 +24,7 @@ class AclForm extends DbModel
     public function getDescription(){return $this->__get('description');}
     public function setDescription($value){$this->__set('description', $value);}
     
-    public function getOrdering(){return $this->__get('ordering');}
+    public function getOrdering(){return (int) $this->__get('ordering');}
     public function setOrdering($value){$this->__set('ordering', $value);}
     
     public function isActive(){return $this->__get('is_active') ?1:0;}

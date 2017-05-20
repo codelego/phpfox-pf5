@@ -19,7 +19,7 @@ class FilterDevActionMeta extends Form
         $this->addElement([
             'name'      => 'table_name',
             'factory'   => 'text',
-            'label'     => _text('Table Name', null),
+            'placeholder'     => _text('Table Name', null),
             'maxlength' => 255,
         ]);
 
@@ -27,7 +27,7 @@ class FilterDevActionMeta extends Form
         $this->addElement([
             'name'      => 'package_id',
             'factory'   => 'select',
-            'label'     => _text('Package', null),
+            'placeholder'     => _text('Package', null),
             'options'   => _get('core.packages')->getPackageIdOptions(),
             'maxlength' => 255,
         ]);
@@ -36,7 +36,7 @@ class FilterDevActionMeta extends Form
         $this->addElement([
             'name'      => 'action_type',
             'factory'   => 'select',
-            'label'     => _text('Action Type', null),
+            'placeholder'     => _text('Action Type', null),
             'maxlength' => 255,
             'options'   => [
                 ['value' => 'admin_add', 'label' => 'admin_add'],

@@ -4,7 +4,7 @@ namespace Neutron\Core\Form\Admin\AclSettingGroup;
 
 use Phpfox\Form\Form;
 
-class FilterAclSettingGroup extends Form
+class FilterAclPermissions extends Form
 {
 
     public function initialize()
@@ -16,22 +16,26 @@ class FilterAclSettingGroup extends Form
 
 
         /** element `q` **/
-        $this->addElement(['name' => 'q', 'factory' => 'text', 'label' => _text('Keywords', null),]);
+        $this->addElement([
+            'name'        => 'q',
+            'factory'     => 'text',
+            'placeholder' => _text('Keywords', null),
+        ]);
 
         /** element `group_id` **/
         $this->addElement([
-            'name'    => 'group_id',
-            'factory' => 'select',
-            'label'   => _text('Group Id', null),
-            'options' => _get('core.roles')->getFormIdOptions(),
+            'name'        => 'form_id',
+            'factory'     => 'select',
+            'placeholder' => _text('Group', null),
+            'options'     => _get('core.roles')->getFormIdOptions(),
         ]);
 
         /** element `package_id` **/
         $this->addElement([
-            'name'    => 'package_id',
-            'factory' => 'select',
-            'label'   => _text('Package Id', null),
-            'options' => _get('core.packages')->getPackageIdOptions(),
+            'name'        => 'package_id',
+            'factory'     => 'select',
+            'placeholder' => _text('Package ', null),
+            'options'     => _get('core.packages')->getPackageIdOptions(),
         ]);
         /** end elements **/
 

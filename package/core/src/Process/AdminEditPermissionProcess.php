@@ -9,6 +9,7 @@
 namespace Neutron\Core\Process;
 
 
+use Neutron\Core\Form\Admin\AclSettingGroup\FilterAclPermissions;
 use Neutron\Core\Model\AclForm;
 use Phpfox\Form\FieldInterface;
 use Phpfox\Form\Form;
@@ -67,6 +68,11 @@ class AdminEditPermissionProcess extends AbstractProcess
     {
         $request = _get('request');
         $formId = $this->get('form_id');
+
+        $filter = new FilterAclPermissions([]);
+
+        _get('registry')->set('filter', $filter);
+
 
         if (!$formId) {
             $formId = $request->get('form_id');

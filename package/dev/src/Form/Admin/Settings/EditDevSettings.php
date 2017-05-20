@@ -1,26 +1,20 @@
-<?php echo '<?php' ?>
-
-namespace <?= $namespace ?>;
+<?php
+namespace Neutron\Dev\Form\Admin\Settings;
 
 use Phpfox\Form\Form;
 
-class <?= $shortFormClass?> extends Form {
+class EditDevSettings extends Form {
 
-    /** id=<?= $metaId ?> */
+    /** id=673 */
     public function initialize(){
 
-        $this->setTitle(_text('User Group Settings', 'admin'));
-        $this->setInfo(_text('User Group Settings [Info]', 'admin'));
-        $this->setEncType('multipart/form-data');
-        $this->setAction(_url('#'));
+        $this->setTitle(_text('Edit Development Tool Settings', '_dev.settings'));
+        $this->setInfo(_text('Edit Site Settings [Info]', '_core'));
+        $this->setMethod('post');                 $this->setAction(_url('#'));
 
         /** start elements **/
 
-        <?php foreach($elements as $element): ?>
-
-        <?php echo $elementGenerator->convert($element); ?>
-        <?php endforeach; ?>
-
+        
         /** end elements **/
 
         $this->addButton([
@@ -33,7 +27,7 @@ class <?= $shortFormClass?> extends Form {
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'cancel',
-            'href'       => '#',
+            'href'       => _url('#'),
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
         ]);

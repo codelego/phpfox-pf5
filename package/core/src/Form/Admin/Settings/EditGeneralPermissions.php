@@ -1,15 +1,12 @@
 <?php
-
 namespace Neutron\Core\Form\Admin\Settings;
 
 use Phpfox\Form\Form;
 
-class EditGeneralPermissions extends Form
-{
+class EditGeneralPermissions extends Form {
 
     /** id=676 */
-    public function initialize()
-    {
+    public function initialize(){
 
         $this->setTitle(_text('User Group Settings', 'admin'));
         $this->setInfo(_text('[User Group Settings Note]', 'admin'));
@@ -18,125 +15,29 @@ class EditGeneralPermissions extends Form
 
         /** start elements **/
 
-
-        /** element `core__clear_cache` id=1932 **/
-        $this->addElement([
-            'name'    => 'core__clear_cache',
-            'factory' => 'yesno',
-            'label'   => _text('Clear Cache', 'admin.core_acl'),
-            'info'    => _text('[Clear Cache Info]', 'admin.core_acl'),
-        ]);
-
-        /** element `core__manage_package` id=1933 **/
-        $this->addElement([
-            'name'    => 'core__manage_package',
-            'factory' => 'yesno',
-            'label'   => _text('Manage Package', 'admin.core_acl'),
-            'info'    => _text('[Manage Package Info]', 'admin.core_acl'),
-        ]);
-
-        /** element `core__install_package` id=1934 **/
-        $this->addElement([
-            'name'    => 'core__install_package',
-            'factory' => 'yesno',
-            'label'   => _text('Install Package', 'admin.core_acl'),
-            'info'    => _text('[Install Package Info]', 'admin.core_acl'),
-        ]);
-
-        /** element `core__access_admin` id=1935 **/
-        $this->addElement([
-            'name'    => 'core__access_admin',
-            'factory' => 'yesno',
-            'label'   => _text('Access Admin', 'admin.core_acl'),
-            'info'    => _text('[Access Admin Info]', 'admin.core_acl'),
-        ]);
-
-        /** element `core__manage_layout` id=1936 **/
-        $this->addElement([
-            'name'    => 'core__manage_layout',
-            'factory' => 'yesno',
-            'label'   => _text('Manage Layout', 'admin.core_acl'),
-            'info'    => _text('[Manage Layout Info]', 'admin.core_acl'),
-        ]);
-
-        /** element `core__manage_site_setting` id=1937 **/
-        $this->addElement([
-            'name'    => 'core__manage_site_setting',
-            'factory' => 'yesno',
-            'label'   => _text('Manage Site Setting', 'admin.core_acl'),
-            'info'    => _text('[Manage Site Setting Info]', 'admin.core_acl'),
-        ]);
-
-        /** element `core__manage_acl_setting` id=1938 **/
-        $this->addElement([
-            'name'    => 'core__manage_acl_setting',
-            'factory' => 'yesno',
-            'label'   => _text('Manage Acl Setting', 'admin.core_acl'),
-            'info'    => _text('[Manage Acl Setting Info]', 'admin.core_acl'),
-        ]);
-
-        /** element `core__moderate_content` id=1939 **/
-        $this->addElement([
-            'name'    => 'core__moderate_content',
-            'factory' => 'yesno',
-            'label'   => _text('Moderate Content', 'admin.core_acl'),
-            'info'    => _text('[Moderate Content Info]', 'admin.core_acl'),
-        ]);
-
-        /** element `core__manage_cache` id=1940 **/
-        $this->addElement([
-            'name'    => 'core__manage_cache',
-            'factory' => 'yesno',
-            'label'   => _text('Manage Cache', 'admin.core_acl'),
-            'info'    => _text('[Manage Cache Info]', 'admin.core_acl'),
-        ]);
-
-        /** element `core__clear_log` id=1941 **/
-        $this->addElement([
-            'name'    => 'core__clear_log',
-            'factory' => 'yesno',
-            'label'   => _text('Clear Log', 'admin.core_acl'),
-            'info'    => _text('[Clear Log Info]', 'admin.core_acl'),
-        ]);
-
-        /** element `core__manage_log` id=1942 **/
-        $this->addElement([
-            'name'    => 'core__manage_log',
-            'factory' => 'yesno',
-            'label'   => _text('Manage Log', 'admin.core_acl'),
-            'info'    => _text('[Manage Log Info]', 'admin.core_acl'),
-        ]);
-
-        /** element `core__manage_admin` id=1943 **/
-        $this->addElement([
-            'name'    => 'core__manage_admin',
-            'factory' => 'yesno',
-            'label'   => _text('Manage Admin', 'admin.core_acl'),
-            'info'    => _text('[Manage Admin Info]', 'admin.core_acl'),
-        ]);
-
-        /** element `core__manage_theme` id=1944 **/
-        $this->addElement([
-            'name'    => 'core__manage_theme',
-            'factory' => 'yesno',
-            'label'   => _text('Manage Theme', 'admin.core_acl'),
-            'info'    => _text('[Manage Theme Info]', 'admin.core_acl'),
-        ]);
-
-        /** element `core__manage_acl_role` id=1945 **/
-        $this->addElement([
-            'name'    => 'core__manage_acl_role',
-            'factory' => 'yesno',
-            'label'   => _text('Manage Acl Role', 'admin.core_acl'),
-            'info'    => _text('[Manage Acl Role Info]', 'admin.core_acl'),
-        ]);
+        
+        
+            /** element `core__storage_limit` id=2214 **/
+            $this->addElement(array ( 'name' => 'core__storage_limit', 'factory' => 'select', 'label' => _text('Storage Limit','_core.general_acl'), 'info' => _text('Storage Limit [Info]', '_core.general_acl'), 'options' => _get('core.storage')->getStorageLimitOptions(), 'required' => true, ));        
+        
+            /** element `user__edit_username` id=2217 **/
+            $this->addElement(array ( 'name' => 'user__edit_username', 'factory' => 'yesno', 'label' => _text('Edit Username','_core.general_acl'), 'info' => _text('Edit Username [Info]', '_core.general_acl'), 'required' => true, ));        
+        
+            /** element `user__limit_edit_username` id=2220 **/
+            $this->addElement(array ( 'name' => 'user__limit_edit_username', 'factory' => 'text', 'label' => _text('Limit Edit Username','_core.general_acl'), 'info' => _text('Limit Edit Username [Info]', '_core.general_acl'), 'value' => '10', 'required' => true, ));        
+        
+            /** element `user__block_others` id=2216 **/
+            $this->addElement(array ( 'name' => 'user__block_others', 'factory' => 'yesno', 'label' => _text('Block Others','_core.general_acl'), 'info' => _text('Block Others [Info]', '_core.general_acl'), 'required' => true, ));        
+        
+            /** element `user__delete_account` id=2215 **/
+            $this->addElement(array ( 'name' => 'user__delete_account', 'factory' => 'yesno', 'label' => _text('Delete Account','_core.general_acl'), 'info' => _text('Delete Account [Info]', '_core.general_acl'), 'required' => true, ));        
         /** end elements **/
 
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'save',
             'label'      => _text('Save Changes'),
-            'attributes' => ['class' => 'btn btn-primary', 'type' => 'submit',],
+            'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
         ]);
 
         $this->addButton([
@@ -144,7 +45,7 @@ class EditGeneralPermissions extends Form
             'name'       => 'cancel',
             'href'       => '#',
             'label'      => _text('Cancel'),
-            'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
+            'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
         ]);
     }
 }

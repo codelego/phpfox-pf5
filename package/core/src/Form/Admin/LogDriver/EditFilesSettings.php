@@ -11,7 +11,7 @@ class EditFilesSettings extends Form
     protected function initialize()
     {
         $this->setTitle(_text('Edit Log Settings', '_core.logs'));
-        $this->setInfo(_text('[Edit Site Settings Info]', '_core'));
+        $this->setInfo(_text('Edit Site Settings [Info]', '_core'));
 
         /** end elements */
 
