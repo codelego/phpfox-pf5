@@ -533,7 +533,9 @@ class CodeGenerator
     {
         if (!$aclForm) {
             $aclForm = _model('acl_form')
-                ->findById($devAction->getTableName());
+                ->select()
+                ->where('form_id=?', $devAction->getTableName())
+                ->first();
         }
 
         /** @var AclAction[] $settingActions */

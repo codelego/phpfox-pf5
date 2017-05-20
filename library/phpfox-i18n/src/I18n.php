@@ -22,8 +22,11 @@ class I18n
      */
     public function get($locale)
     {
+        if (!$locale) {
+            $locale = $this->default;
+        }
         return isset($this->locales[$locale]) ? $this->locales[$locale]
-            : $this->locales[$locale] = ($i18nLocale = new I18nLocale($locale));
+            : $this->locales[$locale] = new I18nLocale($locale);
     }
 
     public function set($locale, I18nLocale $i18nLocale)

@@ -2,7 +2,7 @@
 
 namespace Neutron\Core\Controller;
 
-use Neutron\Core\Process\AdminSiteSettingsProcess;
+use Neutron\Core\Process\AdminEditSettingsProcess;
 
 class AdminSettingsController extends AdminController
 {
@@ -25,6 +25,6 @@ class AdminSettingsController extends AdminController
 
     public function actionEdit()
     {
-        return (new AdminSiteSettingsProcess([]))->process();
+        return (new AdminEditSettingsProcess([]))->process();
     }
 }

@@ -5,13 +5,11 @@ namespace Neutron\Core\Controller;
 
 use Neutron\Core\Form\Admin\AclRole\AddAclRole;
 use Neutron\Core\Form\Admin\AclRole\EditAclRole;
-use Neutron\Core\Form\Admin\AclSettingGroup\FilterAclSettingGroup;
-use Neutron\Core\Form\Admin\Settings\EditCoreAclSettings;
 use Neutron\Core\Model\AclLevel;
 use Neutron\Core\Process\AdminAddEntryProcess;
 use Neutron\Core\Process\AdminEditEntryProcess;
+use Neutron\Core\Process\AdminEditPermissionProcess;
 use Neutron\Core\Process\AdminListEntryProcess;
-use Phpfox\View\ViewModel;
 
 class AdminAclController extends AdminController
 {
@@ -21,7 +19,7 @@ class AdminAclController extends AdminController
             ->set(['href' => _url('admin.core.acl'), 'label' => _text('User Groups', 'admin'),]);
 
         _get('html.title')
-            ->set(_text('Authorizations', 'admin'));
+            ->set(_text('Permission Settings', '_core'));
 
         _get('menu.admin.secondary')
             ->load('_core.acl');
@@ -66,20 +64,7 @@ class AdminAclController extends AdminController
     {
         $request = _get('request');
 
-        $filter = new FilterAclSettingGroup();
-
-        _get('registry')
-            ->set('filter', $filter);
-
-        $id = $request->get('id', 1);
-        $role = _get('core.roles')->findById($id);
-
-        $form = new EditCoreAclSettings();
-
-        $form->setTitle(_text('#Edit "{0}" Permissions', null, null, [$role->getTitle()]));
-        return new ViewModel([
-            'form' => $form,
-        ], 'layout/form-edit');
+        return (new AdminEditPermissionProcess(['form_id' => 'core_general']))->process();
 
     }
 }

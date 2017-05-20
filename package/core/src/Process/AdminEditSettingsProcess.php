@@ -15,7 +15,7 @@ use Phpfox\Form\Form;
 use Phpfox\Support\AbstractProcess;
 use Phpfox\View\ViewModel;
 
-class AdminSiteSettingsProcess extends AbstractProcess
+class AdminEditSettingsProcess extends AbstractProcess
 {
     public function getSettingGroups(Form $form)
     {

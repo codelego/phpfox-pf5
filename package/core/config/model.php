@@ -33,6 +33,12 @@ return [
         AclLevel::class,
         'package/core/config/model/acl_level.php',
     ],
+    'acl_form'            => [
+        'table_factory',
+        ':acl_form',
+        AclForm::class,
+        'package/core/config/model/acl_form.php',
+    ],
     'acl_action'  => [
         'table_factory',
         ':acl_action',

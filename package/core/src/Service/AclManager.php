@@ -3,8 +3,8 @@
 namespace Neutron\Core\Service;
 
 
+use Neutron\Core\Model\AclForm;
 use Neutron\Core\Model\AclLevel;
-use Neutron\Core\Model\AclSettingGroup;
 
 class AclManager
 {
@@ -20,17 +20,17 @@ class AclManager
 
     }
 
-    public function getSettingGroupIdOptions()
+    public function getFormIdOptions()
     {
-        $select = _model('acl_group')->select()->order('ordering', 1);
-        return array_map(function (AclSettingGroup $settingGroup) {
-            return ['value' => $settingGroup->getId(), 'label' => $settingGroup->getTitle()];
+        $select = _model('acl_form')->select()->order('ordering', 1);
+        return array_map(function (AclForm $aclForm) {
+            return ['value' => $aclForm->getId(), 'label' => $aclForm->getTitle()];
         }, $select->all());
     }
 
     public function findRoleIdOptions($typeId)
     {
-        _get('core.roles')->getSettingGroupIdOptions();
+        _get('core.roles')->getFormIdOptions();
 
     }
 }

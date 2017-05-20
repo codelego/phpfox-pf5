@@ -6,7 +6,7 @@ use Neutron\Core\Form\Admin\MailAdapter\TestEmailSettings;
 use Neutron\Core\Form\Admin\MailDriver\SelectMailDriver;
 use Neutron\Core\Model\CoreAdapter;
 use Neutron\Core\Process\AdminListEntryProcess;
-use Neutron\Core\Process\AdminSiteSettingsProcess;
+use Neutron\Core\Process\AdminEditSettingsProcess;
 use Phpfox\View\ViewModel;
 
 class AdminMailController extends AdminController
@@ -36,7 +36,7 @@ class AdminMailController extends AdminController
 
     public function actionSettings()
     {
-        return (new AdminSiteSettingsProcess([
+        return (new AdminEditSettingsProcess([
             'setting_group' => 'core_mail',
         ]))->process();
     }

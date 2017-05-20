@@ -9,13 +9,13 @@
 namespace Neutron\Core\Process;
 
 
-use Neutron\Core\Model\SettingForm;
+use Neutron\Core\Model\AclForm;
 use Phpfox\Form\FieldInterface;
 use Phpfox\Form\Form;
 use Phpfox\Support\AbstractProcess;
 use Phpfox\View\ViewModel;
 
-class AdminPermissionSettingsProcess extends AbstractProcess
+class AdminEditPermissionProcess extends AbstractProcess
 {
     public function getSettingGroups(Form $form)
     {
@@ -66,23 +66,23 @@ class AdminPermissionSettingsProcess extends AbstractProcess
     public function process()
     {
         $request = _get('request');
-        $settingGroupId = $this->get('setting_group');
+        $formId = $this->get('form_id');
 
-        if (!$settingGroupId) {
-            $settingGroupId = $request->get('setting_group');
+        if (!$formId) {
+            $formId = $request->get('form_id');
         }
 
-        /** @var SettingForm $settingGroup */
-        $settingGroup = _find('setting_form', $settingGroupId);
+        /** @var AclForm $settingForm */
+        $settingForm = _find('acl_form', $formId);
 
-        if (!$settingGroup) {
-            throw new \InvalidArgumentException(_sprintf('Invalid group [{0}]', [$settingGroupId]));
+        if (!$settingForm) {
+            throw new \InvalidArgumentException(_sprintf('Invalid group [{0}]', [$formId]));
         }
 
-        $formName = $settingGroup->getFormName();
+        $formName = $settingForm->getFormName();
 
         if (!class_exists($formName)) {
-            throw new \InvalidArgumentException(_sprintf('Invalid group [{0}]', [$settingGroupId]));
+            throw new \InvalidArgumentException(_sprintf('Invalid group [{0}]', [$formId]));
         }
 
         /** @var Form $form */

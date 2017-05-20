@@ -5,7 +5,7 @@ namespace Neutron\Core\Controller;
 use Neutron\Core\Form\Admin\StorageDriver\SelectStorageDriver;
 use Neutron\Core\Model\StorageAdapter;
 use Neutron\Core\Process\AdminListEntryProcess;
-use Neutron\Core\Process\AdminSiteSettingsProcess;
+use Neutron\Core\Process\AdminEditSettingsProcess;
 use Phpfox\View\ViewModel;
 
 class AdminStorageController extends AdminController
@@ -37,7 +37,7 @@ class AdminStorageController extends AdminController
 
     public function actionSettings()
     {
-        return (new AdminSiteSettingsProcess([
+        return (new AdminEditSettingsProcess([
             'setting_group' => 'core_storage',
         ]))->process();
     }

@@ -4,9 +4,10 @@ namespace Neutron\Core\Form\Admin\Settings;
 
 use Phpfox\Form\Form;
 
-class EditCoreAclSettings extends Form
+class EditGeneralPermissions extends Form
 {
 
+    /** id=676 */
     public function initialize()
     {
 
@@ -18,7 +19,7 @@ class EditCoreAclSettings extends Form
         /** start elements **/
 
 
-        /** element `core__clear_cache` **/
+        /** element `core__clear_cache` id=1932 **/
         $this->addElement([
             'name'    => 'core__clear_cache',
             'factory' => 'yesno',
@@ -26,7 +27,7 @@ class EditCoreAclSettings extends Form
             'info'    => _text('[Clear Cache Info]', 'admin.core_acl'),
         ]);
 
-        /** element `core__manage_package` **/
+        /** element `core__manage_package` id=1933 **/
         $this->addElement([
             'name'    => 'core__manage_package',
             'factory' => 'yesno',
@@ -34,7 +35,7 @@ class EditCoreAclSettings extends Form
             'info'    => _text('[Manage Package Info]', 'admin.core_acl'),
         ]);
 
-        /** element `core__install_package` **/
+        /** element `core__install_package` id=1934 **/
         $this->addElement([
             'name'    => 'core__install_package',
             'factory' => 'yesno',
@@ -42,7 +43,7 @@ class EditCoreAclSettings extends Form
             'info'    => _text('[Install Package Info]', 'admin.core_acl'),
         ]);
 
-        /** element `core__access_admin` **/
+        /** element `core__access_admin` id=1935 **/
         $this->addElement([
             'name'    => 'core__access_admin',
             'factory' => 'yesno',
@@ -50,7 +51,7 @@ class EditCoreAclSettings extends Form
             'info'    => _text('[Access Admin Info]', 'admin.core_acl'),
         ]);
 
-        /** element `core__manage_layout` **/
+        /** element `core__manage_layout` id=1936 **/
         $this->addElement([
             'name'    => 'core__manage_layout',
             'factory' => 'yesno',
@@ -58,7 +59,7 @@ class EditCoreAclSettings extends Form
             'info'    => _text('[Manage Layout Info]', 'admin.core_acl'),
         ]);
 
-        /** element `core__manage_site_setting` **/
+        /** element `core__manage_site_setting` id=1937 **/
         $this->addElement([
             'name'    => 'core__manage_site_setting',
             'factory' => 'yesno',
@@ -66,7 +67,7 @@ class EditCoreAclSettings extends Form
             'info'    => _text('[Manage Site Setting Info]', 'admin.core_acl'),
         ]);
 
-        /** element `core__manage_acl_setting` **/
+        /** element `core__manage_acl_setting` id=1938 **/
         $this->addElement([
             'name'    => 'core__manage_acl_setting',
             'factory' => 'yesno',
@@ -74,7 +75,7 @@ class EditCoreAclSettings extends Form
             'info'    => _text('[Manage Acl Setting Info]', 'admin.core_acl'),
         ]);
 
-        /** element `core__moderate_content` **/
+        /** element `core__moderate_content` id=1939 **/
         $this->addElement([
             'name'    => 'core__moderate_content',
             'factory' => 'yesno',
@@ -82,7 +83,7 @@ class EditCoreAclSettings extends Form
             'info'    => _text('[Moderate Content Info]', 'admin.core_acl'),
         ]);
 
-        /** element `core__manage_cache` **/
+        /** element `core__manage_cache` id=1940 **/
         $this->addElement([
             'name'    => 'core__manage_cache',
             'factory' => 'yesno',
@@ -90,7 +91,7 @@ class EditCoreAclSettings extends Form
             'info'    => _text('[Manage Cache Info]', 'admin.core_acl'),
         ]);
 
-        /** element `core__clear_log` **/
+        /** element `core__clear_log` id=1941 **/
         $this->addElement([
             'name'    => 'core__clear_log',
             'factory' => 'yesno',
@@ -98,7 +99,7 @@ class EditCoreAclSettings extends Form
             'info'    => _text('[Clear Log Info]', 'admin.core_acl'),
         ]);
 
-        /** element `core__manage_log` **/
+        /** element `core__manage_log` id=1942 **/
         $this->addElement([
             'name'    => 'core__manage_log',
             'factory' => 'yesno',
@@ -106,7 +107,7 @@ class EditCoreAclSettings extends Form
             'info'    => _text('[Manage Log Info]', 'admin.core_acl'),
         ]);
 
-        /** element `core__manage_admin` **/
+        /** element `core__manage_admin` id=1943 **/
         $this->addElement([
             'name'    => 'core__manage_admin',
             'factory' => 'yesno',
@@ -114,7 +115,7 @@ class EditCoreAclSettings extends Form
             'info'    => _text('[Manage Admin Info]', 'admin.core_acl'),
         ]);
 
-        /** element `core__manage_theme` **/
+        /** element `core__manage_theme` id=1944 **/
         $this->addElement([
             'name'    => 'core__manage_theme',
             'factory' => 'yesno',
@@ -122,9 +123,9 @@ class EditCoreAclSettings extends Form
             'info'    => _text('[Manage Theme Info]', 'admin.core_acl'),
         ]);
 
-        /** element `core__manage_acl_level` **/
+        /** element `core__manage_acl_role` id=1945 **/
         $this->addElement([
-            'name'    => 'core__manage_acl_level',
+            'name'    => 'core__manage_acl_role',
             'factory' => 'yesno',
             'label'   => _text('Manage Acl Role', 'admin.core_acl'),
             'info'    => _text('[Manage Acl Role Info]', 'admin.core_acl'),

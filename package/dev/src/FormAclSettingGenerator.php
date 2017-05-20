@@ -19,7 +19,7 @@ class FormAclSettingGenerator extends FormAdminGenerator
             array_shift($array);
         }
         $name = implode('_', $array);
-        $string = $this->formType . ' ' . str_replace('_', ' ', $name) . 'Settings';
+        $string = $this->formType . ' ' . str_replace('_', ' ', $name) . 'Permissions';
 
         return _inflect($string);
     }

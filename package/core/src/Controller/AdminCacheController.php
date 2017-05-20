@@ -6,7 +6,7 @@ namespace Neutron\Core\Controller;
 use Neutron\Core\Form\Admin\CacheDriver\SelectCacheDriver;
 use Neutron\Core\Model\CoreAdapter;
 use Neutron\Core\Process\AdminListEntryProcess;
-use Neutron\Core\Process\AdminSiteSettingsProcess;
+use Neutron\Core\Process\AdminEditSettingsProcess;
 use Phpfox\View\ViewModel;
 
 class AdminCacheController extends AdminController
@@ -52,7 +52,7 @@ class AdminCacheController extends AdminController
 
     public function actionSettings()
     {
-        return (new AdminSiteSettingsProcess(
+        return (new AdminEditSettingsProcess(
             ['setting_group' => 'core_cache',]
         ))->process();
     }

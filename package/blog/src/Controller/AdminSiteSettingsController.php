@@ -4,7 +4,7 @@ namespace Neutron\Blog\Controller;
 
 
 use Neutron\Core\Controller\AdminController;
-use Neutron\Core\Process\AdminSiteSettingsProcess;
+use Neutron\Core\Process\AdminEditSettingsProcess;
 
 class AdminSiteSettingsController extends AdminController
 {
@@ -22,7 +22,7 @@ class AdminSiteSettingsController extends AdminController
 
     public function actionIndex()
     {
-        return (new AdminSiteSettingsProcess([
+        return (new AdminEditSettingsProcess([
             'setting_group' => 'blog',
         ]))->process();
     }

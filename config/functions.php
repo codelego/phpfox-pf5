@@ -620,7 +620,7 @@ namespace {
      */
     function _currency($number, $code, $precision = null, $symbol = null, $locale)
     {
-        return _get('i18n')->get($locale)->formatCurrency($number, $code, $precision, $symbol, $locale);
+        return _get('i18n')->get($locale)->formatCurrency($number, $code, $precision, $symbol);
     }
 
     /**
