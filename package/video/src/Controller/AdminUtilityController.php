@@ -15,8 +15,7 @@ class AdminUtilityController extends AdminController
         _get('breadcrumb')
             ->set(['href' => _url('admin.video'), 'label' => _text('Videos')]);
 
-        _get('menu.admin.secondary')
-            ->load('_video');
+        _get('menu.admin.secondary')->load('admin', 'video');
     }
 
     public function actionIndex()

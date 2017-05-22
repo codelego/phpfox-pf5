@@ -5,8 +5,8 @@ namespace Neutron\Core\Controller;
 
 use Neutron\Core\Form\Admin\SmsDriver\SelectSmsDriver;
 use Neutron\Core\Model\CoreAdapter;
-use Neutron\Core\Process\AdminListEntryProcess;
 use Neutron\Core\Process\AdminEditSettingsProcess;
+use Neutron\Core\Process\AdminListEntryProcess;
 use Phpfox\View\ViewModel;
 
 class AdminSmsController extends AdminController
@@ -27,8 +27,7 @@ class AdminSmsController extends AdminController
         _get('html.title')
             ->set(_text('Mobile Service Settings', 'menu'));
 
-        _get('menu.admin.secondary')
-            ->load('_core.sms');
+        _get('menu.admin.secondary')->load('admin', 'sms');
     }
 
     protected function afterDispatch($action)
@@ -53,7 +52,7 @@ class AdminSmsController extends AdminController
     public function actionSettings()
     {
         return (new AdminEditSettingsProcess(
-            ['setting_group' => 'core_sms',]
+            ['form_id' => 'core_sms',]
         ))->process();
     }
 

@@ -5,12 +5,19 @@ namespace Neutron\Core\Controller;
 use Neutron\Core\Form\ThemeEditor;
 use Phpfox\View\ViewModel;
 
-class AdminLayoutThemeController extends AdminController
+class AdminThemeController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('menu.admin.secondary')
-            ->load('_core.layout');
+        _get('html.title')->set(_text('Themes', 'admin'));
+
+        _get('breadcrumb')
+            ->set([
+                'href'  => _url('admin.core.theme'),
+                'label' => _text('Themes', 'admin'),
+            ]);
+
+        _get('menu.admin.secondary')->load('admin','appearance');
     }
 
     /**

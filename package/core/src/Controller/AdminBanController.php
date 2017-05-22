@@ -72,7 +72,7 @@ class AdminBanController extends AdminController
             ->set('filter', $filter);
 
         $id = $request->get('id', 1);
-        $role = _get('core.roles')->findById($id);
+        $role = _get('core.permission')->findById($id);
 
         $form = new EditCoreAclSettings();
 

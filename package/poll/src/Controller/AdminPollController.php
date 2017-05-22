@@ -15,8 +15,7 @@ class AdminPollController extends AdminController
         _get('breadcrumb')
             ->set(['href' => _url('admin.poll'), 'label' => _text('Polls')]);
 
-        _get('menu.admin.secondary')
-            ->load('_poll');
+        _get('menu.admin.secondary')->load('admin', 'poll');
     }
 
 

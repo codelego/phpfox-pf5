@@ -21,43 +21,76 @@ class PermissionFacades
     private $levelId = PHPFOX_GUEST_ID;
 
     /**
-     * @param $levelId
+     * @var string
+     */
+    private $levelType = 'user';
+
+    /**
+     * @param string $levelKey
+     * @param string $levelType
+     * @param int    $levelId
      *
-     * @return Parameters
+     * @return void
      */
-    public function get($levelId)
+    public function loadPermissionData($levelKey, $levelType, $levelId)
     {
-        return isset($this->data[$levelId]) ? $this->data[$levelId]
-            : $this->data[$levelId] = _get('package.loader')->getPermissionParameter($levelId);
+        $this->data[$levelKey] = _get('package.loader')
+            ->getPermissionParameter($levelType, $levelId);
     }
 
     /**
-     * @param int        $levelId
-     * @param Parameters $data
-     */
-    public function set($levelId, $data)
-    {
-        $this->data[$levelId] = $data;
-    }
-
-    /**
-     * @param int|null   $levelId
-     * @param string     $action
-     * @param bool|mixed $default
+     * @param UserInterface $user
+     * @param string        $action
+     * @param bool|mixed    $default
      *
      * @return mixed
      */
-    public function can($levelId, $action, $default = false)
+    public function can($user, $action, $default = false)
     {
-        if (null == $levelId) {
-            $levelId = $this->levelId;
+        $levelId = $this->levelId;
+        $levelType = $this->levelType;
+
+        if (null != $user) {
+            $levelId = $user->getLevelId();
+            $levelType = $user->getModelId();
         }
 
-        if (!isset($this->data[$levelId])) {
-            $this->data[$levelId] = _get('package.loader')->_getPermissionParameter($levelId);
+        if (!isset($this->data[$levelKey = $levelType . ':' . $levelId])) {
+            $this->loadPermissionData($levelKey, $levelType, $levelId);
         }
 
-        return (bool)$this->data[$levelId]->get($action, $default);
+
+        return (bool)$this->data[$levelKey]->get($action, $default);
+    }
+
+    /**
+     * @param ItemInterface $parent
+     * @param UserInterface $user
+     * @param string        $relationType
+     * @param string        $relationValue
+     *
+     * @return bool
+     */
+    public function checkRelationships($parent, $user, $relationType, $relationValue)
+    {
+        $map = $parent->getRelationships();
+        // should use table :acl_relation to convert getRelationships so admin can control (enable, disable they).
+        foreach ($map as $name) {
+            if (!_has($name)) {
+                continue;
+            }
+            $result = _try('internal.cache',
+                [$parent->getUniqueId(), $user->getUniqueId(), $name],
+                0,
+                function () use ($name, $parent, $user, $relationType) {
+                    return _get($name)->getRelationships($parent, $user, $relationType);
+                });
+
+            if (in_array($relationValue, $result)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -70,37 +103,40 @@ class PermissionFacades
      */
     public function check($user, $item, $action, $privacy = null)
     {
-        $levelId = $user->getLevelId();
+        $levelId = $this->levelId;
+        $levelType = $this->levelType;
 
-        if (null == $levelId) {
-            $levelId = $this->levelId;
+        if (null != $user) {
+            $levelId = $user->getLevelId();
+            $levelType = $user->getModelId();
         }
 
-        if (!isset($this->data[$levelId])) {
-            $this->data[$levelId] = _get('package.loader')->_getPermissionParameter($levelId);
+        if (!isset($this->data[$levelKey = $levelType . ':' . $levelId])) {
+            $this->loadPermissionData($levelKey, $levelType, $levelId);
         }
 
-        $can = (bool)$this->data[$levelId]->get($action, true);
+        $can = (bool)$this->data[$levelKey]->get($action, true);
 
         if (!$can) {
             return false;
         }
 
-        // cache relationship between user and item's owner, in process only.
-        $relationships = $item->getRelationships($user);
-
         if (!$privacy) {
-            $privacy = '';
+            $privacy = $action;
         }
 
         // cache privacy of in process
-        $privacyValue = $item->getPrivacy($privacy);
+        list($relationType, $relationValue) = $item->getPrivacy($privacy);
 
-        if (in_array($privacyValue, $relationships)) {
+        if ($relationType == 'public') {
             return true;
         }
 
-        return false;
+        if ($relationType == 'registered') {
+            return true;
+        }
+
+        return $this->checkRelationships($item, $user, $relationType, $relationValue);
     }
 
     /**
@@ -112,17 +148,7 @@ class PermissionFacades
      */
     public function allow($user, $item, $action)
     {
-        // cache relationship between user and item's owner, in process only.
-        $relationships = $item->getRelationships($user);
-
-        // cache privacy of in process
-        $privacyId = $item->getPrivacy($action);
-
-        if (in_array($privacyId, $relationships)) {
-            return true;
-        }
-
-        return false;
+        /** todo implement this method */
     }
 
     /**
@@ -135,24 +161,10 @@ class PermissionFacades
         $target = $event->getTarget();
         if ($target instanceof UserInterface) {
             $this->levelId = $target->getLevelId();
+            $this->levelType = $target->getModelId();
         } else {
             $this->levelId = PHPFOX_GUEST_ID;
+            $this->levelType = 'user';
         }
-    }
-
-    /**
-     * @return int
-     */
-    public function getLevelId()
-    {
-        return $this->levelId;
-    }
-
-    /**
-     * @param int $value
-     */
-    public function setLevelId($value)
-    {
-        $this->levelId = (int)$value;
     }
 }

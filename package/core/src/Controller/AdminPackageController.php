@@ -21,8 +21,7 @@ class AdminPackageController extends AdminController
         _get('html.title')
             ->set(_text('Packages', 'admin'));
 
-        _get('menu.admin.secondary')
-            ->load('_core.package');
+        _get('menu.admin.secondary')->load('admin','package');
 
         _get('menu.admin.buttons')
             ->load('_core.package.buttons');

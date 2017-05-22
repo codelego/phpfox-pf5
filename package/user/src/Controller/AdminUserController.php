@@ -22,6 +22,10 @@ class AdminUserController extends AdminController
 
         _get('html.title')
             ->set(_text('Members', 'admin'));
+
+        _get('menu.admin.secondary')->load('admin','user');
+
+        _get('menu.admin.buttons')->load('_user.buttons');
     }
 
 

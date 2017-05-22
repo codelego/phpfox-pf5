@@ -15,8 +15,8 @@ class SettingValue extends DbModel
     public function getPackageId(){return $this->__get('package_id');}
     public function setPackageId($value){$this->__set('package_id', $value);}
     
-    public function getGroupId(){return $this->__get('group_id');}
-    public function setGroupId($value){$this->__set('group_id', $value);}
+    public function getDomainId(){return $this->__get('domain_id');}
+    public function setDomainId($value){$this->__set('domain_id', $value);}
     
     public function getFormId(){return $this->__get('form_id');}
     public function setFormId($value){$this->__set('form_id', $value);}

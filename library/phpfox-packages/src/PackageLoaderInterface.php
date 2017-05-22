@@ -94,19 +94,21 @@ interface PackageLoaderInterface
     public function getSessionParameter($containerId);
 
     /**
-     * @param int $roleId
+     * @param string $levelType
+     * @param int    $levelId
      *
      * @return Parameters
      */
-    public function getPermissionParameter($roleId);
+    public function getPermissionParameter($levelType, $levelId);
 
 
     /**
      * @param string $menu
+     * @param mixed  $partial
      *
      * @return Parameters
      */
-    public function getNavigationParameter($menu);
+    public function getNavigationParameter($menu, $partial = null);
 
 
     /**

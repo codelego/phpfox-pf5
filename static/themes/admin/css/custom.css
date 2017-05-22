@@ -41,8 +41,6 @@
   display: inline-block; }
 .form-filter .form-group + .form-group {
   margin-right: 10px; }
-.form-filter .panel-body {
-  padding: 0 15px; }
 
 .ui-overlay {
   display: block;
@@ -399,16 +397,6 @@ tr.ui-sortable-helper {
     border-width: 0 !important;
     position: relative; }
 
-td.draggable {
-  width: 20px;
-  cursor: move; }
-  td.draggable:before {
-    width: 20px;
-    display: inline-block;
-    content: "\f0c9";
-    font-family: "FontAwesome";
-    text-align: center; }
-
 th.dropdown, td.dropdown {
   position: relative;
   overflow: visible;
@@ -422,6 +410,17 @@ th.dropdown, td.dropdown {
     text-align: center; }
   th.dropdown ul, td.dropdown ul {
     display: none !important; }
+
+th.draggable, td.draggable {
+  width: 40px;
+  text-align: center; }
+
+td.draggable {
+  cursor: ns-resize; }
+  td.draggable:before {
+    content: "\f0c9";
+    display: inline-block;
+    font-family: FontAwesome; }
 
 th.sortable {
   cursor: pointer; }

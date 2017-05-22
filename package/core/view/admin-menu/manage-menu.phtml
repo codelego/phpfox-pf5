@@ -3,15 +3,26 @@
         <table class="table table-admin">
             <thead>
             <tr>
-                <th></th>
+                <th class="text-center">#</th>
+                <th class="w80">ID</th>
                 <th>Name</th>
+                <th class="w100">Package</th>
             </tr>
             </thead>
             <tbody>
             <?php foreach ($items as $item): ?>
                 <tr>
-                    <td>&nbsp;</td>
-                    <td><?= $item['menu'] ?></td>
+                    <td class="dropdown" data-cmd="dropdown">
+                        <ul role="menu">
+                            <li role="menuitem">
+                                <a href="<?= _url('admin.core.menu',['action'=>'edit','menu_id'=> $item->getId()]) ?>">Edit Items</a>
+                                <a href="<?= _url('admin.core.menu',['action'=>'add','menu_id'=> $item->getId()]) ?>">Edit Items</a>
+                            </li>
+                        </ul>
+                    </td>
+                    <td><?= $item->getId() ?></td>
+                    <td><?= $item->getMenuName() ?></td>
+                    <td><?= $item->getPackageId() ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

@@ -23,8 +23,7 @@ class AdminModelController extends AdminController
         _get('html.title')
             ->set(_text('Rapid Development Tools', 'admin'));
 
-        _get('menu.admin.secondary')
-            ->load('_dev');
+        _get('menu.admin.secondary')->load('admin', 'dev');
 
         _get('menu.admin.buttons')
             ->load('_dev.table.buttons');

@@ -22,12 +22,12 @@ class FilterAclPermissions extends Form
             'placeholder' => _text('Keywords', null),
         ]);
 
-        /** element `group_id` **/
+        /** element `domain_id` **/
         $this->addElement([
             'name'        => 'form_id',
             'factory'     => 'select',
-            'placeholder' => _text('Group', null),
-            'options'     => _get('core.roles')->getFormIdOptions(),
+            'placeholder' => _text('Domain', null),
+            'options'     => _get('core.permission')->getFormIdOptions(),
         ]);
 
         /** element `package_id` **/

@@ -26,8 +26,7 @@ class AdminLogController extends AdminController
         _get('html.title')
             ->set(_text('Log Settings', 'menu'));
 
-        _get('menu.admin.secondary')
-            ->load('_core.log');
+        _get('menu.admin.secondary')->load('admin', 'log');
     }
 
     protected function afterDispatch($action)
@@ -55,7 +54,7 @@ class AdminLogController extends AdminController
     public function actionSettings()
     {
         return (new AdminEditSettingsProcess(
-            ['setting_group' => 'core_log',]
+            ['form_id' => 'core_log',]
         ))->process();
     }
 

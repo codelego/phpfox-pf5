@@ -9,9 +9,8 @@ class AclValueTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('acl_value', $obj->getModelId());
         $this->assertSame('', $obj->getValueId());
+        $this->assertSame('', $obj->getInternalId());
         $this->assertSame('', $obj->getActionId());
-        $this->assertSame('', $obj->getLevelId());
-        $this->assertSame('', $obj->getName());
         $this->assertSame('', $obj->getValueActual());    }
 
     public function testParameters()
@@ -20,16 +19,14 @@ class AclValueTest extends \PHPUnit_Framework_TestCase
 
         // set data
         $obj->setValueId('');
+        $obj->setInternalId('');
         $obj->setActionId('');
-        $obj->setLevelId('');
-        $obj->setName('');
         $obj->setValueActual('');
         // assert same data
         $this->assertSame('acl_value', $obj->getModelId());
         $this->assertSame('', $obj->getValueId());
+        $this->assertSame('', $obj->getInternalId());
         $this->assertSame('', $obj->getActionId());
-        $this->assertSame('', $obj->getLevelId());
-        $this->assertSame('', $obj->getName());
         $this->assertSame('', $obj->getValueActual());    }
 
     public function testSave()
@@ -44,9 +41,8 @@ class AclValueTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('acl_value', $obj->getModelId());
         $this->assertSame('', $obj->getValueId());
+        $this->assertSame('', $obj->getInternalId());
         $this->assertSame('', $obj->getActionId());
-        $this->assertSame('', $obj->getLevelId());
-        $this->assertSame('', $obj->getName());
         $this->assertSame('', $obj->getValueActual());    }
 
     public static function setUpBeforeClass()

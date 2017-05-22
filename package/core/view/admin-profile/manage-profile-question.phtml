@@ -1,0 +1,44 @@
+<form>
+    <div class="panel panel-default">
+        <div class="table-responsive">
+            <table class="table table-admin"
+                   data-sorturl="<?= _url('admin.core.profile', ['action' => 'update-question-ordering']) ?>">
+                <thead>
+                <tr>
+                    <th class="draggable"></th>
+                    <th class="w40 text-center">#</th>
+                    <th class="w120">ID</th>
+                    <th class="w100">Type</th>
+                    <th>Label</th>
+                    <th class="w50">Active</th>
+                    <th class="w50">Require</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($items as $item): ?>
+                    <tr>
+                        <td class="draggable">
+                            <input type="hidden" class="ordering" name="ordering[]" value="<?= $item->getId() ?>"/>
+                        </td>
+                        <td class="dropdown" data-cmd="dropdown">
+                            <ul>
+                                <li>
+                                    <a data-cmd="modal" href="<?= _url('admin.core.profile', [
+                                        'action' => 'edit-question',
+                                        'id'     => $item->getId(),
+                                    ]) ?>"><?= _text('Edit') ?></a>
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="w100"><?= $item->getQuestionName() ?></td>
+                        <td class="w100"><?= $item->getFactoryId() ?></td>
+                        <td class="100%"><?= $item->getQuestionLabel() ?></td>
+                        <td class="w50"><?= _yesno($item->isActive()) ?></td>
+                        <td class="w50"><?= _yesno($item->isRequire()) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>

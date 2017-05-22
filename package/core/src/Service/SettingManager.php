@@ -73,12 +73,13 @@ class SettingManager
         /** @var SettingValue $entry */
         $entry = _model('setting_value')
             ->select()
-            ->where('group_id=?', (string)$group)
+            ->where('domain_id=?', (string)$group)
             ->where('name=?', (string)$name)
             ->first();
 
         if (!$entry) {
-            throw new \InvalidArgumentException("Invalid parameters");
+            trigger_error('There are no setting to save ' . $key, E_USER_WARNING);
+            return false;
         }
 
         $entry->setValueActual(json_encode($value));
@@ -90,43 +91,43 @@ class SettingManager
     }
 
     /**
-     * @param array $groups
+     * @param array $domains
      *
      * @return array
      */
-    public function getForEdit($groups)
+    public function getForEdit($domains)
     {
 
         $result = [];
-        foreach ($groups as $group => $names) {
+        foreach ($domains as $domain => $names) {
             /** @var SettingValue[] $entries */
             $entries = _model('setting_value')
                 ->select()
-                ->where('group_id=?', (string)$group)
+                ->where('domain_id=?', (string)$domain)
                 ->where('name in ?', $names)
                 ->all();
 
             foreach ($entries as $entry) {
-                $result[$group . '__' . $entry->getName()] = json_decode($entry->getValueActual(), true);
+                $result[$domain . '__' . $entry->getName()] = json_decode($entry->getValueActual(), true);
             }
         }
         return $result;
     }
 
     /**
-     * @param array $groups
+     * @param array $domains
      *
      * @return bool
      */
-    public function updateGroupValues($groups)
+    public function updateValues($domains)
     {
-        foreach ($groups as $group => $values) {
+        foreach ($domains as $domain => $values) {
             $keys = array_keys($values);
 
             /** @var SettingValue[] $entries */
             $entries = _model('setting_value')
                 ->select()
-                ->where('group_id=?', (string)$group)
+                ->where('domain_id=?', (string)$domain)
                 ->where('name in ?', $keys)
                 ->all();
 
@@ -148,7 +149,7 @@ class SettingManager
         /** @var SettingValue $entries */
         $entry = _model('setting_value')
             ->select()
-            ->where('group_id=?', 'core')
+            ->where('domain_id=?', 'core')
             ->where('name=?', 'setting_version')
             ->first();
 

@@ -25,9 +25,9 @@ class FilterSiteSettingGroup extends Form
         /** start elements **/
 
 
-        // element `group_id`
+        // element `domain_id`
         $this->addElement([
-            'name'      => 'group_id',
+            'name'      => 'domain_id',
             'factory'   => 'text',
             'label'     => _text('Group', null),
             'maxlength' => 255,

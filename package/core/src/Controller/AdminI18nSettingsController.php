@@ -18,13 +18,13 @@ class AdminI18nSettingsController extends AdminController
         _get('html.title')
             ->set(_text('International', 'admin'));
 
-        _get('menu.admin.secondary')->load('_core.i18n');
+        _get('menu.admin.secondary')->load('admin','i18n');
     }
 
     public function actionIndex()
     {
         return (new AdminEditSettingsProcess([
-            'setting_group' => 'core_i18n',
+            'form_id' => 'core_i18n',
         ]))->process();
     }
 }

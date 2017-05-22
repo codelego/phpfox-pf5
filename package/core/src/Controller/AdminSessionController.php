@@ -5,8 +5,8 @@ namespace Neutron\Core\Controller;
 
 use Neutron\Core\Form\Admin\SessionDriver\SelectSessionDriver;
 use Neutron\Core\Model\CoreAdapter;
-use Neutron\Core\Process\AdminListEntryProcess;
 use Neutron\Core\Process\AdminEditSettingsProcess;
+use Neutron\Core\Process\AdminListEntryProcess;
 use Phpfox\View\ViewModel;
 
 class AdminSessionController extends AdminController
@@ -18,23 +18,17 @@ class AdminSessionController extends AdminController
 
     protected function afterInitialize()
     {
+        _get('html.title')->set(_text('Session Settings', 'menu'));
+
         _get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.session'),
                 'label' => _text('Session Settings', 'menu'),
             ]);
 
-        _get('html.title')
-            ->set(_text('Session Settings', 'menu'));
+        _get('menu.admin.secondary')->load('admin', 'session');
 
-        _get('menu.admin.secondary')
-            ->load('_core.session');
-    }
-
-    protected function afterDispatch($action)
-    {
-        _get('menu.admin.buttons')
-            ->load('_core.session.buttons');
+        _get('menu.admin.buttons')->load('_core.session.buttons');
     }
 
     public function actionIndex()
@@ -53,7 +47,7 @@ class AdminSessionController extends AdminController
     public function actionSettings()
     {
         return (new AdminEditSettingsProcess(
-            ['setting_group' => 'core_session',]
+            ['form_id' => 'core_session',]
         ))->process();
     }
 

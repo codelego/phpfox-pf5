@@ -17,9 +17,9 @@ class EditSiteSettingGroup extends Form
         /** start elements **/
 
 
-        // element `group_id`
+        // element `domain_id`
         $this->addElement([
-            'name'      => 'group_id',
+            'name'      => 'domain_id',
             'factory'   => 'text',
             'label'     => _text('Group Id', null),
             'note'      => _text('[Group Id Note]', null),

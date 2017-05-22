@@ -84,5 +84,28 @@ Concepts
  
  Annotation:
  owner, parent and poster has all item privacy.
+ implement an engine to getRelationship for items instead of implements for all class getRelationship, how to ?
  
+ `getRelationships` should return a subset of `owner`, `parent`, `owner_parent`, `poster` and loader engine will load all
+ relationship between objects and current viewer, then we allow admin control the result.
+ 
+ how to load relationship between of an `object` and an user.
+ 
+ each object have relationship dependent on its business models, so we define a which relations type should load by which service.
+ 
++ event => members => 'event.members'
++ user => friends => 'friend.friend'
++ blog _ no, it's should not implement as UserInterface
++ pages => members => 'pages.members'
++ groups => members => 'group.members'
+
+The service has correct item types.
+
+```php
+class ExamplePages {
+    function getRelationships(){
+        return ['parent'=> 'self','admin'=>'pages.admin'];
+    }
+}
+ ```
  

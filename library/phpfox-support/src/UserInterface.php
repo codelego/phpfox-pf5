@@ -2,8 +2,10 @@
 
 namespace Phpfox\Support;
 
-interface UserInterface extends ResourceInterface
+interface UserInterface extends ItemInterface
 {
+    public function getId();
+
     /**
      * @return string
      */
@@ -33,6 +35,4 @@ interface UserInterface extends ResourceInterface
      * @return mixed
      */
     public function getLevelId();
-
-    public function getUrl();
 }

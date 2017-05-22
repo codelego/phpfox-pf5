@@ -1,0 +1,79 @@
+<?php
+
+namespace Neutron\Core\Form\Admin\Settings;
+
+use Phpfox\Form\Form;
+
+class FilterPermissionLevel extends Form
+{
+    protected $model;
+
+    /**
+     * @return array
+     */
+    public function getLevelIdOptions()
+    {
+        return array_map(function ($v) {
+            return [
+                'value' => $v['level_id'],
+                'label' => $v['title'],
+                'note'  => $v['description'],
+            ];
+        }, _model($this->model)
+            ->select()
+            ->order('inherit_id', 1)
+            ->setPrototype(null)
+            ->all());
+    }
+
+    protected function initialize()
+    {
+        $this->setMethod('get');
+
+        /** start elements **/
+
+        /** element `domain_id` **/
+        $levelOptions = $this->getLevelIdOptions();
+        $levelValue = $levelOptions[0]['value'];
+
+        $this->addElement([
+            'name'     => 'level_id',
+            'factory'  => 'select',
+            'required' => true,
+            'label'    => _text('Level', null),
+            'options'  => $levelOptions,
+            'value'    => $levelValue,
+            'onchange' => 'this.form.submit()',
+        ]);
+
+        /** element `domain_id` **/
+        $formOptions = _get('core.permission')->getFormIdOptions();
+        $formValue = $formOptions[0]['value'];
+
+        $this->addElement([
+            'name'     => 'form_id',
+            'factory'  => 'select',
+            'required' => true,
+            'label'    => _text('Domain', null),
+            'options'  => $formOptions,
+            'value'    => $formValue,
+            'onchange' => 'this.form.submit()',
+        ]);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * @param mixed $model
+     */
+    public function setModel($model)
+    {
+        $this->model = $model;
+    }
+}

@@ -19,7 +19,7 @@ class AdminLayoutPageController extends AdminController
             ->getEditingThemeId();
 
         _get('html.title')
-            ->set(_text('Layout Editor', 'admin'));
+            ->set(_text('Layouts', 'admin'));
 
         _get('breadcrumb')
             ->set([
@@ -27,8 +27,7 @@ class AdminLayoutPageController extends AdminController
                 'label' => _text('Layout Editor {0}', 'admin', [$editingThemeId]),
             ]);
 
-        _get('menu.admin.secondary')
-            ->load('_core.layout');
+        _get('menu.admin.secondary')->load('admin','appearance');
 
     }
 

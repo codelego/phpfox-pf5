@@ -151,10 +151,10 @@ namespace {
     /**
      * Load from cache
      *
-     * @param string       $cache
-     * @param string|array $key
-     * @param int          $ttl
-     * @param Closure      $fallback
+     * @param string  $cache
+     * @param mixed   $key
+     * @param int     $ttl
+     * @param Closure $fallback
      *
      * @return mixed|object
      */
@@ -206,14 +206,15 @@ namespace {
     /**
      * Check acl settings user can do `action`
      *
-     * @param int|null $levelId
-     * @param string   $action
+     * @param UserInterface $user
+     * @param string        $action
+     * @param mixed         $default
      *
      * @return mixed
      */
-    function _can($levelId, $action)
+    function _can($user, $action, $default = false)
     {
-        return \Phpfox::$service->get('acl')->can($levelId, $action);
+        return \Phpfox::$service->get('acl')->can($user, $action, $default);
     }
 
     /**

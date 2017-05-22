@@ -6,12 +6,15 @@
 <body class="<?= PHPFOX_IS_DEV ? 'is_dev' : '' ?>">
 
 <aside>
-    <?= _get('menu.admin.primary')->render('aside', []) ?>
-    <ul>
-        <?php $login = _get('auth')->getLogin(); ?>
-        <li><a role="button">logged as <?= $login->getName() ?></a></li>
-        <li><a class="no-ajax" href="<?= _url('admin.core.auth', ['action' => 'logout']) ?>"><?= _text('Logout') ?></a></li>
-    </ul>
+    <div>
+        <?= _get('menu.admin.primary')->render('aside', []) ?>
+    </div>
+    <div>
+        <ul>
+            <li><a class="no-ajax"
+                   href="<?= _url('admin.core.auth', ['action' => 'logout']) ?>"><?= _text('Logout') ?></a></li>
+        </ul>
+    </div>
 </aside>
 <div id="layout_containers">
     <header>

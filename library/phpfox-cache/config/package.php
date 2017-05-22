@@ -11,7 +11,8 @@ return [
         'redis'     => RedisStorage::class,
     ],
     'services'      => [
-        'shared.cache' => [StorageFactory::class, null, 'shared.cache'],
-        'super.cache'  => [StorageFactory::class, 'files', ['directory' => 'super']],
+        'shared.cache'   => [StorageFactory::class, null, 'shared.cache'],
+        'super.cache'    => [StorageFactory::class, 'files', ['directory' => 'super']],
+        'internal.cache' => [StorageFactory::class, 'files', ['directory' => 'internal']],
     ],
 ];

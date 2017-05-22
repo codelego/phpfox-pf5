@@ -48,15 +48,16 @@ class Navigation
 
     /**
      * @param string $menu
+     * @param mixed  $partial
      *
      * @return $this
      */
-    public function load($menu)
+    public function load($menu, $partial = null)
     {
         $this->menu = $menu;
 
         if ($this->menu) {
-            $this->data = _get('package.loader')->getNavigationParameter($menu)->all();
+            $this->data = _get('package.loader')->getNavigationParameter($menu, $partial)->all();
         }
         return $this;
     }

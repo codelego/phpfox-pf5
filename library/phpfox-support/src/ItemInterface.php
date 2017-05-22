@@ -9,16 +9,29 @@ use Phpfox\Model\ModelInterface;
 interface ItemInterface extends ModelInterface
 {
     /**
+     * @return string
+     */
+    public function getUniqueId();
+
+    /**
      * @return UserInterface
      */
     public function getOwner();
 
     /**
-     * @param UserInterface $user
-     *
+     * @return UserInterface
+     */
+    public function getPoster();
+
+    /**
+     * @return UserInterface
+     */
+    public function getParent();
+
+    /**
      * @return array
      */
-    public function getRelationships($user);
+    public function getRelationships();
 
     /**
      * @param string $action
@@ -26,4 +39,9 @@ interface ItemInterface extends ModelInterface
      * @return int
      */
     public function getPrivacy($action);
+
+    /**
+     * @return string
+     */
+    public function getUrl();
 }

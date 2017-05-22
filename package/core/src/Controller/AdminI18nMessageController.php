@@ -25,7 +25,7 @@ class AdminI18nMessageController extends AdminController
         _get('html.title')
             ->set(_text('International', 'admin'));
 
-        _get('menu.admin.secondary')->load('_core.i18n');
+        _get('menu.admin.secondary')->load('admin','i18n');
     }
 
     protected function afterDispatch($action)

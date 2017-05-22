@@ -20,17 +20,15 @@ class AdminDevController extends AdminController
         _get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.mail'),
-                'label' => _text('Rapid Development Tools', 'admin'),
+                'label' => _text('Dev Tools', 'admin'),
             ]);
 
         _get('html.title')
-            ->set(_text('Rapid Development Tools', 'admin'));
+            ->set(_text('Dev Tools', 'admin'));
 
-        _get('menu.admin.secondary')
-            ->load('_dev');
+        _get('menu.admin.secondary')->load('admin', 'dev');
 
-        _get('menu.admin.buttons')
-            ->load('_dev.buttons');
+        _get('menu.admin.buttons')->load('_dev.buttons');
     }
 
     public function actionEditAction()
@@ -46,7 +44,7 @@ class AdminDevController extends AdminController
     public function actionSettings()
     {
         return (new AdminEditSettingsProcess([
-            'setting_group' => 'dev',
+            'form_id' => 'dev',
         ]))->process();
     }
 
@@ -54,7 +52,7 @@ class AdminDevController extends AdminController
     {
         _get('dev.code_generator')
             ->scans();
-        _redirect('admin.dev');
+        _redirect('admin.dev.form');
     }
 
     public function actionIndex()
@@ -105,11 +103,11 @@ class AdminDevController extends AdminController
         }
 
         if ($filterData['table_name']) {
-            $select->where('table_name like ?', '%'.$filterData['table_name'] . '%');
+            $select->where('table_name like ?', '%' . $filterData['table_name'] . '%');
         }
 
         if ($filterData['action_type']) {
-            $select->where('action_type like ?', '%'.$filterData['action_type'] . '%');
+            $select->where('action_type like ?', '%' . $filterData['action_type'] . '%');
         }
 
         /** @var DevTable[] $items */

@@ -9,31 +9,26 @@ use Neutron\Core\Process\AdminAddEntryProcess;
 use Neutron\Core\Process\AdminEditEntryProcess;
 use Neutron\Core\Process\AdminListEntryProcess;
 
-class AdminLayoutComponentController extends AdminController
+class AdminComponentController extends AdminController
 {
     public function afterInitialize()
     {
-        $editingThemeId = _get('core.layout')
-            ->getEditingThemeId();
-
-        _get('html.title')
-            ->set(_text('Layout Editor', 'admin'));
+        _get('html.title')->set(_text('Components', 'admin'));
 
         _get('breadcrumb')
             ->set([
-                'href'  => _url('admin.core.layout'),
-                'label' => _text('Layout Editor {0}', 'admin', [$editingThemeId]),
+                'href'  => _url('admin.core.component'),
+                'label' => _text('Component', 'admin'),
             ]);
 
-        _get('menu.admin.secondary')
-            ->load('_core.layout');
+        _get('menu.admin.secondary')->load('admin','appearance');
 
     }
 
     protected function afterDispatch($action)
     {
         if (in_array($action, ['index'])) {
-            _get('menu.admin.buttons')->load('_core.layout.component.buttons');
+            _get('menu.admin.buttons')->load('_core.component.buttons');
         }
     }
 

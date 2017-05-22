@@ -87,7 +87,7 @@ $ibox-zindex: 100;
     margin-right: 10px;
   }
   .panel-body {
-    padding: 0 15px;
+    //padding: 0 15px;
   }
 }
 
@@ -444,18 +444,6 @@ tr.ui-sortable-helper {
   }
 }
 
-td.draggable {
-  width: 20px;
-  cursor: move;
-  &:before {
-    width: 20px;
-    display: inline-block;
-    content: "\f0c9";
-    font-family: "FontAwesome";
-    text-align: center;
-  }
-}
-
 th, td {
   &.dropdown {
     position: relative;
@@ -472,6 +460,20 @@ th, td {
     ul {
       display: none !important;
     }
+  }
+}
+
+th.draggable, td.draggable {
+  width: 40px;
+  text-align: center;
+}
+
+td.draggable {
+  cursor: ns-resize;
+  &:before {
+    content: "\f0c9";
+    display: inline-block;
+    font-family: FontAwesome;
   }
 }
 

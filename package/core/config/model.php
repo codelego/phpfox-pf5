@@ -27,7 +27,7 @@ return [
         I18nCurrency::class,
         'package/core/config/model/i18n_currency.php',
     ],
-    'acl_level'            => [
+    'acl_level'           => [
         'table_factory',
         ':acl_level',
         AclLevel::class,
@@ -39,13 +39,13 @@ return [
         AclForm::class,
         'package/core/config/model/acl_form.php',
     ],
-    'acl_action'  => [
+    'acl_action'          => [
         'table_factory',
         ':acl_action',
         AclAction::class,
         'package/core/config/model/acl_action.php',
     ],
-    'acl_value'   => [
+    'acl_value'           => [
         'table_factory',
         ':acl_value',
         AclValue::class,
@@ -81,7 +81,7 @@ return [
         MailTemplate::class,
         'package/core/config/model/mail_template.php',
     ],
-    'setting_value'  => [
+    'setting_value'       => [
         'table_factory',
         ':setting_value',
         SettingValue::class,
@@ -153,7 +153,55 @@ return [
         CoreAdapter::class,
         'package/core/config/model/core_adapter.php',
     ],
-    'setting_form'   => [
+    'core_menu_item'      => [
+        'table_factory',
+        ':core_menu_item',
+        CoreMenuItem::class,
+        'package/core/config/model/core_menu_item.php',
+    ],
+    'core_menu'           => [
+        'table_factory',
+        ':core_menu',
+        CoreMenu::class,
+        'package/core/config/model/core_menu.php',
+    ],
+    'profile_question'    => [
+        'table_factory',
+        ':profile_question',
+        ProfileQuestion::class,
+        'package/core/config/model/profile_question.php',
+    ],
+    'profile_attribute'   => [
+        'table_factory',
+        ':profile_attribute',
+        ProfileAttribute::class,
+        'package/core/config/model/profile_attribute.php',
+    ],
+    'profile_type'        => [
+        'table_factory',
+        ':profile_type',
+        ProfileType::class,
+        'package/core/config/model/profile_type.php',
+    ],
+    'profile_section'     => [
+        'table_factory',
+        ':profile_section',
+        ProfileSection::class,
+        'package/core/config/model/profile_section.php',
+    ],
+    'profile_step'        => [
+        'table_factory',
+        ':profile_step',
+        ProfileStep::class,
+        'package/core/config/model/profile_step.php',
+    ],
+    'profile_process'     => [
+        'table_factory',
+        ':profile_process',
+        ProfileProcess::class,
+        'package/core/config/model/profile_process.php',
+    ],
+    'setting_form'        => [
         'table_factory',
         ':setting_form',
         SettingForm::class,

@@ -64,6 +64,9 @@ Activity
 [] Emoticons
 
 
+
 OTHER
 [] Bundle js & Bundles stylesheet
 [] Grid code guidelines
+[] Implement `internal.cache` to cache data in-process.
+[] Control ACL by action & type & parent_type ?

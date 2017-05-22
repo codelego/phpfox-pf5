@@ -9,7 +9,7 @@
 namespace Neutron\Core\Process;
 
 
-use Neutron\Core\Form\Admin\AclSettingGroup\FilterAclPermissions;
+use Neutron\Core\Form\Admin\Settings\FilterPermissionLevel;
 use Neutron\Core\Model\AclForm;
 use Phpfox\Form\FieldInterface;
 use Phpfox\Form\Form;
@@ -18,11 +18,11 @@ use Phpfox\View\ViewModel;
 
 class AdminEditPermissionProcess extends AbstractProcess
 {
-    public function getSettingGroups(Form $form)
+    public function collectDomains(Form $form)
     {
         $settingGroups = [];
-        foreach ($form->getElements() as $element) {
 
+        foreach ($form->getElements() as $element) {
             $elementName = $element->getName();
 
             if (!$element instanceof FieldInterface) {
@@ -41,7 +41,7 @@ class AdminEditPermissionProcess extends AbstractProcess
         return $settingGroups;
     }
 
-    public function getPostData(Form $form)
+    public function collectPostData(Form $form)
     {
         $data = [];
         foreach ($form->getElements() as $element) {
@@ -67,16 +67,21 @@ class AdminEditPermissionProcess extends AbstractProcess
     public function process()
     {
         $request = _get('request');
-        $formId = $this->get('form_id');
 
-        $filter = new FilterAclPermissions([]);
+        $filter = new FilterPermissionLevel([
+            'model' => $this->get('levelModel'),
+        ]);
 
         _get('registry')->set('filter', $filter);
 
 
-        if (!$formId) {
-            $formId = $request->get('form_id');
-        }
+        $filter->populate($request->all());
+
+        $data = $filter->getData();
+        $formId = $data['form_id'];
+        $levelType = $this->get('levelType');
+        $levelId = $data['level_id'];
+
 
         /** @var AclForm $settingForm */
         $settingForm = _find('acl_form', $formId);
@@ -96,18 +101,16 @@ class AdminEditPermissionProcess extends AbstractProcess
 
         if ($request->isGet()) {
 
-            $data = _get('core.setting')->getForEdit($this->getSettingGroups($form));
+            $data = _get('core.permission')->getForEdit($levelType, $levelId, $this->collectDomains($form));
 
             $form->populate($data);
         }
 
         if ($request->isPost() and $form->isValid($request->all())) {
 
-            $data = $this->getPostData($form);
+            $data = $this->collectPostData($form);
 
-            _get('core.setting')->updateGroupValues($data);
-
-            _get('shared.cache')->flush();
+            _get('core.permission')->updateValues($levelType, $levelId, $data);
         }
 
         $vm = new ViewModel(['form' => $form], 'layout/form-edit');
@@ -118,4 +121,5 @@ class AdminEditPermissionProcess extends AbstractProcess
 
         return $vm;
     }
+
 }

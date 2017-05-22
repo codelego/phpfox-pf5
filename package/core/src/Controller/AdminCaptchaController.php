@@ -5,8 +5,8 @@ namespace Neutron\Core\Controller;
 
 use Neutron\Core\Form\Admin\CaptchaDriver\SelectCaptchaDriver;
 use Neutron\Core\Model\CoreAdapter;
-use Neutron\Core\Process\AdminListEntryProcess;
 use Neutron\Core\Process\AdminEditSettingsProcess;
+use Neutron\Core\Process\AdminListEntryProcess;
 use Phpfox\View\ViewModel;
 
 class AdminCaptchaController extends AdminController
@@ -27,8 +27,7 @@ class AdminCaptchaController extends AdminController
         _get('html.title')
             ->set(_text('Captcha Settings', 'menu'));
 
-        _get('menu.admin.secondary')
-            ->load('_core.captcha');
+        _get('menu.admin.secondary')->load('admin', 'captcha');
     }
 
     protected function afterDispatch($action)
@@ -53,7 +52,7 @@ class AdminCaptchaController extends AdminController
     public function actionSettings()
     {
         return (new AdminEditSettingsProcess(
-            ['setting_group' => 'core_captcha',]
+            ['form_id' => 'core_captcha',]
         ))->process();
     }
 

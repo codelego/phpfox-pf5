@@ -9,6 +9,18 @@ return [
         User::class,
         'package/user/config/model/user.php',
     ],
+    'user_level'        => [
+        'table_factory',
+        ':user_level',
+        UserLevel::class,
+        'package/user/config/model/user_level.php',
+    ],
+    'user_catalog'      => [
+        'table_factory',
+        ':user_catalog',
+        UserCatalog::class,
+        'package/user/config/model/user_catalog.php',
+    ],
     'auth_token'        => [
         'table_factory',
         ':auth_token',

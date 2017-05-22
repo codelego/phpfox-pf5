@@ -85,7 +85,7 @@ class PackageLoader implements PackageLoaderInterface
         $value = _get('db')
             ->select('*')
             ->from(':setting_value')
-            ->where('group_id=?', 'core')
+            ->where('domain_id=?', 'core')
             ->where('name=?', 'setting_version')
             ->first();
 
@@ -147,7 +147,6 @@ class PackageLoader implements PackageLoaderInterface
         });
     }
 
-
     public function getViewParameters()
     {
         return _try('super.cache', 'loader.views', self::TTL, function () {
@@ -194,7 +193,6 @@ class PackageLoader implements PackageLoaderInterface
         // TODO: Implement loadPackageInfo() method.
     }
 
-
     /**
      * @return Parameters
      */
@@ -224,6 +222,9 @@ class PackageLoader implements PackageLoaderInterface
         return new Parameters($result);
     }
 
+    /**
+     * @return array
+     */
     public function _getPaths()
     {
         if (!empty($this->paths)) {
@@ -240,6 +241,9 @@ class PackageLoader implements PackageLoaderInterface
             ->all());
     }
 
+    /**
+     * @return Parameters
+     */
     public function _getAutoloadParameters()
     {
         $result = [];
@@ -270,6 +274,9 @@ class PackageLoader implements PackageLoaderInterface
         return new Parameters($result);
     }
 
+    /**
+     * @return Parameters
+     */
     public function _getRouteParameters()
     {
         $result = ['chains' => [], 'routes' => [], 'phrases' => []];
@@ -366,6 +373,9 @@ class PackageLoader implements PackageLoaderInterface
         return new Parameters($result);
     }
 
+    /**
+     * @return array
+     */
     public function _getPackageParameters()
     {
         $result = [];
@@ -407,7 +417,7 @@ class PackageLoader implements PackageLoaderInterface
 
         foreach ($rows as $row) {
             $name = $row['name'];
-            $group = $row['group_id'];
+            $group = $row['domain_id'];
             $key = $group . '.' . $name;
             if (!isset($result[$group])) {
                 $result[$group] = [];
@@ -512,7 +522,6 @@ class PackageLoader implements PackageLoaderInterface
         });
     }
 
-
     public function getLogParameter($logId)
     {
         return _try('super.cache', ['log_parameter', $logId], 0, function () use ($logId) {
@@ -554,67 +563,77 @@ class PackageLoader implements PackageLoaderInterface
         });
     }
 
+    public function getPermissionParameter($levelType, $levelId)
+    {
+        return _try('super.cache', ['permission_parameters', $levelId], 0, function () use ($levelType, $levelId) {
+            return $this->_getPermissionParameter($levelType, $levelId);
+        });
+    }
+
     /**
-     * @param int $roleId
+     * @param string $levelType
+     * @param int    $levelId
      *
      * @return Parameters
      */
-    public function _getPermissionParameter($roleId)
+    public function _getPermissionParameter($levelType, $levelId)
     {
-        $level = _get('core.roles')
-            ->findById((int)$roleId);
-
-        if (empty($level)) {
-            $roleId = PHPFOX_GUEST_ID;
-
-            $level = _get('core.roles')
-                ->findById($roleId);
-        }
-
-        $items = _get('db')->select('*')
-            ->from(':acl_value')
-            ->where('level_id=?', $roleId)
-            ->execute()
-            ->all();
-
+        // recursive test
+        $testArray = [$levelId];
         $data = [];
 
-        foreach ($items as $item) {
-            $key = sprintf('%s.%s', $item['group_name'], $item['action_name']);
-            $data[$key] = json_decode($item['params'], true);
-        }
-        $data['is_super'] = $level->isSuper();
-        $data['is_admin'] = $level->isAdmin();
-        $data['is_moderator'] = $level->isModerator();
-        $data['is_staff'] = $level->isStaff();
-        $data['is_banned'] = $level->isBanned();
-        $data['is_registered'] = $level->isRegistered();
-        $data['is_guest'] = $level->isGuest();
+
+        do {
+            // inherit test
+            $level = _get('db')->select()
+                ->from(':acl_level')
+                ->where('level_type=?', $levelType)
+                ->where('level_id=?', $levelId)
+                ->first();
+
+            if (!$level) {
+                continue;
+            }
+
+            $internalId = (int)$level['internal_id'];
+
+
+            $items = _get('db')->select('av.*, ac.domain_id, ac.name')
+                ->from(':acl_value', 'av')
+                ->join(':acl_action', 'ac', 'ac.action_id=av.action_id')
+                ->where('av.internal_id=?', $internalId)
+                ->all();
+
+            foreach ($items as $item) {
+                $key = sprintf('%s.%s', $item['domain_id'], $item['name']);
+                if (!array_key_exists($key, $data)) {
+                    $data[$key] = json_decode($item['value_actual'], true);
+                }
+            }
+            $levelId = (int)$level['inherit_id'];
+        } while ($levelId and !in_array($levelId, $testArray));
 
         return new Parameters($data);
     }
 
-    public function getPermissionParameter($roleId)
-    {
-
-        return _try('super.cache', ['permission_parameters', $roleId], 0, function () use ($roleId) {
-            return $this->_getPermissionParameter($roleId);
-        });
-    }
-
+    /**
+     * @param string $menu
+     *
+     * @return Parameters
+     */
     public function _getNavigationParameter($menu)
     {
         $result = new Parameters();
-        $select = _get('db')
+        $items = _get('db')
             ->select('*')
-            ->from(':core_menu')
+            ->from(':core_menu_item')
             ->where('menu=?', trim($menu))
             ->where('package_id in ?', _get('core.packages')->getIds())
             ->where('is_active=?', 1)
             ->order('ordering', 1)
             ->all();
 
-        array_walk($select, function ($row) use ($result) {
+        array_walk($items, function ($row) use ($result) {
             $row['params'] = (array)json_decode($row['params'], 1);
             $row['extra'] = (array)json_decode($row['extra'], 1);
             $result->set($row['name'], $row);
@@ -623,8 +642,53 @@ class PackageLoader implements PackageLoaderInterface
         return $result;
     }
 
-    public function getNavigationParameter($menu)
+    /**
+     * @param string $menu
+     * @param mixed  $partial
+     *
+     * @return Parameters
+     */
+    public function _getNavigationPartialParameters($menu, $partial)
     {
-        return $this->_getNavigationParameter($menu);
+        $scans = is_string($partial) ? [$partial] : $partial;
+        $result = new Parameters();
+
+        $level = 0;
+        do {
+            $items = _get('db')
+                ->select('*')
+                ->from(':core_menu_item')
+                ->where('menu=?', trim($menu))
+                ->where('package_id in ?', _get('core.packages')->getIds())
+                ->where('parent_name in ?', $scans)
+                ->where('is_active=?', 1)
+                ->order('ordering', 1)
+                ->all();
+
+            // reset parent_item to 0.
+
+            $scans = [];
+            array_walk($items, function ($row) use ($result, &$scans, $level) {
+                $row['params'] = (array)json_decode($row['params'], 1);
+                $row['extra'] = (array)json_decode($row['extra'], 1);
+                if ($level == 0) {
+                    $row['parent_name'] = '';
+                }
+                $scans[] = $row['name'];
+                $result->set($row['name'], $row);
+            });
+
+        } while (!empty($scans) and ++$level < 4);
+
+        return $result;
+    }
+
+    public function getNavigationParameter($menu, $partial = null)
+    {
+        if ($partial) {
+            return $this->_getNavigationPartialParameters($menu, $partial);
+        } else {
+            return $this->_getNavigationParameter($menu);
+        }
     }
 }

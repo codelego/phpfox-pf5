@@ -17,7 +17,7 @@ use Phpfox\View\ViewModel;
 
 class AdminEditSettingsProcess extends AbstractProcess
 {
-    public function getSettingGroups(Form $form)
+    public function collectDomains(Form $form)
     {
         $settingGroups = [];
         foreach ($form->getElements() as $element) {
@@ -40,7 +40,7 @@ class AdminEditSettingsProcess extends AbstractProcess
         return $settingGroups;
     }
 
-    public function getPostData(Form $form)
+    public function collectPostData(Form $form)
     {
         $data = [];
         foreach ($form->getElements() as $element) {
@@ -66,23 +66,23 @@ class AdminEditSettingsProcess extends AbstractProcess
     public function process()
     {
         $request = _get('request');
-        $settingGroupId = $this->get('setting_group');
+        $formId = $this->get('form_id');
 
-        if (!$settingGroupId) {
-            $settingGroupId = $request->get('setting_group');
+        if (!$formId) {
+            $formId = $request->get('form_id');
         }
 
-        /** @var SettingForm $settingGroup */
-        $settingGroup = _find('setting_form', $settingGroupId);
+        /** @var SettingForm $settingForm */
+        $settingForm = _find('setting_form', $formId);
 
-        if (!$settingGroup) {
-            throw new \InvalidArgumentException(_sprintf('Invalid group [{0}]', [$settingGroupId]));
+        if (!$settingForm) {
+            throw new \InvalidArgumentException(_sprintf('Invalid group [{0}]', [$formId]));
         }
 
-        $formName = $settingGroup->getFormName();
+        $formName = $settingForm->getFormName();
 
         if (!class_exists($formName)) {
-            throw new \InvalidArgumentException(_sprintf('Invalid group [{0}]', [$settingGroupId]));
+            throw new \InvalidArgumentException(_sprintf('Invalid group [{0}]', [$formId]));
         }
 
 
@@ -92,16 +92,16 @@ class AdminEditSettingsProcess extends AbstractProcess
 
         if ($request->isGet()) {
 
-            $data = _get('core.setting')->getForEdit($this->getSettingGroups($form));
+            $data = _get('core.setting')->getForEdit($this->collectDomains($form));
 
             $form->populate($data);
         }
 
         if ($request->isPost() and $form->isValid($request->all())) {
 
-            $data = $this->getPostData($form);
+            $data = $this->collectPostData($form);
 
-            _get('core.setting')->updateGroupValues($data);
+            _get('core.setting')->updateValues($data);
 
             _get('shared.cache')->flush();
         }

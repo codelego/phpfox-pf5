@@ -7,6 +7,11 @@ use Phpfox\Support\UserInterface;
 
 class User extends DbModel implements UserInterface
 {
+    public function getUniqueId()
+    {
+        return 'user_' . $this->getId();
+    }
+
     /**
      * @return string
      */
@@ -39,6 +44,30 @@ class User extends DbModel implements UserInterface
         return true;
     }
 
+    public function getOwner()
+    {
+        return $this;
+    }
+
+    public function getPoster()
+    {
+        return $this;
+    }
+
+    public function getParent()
+    {
+        return $this;
+    }
+
+    public function getRelationships()
+    {
+        return ['friend.friendship'];
+    }
+
+    public function getPrivacy($action)
+    {
+        // TODO: Implement getPrivacy() method.
+    }
 
     /**
      * @return mixed|null

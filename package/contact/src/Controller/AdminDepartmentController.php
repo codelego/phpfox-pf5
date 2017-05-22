@@ -21,8 +21,7 @@ class AdminDepartmentController extends AdminController
         _get('html.title')
             ->set(_text('Contact Us'));
 
-        _get('menu.admin.secondary')
-            ->load('_contact');
+        _get('menu.admin.secondary')->load('admin', 'contact');
 
         _get('menu.admin.buttons')
             ->load('_contact.buttons');

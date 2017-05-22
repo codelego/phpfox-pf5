@@ -6,7 +6,7 @@ namespace Neutron\Blog\Controller;
 use Neutron\Core\Controller\AdminController;
 use Neutron\Core\Process\AdminEditSettingsProcess;
 
-class AdminSiteSettingsController extends AdminController
+class AdminSettingController extends AdminController
 {
     protected function afterInitialize()
     {
@@ -16,14 +16,15 @@ class AdminSiteSettingsController extends AdminController
         _get('breadcrumb')
             ->set(['href' => _url('admin.blog'), 'label' => _text('Blogs')]);
 
-        _get('menu.admin.secondary')->load('_blog');
+        _get('menu.admin.buttons')->load('_blog.buttons');
+        _get('menu.admin.secondary')->load('admin', 'blog');
 
     }
 
     public function actionIndex()
     {
         return (new AdminEditSettingsProcess([
-            'setting_group' => 'blog',
+            'form_id' => 'blog',
         ]))->process();
     }
 }

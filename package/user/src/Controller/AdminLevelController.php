@@ -1,28 +1,30 @@
 <?php
 
-namespace Neutron\Core\Controller;
+namespace Neutron\User\Controller;
 
 
-use Neutron\Core\Form\Admin\AclRole\AddAclRole;
-use Neutron\Core\Form\Admin\AclRole\EditAclRole;
+use Neutron\Core\Controller\AdminController;
 use Neutron\Core\Model\AclLevel;
 use Neutron\Core\Process\AdminAddEntryProcess;
 use Neutron\Core\Process\AdminEditEntryProcess;
-use Neutron\Core\Process\AdminEditPermissionProcess;
 use Neutron\Core\Process\AdminListEntryProcess;
+use Neutron\User\Form\Admin\UserLevel\AddUserLevel;
+use Neutron\User\Form\Admin\UserLevel\EditUserLevel;
+use Neutron\User\Model\UserLevel;
 
-class AdminAclController extends AdminController
+class AdminLevelController extends AdminController
 {
     protected function afterInitialize()
     {
         _get('breadcrumb')
-            ->set(['href' => _url('admin.core.acl'), 'label' => _text('User Groups', 'admin'),]);
+            ->set(['href' => _url('admin.user.level'), 'label' => _text('Levels', 'admin'),]);
 
         _get('html.title')
-            ->set(_text('Permission Settings', '_core'));
+            ->set(_text('Levels', '_core'));
 
-        _get('menu.admin.secondary')
-            ->load('_core.acl');
+        _get('menu.admin.secondary')->load('admin','user');
+
+        _get('menu.admin.buttons')->load('_user.buttons');
     }
 
     protected function afterDispatch($action)
@@ -35,7 +37,7 @@ class AdminAclController extends AdminController
     public function actionIndex()
     {
         return (new AdminListEntryProcess([
-            'model'    => AclLevel::class,
+            'model'    => UserLevel::class,
             'template' => 'core/admin-acl/manage-acl-role',
         ]))->process();
     }
@@ -44,7 +46,7 @@ class AdminAclController extends AdminController
     {
         return (new AdminAddEntryProcess([
             'model'    => AclLevel::class,
-            'form'     => AddAclRole::class,
+            'form'     => AddUserLevel::class,
             'redirect' => _url('admin.core.acl'),
         ]))->process();
     }
@@ -55,16 +57,8 @@ class AdminAclController extends AdminController
         return (new AdminEditEntryProcess([
             'key'      => 'level_id',
             'model'    => AclLevel::class,
-            'form'     => EditAclRole::class,
+            'form'     => EditUserLevel::class,
             'redirect' => _url('admin.core.acl'),
         ]))->process();
-    }
-
-    public function actionSettings()
-    {
-        $request = _get('request');
-
-        return (new AdminEditPermissionProcess(['form_id' => 'core_general']))->process();
-
     }
 }

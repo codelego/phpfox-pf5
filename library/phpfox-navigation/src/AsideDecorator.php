@@ -101,7 +101,7 @@ class AsideDecorator extends AbstractDecorator
             $cls .= ' active';
         }
 
-        if (!empty($item->extra)) {
+        if ($item->get('extra')) {
             $extra = _attrize($item->extra);
         }
 

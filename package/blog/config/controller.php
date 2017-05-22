@@ -8,6 +8,6 @@ return [
     'blog.post'           => BlogPostController::class,
     'blog.admin-post'     => AdminPostController::class,
     'blog.admin-category' => AdminCategoryController::class,
-    'blog.admin-settings' => AdminSiteSettingsController::class,
+    'blog.admin-settings' => AdminSettingController::class,
     'blog.admin-acl'      => AdminAclController::class,
 ];

@@ -468,7 +468,7 @@ class CodeGenerator
             ->all();
 
         foreach ($settingValues as $settingValue) {
-            $elementName = $settingValue->getGroupId() . '__' . $settingValue->getName();
+            $elementName = $settingValue->getDomainId() . '__' . $settingValue->getName();
             /** @var DevElement $devElement */
             $devElement = _model('dev_element')
                 ->select()
@@ -544,9 +544,9 @@ class CodeGenerator
             ->where('form_id=?', $aclForm->getId())
             ->all();
 
-        $sortOrder = 1;
         foreach ($settingActions as $settingAction) {
-            $elementName = $settingAction->getGroupId() . '__' . $settingAction->getName();
+            $elementName = $settingAction->getDomainId() . '__' . $settingAction->getName();
+
             /** @var DevElement $devElement */
             $devElement = _model('dev_element')
                 ->select()
@@ -563,11 +563,11 @@ class CodeGenerator
                 return ucfirst($v);
             }, explode('_', $settingAction->getName())));
 
-            $devAction = _model('dev_element')
+            $devElement = _model('dev_element')
                 ->create([
                     'meta_id'      => $devAction->getMetaId(),
                     'element_name' => $elementName,
-                    'ordering'     => $sortOrder,
+                    'ordering'     => $settingAction->getOrdering(),
                     'label'        => $label,
                     'note'         => '' . $label . ' [Note]',
                     'info'         => '' . $label . ' [Info]',
@@ -576,8 +576,7 @@ class CodeGenerator
                     'is_active'    => 1,
                 ]);
 
-            $devAction->save();
-            ++$sortOrder;
+            $devElement->save();
         }
     }
 

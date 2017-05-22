@@ -6,52 +6,61 @@ return [
 
     ],
     'routes'  => [
-        'admin'               => [
+        'admin'                => [
             'route'      => 'admincp/*',
             'controller' => 'core.admin-index',
             'action'     => 'index',
         ],
-        'admin.core'          => [
+        'admin.core'           => [
             'route'      => 'core/*',
             'controller' => 'core.admin-index',
             'action'     => 'index',
         ],
-        'admin.core.auth'     => [
+        'admin.core.auth'      => [
             'route'      => 'auth/<action>',
             'controller' => 'core.admin-auth',
             'action'     => 'login',
         ],
-        'admin.core.acl'      => [
-            'route'      => 'acl(/<action>)',
-            'controller' => 'core.admin-acl',
+        'admin.core.profile'   => [
+            'route'      => 'profile/<action>',
+            'controller' => 'core.admin-profile',
             'action'     => 'index',
         ],
-        'admin.core.storage'  => [
+        'admin.core.storage'   => [
             'route'      => 'storage(/<action>)',
             'controller' => 'core.admin-storage',
             'action'     => 'index',
         ],
-        'admin.core.session'  => [
+        'admin.core.session'   => [
             'route'      => 'session(/<action>)',
             'controller' => 'core.admin-session',
             'action'     => 'index',
         ],
-        'admin.core.captcha'  => [
+        'admin.core.captcha'   => [
             'route'      => 'captcha(/<action>)',
             'controller' => 'core.admin-captcha',
             'action'     => 'index',
         ],
-        'admin.core.sms'      => [
+        'admin.core.sms'       => [
             'route'      => 'sms(/<action>)',
             'controller' => 'core.admin-sms',
             'action'     => 'index',
         ],
-        'admin.core.package'  => [
+        'admin.core.package'   => [
             'route'      => 'package(/<action>)',
             'controller' => 'core.admin-package',
             'action'     => 'index',
         ],
-        'admin.core.layout'   => [
+        'admin.core.theme'     => [
+            'route'      => 'theme(/<action>)',
+            'controller' => 'core.admin-theme',
+            'action'     => 'index',
+        ],
+        'admin.core.component' => [
+            'route'      => 'component(/<action>)',
+            'controller' => 'core.admin-component',
+        ],
+        'admin.core.layout'    => [
             'route'      => 'layout/*',
             'controller' => 'core.admin-layout',
             'action'     => 'index',
@@ -64,15 +73,6 @@ return [
                     'route'      => 'block(/<action>)',
                     'controller' => 'core.admin-layout-block',
                 ],
-                'theme'     => [
-                    'route'      => 'theme(/<action>)',
-                    'controller' => 'core.admin-layout-theme',
-                    'action'     => 'index',
-                ],
-                'component' => [
-                    'route'      => 'component(/<action>)',
-                    'controller' => 'core.admin-layout-component',
-                ],
                 'container' => [
                     'route'      => 'container(/<action>)',
                     'controller' => 'core.admin-layout-container',
@@ -80,27 +80,27 @@ return [
             ],
 
         ],
-        'admin.core.cache'    => [
+        'admin.core.cache'     => [
             'route'      => 'cache(/<action>)',
             'controller' => 'core.admin-cache',
             'action'     => 'index',
         ],
-        'admin.core.menu'     => [
+        'admin.core.menu'      => [
             'route'      => 'menu(/<action>)',
             'controller' => 'core.admin-menu',
             'action'     => 'index',
         ],
-        'admin.core.log'      => [
+        'admin.core.log'       => [
             'route'      => 'log(/<action>)',
             'controller' => 'core.admin-log',
             'action'     => 'index',
         ],
-        'admin.core.status'   => [
+        'admin.core.status'    => [
             'route'      => 'status(/<action>)',
             'controller' => 'core.admin-status',
             'action'     => 'overview',
         ],
-        'admin.core.i18n'     => [
+        'admin.core.i18n'      => [
             'route'      => 'i18n/*',
             'controller' => 'core.admin-i18n-message',
             'action'     => 'index',
@@ -124,7 +124,7 @@ return [
                 'message'  => ['route' => '<action>',],
             ],
         ],
-        'admin.core.mail'     => [
+        'admin.core.mail'      => [
             'route'      => 'mail/*',
             'controller' => 'core.admin-mail',
             'action'     => 'index',
@@ -140,53 +140,53 @@ return [
                 'adapter'  => ['route' => '(<action>)'],
             ],
         ],
-        'admin.core.settings' => [
+        'admin.core.settings'  => [
             'route'      => 'settings/*',
             'controller' => 'core.admin-settings',
             'action'     => 'index',
             'children'   => [
                 'edit' => [
-                    'route'  => 'edit/<setting_group>',
+                    'route'  => 'edit/<form_id>',
                     'action' => 'edit',
                 ],
             ],
         ],
-        'admin.login'         => [
+        'admin.login'          => [
             'route'      => 'login',
             'controller' => 'core.admin-auth',
             'action'     => 'login',
         ],
-        'api'                 => [
+        'api'                  => [
             'route' => 'api/*',
         ],
-        'ajax'                => [
+        'ajax'                 => [
             'route' => 'ajax/*',
         ],
-        'ajax.i18n'           => [
+        'ajax.i18n'            => [
             'route'      => 'i18n/<action>',
             'controller' => 'core.ajax-i18n',
         ],
-        'home'                => [
+        'home'                 => [
             'route'      => '/',
             'controller' => 'core.index',
             'action'     => 'index',
         ],
-        'offline'             => [
+        'offline'              => [
             'route'      => 'offline',
             'controller' => 'core.offline',
             'action'     => 'index',
         ],
-        'api.menu'            => [
+        'api.menu'             => [
             'route'      => 'menu',
             'controller' => 'MenuApiController',
             'action'     => 'listing',
         ],
-        'api.menu.item'       => [
+        'api.menu.item'        => [
             'route'      => '<id>',
             'controller' => 'MenuApiController',
             'action'     => 'view',
         ],
-        'profile.index'       => [
+        'profile.index'        => [
             'route'  => '/',
             'action' => 'index',
         ],

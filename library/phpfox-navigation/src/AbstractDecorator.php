@@ -8,7 +8,7 @@ abstract class AbstractDecorator implements DecoratorInterface
     /**
      * @var int
      */
-    protected $level = 4;
+    protected $level = 1;
 
     /**
      * @var array

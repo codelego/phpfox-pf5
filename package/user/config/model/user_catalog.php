@@ -1,0 +1,1 @@
+<?php return array(0=>'catalog_id',1=>array('catalog_id'=>1,),2=>'catalog_id',3=>array('catalog_id'=>1,'catalog_name'=>1,'catalog_label'=>1,'catalog_description'=>1,'is_active'=>1,'is_system'=>1,'ordering'=>1,),4=>array(),);

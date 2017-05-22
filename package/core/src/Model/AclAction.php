@@ -12,14 +12,11 @@ class AclAction extends DbModel
     public function setActionId($value){$this->__set('action_id', $value);}
     public function setId($value){$this->__set('action_id', $value);}
     
-    public function getActionType(){return $this->__get('action_type');}
-    public function setActionType($value){$this->__set('action_type', $value);}
-    
     public function getPackageId(){return $this->__get('package_id');}
     public function setPackageId($value){$this->__set('package_id', $value);}
     
-    public function getGroupId(){return $this->__get('group_id');}
-    public function setGroupId($value){$this->__set('group_id', $value);}
+    public function getDomainId(){return $this->__get('domain_id');}
+    public function setDomainId($value){$this->__set('domain_id', $value);}
     
     public function getFormId(){return $this->__get('form_id');}
     public function setFormId($value){$this->__set('form_id', $value);}

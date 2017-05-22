@@ -19,8 +19,8 @@ class AdminPostController extends AdminController
         _get('breadcrumb')
             ->set(['href' => _url('admin.blog'), 'label' => _text('Blogs')]);
 
-        _get('menu.admin.secondary')->load('_blog');
-
+        _get('menu.admin.buttons')->load('_blog.buttons');
+        _get('menu.admin.secondary')->load('admin','blog');
     }
 
     protected function afterDispatch($action)

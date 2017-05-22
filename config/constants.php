@@ -108,11 +108,21 @@ defined('PHPFOX_CACHE_DIR') OR define('PHPFOX_CACHE_DIR', PHPFOX_DATA_DIR . 'cac
  */
 defined('PHPFOX_SUPER_DIR') OR define('PHPFOX_SUPER_DIR', PHPFOX_DIR . 'super' . DS);
 
+/**
+ * @const PHPFOX_PUBLIC_ID 0
+ */
+defined('PHPFOX_PUBLIC_ID') OR define('PHPFOX_PUBLIC_ID', 0);
+
+/**
+ * @const PHPFOX_REGISTERED_ID 1
+ */
+defined('PHPFOX_REGISTERED_ID') OR define('PHPFOX_REGISTERED_ID', 1);
 
 /**
  * @const PHPFOX_GUEST_ID 6
  */
 defined('PHPFOX_GUEST_ID') OR define('PHPFOX_GUEST_ID', 7);
+
 
 /**
  * @const PHPFOX_TABLE_PREFIX pf5_
