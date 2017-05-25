@@ -5,11 +5,11 @@ class ProfileStepTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new ProfileStep(array (  'step_id' => 1,  'process_id' => 'user:register',  'form_name' => 'Neutron\\User\\Registration\\EditPaymentInformation',  'step_name' => 'payment',  'form_step_name' => 'Neutron\\User\\Registration\\PaymentInformation',  'ordering' => 10,  'package_id' => 'user',  'is_active' => 1,  'is_require' => 1,  'title' => 'Payment Information',  'description' => 'Fill user payment',));
+        $obj = new ProfileStep(array (  'step_id' => 1,  'process_id' => 'user:create',  'form_name' => 'Neutron\\User\\Registration\\EditPaymentInformation',  'step_name' => 'payment',  'form_step_name' => 'Neutron\\User\\Registration\\PaymentInformation',  'ordering' => 10,  'package_id' => 'user',  'is_active' => 1,  'is_require' => 1,  'title' => 'Payment Information',  'description' => 'Fill user payment',));
 
         $this->assertSame('profile_step', $obj->getModelId());
         $this->assertSame(1, $obj->getStepId());
-        $this->assertSame('user:register', $obj->getProcessId());
+        $this->assertSame('user:create', $obj->getProcessId());
         $this->assertSame('Neutron\User\Registration\EditPaymentInformation', $obj->getFormName());
         $this->assertSame('payment', $obj->getStepName());
         $this->assertSame('Neutron\User\Registration\PaymentInformation', $obj->getFormStepName());
@@ -26,7 +26,7 @@ class ProfileStepTest extends \PHPUnit_Framework_TestCase
 
         // set data
         $obj->setStepId(1);
-        $obj->setProcessId('user:register');
+        $obj->setProcessId('user:create');
         $obj->setFormName('Neutron\User\Registration\EditPaymentInformation');
         $obj->setStepName('payment');
         $obj->setFormStepName('Neutron\User\Registration\PaymentInformation');
@@ -39,7 +39,7 @@ class ProfileStepTest extends \PHPUnit_Framework_TestCase
         // assert same data
         $this->assertSame('profile_step', $obj->getModelId());
         $this->assertSame(1, $obj->getStepId());
-        $this->assertSame('user:register', $obj->getProcessId());
+        $this->assertSame('user:create', $obj->getProcessId());
         $this->assertSame('Neutron\User\Registration\EditPaymentInformation', $obj->getFormName());
         $this->assertSame('payment', $obj->getStepName());
         $this->assertSame('Neutron\User\Registration\PaymentInformation', $obj->getFormStepName());
@@ -52,7 +52,7 @@ class ProfileStepTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new ProfileStep(array (  'step_id' => 1,  'process_id' => 'user:register',  'form_name' => 'Neutron\\User\\Registration\\EditPaymentInformation',  'step_name' => 'payment',  'form_step_name' => 'Neutron\\User\\Registration\\PaymentInformation',  'ordering' => 10,  'package_id' => 'user',  'is_active' => 1,  'is_require' => 1,  'title' => 'Payment Information',  'description' => 'Fill user payment',));
+        $obj = new ProfileStep(array (  'step_id' => 1,  'process_id' => 'user:create',  'form_name' => 'Neutron\\User\\Registration\\EditPaymentInformation',  'step_name' => 'payment',  'form_step_name' => 'Neutron\\User\\Registration\\PaymentInformation',  'ordering' => 10,  'package_id' => 'user',  'is_active' => 1,  'is_require' => 1,  'title' => 'Payment Information',  'description' => 'Fill user payment',));
 
         $obj->save();
 
@@ -62,7 +62,7 @@ class ProfileStepTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('profile_step', $obj->getModelId());
         $this->assertSame(1, $obj->getStepId());
-        $this->assertSame('user:register', $obj->getProcessId());
+        $this->assertSame('user:create', $obj->getProcessId());
         $this->assertSame('Neutron\User\Registration\EditPaymentInformation', $obj->getFormName());
         $this->assertSame('payment', $obj->getStepName());
         $this->assertSame('Neutron\User\Registration\PaymentInformation', $obj->getFormStepName());

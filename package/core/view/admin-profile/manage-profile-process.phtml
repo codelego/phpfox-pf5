@@ -1,0 +1,37 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <ul>
+            <?php foreach ($sections as $section): ?>
+                <li>
+                    <div>
+                        <?= $section->getSectionLabel(); ?>
+                        <a role="button" data-cmd="dropdown" data-target=":div/ul">edit</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a data-cmd="modal" href="<?= _url($route, [
+                                    'action'     => 'edit-section',
+                                    'process_id' => $process->getId(),
+                                    'section_id' => $section->getId(),
+                                ]) ?>">Edit Section</a>
+                            </li>
+                            <li>
+                                <a data-cmd="modal" href="<?= _url($route, [
+                                    'action'     => 'add-question',
+                                    'process_id' => $process->getId(),
+                                    'section_id' => $section->getId(),
+                                ]) ?>">Add Question</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <ul>
+                        <?php foreach (_get('core.profile')->getProfileQuestions($section->getId()) as $question): ?>
+                            <li>
+                                <div><?= $question->getQuestionLabel() ?></div>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</div>

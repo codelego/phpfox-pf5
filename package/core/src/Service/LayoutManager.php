@@ -165,9 +165,10 @@ class LayoutManager implements LoaderInterface
 
             $locationIds = json_decode($grid->getLocations(), true);
 
-            foreach ($locationIds as $locationId) {
+            foreach ($locationIds as $locationId => $locationName) {
                 $container->addLocation($locationId, [
                     'location_id'    => $locationId,
+                    'location_name'  => $locationName,
                     'container_id'   => $layoutContainer->getId(),
                     'container_type' => $layoutContainer->getTypeId(),
                 ]);
@@ -201,7 +202,7 @@ class LayoutManager implements LoaderInterface
                     'parent_id'      => $block['parent_id'],
                     'location_id'    => $block['location_id'],
                     'container_id'   => $block['container_id'],
-                    'ordering'     => $block['ordering'],
+                    'ordering'       => $block['ordering'],
                     'container_type' => $layoutContainer->getTypeId(),
                     'block_name'     => $block['component_name'],
                     'block_class'    => $block['component_class'],

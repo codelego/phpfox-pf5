@@ -9,7 +9,7 @@
 namespace Neutron\Core\Process;
 
 
-use Neutron\Core\Form\Admin\Settings\FilterPermissionLevel;
+use Neutron\Core\Form\Admin\Settings\SearchPermissionLevel;
 use Neutron\Core\Model\AclForm;
 use Phpfox\Form\FieldInterface;
 use Phpfox\Form\Form;
@@ -68,11 +68,11 @@ class AdminEditPermissionProcess extends AbstractProcess
     {
         $request = _get('request');
 
-        $filter = new FilterPermissionLevel([
+        $filter = new SearchPermissionLevel([
             'model' => $this->get('levelModel'),
         ]);
 
-        _get('registry')->set('filter', $filter);
+        _get('registry')->set('filter.service', $filter);
 
 
         $filter->populate($request->all());

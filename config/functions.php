@@ -85,6 +85,18 @@ namespace {
         return \Phpfox::$params->get($section, $item);
     }
 
+    /**
+     * Use this method to get admin settings from `site_setting` value.
+     *
+     * @param string $key
+     * @param mixed  $default
+     *
+     * @return mixed
+     */
+    function _setting($key, $default = null)
+    {
+        return \Phpfox::$params->setting($key, $default);
+    }
 
     /**
      * Generate random string by length
@@ -410,7 +422,7 @@ namespace {
         if (is_array($data)) {
             $data = implode('_', $data);
         }
-        return preg_replace('/(\W)+/', '_', $data);
+        return strtolower(preg_replace('/(\W)+/', '_', $data));
     }
 
     /**

@@ -165,7 +165,7 @@ class Navigation
                 }
 
                 $isValid = true;
-                $parent = $row->parent_name;
+                $parent = $row->parent;
 
                 if ($parent == $parentId) {
                     continue;
@@ -183,7 +183,7 @@ class Navigation
                     if (!isset($rows[$nextParent])) {
                         $isValid = false;
                     } else {
-                        $nextParent = $rows[$nextParent]->parent_name;
+                        $nextParent = $rows[$nextParent]->parent;
                     }
                 }
                 if ($isValid && $nextParent == $parentId && $i == $level) {

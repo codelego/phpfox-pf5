@@ -55,6 +55,8 @@ class ParameterContainer
     }
 
     /**
+     * Use this method to get setting from `package.php` file.
+     * to get value from admin setting in `site_setting` table, try ::setting() method
      * @param string $key
      * @param string $item
      *
@@ -83,5 +85,16 @@ class ParameterContainer
     public function set($key, $data)
     {
         $this->data[$key] = $data;
+    }
+
+    /**
+     * @param string $key
+     * @param mixed  $default
+     *
+     * @return mixed
+     */
+    public function setting($key, $default)
+    {
+        return isset($this->data[$key]) ? $this->data[$key] : $default;
     }
 }

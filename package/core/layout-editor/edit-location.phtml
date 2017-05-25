@@ -1,7 +1,7 @@
 <div class="layout-location-heading">
-    <strong><?= $location['location_id'] ?></strong>
+    <strong><?= _text($location['location_name'],'_core.layout') ?></strong>
     <span data-cmd="dropdown" role="button" style="float:right" data-target=":div/ul">
-        <small>edit</small>
+        <small><?= _text('edit')?></small>
     </span>
     <ul class="hide" role="menu">
         <li role="menuitem">
@@ -10,10 +10,10 @@
                     'action'       => 'add',
                     'location_id'  => $location['location_id'],
                     'container_id' => $location['container_id'],
-                ]) ?>">Add Block</a>
+                ]) ?>"><?= _text('Add Block','_core.layout') ?></a>
         </li>
         <li role="menuitem">
-            <a role="button">Edit Settings</a>
+            <a role="button"><?= _text('Edit Settings','_core.layout')?></a>
         </li>
     </ul>
 </div>

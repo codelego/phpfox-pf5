@@ -35,7 +35,7 @@ class AdminPackageController extends AdminController
         ]);
 
         return (new AdminListEntryProcess([
-            'filter'   => FilterCorePackage::class,
+            'filter.form'   => FilterCorePackage::class,
             'model'    => CorePackage::class,
             'noLimit'  => true,
             'limit'    => 4,

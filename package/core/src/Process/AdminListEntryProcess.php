@@ -7,6 +7,8 @@ use Phpfox\Db\SqlSelect;
 use Phpfox\Form\Form;
 use Phpfox\Model\ModelInterface;
 use Phpfox\Support\AbstractProcess;
+use Phpfox\Support\FilterCriteria;
+use Phpfox\Support\FilterInterface;
 use Phpfox\View\ViewModel;
 
 class AdminListEntryProcess extends AbstractProcess
@@ -14,28 +16,44 @@ class AdminListEntryProcess extends AbstractProcess
     function process()
     {
         $request = _get('request');
+        $criteria = new FilterCriteria();
 
-        if ($this->get('filter')) {
-            /** @var Form $filter */
-            $filter = (new \ReflectionClass($this->get('filter')))->newInstanceArgs([]);
 
-            $filter->populate($_GET);
+        if ($this->get('filter.form')) {
+            /** @var Form $search */
+            $search = (new \ReflectionClass($this->get('filter.form')))->newInstanceArgs([]);
 
-            _get('registry')->set('filter', $filter);
+            $search->populate($_GET);
+
+            _get('registry')->set('filter.form', $search);
+
+            $criteria->addCriteria($search->getData());
         }
 
-        /** @var SqlSelect $select */
-        $select = $this->get('select');
 
-        if (!$select) {
-            /** @var ModelInterface $model */
-            $model = (new \ReflectionClass($this->get('model')))->newInstanceArgs([]);
 
-            /** @var string $modelId */
-            $modelId = $model->getModelId();
+        /** @var FilterInterface $filter */
+        $filter = $this->get('filter.service');
 
-            $select = _model($modelId)
-                ->select();
+
+
+        if ($filter instanceof FilterInterface) {
+            /** @var SqlSelect $select */
+            $select = $filter->filter($criteria);
+        } else {
+            /** @var SqlSelect $select */
+            $select = $this->get('select');
+
+            if (!$select) {
+                /** @var ModelInterface $model */
+                $model = (new \ReflectionClass($this->get('model')))->newInstanceArgs([]);
+
+                /** @var string $modelId */
+                $modelId = $model->getModelId();
+
+                $select = _model($modelId)
+                    ->select();
+            }
         }
 
         $items = _get('pagination')

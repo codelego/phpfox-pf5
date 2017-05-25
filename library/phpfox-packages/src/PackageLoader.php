@@ -416,13 +416,7 @@ class PackageLoader implements PackageLoaderInterface
 
 
         foreach ($rows as $row) {
-            $name = $row['name'];
-            $group = $row['domain_id'];
-            $key = $group . '.' . $name;
-            if (!isset($result[$group])) {
-                $result[$group] = [];
-            }
-            $result[$group][$name] = $result[$key] = json_decode($row['value_actual'], true);
+            $result[$row['domain_id'] . '.' . $row['name']] = json_decode($row['value_actual'], true);
         }
 
         return $result;
@@ -627,16 +621,29 @@ class PackageLoader implements PackageLoaderInterface
         $items = _get('db')
             ->select('*')
             ->from(':core_menu_item')
-            ->where('menu=?', trim($menu))
+            ->where('menu_id=?', trim($menu))
             ->where('package_id in ?', _get('core.packages')->getIds())
             ->where('is_active=?', 1)
             ->order('ordering', 1)
             ->all();
 
         array_walk($items, function ($row) use ($result) {
-            $row['params'] = (array)json_decode($row['params'], 1);
-            $row['extra'] = (array)json_decode($row['extra'], 1);
-            $result->set($row['name'], $row);
+            $result->set($row['name'], [
+                'id'         => $row['id'],
+                'params'     => (array)json_decode($row['params'], 1),
+                'label'      => $row['label'],
+                'ordering'   => $row['ordering'],
+                'name'       => $row['name'],
+                'parent'     => $row['parent_name'],
+                'extra'      => (array)json_decode($row['extra'], 1),
+                'href'       => $row['href'],
+                'permission' => $row['permission'],
+                'enable'     => $row['is_active'],
+                'route'      => $row['route'],
+                'event'      => $row['is_active'],
+                'custom'     => $row['is_custom'],
+                'type'       => $row['item_type'],
+            ]);
         });
 
         return $result;
@@ -658,7 +665,7 @@ class PackageLoader implements PackageLoaderInterface
             $items = _get('db')
                 ->select('*')
                 ->from(':core_menu_item')
-                ->where('menu=?', trim($menu))
+                ->where('menu_id=?', trim($menu))
                 ->where('package_id in ?', _get('core.packages')->getIds())
                 ->where('parent_name in ?', $scans)
                 ->where('is_active=?', 1)
@@ -669,13 +676,22 @@ class PackageLoader implements PackageLoaderInterface
 
             $scans = [];
             array_walk($items, function ($row) use ($result, &$scans, $level) {
-                $row['params'] = (array)json_decode($row['params'], 1);
-                $row['extra'] = (array)json_decode($row['extra'], 1);
-                if ($level == 0) {
-                    $row['parent_name'] = '';
-                }
-                $scans[] = $row['name'];
-                $result->set($row['name'], $row);
+                $result->set($row['name'], [
+                    'id'         => $row['id'],
+                    'params'     => (array)json_decode($row['params'], 1),
+                    'label'      => $row['label'],
+                    'ordering'   => $row['ordering'],
+                    'name'       => $row['name'],
+                    'route'      => $row['route'],
+                    'parent'     => $level == 0 ? '' : $row['parent_name'],
+                    'extra'      => (array)json_decode($row['extra'], 1),
+                    'href'       => $row['href'],
+                    'permission' => $row['permission'],
+                    'active'     => $row['is_active'],
+                    'event'      => $row['is_active'],
+                    'custom'     => $row['is_custom'],
+                    'type'       => $row['item_type'],
+                ]);
             });
 
         } while (!empty($scans) and ++$level < 4);

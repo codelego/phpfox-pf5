@@ -5,7 +5,7 @@ namespace Phpfox\View;
 return [
     'services' => [
         'template'                    => [null, PhpTemplate::class],
-        'layouts'                     => [null, LayoutManager::class],
+        'layouts'                     => [null, LayoutFacades::class],
         'assets'                      => [null, AssetsFacades::class, null],
         'require_js'                  => [null, RequireJs::class,],
         'require_css'                 => [null, RequireCss::class,],

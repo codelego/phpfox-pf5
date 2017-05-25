@@ -5,8 +5,11 @@
             <tr>
                 <th class="text-center">#</th>
                 <th class="w80">ID</th>
-                <th>Name</th>
-                <th class="w100">Package</th>
+                <th><?= _text('Menu Name','_core.menu')?></th>
+                <th class="w120"><?= _text('Menu Items','_core.menu')?> <sup>&sum;</sup></th>
+                <th class="w100"><?= _text('Custom','_core.menu')?>?</th>
+                <th class="w100"><?= _text('System','_core.menu')?>?</th>
+                <th class="w100"><?= _text('Package','_core')?></th>
             </tr>
             </thead>
             <tbody>
@@ -15,13 +18,19 @@
                     <td class="dropdown" data-cmd="dropdown">
                         <ul role="menu">
                             <li role="menuitem">
-                                <a href="<?= _url('admin.core.menu',['action'=>'edit','menu_id'=> $item->getId()]) ?>">Edit Items</a>
-                                <a href="<?= _url('admin.core.menu',['action'=>'add','menu_id'=> $item->getId()]) ?>">Edit Items</a>
+                                <a href="<?= _url('admin.core.menu',['action'=>'edit','menu_id'=> $item->getId()]) ?>"><?= _text('Edit') ?></a>
+                                <a href="<?= _url('admin.core.i18n.message',['domain_id'=> 'menu.'.$item->getId()]) ?>"><?= _text('Translate') ?></a>
+                                <?php if($item->isCustom()): ?>
+                                <a href="<?= _url('admin.core.menu',['action'=>'delete','menu_id'=> $item->getId()]) ?>">Delete</a>
+                                <?php endif; ?>
                             </li>
                         </ul>
                     </td>
                     <td><?= $item->getId() ?></td>
-                    <td><?= $item->getMenuName() ?></td>
+                    <td><?= $item->getMenuName() ?><br/><small><?= $item->getDescription() ?></small></td>
+                    <td><?= _number(0) ?></td>
+                    <td><?= _yesno($item->isCustom()) ?></td>
+                    <td><?= _yesno($item->isSystem()) ?></td>
                     <td><?= $item->getPackageId() ?></td>
                 </tr>
             <?php endforeach; ?>

@@ -1,114 +1,31 @@
 <?php
-
 namespace Neutron\Core\Form\Admin\LayoutComponent;
 
 use Phpfox\Form\Form;
 
-class FilterLayoutComponent extends Form
-{
+class FilterLayoutComponent extends Form {
 
-    public function initialize()
-    {
+    /** id=397 */
+    public function initialize(){
 
         $this->setMethod('get');
 
-        $this->addElement([
-            'factory'    => 'text',
-            'name'       => 'q',
-            'label'      => _text('Search', 'admin'),
-            'attributes' => [
-                'class'       => 'form-control',
-                'placeholder' => _text('Search', 'admin'),
-            ],
-        ]);
-
         /** start elements **/
 
-
-        // element `component_id`
-        $this->addElement([
-            'name'      => 'component_id',
-            'factory'   => 'text',
-            'label'     => _text('Component', null),
-            'maxlength' => 255,
-        ]);
-
-        // element `component_name`
-        $this->addElement([
-            'name'      => 'component_name',
-            'factory'   => 'text',
-            'label'     => _text('Component Name', null),
-            'maxlength' => 255,
-        ]);
-
-        // element `component_class`
-        $this->addElement([
-            'name'      => 'component_class',
-            'factory'   => 'text',
-            'label'     => _text('Component Class', null),
-            'maxlength' => 255,
-        ]);
-
-        // element `form_name`
-        $this->addElement([
-            'name'      => 'form_name',
-            'factory'   => 'text',
-            'label'     => _text('Form Name', null),
-            'maxlength' => 255,
-        ]);
-
-        // element `package_id`
-        $this->addElement([
-            'name'      => 'package_id',
-            'factory'   => 'select',
-            'label'     => _text('Package', null),
-            'options'   => _get('core.packages')->getPackageIdOptions(),
-            'maxlength' => 255,
-        ]);
-
-        // element `is_active`
-        $this->addElement([
-            'name'    => 'is_active',
-            'factory' => 'select',
-            'label'   => _text('Is Active', null),
-            'options' =>
-                [
-                    0 =>
-                        [
-                            'value' => 1,
-                            'label' => 'Yes',
-                        ],
-                    1 =>
-                        [
-                            'value' => 0,
-                            'label' => 'No',
-                        ],
-                ],
-        ]);
-
-        // element `ordering`
-        $this->addElement([
-            'name'      => 'ordering',
-            'factory'   => 'text',
-            'label'     => _text('Ordering', null),
-            'maxlength' => 255,
-        ]);
-
-        // element `description`
-        $this->addElement([
-            'name'      => 'description',
-            'factory'   => 'text',
-            'label'     => _text('Description', null),
-            'maxlength' => 255,
-        ]);
+        
+        
+            /** element `q` id=1535 **/
+            $this->addElement(array ( 'name' => 'q', 'factory' => 'text', 'placeholder' => _text('Keywords','_core.component'), ));        
+        
+            /** element `package_id` id=978 **/
+            $this->addElement(array ( 'name' => 'package_id', 'factory' => 'select', 'placeholder' => _text('Package','_core.component'), 'options' => _get('core.packages')->getPackageIdOptions(), ));        
+        /** end elements **/
 
         $this->addButton([
             'name'       => 'search',
-            'factory'    => 'button',
+            'factory'=>'button',
             'label'      => _text('Search'),
-            'attributes' => ['class' => 'btn btn-primary', 'type' => 'submit',],
+            'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
         ]);
-
-        /** end elements **/
     }
 }

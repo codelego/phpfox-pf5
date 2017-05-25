@@ -2,8 +2,9 @@
 
 namespace Neutron\Core\Controller;
 
-use Neutron\Core\Form\Admin\LayoutComponent\AddLayoutComponent;
+use Neutron\Core\Form\Admin\LayoutComponent\DeleteLayoutComponent;
 use Neutron\Core\Form\Admin\LayoutComponent\EditLayoutComponent;
+use Neutron\Core\Form\Admin\LayoutComponent\FilterLayoutComponent;
 use Neutron\Core\Model\LayoutComponent;
 use Neutron\Core\Process\AdminAddEntryProcess;
 use Neutron\Core\Process\AdminEditEntryProcess;
@@ -21,7 +22,7 @@ class AdminComponentController extends AdminController
                 'label' => _text('Component', 'admin'),
             ]);
 
-        _get('menu.admin.secondary')->load('admin','appearance');
+        _get('menu.admin.secondary')->load('admin', 'appearance');
 
     }
 
@@ -35,8 +36,11 @@ class AdminComponentController extends AdminController
     public function actionIndex()
     {
         return (new AdminListEntryProcess([
-            'model'    => LayoutComponent::class,
-            'template' => 'core/admin-layout/manage-layout-component',
+            'filter.form' => FilterLayoutComponent::class,
+            'model'       => LayoutComponent::class,
+            'select'      => _model('layout_component')->select()->order('package_id,component_name', 1),
+            'template'    => 'core/admin-layout/manage-component',
+            'noLimit'     => true,
         ]))->process();
 
     }
@@ -45,7 +49,7 @@ class AdminComponentController extends AdminController
     {
         return (new AdminAddEntryProcess([
             'model'    => LayoutComponent::class,
-            'form'     => AddLayoutComponent::class,
+            'form'     => DeleteLayoutComponent::class,
             'redirect' => _url('admin.core.layout.component'),
         ]))->process();
     }

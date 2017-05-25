@@ -66,7 +66,7 @@ class SqlCondition
                 strtr($statement, $this->quoteArray($value)),
             ];
         } elseif ($value instanceof SqlLiteral) {
-            $this->elements [] = [$type, $value->getLiteral()];
+            $this->elements [] = [$type, str_replace('?', $value->getLiteral(), $statement)];
         } else {
             $this->elements [] = [
                 $type,

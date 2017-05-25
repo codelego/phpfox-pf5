@@ -23,7 +23,7 @@ class AdminUserController extends AdminController
         _get('html.title')
             ->set(_text('Members', 'admin'));
 
-        _get('menu.admin.secondary')->load('admin','user');
+        _get('menu.admin.secondary')->load('admin', 'user');
 
         _get('menu.admin.buttons')->load('_user.buttons');
     }
@@ -32,9 +32,9 @@ class AdminUserController extends AdminController
     public function actionIndex()
     {
         return (new AdminListEntryProcess([
-            'filter'   => AdminFilterUser::class,
-            'model'    => User::class,
-            'template' => 'user/admin-user/manage-user',
+            'filter.form' => AdminFilterUser::class,
+            'model'       => User::class,
+            'template'    => 'user/admin-user/manage-user',
         ]))->process();
     }
 

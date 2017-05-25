@@ -6,12 +6,12 @@ use Neutron\Core\Model\AclAction;
 use Neutron\Core\Model\AclForm;
 use Neutron\Core\Model\SettingForm;
 use Neutron\Core\Model\SettingValue;
-use Neutron\Dev\FormAclSettingGenerator;
+use Neutron\Dev\FormPermissionGenerator;
 use Neutron\Dev\FormAdminAddGenerator;
 use Neutron\Dev\FormAdminDeleteGenerator;
 use Neutron\Dev\FormAdminEditGenerator;
 use Neutron\Dev\FormAdminFilterGenerator;
-use Neutron\Dev\FormSiteSettingGenerator;
+use Neutron\Dev\FormSettingGenerator;
 use Neutron\Dev\Model\DevAction;
 use Neutron\Dev\Model\DevElement;
 use Neutron\Dev\Model\DevTable;
@@ -128,11 +128,11 @@ class CodeGenerator
                     break;
                 case self::FORM_ACL_SETTINGS:
                     $this->updateElementsByAclSettingForm($devAction, null);
-                    (new FormAclSettingGenerator($devAction))->process();
+                    (new FormPermissionGenerator($devAction))->process();
                     break;
                 case self::FORM_SITE_SETTINGS:
                     $this->updateElementsBySiteSettingsForm($devAction, null);
-                    (new FormSiteSettingGenerator($devAction))->process();
+                    (new FormSettingGenerator($devAction))->process();
                     break;
                 case 'model_class':
                     $this->updateElementsByTableInfo($devAction, null);

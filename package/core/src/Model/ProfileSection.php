@@ -12,15 +12,18 @@ class ProfileSection extends DbModel
     public function setSectionId($value){$this->__set('section_id', $value);}
     public function setId($value){$this->__set('section_id', $value);}
     
-    public function getItemType(){return $this->__get('item_type');}
-    public function setItemType($value){$this->__set('item_type', $value);}
-    
-    public function getSectionName(){return $this->__get('section_name');}
-    public function setSectionName($value){$this->__set('section_name', $value);}
+    public function getProcessId(){return (int) $this->__get('process_id');}
+    public function setProcessId($value){$this->__set('process_id', $value);}
     
     public function getSectionLabel(){return $this->__get('section_label');}
     public function setSectionLabel($value){$this->__set('section_label', $value);}
     
     public function getOrdering(){return (int) $this->__get('ordering');}
     public function setOrdering($value){$this->__set('ordering', $value);}
+    
+    public function isActive(){return $this->__get('is_active') ?1:0;}
+    public function setActive($value){$this->__set('is_active',$value?1:0);}
+    
+    public function getDependencies(){return $this->__get('dependencies');}
+    public function setDependencies($value){$this->__set('dependencies', $value);}
     }

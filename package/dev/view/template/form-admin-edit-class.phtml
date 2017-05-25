@@ -10,7 +10,7 @@ class <?= $shortFormClass?> extends Form {
     public function initialize(){
 
         $this->setTitle(_text('<?= $formTitle ?>','<?= $textDomain ?>'));
-        $this->setInfo(_text('[<?= $formTitle ?> Info]','<?= $textDomain ?>'));
+        $this->setInfo(_text('<?= $formTitle ?> [Form Info]','<?= $textDomain ?>'));
         $this->setAction(_url('#'));
 
         /** start elements **/
@@ -32,7 +32,7 @@ class <?= $shortFormClass?> extends Form {
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'cancel',
-            'href'       => '#',
+            'href'       => _url('<?= $cancelUrl ?>'),
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
         ]);

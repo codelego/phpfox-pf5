@@ -46,7 +46,7 @@ class AdminTableController extends AdminController
         }
 
         return (new AdminListEntryProcess([
-            'filter'   => FilterDevTable::class,
+            'filter.form'   => FilterDevTable::class,
             'select'   => $select,
             'noLimit'  => true,
             'template' => 'dev/admin-dev/manage-dev-table',

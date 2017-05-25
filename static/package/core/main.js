@@ -1,6 +1,7 @@
 define(['jquery', 'underscore'], function () {
 
     var Core, commands = [],
+        $ = require('jquery'),
         _ = require('underscore');
 
     //###############################################//
@@ -46,8 +47,8 @@ define(['jquery', 'underscore'], function () {
             }
             return this;
         },
-        xtarget: function (dom,path) {
-            var i, arr = path.replace('//', '@').replace(/;(.*)$/g,'').split('/');
+        xtarget: function (dom, path) {
+            var i, arr = path.replace('//', '@').replace(/;(.*)$/g, '').split('/');
             for (i in arr) {
                 switch (arr[i].charAt(0)) {
                     case ':':

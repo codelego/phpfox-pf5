@@ -21,7 +21,7 @@ class AdminCategoryController extends AdminController
             ->set(['href' => _url('admin.blog'), 'label' => _text('Blogs')]);
 
         _get('menu.admin.buttons')->load('_blog.buttons');
-        _get('menu.admin.secondary')->load('admin','blog');
+        _get('menu.admin.secondary')->load('admin', 'blog');
 
     }
 
@@ -36,9 +36,9 @@ class AdminCategoryController extends AdminController
     public function actionIndex()
     {
         return (new AdminListEntryProcess([
-                'filter'   => null,
-                'model'    => BlogCategory::class,
-                'template' => 'blog/admin-category/manage-blog-category',
+                'filter.form' => null,
+                'model'       => BlogCategory::class,
+                'template'    => 'blog/admin-category/manage-blog-category',
             ]
         ))->process();
 

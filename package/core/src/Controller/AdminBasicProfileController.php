@@ -2,13 +2,18 @@
 
 namespace Neutron\Core\Controller;
 
-use Neutron\Core\Model\ProfileQuestion;
-use Neutron\Core\Model\ProfileSection;
-use Neutron\User\Model\UserCatalog;
+use Neutron\Core\Form\Admin\ProfileQuestion\SelectProfileQuestion;
+use Neutron\Core\Form\Admin\ProfileSection\AddProfileSection;
+use Neutron\Core\Model\ProfileProcess;
 use Phpfox\View\ViewModel;
 
 class AdminBasicProfileController extends AdminController
 {
+    /**
+     * @var string
+     */
+    protected $packageId = 'user';
+
     /**
      * @var string
      */
@@ -19,123 +24,147 @@ class AdminBasicProfileController extends AdminController
      */
     protected $catalogModel = 'user_catalog';
 
+    /**
+     * @var string
+     */
+    protected $route = 'admin.user.profile';
 
     /**
-     * list profile type
+     * @var array
      */
-    public function actionAttribute()
-    {
-        $items = _get('core.profile')
-            ->getProfileAttributes($this->itemType);
-
-        _get('require_js')
-            ->deps('package/core/table-sortable');
-
-        return new ViewModel([
-            'items'      => $items,
-            'item_type'  => 'user',
-            'catalog_id' => 0,
-        ], 'core/admin-profile/manage-profile-attribute');
-    }
-
-    /**
-     * list profile type
-     */
-    public function actionCatalog()
-    {
-        $items = _model($this->catalogModel)
-            ->select()
-            ->order('ordering', 1)
-            ->all();
-
-        _get('require_js')
-            ->deps('package/core/table-sortable');
-
-        return new ViewModel([
-            'items'      => $items,
-            'item_type'  => 'user',
-            'catalog_id' => 0,
-        ], 'core/admin-profile/manage-profile-type');
-    }
-
-    public function actionSection()
-    {
-        $items = _get('core.profile')
-            ->getProfileSections($this->itemType);
-
-        _get('require_js')
-            ->deps('package/core/table-sortable');
-
-        return new ViewModel([
-            'items'      => $items,
-            'item_type'  => 'user',
-            'catalog_id' => 0,
-        ], 'core/admin-profile/manage-profile-section');
-    }
+    protected $processTypes = ['create', 'edit', 'view', 'search'];
 
     public function actionIndex()
     {
-        /** @var ProfileQuestion[] $items */
-        $items = _get('core.profile')
-            ->getProfileQuestions($this->itemType, 0);
+        $catalogId = 1;
+        $processType = 'create';
+        $coreProfile = _get('core.profile');
 
-        _get('require_js')
-            ->deps('package/core/table-sortable');
+        $process = $coreProfile->getProfileProcess($this->itemType, $processType, $catalogId);
+
+        if (!$process and _model($this->catalogModel)->findById($catalogId) != null) {
+            $process = _model('profile_process')
+                ->create([
+                    'item_type'    => $this->itemType,
+                    'process_type' => $processType,
+                    'catalog_id'   => $catalogId,
+                ]);
+            $process->save();
+        }
+
+        if (!$process) {
+            throw new \InvalidArgumentException('Oops!, process not found');
+        }
+
+        $sections = $coreProfile->getProfileSections($process->getId());
+
+        $backUrl = base64_encode(_url('#'));
+
+        _get('menu.admin.buttons')
+            ->clear()
+            ->add([
+                'label' => 'Add Section',
+                'extra' => ['class' => 'btn btn-danger', 'data-cmd' => 'modal'],
+                'href'  => _url($this->route,
+                    ['action' => 'add-section', 'process_id' => $process->getId(), 'back' => $backUrl]),
+            ]);
 
         return new ViewModel([
-            'items'      => $items,
-            'item_type'  => 'user',
-            'catalog_id' => 0,
-        ], 'core/admin-profile/manage-profile-question');
-
+            'process'     => $process,
+            'sections'    => $sections,
+            'itemType'    => $this->itemType,
+            'catalogId'   => $catalogId,
+            'processType' => $processType,
+            'route'       => $this->route,
+        ], 'core/admin-profile/manage-profile-process');
     }
 
-
-    public function actionUpdateSectionOrdering()
+    public function actionAddSection()
     {
-        /** @var array $ordering */
-        $ordering = _get('request')->get('ordering');
 
-        foreach ($ordering as $index => $value) {
-            /** @var ProfileSection $entry */
-            $entry = _model('profile_section')->findById($value);
+        $request = _get('request');
+        $processId = $request->get('process_id');
+        $coreProfile = _get('core.profile');
 
-            if ($entry) {
-                $entry->setOrdering((int)$index + 1);
-                $entry->save();
-            }
+        // validate information
+        $profileProcess = $coreProfile->findProfileProcess($processId);
+
+        $this->validateProcess($profileProcess);
+
+        $form = new AddProfileSection([
+
+        ]);
+
+        if ($request->isGet()) {
         }
-    }
 
-    public function actionUpdateQuestionOrdering()
-    {
-        /** @var array $ordering */
-        $ordering = _get('request')->get('ordering');
+        if ($request->isPost() and $form->isValid($request->all())) {
+            $data = array_merge($form->getData(), [
+                'process_id'   => $processId,
+                'is_active'    => 1,
+                'ordering'     => 1,
+                'dependencies' => '[]',
+            ]);
 
-        foreach ($ordering as $index => $value) {
-            /** @var ProfileQuestion $entry */
-            $entry = _model('profile_question')->findById($value);
+            _model('profile_section')->create($data)->save();
 
-            if ($entry) {
-                $entry->setOrdering((int)$index + 1);
-                $entry->save();
-            }
+            $backUrl = base64_decode($request->get('back'));
+
+            _get('response')->redirect($backUrl);
         }
+
+        return new ViewModel([
+            'form' => $form,
+        ], 'layout/form-edit');
     }
 
-    public function actionUpdateCatalogOrdering()
+    public function actionAddQuestion()
     {
-        /** @var array $ordering */
-        $ordering = _get('request')->get('ordering');
+        $request = _get('request');
+        $sectionId = $request->get('section_id');
+        $processId = $request->get('process_id');
+        $coreProcess = _get('core.profile');
 
-        foreach ($ordering as $index => $value) {
-            /** @var UserCatalog $entry */
-            $entry = _model($this->catalogModel)->findById($value);
+        $profileProcess = $coreProcess->findProfileProcess($processId);
+        $profileSection = $coreProcess->findProfileSection($sectionId);
 
-            if ($entry) {
-                $entry->setOrdering((int)$index + 1);
-                $entry->save();
-            }
+        $this->validateProcess($profileProcess);
+
+        if (!$profileSection or $profileSection->getProcessId() != $processId) {
+            throw new \InvalidArgumentException('Invalid parameter "process_id');
+        }
+        // show form select attribute id.
+
+        $form = new SelectProfileQuestion([
+            'itemType'  => $this->itemType,
+            'processId' => $processId,
+        ]);
+
+        if ($request->isGet()) {
+
+        }
+
+        if ($request->isPost() and $form->isValid($request->all())) {
+            $attributeIds = $form->getData()['attribute_id'];
+            $coreProcess->addProfileQuestions($profileSection, $attributeIds);
+        }
+
+        return new ViewModel([
+            'form' => $form,
+        ], 'layout/form-edit');
+        // find process
+    }
+
+    /**
+     * @param ProfileProcess $profileProcess
+     */
+    protected function validateProcess($profileProcess)
+    {
+        if (!$profileProcess
+            OR $profileProcess->getItemType() != $this->itemType
+            OR !in_array($profileProcess->getProcessType(), $this->processTypes)
+        ) {
+            throw new \InvalidArgumentException('Invalid parameter "process_id');
         }
     }
 }

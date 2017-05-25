@@ -9,6 +9,7 @@ define(['jquery', 'underscore', 'core'], function () {
      */
     var Dialog = function (opts) {
         opts = $.extend({
+            data: {},
             type: 'modal',// modal, alert, confirm, prompt
             size: 'sm', // options xs, sm, md, lg, xl
             url: false, // url of remote data
@@ -45,6 +46,7 @@ define(['jquery', 'underscore', 'core'], function () {
             $.ajax({
                 url: opts.url,
                 type: 'get',
+                data: opts.data,
                 dataType: 'json',
                 headers: {requestType: 'content'}
             }).done(function (data) {

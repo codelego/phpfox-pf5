@@ -9,6 +9,7 @@ use Neutron\Core\Model\I18nMessage;
 use Neutron\Core\Model\I18nTimezone;
 use Neutron\Core\Process\AdminEditEntryProcess;
 use Neutron\Core\Process\AdminListEntryProcess;
+use Neutron\Core\Service\FilterI18nMessageService;
 use Phpfox\View\ViewModel;
 
 class AdminI18nMessageController extends AdminController
@@ -25,7 +26,7 @@ class AdminI18nMessageController extends AdminController
         _get('html.title')
             ->set(_text('International', 'admin'));
 
-        _get('menu.admin.secondary')->load('admin','i18n');
+        _get('menu.admin.secondary')->load('admin', 'i18n');
     }
 
     protected function afterDispatch($action)
@@ -41,7 +42,8 @@ class AdminI18nMessageController extends AdminController
             ->deps('package/core/admin-i18n');
 
         return (new AdminListEntryProcess([
-            'filter'   => FilterI18nMessage::class,
+            'filter.form'   => FilterI18nMessage::class,
+            'filter.service'   => new FilterI18nMessageService(),
             'model'    => I18nMessage::class,
             'template' => 'core/admin-i18n/manage-i18n-message',
         ]))->process();

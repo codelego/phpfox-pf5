@@ -5,14 +5,17 @@ class CoreMenuTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new CoreMenu(array (  'menu_id' => 'admin',  'menu_name' => 'Admin',  'package_id' => 'core',  'ordering' => 2,  'is_admin' => 1,));
+        $obj = new CoreMenu(array (  'menu_id' => 'admin',  'menu_name' => 'Admin',  'package_id' => 'core',  'ordering' => 2,  'is_admin' => 1,  'is_system' => 1,  'is_custom' => 0,  'description' => NULL,));
 
         $this->assertSame('core_menu', $obj->getModelId());
         $this->assertSame('admin', $obj->getMenuId());
         $this->assertSame('Admin', $obj->getMenuName());
         $this->assertSame('core', $obj->getPackageId());
         $this->assertSame(2, $obj->getOrdering());
-        $this->assertSame(1, $obj->isAdmin());    }
+        $this->assertSame(1, $obj->isAdmin());
+        $this->assertSame(1, $obj->isSystem());
+        $this->assertSame(0, $obj->isCustom());
+        $this->assertSame('', $obj->getDescription());    }
 
     public function testParameters()
     {
@@ -24,17 +27,23 @@ class CoreMenuTest extends \PHPUnit_Framework_TestCase
         $obj->setPackageId('core');
         $obj->setOrdering(2);
         $obj->setAdmin(1);
+        $obj->setSystem(1);
+        $obj->setCustom(0);
+        $obj->setDescription('');
         // assert same data
         $this->assertSame('core_menu', $obj->getModelId());
         $this->assertSame('admin', $obj->getMenuId());
         $this->assertSame('Admin', $obj->getMenuName());
         $this->assertSame('core', $obj->getPackageId());
         $this->assertSame(2, $obj->getOrdering());
-        $this->assertSame(1, $obj->isAdmin());    }
+        $this->assertSame(1, $obj->isAdmin());
+        $this->assertSame(1, $obj->isSystem());
+        $this->assertSame(0, $obj->isCustom());
+        $this->assertSame('', $obj->getDescription());    }
 
     public function testSave()
     {
-        $obj = new CoreMenu(array (  'menu_id' => 'admin',  'menu_name' => 'Admin',  'package_id' => 'core',  'ordering' => 2,  'is_admin' => 1,));
+        $obj = new CoreMenu(array (  'menu_id' => 'admin',  'menu_name' => 'Admin',  'package_id' => 'core',  'ordering' => 2,  'is_admin' => 1,  'is_system' => 1,  'is_custom' => 0,  'description' => NULL,));
 
         $obj->save();
 
@@ -47,7 +56,10 @@ class CoreMenuTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('Admin', $obj->getMenuName());
         $this->assertSame('core', $obj->getPackageId());
         $this->assertSame(2, $obj->getOrdering());
-        $this->assertSame(1, $obj->isAdmin());    }
+        $this->assertSame(1, $obj->isAdmin());
+        $this->assertSame(1, $obj->isSystem());
+        $this->assertSame(0, $obj->isCustom());
+        $this->assertSame('', $obj->getDescription());    }
 
     public static function setUpBeforeClass()
     {

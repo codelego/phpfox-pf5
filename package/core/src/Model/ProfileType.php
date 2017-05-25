@@ -17,7 +17,4 @@ class ProfileType extends DbModel
     
     public function getCatalogId(){return (int) $this->__get('catalog_id');}
     public function setCatalogId($value){$this->__set('catalog_id', $value);}
-    
-    public function getOrdering(){return (int) $this->__get('ordering');}
-    public function setOrdering($value){$this->__set('ordering', $value);}
     }

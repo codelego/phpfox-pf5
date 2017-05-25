@@ -5,13 +5,12 @@ class ProfileTypeTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new ProfileType(array (  'internal_id' => 1,  'item_type' => 'user',  'catalog_id' => 0,  'ordering' => 10,));
+        $obj = new ProfileType(array (  'internal_id' => 1,  'item_type' => 'user',  'catalog_id' => 1,));
 
         $this->assertSame('profile_type', $obj->getModelId());
         $this->assertSame(1, $obj->getInternalId());
         $this->assertSame('user', $obj->getItemType());
-        $this->assertSame(0, $obj->getCatalogId());
-        $this->assertSame(10, $obj->getOrdering());    }
+        $this->assertSame(1, $obj->getCatalogId());    }
 
     public function testParameters()
     {
@@ -20,18 +19,16 @@ class ProfileTypeTest extends \PHPUnit_Framework_TestCase
         // set data
         $obj->setInternalId(1);
         $obj->setItemType('user');
-        $obj->setCatalogId(0);
-        $obj->setOrdering(10);
+        $obj->setCatalogId(1);
         // assert same data
         $this->assertSame('profile_type', $obj->getModelId());
         $this->assertSame(1, $obj->getInternalId());
         $this->assertSame('user', $obj->getItemType());
-        $this->assertSame(0, $obj->getCatalogId());
-        $this->assertSame(10, $obj->getOrdering());    }
+        $this->assertSame(1, $obj->getCatalogId());    }
 
     public function testSave()
     {
-        $obj = new ProfileType(array (  'internal_id' => 1,  'item_type' => 'user',  'catalog_id' => 0,  'ordering' => 10,));
+        $obj = new ProfileType(array (  'internal_id' => 1,  'item_type' => 'user',  'catalog_id' => 1,));
 
         $obj->save();
 
@@ -42,8 +39,7 @@ class ProfileTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('profile_type', $obj->getModelId());
         $this->assertSame(1, $obj->getInternalId());
         $this->assertSame('user', $obj->getItemType());
-        $this->assertSame(0, $obj->getCatalogId());
-        $this->assertSame(10, $obj->getOrdering());    }
+        $this->assertSame(1, $obj->getCatalogId());    }
 
     public static function setUpBeforeClass()
     {

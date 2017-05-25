@@ -5,14 +5,15 @@ class ProfileSectionTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new ProfileSection(array (  'section_id' => 1,  'item_type' => 'user',  'section_name' => 'info',  'section_label' => 'Basic Information',  'ordering' => 1,));
+        $obj = new ProfileSection(array (  'section_id' => 1,  'process_id' => 1,  'section_label' => 'Test',  'ordering' => 1,  'is_active' => 1,  'dependencies' => '[]',));
 
         $this->assertSame('profile_section', $obj->getModelId());
         $this->assertSame(1, $obj->getSectionId());
-        $this->assertSame('user', $obj->getItemType());
-        $this->assertSame('info', $obj->getSectionName());
-        $this->assertSame('Basic Information', $obj->getSectionLabel());
-        $this->assertSame(1, $obj->getOrdering());    }
+        $this->assertSame(1, $obj->getProcessId());
+        $this->assertSame('Test', $obj->getSectionLabel());
+        $this->assertSame(1, $obj->getOrdering());
+        $this->assertSame(1, $obj->isActive());
+        $this->assertSame('[]', $obj->getDependencies());    }
 
     public function testParameters()
     {
@@ -20,21 +21,23 @@ class ProfileSectionTest extends \PHPUnit_Framework_TestCase
 
         // set data
         $obj->setSectionId(1);
-        $obj->setItemType('user');
-        $obj->setSectionName('info');
-        $obj->setSectionLabel('Basic Information');
+        $obj->setProcessId(1);
+        $obj->setSectionLabel('Test');
         $obj->setOrdering(1);
+        $obj->setActive(1);
+        $obj->setDependencies('[]');
         // assert same data
         $this->assertSame('profile_section', $obj->getModelId());
         $this->assertSame(1, $obj->getSectionId());
-        $this->assertSame('user', $obj->getItemType());
-        $this->assertSame('info', $obj->getSectionName());
-        $this->assertSame('Basic Information', $obj->getSectionLabel());
-        $this->assertSame(1, $obj->getOrdering());    }
+        $this->assertSame(1, $obj->getProcessId());
+        $this->assertSame('Test', $obj->getSectionLabel());
+        $this->assertSame(1, $obj->getOrdering());
+        $this->assertSame(1, $obj->isActive());
+        $this->assertSame('[]', $obj->getDependencies());    }
 
     public function testSave()
     {
-        $obj = new ProfileSection(array (  'section_id' => 1,  'item_type' => 'user',  'section_name' => 'info',  'section_label' => 'Basic Information',  'ordering' => 1,));
+        $obj = new ProfileSection(array (  'section_id' => 1,  'process_id' => 1,  'section_label' => 'Test',  'ordering' => 1,  'is_active' => 1,  'dependencies' => '[]',));
 
         $obj->save();
 
@@ -44,10 +47,11 @@ class ProfileSectionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('profile_section', $obj->getModelId());
         $this->assertSame(1, $obj->getSectionId());
-        $this->assertSame('user', $obj->getItemType());
-        $this->assertSame('info', $obj->getSectionName());
-        $this->assertSame('Basic Information', $obj->getSectionLabel());
-        $this->assertSame(1, $obj->getOrdering());    }
+        $this->assertSame(1, $obj->getProcessId());
+        $this->assertSame('Test', $obj->getSectionLabel());
+        $this->assertSame(1, $obj->getOrdering());
+        $this->assertSame(1, $obj->isActive());
+        $this->assertSame('[]', $obj->getDependencies());    }
 
     public static function setUpBeforeClass()
     {

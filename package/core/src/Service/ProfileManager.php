@@ -4,86 +4,147 @@ namespace Neutron\Core\Service;
 
 
 use Neutron\Core\Model\ProfileAttribute;
+use Neutron\Core\Model\ProfileProcess;
 use Neutron\Core\Model\ProfileQuestion;
 use Neutron\Core\Model\ProfileSection;
-use Neutron\Core\Model\ProfileType;
+use Phpfox\Db\SqlLiteral;
 
 class ProfileManager
 {
     /**
-     * @param string $itemType
-     * @param string $catalogId
+     * @param string $processId
      *
-     * @return ProfileType
+     * @return ProfileProcess
      */
-    public function getProfileType($itemType, $catalogId)
+    public function findProfileProcess($processId)
     {
-        /** @var ProfileType $profileType */
-        $profileType = _model('profile_type')
+        return _model('profile_process')
+            ->findById($processId);
+    }
+
+    /**
+     * @param string $sectionId
+     *
+     * @return ProfileProcess
+     */
+    public function findProfileSection($sectionId)
+    {
+        return _model('profile_section')
+            ->findById($sectionId);
+    }
+
+    /**
+     * @param string $itemType
+     * @param mixed  $processId
+     *
+     * @return array
+     */
+    public function getSuggestProfileAttributeOptions($itemType, $processId)
+    {
+
+        $subQuery = new SqlLiteral(_model('profile_question')
+            ->select('attribute_id')
+            ->where('section_id IN (?)', new SqlLiteral(_model('profile_section')
+                ->select('section_id')
+                ->where('process_id=?', (int)$processId)
+                ->prepare()))->prepare());
+
+        return array_map(function (ProfileAttribute $attribute) {
+            return [
+                'value' => $attribute->getId(),
+                'label' => $attribute->getAttributeLabel(),
+            ];
+        }, _model('profile_attribute')
             ->select()
             ->where('item_type=?', $itemType)
-            ->where('catalog_id=?', intval($catalogId))
-            ->first();
-
-        return $profileType;
+            ->where('attribute_id NOT IN (?)', $subQuery)
+            ->all());
     }
 
     /**
      * @param string $itemType
-     * @param mixed  $catalogId
+     * @param string $processType
+     * @param string $catalogId
      *
-     * @return ProfileQuestion[]
+     * @return ProfileProcess
      */
-    public function getProfileQuestions($itemType, $catalogId)
+    public function getProfileProcess($itemType, $processType, $catalogId)
     {
-        $profileType = $this->getProfileType($itemType, $catalogId);
-
-        return _model('profile_question')
+        return _model('profile_process')
             ->select()
-            ->where('internal_id=?', $profileType->getInternalId())
-            ->order('ordering', 1)
-            ->all();
+            ->where('item_type=?', $itemType)
+            ->where('process_type=?', $processType)
+            ->where('catalog_id=?', $catalogId)
+            ->first();
     }
 
     /**
-     * @param string $itemType
+     * @param mixed $processId
+     * @param bool  $activeOnly
      *
      * @return ProfileSection[]
      */
-    public function getProfileSections($itemType)
+    public function getProfileSections($processId, $activeOnly = false)
     {
         return _model('profile_section')
             ->select()
-            ->where('item_type=?', $itemType)
+            ->where('process_id=?', $processId)
+            ->whereIf($activeOnly, 'is_active=?', 1)
             ->order('ordering', 1)
             ->all();
     }
 
     /**
-     * @param string $itemType
+     * @param string $sectionId
+     * @param bool   $activeOnly
      *
-     * @return ProfileSection[]
+     * @return ProfileQuestion
      */
-    public function getProfileAttributes($itemType)
+    public function getProfileQuestions($sectionId, $activeOnly = false)
     {
-        return _model('profile_attribute')
+        return _model('profile_question')
             ->select()
-            ->where('item_type=?', $itemType)
+            ->where('section_id=?', $sectionId)
+            ->whereIf($activeOnly, 'is_active=?', 1)
             ->order('ordering', 1)
             ->all();
     }
 
     /**
-     * @param string $itemType
-     *
-     * @return ProfileType[]
+     * @param ProfileSection $profileSection
+     * @param array          $attributeIds
      */
-    public function getProfileTypes($itemType)
+    public function addProfileQuestions($profileSection, $attributeIds = [])
     {
-        return _model('profile_type')
+        if (empty($attributeIds)) {
+            return;
+        }
+
+        $profileProcess = $this->findProfileProcess($profileSection->getProcessId());
+
+        /** @var ProfileAttribute[] $profileAttributes */
+        $profileAttributes = _model('profile_attribute')
             ->select()
-            ->where('item_type=?', $itemType)
+            ->where('item_type=?', $profileProcess->getItemType())
+            ->where('attribute_id in ?', $attributeIds)
             ->order('ordering', 1)
             ->all();
+
+        foreach ($profileAttributes as $attribute) {
+            $question = new ProfileQuestion([
+                'section_id'     => (int)$profileSection->getId(),
+                'attribute_id'   => (int)$attribute->getId(),
+                'factory_id'     => (string)$attribute->getFactoryId(),
+                'question_label' => (string)$attribute->getAttributeLabel(),
+                'placeholder'    => (string)$attribute->getPlaceholder(),
+                'info'           => (string)$attribute->getInfo(),
+                'note'           => (string)$attribute->getNote(),
+                'options'        => (string)$attribute->getOptions(),
+                'ordering'       => (int)$attribute->getOrdering(),
+                'is_system'      => (int)$attribute->isSystem(),
+                'is_active'      => (int)$attribute->isActive(),
+            ]);
+            $question->save();
+        }
     }
 }

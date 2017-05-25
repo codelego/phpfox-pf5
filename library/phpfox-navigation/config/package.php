@@ -8,6 +8,7 @@ return [
         'nav'     => NavDecorator::class,
         'aside'   => AsideDecorator::class,
         'toolbar' => ToolbarDecorator::class,
+        'edit'    => EditDecorator::class,
     ],
     'services'              => [
         'navigation' => [null, NavigationManager::class],
