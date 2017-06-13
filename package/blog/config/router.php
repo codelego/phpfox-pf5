@@ -48,10 +48,6 @@ return [
                     'route'      => 'settings(/<action>)',
                     'controller' => 'blog.admin-settings',
                 ],
-                'acl'      => [
-                    'route'      => 'acl(/<action>)',
-                    'controller' => 'blog.admin-acl',
-                ],
                 'post'     => [
                     'route'      => '<action>',
                     'controller' => 'blog.admin-post',

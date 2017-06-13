@@ -465,8 +465,15 @@ select {
 .content-wrapper, .main-search-wrapper {
   padding: 0 10px 0 8px; }
 
+.main-search-wrapper .panel-body {
+  padding: 0 10px; }
+
 .toolbar-bottom {
   margin-bottom: 16px; }
+  .toolbar-bottom .dropup {
+    float: left; }
+  .toolbar-bottom .pagination-sliding {
+    float: right; }
 
 .fly-dropdown {
   position: absolute; }

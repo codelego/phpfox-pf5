@@ -56,7 +56,7 @@ class EditDecorator extends AbstractDecorator
     {
         $href = null;
         // validate passed acl
-        if ($item->acl and !_can(null, $item->acl)) {
+        if ($item->acl and !_allow(null, $item->acl)) {
             return '';
         }
 

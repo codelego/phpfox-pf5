@@ -557,58 +557,6 @@ class PackageLoader implements PackageLoaderInterface
         });
     }
 
-    public function getPermissionParameter($levelType, $levelId)
-    {
-        return _try('super.cache', ['permission_parameters', $levelId], 0, function () use ($levelType, $levelId) {
-            return $this->_getPermissionParameter($levelType, $levelId);
-        });
-    }
-
-    /**
-     * @param string $levelType
-     * @param int    $levelId
-     *
-     * @return Parameters
-     */
-    public function _getPermissionParameter($levelType, $levelId)
-    {
-        // recursive test
-        $testArray = [$levelId];
-        $data = [];
-
-
-        do {
-            // inherit test
-            $level = _get('db')->select()
-                ->from(':acl_level')
-                ->where('level_type=?', $levelType)
-                ->where('level_id=?', $levelId)
-                ->first();
-
-            if (!$level) {
-                continue;
-            }
-
-            $internalId = (int)$level['internal_id'];
-
-
-            $items = _get('db')->select('av.*, ac.domain_id, ac.name')
-                ->from(':acl_value', 'av')
-                ->join(':acl_action', 'ac', 'ac.action_id=av.action_id')
-                ->where('av.internal_id=?', $internalId)
-                ->all();
-
-            foreach ($items as $item) {
-                $key = sprintf('%s.%s', $item['domain_id'], $item['name']);
-                if (!array_key_exists($key, $data)) {
-                    $data[$key] = json_decode($item['value_actual'], true);
-                }
-            }
-            $levelId = (int)$level['inherit_id'];
-        } while ($levelId and !in_array($levelId, $testArray));
-
-        return new Parameters($data);
-    }
 
     /**
      * @param string $menu

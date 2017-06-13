@@ -3,11 +3,14 @@
 namespace Neutron\Blog\Controller;
 
 use Neutron\Blog\Form\AddBlogPost;
+use Neutron\Blog\Form\Admin\BlogPost\DeleteBlogPost;
 use Neutron\Blog\Form\Admin\BlogPost\EditBlogPost;
+use Neutron\Blog\Form\Admin\BlogPost\FilterBlogPost;
 use Neutron\Blog\Model\BlogPost;
 use Neutron\Core\Controller\AdminController;
 use Neutron\Core\Process\AdminAddEntryProcess;
 use Neutron\Core\Process\AdminListEntryProcess;
+use Phpfox\View\ViewModel;
 
 class AdminPostController extends AdminController
 {
@@ -35,10 +38,32 @@ class AdminPostController extends AdminController
     {
         return (new AdminListEntryProcess([
                 'model'    => BlogPost::class,
+                'filter.form'=> FilterBlogPost::class,
                 'template' => 'blog/admin-post/manage-blog-post',
             ]
         ))->process();
 
+    }
+
+    public function actionDelete()
+    {
+        $request =  _get('request');
+        $identity = $request->get('post_id');
+
+        $entry = _find('blog_post', $identity);
+
+        $form  = new DeleteBlogPost();
+
+        if($request->isGet()){
+
+        }
+
+        if($request->isPost() and $form->isValid($request->all())){
+            $entry->delete();
+        }
+        return new ViewModel([
+            'form'=>$form,
+        ],'layout/form-edit');
     }
 
     public function actionAdd()

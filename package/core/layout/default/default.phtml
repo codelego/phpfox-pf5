@@ -7,9 +7,11 @@
 <header>
     <?= $this->render('layout/header', []) ?>
 </header>
+<div id="layout_containers">
 <section id="content">
     <?php echo @$layout_content ?>
 </section>
+</div>
 <footer>
     <?= $this->render('layout/footer', []) ?>
 </footer>

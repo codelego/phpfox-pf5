@@ -32,7 +32,13 @@ interface UserInterface extends ItemInterface
     public function isUser();
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getLevelId();
+
+    /**
+     * @return string
+     */
+    public function getLevelType();
+
 }

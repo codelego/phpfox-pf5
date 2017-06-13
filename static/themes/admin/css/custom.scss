@@ -272,16 +272,16 @@ $ibox-zindex: 100;
   right: 0;
   top: 0;
 
-  &.ibox-alert{
+  &.ibox-alert {
     position: fixed;
-    .ibox-content{
-      margin-top:200px;
+    .ibox-content {
+      margin-top: 200px;
     }
   }
-  &.ibox-confirm{
+  &.ibox-confirm {
     position: fixed;
-    .ibox-content{
-      margin-top:200px;
+    .ibox-content {
+      margin-top: 200px;
     }
   }
 }
@@ -554,8 +554,19 @@ select {
   padding: 0 10px 0 8px;
 }
 
+.main-search-wrapper .panel-body{
+  padding: 0 10px;
+}
+
 .toolbar-bottom {
   margin-bottom: $padding-base;
+  .dropup {
+    float: left
+  }
+  .pagination-sliding {
+    float: right
+  }
+
 }
 
 .global-search-wrapper {

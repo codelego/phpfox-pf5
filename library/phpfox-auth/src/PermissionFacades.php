@@ -23,19 +23,19 @@ class PermissionFacades
     /**
      * @var string
      */
-    private $levelType = 'user';
+    private $itemType = 'user';
 
     /**
      * @param string $levelKey
-     * @param string $levelType
+     * @param string $itemType
      * @param int    $levelId
      *
      * @return void
      */
-    public function loadPermissionData($levelKey, $levelType, $levelId)
+    public function loadPermissionData($levelKey, $itemType, $levelId)
     {
-        $this->data[$levelKey] = _get('package.loader')
-            ->getPermissionParameter($levelType, $levelId);
+        $this->data[$levelKey] = _get('permission.loader')
+            ->getPermissionParameter($itemType, $levelId);
     }
 
     /**
@@ -45,22 +45,38 @@ class PermissionFacades
      *
      * @return mixed
      */
-    public function can($user, $action, $default = false)
+    public function allow($user, $action, $default = false)
     {
         $levelId = $this->levelId;
-        $levelType = $this->levelType;
+        $itemType = $this->itemType;
 
         if (null != $user) {
             $levelId = $user->getLevelId();
-            $levelType = $user->getModelId();
+            $itemType = $user->getModelId();
         }
 
-        if (!isset($this->data[$levelKey = $levelType . ':' . $levelId])) {
-            $this->loadPermissionData($levelKey, $levelType, $levelId);
+        if (!isset($this->data[$levelKey = $itemType . ':' . $levelId])) {
+            $this->loadPermissionData($levelKey, $itemType, $levelId);
         }
 
+        return $this->data[$levelKey]->get($action, $default);
+    }
 
-        return (bool)$this->data[$levelKey]->get($action, $default);
+    /**
+     * @param string $levelId
+     * @param string $itemType
+     * @param string $action
+     * @param bool   $default
+     *
+     * @return bool
+     */
+    public function checkByLevel($levelId, $itemType, $action, $default = false)
+    {
+        if (!isset($this->data[$levelKey = $itemType . ':' . $levelId])) {
+            $this->loadPermissionData($levelKey, $itemType, $levelId);
+        }
+
+        return $this->data[$levelKey]->get($action, $default);
     }
 
     /**
@@ -104,15 +120,15 @@ class PermissionFacades
     public function check($user, $item, $action, $privacy = null)
     {
         $levelId = $this->levelId;
-        $levelType = $this->levelType;
+        $itemType = $this->itemType;
 
         if (null != $user) {
             $levelId = $user->getLevelId();
-            $levelType = $user->getModelId();
+            $itemType = $user->getModelId();
         }
 
-        if (!isset($this->data[$levelKey = $levelType . ':' . $levelId])) {
-            $this->loadPermissionData($levelKey, $levelType, $levelId);
+        if (!isset($this->data[$levelKey = $itemType . ':' . $levelId])) {
+            $this->loadPermissionData($levelKey, $itemType, $levelId);
         }
 
         $can = (bool)$this->data[$levelKey]->get($action, true);
@@ -146,7 +162,7 @@ class PermissionFacades
      *
      * @return bool
      */
-    public function allow($user, $item, $action)
+    public function pass($user, $item, $action)
     {
         /** todo implement this method */
     }
@@ -161,10 +177,10 @@ class PermissionFacades
         $target = $event->getTarget();
         if ($target instanceof UserInterface) {
             $this->levelId = $target->getLevelId();
-            $this->levelType = $target->getModelId();
+            $this->itemType = $target->getModelId();
         } else {
             $this->levelId = PHPFOX_GUEST_ID;
-            $this->levelType = 'user';
+            $this->itemType = 'user';
         }
     }
 }

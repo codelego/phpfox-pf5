@@ -9,5 +9,4 @@ return [
     'blog.admin-post'     => AdminPostController::class,
     'blog.admin-category' => AdminCategoryController::class,
     'blog.admin-settings' => AdminSettingController::class,
-    'blog.admin-acl'      => AdminAclController::class,
 ];

@@ -2,6 +2,7 @@
 
 namespace Phpfox\Db;
 
+
 /**
  * Class SqlSelect
  *
@@ -470,7 +471,7 @@ class SqlSelect
         $result->setPrototype($this->_prototype);
 
         if (!$result->isValid()) {
-            if(PHPFOX_ENV == 'development'){
+            if (PHPFOX_ENV == 'development') {
                 exit($sql);
             }
             throw new SqlException($sql . PHP_EOL . $result->error());

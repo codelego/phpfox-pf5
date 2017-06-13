@@ -23,6 +23,19 @@ class IndexController extends ActionController
 
         $request = _get('request');
 
+        $userId = _get('auth')->getLoginId();
+
+        $quota = _allow(null, 'blog.post_limit', 10);
+
+        $total = _model('blog_post')
+            ->select()
+            ->where('user_id=?', $userId)
+            ->count();
+
+        if ($total > $quota) {
+            exit('reach limit quota');
+        }
+
         if ($request->isPost() and $form->isValid($request->all())) {
             $data = $form->getData();
             $entry = _model('blog_post')->create($data);
@@ -30,7 +43,7 @@ class IndexController extends ActionController
         }
 
         return new ViewModel([
-            'form'    => $form,
+            'form' => $form,
         ], 'layout/form-edit');
     }
 }

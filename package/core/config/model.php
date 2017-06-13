@@ -27,12 +27,6 @@ return [
         I18nCurrency::class,
         'package/core/config/model/i18n_currency.php',
     ],
-    'acl_level'           => [
-        'table_factory',
-        ':acl_level',
-        AclLevel::class,
-        'package/core/config/model/acl_level.php',
-    ],
     'acl_form'            => [
         'table_factory',
         ':acl_form',

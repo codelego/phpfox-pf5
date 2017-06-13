@@ -21,6 +21,11 @@ class I18nLocale
     protected $numberFormater;
 
     /**
+     * @var DateFormater
+     */
+    protected $dateFormater;
+
+    /**
      * @var PluralRule
      */
     protected $pluralRule;
@@ -160,6 +165,21 @@ class I18nLocale
             $this->currencyFormater = new CurrencyFormater($pattern);
         }
         return $this->currencyFormater->format($number, $code, $precision, $symbol);
+    }
+
+    /**
+     * @param mixed  $time
+     * @param string $type
+     *
+     * @return string
+     */
+    public function formatDate($time, $type = null)
+    {
+        if (!$this->dateFormater) {
+            $this->dateFormater = new DateFormater($this->locale);
+        }
+
+        return $this->dateFormater->format($time,$type);
     }
 
     function __sleep()

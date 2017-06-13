@@ -46,23 +46,100 @@ class FilterCriteria
     }
 
     /**
-     * @param $name
-     * @param $value
+     * @param string $name
+     * @param string $type
+     *
+     * @return bool
      */
-    public function set($name, $value)
+    public function is($name, $type)
     {
-        $this->data[$name] = $value;
+        switch ($type) {
+            case 'int':
+                return isset($this->data[$name])
+                    and filter_var($this->data[$name], FILTER_VALIDATE_INT);
+            case 'string':
+            case 'ahead':
+            case 'contain':
+            case 'start':
+            case 'end':
+                return isset($this->data[$name])
+                    and !empty($this->data[$name]);
+            case 'email':
+                return isset($this->data[$name])
+                    and filter_has_var($this->data[$name], FILTER_VALIDATE_EMAIL);
+            case 'int[]':
+                if (!isset($this->data[$name]) OR !is_array($this->data[$name])
+                    OR empty(is_array($this->data[$name]))
+                ) {
+                    return false;
+                }
+                foreach ($this->data[$name] as $key => $value) {
+                    if (!filter_var($value, FILTER_VALIDATE_INT)) {
+                        return false;
+                    }
+                }
+                return true;
+            case 'string[]':
+                if (!isset($this->data[$name]) OR !is_array($this->data[$name])
+                    OR empty(is_array($this->data[$name]))
+                ) {
+                    return false;
+                }
+                return true;
+            case 'email[]':
+                if (!isset($this->data[$name]) OR !is_array($this->data[$name])
+                    OR empty(is_array($this->data[$name]))
+                ) {
+                    return false;
+                }
+
+                foreach ($this->data[$name] as $key => $value) {
+                    if (!filter_var($value, FILTER_VALIDATE_INT)) {
+                        return false;
+                    }
+                }
+                return true;
+            case 'url':
+                return isset($this->data[$name]) and filter_var($this->data[$name], FILTER_VALIDATE_URL);
+            default:
+                return false;
+        }
     }
 
     /**
      * @param string $name
-     * @param mixed  $default
+     * @param string $type
      *
-     * @return mixed|null
+     * @return mixed
      */
-    public function get($name, $default = null)
+    public function get($name, $type)
     {
-        return isset($this->data[$name]) ? $this->data[$name] : $default;
+        switch ($type) {
+            case 'int':
+                return intval($this->data[$name]);
+            case 'string':
+            case 'email':
+            case 'url':
+                return (string)$this->data[$name];
+            case 'contain':
+                return '%' . (string)$this->data[$name] . '%';
+            case 'start':
+                return (string)$this->data[$name] . '%';
+            case 'end':
+                return '%' . (string)$this->data[$name];
+            case 'int[]':
+                return array_map(function ($v) {
+                    return intval($v);
+                }, $this->data[$name]);
+            case 'string[]':
+            case 'email[]':
+            case 'url[]':
+                return array_map(function ($v) {
+                    return (string)$v;
+                }, $this->data[$name]);
+            default:
+                return false;
+        }
     }
 
     /**
@@ -75,215 +152,6 @@ class FilterCriteria
     public function has($name)
     {
         return array_key_exists($name, $this->data);
-    }
-
-    /**
-     * Return true if `isset` and FILTER_VALIDATE_INT accept.
-     *
-     * @param string $name
-     *
-     * @return bool
-     */
-    public function isInt($name)
-    {
-        return isset($this->data[$name]) and filter_var($this->data[$name], FILTER_VALIDATE_INT);
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return int
-     */
-    public function getInt($name)
-    {
-        return isset($this->data[$name]) ? intval($this->data[$name]) : 0;
-    }
-
-    /**
-     * Contain array of int value
-     *
-     * @param string $name
-     *
-     * @return bool
-     */
-    public function isIntArray($name)
-    {
-        if (!isset($this->data[$name]) OR !is_array($this->data[$name])
-            OR empty(is_array($this->data[$name]))
-        ) {
-            return false;
-        }
-
-        foreach ($this->data[$name] as $key => $value) {
-            if (!filter_var($value, FILTER_VALIDATE_INT)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return array
-     */
-    public function getIntArray($name)
-    {
-        return array_map(function ($v) {
-            return intval($v);
-        }, $this->data[$name]);
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
-    public function isString($name)
-    {
-        return isset($this->data[$name]) and !empty($this->data[$name]);
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return string
-     */
-    public function getString($name)
-    {
-        return (string)$this->data[$name];
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return string
-     */
-    public function quoteContain($name)
-    {
-        return '%' . (string)$this->data[$name] . '%';
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return string
-     */
-    public function quoteAhead($name)
-    {
-        return (string)$this->data[$name] . '%';
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
-    public function isArray($name)
-    {
-        if (!isset($this->data[$name]) OR !is_array($this->data[$name])
-            OR empty(is_array($this->data[$name]))
-        ) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return array
-     */
-    public function getArray($name)
-    {
-        return array_map(function ($v) {
-            return (string)$v;
-        }, $this->data[$name]);
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
-    public function isEmail($name)
-    {
-        return isset($this->data[$name]) and filter_has_var($this->data[$name], FILTER_VALIDATE_EMAIL);
-    }
-
-    /**
-     * @param $name
-     *
-     * @return bool
-     */
-    public function isEmailArray($name)
-    {
-        if (!isset($this->data[$name]) OR !is_array($this->data[$name])
-            OR empty(is_array($this->data[$name]))
-        ) {
-            return false;
-        }
-
-        foreach ($this->data[$name] as $key => $value) {
-            if (!filter_var($value, FILTER_VALIDATE_INT)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return array
-     */
-    public function getEmailArray($name)
-    {
-        return array_map(function ($v) {
-            return (string)$v;
-        }, $this->data[$name]);
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return string
-     */
-    public function getEmail($name)
-    {
-        return (string)$this->data[$name];
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
-    public function isBoolean($name)
-    {
-        return isset($this->data[$name]) and filter_var($this->data[$name], FILTER_VALIDATE_BOOLEAN);
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
-    public function getBoolean($name)
-    {
-        return boolval($this->data[$name]);
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
-    public function isUrl($name)
-    {
-        return isset($this->data[$name]) and filter_var($this->data[$name], FILTER_VALIDATE_URL);
     }
 
     /**

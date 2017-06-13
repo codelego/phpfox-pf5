@@ -46,7 +46,7 @@ class NavDecorator extends AbstractDecorator
             ;
         }
 
-        if ($item->get('permission') and !_can(null, $item->get('permission'))) {
+        if ($item->get('permission') and !_allow(null, $item->get('permission'))) {
             return '';
         }
 

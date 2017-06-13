@@ -4,7 +4,7 @@ namespace Neutron\Core\Form\Admin\Settings;
 
 use Phpfox\Form\Form;
 
-class SearchPermissionLevel extends Form
+class FilterPermissionLevel extends Form
 {
     protected $model;
 
@@ -29,6 +29,7 @@ class SearchPermissionLevel extends Form
     protected function initialize()
     {
         $this->setMethod('get');
+        $this->setTitle('Select Levels');
 
         /** start elements **/
 
@@ -40,7 +41,7 @@ class SearchPermissionLevel extends Form
             'name'     => 'level_id',
             'factory'  => 'select',
             'required' => true,
-            'label'    => _text('Level', null),
+            'label'    => _text('Levels', null),
             'options'  => $levelOptions,
             'value'    => $levelValue,
             'onchange' => 'this.form.submit()',

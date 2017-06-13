@@ -3,12 +3,12 @@ namespace Neutron\User\Form\Admin\Settings;
 
 use Phpfox\Form\Form;
 
-class EditLoginSettings extends Form {
+class EditUserSettings extends Form {
 
     /** id=674 */
     public function initialize(){
 
-        $this->setTitle(_text('Edit User Login Settings', '_user.login_setting'));
+        $this->setTitle(_text('Edit User Settings', '_user.setting_setting'));
         $this->setInfo(_text('Edit Site Settings [Info]', '_core'));
         $this->setMethod('post');                 $this->setAction(_url('#'));
 
@@ -27,7 +27,7 @@ class EditLoginSettings extends Form {
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'cancel',
-            'href'       => _url('#'),
+            'href'       => _url('admin.user'),
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
         ]);

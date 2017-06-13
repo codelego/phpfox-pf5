@@ -11,25 +11,34 @@ class AdminSettingController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('menu.admin.secondary')->load('admin','user');
+        _get('menu.admin.secondary')->load('admin', 'user');
 
         _get('menu.admin.buttons')->load('_user.buttons');
+
+        _get('breadcrumb')
+            ->set(['href' => _url('admin.user'), 'label' => _text('Members', 'admin'),]);
+
     }
 
     public function actionIndex()
     {
+        _get('breadcrumb')
+            ->add(['href'  => _url('admin.user.setting', ['action' => 'index']),
+                   'label' => _text('Settings', 'admin'),
+            ]);
 
-    }
-
-    public function actionAuth()
-    {
         return (new AdminEditSettingsProcess([
-            'form_id' => 'user_login',
+            'form_id' => 'user',
         ]))->process();
     }
 
     public function actionRegister()
     {
+        _get('breadcrumb')
+            ->add(['href'  => _url('admin.user.setting', ['action' => 'index']),
+                   'label' => _text('Settings', 'admin'),
+            ]);
+
         return (new AdminEditSettingsProcess([
             'form_id' => 'user_register',
         ]))->process();
@@ -37,8 +46,13 @@ class AdminSettingController extends AdminController
 
     public function actionPermission()
     {
+        _get('breadcrumb')
+            ->add(['href'  => _url('admin.user.setting', ['action' => 'permission']),
+                   'label' => _text('Permissions', 'admin'),
+            ]);
+
         return (new AdminEditPermissionProcess([
-            'levelType'  => 'user',
+            'itemType'   => 'user',
             'levelModel' => 'user_level',
         ]))->process();
     }

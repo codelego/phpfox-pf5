@@ -2,9 +2,8 @@
 
 namespace Neutron\Core\Form\Admin\Settings;
 
-use Phpfox\Form\Form;
 
-class EditAdminPermissions extends Form
+class EditAdminPermissions extends EditPermissionSettings
 {
 
     /** id=696 */
@@ -15,12 +14,17 @@ class EditAdminPermissions extends Form
         $this->setInfo(_text('[Edit Admin Permissions Info]', '_core.permissions'));
         $this->setAction(_url('#'));
 
+        if(!_get('acl')->checkByLevel($this->levelId, 'user', 'core.access_admin'))
+        {
+            return false;
+        }
+
         /** start elements **/
 
 
-        /** element `_core__access_admin` id=2294 **/
+        /** element `core__access_admin` id=2294 **/
         $this->addElement([
-            'name'        => '_core__access_admin',
+            'name'        => 'core__access_admin',
             'factory'     => 'yesno',
             'label'       => _text('Access Admin', '_core.permissions'),
             'placeholder' => _text('Access Admin', '_core.permissions'),
@@ -28,9 +32,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__access_package` id=2295 **/
+        /** element `core__access_package` id=2295 **/
         $this->addElement([
-            'name'        => '_core__access_package',
+            'name'        => 'core__access_package',
             'factory'     => 'yesno',
             'label'       => _text('Access Package', '_core.permissions'),
             'placeholder' => _text('Access Package', '_core.permissions'),
@@ -38,9 +42,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__install_package` id=2296 **/
+        /** element `core__install_package` id=2296 **/
         $this->addElement([
-            'name'        => '_core__install_package',
+            'name'        => 'core__install_package',
             'factory'     => 'yesno',
             'label'       => _text('Install Package', '_core.permissions'),
             'placeholder' => _text('Install Package', '_core.permissions'),
@@ -48,9 +52,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__toggle_package` id=2375 **/
+        /** element `core__toggle_package` id=2375 **/
         $this->addElement([
-            'name'        => '_core__toggle_package',
+            'name'        => 'core__toggle_package',
             'factory'     => 'yesno',
             'label'       => _text('Toggle Package', '_core.permissions'),
             'placeholder' => _text('Toggle Package', '_core.permissions'),
@@ -58,9 +62,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__access_layout_editor` id=2297 **/
+        /** element `core__access_layout_editor` id=2297 **/
         $this->addElement([
-            'name'        => '_core__access_layout_editor',
+            'name'        => 'core__access_layout_editor',
             'factory'     => 'yesno',
             'label'       => _text('Access Layout Editor', '_core.permissions'),
             'placeholder' => _text('Access Layout Editor', '_core.permissions'),
@@ -68,9 +72,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__edit_layout` id=2376 **/
+        /** element `core__edit_layout` id=2376 **/
         $this->addElement([
-            'name'        => '_core__edit_layout',
+            'name'        => 'core__edit_layout',
             'factory'     => 'yesno',
             'label'       => _text('Edit Layout', '_core.permissions'),
             'placeholder' => _text('Edit Layout', '_core.permissions'),
@@ -78,9 +82,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__access_menu_editor` id=2298 **/
+        /** element `core__access_menu_editor` id=2298 **/
         $this->addElement([
-            'name'        => '_core__access_menu_editor',
+            'name'        => 'core__access_menu_editor',
             'factory'     => 'yesno',
             'label'       => _text('Access Menu Editor', '_core.permissions'),
             'placeholder' => _text('Access Menu Editor', '_core.permissions'),
@@ -88,9 +92,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__edit_menu` id=2377 **/
+        /** element `core__edit_menu` id=2377 **/
         $this->addElement([
-            'name'        => '_core__edit_menu',
+            'name'        => 'core__edit_menu',
             'factory'     => 'yesno',
             'label'       => _text('Edit Menu', '_core.permissions'),
             'placeholder' => _text('Edit Menu', '_core.permissions'),
@@ -118,9 +122,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__access_health_status` id=2313 **/
+        /** element `core__access_health_status` id=2313 **/
         $this->addElement([
-            'name'        => '_core__access_health_status',
+            'name'        => 'core__access_health_status',
             'factory'     => 'yesno',
             'label'       => _text('Access Health Status', '_core.permissions'),
             'placeholder' => _text('Access Health Status', '_core.permissions'),
@@ -128,9 +132,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__access_license_setting` id=2303 **/
+        /** element `core__access_license_setting` id=2303 **/
         $this->addElement([
-            'name'        => '_core__access_license_setting',
+            'name'        => 'core__access_license_setting',
             'factory'     => 'yesno',
             'label'       => _text('Access License Setting', '_core.permissions'),
             'placeholder' => _text('Access License Setting', '_core.permissions'),
@@ -138,9 +142,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__edit_license_setting` id=2379 **/
+        /** element `core__edit_license_setting` id=2379 **/
         $this->addElement([
-            'name'        => '_core__edit_license_setting',
+            'name'        => 'core__edit_license_setting',
             'factory'     => 'yesno',
             'label'       => _text('Edit License Setting', '_core.permissions'),
             'placeholder' => _text('Edit License Setting', '_core.permissions'),
@@ -148,9 +152,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__access_i18n_setting` id=2302 **/
+        /** element `core__access_i18n_setting` id=2302 **/
         $this->addElement([
-            'name'        => '_core__access_i18n_setting',
+            'name'        => 'core__access_i18n_setting',
             'factory'     => 'yesno',
             'label'       => _text('Access I18n Setting', '_core.permissions'),
             'placeholder' => _text('Access I18n Setting', '_core.permissions'),
@@ -158,9 +162,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__edit_i18n_setting` id=2380 **/
+        /** element `core__edit_i18n_setting` id=2380 **/
         $this->addElement([
-            'name'        => '_core__edit_i18n_setting',
+            'name'        => 'core__edit_i18n_setting',
             'factory'     => 'yesno',
             'label'       => _text('Edit I18n Setting', '_core.permissions'),
             'placeholder' => _text('Edit I18n Setting', '_core.permissions'),
@@ -168,9 +172,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__access_sms_setting` id=2305 **/
+        /** element `core__access_sms_setting` id=2305 **/
         $this->addElement([
-            'name'        => '_core__access_sms_setting',
+            'name'        => 'core__access_sms_setting',
             'factory'     => 'yesno',
             'label'       => _text('Access Sms Setting', '_core.permissions'),
             'placeholder' => _text('Access Sms Setting', '_core.permissions'),
@@ -178,9 +182,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__edit_sms_setting` id=2381 **/
+        /** element `core__edit_sms_setting` id=2381 **/
         $this->addElement([
-            'name'        => '_core__edit_sms_setting',
+            'name'        => 'core__edit_sms_setting',
             'factory'     => 'yesno',
             'label'       => _text('Edit Sms Setting', '_core.permissions'),
             'placeholder' => _text('Edit Sms Setting', '_core.permissions'),
@@ -208,9 +212,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__access_storage_setting` id=2310 **/
+        /** element `core__access_storage_setting` id=2310 **/
         $this->addElement([
-            'name'        => '_core__access_storage_setting',
+            'name'        => 'core__access_storage_setting',
             'factory'     => 'yesno',
             'label'       => _text('Access Storage Setting', '_core.permissions'),
             'placeholder' => _text('Access Storage Setting', '_core.permissions'),
@@ -218,9 +222,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__edit_storage_setting` id=2383 **/
+        /** element `core__edit_storage_setting` id=2383 **/
         $this->addElement([
-            'name'        => '_core__edit_storage_setting',
+            'name'        => 'core__edit_storage_setting',
             'factory'     => 'yesno',
             'label'       => _text('Edit Storage Setting', '_core.permissions'),
             'placeholder' => _text('Edit Storage Setting', '_core.permissions'),
@@ -228,9 +232,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__access_general_setting` id=2300 **/
+        /** element `core__access_general_setting` id=2300 **/
         $this->addElement([
-            'name'        => '_core__access_general_setting',
+            'name'        => 'core__access_general_setting',
             'factory'     => 'yesno',
             'label'       => _text('Access General Setting', '_core.permissions'),
             'placeholder' => _text('Access General Setting', '_core.permissions'),
@@ -238,9 +242,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__edit_general_setting` id=2384 **/
+        /** element `core__edit_general_setting` id=2384 **/
         $this->addElement([
-            'name'        => '_core__edit_general_setting',
+            'name'        => 'core__edit_general_setting',
             'factory'     => 'yesno',
             'label'       => _text('Edit General Setting', '_core.permissions'),
             'placeholder' => _text('Edit General Setting', '_core.permissions'),
@@ -248,9 +252,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__access_statistic_status` id=2312 **/
+        /** element `core__access_statistic_status` id=2312 **/
         $this->addElement([
-            'name'        => '_core__access_statistic_status',
+            'name'        => 'core__access_statistic_status',
             'factory'     => 'yesno',
             'label'       => _text('Access Statistic Status', '_core.permissions'),
             'placeholder' => _text('Access Statistic Status', '_core.permissions'),
@@ -258,9 +262,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__access_seo_setting` id=2301 **/
+        /** element `core__access_seo_setting` id=2301 **/
         $this->addElement([
-            'name'        => '_core__access_seo_setting',
+            'name'        => 'core__access_seo_setting',
             'factory'     => 'yesno',
             'label'       => _text('Access Seo Setting', '_core.permissions'),
             'placeholder' => _text('Access Seo Setting', '_core.permissions'),
@@ -268,9 +272,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__edit_seo_setting` id=2385 **/
+        /** element `core__edit_seo_setting` id=2385 **/
         $this->addElement([
-            'name'        => '_core__edit_seo_setting',
+            'name'        => 'core__edit_seo_setting',
             'factory'     => 'yesno',
             'label'       => _text('Edit Seo Setting', '_core.permissions'),
             'placeholder' => _text('Edit Seo Setting', '_core.permissions'),
@@ -278,9 +282,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__access_theme_editor` id=2299 **/
+        /** element `core__access_theme_editor` id=2299 **/
         $this->addElement([
-            'name'        => '_core__access_theme_editor',
+            'name'        => 'core__access_theme_editor',
             'factory'     => 'yesno',
             'label'       => _text('Access Theme Editor', '_core.permissions'),
             'placeholder' => _text('Access Theme Editor', '_core.permissions'),
@@ -288,9 +292,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__edit_theme` id=2386 **/
+        /** element `core__edit_theme` id=2386 **/
         $this->addElement([
-            'name'        => '_core__edit_theme',
+            'name'        => 'core__edit_theme',
             'factory'     => 'yesno',
             'label'       => _text('Edit Theme', '_core.permissions'),
             'placeholder' => _text('Edit Theme', '_core.permissions'),
@@ -298,9 +302,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__access_cache_setting` id=2304 **/
+        /** element `core__access_cache_setting` id=2304 **/
         $this->addElement([
-            'name'        => '_core__access_cache_setting',
+            'name'        => 'core__access_cache_setting',
             'factory'     => 'yesno',
             'label'       => _text('Access Cache Setting', '_core.permissions'),
             'placeholder' => _text('Access Cache Setting', '_core.permissions'),
@@ -308,9 +312,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__edit_cache_setting` id=2387 **/
+        /** element `core__edit_cache_setting` id=2387 **/
         $this->addElement([
-            'name'        => '_core__edit_cache_setting',
+            'name'        => 'core__edit_cache_setting',
             'factory'     => 'yesno',
             'label'       => _text('Edit Cache Setting', '_core.permissions'),
             'placeholder' => _text('Edit Cache Setting', '_core.permissions'),
@@ -318,9 +322,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__access_session_setting` id=2306 **/
+        /** element `core__access_session_setting` id=2306 **/
         $this->addElement([
-            'name'        => '_core__access_session_setting',
+            'name'        => 'core__access_session_setting',
             'factory'     => 'yesno',
             'label'       => _text('Access Session Setting', '_core.permissions'),
             'placeholder' => _text('Access Session Setting', '_core.permissions'),
@@ -328,9 +332,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__adit_session_setting` id=2388 **/
+        /** element `core__adit_session_setting` id=2388 **/
         $this->addElement([
-            'name'        => '_core__adit_session_setting',
+            'name'        => 'core__adit_session_setting',
             'factory'     => 'yesno',
             'label'       => _text('Adit Session Setting', '_core.permissions'),
             'placeholder' => _text('Adit Session Setting', '_core.permissions'),
@@ -358,9 +362,9 @@ class EditAdminPermissions extends Form
             'required'    => true,
         ]);
 
-        /** element `_core__access_system_status` id=2311 **/
+        /** element `core__access_system_status` id=2311 **/
         $this->addElement([
-            'name'        => '_core__access_system_status',
+            'name'        => 'core__access_system_status',
             'factory'     => 'yesno',
             'label'       => _text('Access System Status', '_core.permissions'),
             'placeholder' => _text('Access System Status', '_core.permissions'),

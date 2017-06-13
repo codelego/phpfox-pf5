@@ -55,7 +55,7 @@ class AsideDecorator extends AbstractDecorator
     {
         $href = null;
         // validate passed acl
-        if ($item->get('permission') and !_can(null, $item->get('permission'))) {
+        if ($item->get('permission') and !_allow(null, $item->get('permission'))) {
             return '';
         }
 

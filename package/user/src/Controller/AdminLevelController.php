@@ -17,7 +17,8 @@ class AdminLevelController extends AdminController
     protected function afterInitialize()
     {
         _get('breadcrumb')
-            ->set(['href' => _url('admin.user.level'), 'label' => _text('Levels', 'admin'),]);
+            ->set(['href' => _url('admin.user'), 'label' => _text('Members', 'admin'),])
+            ->add(['href' => _url('admin.user.level'), 'label' => _text('Levels', 'admin'),]);
 
         _get('html.title')
             ->set(_text('Levels', '_core'));

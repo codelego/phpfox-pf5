@@ -1,0 +1,10 @@
+<?php
+$filter->setDecorator('form_panel_horizontal');
+    echo $filter->render();
+
+if (isset($render)) {
+    $form->setDecorator($render);
+} else {
+    $form->setDecorator('form_panel_horizontal');
+}
+echo $form->render();

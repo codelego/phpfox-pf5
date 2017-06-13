@@ -4,13 +4,12 @@
             <thead>
             <tr>
                 <th class="w30">
-                    <label><input type="checkbox" class="moderation-check-all"/></label>
+                    <input type="checkbox" class="moderation-check-all"/>
                 </th>
                 <th class="text-center">#</th>
-                <th class="w50 text-center">ID</th>
-                <th class="w50 text-center">Group</th>
                 <th class="sortable asc">Name</th>
                 <th class="w300">Email</th>
+                <th class="w50 text-center">Level</th>
             </tr>
             </thead>
             <tbody>
@@ -31,12 +30,11 @@
                             <li><a href=""><?= _text('Delete this user') ?></a></li>
                         </ul>
                     </td>
-                    <td class="text-center"><?= $item->getId(); ?></td>
-                    <td class="text-center"><?= $item->getLevelId(); ?></td>
                     <td>
-                        <a target="_blank" rel="nofollow" href="<?= $item->getUrl() ?>"><?= $item->getName(); ?></a>
+                    <a target="_blank" rel="nofollow" href="<?= $item->getUrl() ?>"><?= $item->getName(); ?></a>
                     </td>
                     <td><?= $item->getEmail(); ?></td>
+                    <td class="text-center"><?= $item->getLevelId(); ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
@@ -68,4 +66,5 @@
             </li>
         </ul>
     </div>
+    <?= $items->render() ?>
 </div>

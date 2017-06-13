@@ -97,6 +97,11 @@ class User extends DbModel implements UserInterface
         return (int)$this->__get('level_id');
     }
 
+    public function getLevelType()
+    {
+        return 'user_level';
+    }
+
     public function setLevelId($value)
     {
         $this->__set('level_id', $value);

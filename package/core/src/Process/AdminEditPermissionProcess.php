@@ -9,7 +9,7 @@
 namespace Neutron\Core\Process;
 
 
-use Neutron\Core\Form\Admin\Settings\SearchPermissionLevel;
+use Neutron\Core\Form\Admin\Settings\FilterPermissionLevel;
 use Neutron\Core\Model\AclForm;
 use Phpfox\Form\FieldInterface;
 use Phpfox\Form\Form;
@@ -68,18 +68,15 @@ class AdminEditPermissionProcess extends AbstractProcess
     {
         $request = _get('request');
 
-        $filter = new SearchPermissionLevel([
+        $filter = new FilterPermissionLevel([
             'model' => $this->get('levelModel'),
         ]);
-
-        _get('registry')->set('filter.service', $filter);
-
 
         $filter->populate($request->all());
 
         $data = $filter->getData();
         $formId = $data['form_id'];
-        $levelType = $this->get('levelType');
+        $itemType = $this->get('itemType');
         $levelId = $data['level_id'];
 
 
@@ -97,11 +94,11 @@ class AdminEditPermissionProcess extends AbstractProcess
         }
 
         /** @var Form $form */
-        $form = (new \ReflectionClass($formName))->newInstanceArgs([]);
+        $form = (new \ReflectionClass($formName))->newInstanceArgs([['levelId'=> $levelId,'itemType'=>$itemType]]);
 
         if ($request->isGet()) {
 
-            $data = _get('core.permission')->getForEdit($levelType, $levelId, $this->collectDomains($form));
+            $data = _get('core.permission')->getForEdit($itemType, $levelId, $this->collectDomains($form));
 
             $form->populate($data);
         }
@@ -110,10 +107,10 @@ class AdminEditPermissionProcess extends AbstractProcess
 
             $data = $this->collectPostData($form);
 
-            _get('core.permission')->updateValues($levelType, $levelId, $data);
+            _get('core.permission')->updateValues($itemType, $levelId, $data);
         }
 
-        $vm = new ViewModel(['form' => $form], 'layout/form-edit');
+        $vm = new ViewModel(['form' => $form,'filter'=>$filter], 'core/admin-settings/edit-permission');
 
         if (is_array($data = $this->get('data'))) {
             $vm->assign($data);

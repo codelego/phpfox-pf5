@@ -5,21 +5,12 @@ namespace Neutron\Core\Service;
 
 use Neutron\Core\Model\AclAction;
 use Neutron\Core\Model\AclForm;
-use Neutron\Core\Model\AclLevel;
 use Neutron\Core\Model\AclValue;
+use Neutron\User\Model\UserLevel;
+use Phpfox\Support\UserInterface;
 
 class PermissionManager
 {
-    /**
-     * @param int $id
-     *
-     * @return AclLevel
-     */
-    public function findById($id)
-    {
-        return _model('acl_level')->findById((int)$id);
-    }
-
     public function getFormIdOptions()
     {
         $select = _model('acl_form')->select()->order('ordering', 1);
@@ -29,28 +20,13 @@ class PermissionManager
     }
 
     /**
-     * @param mixed $levelType
-     * @param mixed $levelId
-     *
-     * @return AclLevel
-     */
-    public function getAclLevel($levelType, $levelId)
-    {
-        return _model('acl_level')
-            ->select()
-            ->where('level_type=?', (string)$levelType)
-            ->where('level_id=?', (int)$levelId)
-            ->first();
-    }
-
-    /**
-     * @param string $levelType
+     * @param string $itemType
      * @param int    $levelId
      * @param array  $domains
      *
      * @return array
      */
-    public function getForEdit($levelType, $levelId, $domains)
+    public function getForEdit($itemType, $levelId, $domains)
     {
 
         // first load action id list.
@@ -58,6 +34,12 @@ class PermissionManager
         $actionIds = [];
         $result = [];
         $testArray = [$levelId];
+
+
+        /** @var UserInterface $itemModel */
+        $itemModel = _model($itemType)->create();
+
+        $levelModel = $itemModel->getLevelType();
 
         foreach ($domains as $domain => $names) {
             /** @var AclAction[] $entries */
@@ -77,7 +59,9 @@ class PermissionManager
         }
 
         do {
-            $level = $this->getAclLevel($levelType, $levelId);
+
+            /** @var UserLevel $level */
+            $level = _find($levelModel, $levelId);
 
             if (!$level) {
                 break;
@@ -89,7 +73,8 @@ class PermissionManager
             $entries = _model('acl_value')
                 ->select()
                 ->where('action_id in ?', $actionIds)
-                ->where('internal_id=?', (int)$level->getInternalId())
+                ->where('level_id=?', $levelId)
+                ->where('item_type=?', $itemType)
                 ->all();
 
             foreach ($entries as $entry) {
@@ -101,30 +86,30 @@ class PermissionManager
                 }
             }
             $levelId = (int)$level->getInheritId();
-
         } while ($levelId and !in_array($levelId, $testArray));
 
         return $result;
     }
 
     /**
-     * @param string $levelType
+     * @param string $itemType
      * @param string $levelId
      * @param array  $domains
      *
      * @return bool
      */
-    public function updateValues($levelType, $levelId, $domains)
+    public function updateValues($itemType, $levelId, $domains)
     {
-        $level = $this->getAclLevel($levelType, $levelId);
+        /** @var UserInterface $itemModel */
+        $itemModel = _model($itemType)->create();
+
+        $levelModel = $itemModel->getLevelType();
+
+        $level = _find($levelModel, $levelId);
 
         if (!$level) {
             throw new \InvalidArgumentException('Invalid parameters "levelType, levelId');
         }
-
-        $internalId = $level->getInternalId();
-
-
         // build actionId and maps to value for each groups.
 
         foreach ($domains as $domain => $values) {
@@ -148,13 +133,15 @@ class PermissionManager
                 $aclValue = _model('acl_value')
                     ->select()
                     ->where('action_id=?', $aclAction->getActionId())
-                    ->where('internal_id=?', $internalId)
+                    ->where('level_id=?', $levelId)
+                    ->where('item_type=?', $itemType)
                     ->first();
 
                 if (!$aclValue) {
                     $aclValue = _model('acl_value')->create([
-                        'internal_id' => $internalId,
-                        'action_id'   => $aclAction->getActionId(),
+                        'level_id'  => $levelId,
+                        'item_type' => $itemType,
+                        'action_id' => $aclAction->getActionId(),
                     ]);
                 }
 
@@ -167,11 +154,5 @@ class PermissionManager
         _trigger('onSettingsChanged');
 
         return true;
-    }
-
-
-    public function findRoleIdOptions($typeId)
-    {
-        _get('core.permission')->getFormIdOptions();
     }
 }

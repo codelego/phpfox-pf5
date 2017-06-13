@@ -224,9 +224,9 @@ namespace {
      *
      * @return mixed
      */
-    function _can($user, $action, $default = false)
+    function _allow($user, $action, $default = false)
     {
-        return \Phpfox::$service->get('acl')->can($user, $action, $default);
+        return \Phpfox::$service->get('acl')->allow($user, $action, $default);
     }
 
     /**
@@ -241,17 +241,6 @@ namespace {
         return \Phpfox::$service->get('acl')->pass($user, $item, $action);
     }
 
-    /**
-     * @param UserInterface $user
-     * @param ItemInterface $item
-     * @param string        $action
-     *
-     * @return bool
-     */
-    function _allow($user, $item, $action)
-    {
-        return \Phpfox::$service->get('acl')->allow($user, $item, $action);
-    }
 
     /**
      * @param array|string $config
@@ -464,6 +453,19 @@ namespace {
     function _text($id, $domain = null, $context = null, $locale = null)
     {
         return _get('i18n')->get($locale)->trans($id, $domain, $context);
+    }
+
+
+    /**
+     * @param $time
+     * @param $type
+     * @param $locale
+     *
+     * @return string
+     */
+    function _date($time, $type = 'medium', $locale = null)
+    {
+        return _get('i18n')->get($locale)->formatDate($time, $type);
     }
 
     function _choice($id, $domain = null, $number = null, $context = null, $locale = null)
