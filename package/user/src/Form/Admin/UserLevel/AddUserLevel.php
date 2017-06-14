@@ -9,12 +9,15 @@ class AddUserLevel extends Form {
     public function initialize(){
 
         $this->setTitle(_text('Add User Level',''));
-        $this->setInfo(_text('[Add User Level Info]',''));
+        $this->setInfo(_text('Add User Level [Form Info]',''));
         $this->setAction(_url('#'));
 
         /** start elements **/
 
         
+        
+            /** element `is_core` id=3121 **/
+            $this->addElement(array ( 'name' => 'is_core', 'factory' => 'yesno', 'label' => _text('Is Core',null), 'placeholder' => _text('Is Core',null), 'info' => _text('Is Core [Info]', null), 'value' => '0', 'required' => true, ));        
         
             /** element `inherit_id` id=2315 **/
             $this->addElement(array ( 'name' => 'inherit_id', 'factory' => 'text', 'label' => _text('Inherit Id',null), 'placeholder' => _text('Inherit Id',null), 'info' => _text('Inherit Id [Info]', null), 'value' => '0', 'required' => true, ));        
@@ -57,7 +60,7 @@ class AddUserLevel extends Form {
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'cancel',
-            'href'       => '#',
+            'href'       => _url('#'),
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
             ]);

@@ -43,17 +43,4 @@ class AdminSettingController extends AdminController
             'form_id' => 'user_register',
         ]))->process();
     }
-
-    public function actionPermission()
-    {
-        _get('breadcrumb')
-            ->add(['href'  => _url('admin.user.setting', ['action' => 'permission']),
-                   'label' => _text('Permissions', 'admin'),
-            ]);
-
-        return (new AdminEditPermissionProcess([
-            'itemType'   => 'user',
-            'levelModel' => 'user_level',
-        ]))->process();
-    }
 }

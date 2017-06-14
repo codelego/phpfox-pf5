@@ -16,6 +16,11 @@ class Group extends DbModel
         return (int)$this->__get('group_id');
     }
 
+    public function getLevelType()
+    {
+        return 'group_level';
+    }
+
     public function setId($value)
     {
         $this->__set('group_id', $value);

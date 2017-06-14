@@ -21,8 +21,8 @@ class UserLevel extends DbModel
     public function getItemCount(){return (int) $this->__get('item_count');}
     public function setItemCount($value){$this->__set('item_count', $value);}
     
-    public function isSpecial(){return $this->__get('is_special') ?1:0;}
-    public function setSpecial($value){$this->__set('is_special',$value?1:0);}
+    public function isCore(){return $this->__get('is_core') ?1:0;}
+    public function setCore($value){$this->__set('is_core',$value?1:0);}
     
     public function isSuper(){return $this->__get('is_super') ?1:0;}
     public function setSuper($value){$this->__set('is_super',$value?1:0);}

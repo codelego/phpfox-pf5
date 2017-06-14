@@ -9,6 +9,12 @@ return [
         Event::class,
         'package/event/config/model/event.php',
     ],
+    'event_level' => [
+        'table_factory',
+        ':event_level',
+        EventLevel::class,
+        'package/event/config/model/event_level.php',
+    ],
     'event_member'         => [
         'table_factory',
         ':event_member',

@@ -46,6 +46,11 @@ class Pages extends DbModel
         return (int)$this->__get('type_id');
     }
 
+    public function getLevelType()
+    {
+        return 'pages_level';
+    }
+
     public function setTypeId($value)
     {
         $this->__set('type_id', $value);

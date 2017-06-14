@@ -17,6 +17,9 @@ class FilterUserLevel extends Form {
             /** element `q` id=2362 **/
             $this->addElement(array ( 'name' => 'q', 'factory' => 'text', 'placeholder' => _text('Keywords',null), ));        
         
+            /** element `is_core` id=3124 **/
+            $this->addElement(array ( 'name' => 'is_core', 'factory' => 'yesno', 'placeholder' => _text('Is Core',null), 'value' => '0', 'decorator' => 'select', ));        
+        
             /** element `inherit_id` id=2351 **/
             $this->addElement(array ( 'name' => 'inherit_id', 'factory' => 'text', 'placeholder' => _text('Inherit',null), 'value' => '0', ));        
         

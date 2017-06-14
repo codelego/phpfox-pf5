@@ -56,19 +56,23 @@ return [
             'controller' => 'user.admin-manage',
             'action'     => 'index',
             'children'   => [
-                'profile' => [
+                'profile'    => [
                     'route'      => 'profile(/<action>)',
                     'controller' => 'user.admin-profile',
                 ],
-                'level'   => [
+                'level'      => [
                     'route'      => 'level(/<action>)',
                     'controller' => 'user.admin-level',
                 ],
-                'setting' => [
+                'permission' => [
+                    'route'      => 'permission(/<action>)',
+                    'controller' => 'user.admin-permission',
+                ],
+                'setting'    => [
                     'route'      => 'setting(/<action>)',
                     'controller' => 'user.admin-setting',
                 ],
-                'manage'  => ['route' => 'manage(/<action>)'],
+                'manage'     => ['route' => 'manage(/<action>)'],
             ],
         ],
     ],

@@ -3,8 +3,9 @@
 namespace Neutron\Group\Controller;
 
 use Neutron\Core\Controller\AdminController;
+use Neutron\Core\Process\AdminEditPermissionProcess;
 
-class AdminAclController extends AdminController
+class AdminPermissionController extends AdminController
 {
     protected function afterInitialize()
     {
@@ -20,6 +21,9 @@ class AdminAclController extends AdminController
 
     public function actionIndex()
     {
-
+        return (new AdminEditPermissionProcess([
+            'itemType'   => 'group',
+            'levelModel' => 'group_level',
+        ]))->process();
     }
 }

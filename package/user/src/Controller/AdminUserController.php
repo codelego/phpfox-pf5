@@ -34,7 +34,7 @@ class AdminUserController extends AdminController
         return (new AdminListEntryProcess([
             'filter.form' => AdminFilterUser::class,
             'model'       => User::class,
-            'template'    => 'user/admin-user/manage-user',
+            'template'    => 'user/admin/manage-user',
         ]))->process();
     }
 

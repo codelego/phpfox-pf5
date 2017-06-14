@@ -3,8 +3,9 @@
 namespace Neutron\Event\Controller;
 
 use Neutron\Core\Controller\AdminController;
+use Neutron\Core\Process\AdminEditPermissionProcess;
 
-class AdminAclController extends AdminController
+class AdminPermissionController extends AdminController
 {
     protected function afterInitialize()
     {
@@ -14,12 +15,15 @@ class AdminAclController extends AdminController
         _get('breadcrumb')
             ->set(['href' => _url('admin.event'), 'label' => _text('Events')]);
 
-        _get('menu.admin.secondary')->load('_event');
+        _get('menu.admin.secondary')->load('admin','event');
 
     }
 
     public function actionIndex()
     {
-
+        return (new AdminEditPermissionProcess([
+            'itemType'   => 'event',
+            'levelModel' => 'event_level',
+        ]))->process();
     }
 }

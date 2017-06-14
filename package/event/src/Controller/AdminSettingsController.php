@@ -14,7 +14,7 @@ class AdminSettingsController extends AdminController
         _get('breadcrumb')
             ->set(['href' => _url('admin.event'), 'label' => _text('Events')]);
 
-        _get('menu.admin.secondary')->load('_event');
+        _get('menu.admin.secondary')->load('admin','event');
 
     }
 

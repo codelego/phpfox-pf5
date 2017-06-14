@@ -5,14 +5,14 @@ class UserLevelTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new UserLevel(array (  'level_id' => 1,  'inherit_id' => 0,  'title' => 'Super',  'item_count' => 0,  'is_special' => 1,  'is_super' => 1,  'is_admin' => 1,  'is_moderator' => 1,  'is_staff' => 1,  'is_registered' => 1,  'is_banned' => 0,  'is_guest' => 0,));
+        $obj = new UserLevel(array (  'level_id' => 1,  'inherit_id' => 0,  'title' => 'Super',  'item_count' => 0,  'is_core' => 1,  'is_super' => 1,  'is_admin' => 1,  'is_moderator' => 1,  'is_staff' => 1,  'is_registered' => 1,  'is_banned' => 0,  'is_guest' => 0,));
 
         $this->assertSame('user_level', $obj->getModelId());
         $this->assertSame(1, $obj->getLevelId());
         $this->assertSame(0, $obj->getInheritId());
         $this->assertSame('Super', $obj->getTitle());
         $this->assertSame(0, $obj->getItemCount());
-        $this->assertSame(1, $obj->isSpecial());
+        $this->assertSame(1, $obj->isCore());
         $this->assertSame(1, $obj->isSuper());
         $this->assertSame(1, $obj->isAdmin());
         $this->assertSame(1, $obj->isModerator());
@@ -30,7 +30,7 @@ class UserLevelTest extends \PHPUnit_Framework_TestCase
         $obj->setInheritId(0);
         $obj->setTitle('Super');
         $obj->setItemCount(0);
-        $obj->setSpecial(1);
+        $obj->setCore(1);
         $obj->setSuper(1);
         $obj->setAdmin(1);
         $obj->setModerator(1);
@@ -44,7 +44,7 @@ class UserLevelTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(0, $obj->getInheritId());
         $this->assertSame('Super', $obj->getTitle());
         $this->assertSame(0, $obj->getItemCount());
-        $this->assertSame(1, $obj->isSpecial());
+        $this->assertSame(1, $obj->isCore());
         $this->assertSame(1, $obj->isSuper());
         $this->assertSame(1, $obj->isAdmin());
         $this->assertSame(1, $obj->isModerator());
@@ -55,7 +55,7 @@ class UserLevelTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new UserLevel(array (  'level_id' => 1,  'inherit_id' => 0,  'title' => 'Super',  'item_count' => 0,  'is_special' => 1,  'is_super' => 1,  'is_admin' => 1,  'is_moderator' => 1,  'is_staff' => 1,  'is_registered' => 1,  'is_banned' => 0,  'is_guest' => 0,));
+        $obj = new UserLevel(array (  'level_id' => 1,  'inherit_id' => 0,  'title' => 'Super',  'item_count' => 0,  'is_core' => 1,  'is_super' => 1,  'is_admin' => 1,  'is_moderator' => 1,  'is_staff' => 1,  'is_registered' => 1,  'is_banned' => 0,  'is_guest' => 0,));
 
         $obj->save();
 
@@ -68,7 +68,7 @@ class UserLevelTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(0, $obj->getInheritId());
         $this->assertSame('Super', $obj->getTitle());
         $this->assertSame(0, $obj->getItemCount());
-        $this->assertSame(1, $obj->isSpecial());
+        $this->assertSame(1, $obj->isCore());
         $this->assertSame(1, $obj->isSuper());
         $this->assertSame(1, $obj->isAdmin());
         $this->assertSame(1, $obj->isModerator());

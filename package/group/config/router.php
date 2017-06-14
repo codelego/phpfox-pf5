@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'chains'  => [
+    'chains' => [
         [
             'chain'  => 'profile',
             'route'  => '{group}/<name>/*',
@@ -21,19 +21,23 @@ return [
             'controller' => 'group.admin-group',
             'action'     => 'index',
             'children'   => [
-                'category' => [
+                'category'   => [
                     'route'      => 'category(/<action>)',
                     'controller' => 'group.admin-category',
                 ],
-                'settings' => [
+                'settings'   => [
                     'route'      => 'settings(/<action>)',
                     'controller' => 'group.admin-settings',
                 ],
-                'acl'      => [
-                    'route'      => 'acl(/<action>)',
-                    'controller' => 'group.admin-acl',
+                'permission' => [
+                    'route'      => 'permission(/<action>)',
+                    'controller' => 'group.admin-permission',
                 ],
-                'group'    => [
+                'level'      => [
+                    'route'      => 'level(/<action>)',
+                    'controller' => 'group.admin-level',
+                ],
+                'group'      => [
                     'route'      => '<action>',
                     'controller' => 'group.admin-group',
                 ],

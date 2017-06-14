@@ -25,19 +25,23 @@ return [
             'controller' => 'event.admin-event',
             'action'     => 'index',
             'children'   => [
-                'category' => [
+                'category'   => [
                     'route'      => 'category(/<action>)',
                     'controller' => 'event.admin-category',
                 ],
-                'settings' => [
+                'settings'   => [
                     'route'      => 'settings(/<action>)',
                     'controller' => 'event.admin-settings',
                 ],
-                'acl'      => [
-                    'route'      => 'acl(/<action>)',
-                    'controller' => 'event.admin-acl',
+                'permission' => [
+                    'route'      => 'permission(/<action>)',
+                    'controller' => 'event.admin-permission',
                 ],
-                'event'    => [
+                'level'      => [
+                    'route'      => 'level(/<action>)',
+                    'controller' => 'event.admin-level',
+                ],
+                'event'      => [
                     'route'      => '<action>',
                     'controller' => 'event.admin-event',
                 ],

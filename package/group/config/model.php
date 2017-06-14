@@ -9,6 +9,12 @@ return [
         Group::class,
         'package/group/config/model/group.php',
     ],
+    'group_level' => [
+        'table_factory',
+        ':group_level',
+        GroupLevel::class,
+        'package/group/config/model/group_level.php',
+    ],
     'group_member'         => [
         'table_factory',
         ':group_member',

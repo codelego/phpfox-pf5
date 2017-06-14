@@ -1,0 +1,53 @@
+<div class="panel panel-default">
+    <div class="table-responsive">
+        <table class="table table-admin">
+            <thead>
+            <tr>
+                <th class="w40 text-center">#</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Inherit</th>
+                <th>User</th>
+                <th>Core</th>
+                <th>Super</th>
+                <th>Admin</th>
+                <th>Moderator</th>
+                <th>Staff</th>
+                <th>Registered</th>
+                <th>Banned</th>
+                <th>Guest</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item): ?>
+                <tr>
+                    <td class="dropdown" data-cmd="dropdown">
+                        <ul>
+                            <li><a href="<?= _url('admin.user.level',
+                                    ['action' => 'edit', 'level_id' => $item->getId()]) ?>">
+                                    <?= _text('Edit Level','admin') ?></a></li>
+                            <div class="divider"></div>
+                            <li><a href="<?= _url('admin.user.level',
+                                    ['action' => 'delete', 'level_id' => $item->getId()]) ?>">
+                                    <?= _text('Delete Level','admin') ?></a></li>
+
+                        </ul>
+                    </td>
+                    <td><?php echo $item->getId() ?></td>
+                    <td><?php echo $item->getTitle() ?></td>
+                    <td><?php echo $item->getInheritId() ?></td>
+                    <td><?php echo $item->getItemCount() ?></td>
+                    <td><?= _yesno($item->isCore()) ?></td>
+                    <td><?= _yesno($item->isSuper()) ?></td>
+                    <td><?= _yesno($item->isAdmin()) ?></td>
+                    <td><?= _yesno($item->isModerator()) ?></td>
+                    <td><?= _yesno($item->isStaff()) ?></td>
+                    <td><?= _yesno($item->isRegistered()) ?></td>
+                    <td><?= _yesno($item->isBanned()) ?></td>
+                    <td><?= _yesno($item->isGuest()) ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -29,9 +29,13 @@ return [
                     'route'      => 'settings(/<action>)',
                     'controller' => 'pages.admin-settings',
                 ],
-                'acl'      => [
-                    'route'      => 'acl(/<action>)',
-                    'controller' => 'pages.admin-acl',
+                'level'      => [
+                    'route'      => 'levels(/<action>)',
+                    'controller' => 'pages.admin-level',
+                ],
+                'permission'      => [
+                    'route'      => 'permission(/<action>)',
+                    'controller' => 'pages.admin-permission',
                 ],
                 'pages'    => [
                     'route'      => '<action>',

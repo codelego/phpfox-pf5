@@ -39,7 +39,7 @@ class AdminLevelController extends AdminController
     {
         return (new AdminListEntryProcess([
             'model'    => UserLevel::class,
-            'template' => 'core/admin-acl/manage-acl-role',
+            'template' => 'user/admin/manage-level',
         ]))->process();
     }
 
