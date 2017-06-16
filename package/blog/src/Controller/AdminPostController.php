@@ -39,7 +39,7 @@ class AdminPostController extends AdminController
         return (new AdminListEntryProcess([
                 'model'    => BlogPost::class,
                 'filter.form'=> FilterBlogPost::class,
-                'template' => 'blog/admin-post/manage-blog-post',
+                'template' => 'blog/admin/manage-post',
             ]
         ))->process();
 

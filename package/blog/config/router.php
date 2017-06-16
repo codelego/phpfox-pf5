@@ -48,8 +48,8 @@ return [
                     'route'      => 'settings(/<action>)',
                     'controller' => 'blog.admin-settings',
                 ],
-                'post'     => [
-                    'route'      => '<action>',
+                'manage'     => [
+                    'route'      => 'manage(/<action>)',
                     'controller' => 'blog.admin-post',
                 ],
             ],

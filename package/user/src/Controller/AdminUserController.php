@@ -37,24 +37,4 @@ class AdminUserController extends AdminController
             'template'    => 'user/admin/manage-user',
         ]))->process();
     }
-
-    public function actionAdd()
-    {
-        return (new AdminAddEntryProcess([
-            'model'    => User::class,
-            'form'     => AddUser::class,
-            'redirect' => _url('admin.user'),
-        ]))->process();
-    }
-
-
-    public function actionEdit()
-    {
-        return (new AdminEditEntryProcess([
-            'key'      => 'user_id',
-            'model'    => User::class,
-            'form'     => EditUser::class,
-            'redirect' => _url('admin.user'),
-        ]))->process();
-    }
 }

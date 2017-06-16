@@ -5,12 +5,14 @@ class AclActionTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new AclAction(array (  'action_id' => 21,  'package_id' => 'core',  'domain_id' => 'core',  'form_id' => 'core_general',  'name' => 'storage_limit',  'ordering' => 1,  'is_active' => 1,));
+        $obj = new AclAction(array (  'action_id' => 21,  'package_id' => 'core',  'domain_id' => 'core',  'accept_type' => '*',  'dependency' => '',  'form_id' => 'core_general',  'name' => 'storage_limit',  'ordering' => 1,  'is_active' => 1,));
 
         $this->assertSame('acl_action', $obj->getModelId());
         $this->assertSame(21, $obj->getActionId());
         $this->assertSame('core', $obj->getPackageId());
         $this->assertSame('core', $obj->getDomainId());
+        $this->assertSame('*', $obj->getAcceptType());
+        $this->assertSame('', $obj->getDependency());
         $this->assertSame('core_general', $obj->getFormId());
         $this->assertSame('storage_limit', $obj->getName());
         $this->assertSame(1, $obj->getOrdering());
@@ -24,6 +26,8 @@ class AclActionTest extends \PHPUnit_Framework_TestCase
         $obj->setActionId(21);
         $obj->setPackageId('core');
         $obj->setDomainId('core');
+        $obj->setAcceptType('*');
+        $obj->setDependency('');
         $obj->setFormId('core_general');
         $obj->setName('storage_limit');
         $obj->setOrdering(1);
@@ -33,6 +37,8 @@ class AclActionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(21, $obj->getActionId());
         $this->assertSame('core', $obj->getPackageId());
         $this->assertSame('core', $obj->getDomainId());
+        $this->assertSame('*', $obj->getAcceptType());
+        $this->assertSame('', $obj->getDependency());
         $this->assertSame('core_general', $obj->getFormId());
         $this->assertSame('storage_limit', $obj->getName());
         $this->assertSame(1, $obj->getOrdering());
@@ -40,7 +46,7 @@ class AclActionTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new AclAction(array (  'action_id' => 21,  'package_id' => 'core',  'domain_id' => 'core',  'form_id' => 'core_general',  'name' => 'storage_limit',  'ordering' => 1,  'is_active' => 1,));
+        $obj = new AclAction(array (  'action_id' => 21,  'package_id' => 'core',  'domain_id' => 'core',  'accept_type' => '*',  'dependency' => '',  'form_id' => 'core_general',  'name' => 'storage_limit',  'ordering' => 1,  'is_active' => 1,));
 
         $obj->save();
 
@@ -52,6 +58,8 @@ class AclActionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(21, $obj->getActionId());
         $this->assertSame('core', $obj->getPackageId());
         $this->assertSame('core', $obj->getDomainId());
+        $this->assertSame('*', $obj->getAcceptType());
+        $this->assertSame('', $obj->getDependency());
         $this->assertSame('core_general', $obj->getFormId());
         $this->assertSame('storage_limit', $obj->getName());
         $this->assertSame(1, $obj->getOrdering());

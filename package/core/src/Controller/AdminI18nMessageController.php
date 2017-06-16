@@ -42,20 +42,32 @@ class AdminI18nMessageController extends AdminController
             ->deps('package/core/admin-i18n');
 
         return (new AdminListEntryProcess([
-            'filter.form'   => FilterI18nMessage::class,
-            'filter.service'   => new FilterI18nMessageService(),
-            'model'    => I18nMessage::class,
-            'template' => 'core/admin-i18n/manage-i18n-message',
+            'filter.form'    => FilterI18nMessage::class,
+            'filter.service' => new FilterI18nMessageService(),
+            'model'          => I18nMessage::class,
+            'template'       => 'core/admin-i18n/manage-message',
         ]))->process();
+    }
+
+    public function actionSave()
+    {
+        $req = _get('request');
+        $identity = $req->get('message_id');
+        /** @var I18nMessage $entry */
+        $entry = _find('i18n_message', $identity);
+        $entry->setMessageValue($req->get('message_value'));
+        $entry->save();
+
+        return ['value' => $entry->getMessageValue(), 'message' => 'Successful'];
     }
 
     public function actionEdit()
     {
         return (new AdminEditEntryProcess([
-            'key'      => 'timezone_id',
+            'key'      => 'message_id',
             'model'    => I18nTimezone::class,
             'form'     => EditI18nTimezone::class,
-            'redirect' => _url('admin.core.i18n.timezone'),
+            'redirect' => _url('admin.core.i18n.message'),
         ]))->process();
     }
 

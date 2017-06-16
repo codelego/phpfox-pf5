@@ -3,6 +3,9 @@
 namespace Neutron\Pages\Controller;
 
 use Neutron\Core\Controller\AdminController;
+use Neutron\Core\Process\AdminListEntryProcess;
+use Neutron\Pages\Form\Admin\Pages\FilterPages;
+use Neutron\Pages\Model\Pages;
 
 class AdminPagesController extends AdminController
 {
@@ -20,6 +23,10 @@ class AdminPagesController extends AdminController
 
     public function actionIndex()
     {
-
+        return (new AdminListEntryProcess([
+            'filter.form' => FilterPages::class,
+            'model'       => Pages::class,
+            'template'    => 'pages/admin/manage-pages',
+        ]))->process();
     }
 }

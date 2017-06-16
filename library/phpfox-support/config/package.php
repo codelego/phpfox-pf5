@@ -6,7 +6,7 @@ return [
     'services' => [
         'image'                      => [null, InterventionImageManager::class],
         'mvc.events'                 => [null, EventManager::class],
-        'registry'                   => [null, Registry::class],
+        'context'                    => [null, RequestContext::class],
         'curl'                       => [null, CurlFactory::class],
         'dispatcher'                 => [null, ActionDispatcher::class],
         'request'                    => [RequestFactory::class, null],

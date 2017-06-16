@@ -97,4 +97,9 @@ class ParameterContainer
     {
         return isset($this->data[$key]) ? $this->data[$key] : $default;
     }
+
+    public function all()
+    {
+        return $this->data;
+    }
 }

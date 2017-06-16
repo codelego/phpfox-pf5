@@ -21,6 +21,30 @@ class Pages extends DbModel
         $this->__set('page_id', $value);
     }
 
+
+    public function getName()
+    {
+        return $this->__get('title');
+    }
+
+    public function getLevelId()
+    {
+        return (int)$this->__get('level_id');
+    }
+
+    public function setLevelId($value)
+    {
+        return $this->__set('level_id', (int)$value);
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        return _url('profile', ['name' => $this->getProfileName()]);
+    }
+
     public function isFeatured()
     {
         return $this->__get('is_featured') ? 1 : 0;

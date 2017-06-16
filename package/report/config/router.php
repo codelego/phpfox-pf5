@@ -11,7 +11,10 @@ return [
                     'route'      => 'category(/<action>)',
                     'controller' => 'report.admin-category',
                 ],
-                'item'     => ['route' => '<action>'],
+                'manage'   => [
+                    'route'      => 'manage(/<action>)',
+                    'controller' => 'report.admin-report',
+                ],
             ],
         ],
     ],

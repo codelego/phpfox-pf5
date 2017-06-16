@@ -25,7 +25,7 @@ class AdminListEntryProcess extends AbstractProcess
 
             $search->populate($_GET);
 
-            _get('registry')->set('filter.form', $search);
+            _get('context')->set('filter.form', $search);
 
             $criteria->addCriteria($search->getData());
         }
@@ -34,9 +34,7 @@ class AdminListEntryProcess extends AbstractProcess
 
         /** @var FilterInterface $filter */
         $filter = $this->get('filter.service');
-
-
-
+        
         if ($filter instanceof FilterInterface) {
             /** @var SqlSelect $select */
             $select = $filter->filter($criteria);

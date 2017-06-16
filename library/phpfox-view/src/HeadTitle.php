@@ -53,9 +53,8 @@ class HeadTitle implements HtmlElementInterface
     public function getHtml()
     {
         if (empty($this->data)) {
-            return '';
+            $this->data = [_setting('core.site_title')];
         }
-
         return '<title>' . $this->__toString() . '</title>';
     }
 

@@ -1,0 +1,39 @@
+<div class="panel panel-default">
+    <div class="table-responsive">
+        <table class="table table-admin">
+            <thead>
+            <tr>
+                <th class="text-center w40">#</th>
+                <th class="w40">ID</th>
+                <th>Name</th>
+                <th>Active?</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item): ?>
+                <tr>
+                    <td class="dropdown" data-cmd="dropdown">
+                        <ul>
+                            <li><a href="<?= _url('admin.photo.category',
+                                    ['action' => 'edit', 'category_id' => $item->getId()]) ?>"><?= _text('Edit') ?></a>
+                            </li>
+                            <li><a href="<?= _url('admin.photo.category', [
+                                    'action'      => 'delete',
+                                    'category_id' => $item->getId(),
+                                ]) ?>"><?= _text('Delete') ?></a></li>
+                            <li><a href="<?= _url('admin.photo.category', [
+                                    'action'      => 'transfer',
+                                    'category_id' => $item->getId(),
+                                ]) ?>"><?= _text('Transfer') ?></a></li>
+                        </ul>
+                    </td>
+                    <td><?= $item->getId() ?></td>
+                    <td><?= $item->getName() ?></td>
+                    <td><?= _yesno($item->isActive()) ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+

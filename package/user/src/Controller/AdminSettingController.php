@@ -18,6 +18,8 @@ class AdminSettingController extends AdminController
         _get('breadcrumb')
             ->set(['href' => _url('admin.user'), 'label' => _text('Members', 'admin'),]);
 
+        _get('html.title')
+            ->set(_text('Edit User Settings','_user'));
     }
 
     public function actionIndex()

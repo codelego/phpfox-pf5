@@ -1,0 +1,64 @@
+<div class="panel panel-default">
+    <table class="table table-admin">
+        <thead>
+        <tr>
+            <th></th>
+            <th class="text-center w30">
+                <input type="checkbox" class="moderation-check-all"/>
+            </th>
+            <th class="text-center w50">ID</th>
+            <th>Title</th>
+            <th class="w180">Posted</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($items as $item): ?>
+            <tr>
+                <td class="dropdown" data-cmd="dropdown">
+                    <ul>
+                        <li><a data-cmd="modal" href="<?= _url('admin.video.manage',['action'=>'edit','video_id'=>$item->getId()])?>"><?= _text('Edit') ?></a></li>
+                        <li><a data-cmd="modal" href="<?= _url('admin.video.manage',['action'=>'delete','video_id'=>$item->getId()])?>"><?= _text('Delete') ?></a></li>
+                        <li><a data-cmd="modal" href="<?= _url('admin.video.manage',['action'=>'feature','video_id'=>$item->getId()])?>"><?= _text('Feature') ?></a></li>
+                        <li><a data-cmd="modal" href="<?= _url('admin.video.manage',['action'=>'un-feature','video_id'=>$item->getId()])?>"><?= _text('Un-Feature') ?></a></li>
+                        <li><a data-cmd="modal" href="<?= _url('admin.video.manage',['action'=>'approve','video_id'=>$item->getId()])?>"><?= _text('Approve') ?></a></li>
+                    </ul>
+                </td>
+                <td class="w30">
+                    <input id="cb" type="checkbox" name="cb[]" value="<?= $item->getId() ?>"
+                           class="item_checkbox"/>
+                </td>
+                <td class="text-center w50"><?= $item->getId() ?></td>
+                <td><?= $item->getTitle() ?>
+                </td>
+                <td class="180">
+                    <?= _date($item->getCreatedAt())?>
+                </td>
+            </tr>
+        <?php endforeach;?>
+        </tbody>
+    </table>
+</div>
+
+
+<div class="toolbar-bottom">
+    <div class="dropup">
+        <a class="btn btn-default btn-dropdown" data-toggle="dropdown">With
+            Selected</a>
+        <ul class="dropdown-menu">
+            <li role="presentation">
+                <a role="btn" class="danger">Delete</a>
+            </li>
+            <li role="presentation">
+                <a role="button">Approve</a>
+            </li>
+            <li role="presentation">
+                <a role="button">Feature</a>
+            </li>
+            <li role="presentation">
+                <a role="button">Un-Feature</a>
+            </li>
+        </ul>
+    </div>
+    <?= $items->render() ?>
+</div>
+

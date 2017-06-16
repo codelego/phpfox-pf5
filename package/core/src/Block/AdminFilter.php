@@ -2,7 +2,6 @@
 
 namespace Neutron\Core\Block;
 
-
 use Phpfox\Form\Form;
 use Phpfox\View\Component;
 use Phpfox\View\ViewModel;
@@ -11,7 +10,8 @@ class AdminFilter extends Component
 {
     public function run()
     {
-        $form = _get('registry')->get('filter.form');
+        $form = _get('context')
+            ->get('filter.form');
 
         if (!$form instanceof Form) {
             return false;

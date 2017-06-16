@@ -6,6 +6,7 @@ use Neutron\Core\Form\Admin\CorePackage\FilterCorePackage;
 use Neutron\Core\Form\Admin\CorePackage\UploadPackage;
 use Neutron\Core\Model\CorePackage;
 use Neutron\Core\Process\AdminListEntryProcess;
+use Neutron\Core\Service\FilterCorePackageService;
 use Phpfox\View\ViewModel;
 
 class AdminPackageController extends AdminController
@@ -21,7 +22,7 @@ class AdminPackageController extends AdminController
         _get('html.title')
             ->set(_text('Packages', 'admin'));
 
-        _get('menu.admin.secondary')->load('admin','package');
+        _get('menu.admin.secondary')->load('admin', 'package');
 
         _get('menu.admin.buttons')
             ->load('_core.package.buttons');
@@ -36,11 +37,12 @@ class AdminPackageController extends AdminController
 
         return (new AdminListEntryProcess([
             'filter.form'   => FilterCorePackage::class,
-            'model'    => CorePackage::class,
-            'noLimit'  => true,
-            'limit'    => 4,
-            'data'     => ['message' => $message],
-            'template' => 'core/admin-package/manage-core-package',
+            'filter.service' => new FilterCorePackageService(),
+            'model'         => CorePackage::class,
+            'noLimit'       => true,
+            'limit'         => 4,
+            'data'          => ['message' => $message],
+            'template'      => 'core/admin-package/manage-core-package',
         ]))->process();
     }
 

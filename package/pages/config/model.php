@@ -9,11 +9,17 @@ return [
         Pages::class,
         'package/pages/config/model/pages.php',
     ],
-    'pages_level' => [
+    'pages_level'          => [
         'table_factory',
         ':pages_level',
         PagesLevel::class,
         'package/pages/config/model/pages_level.php',
+    ],
+    'pages_category'       => [
+        'table_factory',
+        ':pages_category',
+        PagesCategory::class,
+        'package/pages/config/model/pages_category.php',
     ],
     'pages_member'         => [
         'table_factory',

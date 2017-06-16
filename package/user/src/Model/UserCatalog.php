@@ -12,20 +12,20 @@ class UserCatalog extends DbModel
     public function setCatalogId($value){$this->__set('catalog_id', $value);}
     public function setId($value){$this->__set('catalog_id', $value);}
     
-    public function getCatalogName(){return $this->__get('catalog_name');}
-    public function setCatalogName($value){$this->__set('catalog_name', $value);}
+    public function getName(){return $this->__get('name');}
+    public function setName($value){$this->__set('name', $value);}
     
-    public function getCatalogLabel(){return $this->__get('catalog_label');}
-    public function setCatalogLabel($value){$this->__set('catalog_label', $value);}
+    public function getTitle(){return $this->__get('title');}
+    public function setTitle($value){$this->__set('title', $value);}
     
-    public function getCatalogDescription(){return $this->__get('catalog_description');}
-    public function setCatalogDescription($value){$this->__set('catalog_description', $value);}
+    public function getDescription(){return $this->__get('description');}
+    public function setDescription($value){$this->__set('description', $value);}
     
     public function isActive(){return $this->__get('is_active') ?1:0;}
     public function setActive($value){$this->__set('is_active',$value?1:0);}
     
-    public function isSystem(){return $this->__get('is_system') ?1:0;}
-    public function setSystem($value){$this->__set('is_system',$value?1:0);}
+    public function isCore(){return $this->__get('is_core') ?1:0;}
+    public function setCore($value){$this->__set('is_core',$value?1:0);}
     
     public function getOrdering(){return (int) $this->__get('ordering');}
     public function setOrdering($value){$this->__set('ordering', $value);}

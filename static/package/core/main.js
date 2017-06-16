@@ -76,7 +76,7 @@ define(['jquery', 'underscore'], function () {
         return $.ajax({
             url: form.data('url') || form.prop('action'),
             method: 'POST',
-            // dataType: 'json',
+            dataType: 'json',
             data: form.serializeJSON(),
             beforeSend: function () {
                 form.addClass('disabled sending');

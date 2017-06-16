@@ -41,4 +41,8 @@ interface UserInterface extends ItemInterface
      */
     public function getLevelType();
 
+    /**
+     * @return string
+     */
+    public function getCatalogType();
 }

@@ -18,6 +18,12 @@ class AclAction extends DbModel
     public function getDomainId(){return $this->__get('domain_id');}
     public function setDomainId($value){$this->__set('domain_id', $value);}
     
+    public function getAcceptType(){return $this->__get('accept_type');}
+    public function setAcceptType($value){$this->__set('accept_type', $value);}
+    
+    public function getDependency(){return $this->__get('dependency');}
+    public function setDependency($value){$this->__set('dependency', $value);}
+    
     public function getFormId(){return $this->__get('form_id');}
     public function setFormId($value){$this->__set('form_id', $value);}
     

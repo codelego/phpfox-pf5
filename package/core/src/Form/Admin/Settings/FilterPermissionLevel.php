@@ -2,6 +2,7 @@
 
 namespace Neutron\Core\Form\Admin\Settings;
 
+use Neutron\Core\Model\AclForm;
 use Phpfox\Form\Form;
 
 class FilterPermissionLevel extends Form
@@ -26,6 +27,19 @@ class FilterPermissionLevel extends Form
             ->all());
     }
 
+    public function getFormIdOptions()
+    {
+        $select = _model('acl_form')
+            ->select()
+            ->where('accept_type=?', $this->model)
+            ->orWhere('accept_type=?','*')
+            ->order('ordering', 1);
+
+        return array_map(function (AclForm $aclForm) {
+            return ['value' => $aclForm->getId(), 'label' => $aclForm->getTitle()];
+        }, $select->all());
+    }
+
     protected function initialize()
     {
         $this->setMethod('get');
@@ -48,7 +62,7 @@ class FilterPermissionLevel extends Form
         ]);
 
         /** element `domain_id` **/
-        $formOptions = _get('core.permission')->getFormIdOptions();
+        $formOptions = $this->getFormIdOptions();
         $formValue = $formOptions[0]['value'];
 
         $this->addElement([

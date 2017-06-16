@@ -68,18 +68,22 @@ class AdminEditSettingsProcess extends AbstractProcess
         $request = _get('request');
         $formId = $this->get('form_id');
 
-        if (!$formId) {
-            $formId = $request->get('form_id');
+        $formName =  $this->get('form');
+
+        if(!$formName){
+            if (!$formId) {
+                $formId = $request->get('form_id');
+            }
+
+            /** @var SettingForm $settingForm */
+            $settingForm = _find('setting_form', $formId);
+
+            if (!$settingForm) {
+                throw new \InvalidArgumentException(_sprintf('Invalid group [{0}]', [$formId]));
+            }
+
+            $formName = $settingForm->getFormName();
         }
-
-        /** @var SettingForm $settingForm */
-        $settingForm = _find('setting_form', $formId);
-
-        if (!$settingForm) {
-            throw new \InvalidArgumentException(_sprintf('Invalid group [{0}]', [$formId]));
-        }
-
-        $formName = $settingForm->getFormName();
 
         if (!class_exists($formName)) {
             throw new \InvalidArgumentException(_sprintf('Invalid group [{0}]', [$formId]));

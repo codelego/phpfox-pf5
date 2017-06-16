@@ -38,7 +38,7 @@ class AdminI18nCurrencyController extends AdminController
         return (new AdminListEntryProcess([
             'model'    => I18nCurrency::class,
             'data'     => ['defaultValue' => _param('core.default_currency_id')],
-            'template' => 'core/admin-i18n/manage-i18n-currency',
+            'template' => 'core/admin-i18n/manage-currency',
         ]))->process();
     }
 

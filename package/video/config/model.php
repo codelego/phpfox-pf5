@@ -15,6 +15,12 @@ return [
         VideoProvider::class,
         'package/video/config/model/video_provider.php',
     ],
+    'video_encoder'  => [
+        'table_factory',
+        ':video_encoder',
+        VideoEncoder::class,
+        'package/video/config/model/video_encoder.php',
+    ],
     'video_category' => [
         'table_factory',
         ':video_category',

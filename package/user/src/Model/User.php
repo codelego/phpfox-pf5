@@ -102,6 +102,11 @@ class User extends DbModel implements UserInterface
         return 'user_level';
     }
 
+    public function getCatalogType()
+    {
+        return 'user_catalog';
+    }
+
     public function setLevelId($value)
     {
         $this->__set('level_id', $value);

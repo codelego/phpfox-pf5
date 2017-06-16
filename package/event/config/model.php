@@ -9,7 +9,13 @@ return [
         Event::class,
         'package/event/config/model/event.php',
     ],
-    'event_level' => [
+    'event_category'       => [
+        'table_factory',
+        ':event_category',
+        EventCategory::class,
+        'package/event/config/model/event_category.php',
+    ],
+    'event_level'          => [
         'table_factory',
         ':event_level',
         EventLevel::class,

@@ -8,5 +8,4 @@ return [
     'photo.admin-album'    => AdminAlbumController::class,
     'photo.admin-category' => AdminCategoryController::class,
     'photo.admin-settings' => AdminSettingsController::class,
-    'photo.admin-acl'      => AdminAclController::class,
 ];

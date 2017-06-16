@@ -2,4 +2,8 @@
 
 namespace Neutron\Quiz\Controller;
 
-return [];
+
+return [
+    'quiz.admin-quiz'     => AdminQuizController::class,
+    'quiz.admin-settings' => AdminSettingController::class,
+];

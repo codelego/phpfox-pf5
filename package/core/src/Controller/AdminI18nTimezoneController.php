@@ -38,8 +38,8 @@ class AdminI18nTimezoneController extends AdminController
         return (new AdminListEntryProcess([
             'noLimit'  => true,
             'model'    => I18nTimezone::class,
-            'data'     => ['defaultValue' => _param('core.default_timezone_id')],
-            'template' => 'core/admin-i18n/manage-i18n-timezone',
+            'data'     => ['defaultValue' => _setting('core.default_timezone_id')],
+            'template' => 'core/admin-i18n/manage-timezone',
         ]))->process();
     }
 

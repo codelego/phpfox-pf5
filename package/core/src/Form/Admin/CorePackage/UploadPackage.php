@@ -13,15 +13,13 @@ class UploadPackage extends Form
         $this->setAction(_url('#'));
         $this->setEncType('upload');
 
-        $this->addElements([
-            [
-                'factory'    => 'file',
-                'name'       => 'package',
-                'attributes' => [
-                    'class'    => 'upload',
-                    'accept'   => 'application/zip',
-                    'multiple' => true,
-                ],
+        $this->addElement([
+            'factory'    => 'file',
+            'name'       => 'package',
+            'attributes' => [
+                'class'    => 'upload',
+                'accept'   => 'application/zip',
+                'multiple' => true,
             ],
         ]);
 

@@ -11,31 +11,29 @@ class FilterI18nMessageService implements FilterInterface
     {
         $select = _model('i18n_message')->select();
 
-
-
-        if ($criteria->isString('package_id')) {
-            $select->where('package_id=?', $criteria->get('package_id'));
+        if ($criteria->is('package_id','string')) {
+            $select->where('package_id=?', $criteria->get('package_id','string'));
         }
 
-        if ($criteria->isArray('package_id')) {
-            $select->where('package_id in ?', $criteria->getArray('package_id'));
+        if ($criteria->is('package_id','package_id')) {
+            $select->where('package_id in ?', $criteria->get('package_id','string'));
         }
 
-        if ($criteria->isString('domain_id')) {
-            $select->where('domain_id=?', $criteria->getString('domain_id'));
+        if ($criteria->is('domain_id','string')) {
+            $select->where('domain_id=?', $criteria->get('domain_id','string'));
         }
 
-        if ($criteria->isString('domain_id')) {
-            $select->where('domain_id=?', $criteria->getString('domain_id'));
+        if ($criteria->is('domain_id','string')) {
+            $select->where('domain_id=?', $criteria->get('domain_id','string'));
         }
 
-        if ($criteria->isString('q')) {
+        if ($criteria->is('q','string')) {
             $select->where('message_name like ? or message_value like ? or domain_id like ?',
-                $criteria->quoteContain('q'));
+                $criteria->get('q','contain'));
         }
 
-        if ($criteria->isString('locale_id')) {
-            $select->where('locale_id=?', $criteria->getString('locale_id'));
+        if ($criteria->is('locale_id','string')) {
+            $select->where('locale_id=?', $criteria->get('locale_id','string'));
         }
 
         $select->order('message_name', 1);

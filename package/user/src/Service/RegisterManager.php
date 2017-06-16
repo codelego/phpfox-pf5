@@ -12,9 +12,22 @@ class RegisterManager
     {
         return [
             ['value' => 'public', 'label' => 'Public, everyone can register a new account'],
-            ['value' => 'admin_invite_only', 'label' => 'Admin Invite Only, everyone can register a new account'],
-            ['value' => 'invite_only', 'label' => 'Invite Only, everyone can register a new account'],
-            ['value' => 'disabled', 'label' => 'Disabled, Nobody can register a new account'],
+            [
+                'value' => 'invite_only',
+                'label' => 'Invite Only, visitors can register a new account if got invitation code',
+            ],
+            ['value' => 'disabled', 'label' => 'Disabled, no one can register a new account'],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getVerificationOptions()
+    {
+        return [
+            ['value' => 'email', 'label' => 'Send verification code via email'],
+            ['value' => 'sms', 'label' => 'Send verification code via SMS'],
         ];
     }
 }

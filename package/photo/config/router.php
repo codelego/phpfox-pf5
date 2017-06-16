@@ -20,16 +20,12 @@ return [
                     'route'      => 'settings(/<action>)',
                     'controller' => 'photo.admin-settings',
                 ],
-                'acl'      => [
-                    'route'      => 'acl(/<action>)',
-                    'controller' => 'photo.admin-acl',
-                ],
                 'album'    => [
                     'route'      => 'album/(<action>)',
                     'controller' => 'photo.admin-album',
                 ],
-                'photo'    => [
-                    'route'      => '<action>',
+                'manage'    => [
+                    'route'      => 'manage(/<action>)',
                     'controller' => 'photo.admin-photo',
                 ],
             ],

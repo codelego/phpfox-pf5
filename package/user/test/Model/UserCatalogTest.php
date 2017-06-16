@@ -5,16 +5,16 @@ class UserCatalogTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new UserCatalog(array (  'catalog_id' => 1,  'catalog_name' => 'default',  'catalog_label' => 'Standard',  'catalog_description' => 'Standard user',  'is_active' => 1,  'is_system' => 1,  'ordering' => 10,));
+        $obj = new UserCatalog(array (  'catalog_id' => 1,  'name' => 'default',  'title' => 'Standard',  'description' => 'Standard user',  'is_active' => 1,  'is_core' => 1,  'ordering' => 2,));
 
         $this->assertSame('user_catalog', $obj->getModelId());
         $this->assertSame(1, $obj->getCatalogId());
-        $this->assertSame('default', $obj->getCatalogName());
-        $this->assertSame('Standard', $obj->getCatalogLabel());
-        $this->assertSame('Standard user', $obj->getCatalogDescription());
+        $this->assertSame('default', $obj->getName());
+        $this->assertSame('Standard', $obj->getTitle());
+        $this->assertSame('Standard user', $obj->getDescription());
         $this->assertSame(1, $obj->isActive());
-        $this->assertSame(1, $obj->isSystem());
-        $this->assertSame(10, $obj->getOrdering());    }
+        $this->assertSame(1, $obj->isCore());
+        $this->assertSame(2, $obj->getOrdering());    }
 
     public function testParameters()
     {
@@ -22,25 +22,25 @@ class UserCatalogTest extends \PHPUnit_Framework_TestCase
 
         // set data
         $obj->setCatalogId(1);
-        $obj->setCatalogName('default');
-        $obj->setCatalogLabel('Standard');
-        $obj->setCatalogDescription('Standard user');
+        $obj->setName('default');
+        $obj->setTitle('Standard');
+        $obj->setDescription('Standard user');
         $obj->setActive(1);
-        $obj->setSystem(1);
-        $obj->setOrdering(10);
+        $obj->setCore(1);
+        $obj->setOrdering(2);
         // assert same data
         $this->assertSame('user_catalog', $obj->getModelId());
         $this->assertSame(1, $obj->getCatalogId());
-        $this->assertSame('default', $obj->getCatalogName());
-        $this->assertSame('Standard', $obj->getCatalogLabel());
-        $this->assertSame('Standard user', $obj->getCatalogDescription());
+        $this->assertSame('default', $obj->getName());
+        $this->assertSame('Standard', $obj->getTitle());
+        $this->assertSame('Standard user', $obj->getDescription());
         $this->assertSame(1, $obj->isActive());
-        $this->assertSame(1, $obj->isSystem());
-        $this->assertSame(10, $obj->getOrdering());    }
+        $this->assertSame(1, $obj->isCore());
+        $this->assertSame(2, $obj->getOrdering());    }
 
     public function testSave()
     {
-        $obj = new UserCatalog(array (  'catalog_id' => 1,  'catalog_name' => 'default',  'catalog_label' => 'Standard',  'catalog_description' => 'Standard user',  'is_active' => 1,  'is_system' => 1,  'ordering' => 10,));
+        $obj = new UserCatalog(array (  'catalog_id' => 1,  'name' => 'default',  'title' => 'Standard',  'description' => 'Standard user',  'is_active' => 1,  'is_core' => 1,  'ordering' => 2,));
 
         $obj->save();
 
@@ -50,12 +50,12 @@ class UserCatalogTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('user_catalog', $obj->getModelId());
         $this->assertSame(1, $obj->getCatalogId());
-        $this->assertSame('default', $obj->getCatalogName());
-        $this->assertSame('Standard', $obj->getCatalogLabel());
-        $this->assertSame('Standard user', $obj->getCatalogDescription());
+        $this->assertSame('default', $obj->getName());
+        $this->assertSame('Standard', $obj->getTitle());
+        $this->assertSame('Standard user', $obj->getDescription());
         $this->assertSame(1, $obj->isActive());
-        $this->assertSame(1, $obj->isSystem());
-        $this->assertSame(10, $obj->getOrdering());    }
+        $this->assertSame(1, $obj->isCore());
+        $this->assertSame(2, $obj->getOrdering());    }
 
     public static function setUpBeforeClass()
     {

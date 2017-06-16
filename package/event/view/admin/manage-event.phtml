@@ -1,0 +1,56 @@
+<div class="panel panel-default">
+    <div class="table-responsive">
+        <table class="table table-admin">
+            <thead>
+            <tr>
+                <th class="w30">
+                    <input type="checkbox" class="moderation-check-all"/>
+                </th>
+                <th class="text-center">#</th>
+                <th class="sortable asc">Name</th>
+                <th class="w50 text-center">Level</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item): ?>
+                <tr>
+                    <td>
+                        <label><input id="cb" type="checkbox" name="cb[]" value="<?= $item->getId() ?>"
+                                      class="item_checkbox"/></label>
+                    </td>
+                    <td data-cmd="dropdown" class="dropdown">
+                        <ul>
+                            <li><a href="<?= _url('admin.event.event', [
+                                    'action' => 'edit',
+                                    'event_id' => $item->getId(),
+                                ]) ?>"><?= _text('Edit user') ?></a></li>
+                            <li><a href=""><?= _text('Promote this event') ?></a></li>
+                            <li class="divider"></li>
+                            <li><a href=""><?= _text('Delete this event', 'event') ?></a></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <a target="_blank" rel="nofollow" href="<?= $item->getUrl() ?>"><?= $item->getName(); ?></a>
+                    </td>
+                    <td class="text-center"><?= $item->getLevelId(); ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="toolbar-bottom">
+    <div class="dropup">
+        <a class="btn btn-default btn-dropdown" data-toggle="dropdown">With
+            Selected</a>
+        <ul class="dropdown-menu">
+            <li role="presentation">
+                <a role="btn" class="danger">Delete</a>
+            </li>
+            <li role="presentation">
+                <a role="button">Approve</a>
+            </li>
+        </ul>
+    </div>
+    <?= $items->render() ?>
+</div>

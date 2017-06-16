@@ -12,14 +12,15 @@ define([
         if (form.hasClass('disabled'))
             return false;
 
-        $.ajaxForm(form.closest('form'))
+        Core.ajaxForm(form)
             .done(function (data) {
+                console.log(data);
                 if (data.cmd == 'delete') {
                     form.closest('tr').fadeOut(250, function () {
                         form.closest('tr').remove();
                     });
                 } else {
-                    form.closest('tr').find('p.text-value').text(data.item.value);
+                    form.closest('td').find('p.text-value').html(data.value);
                     form.toggleClass('hide');
                     Toast.success(data.message);
                 }
@@ -28,6 +29,8 @@ define([
             .error(function () {
                 alert('can not save form');
             });
+
+        return false;
     }).cmd('admin.i18n.phrase.delete', function (btn) {
         btn.closest('tr').addClass('hide');
     });

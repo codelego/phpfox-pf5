@@ -10,6 +10,7 @@ namespace Neutron\Core\Process;
 
 
 use Neutron\Core\Form\Admin\Settings\FilterPermissionLevel;
+use Neutron\Core\Model\AclAction;
 use Neutron\Core\Model\AclForm;
 use Phpfox\Form\FieldInterface;
 use Phpfox\Form\Form;
@@ -37,7 +38,6 @@ class AdminEditPermissionProcess extends AbstractProcess
 
             $settingGroups[$settingGroup][] = $settingName;
         }
-
         return $settingGroups;
     }
 
@@ -62,6 +62,58 @@ class AdminEditPermissionProcess extends AbstractProcess
         }
 
         return $data;
+    }
+
+    /**
+     * @param string $domainId
+     * @param string $name
+     *
+     * @return AclAction
+     */
+    public function findAction($domainId, $name)
+    {
+        return _model('acl_action')
+            ->select()
+            ->where('domain_id=?', $domainId)
+            ->where('name=?', $name)
+            ->first();
+    }
+
+    /**
+     * @param Form  $form
+     * @param mixed $levelId
+     * @param mixed $itemType
+     */
+    public function removeInvalidElements($form, $levelId, $itemType)
+    {
+        $validate = $this->collectDomains($form);
+
+        $permissionFacades = _get('acl');
+
+
+        foreach ($validate as $domainId => $names) {
+            foreach ($names as $actionName) {
+                $elementName = $domainId . '__' . $actionName;
+                $aclAction = $this->findAction($domainId, $actionName);
+
+                if (!$aclAction) {
+                    $form->removeElement($elementName);
+                    continue;
+                }
+
+                if ($aclAction->getAcceptType() != '*' and $aclAction->getAcceptType() != $itemType) {
+                    $form->removeElement($elementName);
+                    continue;
+                }
+
+                if (null != ($dependency = $aclAction->getDependency())) {
+                    if (!$permissionFacades->checkByLevel($levelId, $itemType, $dependency)) {
+                        $form->removeElement($elementName);
+                        continue;
+                    }
+                }
+            }
+        }
     }
 
     public function process()
@@ -94,7 +146,10 @@ class AdminEditPermissionProcess extends AbstractProcess
         }
 
         /** @var Form $form */
-        $form = (new \ReflectionClass($formName))->newInstanceArgs([['levelId'=> $levelId,'itemType'=>$itemType]]);
+        $form = (new \ReflectionClass($formName))->newInstanceArgs([['levelId' => $levelId, 'itemType' => $itemType]]);
+
+        $this->removeInvalidElements($form, $levelId, $itemType);
+
 
         if ($request->isGet()) {
 
@@ -110,7 +165,7 @@ class AdminEditPermissionProcess extends AbstractProcess
             _get('core.permission')->updateValues($itemType, $levelId, $data);
         }
 
-        $vm = new ViewModel(['form' => $form,'filter'=>$filter], 'core/admin-settings/edit-permission');
+        $vm = new ViewModel(['form' => $form, 'filter' => $filter], 'core/admin-settings/edit-permission');
 
         if (is_array($data = $this->get('data'))) {
             $vm->assign($data);

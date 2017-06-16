@@ -3,6 +3,9 @@
 namespace Neutron\Event\Controller;
 
 use Neutron\Core\Controller\AdminController;
+use Neutron\Core\Process\AdminListEntryProcess;
+use Neutron\Event\Form\Admin\Event\FilterEvent;
+use Neutron\Event\Model\Event;
 
 class AdminEventController extends AdminController
 {
@@ -20,7 +23,11 @@ class AdminEventController extends AdminController
 
     public function actionIndex()
     {
-
+        return (new AdminListEntryProcess([
+            'filter.form' => FilterEvent::class,
+            'model'       => Event::class,
+            'template'    => 'event/admin/manage-event',
+        ]))->process();
     }
 
     public function actionEdit()

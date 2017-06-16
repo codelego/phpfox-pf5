@@ -16,7 +16,7 @@ class AdminController extends ActionController
         _get('require_js')
             ->deps('package/core/admin');
 
-        if (false == _allow(null, 'core.access_admin', false)) {
+        if (false == _allow(null, 'is_admin', false)) {
             $this->forward('core.admin-auth', 'login');
         }
     }

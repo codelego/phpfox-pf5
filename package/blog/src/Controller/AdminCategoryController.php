@@ -38,7 +38,7 @@ class AdminCategoryController extends AdminController
         return (new AdminListEntryProcess([
                 'filter.form' => null,
                 'model'       => BlogCategory::class,
-                'template'    => 'blog/admin-category/manage-blog-category',
+                'template'    => 'blog/admin/manage-category',
             ]
         ))->process();
 

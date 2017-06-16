@@ -32,7 +32,7 @@ class SelectDecorator implements DecoratorInterface
                 [
                     'label'    => $option['label'],
                     'value'    => $option['value'],
-                    'selected' => ($option['value'] and ($value == $option['value'])) ? 'selected' : '',
+                    'selected' => ($value != '' and isset($option['value']) and ($value == $option['value'])) ? 'selected' : '',
                 ]);
         }, $options);
 

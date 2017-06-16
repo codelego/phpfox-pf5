@@ -53,6 +53,24 @@ class Form extends Element implements ElementInterface, CollectionInterface
     }
 
     /**
+     * @param string $name
+     */
+    public function removeElement($name)
+    {
+        unset($this->byNames[$name]);
+    }
+
+    /**
+     * @param array $names
+     */
+    public function removeElements($names)
+    {
+        foreach($names as $name){
+            unset($this->byNames[$name]);
+        }
+    }
+
+    /**
      * @param array|ElementInterface[] $elements
      *
      * @return $this

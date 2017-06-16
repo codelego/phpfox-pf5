@@ -13,16 +13,27 @@ class PermissionLoader
     {
         return _try('super.cache', ['permission.loader', $itemType, $levelId], 0,
             function () use ($itemType, $levelId) {
-                $testArray = [$levelId];
-                $data = [];
+
 
                 /** @var UserInterface $itemModel */
                 $itemModel = _model($itemType)->create();
-                $levelModel = $itemModel->getLevelType();
+                $levelType = $itemModel->getLevelType();
+
+                $level = _find($levelType, $levelId);
+
+                if(!$level){
+                    throw new \InvalidArgumentException('Invalid parameters');
+                }
+
+                $testArray = [$levelId];
+                $data =  $level->toArray();
+
+                $data ['item_type'] = $itemType;
+                $data ['level_type'] = $levelType;
 
                 do {
                     /** @var UserLevel $level */
-                    $level = _find($levelModel, $levelId);
+                    $level = _find($levelType, $levelId);
 
                     if (!$level) {
                         break;

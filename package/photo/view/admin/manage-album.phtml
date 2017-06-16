@@ -1,0 +1,64 @@
+<div class="panel panel-default">
+    <table class="table table-admin">
+        <thead>
+        <tr>
+            <th></th>
+            <th class="text-center">
+                <input type="checkbox" class="moderation-check-all"/>
+            </th>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Posted</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($items as $item): ?>
+            <tr>
+                <td class="dropdown" data-cmd="dropdown">
+                    <ul>
+                        <li><a data-cmd="modal" href="<?= _url('admin.photo.album',['action'=>'edit','album_id'=>$item->getId()])?>"><?= _text('Edit') ?></a></li>
+                        <li><a data-cmd="modal" href="<?= _url('admin.photo.album',['action'=>'delete','album_id'=>$item->getId()])?>"><?= _text('Delete') ?></a></li>
+                        <li><a data-cmd="modal" href="<?= _url('admin.photo.album',['action'=>'feature','album_id'=>$item->getId()])?>"><?= _text('Feature') ?></a></li>
+                        <li><a data-cmd="modal" href="<?= _url('admin.photo.album',['action'=>'un-feature','album_id'=>$item->getId()])?>"><?= _text('Un-Feature') ?></a></li>
+                        <li><a data-cmd="modal" href="<?= _url('admin.photo.album',['action'=>'approve','album_id'=>$item->getId()])?>"><?= _text('Approve') ?></a></li>
+                    </ul>
+                </td>
+                <td>
+                    <label><input id="cb" type="checkbox" name="cb[]" value="<?= $item->getId() ?>"
+                                  class="item_checkbox"/></label>
+                </td>
+                <td><?= $item->getId() ?></td>
+                <td><?= $item->getTitle() ?>
+                </td>
+                <td class="w160">
+                    <?= _date($item->getCreatedAt())?>
+                </td>
+            </tr>
+        <?php endforeach;?>
+        </tbody>
+    </table>
+</div>
+
+
+<div class="toolbar-bottom">
+    <div class="dropup">
+        <a class="btn btn-default btn-dropdown" data-toggle="dropdown">With
+            Selected</a>
+        <ul class="dropdown-menu">
+            <li role="presentation">
+                <a role="btn" class="danger">Delete</a>
+            </li>
+            <li role="presentation">
+                <a role="button">Approve</a>
+            </li>
+            <li role="presentation">
+                <a role="button">Feature</a>
+            </li>
+            <li role="presentation">
+                <a role="button">Un-Feature</a>
+            </li>
+        </ul>
+    </div>
+    <?= $items->render() ?>
+</div>
+

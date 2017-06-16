@@ -17,7 +17,7 @@ class EditSmsSettings extends Form {
         
         
             /** element `core__default_sms_id` id=2191 **/
-            $this->addElement(array ( 'name' => 'core__default_sms_id', 'factory' => 'select', 'label' => _text('Default SMS Service','_core.sms'), 'info' => _text('Default SMS Id [Info]', '_core.sms'), 'options' => _get('core.adapter')->getAdapterIdOptions('sms'), 'required' => true, ));        
+            $this->addElement(array ( 'name' => 'core__default_sms_id', 'factory' => 'select', 'label' => _text('Default SMS Service','_core.sms'), 'placeholder' => _text('Default SMS Service','_core.sms'), 'info' => _text('Default SMS Id [Info]', '_core.sms'), 'options' => _get('core.adapter')->getAdapterIdOptions('sms'), 'required' => true, ));        
         /** end elements **/
 
         $this->addButton([

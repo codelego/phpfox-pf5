@@ -14,6 +14,8 @@ class AdminPermissionController extends AdminController
 
         _get('menu.admin.buttons')->load('_user.buttons');
 
+        _get('html.title')->set(_text('Edit Permissions', '_core'));
+
         _get('breadcrumb')
             ->set(['href' => _url('admin.user'), 'label' => _text('Members', 'admin'),])
             ->add([

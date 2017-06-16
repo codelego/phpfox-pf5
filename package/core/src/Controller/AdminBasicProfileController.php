@@ -34,6 +34,43 @@ class AdminBasicProfileController extends AdminController
      */
     protected $processTypes = ['create', 'edit', 'view', 'search'];
 
+    public function actionCatalog()
+    {
+        $items = _model($this->catalogModel)->select()->all();
+
+        return new ViewModel(['items'=>$items],'core/admin-profile/manage-catalog');
+    }
+
+    public function actionAttribute()
+    {
+        $items = _model('profile_attribute')
+            ->select()
+            ->where('item_type=?', $this->itemType)
+            ->all();
+
+        return new ViewModel(['items'=>$items],'core/admin-profile/manage-attribute');
+    }
+
+    public function actionProcess()
+    {
+        $items = _model('profile_process')
+            ->select()
+            ->where('item_type=?', $this->itemType)
+            ->all();
+
+        return new ViewModel(['items'=>$items],'core/admin-profile/manage-process');
+    }
+
+    public function actionSection()
+    {
+        $items = _model('profile_section')
+            ->select()
+            ->where('item_type=?', $this->itemType)
+            ->all();
+
+        return new ViewModel(['items'=>$items],'core/admin-profile/manage-section');
+    }
+
     public function actionIndex()
     {
         $catalogId = 1;

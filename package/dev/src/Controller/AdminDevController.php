@@ -65,7 +65,7 @@ class AdminDevController extends AdminController
         $filterData = $filter->getData();
         $selected = [];
 
-        _get('registry')
+        _get('context')
             ->set('filter.form', $filter);
 
         if ($request->isGet()) {

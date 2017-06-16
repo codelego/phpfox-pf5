@@ -66,13 +66,28 @@ class PackageManager
      */
     public function getPackageIdOptions()
     {
-        return _try('shared.cache', '_core_package_id_options', 0, function () {
+        return _try('shared.cache', 'getPackageIdOptions', 0, function () {
             return array_map(function (CorePackage $v) {
                 return [
                     'label' => $v->getTitle(),
                     'value' => $v->getName(),
                 ];
             }, _model('core_package')->select()->order('title',1)->all());
+        });
+    }
+
+    public function getAppIdOptions()
+    {
+        return _try('shared.cache', 'getAppIdOptions', 0, function () {
+            return array_map(function (CorePackage $v) {
+                return [
+                    'label' => $v->getTitle(),
+                    'value' => $v->getName(),
+                ];
+            }, _model('core_package')
+                ->select()
+                ->where('type_id=?','app')
+                ->order('title',1)->all());
         });
     }
 }

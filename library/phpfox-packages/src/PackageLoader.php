@@ -380,6 +380,7 @@ class PackageLoader implements PackageLoaderInterface
     {
         $result = [];
 
+
         /** @noinspection PhpIncludeInspection */
         $result['db.adapters']['default'] = include PHPFOX_DATABASE_FILE;
 

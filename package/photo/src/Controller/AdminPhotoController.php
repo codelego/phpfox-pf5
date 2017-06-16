@@ -4,6 +4,7 @@ namespace Neutron\Photo\Controller;
 
 
 use Neutron\Core\Controller\AdminController;
+use Neutron\Core\Process\AdminListEntryProcess;
 
 class AdminPhotoController extends AdminController
 {
@@ -19,6 +20,12 @@ class AdminPhotoController extends AdminController
 
     public function actionIndex()
     {
+        return (new AdminListEntryProcess([
+                'model'       => Photo::class,
+                'filter.form' => FilterPhoto::class,
+                'template'    => 'photo/admin/manage-photo',
+            ]
+        ))->process();
 
     }
 }

@@ -40,7 +40,7 @@ class AdminI18nLocaleController extends AdminController
         return (new AdminListEntryProcess([
             'model'    => I18nLocale::class,
             'data'     => ['defaultValue' => _param('core.default_locale_id')],
-            'template' => 'core/admin-i18n/manage-i18n-locale',
+            'template' => 'core/admin-i18n/manage-locale',
         ]))->process();
     }
 

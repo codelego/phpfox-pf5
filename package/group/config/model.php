@@ -9,7 +9,13 @@ return [
         Group::class,
         'package/group/config/model/group.php',
     ],
-    'group_level' => [
+    'group_category'       => [
+        'table_factory',
+        ':group_category',
+        GroupCategory::class,
+        'package/group/config/model/group_category.php',
+    ],
+    'group_level'          => [
         'table_factory',
         ':group_level',
         GroupLevel::class,

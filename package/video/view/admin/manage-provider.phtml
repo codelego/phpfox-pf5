@@ -1,0 +1,33 @@
+<div class="panel panel-default">
+    <div class="table-responsive">
+        <table class="table table-admin">
+            <thead>
+            <tr>
+                <th class="text-center w40">#</th>
+                <th class="w40">ID</th>
+                <th>Name</th>
+                <th>Active?</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item): ?>
+                <tr>
+                    <td class="dropdown" data-cmd="dropdown">
+                        <ul>
+                            <li><a data-cmd="modal" href="<?= _url('admin.video.provider', ['action' => 'enable', 'provider_id' => $item->getId()]) ?>"><?= _text('Enable') ?></a></li>
+                            <li><a data-cmd="modal" href="<?= _url('admin.video.provider', ['action' => 'disable', 'provider_id' => $item->getId()]) ?>"><?= _text('Disable') ?></a></li>
+                            <?php if($item->getFormSettingsClass() != null): ?>
+                            <li><a href="<?= _url('admin.video.provider', ['action' => 'edit', 'provider_id' => $item->getId()]) ?>"><?= _text('Edit Settings') ?></a></li>
+                            <?php endif; ?>
+                        </ul>
+                    </td>
+                    <td><?= $item->getId() ?></td>
+                    <td><?= $item->getDescription() ?></td>
+                    <td><?= _yesno($item->isActive()) ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+

@@ -11,13 +11,6 @@ use Phpfox\Support\UserInterface;
 
 class PermissionManager
 {
-    public function getFormIdOptions()
-    {
-        $select = _model('acl_form')->select()->order('ordering', 1);
-        return array_map(function (AclForm $aclForm) {
-            return ['value' => $aclForm->getId(), 'label' => $aclForm->getTitle()];
-        }, $select->all());
-    }
 
     /**
      * @param string $itemType

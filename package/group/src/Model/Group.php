@@ -11,6 +11,19 @@ class Group extends DbModel
         return 'group';
     }
 
+    /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        return _url('profile', ['name' => $this->getId()]);
+    }
+
+    public function getName()
+    {
+        return $this->__get('title');
+    }
+
     public function getId()
     {
         return (int)$this->__get('group_id');

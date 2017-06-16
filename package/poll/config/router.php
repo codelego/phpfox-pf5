@@ -11,12 +11,8 @@ return [
                     'route'      => 'settings(/<action>)',
                     'controller' => 'poll.admin-settings',
                 ],
-                'acl'      => [
-                    'route'      => 'acl(/<action>)',
-                    'controller' => 'poll.admin-acl',
-                ],
-                'poll'   => [
-                    'route'      => '<action>',
+                'poll'     => [
+                    'route'      => 'manage(/<action>)',
                     'controller' => 'poll.admin-poll',
                 ],
             ],
