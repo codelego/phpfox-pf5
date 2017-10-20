@@ -6,7 +6,7 @@ define('PHPFOX_ENV', 'development');
 
 date_default_timezone_set('Australia/Adelaide');
 
-include __DIR__ . '/config/bootstrap.php';
+include __DIR__ . '/app/config/bootstrap.php';
 
 _get('session')->start();
 

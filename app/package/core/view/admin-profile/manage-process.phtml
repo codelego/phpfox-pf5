@@ -1,0 +1,43 @@
+<form>
+    <div class="panel panel-default">
+        <div class="table-responsive">
+            <table class="table table-admin"
+                   data-sorturl="<?= _url('admin.core.profile', ['action' => 'update-catalog-ordering']) ?>">
+                <thead>
+                <tr>
+                    <th class="draggable"></th>
+                    <th class="w40 text-center">#</th>
+                    <th class="w120">ID</th>
+                    <th>Label</th>
+                    <th>Process</th>
+                    <th>Active?</th>
+                    <th>Require?</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($items as $item): ?>
+                    <tr>
+                        <td class="draggable">
+                            <input type="hidden" class="ordering" name="ordering[]" value="<?= $item->getId() ?>"/>
+                        </td>
+                        <td class="dropdown" data-cmd="dropdown">
+                            <ul>
+                                <li>
+                                    <a data-cmd="modal" href="<?= _url('admin.core.profile', [
+                                        'action' => 'edit-section',
+                                        'id'     => $item->getId(),
+                                    ]) ?>"><?= _text('Edit') ?></a>
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="w100"><?= $item->getName() ?></td>
+                        <td class="100%"><?= $item->getTitle() ?></td>
+                        <td class="w50"><?= _yesno($item->isActive()) ?></td>
+                        <td class="w50"><?= _yesno($item->isCore()) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>

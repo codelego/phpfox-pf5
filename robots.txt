@@ -1,9 +1,3 @@
 User-agent: *
-Disallow: /config/
+Disallow: /app/
 Disallow: /doc/
-Disallow: /library/
-Disallow: /package/
-Disallow: /data/
-Disallow: /static/
-Disallow: /vendor/
-sitemap:  /sitemap.xml

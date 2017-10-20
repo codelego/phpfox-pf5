@@ -1,0 +1,23 @@
+{
+    "name": "behat mink skeleton",
+    "require": {
+        "behat/behat":  "*",
+        "behat/mink-extension": "*",
+        "behat/mink-browserkit-driver": "*",
+        "behat/mink-goutte-driver": "*",
+        "behat/mink-selenium2-driver": "*",
+        "chartinger/behat-twig-report-extension": "*",
+        "behat/web-api-extension": "*",
+        "sensiolabs/behat-page-object-extension": "*",
+        "bossa/phpspec2-expect": "*",
+        "teaandcode/behat-guzzle-extension": "*",
+        "sauce/sausage": ">=0.5",
+        "sauce/connect": "^3.0",
+        "emuse/behat-html-formatter": "dev-master",
+        "codeception/codeception": "^2.2"
+    },
+    "minimum-stability": "dev",
+    "config": {
+        "bin-dir": "bin/"
+    }
+}
