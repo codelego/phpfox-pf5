@@ -1,11 +1,30 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class CoreMenuItemTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new CoreMenuItem(array (  'id' => 1,  'ordering' => 0,  'menu_id' => 'admin',  'name' => 'dashboard',  'parent_name' => '',  'package_id' => 'core',  'label' => 'Dashboard',  'href' => '',  'route' => 'admin',  'params' => '[]',  'extra' => '[]',  'permission' => NULL,  'event' => '',  'is_active' => 1,  'is_custom' => 0,  'item_type' => 'route',  'is_ajax' => 1,  'is_self' => 1,));
+        $obj = new CoreMenuItem(['id'          => 1,
+                                 'ordering'    => 0,
+                                 'menu_id'     => 'admin',
+                                 'name'        => 'dashboard',
+                                 'parent_name' => '',
+                                 'package_id'  => 'core',
+                                 'label'       => 'Dashboard',
+                                 'href'        => '',
+                                 'route'       => 'admin',
+                                 'params'      => '[]',
+                                 'extra'       => '[]',
+                                 'permission'  => null,
+                                 'event'       => '',
+                                 'is_active'   => 1,
+                                 'is_custom'   => 0,
+                                 'item_type'   => 'route',
+                                 'is_ajax'     => 1,
+                                 'is_self'     => 1,
+        ]);
 
         $this->assertSame('core_menu_item', $obj->getModelId());
         $this->assertSame(1, $obj->getId());
@@ -25,7 +44,8 @@ class CoreMenuItemTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(0, $obj->isCustom());
         $this->assertSame('route', $obj->getItemType());
         $this->assertSame(1, $obj->isAjax());
-        $this->assertSame(1, $obj->isSelf());    }
+        $this->assertSame(1, $obj->isSelf());
+    }
 
     public function testParameters()
     {
@@ -69,17 +89,36 @@ class CoreMenuItemTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(0, $obj->isCustom());
         $this->assertSame('route', $obj->getItemType());
         $this->assertSame(1, $obj->isAjax());
-        $this->assertSame(1, $obj->isSelf());    }
+        $this->assertSame(1, $obj->isSelf());
+    }
 
     public function testSave()
     {
-        $obj = new CoreMenuItem(array (  'id' => 1,  'ordering' => 0,  'menu_id' => 'admin',  'name' => 'dashboard',  'parent_name' => '',  'package_id' => 'core',  'label' => 'Dashboard',  'href' => '',  'route' => 'admin',  'params' => '[]',  'extra' => '[]',  'permission' => NULL,  'event' => '',  'is_active' => 1,  'is_custom' => 0,  'item_type' => 'route',  'is_ajax' => 1,  'is_self' => 1,));
+        $obj = new CoreMenuItem(['id'          => 1,
+                                 'ordering'    => 0,
+                                 'menu_id'     => 'admin',
+                                 'name'        => 'dashboard',
+                                 'parent_name' => '',
+                                 'package_id'  => 'core',
+                                 'label'       => 'Dashboard',
+                                 'href'        => '',
+                                 'route'       => 'admin',
+                                 'params'      => '[]',
+                                 'extra'       => '[]',
+                                 'permission'  => null,
+                                 'event'       => '',
+                                 'is_active'   => 1,
+                                 'is_custom'   => 0,
+                                 'item_type'   => 'route',
+                                 'is_ajax'     => 1,
+                                 'is_self'     => 1,
+        ]);
 
         $obj->save();
 
         /** @var CoreMenuItem $obj */
-        $obj = _model('core_menu_item')
-            ->select()->where('id=?',1)->first();
+        $obj = \Phpfox::model('core_menu_item')
+            ->select()->where('id=?', 1)->first();
 
         $this->assertSame('core_menu_item', $obj->getModelId());
         $this->assertSame(1, $obj->getId());
@@ -99,17 +138,18 @@ class CoreMenuItemTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(0, $obj->isCustom());
         $this->assertSame('route', $obj->getItemType());
         $this->assertSame(1, $obj->isAjax());
-        $this->assertSame(1, $obj->isSelf());    }
+        $this->assertSame(1, $obj->isSelf());
+    }
 
     public static function setUpBeforeClass()
     {
-        _model('core_menu_item')
-            ->delete()->where('id=?',1)->execute();
+        \Phpfox::model('core_menu_item')
+            ->delete()->where('id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('core_menu_item')
-            ->delete()->where('id=?',1)->execute();
+        \Phpfox::model('core_menu_item')
+            ->delete()->where('id=?', 1)->execute();
     }
 }

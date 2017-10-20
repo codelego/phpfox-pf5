@@ -14,22 +14,22 @@ class AdminI18nTimezoneController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.i18n'),
                 'label' => _text('International', 'admin'),
             ]);
 
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('International', 'admin'));
 
-        _get('menu.admin.secondary')->load('admin','i18n');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'i18n');
     }
 
     protected function afterDispatch($action)
     {
         if (in_array($action, ['index'])) {
-            _get('menu.admin.buttons')->load('_core.i18n.timezone.buttons');
+            \Phpfox::get('menu.admin.buttons')->load('_core.i18n.timezone.buttons');
         }
     }
 
@@ -38,7 +38,7 @@ class AdminI18nTimezoneController extends AdminController
         return (new AdminListEntryProcess([
             'noLimit'  => true,
             'model'    => I18nTimezone::class,
-            'data'     => ['defaultValue' => _setting('core.default_timezone_id')],
+            'data'     => ['defaultValue' => \Phpfox::setting('core.default_timezone_id')],
             'template' => 'core/admin-i18n/manage-timezone',
         ]))->process();
     }
@@ -64,11 +64,11 @@ class AdminI18nTimezoneController extends AdminController
 
     public function actionDefault()
     {
-        $identity = _get('request')
+        $identity = \Phpfox::get('request')
             ->get('timezone_id');
 
         /** @var I18nTimezone $entry */
-        $entry = _model('i18n_timezone')->findById($identity);
+        $entry = \Phpfox::model('i18n_timezone')->findById($identity);
 
         if (!$entry) {
             throw new \InvalidArgumentException('Invalid params "timezone_id"');
@@ -76,7 +76,7 @@ class AdminI18nTimezoneController extends AdminController
 
         if (!$entry->isDefault()) {
 
-            _model('i18n_timezone')
+            \Phpfox::model('i18n_timezone')
                 ->update()
                 ->values(['is_default' => 0])
                 ->where('timezone_id <> ?', $identity)
@@ -85,8 +85,8 @@ class AdminI18nTimezoneController extends AdminController
             $entry->setDefault(1);
             $entry->setActive(1);
             $entry->save();
-            _get('core.setting')->updateValue('core.default_timezone_id', $identity);
+            \Phpfox::get('core.setting')->updateValue('core.default_timezone_id', $identity);
         }
-        _redirect('admin.core.i18n.timezone');
+        \Phpfox::redirect('admin.core.i18n.timezone');
     }
 }

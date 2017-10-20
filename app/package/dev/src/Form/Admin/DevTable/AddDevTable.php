@@ -33,7 +33,7 @@ class AddDevTable extends Form
             'label'    => _text('Package Id', null),
             'info'     => _text('[Package Id Info]', null),
             'value'    => 'undefined',
-            'options'  => _get('core.packages')->getPackageIdOptions(),
+            'options'  => \Phpfox::get('core.packages')->getPackageIdOptions(),
             'required' => '1',
         ]);
         /** end elements **/

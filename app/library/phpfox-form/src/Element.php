@@ -284,6 +284,6 @@ class Element implements ElementInterface
      */
     public function render()
     {
-        return _get('form_render')->render($this);
+        return \Phpfox::get('form_render')->render($this);
     }
 }

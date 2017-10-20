@@ -1,11 +1,28 @@
 <?php
+
 namespace Neutron\Dev\Model;
 
 class DevActionTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new DevAction(array (  'meta_id' => 9,  'package_id' => 'core',  'table_name' => 'acl_perm_allow',  'action_type' => 'admin_add',  'action_id' => 'delete',  'text_domain' => NULL,  'form_title' => NULL,  'form_info' => NULL,  'data_submit' => NULL,  'cancel_url' => NULL,  'action_url' => NULL,  'title_domain' => NULL,  'info_domain' => NULL,  'submit_label' => NULL,  'form_enctype' => '',  'form_method' => 'post',));
+        $obj = new DevAction(['meta_id'      => 9,
+                              'package_id'   => 'core',
+                              'table_name'   => 'acl_perm_allow',
+                              'action_type'  => 'admin_add',
+                              'action_id'    => 'delete',
+                              'text_domain'  => null,
+                              'form_title'   => null,
+                              'form_info'    => null,
+                              'data_submit'  => null,
+                              'cancel_url'   => null,
+                              'action_url'   => null,
+                              'title_domain' => null,
+                              'info_domain'  => null,
+                              'submit_label' => null,
+                              'form_enctype' => '',
+                              'form_method'  => 'post',
+        ]);
 
         $this->assertSame('dev_action', $obj->getModelId());
         $this->assertSame(9, $obj->getMetaId());
@@ -23,7 +40,8 @@ class DevActionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getInfoDomain());
         $this->assertSame('', $obj->getSubmitLabel());
         $this->assertSame('', $obj->getFormEnctype());
-        $this->assertSame('post', $obj->getFormMethod());    }
+        $this->assertSame('post', $obj->getFormMethod());
+    }
 
     public function testParameters()
     {
@@ -63,17 +81,34 @@ class DevActionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getInfoDomain());
         $this->assertSame('', $obj->getSubmitLabel());
         $this->assertSame('', $obj->getFormEnctype());
-        $this->assertSame('post', $obj->getFormMethod());    }
+        $this->assertSame('post', $obj->getFormMethod());
+    }
 
     public function testSave()
     {
-        $obj = new DevAction(array (  'meta_id' => 9,  'package_id' => 'core',  'table_name' => 'acl_perm_allow',  'action_type' => 'admin_add',  'action_id' => 'delete',  'text_domain' => NULL,  'form_title' => NULL,  'form_info' => NULL,  'data_submit' => NULL,  'cancel_url' => NULL,  'action_url' => NULL,  'title_domain' => NULL,  'info_domain' => NULL,  'submit_label' => NULL,  'form_enctype' => '',  'form_method' => 'post',));
+        $obj = new DevAction(['meta_id'      => 9,
+                              'package_id'   => 'core',
+                              'table_name'   => 'acl_perm_allow',
+                              'action_type'  => 'admin_add',
+                              'action_id'    => 'delete',
+                              'text_domain'  => null,
+                              'form_title'   => null,
+                              'form_info'    => null,
+                              'data_submit'  => null,
+                              'cancel_url'   => null,
+                              'action_url'   => null,
+                              'title_domain' => null,
+                              'info_domain'  => null,
+                              'submit_label' => null,
+                              'form_enctype' => '',
+                              'form_method'  => 'post',
+        ]);
 
         $obj->save();
 
         /** @var DevAction $obj */
-        $obj = _model('dev_action')
-            ->select()->where('meta_id=?',9)->first();
+        $obj = \Phpfox::model('dev_action')
+            ->select()->where('meta_id=?', 9)->first();
 
         $this->assertSame('dev_action', $obj->getModelId());
         $this->assertSame(9, $obj->getMetaId());
@@ -91,17 +126,18 @@ class DevActionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getInfoDomain());
         $this->assertSame('', $obj->getSubmitLabel());
         $this->assertSame('', $obj->getFormEnctype());
-        $this->assertSame('post', $obj->getFormMethod());    }
+        $this->assertSame('post', $obj->getFormMethod());
+    }
 
     public static function setUpBeforeClass()
     {
-        _model('dev_action')
-            ->delete()->where('meta_id=?',9)->execute();
+        \Phpfox::model('dev_action')
+            ->delete()->where('meta_id=?', 9)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('dev_action')
-            ->delete()->where('meta_id=?',9)->execute();
+        \Phpfox::model('dev_action')
+            ->delete()->where('meta_id=?', 9)->execute();
     }
 }

@@ -11,7 +11,7 @@ class LogContainerFactory
             $key = 'main.log';
         }
 
-        $parameter = _get('package.loader')->getLogParameter($key);
+        $parameter = \Phpfox::get('package.loader')->getLogParameter($key);
 
         $container = new LogContainer();
 

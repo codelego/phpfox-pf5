@@ -3,5 +3,5 @@
 namespace Neutron\Link\Model;
 
 return [
-    
+
 ];

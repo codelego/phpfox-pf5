@@ -57,7 +57,7 @@ class TableInfo
     protected function describe()
     {
         $sql = _sprintf('describe {0}{1}', [PHPFOX_TABLE_PREFIX, $this->name]);
-        $fields = _get('db')->execute($sql)->all();
+        $fields = \Phpfox::get('db')->execute($sql)->all();
 
         foreach ($fields as $field) {
             $columnInfo = new ColumnInfo($field);

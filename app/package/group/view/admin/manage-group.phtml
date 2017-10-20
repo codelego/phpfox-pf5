@@ -20,14 +20,14 @@
                     </td>
                     <td data-cmd="dropdown" class="dropdown">
                         <ul>
-                            <li><a href="<?= _url('admin.group.group',['action'=>'edit','group_id'=>$item->getId()]) ?>"><?= _text('Edit user') ?></a></li>
+                            <li><a href="<?= _url('admin.group.group', ['action' => 'edit', 'group_id' => $item->getId()]) ?>"><?= _text('Edit user') ?></a></li>
                             <li><a href=""><?= _text('Promote this group') ?></a></li>
                             <li class="divider"></li>
                             <li><a href=""><?= _text('Delete this group') ?></a></li>
                         </ul>
                     </td>
                     <td>
-                    <a target="_blank" rel="nofollow" href="<?= $item->getUrl() ?>"><?= $item->getName(); ?></a>
+                        <a target="_blank" rel="nofollow" href="<?= $item->getUrl() ?>"><?= $item->getName(); ?></a>
                     </td>
                     <td class="text-center"><?= $item->getLevelId(); ?></td>
                 </tr>

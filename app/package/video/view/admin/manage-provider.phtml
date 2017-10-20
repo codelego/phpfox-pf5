@@ -16,8 +16,8 @@
                         <ul>
                             <li><a data-cmd="modal" href="<?= _url('admin.video.provider', ['action' => 'enable', 'provider_id' => $item->getId()]) ?>"><?= _text('Enable') ?></a></li>
                             <li><a data-cmd="modal" href="<?= _url('admin.video.provider', ['action' => 'disable', 'provider_id' => $item->getId()]) ?>"><?= _text('Disable') ?></a></li>
-                            <?php if($item->getFormSettingsClass() != null): ?>
-                            <li><a href="<?= _url('admin.video.provider', ['action' => 'edit', 'provider_id' => $item->getId()]) ?>"><?= _text('Edit Settings') ?></a></li>
+                            <?php if ($item->getFormSettingsClass() != null): ?>
+                                <li><a href="<?= _url('admin.video.provider', ['action' => 'edit', 'provider_id' => $item->getId()]) ?>"><?= _text('Edit Settings') ?></a></li>
                             <?php endif; ?>
                         </ul>
                     </td>

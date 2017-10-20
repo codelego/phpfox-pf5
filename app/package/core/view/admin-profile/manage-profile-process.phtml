@@ -24,7 +24,7 @@
                         </ul>
                     </div>
                     <ul>
-                        <?php foreach (_get('core.profile')->getProfileQuestions($section->getId()) as $question): ?>
+                        <?php foreach (\Phpfox::get('core.profile')->getProfileQuestions($section->getId()) as $question): ?>
                             <li>
                                 <div><?= $question->getQuestionLabel() ?></div>
                             </li>

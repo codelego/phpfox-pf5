@@ -11,9 +11,9 @@ class AdminUpdate extends Component
     {
         $limit = $this->get('limit', 6);
 
-        $news = _try('shared.cache', 'admincp.news', 600, function () use ($limit) {
+        $news = \Phpfox::_try('shared.cache', 'admincp.news', 600, function () use ($limit) {
             $remoteUrl = 'http://feeds.feedburner.com/phpfox';
-            $content = _get('curl')->factory($remoteUrl)
+            $content = \Phpfox::get('curl')->factory($remoteUrl)
                 ->getString();
 
             $dom = simplexml_load_string($content);

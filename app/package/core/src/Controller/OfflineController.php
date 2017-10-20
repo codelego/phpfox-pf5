@@ -14,11 +14,12 @@ class OfflineController extends ActionController
 
     public function actionOffline()
     {
-        $offlineCode = _get('request')->get('offline_code');
-        if ($offlineCode and _param('core.offline_code') == $offlineCode) {
-            $_SESSION['offline_code'] = $offlineCode;
-            _redirect('#');
-        }
+        $offlineCode = \Phpfox::get('request')->get('offline_code');
+        if ($offlineCode and \Phpfox::param('core.offline_code') == $offlineCode){
+                             $_SESSION['offline_code'] = $offlineCode{;
+    }
+        \Phpfox::redirect('#');
+    }
 
         include PHPFOX_CONFIG_DIR . '/offline.html';
         exit(0);

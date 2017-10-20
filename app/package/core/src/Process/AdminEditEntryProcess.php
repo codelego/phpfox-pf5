@@ -5,8 +5,8 @@ namespace Neutron\Core\Process;
 
 use Phpfox\Db\DbModel;
 use Phpfox\Form\Form;
-use Phpfox\Model\ModelInterface;
 use Phpfox\Kernel\AbstractProcess;
+use Phpfox\Model\ModelInterface;
 use Phpfox\View\ViewModel;
 
 class AdminEditEntryProcess extends AbstractProcess
@@ -14,7 +14,7 @@ class AdminEditEntryProcess extends AbstractProcess
 
     public function process()
     {
-        $req = _get('request');
+        $req = \Phpfox::get('request');
 
         $idKey = $req->get($this->get('key'));
 
@@ -25,7 +25,7 @@ class AdminEditEntryProcess extends AbstractProcess
         $model = (new \ReflectionClass($this->get('model')))->newInstanceArgs([]);
 
         /** @var DbModel $entry */
-        $entry = _model($model->getModelId())->findById($idKey);
+        $entry = \Phpfox::model($model->getModelId())->findById($idKey);
 
         if ($req->isGet()) {
             $form->populate($entry);

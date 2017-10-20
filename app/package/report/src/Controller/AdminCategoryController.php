@@ -14,7 +14,7 @@ class AdminCategoryController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set([
                 'href'  => _url('admin.report'),
                 'label' => _text('Reports'),
@@ -23,9 +23,9 @@ class AdminCategoryController extends AdminController
                 'label' => _text('Categories'),
             ]);
 
-        _get('menu.admin.secondary')->load('admin', 'report');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'report');
 
-        _get('menu.admin.buttons')->load('_report.buttons');
+        \Phpfox::get('menu.admin.buttons')->load('_report.buttons');
     }
 
     public function actionIndex()

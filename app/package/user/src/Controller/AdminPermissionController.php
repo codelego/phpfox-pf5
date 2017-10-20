@@ -10,13 +10,13 @@ class AdminPermissionController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('menu.admin.secondary')->load('admin', 'user');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'user');
 
-        _get('menu.admin.buttons')->load('_user.buttons');
+        \Phpfox::get('menu.admin.buttons')->load('_user.buttons');
 
-        _get('html.title')->set(_text('Edit Permissions', '_core'));
+        \Phpfox::get('html.title')->set(_text('Edit Permissions', '_core'));
 
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set(['href' => _url('admin.user'), 'label' => _text('Members', 'admin'),])
             ->add([
                 'href'  => _url('admin.user.setting', ['action' => 'permission']),

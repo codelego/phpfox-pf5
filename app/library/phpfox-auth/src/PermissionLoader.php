@@ -4,42 +4,42 @@ namespace Phpfox\Auth;
 
 
 use Neutron\User\Model\UserLevel;
-use Phpfox\Routing\Parameters;
 use Phpfox\Kernel\UserInterface;
+use Phpfox\Routing\Parameters;
 
 class PermissionLoader
 {
     public function getPermissionParameter($itemType, $levelId)
     {
-        return _try('super.cache', ['permission.loader', $itemType, $levelId], 0,
+        return \Phpfox::_try('super.cache', ['permission.loader', $itemType, $levelId], 0,
             function () use ($itemType, $levelId) {
 
 
                 /** @var UserInterface $itemModel */
-                $itemModel = _model($itemType)->create();
+                $itemModel = \Phpfox::model($itemType)->create();
                 $levelType = $itemModel->getLevelType();
 
-                $level = _find($levelType, $levelId);
+                $level = \Phpfox::find($levelType, $levelId);
 
-                if(!$level){
+                if (!$level) {
                     throw new \InvalidArgumentException('Invalid parameters');
                 }
 
                 $testArray = [$levelId];
-                $data =  $level->toArray();
+                $data = $level->toArray();
 
                 $data ['item_type'] = $itemType;
                 $data ['level_type'] = $levelType;
 
                 do {
                     /** @var UserLevel $level */
-                    $level = _find($levelType, $levelId);
+                    $level = \Phpfox::find($levelType, $levelId);
 
                     if (!$level) {
                         break;
                     }
 
-                    $items = _get('db')->select('av.*, ac.domain_id, ac.name')
+                    $items = \Phpfox::get('db')->select('av.*, ac.domain_id, ac.name')
                         ->from(':acl_value', 'av')
                         ->join(':acl_action', 'ac', 'ac.action_id=av.action_id')
                         ->where('av.level_id=?', $levelId)

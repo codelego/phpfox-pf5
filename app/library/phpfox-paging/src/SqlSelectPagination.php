@@ -28,7 +28,7 @@ class SqlSelectPagination extends AbstractPaging
             $this->initiator->limit(0, 0);
         }
 
-        $this->urlParams =  $_GET;
+        $this->urlParams = $_GET;
         return $this;
     }
 

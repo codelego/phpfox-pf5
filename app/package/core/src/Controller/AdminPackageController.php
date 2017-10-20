@@ -13,45 +13,45 @@ class AdminPackageController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.package'),
                 'label' => _text('Packages', 'admin'),
             ]);
 
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Packages', 'admin'));
 
-        _get('menu.admin.secondary')->load('admin', 'package');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'package');
 
-        _get('menu.admin.buttons')
+        \Phpfox::get('menu.admin.buttons')
             ->load('_core.package.buttons');
     }
 
     public function actionIndex()
     {
         $message = _text('summary_packages_message', '_core.package', [
-            _model('core_package')->select()->count(),
-            _model('core_package')->select()->where('is_active=1')->count(),
+            \Phpfox::model('core_package')->select()->count(),
+            \Phpfox::model('core_package')->select()->where('is_active=1')->count(),
         ]);
 
         return (new AdminListEntryProcess([
-            'filter.form'   => FilterCorePackage::class,
+            'filter.form'    => FilterCorePackage::class,
             'filter.service' => new FilterCorePackageService(),
-            'model'         => CorePackage::class,
-            'noLimit'       => true,
-            'limit'         => 4,
-            'data'          => ['message' => $message],
-            'template'      => 'core/admin-package/manage-core-package',
+            'model'          => CorePackage::class,
+            'noLimit'        => true,
+            'limit'          => 4,
+            'data'           => ['message' => $message],
+            'template'       => 'core/admin-package/manage-core-package',
         ]))->process();
     }
 
     public function actionEnable()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
 
         /** @var CorePackage $corePackage */
-        $corePackage = _find('core_package', $request->get('package_id'));
+        $corePackage = \Phpfox::find('core_package', $request->get('package_id'));
 
         if (!$corePackage) {
             throw new \InvalidArgumentException('Missing params "package_id"');
@@ -60,17 +60,17 @@ class AdminPackageController extends AdminController
         $corePackage->setActive(1);
         $corePackage->save();
 
-        _get('shared.cache')->flush();
+        \Phpfox::get('shared.cache')->flush();
 
-        _redirect('admin.core.package');
+        \Phpfox::redirect('admin.core.package');
     }
 
     public function actionDisable()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
 
         /** @var CorePackage $corePackage */
-        $corePackage = _find('core_package', $request->get('package_id'));
+        $corePackage = \Phpfox::find('core_package', $request->get('package_id'));
 
         if (!$corePackage) {
             throw new \InvalidArgumentException('Missing params "package_id"');
@@ -79,7 +79,7 @@ class AdminPackageController extends AdminController
         $corePackage->setActive(0);
         $corePackage->save();
 
-        _redirect('admin.core.package');
+        \Phpfox::redirect('admin.core.package');
     }
 
     /**

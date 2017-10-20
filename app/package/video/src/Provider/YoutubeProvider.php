@@ -29,7 +29,7 @@ class YoutubeProvider implements ProviderInterface
         ], $context);
 
 
-        return _get('template')
+        return \Phpfox::get('template')
             ->render('video/partial/embed', [
                 'iframe' => '<iframe ' . _attrize($props) . '></iframe>',
                 'id'     => $id,
@@ -56,7 +56,7 @@ class YoutubeProvider implements ProviderInterface
                 'part' => 'snippet,contentDetails',
             ]);
 
-        $info = _get('curl')->factory($url, 30)->getJSON();
+        $info = \Phpfox::get('curl')->factory($url, 30)->getJSON();
 
         // validate result
         if (empty($info)) {
@@ -129,7 +129,7 @@ class YoutubeProvider implements ProviderInterface
     public function getApiKey()
     {
         if (null == $this->apiKey) {
-            $this->apiKey = _param('video', 'google_public_key');
+            $this->apiKey = \Phpfox::param('video', 'google_public_key');
         }
         return $this->apiKey;
     }

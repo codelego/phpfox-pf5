@@ -1,1 +1,21 @@
-<?php return array(0=>'question_id',1=>array('question_id'=>1,),2=>'question_id',3=>array('question_id'=>1,'section_id'=>1,'attribute_id'=>1,'factory_id'=>1,'question_label'=>1,'placeholder'=>1,'info'=>1,'note'=>1,'is_active'=>1,'is_require'=>1,'ordering'=>1,'options'=>1,'dependencies'=>1,),4=>array(),);
+<?php return [
+    0 => 'question_id',
+    1 => ['question_id' => 1,],
+    2 => 'question_id',
+    3 => [
+        'question_id'    => 1,
+        'section_id'     => 1,
+        'attribute_id'   => 1,
+        'factory_id'     => 1,
+        'question_label' => 1,
+        'placeholder'    => 1,
+        'info'           => 1,
+        'note'           => 1,
+        'is_active'      => 1,
+        'is_require'     => 1,
+        'ordering'       => 1,
+        'options'        => 1,
+        'dependencies'   => 1,
+    ],
+    4 => [],
+];

@@ -8,8 +8,8 @@ date_default_timezone_set('Australia/Adelaide');
 
 include __DIR__ . '/app/config/bootstrap.php';
 
-_get('session')->start();
+\Phpfox::get('session')->start();
 
-_get('dispatcher')->run();
+\Phpfox::get('dispatcher')->run();
 
-_trigger('onShutdown');
+\Phpfox::trigger('onShutdown');

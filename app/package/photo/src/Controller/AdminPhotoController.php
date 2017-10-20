@@ -10,12 +10,12 @@ class AdminPhotoController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('html.title')->set(_text('Photos'));
+        \Phpfox::get('html.title')->set(_text('Photos'));
 
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set(['href' => _url('admin.photo'), 'label' => _text('Photos')]);
 
-        _get('menu.admin.secondary')->load('admin', 'photo');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'photo');
     }
 
     public function actionIndex()

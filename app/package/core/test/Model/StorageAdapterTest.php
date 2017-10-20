@@ -1,11 +1,20 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class StorageAdapterTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new StorageAdapter(array (  'adapter_id' => 1,  'title' => 'Local `public`',  'description' => '[description]',  'driver_id' => 'local',  'params' => '{"basePath":"public","baseUrl":"http:\\/\\/namnv.local\\/pf5\\/","baseCdnUrl":"http:\\/\\/aws.max-cdn.com\\/adbc\\/","is_active":"1","title":"Local `public`"}',  'is_active' => 1,  'is_required' => 1,  'is_default' => 0,));
+        $obj = new StorageAdapter(['adapter_id'  => 1,
+                                   'title'       => 'Local `public`',
+                                   'description' => '[description]',
+                                   'driver_id'   => 'local',
+                                   'params'      => '{"basePath":"public","baseUrl":"http:\\/\\/namnv.local\\/pf5\\/","baseCdnUrl":"http:\\/\\/aws.max-cdn.com\\/adbc\\/","is_active":"1","title":"Local `public`"}',
+                                   'is_active'   => 1,
+                                   'is_required' => 1,
+                                   'is_default'  => 0,
+        ]);
 
         $this->assertSame('storage_adapter', $obj->getModelId());
         $this->assertSame(1, $obj->getAdapterId());
@@ -15,7 +24,8 @@ class StorageAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('{"basePath":"public","baseUrl":"http:\/\/namnv.local\/pf5\/","baseCdnUrl":"http:\/\/aws.max-cdn.com\/adbc\/","is_active":"1","title":"Local `public`"}', $obj->getParams());
         $this->assertSame(1, $obj->isActive());
         $this->assertSame(1, $obj->isRequired());
-        $this->assertSame(0, $obj->isDefault());    }
+        $this->assertSame(0, $obj->isDefault());
+    }
 
     public function testParameters()
     {
@@ -39,17 +49,26 @@ class StorageAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('{"basePath":"public","baseUrl":"http:\/\/namnv.local\/pf5\/","baseCdnUrl":"http:\/\/aws.max-cdn.com\/adbc\/","is_active":"1","title":"Local `public`"}', $obj->getParams());
         $this->assertSame(1, $obj->isActive());
         $this->assertSame(1, $obj->isRequired());
-        $this->assertSame(0, $obj->isDefault());    }
+        $this->assertSame(0, $obj->isDefault());
+    }
 
     public function testSave()
     {
-        $obj = new StorageAdapter(array (  'adapter_id' => 1,  'title' => 'Local `public`',  'description' => '[description]',  'driver_id' => 'local',  'params' => '{"basePath":"public","baseUrl":"http:\\/\\/namnv.local\\/pf5\\/","baseCdnUrl":"http:\\/\\/aws.max-cdn.com\\/adbc\\/","is_active":"1","title":"Local `public`"}',  'is_active' => 1,  'is_required' => 1,  'is_default' => 0,));
+        $obj = new StorageAdapter(['adapter_id'  => 1,
+                                   'title'       => 'Local `public`',
+                                   'description' => '[description]',
+                                   'driver_id'   => 'local',
+                                   'params'      => '{"basePath":"public","baseUrl":"http:\\/\\/namnv.local\\/pf5\\/","baseCdnUrl":"http:\\/\\/aws.max-cdn.com\\/adbc\\/","is_active":"1","title":"Local `public`"}',
+                                   'is_active'   => 1,
+                                   'is_required' => 1,
+                                   'is_default'  => 0,
+        ]);
 
         $obj->save();
 
         /** @var StorageAdapter $obj */
-        $obj = _model('storage_adapter')
-            ->select()->where('adapter_id=?',1)->first();
+        $obj = \Phpfox::model('storage_adapter')
+            ->select()->where('adapter_id=?', 1)->first();
 
         $this->assertSame('storage_adapter', $obj->getModelId());
         $this->assertSame(1, $obj->getAdapterId());
@@ -59,17 +78,18 @@ class StorageAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('{"basePath":"public","baseUrl":"http:\/\/namnv.local\/pf5\/","baseCdnUrl":"http:\/\/aws.max-cdn.com\/adbc\/","is_active":"1","title":"Local `public`"}', $obj->getParams());
         $this->assertSame(1, $obj->isActive());
         $this->assertSame(1, $obj->isRequired());
-        $this->assertSame(0, $obj->isDefault());    }
+        $this->assertSame(0, $obj->isDefault());
+    }
 
     public static function setUpBeforeClass()
     {
-        _model('storage_adapter')
-            ->delete()->where('adapter_id=?',1)->execute();
+        \Phpfox::model('storage_adapter')
+            ->delete()->where('adapter_id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('storage_adapter')
-            ->delete()->where('adapter_id=?',1)->execute();
+        \Phpfox::model('storage_adapter')
+            ->delete()->where('adapter_id=?', 1)->execute();
     }
 }

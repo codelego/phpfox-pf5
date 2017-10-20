@@ -1,15 +1,18 @@
 <?php
+
 namespace Neutron\Blog\Form\Admin\BlogCategory;
 
 use Phpfox\Form\Form;
 
-class DeleteBlogCategory extends Form {
+class DeleteBlogCategory extends Form
+{
 
     /** id=248 */
-    public function initialize(){
+    public function initialize()
+    {
 
-        $this->setTitle(_text('Are You Sure?',''));
-        $this->setInfo(_text('Delete Blog Category [Form Info]','_blog'));
+        $this->setTitle(_text('Are You Sure?', ''));
+        $this->setInfo(_text('Delete Blog Category [Form Info]', '_blog'));
         $this->setAction(_url('#'));
 
         /** start elements **/
@@ -20,7 +23,7 @@ class DeleteBlogCategory extends Form {
             'factory'    => 'button',
             'name'       => 'save',
             'label'      => _text('Delete'),
-            'attributes' => ['class' => 'btn btn-danger','type' => 'submit',],
+            'attributes' => ['class' => 'btn btn-danger', 'type' => 'submit',],
         ]);
 
         $this->addButton([
@@ -28,7 +31,7 @@ class DeleteBlogCategory extends Form {
             'name'       => 'cancel',
             'href'       => _url('admin.blog.category'),
             'label'      => _text('Cancel'),
-            'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
-            ]);
+            'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
+        ]);
     }
 }

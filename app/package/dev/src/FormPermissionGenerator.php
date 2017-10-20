@@ -35,9 +35,9 @@ class FormPermissionGenerator extends FormAdminGenerator
     protected function getElementGeneratorParams()
     {
         return [
-            'noNote' => true,
+            'noNote'     => true,
             'textDomain' => $this->meta->getTextDomain(),
-            'packageId'=>$this->meta->getPackageId(),
+            'packageId'  => $this->meta->getPackageId(),
         ];
     }
 }

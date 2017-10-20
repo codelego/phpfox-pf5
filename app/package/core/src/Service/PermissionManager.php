@@ -4,7 +4,6 @@ namespace Neutron\Core\Service;
 
 
 use Neutron\Core\Model\AclAction;
-use Neutron\Core\Model\AclForm;
 use Neutron\Core\Model\AclValue;
 use Neutron\User\Model\UserLevel;
 use Phpfox\Kernel\UserInterface;
@@ -30,13 +29,13 @@ class PermissionManager
 
 
         /** @var UserInterface $itemModel */
-        $itemModel = _model($itemType)->create();
+        $itemModel = \Phpfox::model($itemType)->create();
 
         $levelModel = $itemModel->getLevelType();
 
         foreach ($domains as $domain => $names) {
             /** @var AclAction[] $entries */
-            $entries = _model('acl_action')
+            $entries = \Phpfox::model('acl_action')
                 ->select()
                 ->where('domain_id=?', (string)$domain)
                 ->where('name in ?', $names)
@@ -54,7 +53,7 @@ class PermissionManager
         do {
 
             /** @var UserLevel $level */
-            $level = _find($levelModel, $levelId);
+            $level = \Phpfox::find($levelModel, $levelId);
 
             if (!$level) {
                 break;
@@ -63,7 +62,7 @@ class PermissionManager
             $testArray[] = $level->getLevelId();
 
             /** @var AclValue[] $entries */
-            $entries = _model('acl_value')
+            $entries = \Phpfox::model('acl_value')
                 ->select()
                 ->where('action_id in ?', $actionIds)
                 ->where('level_id=?', $levelId)
@@ -94,11 +93,11 @@ class PermissionManager
     public function updateValues($itemType, $levelId, $domains)
     {
         /** @var UserInterface $itemModel */
-        $itemModel = _model($itemType)->create();
+        $itemModel = \Phpfox::model($itemType)->create();
 
         $levelModel = $itemModel->getLevelType();
 
-        $level = _find($levelModel, $levelId);
+        $level = \Phpfox::find($levelModel, $levelId);
 
         if (!$level) {
             throw new \InvalidArgumentException('Invalid parameters "levelType, levelId');
@@ -109,7 +108,7 @@ class PermissionManager
             $keys = array_keys($values);
 
             /** @var AclAction[] $aclActions */
-            $aclActions = _model('acl_action')
+            $aclActions = \Phpfox::model('acl_action')
                 ->select()
                 ->where('domain_id=?', (string)$domain)
                 ->where('name in ?', $keys)
@@ -123,7 +122,7 @@ class PermissionManager
                 $valueActual = json_encode($values[$aclAction->getName()]);
 
                 /** @var AclValue $aclValue */
-                $aclValue = _model('acl_value')
+                $aclValue = \Phpfox::model('acl_value')
                     ->select()
                     ->where('action_id=?', $aclAction->getActionId())
                     ->where('level_id=?', $levelId)
@@ -131,7 +130,7 @@ class PermissionManager
                     ->first();
 
                 if (!$aclValue) {
-                    $aclValue = _model('acl_value')->create([
+                    $aclValue = \Phpfox::model('acl_value')->create([
                         'level_id'  => $levelId,
                         'item_type' => $itemType,
                         'action_id' => $aclAction->getActionId(),
@@ -144,7 +143,7 @@ class PermissionManager
         }
 
 
-        _trigger('onSettingsChanged');
+        \Phpfox::trigger('onSettingsChanged');
 
         return true;
     }

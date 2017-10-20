@@ -13,7 +13,7 @@ class ResponseFactory
     {
         $response = new Response();
 
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         if ($request->isAjax()) {
             if ($request->isUpdateContainers()) {
                 $response->setPrototype('response.update_containers');
@@ -23,7 +23,7 @@ class ResponseFactory
                 $response->setPrototype('response.ajax');
             }
         }
-        
+
         return $response;
     }
 

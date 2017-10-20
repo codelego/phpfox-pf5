@@ -26,7 +26,7 @@ class AdminCategoryControllerTest extends \PHPUnit_Framework_TestCase
             'method' => 'get',
         ]);
 
-        _get('manager')
+        \Phpfox::get('manager')
             ->set('request', $request);
 
         $obj = new AdminCategoryController();
@@ -46,7 +46,7 @@ class AdminCategoryControllerTest extends \PHPUnit_Framework_TestCase
             'is_active'   => 0,
         ]);
 
-        _get('manager')
+        \Phpfox::get('manager')
             ->set('request', $request);
 
         $obj = new AdminCategoryController();
@@ -60,7 +60,7 @@ class AdminCategoryControllerTest extends \PHPUnit_Framework_TestCase
         // test lat object
 
         /** @var ReportCategory $obj */
-        $obj = _model('report_category')
+        $obj = \Phpfox::model('report_category')
             ->select('*')
             ->where('is_active=?', 0)->where('name=?', '[example name]')
             ->setPrototype(ReportCategory::class)

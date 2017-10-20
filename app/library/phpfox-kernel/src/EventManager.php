@@ -36,13 +36,13 @@ class EventManager
         }
         foreach ($this->events->get($name) as $service) {
             try {
-                _get($service)->{$name}($event, $response);
+                \Phpfox::get($service)->{$name}($event, $response);
 
                 if ($event->isStopped()) {
                     break;
                 }
             } catch (\Exception $exception) {
-                _get('main.log')->error($exception->getMessage());
+                \Phpfox::get('main.log')->error($exception->getMessage());
             }
         }
 
@@ -59,7 +59,7 @@ class EventManager
         $name = $event->getName();
         $response = new EventResponse();
         if (null != ($first = $this->events->item($name, '_0'))) {
-            _get($first)->{$name}($event, $response);
+            \Phpfox::get($first)->{$name}($event, $response);
         }
         return $response;
     }
@@ -75,7 +75,7 @@ class EventManager
             return false;
         }
         $this->initialized = true;
-        $this->events = _get('package.loader')->getEventParameters();
+        $this->events = \Phpfox::get('package.loader')->getEventParameters();
 
         return true;
     }

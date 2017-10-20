@@ -65,7 +65,7 @@ class Form extends Element implements ElementInterface, CollectionInterface
      */
     public function removeElements($names)
     {
-        foreach($names as $name){
+        foreach ($names as $name) {
             unset($this->byNames[$name]);
         }
     }
@@ -91,7 +91,7 @@ class Form extends Element implements ElementInterface, CollectionInterface
     public function addElement($element)
     {
         if (!$element instanceof ElementInterface) {
-            $element = _get('form.factory')->factory($element);
+            $element = \Phpfox::get('form.factory')->factory($element);
         }
 
         $element->setParent($this);
@@ -109,7 +109,7 @@ class Form extends Element implements ElementInterface, CollectionInterface
     {
         if (!$button instanceof ElementInterface) {
             $button['factory'] = 'button';
-            $button = _get('form.factory')->factory($button);
+            $button = \Phpfox::get('form.factory')->factory($button);
         }
 
         $button->setParent($this);
@@ -239,7 +239,7 @@ class Form extends Element implements ElementInterface, CollectionInterface
             return '';
         }
 
-        return _get('error_formater')->format($this->getError(), $type);
+        return \Phpfox::get('error_formater')->format($this->getError(), $type);
     }
 
     /**

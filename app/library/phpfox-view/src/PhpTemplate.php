@@ -26,7 +26,7 @@ class PhpTemplate implements ViewTemplateInterface
      */
     public function __construct()
     {
-        $this->map = _get('package.loader')->getViewParameters();
+        $this->map = \Phpfox::get('package.loader')->getViewParameters();
         $this->cached = [];
     }
 

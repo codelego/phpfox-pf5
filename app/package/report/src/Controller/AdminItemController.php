@@ -11,14 +11,14 @@ class AdminItemController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set([
                 'href'  => _url('admin.report'),
                 'label' => _text('Reports'),
             ]);
 
-        _get('menu.admin.secondary')->load('admin', 'report');
-        _get('menu.admin.buttons')->load('_report.buttons');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'report');
+        \Phpfox::get('menu.admin.buttons')->load('_report.buttons');
 
     }
 

@@ -6,7 +6,7 @@ class FormAdminFilterGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function testFormFilter()
     {
-        $meta = _model('dev_action')->findById(10);
+        $meta = \Phpfox::model('dev_action')->findById(10);
 
         $generator = new FormAdminFilterGenerator($meta, []);
 
@@ -15,7 +15,7 @@ class FormAdminFilterGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testFormAdd()
     {
-        $meta = _model('dev_action')->findById(10);
+        $meta = \Phpfox::model('dev_action')->findById(10);
 
         $generator = new FormAdminAddGenerator($meta, []);
 
@@ -24,7 +24,7 @@ class FormAdminFilterGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testFormEdit()
     {
-        $meta = _model('dev_action')->findById(10);
+        $meta = \Phpfox::model('dev_action')->findById(10);
 
         $generator = new FormAdminEditGenerator($meta, []);
 

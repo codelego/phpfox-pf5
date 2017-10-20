@@ -34,8 +34,8 @@ class StorageFacades
      */
     private function make($id)
     {
-        $parameter = _get('package.loader')->getStorageParameter($id);
-        $class = _param('storage_drivers', $parameter->get('driver'));
+        $parameter = \Phpfox::get('package.loader')->getStorageParameter($id);
+        $class = \Phpfox::param('storage_drivers', $parameter->get('driver'));
 
         if (!$class) {
             throw new FileStorageException("Can not create storage with id [$id]");

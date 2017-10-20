@@ -9,7 +9,7 @@ class ActionContent extends Component
 {
     public function run()
     {
-        $data = _get('response')->getData();
+        $data = \Phpfox::get('response')->getData();
 
         if (is_string($data)) {
             return $data;

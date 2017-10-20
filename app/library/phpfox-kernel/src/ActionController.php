@@ -25,11 +25,11 @@ class ActionController
     protected function passOfflineMode()
     {
 
-        if (_param('core.offline_mode')) {
+        if (\Phpfox::param('core.offline_mode')) {
             $code = isset($_SESSION['offline_code']) ? $_SESSION['offline_code'] : 'none';
-            if ($code != _param('core.offline_code')) {
-                return false;
-            }
+        }
+        if ($code != \Phpfox::param('core.offline_code')) {
+            return false;
         }
 
         return true;
@@ -42,10 +42,11 @@ class ActionController
      */
     protected function passPrivateMode()
     {
-        if (false == _param('core.private_mode')
-            and false == _get('auth')->isLoggedIn()
+        if (false == \Phpfox::param('core.private_mode')
+            and false == \Phpfox::get('auth')->isLoggedIn()
         ) {
             return false;
+
         }
         return true;
     }
@@ -110,7 +111,7 @@ class ActionController
      */
     public function forward($controller, $action)
     {
-        _get('dispatcher')->forward($controller, $action);
+        \Phpfox::get('dispatcher')->forward($controller, $action);
         return false;
     }
 }

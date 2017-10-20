@@ -3,7 +3,7 @@
 namespace Neutron\Blog\Model;
 
 return [
-    'blog_post' => [
+    'blog_post'     => [
         'table_factory',
         ':blog_post',
         BlogPost::class,

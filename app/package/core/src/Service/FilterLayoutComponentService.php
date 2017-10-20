@@ -8,8 +8,7 @@ class FilterLayoutComponentService implements FilterInterface
 {
     public function filter($criteria)
     {
-        $select = _model('layout_component')->select();
-
+        $select = \Phpfox::model('layout_component')->select();
 
 
         return $select;

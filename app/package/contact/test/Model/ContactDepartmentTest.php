@@ -1,11 +1,12 @@
 <?php
+
 namespace Neutron\Contact\Model;
 
 class ContactDepartmentTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new ContactDepartment(array (  'department_id' => 1,  'name' => 'Support Departments',  'email' => 'info@younet.co',  'description' => '',  'is_active' => 1,  'is_default' => 1,));
+        $obj = new ContactDepartment(['department_id' => 1, 'name' => 'Support Departments', 'email' => 'info@younet.co', 'description' => '', 'is_active' => 1, 'is_default' => 1,]);
 
         $this->assertSame('contact_department', $obj->getModelId());
         $this->assertSame(1, $obj->getDepartmentId());
@@ -13,7 +14,8 @@ class ContactDepartmentTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('info@younet.co', $obj->getEmail());
         $this->assertSame('', $obj->getDescription());
         $this->assertSame(1, $obj->isActive());
-        $this->assertSame(1, $obj->isDefault());    }
+        $this->assertSame(1, $obj->isDefault());
+    }
 
     public function testParameters()
     {
@@ -33,17 +35,18 @@ class ContactDepartmentTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('info@younet.co', $obj->getEmail());
         $this->assertSame('', $obj->getDescription());
         $this->assertSame(1, $obj->isActive());
-        $this->assertSame(1, $obj->isDefault());    }
+        $this->assertSame(1, $obj->isDefault());
+    }
 
     public function testSave()
     {
-        $obj = new ContactDepartment(array (  'department_id' => 1,  'name' => 'Support Departments',  'email' => 'info@younet.co',  'description' => '',  'is_active' => 1,  'is_default' => 1,));
+        $obj = new ContactDepartment(['department_id' => 1, 'name' => 'Support Departments', 'email' => 'info@younet.co', 'description' => '', 'is_active' => 1, 'is_default' => 1,]);
 
         $obj->save();
 
         /** @var ContactDepartment $obj */
-        $obj = _model('contact_department')
-            ->select()->where('department_id=?',1)->first();
+        $obj = \Phpfox::model('contact_department')
+            ->select()->where('department_id=?', 1)->first();
 
         $this->assertSame('contact_department', $obj->getModelId());
         $this->assertSame(1, $obj->getDepartmentId());
@@ -51,17 +54,18 @@ class ContactDepartmentTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('info@younet.co', $obj->getEmail());
         $this->assertSame('', $obj->getDescription());
         $this->assertSame(1, $obj->isActive());
-        $this->assertSame(1, $obj->isDefault());    }
+        $this->assertSame(1, $obj->isDefault());
+    }
 
     public static function setUpBeforeClass()
     {
-        _model('contact_department')
-            ->delete()->where('department_id=?',1)->execute();
+        \Phpfox::model('contact_department')
+            ->delete()->where('department_id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('contact_department')
-            ->delete()->where('department_id=?',1)->execute();
+        \Phpfox::model('contact_department')
+            ->delete()->where('department_id=?', 1)->execute();
     }
 }

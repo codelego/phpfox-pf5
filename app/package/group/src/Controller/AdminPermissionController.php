@@ -9,13 +9,13 @@ class AdminPermissionController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Groups'));
 
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set(['href' => _url('admin.group'), 'label' => _text('Groups')]);
 
-        _get('menu.admin.secondary')->load('admin', 'group');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'group');
 
     }
 

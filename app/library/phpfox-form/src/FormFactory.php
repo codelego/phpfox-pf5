@@ -14,7 +14,7 @@ class FormFactory
     {
         $id = isset($configs['factory']) ? $configs['factory'] : 'factory';
         $elements = isset($configs['elements']) ? $configs['elements'] : null;
-        $class = _param('form.elements', $id);
+        $class = \Phpfox::param('form.elements', $id);
 
         unset($configs['factory'], $configs['elements']);
 

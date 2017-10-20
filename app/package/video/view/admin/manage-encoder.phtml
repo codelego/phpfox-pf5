@@ -14,8 +14,8 @@
                 <tr>
                     <td class="dropdown" data-cmd="dropdown">
                         <ul>
-                            <?php if($item->getFormSettingsClass() != null): ?>
-                            <li><a href="<?= _url('admin.video.encoder', ['action' => 'edit', 'encoder_id' => $item->getId()]) ?>"><?= _text('Edit Settings') ?></a></li>
+                            <?php if ($item->getFormSettingsClass() != null): ?>
+                                <li><a href="<?= _url('admin.video.encoder', ['action' => 'edit', 'encoder_id' => $item->getId()]) ?>"><?= _text('Edit Settings') ?></a></li>
                             <?php endif; ?>
                         </ul>
                     </td>

@@ -9,8 +9,8 @@ class EventListener
 {
     public function onBootstrap()
     {
-        _get('template')
-            ->preferThemes(_get('core.themes')
+        \Phpfox::get('template')
+            ->preferThemes(\Phpfox::get('core.themes')
                 ->preferThemes());
     }
 
@@ -30,9 +30,9 @@ class EventListener
      */
     public function onSettingsChanged()
     {
-        _get('core.setting')->updateSettingRevision();
-        _get('super.cache')->flush();
-        _get('shared.cache')->flush();
+        \Phpfox::get('core.setting')->updateSettingRevision();
+        \Phpfox::get('super.cache')->flush();
+        \Phpfox::get('shared.cache')->flush();
     }
 
     public function onSystemHealthCheck(Event $event, EventResponse $response)

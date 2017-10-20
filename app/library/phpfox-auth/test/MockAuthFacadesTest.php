@@ -8,19 +8,19 @@ class AuthFacadesTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _get('manager')->set('auth.factory', new MockAuthFactory());
+        \Phpfox::get('manager')->set('auth.factory', new MockAuthFactory());
     }
 
     public static function tearDownAfterClass()
     {
-        _get('manager')->set('auth.factory', null);
+        \Phpfox::get('manager')->set('auth.factory', null);
     }
 
     public function testBase()
     {
         $auth = new AuthFacades();
 
-        $this->assertTrue(_get('auth.factory') instanceof
+        $this->assertTrue(\Phpfox::get('auth.factory') instanceof
             MockAuthFactory);
 
 

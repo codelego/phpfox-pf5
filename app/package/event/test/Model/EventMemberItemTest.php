@@ -34,7 +34,7 @@ class EventMemberItemTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var EventMemberItem $obj */
-        $obj = _model('event_member_item')
+        $obj = \Phpfox::model('event_member_item')
             ->select()->where('list_id=?', 4)->where('user_id=?', 41)->first();
 
         $this->assertSame('event_member_item', $obj->getModelId());
@@ -44,14 +44,14 @@ class EventMemberItemTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _model('event_member_item')
+        \Phpfox::model('event_member_item')
             ->delete()->where('list_id=?', 4)->where('user_id=?', 41)
             ->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('event_member_item')
+        \Phpfox::model('event_member_item')
             ->delete()->where('list_id=?', 4)->where('user_id=?', 41)
             ->execute();
     }

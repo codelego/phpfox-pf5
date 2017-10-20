@@ -46,6 +46,6 @@ class InputRadioDecorator implements DecoratorInterface
         }, $element->getOptions());
 
 
-        return '<div>'.implode('', $optionHtml) . '</div>';
+        return '<div>' . implode('', $optionHtml) . '</div>';
     }
 }

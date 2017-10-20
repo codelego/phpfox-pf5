@@ -6,7 +6,7 @@ class EventListener
 {
     public function onSiteStatistics()
     {
-        $totalUser = _model('user')
+        $totalUser = \Phpfox::model('user')
             ->select()
             ->count();
 

@@ -85,7 +85,7 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var Notification $obj */
-        $obj = _model('notification')
+        $obj = \Phpfox::model('notification')
             ->select()->where('id=?', 3)->first();
 
         $this->assertSame('notification', $obj->getModelId());
@@ -104,13 +104,13 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _model('notification')
+        \Phpfox::model('notification')
             ->delete()->where('id=?', 3)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('notification')
+        \Phpfox::model('notification')
             ->delete()->where('id=?', 3)->execute();
     }
 }

@@ -18,7 +18,7 @@ class ProfileManager
      */
     public function findProfileProcess($processId)
     {
-        return _model('profile_process')
+        return \Phpfox::model('profile_process')
             ->findById($processId);
     }
 
@@ -29,7 +29,7 @@ class ProfileManager
      */
     public function findProfileSection($sectionId)
     {
-        return _model('profile_section')
+        return \Phpfox::model('profile_section')
             ->findById($sectionId);
     }
 
@@ -42,9 +42,9 @@ class ProfileManager
     public function getSuggestProfileAttributeOptions($itemType, $processId)
     {
 
-        $subQuery = new SqlLiteral(_model('profile_question')
+        $subQuery = new SqlLiteral(\Phpfox::model('profile_question')
             ->select('attribute_id')
-            ->where('section_id IN (?)', new SqlLiteral(_model('profile_section')
+            ->where('section_id IN (?)', new SqlLiteral(\Phpfox::model('profile_section')
                 ->select('section_id')
                 ->where('process_id=?', (int)$processId)
                 ->prepare()))->prepare());
@@ -54,7 +54,7 @@ class ProfileManager
                 'value' => $attribute->getId(),
                 'label' => $attribute->getAttributeLabel(),
             ];
-        }, _model('profile_attribute')
+        }, \Phpfox::model('profile_attribute')
             ->select()
             ->where('item_type=?', $itemType)
             ->where('attribute_id NOT IN (?)', $subQuery)
@@ -70,7 +70,7 @@ class ProfileManager
      */
     public function getProfileProcess($itemType, $processType, $catalogId)
     {
-        return _model('profile_process')
+        return \Phpfox::model('profile_process')
             ->select()
             ->where('item_type=?', $itemType)
             ->where('process_type=?', $processType)
@@ -86,7 +86,7 @@ class ProfileManager
      */
     public function getProfileSections($processId, $activeOnly = false)
     {
-        return _model('profile_section')
+        return \Phpfox::model('profile_section')
             ->select()
             ->where('process_id=?', $processId)
             ->whereIf($activeOnly, 'is_active=?', 1)
@@ -102,7 +102,7 @@ class ProfileManager
      */
     public function getProfileQuestions($sectionId, $activeOnly = false)
     {
-        return _model('profile_question')
+        return \Phpfox::model('profile_question')
             ->select()
             ->where('section_id=?', $sectionId)
             ->whereIf($activeOnly, 'is_active=?', 1)
@@ -123,7 +123,7 @@ class ProfileManager
         $profileProcess = $this->findProfileProcess($profileSection->getProcessId());
 
         /** @var ProfileAttribute[] $profileAttributes */
-        $profileAttributes = _model('profile_attribute')
+        $profileAttributes = \Phpfox::model('profile_attribute')
             ->select()
             ->where('item_type=?', $profileProcess->getItemType())
             ->where('attribute_id in ?', $attributeIds)

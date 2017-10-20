@@ -18,7 +18,7 @@ class NavigationManager
      */
     public function show(Navigation $navigation, $decorator, $context = [])
     {
-        $class = _param('navigation.decorators', $decorator);
+        $class = \Phpfox::param('navigation.decorators', $decorator);
 
         /** @var DecoratorInterface $decorator */
         $decorator = new $class($context);
@@ -35,7 +35,7 @@ class NavigationManager
      */
     public function render($decorator, $menu, $params = [])
     {
-        $class = _param('navigation.decorators', $decorator);
+        $class = \Phpfox::param('navigation.decorators', $decorator);
 
         if (!$class) {
             throw new \InvalidArgumentException("Oops! Navigation decorator '{$decorator}' does not exists.");

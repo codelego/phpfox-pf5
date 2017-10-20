@@ -37,7 +37,7 @@ class ActionDispatcher
 
     public function __construct()
     {
-        $this->params = _get('package.loader')
+        $this->params = \Phpfox::get('package.loader')
             ->getActionParameters();
     }
 
@@ -92,8 +92,8 @@ class ActionDispatcher
         $runCounter = 0;
         $lastResult = null;
 
-        $mvcRequest = _get('request');
-        $router = _get('router');
+        $mvcRequest = \Phpfox::get('request');
+        $router = \Phpfox::get('router');
 
         $parameters = $router->run($mvcRequest->getPath(),
             $mvcRequest->getHost(),
@@ -134,7 +134,7 @@ class ActionDispatcher
                     continue;
                 }
 
-                _get('response')->setData($lastResult)->terminate();
+                \Phpfox::get('response')->setData($lastResult)->terminate();
 
             } catch (\Exception $exception) {
                 $this->lastException = $exception;

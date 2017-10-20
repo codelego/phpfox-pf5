@@ -14,7 +14,7 @@ include __DIR__ . './../config/bootstrap.php';
 Phpfox::$service->set('faker', Faker\Factory::create());
 
 /** @var Faker\Generator $faker */
-$faker  = _get('faker');
+$faker  = \Phpfox::get('faker');
 
 
 for($i =0; $i<10; ++$i){

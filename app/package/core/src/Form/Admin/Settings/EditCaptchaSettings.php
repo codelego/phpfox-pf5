@@ -27,7 +27,7 @@ class EditCaptchaSettings extends Form
             'required' => 1,
             'label'    => _text('Default Captcha', '_core.captcha'),
             'info'     => _text('[Default Captcha Id Info]', '_core.captcha'),
-            'options'  => _get('core.adapter')->getAdapterIdOptions('captcha'),
+            'options'  => \Phpfox::get('core.adapter')->getAdapterIdOptions('captcha'),
         ]);
         /** end elements **/
 

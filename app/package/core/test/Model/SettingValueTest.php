@@ -1,11 +1,20 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class SettingValueTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new SettingValue(array (  'value_id' => 1,  'package_id' => 'core',  'domain_id' => 'core',  'form_id' => 'core_captcha',  'name' => 'default_captcha_id',  'value_actual' => '"3"',  'ordering' => 1,  'is_active' => 1,));
+        $obj = new SettingValue(['value_id'     => 1,
+                                 'package_id'   => 'core',
+                                 'domain_id'    => 'core',
+                                 'form_id'      => 'core_captcha',
+                                 'name'         => 'default_captcha_id',
+                                 'value_actual' => '"3"',
+                                 'ordering'     => 1,
+                                 'is_active'    => 1,
+        ]);
 
         $this->assertSame('setting_value', $obj->getModelId());
         $this->assertSame(1, $obj->getValueId());
@@ -15,7 +24,8 @@ class SettingValueTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('default_captcha_id', $obj->getName());
         $this->assertSame('"3"', $obj->getValueActual());
         $this->assertSame(1, $obj->getOrdering());
-        $this->assertSame(1, $obj->isActive());    }
+        $this->assertSame(1, $obj->isActive());
+    }
 
     public function testParameters()
     {
@@ -39,17 +49,26 @@ class SettingValueTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('default_captcha_id', $obj->getName());
         $this->assertSame('"3"', $obj->getValueActual());
         $this->assertSame(1, $obj->getOrdering());
-        $this->assertSame(1, $obj->isActive());    }
+        $this->assertSame(1, $obj->isActive());
+    }
 
     public function testSave()
     {
-        $obj = new SettingValue(array (  'value_id' => 1,  'package_id' => 'core',  'domain_id' => 'core',  'form_id' => 'core_captcha',  'name' => 'default_captcha_id',  'value_actual' => '"3"',  'ordering' => 1,  'is_active' => 1,));
+        $obj = new SettingValue(['value_id'     => 1,
+                                 'package_id'   => 'core',
+                                 'domain_id'    => 'core',
+                                 'form_id'      => 'core_captcha',
+                                 'name'         => 'default_captcha_id',
+                                 'value_actual' => '"3"',
+                                 'ordering'     => 1,
+                                 'is_active'    => 1,
+        ]);
 
         $obj->save();
 
         /** @var SettingValue $obj */
-        $obj = _model('setting_value')
-            ->select()->where('value_id=?',1)->first();
+        $obj = \Phpfox::model('setting_value')
+            ->select()->where('value_id=?', 1)->first();
 
         $this->assertSame('setting_value', $obj->getModelId());
         $this->assertSame(1, $obj->getValueId());
@@ -59,17 +78,18 @@ class SettingValueTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('default_captcha_id', $obj->getName());
         $this->assertSame('"3"', $obj->getValueActual());
         $this->assertSame(1, $obj->getOrdering());
-        $this->assertSame(1, $obj->isActive());    }
+        $this->assertSame(1, $obj->isActive());
+    }
 
     public static function setUpBeforeClass()
     {
-        _model('setting_value')
-            ->delete()->where('value_id=?',1)->execute();
+        \Phpfox::model('setting_value')
+            ->delete()->where('value_id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('setting_value')
-            ->delete()->where('value_id=?',1)->execute();
+        \Phpfox::model('setting_value')
+            ->delete()->where('value_id=?', 1)->execute();
     }
 }

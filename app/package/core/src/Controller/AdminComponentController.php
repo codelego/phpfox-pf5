@@ -14,22 +14,22 @@ class AdminComponentController extends AdminController
 {
     public function afterInitialize()
     {
-        _get('html.title')->set(_text('Components', 'admin'));
+        \Phpfox::get('html.title')->set(_text('Components', 'admin'));
 
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.component'),
                 'label' => _text('Component', 'admin'),
             ]);
 
-        _get('menu.admin.secondary')->load('admin', 'appearance');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'appearance');
 
     }
 
     protected function afterDispatch($action)
     {
         if (in_array($action, ['index'])) {
-            _get('menu.admin.buttons')->load('_core.component.buttons');
+            \Phpfox::get('menu.admin.buttons')->load('_core.component.buttons');
         }
     }
 
@@ -38,7 +38,7 @@ class AdminComponentController extends AdminController
         return (new AdminListEntryProcess([
             'filter.form' => FilterLayoutComponent::class,
             'model'       => LayoutComponent::class,
-            'select'      => _model('layout_component')->select()->order('package_id,component_name', 1),
+            'select'      => \Phpfox::model('layout_component')->select()->order('package_id,component_name', 1),
             'template'    => 'core/admin-layout/manage-component',
             'noLimit'     => true,
         ]))->process();

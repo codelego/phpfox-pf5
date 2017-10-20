@@ -9,14 +9,14 @@ class AdminQuizController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Quizzes'));
 
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set(['href' => _url('admin.quiz'), 'label' => _text('Quizzes')]);
 
-        _get('menu.admin.buttons')->load('_quiz.buttons');
-        _get('menu.admin.secondary')->load('admin', 'quiz');
+        \Phpfox::get('menu.admin.buttons')->load('_quiz.buttons');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'quiz');
 
     }
 }

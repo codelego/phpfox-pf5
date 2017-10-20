@@ -40,7 +40,7 @@ class CurrencyFormater
         if (!$pattern or $pattern == 'number_format') {
             $pattern = '{0} #,###.00';
         }
-        $this->symbols = _get('i18n.loader')->loadCurrencies();
+        $this->symbols = \Phpfox::get('i18n.loader')->loadCurrencies();
         $this->setPattern($pattern);
     }
 

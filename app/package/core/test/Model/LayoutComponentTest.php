@@ -1,11 +1,19 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class LayoutComponentTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new LayoutComponent(array (  'component_id' => 'blog.category',  'component_name' => 'Blog - Category',  'component_class' => 'Neutron\\Blog\\Block\\CategoryComponent',  'package_id' => 'blog',  'is_active' => 1,  'ordering' => 1,  'description' => '',));
+        $obj = new LayoutComponent(['component_id'    => 'blog.category',
+                                    'component_name'  => 'Blog - Category',
+                                    'component_class' => 'Neutron\\Blog\\Block\\CategoryComponent',
+                                    'package_id'      => 'blog',
+                                    'is_active'       => 1,
+                                    'ordering'        => 1,
+                                    'description'     => '',
+        ]);
 
         $this->assertSame('layout_component', $obj->getModelId());
         $this->assertSame('blog.category', $obj->getComponentId());
@@ -14,7 +22,8 @@ class LayoutComponentTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('blog', $obj->getPackageId());
         $this->assertSame(1, $obj->isActive());
         $this->assertSame(1, $obj->getOrdering());
-        $this->assertSame('', $obj->getDescription());    }
+        $this->assertSame('', $obj->getDescription());
+    }
 
     public function testParameters()
     {
@@ -36,17 +45,25 @@ class LayoutComponentTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('blog', $obj->getPackageId());
         $this->assertSame(1, $obj->isActive());
         $this->assertSame(1, $obj->getOrdering());
-        $this->assertSame('', $obj->getDescription());    }
+        $this->assertSame('', $obj->getDescription());
+    }
 
     public function testSave()
     {
-        $obj = new LayoutComponent(array (  'component_id' => 'blog.category',  'component_name' => 'Blog - Category',  'component_class' => 'Neutron\\Blog\\Block\\CategoryComponent',  'package_id' => 'blog',  'is_active' => 1,  'ordering' => 1,  'description' => '',));
+        $obj = new LayoutComponent(['component_id'    => 'blog.category',
+                                    'component_name'  => 'Blog - Category',
+                                    'component_class' => 'Neutron\\Blog\\Block\\CategoryComponent',
+                                    'package_id'      => 'blog',
+                                    'is_active'       => 1,
+                                    'ordering'        => 1,
+                                    'description'     => '',
+        ]);
 
         $obj->save();
 
         /** @var LayoutComponent $obj */
-        $obj = _model('layout_component')
-            ->select()->where('component_id=?','blog.category')->first();
+        $obj = \Phpfox::model('layout_component')
+            ->select()->where('component_id=?', 'blog.category')->first();
 
         $this->assertSame('layout_component', $obj->getModelId());
         $this->assertSame('blog.category', $obj->getComponentId());
@@ -55,17 +72,18 @@ class LayoutComponentTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('blog', $obj->getPackageId());
         $this->assertSame(1, $obj->isActive());
         $this->assertSame(1, $obj->getOrdering());
-        $this->assertSame('', $obj->getDescription());    }
+        $this->assertSame('', $obj->getDescription());
+    }
 
     public static function setUpBeforeClass()
     {
-        _model('layout_component')
-            ->delete()->where('component_id=?','blog.category')->execute();
+        \Phpfox::model('layout_component')
+            ->delete()->where('component_id=?', 'blog.category')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('layout_component')
-            ->delete()->where('component_id=?','blog.category')->execute();
+        \Phpfox::model('layout_component')
+            ->delete()->where('component_id=?', 'blog.category')->execute();
     }
 }

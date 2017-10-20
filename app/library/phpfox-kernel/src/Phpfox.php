@@ -2,9 +2,13 @@
 
 namespace {
 
+    use Phpfox\Cache\StorageInterface;
+    use Phpfox\Kernel\Event;
+    use Phpfox\Kernel\ItemInterface;
     use Phpfox\Kernel\ParameterContainer;
     use Phpfox\Kernel\Parameters;
     use Phpfox\Kernel\ServiceContainer;
+    use Phpfox\Kernel\UserInterface;
 
     /**
      * @codeCoverageIgnore
@@ -14,17 +18,17 @@ namespace {
         /**
          * @var \Phpfox\Kernel\ServiceContainer
          */
-        public static $service;
+        private static $service;
 
         /**
          * @var \Phpfox\Kernel\ParameterContainer
          */
-        public static $params;
+        private static $parameter;
 
         /**
          * @var bool
          */
-        public static $initialized = false;
+        private static $initialized = false;
 
         /**
          * Initialize method
@@ -37,21 +41,19 @@ namespace {
 
             self::$initialized = true;
 
-            $libraryFiles = [
-                'autoload' => PHPFOX_CACHE_DIR . '_autoload.library.php',
-                'package'  => PHPFOX_CACHE_DIR . '_parameters.library.php',
-            ];
+            $autoloadCacheFile = PHPFOX_CACHE_DIR . '_autoload.library.php';
+            $packageCacheFile = PHPFOX_CACHE_DIR . '_parameters.library.php';
 
             $rebuild = PHPFOX_ENV == 'development';
 
-            if (!file_exists($libraryFiles['autoload'])
-                OR !file_exists($libraryFiles['package'])
+            if (!file_exists($autoloadCacheFile)
+                OR !file_exists($packageCacheFile)
             ) {
                 $rebuild = true;
             }
 
             if ($rebuild) {
-                Phpfox::buildLibraryFiles($libraryFiles['autoload'], $libraryFiles['package']);
+                self::buildLibraryFiles($autoloadCacheFile, $packageCacheFile);
             }
 
             /**
@@ -63,16 +65,16 @@ namespace {
              *  + Setup parameters (minimum)
              *  + Init package loader
              */
-            Phpfox::addPsr4($libraryFiles['autoload']);
+            self::addPsr4($autoloadCacheFile);
 
             // Create require services (minimum)
             self::$service = new ServiceContainer();
 
             /** @noinspection PhpIncludeInspection */
             // Setup parameters (minimum)
-            self::$params = new ParameterContainer(include $libraryFiles['package']);
+            self::$parameter = new ParameterContainer(include $packageCacheFile);
 
-            $loader = _get('package.loader');
+            $loader = self::get('package.loader');
 
             /**
              * STEP 02: INIT ALL PACKAGE ENVIRONMENT
@@ -81,10 +83,10 @@ namespace {
              */
 
             // Register autoload (all)
-            Phpfox::addPsr4($loader->getAutoloadParameters());
+            self::addPsr4($loader->getAutoloadParameters());
 
             // Setup parameters (all)
-            Phpfox::$params->setData($loader->getPackageParameters());
+            self::$parameter->setData($loader->getPackageParameters());
 
             /**
              *  STEP 03: INIT SYSTEM REQUIRED SERVICES
@@ -94,10 +96,10 @@ namespace {
              */
 
             // init event dispatcher
-            _get('mvc.events')->initialize();
+            self::get('mvc.events')->initialize();
 
             // register error handler
-            _get('error.handler')->register();
+            self::get('error.handler')->register();
 
             /**
              * STEP 04. NOTIFY EVENTS
@@ -107,9 +109,175 @@ namespace {
              * + Emit event `onShutdown`
              */
 
-            _trigger('onStart');
+            self::trigger('onStart');
 
-            _trigger('onReady');
+            self::trigger('onReady');
+        }
+
+        /**
+         * @see ServiceContainer::get()
+         *
+         * @param string $name
+         *
+         * @return mixed
+         */
+        public static function get($name)
+        {
+            return static::$service->get($name);
+        }
+
+        /**
+         * @see ServiceContainer::has()
+         *
+         * @param string $name
+         *
+         * @return bool
+         */
+        public static function has($name)
+        {
+            return static::$service->has($name);
+        }
+
+        /**
+         * @see GatewayManager::get()
+         *
+         * @param string $name
+         *
+         * @return \Phpfox\Model\GatewayInterface|\Phpfox\Db\DbTableGateway
+         */
+        public static function model($name)
+        {
+            return static::$service->get('models')->get($name);
+        }
+
+        /**
+         * @see GatewayInterface::findById()
+         *
+         * @param string $type
+         * @param mixed  $id
+         *
+         * @return \Phpfox\Model\ModelInterface
+         */
+        public static function find($type, $id)
+        {
+            return static::$service->get('models')->findById($type, $id);
+        }
+
+        /**
+         * Load from cache
+         *
+         * @param string  $cache
+         * @param mixed   $key
+         * @param int     $ttl
+         * @param Closure $fallback
+         *
+         * @return mixed|object
+         */
+        public static function _try($cache, $key, $ttl, $fallback)
+        {
+            /** @var StorageInterface $cacheStorage */
+            $cacheStorage = \Phpfox::$service->get($cache ? $cache : 'shared.cache');
+
+            if (is_array($key)) {
+                $key = implode('_', $key);
+            }
+
+            $item = $cacheStorage->get($key);
+
+            if (null === $item) {
+                $cacheStorage->set($key, $item = $fallback(), $ttl);
+            }
+
+            return $item;
+        }
+
+        /**
+         * @param string $route
+         * @param array  $params
+         */
+        public static function redirect($route, $params = [])
+        {
+            static::$service->get('response')->redirect(_url($route, $params));
+        }
+
+
+        /**
+         * @see \Phpfox\Kernel\Configs::get()
+         *
+         * @param string $section
+         * @param mixed  $item
+         *
+         * @return array
+         */
+        public static function param($section, $item = null)
+        {
+            return static::$parameter->get($section, $item);
+        }
+
+        /**
+         * Use this method to get admin settings from `site_setting` value.
+         *
+         * @param string $key
+         * @param mixed  $default
+         *
+         * @return mixed
+         */
+        public static function setting($key, $default = null)
+        {
+            return static::$parameter->setting($key, $default);
+        }
+
+        /**
+         * @param string $name
+         * @param mixed  $target
+         * @param mixed  $params
+         *
+         * @return \Phpfox\Kernel\EventResponse
+         */
+        public static function trigger($name, $target = null, $params = [])
+        {
+            return self::get('mvc.events')
+                ->trigger(new Event($name, $target, $params));
+        }
+
+        /**
+         * @param string $name
+         * @param mixed  $target
+         * @param mixed  $params
+         *
+         * @return \Phpfox\Kernel\EventResponse
+         */
+        public static function callback($name, $target = null, $params = [])
+        {
+            return self::get('mvc.events')
+                ->triggerUntil(new Event($name, $target, $params))
+                ->first();
+        }
+
+        /**
+         * Check acl settings user can do `action`
+         *
+         * @param UserInterface $user
+         * @param string        $action
+         * @param mixed         $default
+         *
+         * @return mixed
+         */
+        public static function allow($user, $action, $default = false)
+        {
+            return self::$service->get('acl')->allow($user, $action, $default);
+        }
+
+        /**
+         * @param UserInterface $user
+         * @param ItemInterface $item
+         * @param string        $action
+         *
+         * @return bool
+         */
+        public static function pass($user, $item, $action)
+        {
+            return self::$service->get('acl')->pass($user, $item, $action);
         }
 
         /**

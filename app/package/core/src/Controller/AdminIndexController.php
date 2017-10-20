@@ -8,7 +8,7 @@ class AdminIndexController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Dashboard', 'admin'));
 
     }
@@ -18,7 +18,7 @@ class AdminIndexController extends AdminController
      */
     public function actionIndex()
     {
-        _get('layouts')
+        \Phpfox::get('layouts')
             ->setPageName('core/admin-index/index');
 
         return new ViewModel([

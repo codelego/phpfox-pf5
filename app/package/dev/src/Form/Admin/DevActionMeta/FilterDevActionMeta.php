@@ -17,28 +17,28 @@ class FilterDevActionMeta extends Form
 
         // element `table_name`
         $this->addElement([
-            'name'      => 'table_name',
-            'factory'   => 'text',
-            'placeholder'     => _text('Table Name', null),
-            'maxlength' => 255,
+            'name'        => 'table_name',
+            'factory'     => 'text',
+            'placeholder' => _text('Table Name', null),
+            'maxlength'   => 255,
         ]);
 
         // element `package_id`
         $this->addElement([
-            'name'      => 'package_id',
-            'factory'   => 'select',
-            'placeholder'     => _text('Package', null),
-            'options'   => _get('core.packages')->getPackageIdOptions(),
-            'maxlength' => 255,
+            'name'        => 'package_id',
+            'factory'     => 'select',
+            'placeholder' => _text('Package', null),
+            'options'     => \Phpfox::get('core.packages')->getPackageIdOptions(),
+            'maxlength'   => 255,
         ]);
 
         // element `action_type`
         $this->addElement([
-            'name'      => 'action_type',
-            'factory'   => 'select',
-            'placeholder'     => _text('Action Type', null),
-            'maxlength' => 255,
-            'options'   => [
+            'name'        => 'action_type',
+            'factory'     => 'select',
+            'placeholder' => _text('Action Type', null),
+            'maxlength'   => 255,
+            'options'     => [
                 ['value' => 'admin_add', 'label' => 'admin_add'],
                 ['value' => 'admin_edit', 'label' => 'admin_edit'],
                 ['value' => 'admin_delete', 'label' => 'admin_delete'],

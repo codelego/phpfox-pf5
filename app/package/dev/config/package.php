@@ -4,7 +4,7 @@ namespace Neutron\Dev;
 
 
 return [
-    'services'  => [
+    'services' => [
         'dev.code_generator' => [null, Service\CodeGenerator::class],
     ],
 ];

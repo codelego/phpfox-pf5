@@ -28,15 +28,15 @@ class LayoutFacades extends ViewModel
             $this->template = 'layout/default';
         }
 
-        _get('assets')
+        \Phpfox::get('assets')
             ->addScripts('require', null)
             ->addStyle('custom', null)
             ->prependStyle('main', null)
             ->prependStyle('font', null);
 
-        _trigger('onViewLayoutPrepare', $this);
+        \Phpfox::trigger('onViewLayoutPrepare', $this);
 
-        $content = _get('layout_loader')
+        $content = \Phpfox::get('layout_loader')
             ->loadForRender($this->getPageName(), $this->getThemeId())
             ->render();
 
@@ -80,7 +80,7 @@ class LayoutFacades extends ViewModel
     public function getThemeId()
     {
         if (null == $this->themeId) {
-            $this->setThemeId(_get('core.themes')->getDefault()->getId());
+            $this->setThemeId(\Phpfox::get('core.themes')->getDefault()->getId());
         }
         return $this->themeId;
     }
@@ -94,7 +94,7 @@ class LayoutFacades extends ViewModel
     {
         $this->themeId = $themeId;
 
-        _get('template')
+        \Phpfox::get('template')
             ->preferThemes([$themeId]);
         return $this;
     }
@@ -105,7 +105,7 @@ class LayoutFacades extends ViewModel
     public function getPageName()
     {
         if (null == $this->pageName) {
-            $this->pageName = _get('dispatcher')->getFullActionName();
+            $this->pageName = \Phpfox::get('dispatcher')->getFullActionName();
         }
         return $this->pageName;
     }

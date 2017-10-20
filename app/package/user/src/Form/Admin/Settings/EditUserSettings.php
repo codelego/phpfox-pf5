@@ -17,13 +17,13 @@ class EditUserSettings extends Form {
         
         
             /** element `user_register__mode` id=3537 **/
-            $this->addElement(array ( 'name' => 'user_register__mode', 'factory' => 'radio', 'label' => _text('Registration Mode','_user'), 'placeholder' => _text('Registration Mode','_user'), 'info' => _text('Registration Mode [Info]', '_user'), 'value' => 'public', 'options' => _get('user.register')->getRegisterModeOptions(), 'required' => true, ));        
+            $this->addElement(array ( 'name' => 'user_register__mode', 'factory' => 'radio', 'label' => _text('Registration Mode','_user'), 'placeholder' => _text('Registration Mode','_user'), 'info' => _text('Registration Mode [Info]', '_user'), 'value' => 'public', 'options' => \Phpfox::get('user.register')->getRegisterModeOptions(), 'required' => true, ));        
         
             /** element `user_register__require_verification` id=3541 **/
             $this->addElement(array ( 'name' => 'user_register__require_verification', 'factory' => 'yesno', 'label' => _text('Require Verification','_user'), 'placeholder' => _text('Require Verification','_user'), 'info' => _text('Require Verification [Info]', '_user'), 'value' => '0', 'required' => true, ));        
         
             /** element `user_register__verification_process` id=3540 **/
-            $this->addElement(array ( 'name' => 'user_register__verification_process', 'factory' => 'multi_checkbox', 'label' => _text('Verification Process','_user'), 'placeholder' => _text('Verification Process','_user'), 'info' => _text('Verification Process [Info]', '_user'), 'options' => _get('user.register')->getVerificationOptions(), 'required' => true, ));        
+            $this->addElement(array ( 'name' => 'user_register__verification_process', 'factory' => 'multi_checkbox', 'label' => _text('Verification Process','_user'), 'placeholder' => _text('Verification Process','_user'), 'info' => _text('Verification Process [Info]', '_user'), 'options' => \Phpfox::get('user.register')->getVerificationOptions(), 'required' => true, ));        
         
             /** element `user_register__approval_process` id=3520 **/
             $this->addElement(array ( 'name' => 'user_register__approval_process', 'factory' => 'yesno', 'label' => _text('Approval Process','_user'), 'placeholder' => _text('Approval Process','_user'), 'info' => _text('Approve Process [Info]', '_user'), 'value' => '0', 'required' => true, ));        

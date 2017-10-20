@@ -30,7 +30,7 @@ class PackageManager
     {
         $this->initialized = true;
 
-        $this->data = _get('package.loader')->getPaths();
+        $this->data = \Phpfox::get('package.loader')->getPaths();
     }
 
     public function get($id)
@@ -69,7 +69,7 @@ class PackageManager
             throw new \InvalidArgumentException("Oops! ZipArchive extension is required.");
         }
 
-        $info = _get('package.loader')->getPackageInfo($id);
+        $info = \Phpfox::get('package.loader')->getPackageInfo($id);
 
         $dir = PHPFOX_APP_DIR . $info['path'];
 

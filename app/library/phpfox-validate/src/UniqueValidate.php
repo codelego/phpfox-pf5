@@ -11,7 +11,7 @@ class UniqueValidate extends Validate
         $accept = $this->get('accept', []);
         $table = $this->get('table');
 
-        $row = _get('db')
+        $row = \Phpfox::get('db')
             ->select($key)
             ->from($table)
             ->where($field . '=?', (string)$value)

@@ -28,7 +28,7 @@ class ProfileNameFilter
         }
 
 
-        $item = _get('user.browse')
+        $item = \Phpfox::get('user.browse')
             ->findByProfileName($name);
 
         if (!$item) {

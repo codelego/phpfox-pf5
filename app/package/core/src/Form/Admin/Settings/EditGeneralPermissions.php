@@ -25,7 +25,7 @@ class EditGeneralPermissions extends Form
             'factory'  => 'select',
             'label'    => _text('Storage Limit', '_core.general_acl'),
             'info'     => _text('Storage Limit [Info]', '_core.general_acl'),
-            'options'  => _get('core.storage')->getStorageLimitOptions(),
+            'options'  => \Phpfox::get('core.storage')->getStorageLimitOptions(),
             'required' => true,
         ]);
 

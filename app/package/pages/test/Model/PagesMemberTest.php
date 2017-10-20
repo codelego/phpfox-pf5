@@ -50,7 +50,7 @@ class PagesMemberTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var PagesMember $obj */
-        $obj = _model('pages_member')
+        $obj = \Phpfox::model('pages_member')
             ->select()->where('parent_id=?', 1)->where('user_id=?', 4)
             ->where('type_id=?', 6)->where('is_active=?', 1)->first();
 
@@ -63,14 +63,14 @@ class PagesMemberTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _model('pages_member')
+        \Phpfox::model('pages_member')
             ->delete()->where('parent_id=?', 1)->where('user_id=?', 4)
             ->where('type_id=?', 6)->where('is_active=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('pages_member')
+        \Phpfox::model('pages_member')
             ->delete()->where('parent_id=?', 1)->where('user_id=?', 4)
             ->where('type_id=?', 6)->where('is_active=?', 1)->execute();
     }

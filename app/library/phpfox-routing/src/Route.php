@@ -155,7 +155,7 @@ class Route implements RouteInterface
             }
         }
 
-        if ($this->filter AND false == _get($this->filter)->onMatch($params)) {
+        if ($this->filter AND false == \Phpfox::get($this->filter)->onMatch($params)) {
             return false;
         }
 
@@ -259,7 +259,7 @@ class Route implements RouteInterface
     public function compile($params)
     {
         if ($this->filter) {
-            $uri = _get($this->filter)->onCompile($params);
+            $uri = \Phpfox::get($this->filter)->onCompile($params);
             if (false === $uri) {
                 return false;
             } elseif (is_string($uri)) {

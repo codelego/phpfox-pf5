@@ -15,14 +15,14 @@ class DbAdapterFactory
         if (!$params) {
             $params = load_config(PHPFOX_DATABASE_FILE);
         } elseif (is_string($params)) {
-            $params = _param('db.adapters', $params);
+            $params = \Phpfox::param('db.adapters', $params);
         }
 
         if (!$driver) {
             $driver = $params['driver'];
         }
 
-        $class = _param('db_drivers', $driver);
+        $class = \Phpfox::param('db_drivers', $driver);
 
         return new $class($params);
     }

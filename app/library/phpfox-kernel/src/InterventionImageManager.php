@@ -25,7 +25,7 @@ class InterventionImageManager extends ImageManager
                 or substr($source,
                     0, 8) == 'https://')
         ) {
-            $source = _get('curl')->factory($source)->getString();
+            $source = \Phpfox::get('curl')->factory($source)->getString();
         }
 
         return parent::make($source);

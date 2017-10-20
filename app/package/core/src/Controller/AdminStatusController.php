@@ -8,16 +8,16 @@ class AdminStatusController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('System Status', 'admin'));
 
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.status'),
                 'label' => _text('System Status', 'admin'),
             ]);
 
-        _get('menu.admin.secondary')->load('admin', 'status');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'status');
     }
 
     public function actionCache()
@@ -27,7 +27,7 @@ class AdminStatusController extends AdminController
 
     public function actionHealthCheck()
     {
-        $response = _trigger('onSystemHealthCheck');
+        $response = \Phpfox::trigger('onSystemHealthCheck');
 
         return new ViewModel([
             'items' => $response,
@@ -36,7 +36,7 @@ class AdminStatusController extends AdminController
 
     public function actionStatistics()
     {
-        $response = _trigger('onSiteStatistics');
+        $response = \Phpfox::trigger('onSiteStatistics');
 
         return new ViewModel([
             'items' => $response,

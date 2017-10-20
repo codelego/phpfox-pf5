@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <?= _get('assets')->getStartHtml() ?>
+    <?= \Phpfox::get('assets')->getStartHtml() ?>
 </head>
 <body class="<?= PHPFOX_IS_DEV ? 'is_dev' : '' ?>">
 
 <aside>
     <div>
-        <?= _get('menu.admin.primary')->render('aside', []) ?>
+        <?= \Phpfox::get('menu.admin.primary')->render('aside', []) ?>
     </div>
     <div>
         <ul>
@@ -28,7 +28,7 @@
         </div>
         <div class="main">
             <div class="navbar">
-                <?= _get('breadcrumb')->render() ?>
+                <?= \Phpfox::get('breadcrumb')->render() ?>
                 <form role="search" class="navbar-form navbar-right global-search-holder"
                       onsubmit="return false;">
                     <input type="text" placeholder="<?= _text('Search ...') ?>"
@@ -39,17 +39,17 @@
     </header>
     <div class="main-wrapper">
         <div class="container">
-            <?= _get('menu.admin.secondary')->render('toolbar', ['level0' => 'btn-group toolbar pull-left']); ?>
-            <?= _get('menu.admin.buttons')->render('toolbar', ['level0' => 'toolbar pull-right']); ?>
+            <?= \Phpfox::get('menu.admin.secondary')->render('toolbar', ['level0' => 'btn-group toolbar pull-left']); ?>
+            <?= \Phpfox::get('menu.admin.buttons')->render('toolbar', ['level0' => 'toolbar pull-right']); ?>
         </div>
         <div class="container">
-            <?= _get('layouts')->renderBlock('\Neutron\Core\Block\AdminFilter', []) ?>
+            <?= \Phpfox::get('layouts')->renderBlock('\Neutron\Core\Block\AdminFilter', []) ?>
         </div>
         <div class="content-wrapper">
             <?php echo @$layout_content ?>
         </div>
     </div>
 </div>
-<?= _get('assets')->getShutdownHtml() ?>
+<?= \Phpfox::get('assets')->getShutdownHtml() ?>
 </body>
 </html>

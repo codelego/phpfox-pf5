@@ -15,7 +15,7 @@ class TestEmailSettings extends Form
         $this->setAction(_url('#'));
         $this->setAttribute('data-submit', 'admin.i18n.testEmail');
 
-        $conf = _param('test_mail');
+        $conf = \Phpfox::param('test_mail');
 
         $this->addElement([
             'name'        => 'to',

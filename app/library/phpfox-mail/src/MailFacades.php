@@ -45,7 +45,7 @@ class MailFacades
         $message = Message::factory()->setSubject($subject)->setBody($html)
             ->setAltBody($text);
 
-        _get('main.log')->info(json_encode($message->toArray()));
+        \Phpfox::get('main.log')->info(json_encode($message->toArray()));
 
         return $message;
     }
@@ -84,7 +84,7 @@ class MailFacades
     public function test($driver, $params, $testEmail)
     {
         try {
-            $class = _param('mail_drivers', $driver);
+            $class = \Phpfox::param('mail_drivers', $driver);
 
             /** @var AdapterInterface $adapter */
             $adapter = new $class($params);
@@ -107,8 +107,8 @@ class MailFacades
      */
     private function make($adapterId)
     {
-        $parameter = _get('package.loader')->getMailParameter($adapterId);
-        $class = _param('mail_drivers', $parameter->get('driver'));
+        $parameter = \Phpfox::get('package.loader')->getMailParameter($adapterId);
+        $class = \Phpfox::param('mail_drivers', $parameter->get('driver'));
 
         if (!$class or !class_exists($class)) {
             throw new MailException("Can not create mail " . $adapterId);
@@ -145,7 +145,7 @@ class MailFacades
             return $this->get($adapterId)->send($message);
         } catch (MailException $exception) {
             if ($adapterId != 'default') {
-                _get('main.log')
+                \Phpfox::get('main.log')
                     ->error('Oops! Could not send email use mailer "{0}", retry to use configured default mailer to retry!',
                         [$adapterId]);
             }
@@ -155,7 +155,7 @@ class MailFacades
             try {
                 return $this->get('default')->send($message);
             } catch (MailException $exception) {
-                _get('main.log')->error('Oops! Could not send email use mailer "{0}"!', [$adapterId]);
+                \Phpfox::get('main.log')->error('Oops! Could not send email use mailer "{0}"!', [$adapterId]);
             }
         }
         return false;

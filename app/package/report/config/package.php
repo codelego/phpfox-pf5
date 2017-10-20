@@ -4,7 +4,7 @@ namespace Neutron\Report;
 
 
 return [
-    'services'  => [
+    'services' => [
         'reports' => [null, Service\ReportManager::class],
     ],
 ];

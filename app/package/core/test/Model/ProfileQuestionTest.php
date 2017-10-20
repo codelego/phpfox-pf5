@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class ProfileQuestionTest extends \PHPUnit_Framework_TestCase
@@ -20,7 +21,8 @@ class ProfileQuestionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->isRequire());
         $this->assertSame('', $obj->getOrdering());
         $this->assertSame('', $obj->getOptions());
-        $this->assertSame('', $obj->getDependencies());    }
+        $this->assertSame('', $obj->getDependencies());
+    }
 
     public function testParameters()
     {
@@ -54,7 +56,8 @@ class ProfileQuestionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->isRequire());
         $this->assertSame('', $obj->getOrdering());
         $this->assertSame('', $obj->getOptions());
-        $this->assertSame('', $obj->getDependencies());    }
+        $this->assertSame('', $obj->getDependencies());
+    }
 
     public function testSave()
     {
@@ -63,8 +66,8 @@ class ProfileQuestionTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var ProfileQuestion $obj */
-        $obj = _model('profile_question')
-            ->select()->where('question_id=?','')->first();
+        $obj = \Phpfox::model('profile_question')
+            ->select()->where('question_id=?', '')->first();
 
         $this->assertSame('profile_question', $obj->getModelId());
         $this->assertSame('', $obj->getQuestionId());
@@ -79,17 +82,18 @@ class ProfileQuestionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->isRequire());
         $this->assertSame('', $obj->getOrdering());
         $this->assertSame('', $obj->getOptions());
-        $this->assertSame('', $obj->getDependencies());    }
+        $this->assertSame('', $obj->getDependencies());
+    }
 
     public static function setUpBeforeClass()
     {
-        _model('profile_question')
-            ->delete()->where('question_id=?','')->execute();
+        \Phpfox::model('profile_question')
+            ->delete()->where('question_id=?', '')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('profile_question')
-            ->delete()->where('question_id=?','')->execute();
+        \Phpfox::model('profile_question')
+            ->delete()->where('question_id=?', '')->execute();
     }
 }

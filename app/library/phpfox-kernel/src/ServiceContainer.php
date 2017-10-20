@@ -26,7 +26,7 @@ class ServiceContainer
      */
     public function has($key)
     {
-        return _param('services', $key) != null;
+        return \Phpfox::param('services', $key) != null;
     }
 
     /**
@@ -56,7 +56,7 @@ class ServiceContainer
      */
     public function build($id)
     {
-        $ref = _param('services', $id);
+        $ref = \Phpfox::param('services', $id);
         $service = null;
 
         if (!$ref) {

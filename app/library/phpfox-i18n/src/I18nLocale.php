@@ -71,7 +71,7 @@ class I18nLocale
     public function getMessage($id, $domain, $choice = 0)
     {
         if (!isset($this->messages[$domain])) {
-            $this->messages[$domain] = _get('i18n.loader')
+            $this->messages[$domain] = \Phpfox::get('i18n.loader')
                 ->loadMessage($this->locale, $domain);
         }
         if (isset($this->messages[$domain][$id])) {
@@ -179,7 +179,7 @@ class I18nLocale
             $this->dateFormater = new DateFormater($this->locale);
         }
 
-        return $this->dateFormater->format($time,$type);
+        return $this->dateFormater->format($time, $type);
     }
 
     function __sleep()

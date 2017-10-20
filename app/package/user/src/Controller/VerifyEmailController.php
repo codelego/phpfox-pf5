@@ -8,11 +8,11 @@ class VerifyEmailController extends ActionController
 {
     public function actionIndex()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $tokenId = $request->get('token');
 
-        $verifyService = _get('user.verify_email');
-        $browseService = _get('user.browse');
+        $verifyService = \Phpfox::get('user.verify_email');
+        $browseService = \Phpfox::get('user.browse');
 
         $token = $verifyService->findById($tokenId);
 

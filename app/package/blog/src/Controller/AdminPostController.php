@@ -16,20 +16,20 @@ class AdminPostController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Blogs'));
 
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set(['href' => _url('admin.blog'), 'label' => _text('Blogs')]);
 
-        _get('menu.admin.buttons')->load('_blog.buttons');
-        _get('menu.admin.secondary')->load('admin','blog');
+        \Phpfox::get('menu.admin.buttons')->load('_blog.buttons');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'blog');
     }
 
     protected function afterDispatch($action)
     {
         if (in_array($action, ['index'])) {
-            _get('menu.admin.buttons')->load('_blog.post.buttons');
+            \Phpfox::get('menu.admin.buttons')->load('_blog.post.buttons');
         }
 
     }
@@ -37,9 +37,9 @@ class AdminPostController extends AdminController
     public function actionIndex()
     {
         return (new AdminListEntryProcess([
-                'model'    => BlogPost::class,
-                'filter.form'=> FilterBlogPost::class,
-                'template' => 'blog/admin/manage-post',
+                'model'       => BlogPost::class,
+                'filter.form' => FilterBlogPost::class,
+                'template'    => 'blog/admin/manage-post',
             ]
         ))->process();
 
@@ -47,23 +47,23 @@ class AdminPostController extends AdminController
 
     public function actionDelete()
     {
-        $request =  _get('request');
+        $request = \Phpfox::get('request');
         $identity = $request->get('post_id');
 
-        $entry = _find('blog_post', $identity);
+        $entry = \Phpfox::find('blog_post', $identity);
 
-        $form  = new DeleteBlogPost();
+        $form = new DeleteBlogPost();
 
-        if($request->isGet()){
+        if ($request->isGet()) {
 
         }
 
-        if($request->isPost() and $form->isValid($request->all())){
+        if ($request->isPost() and $form->isValid($request->all())) {
             $entry->delete();
         }
         return new ViewModel([
-            'form'=>$form,
-        ],'layout/form-edit');
+            'form' => $form,
+        ], 'layout/form-edit');
     }
 
     public function actionAdd()

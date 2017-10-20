@@ -21,7 +21,7 @@
                     </td>
                     <td data-cmd="dropdown" class="dropdown">
                         <ul>
-                            <li><a href="<?= _url('admin.user.user',['action'=>'edit','user_id'=>$item->getId()]) ?>"><?= _text('Edit user') ?></a></li>
+                            <li><a href="<?= _url('admin.user.user', ['action' => 'edit', 'user_id' => $item->getId()]) ?>"><?= _text('Edit user') ?></a></li>
                             <li><a href=""><?= _text('Login as this user') ?></a></li>
                             <li><a href=""><?= _text('Change password') ?></a></li>
                             <li><a href=""><?= _text('Promote this user') ?></a></li>
@@ -31,7 +31,7 @@
                         </ul>
                     </td>
                     <td>
-                    <a target="_blank" rel="nofollow" href="<?= $item->getUrl() ?>"><?= $item->getName(); ?></a>
+                        <a target="_blank" rel="nofollow" href="<?= $item->getUrl() ?>"><?= $item->getName(); ?></a>
                     </td>
                     <td><?= $item->getEmail(); ?></td>
                     <td class="text-center"><?= $item->getLevelId(); ?></td>

@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <?= _get('assets')->getStartHtml() ?>
+    <?= \Phpfox::get('assets')->getStartHtml() ?>
 </head>
 <body class="">
 <header>
     <?= $this->render('layout/header', []) ?>
 </header>
 <div id="layout_containers">
-<section id="content">
-    <?php echo @$layout_content ?>
-</section>
+    <section id="content">
+        <?php echo @$layout_content ?>
+    </section>
 </div>
 <footer>
     <?= $this->render('layout/footer', []) ?>
 </footer>
-<?= _get('assets')->getShutdownHtml() ?>
+<?= \Phpfox::get('assets')->getShutdownHtml() ?>
 </body>
 </html>

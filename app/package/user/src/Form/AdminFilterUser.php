@@ -13,26 +13,26 @@ class AdminFilterUser extends Form
 
         $this->addElements([
             [
-                'factory'    => 'text',
-                'name'       => 'q',
+                'factory'     => 'text',
+                'name'        => 'q',
                 'placeholder' => 'Id, Name, Email',
             ],
             [
-                'factory'    => 'choice',
-                'name'       => 'level_id',
-                'render'     => 'select',
-                'required'   => false,
+                'factory'     => 'choice',
+                'name'        => 'level_id',
+                'render'      => 'select',
+                'required'    => false,
                 'placeholder' => _text('Role', 'admin'),
-                'options'    => [
+                'options'     => [
                     ['value' => '1', 'label' => 'default'],
                 ],
             ],
             [
-                'factory'    => 'select',
-                'name'       => 'verify',
-                'required'   => false,
+                'factory'     => 'select',
+                'name'        => 'verify',
+                'required'    => false,
                 'placeholder' => _text('Both'),
-                'options'    => [
+                'options'     => [
                     ['value' => 1, 'label' => 'Verified'],
                     ['value' => 0, 'label' => 'Un-Verified'],
                 ],

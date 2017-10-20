@@ -1,1 +1,1 @@
-<?php return array(0=>'process_id',1=>array('process_id'=>1,),2=>'process_id',3=>array('process_id'=>1,'item_type'=>1,'process_type'=>1,'catalog_id'=>1,),4=>array(),);
+<?php return [0 => 'process_id', 1 => ['process_id' => 1,], 2 => 'process_id', 3 => ['process_id' => 1, 'item_type' => 1, 'process_type' => 1, 'catalog_id' => 1,], 4 => [],];

@@ -44,7 +44,7 @@ class AddLayoutContainer extends Form
             'factory'  => 'select',
             'label'    => _text('Grid Id', '_core.layout'),
             'value'    => 'simple',
-            'options'  => _get('core.layout')->getGridIdOptions(),
+            'options'  => \Phpfox::get('core.layout')->getGridIdOptions(),
             'required' => true,
         ]);
 
@@ -55,7 +55,7 @@ class AddLayoutContainer extends Form
             'label'    => _text('Container Type', '_core.layout'),
             'value'    => 'container',
             'required' => true,
-            'options'  => _get('core.layout')->getContainerTypeIdOptions(),
+            'options'  => \Phpfox::get('core.layout')->getContainerTypeIdOptions(),
         ]);
 
         /** element `ordering` **/

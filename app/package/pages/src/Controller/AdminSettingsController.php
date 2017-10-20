@@ -9,13 +9,13 @@ class AdminSettingsController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Pages'));
 
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set(['href' => _url('admin.pages'), 'label' => _text('Pages')]);
 
-        _get('menu.admin.secondary')->load('admin', 'pages');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'pages');
 
     }
 

@@ -1,11 +1,20 @@
 <?php
+
 namespace Neutron\Video\Model;
 
 class VideoProviderTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new VideoProvider(array (  'provider_id' => 'facebook',  'form_settings_class' => 'Neutron\\Video\\Form\\Admin\\EditFacebookSettings',  'is_active' => 1,  'ordering' => 4,  'package_id' => 'core',  'title' => 'Facebook',  'description' => 'Fetch video from facebook.com',  'dependency' => '[]',));
+        $obj = new VideoProvider(['provider_id'         => 'facebook',
+                                  'form_settings_class' => 'Neutron\\Video\\Form\\Admin\\EditFacebookSettings',
+                                  'is_active'           => 1,
+                                  'ordering'            => 4,
+                                  'package_id'          => 'core',
+                                  'title'               => 'Facebook',
+                                  'description'         => 'Fetch video from facebook.com',
+                                  'dependency'          => '[]',
+        ]);
 
         $this->assertSame('video_provider', $obj->getModelId());
         $this->assertSame('facebook', $obj->getProviderId());
@@ -15,7 +24,8 @@ class VideoProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('core', $obj->getPackageId());
         $this->assertSame('Facebook', $obj->getTitle());
         $this->assertSame('Fetch video from facebook.com', $obj->getDescription());
-        $this->assertSame('[]', $obj->getDependency());    }
+        $this->assertSame('[]', $obj->getDependency());
+    }
 
     public function testParameters()
     {
@@ -39,17 +49,26 @@ class VideoProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('core', $obj->getPackageId());
         $this->assertSame('Facebook', $obj->getTitle());
         $this->assertSame('Fetch video from facebook.com', $obj->getDescription());
-        $this->assertSame('[]', $obj->getDependency());    }
+        $this->assertSame('[]', $obj->getDependency());
+    }
 
     public function testSave()
     {
-        $obj = new VideoProvider(array (  'provider_id' => 'facebook',  'form_settings_class' => 'Neutron\\Video\\Form\\Admin\\EditFacebookSettings',  'is_active' => 1,  'ordering' => 4,  'package_id' => 'core',  'title' => 'Facebook',  'description' => 'Fetch video from facebook.com',  'dependency' => '[]',));
+        $obj = new VideoProvider(['provider_id'         => 'facebook',
+                                  'form_settings_class' => 'Neutron\\Video\\Form\\Admin\\EditFacebookSettings',
+                                  'is_active'           => 1,
+                                  'ordering'            => 4,
+                                  'package_id'          => 'core',
+                                  'title'               => 'Facebook',
+                                  'description'         => 'Fetch video from facebook.com',
+                                  'dependency'          => '[]',
+        ]);
 
         $obj->save();
 
         /** @var VideoProvider $obj */
-        $obj = _model('video_provider')
-            ->select()->where('provider_id=?','facebook')->first();
+        $obj = \Phpfox::model('video_provider')
+            ->select()->where('provider_id=?', 'facebook')->first();
 
         $this->assertSame('video_provider', $obj->getModelId());
         $this->assertSame('facebook', $obj->getProviderId());
@@ -59,17 +78,18 @@ class VideoProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('core', $obj->getPackageId());
         $this->assertSame('Facebook', $obj->getTitle());
         $this->assertSame('Fetch video from facebook.com', $obj->getDescription());
-        $this->assertSame('[]', $obj->getDependency());    }
+        $this->assertSame('[]', $obj->getDependency());
+    }
 
     public static function setUpBeforeClass()
     {
-        _model('video_provider')
-            ->delete()->where('provider_id=?','facebook')->execute();
+        \Phpfox::model('video_provider')
+            ->delete()->where('provider_id=?', 'facebook')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('video_provider')
-            ->delete()->where('provider_id=?','facebook')->execute();
+        \Phpfox::model('video_provider')
+            ->delete()->where('provider_id=?', 'facebook')->execute();
     }
 }

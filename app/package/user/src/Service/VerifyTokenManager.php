@@ -72,7 +72,7 @@ class VerifyTokenManager
      */
     public function findById($id)
     {
-        return _model('user_verify_token')
+        return \Phpfox::model('user_verify_token')
             ->findById((string)$id);
     }
 
@@ -81,7 +81,7 @@ class VerifyTokenManager
      */
     public function clean()
     {
-        _get('db')->delete(':user_verify_token')
+        \Phpfox::get('db')->delete(':user_verify_token')
             ->where('expires_at<?', date('Y-m-d H:i:s', time()))->execute();
 
         return true;

@@ -27,7 +27,7 @@ trait CollectionTrait
     public function addElement($element)
     {
         if (!$element instanceof ElementInterface) {
-            $element = _get('form.factory')->factory($element);
+            $element = \Phpfox::get('form.factory')->factory($element);
         }
 
         $this->byNames[$element->getName()] = $element->setParent($this);

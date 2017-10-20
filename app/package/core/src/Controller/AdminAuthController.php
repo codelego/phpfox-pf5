@@ -9,39 +9,39 @@ class AdminAuthController extends ActionController
 
     public function actionLogin()
     {
-        _get('auth');
+        \Phpfox::get('auth');
 
-        _get('layouts')->setThemeId('admin');
+        \Phpfox::get('layouts')->setThemeId('admin');
 
-        _get('require_js')
+        \Phpfox::get('require_js')
             ->deps('package/core/admin');
 
-        _get('template')
+        \Phpfox::get('template')
             ->preferThemes(['admin']);
 
-        _get('assets')
+        \Phpfox::get('assets')
             ->addStyle('admin.login', null);
 
-        _get('layouts')
+        \Phpfox::get('layouts')
             ->setTemplate('layout/login');
 
-        $request = _get('request');
+        $request = \Phpfox::get('request');
 
         if ($request->isPost() and !empty($_POST['is_login'])) {
             $email = $request->get('email');
             $password = $request->get('password');
 
-            $result = _get('auth')
+            $result = \Phpfox::get('auth')
                 ->authenticate(null, $email, $password, []);
 
             if ($result->isValid()) {
-                $user = _find('user', $result->getIdentity());
-                _get('auth')->login($user, true);
+                $user = \Phpfox::find('user', $result->getIdentity());
+                \Phpfox::get('auth')->login($user, true);
 
-                _redirect('admin');
+                \Phpfox::redirect('admin');
 
             } else {
-                _get('layouts')->assign([
+                \Phpfox::get('layouts')->assign([
                     'message' => $result->getMessage(),
                 ]);
             }
@@ -50,8 +50,8 @@ class AdminAuthController extends ActionController
 
     public function actionLogout()
     {
-        _get('auth')->logout();
-        _redirect('admin');
+        \Phpfox::get('auth')->logout();
+        \Phpfox::redirect('admin');
     }
 
     protected function passOfflineMode()

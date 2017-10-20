@@ -9,7 +9,7 @@ class AjaxI18nController extends AjaxController
 {
     public function actionSave()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $key = $request->get('text_key');
         $value = $request->get('text_value');
         $lang = $request->get('text_lang', '');
@@ -18,7 +18,7 @@ class AjaxI18nController extends AjaxController
 
 
         if ($cmd == 'delete') {
-            _model('i18n_message')
+            \Phpfox::model('i18n_message')
                 ->delete(['var_name' => $key]);
         }
 

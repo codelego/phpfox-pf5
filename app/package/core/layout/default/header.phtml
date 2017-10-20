@@ -1,4 +1,4 @@
-<?php $login = _get('auth')->getLogin(); ?>
+<?php $login = \Phpfox::get('auth')->getLogin(); ?>
 <nav class="navbar navbar-default">
     <div class="container">
         <div class="navbar-header">
@@ -10,8 +10,8 @@
                 <span class="icon-bar"></span></button>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <?= _get('menu.main.primary')->render('navbar', []) ?>
-            <?= _get('menu.main.mini')->render('navbar',
+            <?= \Phpfox::get('menu.main.primary')->render('navbar', []) ?>
+            <?= \Phpfox::get('menu.main.mini')->render('navbar',
                 ['level0' => 'nav navbar-nav navbar-right']); ?>
         </div>
     </div>

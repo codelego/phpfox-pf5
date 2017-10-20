@@ -12,19 +12,19 @@ class AdminLayoutContainerController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('menu.admin.secondary')
+        \Phpfox::get('menu.admin.secondary')
             ->load('_core.layout');
     }
 
     public function actionEdit()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $id = $request->get('container_id');
 
         /** @var LayoutContainer $container */
-        $container = _find('layout_container', $id);
+        $container = \Phpfox::find('layout_container', $id);
 
-        $page = _find('layout_page', $container->getPageId());
+        $page = \Phpfox::find('layout_page', $container->getPageId());
 
         $form = new EditLayoutContainer(['pageId' => $page->getId()]);
 
@@ -38,9 +38,9 @@ class AdminLayoutContainerController extends AdminController
 
             $container->save();
 
-            _get('shared.cache')->flush();
+            \Phpfox::get('shared.cache')->flush();
 
-            _redirect('admin.core.layout.page', [
+            \Phpfox::redirect('admin.core.layout.page', [
                 'action'    => 'design',
                 'action_id' => $page->getActionId(),
             ]);
@@ -53,9 +53,9 @@ class AdminLayoutContainerController extends AdminController
 
     public function actionAdd()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $pageId = $request->get('page_id');
-        $page = _get('core.layout')->findPageById($pageId);
+        $page = \Phpfox::get('core.layout')->findPageById($pageId);
 
         $form = new AddLayoutContainer(['pageId' => $pageId,]);
 
@@ -69,7 +69,7 @@ class AdminLayoutContainerController extends AdminController
             $entry = new LayoutContainer($data);
             $entry->save();
 
-            _redirect('admin.core.layout.page', [
+            \Phpfox::redirect('admin.core.layout.page', [
                 'action'    => 'design',
                 'action_id' => $page->getActionId(),
             ]);
@@ -82,23 +82,23 @@ class AdminLayoutContainerController extends AdminController
 
     public function actionToggle()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $containerId = $request->get('container_id');
 
         /** @var LayoutContainer $container */
-        $container = _model('layout_container')
+        $container = \Phpfox::model('layout_container')
             ->findById($containerId);
 
         /** @var LayoutPage $page */
-        $page = _model('layout_page')
+        $page = \Phpfox::model('layout_page')
             ->findById($container->getPageId());
 
         $container->setActive($container->isActive() ? 0 : 1);
         $container->save();
 
-        _get('shared.cache')->flush();
+        \Phpfox::get('shared.cache')->flush();
 
-        _redirect('admin.core.layout.page', [
+        \Phpfox::redirect('admin.core.layout.page', [
             'action'    => 'design',
             'action_id' => $page->getActionId(),
         ]);
@@ -106,23 +106,23 @@ class AdminLayoutContainerController extends AdminController
 
     public function actionDelete()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $containerId = $request->get('container_id');
 
         /** @var LayoutContainer $container */
-        $container = _model('layout_container')
+        $container = \Phpfox::model('layout_container')
             ->findById($containerId);
 
         /** @var LayoutPage $page */
-        $page = _model('layout_page')
+        $page = \Phpfox::model('layout_page')
             ->findById($container->getPageId());
 
-        _get('core.layout')->deleteContainers([$containerId]);
+        \Phpfox::get('core.layout')->deleteContainers([$containerId]);
 
 
-        _get('shared.cache')->flush();
+        \Phpfox::get('shared.cache')->flush();
 
-        _redirect('admin.core.layout.page', [
+        \Phpfox::redirect('admin.core.layout.page', [
             'action'    => 'design',
             'action_id' => $page->getActionId(),
         ]);

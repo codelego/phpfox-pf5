@@ -9,15 +9,15 @@ class AdminThemeController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('html.title')->set(_text('Themes', 'admin'));
+        \Phpfox::get('html.title')->set(_text('Themes', 'admin'));
 
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.theme'),
                 'label' => _text('Themes', 'admin'),
             ]);
 
-        _get('menu.admin.secondary')->load('admin','appearance');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'appearance');
     }
 
     /**
@@ -25,7 +25,7 @@ class AdminThemeController extends AdminController
      */
     public function actionIndex()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
 
         $cmd = $request->get('cmd');
         $themeId = $request->get('theme_id');
@@ -34,30 +34,30 @@ class AdminThemeController extends AdminController
             if ($themeId and $cmd) {
                 switch ($cmd) {
                     case 'default':
-                        _get('core.themes')
+                        \Phpfox::get('core.themes')
                             ->setDefault($themeId);
                         break;
                     case 'editing':
-                        _get('core.themes')
+                        \Phpfox::get('core.themes')
                             ->setEditing($themeId);
                         break;
                     case 'active':
-                        _get('core.themes')
+                        \Phpfox::get('core.themes')
                             ->setActive($themeId);
                         break;
                     case 'inactive':
-                        _get('core.themes')
+                        \Phpfox::get('core.themes')
                             ->setInactive($themeId);
                         break;
                     case 'rebuild-main':
-                        _get('core.themes')
+                        \Phpfox::get('core.themes')
                             ->rebuildMain($themeId);
                         break;
                     case 'rebuild-files':
-                        _get('core.themes')
+                        \Phpfox::get('core.themes')
                             ->rebuildFiles($themeId);
                 }
-                _get('response')
+                \Phpfox::get('response')
                     ->redirect(_url('admin.core.layout.theme', []));
             }
         } catch (\Exception $ex) {
@@ -65,7 +65,7 @@ class AdminThemeController extends AdminController
         }
 
 
-        $items = _model('layout_theme')
+        $items = \Phpfox::model('layout_theme')
             ->select('*')
             ->all();
 
@@ -80,12 +80,12 @@ class AdminThemeController extends AdminController
     public function actionEdit()
     {
         $form = new ThemeEditor();
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $id = $request->get('id');
 
 
         $params = [];
-        $custom = _get('core.themes')
+        $custom = \Phpfox::get('core.themes')
             ->findSettingByThemeId($id);
 
         if ($custom) {
@@ -101,18 +101,18 @@ class AdminThemeController extends AdminController
 
     public function actionDebug()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $id = $request->get('id');
-        $theme = _get('core.themes')
+        $theme = \Phpfox::get('core.themes')
             ->findById($id);
 
         if (!$id) {
             $id = 'default';
-            $theme = _get('core.themes')
+            $theme = \Phpfox::get('core.themes')
                 ->findById($id);
         }
 
-        $themes = _get('core.themes');
+        $themes = \Phpfox::get('core.themes');
 
         $tempFiles = $themes->getRebuildFiles($theme->getId());
         $main = $themes->getMainSource();

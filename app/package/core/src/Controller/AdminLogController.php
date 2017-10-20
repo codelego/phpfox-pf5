@@ -17,21 +17,21 @@ class AdminLogController extends AdminController
 
     protected function afterInitialize()
     {
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.log'),
                 'label' => _text('Log Settings', 'menu'),
             ]);
 
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Log Settings', 'menu'));
 
-        _get('menu.admin.secondary')->load('admin', 'log');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'log');
     }
 
     protected function afterDispatch($action)
     {
-        _get('menu.admin.buttons')
+        \Phpfox::get('menu.admin.buttons')
             ->load('_core.log.buttons');
     }
 
@@ -39,7 +39,7 @@ class AdminLogController extends AdminController
     {
         $allLogs = [];
 
-        $service = _get('core.adapter');
+        $service = \Phpfox::get('core.adapter');
         $options = $service->getContainerIdOptions(self::DRIVER_TYPE);
 
         foreach ($options as $option) {
@@ -60,14 +60,14 @@ class AdminLogController extends AdminController
 
     public function actionAdd()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $containerId = $request->get('container_id');
         $driverId = $request->get('driver_id');
 
         $form = new SelectLogDriver();
 
         if ($containerId and $driverId) {
-            _redirect('admin.core.log', [
+            \Phpfox::redirect('admin.core.log', [
                 'action'       => 'config',
                 'container_id' => $containerId,
                 'driver_id'    => $driverId,
@@ -81,10 +81,10 @@ class AdminLogController extends AdminController
 
     public function actionConfig()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $driverId = $request->get('driver_id');
 
-        $form = _get('core.adapter')
+        $form = \Phpfox::get('core.adapter')
             ->getEditingForm($driverId, 'log');
 
         if ($request->isGet()) {
@@ -93,7 +93,7 @@ class AdminLogController extends AdminController
 
         if ($request->isPost() and $form->isValid($request->all())) {
             /** @var CoreAdapter $adapterEntry */
-            $adapterEntry = _model('core_adapter')
+            $adapterEntry = \Phpfox::model('core_adapter')
                 ->create([
                     'driver_id'   => $driverId,
                     'driver_type' => self::DRIVER_TYPE,
@@ -108,7 +108,7 @@ class AdminLogController extends AdminController
             $adapterEntry->setParams(json_encode($data));
             $adapterEntry->save();
 
-            _redirect('admin.core.log');
+            \Phpfox::redirect('admin.core.log');
         }
 
         return new ViewModel([
@@ -118,14 +118,14 @@ class AdminLogController extends AdminController
 
     public function actionEdit()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $adapterId = $request->get('adapter_id');
 
         /** @var CoreAdapter $adapterEntry */
-        $adapterEntry = _model('core_adapter')
+        $adapterEntry = \Phpfox::model('core_adapter')
             ->findById($adapterId);
 
-        $form = _get('core.adapter')->getEditingForm($adapterEntry->getDriverId(), self::DRIVER_TYPE);
+        $form = \Phpfox::get('core.adapter')->getEditingForm($adapterEntry->getDriverId(), self::DRIVER_TYPE);
 
         if ($request->isGet()) {
             $data = json_decode($adapterEntry->getParams(), true);
@@ -139,7 +139,7 @@ class AdminLogController extends AdminController
             $adapterEntry->setParams(json_encode($data));
             $adapterEntry->save();
 
-            _redirect('admin.core.log');
+            \Phpfox::redirect('admin.core.log');
         }
 
         return new ViewModel([
@@ -149,38 +149,38 @@ class AdminLogController extends AdminController
 
     public function actionDelete()
     {
-        $entry = _get('core.adapter')->getAdapterById(_get('request')->get('adapter_id'));
+        $entry = \Phpfox::get('core.adapter')->getAdapterById(\Phpfox::get('request')->get('adapter_id'));
 
         $entry->delete();
 
-        _redirect('admin.core.log');
+        \Phpfox::redirect('admin.core.log');
     }
 
     public function actionEnable()
     {
         /** @var CoreAdapter $adapter */
-        $adapter = _model('core_adapter')
-            ->findById(_get('request')->get('adapter_id'));
+        $adapter = \Phpfox::model('core_adapter')
+            ->findById(\Phpfox::get('request')->get('adapter_id'));
 
         $adapter->setActive(1);
         $adapter->save();
 
-        _trigger('onSettingChanges');
+        \Phpfox::trigger('onSettingChanges');
 
-        _redirect('admin.core.log');
+        \Phpfox::redirect('admin.core.log');
     }
 
     public function actionDisable()
     {
         /** @var CoreAdapter $adapter */
-        $adapter = _model('core_adapter')
-            ->findById(_get('request')->get('adapter_id'));
+        $adapter = \Phpfox::model('core_adapter')
+            ->findById(\Phpfox::get('request')->get('adapter_id'));
 
         $adapter->setActive(0);
         $adapter->save();
 
-        _trigger('onSettingChanges');
+        \Phpfox::trigger('onSettingChanges');
 
-        _redirect('admin.core.log');
+        \Phpfox::redirect('admin.core.log');
     }
 }

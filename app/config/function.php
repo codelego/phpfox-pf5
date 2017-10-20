@@ -1,12 +1,6 @@
 <?php
 
 namespace {
-
-    use Phpfox\Cache\StorageInterface;
-    use Phpfox\Kernel\Event;
-    use Phpfox\Kernel\ItemInterface;
-    use Phpfox\Kernel\UserInterface;
-
     function _dump()
     {
         exit(var_export(func_get_args(), true));
@@ -30,91 +24,6 @@ namespace {
 
         /** @noinspection PhpIncludeInspection */
         return include  $file . '.php';
-    }
-
-    /**
-     * @see ServiceContainer::get()
-     *
-     * @param string $name
-     *
-     * @return mixed
-     */
-    function _get($name)
-    {
-        return \Phpfox::$service->get($name);
-    }
-
-    /**
-     * @see ServiceContainer::has()
-     *
-     * @param string $id
-     *
-     * @return bool
-     */
-    function _has($id)
-    {
-        return \Phpfox::$service->has($id);
-    }
-
-    /**
-     * @see GatewayManager::get()
-     *
-     * @param string $name
-     *
-     * @return \Phpfox\Model\GatewayInterface|\Phpfox\Db\DbTableGateway
-     */
-    function _model($name)
-    {
-        return \Phpfox::$service->get('models')->get($name);
-    }
-
-    /**
-     * @see GatewayInterface::findById()
-     *
-     * @param string $type
-     * @param mixed  $id
-     *
-     * @return \Phpfox\Model\ModelInterface
-     */
-    function _find($type, $id)
-    {
-        return \Phpfox::$service->get('models')->findById($type, $id);
-    }
-
-    /**
-     * @param string $route
-     * @param array  $params
-     */
-    function _redirect($route, $params = [])
-    {
-        \Phpfox::$service->get('response')->redirect(_url($route, $params));
-    }
-
-
-    /**
-     * @see \Phpfox\Kernel\Configs::get()
-     *
-     * @param string $section
-     * @param mixed  $item
-     *
-     * @return array
-     */
-    function _param($section, $item = null)
-    {
-        return \Phpfox::$params->get($section, $item);
-    }
-
-    /**
-     * Use this method to get admin settings from `site_setting` value.
-     *
-     * @param string $key
-     * @param mixed  $default
-     *
-     * @return mixed
-     */
-    function _setting($key, $default = null)
-    {
-        return \Phpfox::$params->setting($key, $default);
     }
 
     /**
@@ -177,89 +86,6 @@ namespace {
 
         return _sprintf($url, $context) . $query;
     }
-
-
-    /**
-     * Load from cache
-     *
-     * @param string  $cache
-     * @param mixed   $key
-     * @param int     $ttl
-     * @param Closure $fallback
-     *
-     * @return mixed|object
-     */
-    function _try($cache, $key, $ttl, $fallback)
-    {
-        /** @var StorageInterface $cacheStorage */
-        $cacheStorage = \Phpfox::$service->get($cache ? $cache : 'shared.cache');
-
-        if (is_array($key)) {
-            $key = implode('_', $key);
-        }
-
-        $item = $cacheStorage->get($key);
-
-        if (null === $item) {
-            $cacheStorage->set($key, $item = $fallback(), $ttl);
-        }
-
-        return $item;
-    }
-
-    /**
-     * @param string $name
-     * @param mixed  $target
-     * @param mixed  $params
-     *
-     * @return \Phpfox\Kernel\EventResponse
-     */
-    function _trigger($name, $target = null, $params = [])
-    {
-        return _get('mvc.events')
-            ->trigger(new Event($name, $target, $params));
-    }
-
-    /**
-     * @param string $name
-     * @param mixed  $target
-     * @param mixed  $params
-     *
-     * @return \Phpfox\Kernel\EventResponse
-     */
-    function _callback($name, $target = null, $params = [])
-    {
-        return _get('mvc.events')
-            ->triggerUntil(new Event($name, $target, $params))
-            ->first();
-    }
-
-    /**
-     * Check acl settings user can do `action`
-     *
-     * @param UserInterface $user
-     * @param string        $action
-     * @param mixed         $default
-     *
-     * @return mixed
-     */
-    function _allow($user, $action, $default = false)
-    {
-        return \Phpfox::$service->get('acl')->allow($user, $action, $default);
-    }
-
-    /**
-     * @param UserInterface $user
-     * @param ItemInterface $item
-     * @param string        $action
-     *
-     * @return bool
-     */
-    function _pass($user, $item, $action)
-    {
-        return \Phpfox::$service->get('acl')->pass($user, $item, $action);
-    }
-
 
     /**
      * @param array|string $config
@@ -458,7 +284,7 @@ namespace {
      */
     function _url($key, $params = [])
     {
-        return _get('router')->getUrl($key, $params);
+        return \Phpfox::get('router')->getUrl($key, $params);
     }
 
     /**
@@ -471,7 +297,7 @@ namespace {
      */
     function _text($id, $domain = null, $context = null, $locale = null)
     {
-        return _get('i18n')->get($locale)->trans($id, $domain, $context);
+        return \Phpfox::get('i18n')->get($locale)->trans($id, $domain, $context);
     }
 
 
@@ -484,12 +310,12 @@ namespace {
      */
     function _date($time, $type = 'medium', $locale = null)
     {
-        return _get('i18n')->get($locale)->formatDate($time, $type);
+        return \Phpfox::get('i18n')->get($locale)->formatDate($time, $type);
     }
 
     function _choice($id, $domain = null, $number = null, $context = null, $locale = null)
     {
-        return _get('i18n')->get($locale)->choice($id, $domain, $number, $context);
+        return \Phpfox::get('i18n')->get($locale)->choice($id, $domain, $number, $context);
     }
 
     /**
@@ -501,7 +327,7 @@ namespace {
      */
     function _number($number, $precision = null, $locale = null)
     {
-        return _get('i18n')->get($locale)->formatNumber($number, $precision);
+        return \Phpfox::get('i18n')->get($locale)->formatNumber($number, $precision);
     }
 
     /**
@@ -515,7 +341,7 @@ namespace {
      */
     function _currency($number, $code, $precision = null, $symbol = null, $locale)
     {
-        return _get('i18n')->get($locale)->formatCurrency($number, $code, $precision, $symbol);
+        return \Phpfox::get('i18n')->get($locale)->formatCurrency($number, $code, $precision, $symbol);
     }
 
     /**

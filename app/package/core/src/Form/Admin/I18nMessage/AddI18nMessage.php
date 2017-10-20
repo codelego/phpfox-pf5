@@ -26,7 +26,7 @@ class AddI18nMessage extends Form
             'label'     => _text('Package Id', null),
             'note'      => _text('[Package Id Note]', null),
             'value'     => 'core',
-            'options'   => _get('core.packages')->getPackageIdOptions(),
+            'options'   => \Phpfox::get('core.packages')->getPackageIdOptions(),
             'maxlength' => 255,
             'required'  => true,
         ]);
@@ -37,7 +37,7 @@ class AddI18nMessage extends Form
             'factory'   => 'select',
             'label'     => _text('Locale Id', null),
             'note'      => _text('[Locale Id Note]', null),
-            'options'   => _get('core.i18n')->getLocaleIdOptions(),
+            'options'   => \Phpfox::get('core.i18n')->getLocaleIdOptions(),
             'maxlength' => 255,
             'required'  => true,
         ]);

@@ -50,7 +50,7 @@ class PagesMemberRequestTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var PagesMemberRequest $obj */
-        $obj = _model('pages_member_request')
+        $obj = \Phpfox::model('pages_member_request')
             ->select()->where('parent_id=?', 13)->where('user_id=?', 44)
             ->where('status_id=?', 66)
             ->where('created_at=?', '2014-12-12 00:11:44')->first();
@@ -64,7 +64,7 @@ class PagesMemberRequestTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _model('pages_member_request')
+        \Phpfox::model('pages_member_request')
             ->delete()->where('parent_id=?', 13)->where('user_id=?', 44)
             ->where('status_id=?', 66)
             ->where('created_at=?', '2014-12-12 00:11:44')->execute();
@@ -72,7 +72,7 @@ class PagesMemberRequestTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        _model('pages_member_request')
+        \Phpfox::model('pages_member_request')
             ->delete()->where('parent_id=?', 13)->where('user_id=?', 44)
             ->where('status_id=?', 66)
             ->where('created_at=?', '2014-12-12 00:11:44')->execute();

@@ -11,13 +11,13 @@ class AdminEncoderController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Videos'));
 
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set(['href' => _url('admin.video'), 'label' => _text('Videos')]);
 
-        _get('menu.admin.secondary')->load('admin', 'video');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'video');
     }
 
     public function actionIndex()
@@ -33,12 +33,12 @@ class AdminEncoderController extends AdminController
 
     public function actionEdit()
     {
-        $req = _get('request');
+        $req = \Phpfox::get('request');
         $identity = $req->get('encoder_id');
 
 
         /** @var VideoEncoder $entry */
-        $entry = _find('video_encoder', $identity);
+        $entry = \Phpfox::find('video_encoder', $identity);
 
         return (new AdminEditSettingsProcess(
             ['form' => $entry->getFormSettingsClass()]

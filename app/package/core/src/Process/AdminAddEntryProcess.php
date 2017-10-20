@@ -4,15 +4,15 @@ namespace Neutron\Core\Process;
 
 
 use Phpfox\Form\Form;
-use Phpfox\Model\ModelInterface;
 use Phpfox\Kernel\AbstractProcess;
+use Phpfox\Model\ModelInterface;
 use Phpfox\View\ViewModel;
 
 class AdminAddEntryProcess extends AbstractProcess
 {
     public function process()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
 
         /** @var Form $form */
         $form = (new \ReflectionClass($this->get('form')))->newInstanceArgs([]);
@@ -29,7 +29,7 @@ class AdminAddEntryProcess extends AbstractProcess
         if ($request->isPost() and $form->isValid($request->all())) {
 
             /** @var ModelInterface $entry */
-            $entry = _model($modelId)
+            $entry = \Phpfox::model($modelId)
                 ->create($form->getData());
             $entry->save();
 

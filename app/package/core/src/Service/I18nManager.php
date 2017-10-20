@@ -32,7 +32,7 @@ class I18nManager
             }
 
             /** @var I18nMessage[] $entries */
-            $entries = _model('i18n_message')
+            $entries = \Phpfox::model('i18n_message')
                 ->select()
                 ->where('locale_id=?', $localeId)
                 ->where('domain_id=?', $domainId)
@@ -48,7 +48,7 @@ class I18nManager
             $shouldInsertNames = array_diff($expectedNames, $currentNames);
 
             foreach ($shouldInsertNames as $messageName) {
-                _model('i18n_message')
+                \Phpfox::model('i18n_message')
                     ->insert([
                         'locale_id'     => $localeId,
                         'message_name'  => $messageName,
@@ -75,7 +75,7 @@ class I18nManager
      */
     public function getTimezoneIdOptions()
     {
-        $select = _model('i18n_timezone')
+        $select = \Phpfox::model('i18n_timezone')
             ->select()
             ->where('is_active=?', 1)
             ->order('ordering', 1);
@@ -92,7 +92,7 @@ class I18nManager
      */
     public function getCurrencyIdOptions()
     {
-        $select = _model('i18n_currency')
+        $select = \Phpfox::model('i18n_currency')
             ->select()
             ->order('ordering', 1);
 
@@ -109,7 +109,7 @@ class I18nManager
      */
     public function getLocaleIdOptions()
     {
-        $select = _model('i18n_locale')
+        $select = \Phpfox::model('i18n_locale')
             ->select()
             ->where('is_active=1');
 

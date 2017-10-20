@@ -46,7 +46,7 @@ class ToolbarDecorator extends AbstractDecorator
             ;
         }
 
-        if ($item->acl and !_allow(null, $item->acl)) {
+        if ($item->acl and !\Phpfox::allow(null, $item->acl)) {
             return '';
         }
 
@@ -55,7 +55,7 @@ class ToolbarDecorator extends AbstractDecorator
         if (!empty($params)) {
             foreach ($params as $k => $v) {
                 if (substr($v, 0, 1) == '$') {
-                    $params[$k] = _get('request')->get(substr($v, 1));
+                    $params[$k] = \Phpfox::get('request')->get(substr($v, 1));
                 }
             }
         }
@@ -66,7 +66,7 @@ class ToolbarDecorator extends AbstractDecorator
             if ($item->href != '') {
                 $href = $item->href;
             } elseif ($item->type == 'plugin') {
-                $item = _callback($item->event, $params);
+                $item = \Phpfox::callback($item->event, $params);
             } elseif ($item->route) {
                 $href = _url($item->route, $params);
             }

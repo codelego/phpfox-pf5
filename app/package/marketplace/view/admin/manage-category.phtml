@@ -13,11 +13,13 @@
             <?php foreach ($items as $item): ?>
                 <tr>
                     <td class="dropdown" data-cmd="dropdown">
-                        <ul><li><a href="<?= _url('admin.report.category',
-                                ['action' => 'edit', 'category_id' => $item->getId()]) ?>"><?= _text('Edit') ?></a></li>
-                        <li><a href="<?= _url('admin.report.delete',
-                                ['action' => 'delete', 'category_id' => $item->getId()]) ?>"><?= _text('Delete') ?></a>
-                        </li></ul>
+                        <ul>
+                            <li><a href="<?= _url('admin.report.category',
+                                    ['action' => 'edit', 'category_id' => $item->getId()]) ?>"><?= _text('Edit') ?></a></li>
+                            <li><a href="<?= _url('admin.report.delete',
+                                    ['action' => 'delete', 'category_id' => $item->getId()]) ?>"><?= _text('Delete') ?></a>
+                            </li>
+                        </ul>
                     </td>
                     <td><?= $item->getId() ?></td>
                     <td><?= $item->getName() ?></td>

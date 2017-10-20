@@ -14,16 +14,16 @@ class AuthController extends ActionController
     public function actionLogin()
     {
         // start session
-        $auth = _get('auth');
+        $auth = \Phpfox::get('auth');
 
 
         if ($auth->isLoggedIn()) {
             // redirect to logged in user
             $user = $auth->getUser();
-            _redirect($user->getUrl(), 302);
+            \Phpfox::redirect($user->getUrl(), 302);
         }
 
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $form = new UserLogin([]);
         $message = null;
 
@@ -33,12 +33,12 @@ class AuthController extends ActionController
                 $data['password'], null);
 
             if ($result->isValid()) {
-                $user = _find('user', $result->getIdentity());
+                $user = \Phpfox::find('user', $result->getIdentity());
                 $auth->login($user, !!$data['remember']);
 
                 $url = _url('home');
 
-                _redirect($url);
+                \Phpfox::redirect($url);
             } else {
                 $form->addError('', $result->getMessage());
             }
@@ -55,9 +55,9 @@ class AuthController extends ActionController
      */
     public function actionLogout()
     {
-        _get('auth')->logout();
+        \Phpfox::get('auth')->logout();
 
-        _redirect('home');
+        \Phpfox::redirect('home');
 
         return new ViewModel([], 'user/auth/logout');
     }

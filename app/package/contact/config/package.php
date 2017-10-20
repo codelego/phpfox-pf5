@@ -3,7 +3,7 @@
 namespace Neutron\Contact;
 
 return [
-    'services'  => [
+    'services' => [
         'contact_us' => [null, Service\ContactUs::class],
     ],
 ];

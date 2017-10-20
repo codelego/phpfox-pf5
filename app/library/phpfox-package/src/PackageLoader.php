@@ -29,27 +29,27 @@ class PackageLoader implements PackageLoaderInterface
     public function __construct()
     {
         if (PHPFOX_ENV == 'development') {
-            _get('super.cache')->flush();
+            \Phpfox::get('super.cache')->flush();
         }
     }
 
     public function resolve()
     {
         // compare version or not ?
-        $versionId = _try('super.cache', self::CHECK_KEY, 0, function () {
+        $versionId = \Phpfox::_try('super.cache', self::CHECK_KEY, 0, function () {
             return 0;
         });
 
         // latest version
-        $latestVersion = _try('shared.cache', 'setting_version', 0, function () {
+        $latestVersion = \Phpfox::_try('shared.cache', 'setting_version', 0, function () {
             return $this->getLatestVersionId();
         });
 
         if ($versionId < $this->getLatestVersionId()) {
-            _get('super.cache')->flush();
+            \Phpfox::get('super.cache')->flush();
         }
 
-        _get('super.cache')->set(self::CHECK_KEY, $latestVersion, self::TTL);
+        \Phpfox::get('super.cache')->set(self::CHECK_KEY, $latestVersion, self::TTL);
     }
 
     /**
@@ -57,7 +57,7 @@ class PackageLoader implements PackageLoaderInterface
      */
     public function getActivePackageIds()
     {
-        return _try('super.cache', 'loader.active_package_id', self::TTL, function () {
+        return \Phpfox::_try('super.cache', 'loader.active_package_id', self::TTL, function () {
             return $this->_getActivePackageIds();
         });
     }
@@ -69,7 +69,7 @@ class PackageLoader implements PackageLoaderInterface
     {
         return array_map(function ($item) {
             return $item['name'];
-        }, _get('db')
+        }, \Phpfox::get('db')
             ->select()
             ->from(':core_package')
             ->where('is_active=?', 1)
@@ -82,7 +82,7 @@ class PackageLoader implements PackageLoaderInterface
      */
     public function getLatestVersionId()
     {
-        $value = _get('db')
+        $value = \Phpfox::get('db')
             ->select('*')
             ->from(':setting_value')
             ->where('domain_id=?', 'core')
@@ -97,7 +97,7 @@ class PackageLoader implements PackageLoaderInterface
      */
     public function getVersionId()
     {
-        return _try('super.cache', 'loader.version_id', self::TTL, function () {
+        return \Phpfox::_try('super.cache', 'loader.version_id', self::TTL, function () {
             return 0;
         });
     }
@@ -105,7 +105,7 @@ class PackageLoader implements PackageLoaderInterface
     public function getPaths()
     {
         if (!$this->paths) {
-            $this->paths = _try('super.cache', 'loader.paths', self::TTL, function () {
+            $this->paths = \Phpfox::_try('super.cache', 'loader.paths', self::TTL, function () {
                 return $this->_getPaths();
             });
         }
@@ -114,42 +114,42 @@ class PackageLoader implements PackageLoaderInterface
 
     public function getModelParameters()
     {
-        return _try('super.cache', 'loader.models', self::TTL, function () {
+        return \Phpfox::_try('super.cache', 'loader.models', self::TTL, function () {
             return $this->_getModelParameters();
         });
     }
 
     public function getAutoloadParameters()
     {
-        return _try('super.cache', 'loader.autoload', self::TTL, function () {
+        return \Phpfox::_try('super.cache', 'loader.autoload', self::TTL, function () {
             return $this->_getAutoloadParameters();
         });
     }
 
     public function getRouteParameters()
     {
-        return _try('super.cache', 'loader.routes', self::TTL, function () {
+        return \Phpfox::_try('super.cache', 'loader.routes', self::TTL, function () {
             return $this->_getRouteParameters();
         });
     }
 
     public function getPackageParameters()
     {
-        return _try('super.cache', 'loader.parameters', self::TTL, function () {
+        return \Phpfox::_try('super.cache', 'loader.parameters', self::TTL, function () {
             return $this->_getPackageParameters();
         });
     }
 
     public function getEventParameters()
     {
-        return _try('super.cache', 'loader.events', self::TTL, function () {
+        return \Phpfox::_try('super.cache', 'loader.events', self::TTL, function () {
             return $this->_getEventParameters();
         });
     }
 
     public function getViewParameters()
     {
-        return _try('super.cache', 'loader.views', self::TTL, function () {
+        return \Phpfox::_try('super.cache', 'loader.views', self::TTL, function () {
             return $this->_getViewParameters();
         });
     }
@@ -159,7 +159,7 @@ class PackageLoader implements PackageLoaderInterface
      */
     public function getActionParameters()
     {
-        return _try('super.cache', 'getActionParameters', self::TTL, function () {
+        return \Phpfox::_try('super.cache', 'getActionParameters', self::TTL, function () {
             return $this->_getActionParameters();
         });
     }
@@ -170,7 +170,7 @@ class PackageLoader implements PackageLoaderInterface
      */
     protected function _getEventParameters()
     {
-        $rows = _get('db')
+        $rows = \Phpfox::get('db')
             ->select('*')
             ->from(':core_event')
             ->where('package_id in ?', $this->getActivePackageIds())
@@ -232,7 +232,7 @@ class PackageLoader implements PackageLoaderInterface
 
         return array_map(function ($row) {
             return $row['path'];
-        }, _get('db')
+        }, \Phpfox::get('db')
             ->select('path')
             ->from(':core_package')
             ->where('is_active=?', 1)
@@ -402,7 +402,7 @@ class PackageLoader implements PackageLoaderInterface
         /**
          * fetch setting variables from table ':setting_value'
          */
-        $rows = _get('db')
+        $rows = \Phpfox::get('db')
             ->select('*')
             ->from(':setting_value')
             ->where('is_active=1')
@@ -420,7 +420,7 @@ class PackageLoader implements PackageLoaderInterface
 
     public function getCaptchaParameter($containerId)
     {
-        return _try('super.cache', ['captcha_parameter', $containerId], 0, function () use ($containerId) {
+        return \Phpfox::_try('super.cache', ['captcha_parameter', $containerId], 0, function () use ($containerId) {
             return $this->_getDefaultAdapterByContainerId($containerId, 'captcha', 'recaptcha', 'captcha_drivers');
         });
     }
@@ -428,7 +428,7 @@ class PackageLoader implements PackageLoaderInterface
 
     public function getStorageParameter($adapterId)
     {
-        return _try('super.cache', ['storage_parameter', $adapterId], 0, function () use ($adapterId) {
+        return \Phpfox::_try('super.cache', ['storage_parameter', $adapterId], 0, function () use ($adapterId) {
             return $this->_getStorageParameter($adapterId);
         });
     }
@@ -442,11 +442,11 @@ class PackageLoader implements PackageLoaderInterface
     {
         $row = [];
         if (!$id or $id == 'default' or $id == 'fallback') {
-            $id = _param('core.default_storage_id');
+            $id = \Phpfox::param('core.default_storage_id');
         }
 
         if ($id) {
-            $row = _get('db')
+            $row = \Phpfox::get('db')
                 ->select('*')
                 ->from(':storage_adapter')
                 ->where('adapter_id=?', (string)$id)
@@ -454,7 +454,7 @@ class PackageLoader implements PackageLoaderInterface
         }
 
         if (empty($row)) {
-            $row = _get('db')
+            $row = \Phpfox::get('db')
                 ->select('*')
                 ->from(':storage_adapter')
                 ->where('is_active=1')
@@ -470,7 +470,7 @@ class PackageLoader implements PackageLoaderInterface
 
     public function getMailParameter($adapterId)
     {
-        return _try('super.cache', ['mail_parameter', $adapterId], 0, function () use ($adapterId) {
+        return \Phpfox::_try('super.cache', ['mail_parameter', $adapterId], 0, function () use ($adapterId) {
             return $this->_getDefaultAdapterByContainerId($adapterId, 'mailer', 'system', 'mail_drivers');
         });
     }
@@ -485,7 +485,7 @@ class PackageLoader implements PackageLoaderInterface
      */
     public function _getDefaultAdapterByContainerId($containerId, $driverType, $default, $map)
     {
-        $row = _get('db')
+        $row = \Phpfox::get('db')
             ->select('*')
             ->from(':core_adapter')
             ->where('container_id=?', $containerId)
@@ -498,7 +498,7 @@ class PackageLoader implements PackageLoaderInterface
         }
 
         $params = (array)json_decode($row['params'], true);
-        $params['class'] = _param($map, $row['driver_id']);
+        $params['class'] = \Phpfox::param($map, $row['driver_id']);
         $params['driver'] = $row['driver_id'];
 
         return new Parameters($params);
@@ -506,14 +506,14 @@ class PackageLoader implements PackageLoaderInterface
 
     public function getCacheParameter($containerId)
     {
-        return _try('super.cache', ['cache_parameter', $containerId], 0, function () use ($containerId) {
+        return \Phpfox::_try('super.cache', ['cache_parameter', $containerId], 0, function () use ($containerId) {
             return $this->_getDefaultAdapterByContainerId($containerId, 'cache', 'files', 'cache_drivers');
         });
     }
 
     public function getLogParameter($logId)
     {
-        return _try('super.cache', ['log_parameter', $logId], 0, function () use ($logId) {
+        return \Phpfox::_try('super.cache', ['log_parameter', $logId], 0, function () use ($logId) {
             return $this->_getLogParameter($logId);
         });
 
@@ -528,12 +528,12 @@ class PackageLoader implements PackageLoaderInterface
     {
         $loggers = array_map(function ($row) {
             $params = (array)json_decode($row['params'], true);
-            $params['class'] = _param('log_drivers', $row['driver_id']);
+            $params['class'] = \Phpfox::param('log_drivers', $row['driver_id']);
             $params['driver'] = $row['driver_id'];
             return $params;
         },
             // get active adapters
-            _get('db')
+            \Phpfox::get('db')
                 ->select('*')
                 ->from(':core_adapter')
                 ->where('container_id=?', $containerId)
@@ -547,7 +547,7 @@ class PackageLoader implements PackageLoaderInterface
 
     public function getSessionParameter($containerId)
     {
-        return _try('super.cache', ['session_parameter', $containerId], 0, function () use ($containerId) {
+        return \Phpfox::_try('super.cache', ['session_parameter', $containerId], 0, function () use ($containerId) {
             return $this->_getDefaultAdapterByContainerId($containerId, 'session', 'files', 'session_drivers');
         });
     }
@@ -561,11 +561,11 @@ class PackageLoader implements PackageLoaderInterface
     public function _getNavigationParameter($menu)
     {
         $result = new Parameters();
-        $items = _get('db')
+        $items = \Phpfox::get('db')
             ->select('*')
             ->from(':core_menu_item')
             ->where('menu_id=?', trim($menu))
-            ->where('package_id in ?', _get('core.packages')->getIds())
+            ->where('package_id in ?', \Phpfox::get('core.packages')->getIds())
             ->where('is_active=?', 1)
             ->order('ordering', 1)
             ->all();
@@ -605,11 +605,11 @@ class PackageLoader implements PackageLoaderInterface
 
         $level = 0;
         do {
-            $items = _get('db')
+            $items = \Phpfox::get('db')
                 ->select('*')
                 ->from(':core_menu_item')
                 ->where('menu_id=?', trim($menu))
-                ->where('package_id in ?', _get('core.packages')->getIds())
+                ->where('package_id in ?', \Phpfox::get('core.packages')->getIds())
                 ->where('parent_name in ?', $scans)
                 ->where('is_active=?', 1)
                 ->order('ordering', 1)

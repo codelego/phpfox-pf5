@@ -15,22 +15,22 @@ class AdminI18nLocaleController extends AdminController
 
     protected function afterInitialize()
     {
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.i18n'),
                 'label' => _text('International', 'admin'),
             ]);
 
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('International', 'admin'));
 
-        _get('menu.admin.secondary')->load('admin','i18n');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'i18n');
     }
 
     protected function afterDispatch($action)
     {
         if (in_array($action, ['index'])) {
-            _get('menu.admin.buttons')
+            \Phpfox::get('menu.admin.buttons')
                 ->load('_core.i18n.locale.buttons');
         }
     }
@@ -39,7 +39,7 @@ class AdminI18nLocaleController extends AdminController
     {
         return (new AdminListEntryProcess([
             'model'    => I18nLocale::class,
-            'data'     => ['defaultValue' => _param('core.default_locale_id')],
+            'data'     => ['defaultValue' => \Phpfox::param('core.default_locale_id')],
             'template' => 'core/admin-i18n/manage-locale',
         ]))->process();
     }
@@ -70,18 +70,18 @@ class AdminI18nLocaleController extends AdminController
 
     public function actionDefault()
     {
-        $identity = _get('request')
+        $identity = \Phpfox::get('request')
             ->get('locale_id');
 
         /** @var I18nLocale $entry */
-        $entry = _model('i18n_locale')->findById($identity);
+        $entry = \Phpfox::model('i18n_locale')->findById($identity);
 
         if (!$entry) {
             throw new \InvalidArgumentException('Invalid params "locale_id"');
         }
 
         if (!$entry->isDefault()) {
-            _model('i18n_locale')
+            \Phpfox::model('i18n_locale')
                 ->update()
                 ->values(['is_default' => 0])
                 ->where('locale_id <> ?', $identity)
@@ -91,8 +91,8 @@ class AdminI18nLocaleController extends AdminController
             $entry->setDefault(1);
             $entry->setActive(1);
             $entry->save();
-            _get('core.setting')->updateValue('core.default_locale_id', $identity);
+            \Phpfox::get('core.setting')->updateValue('core.default_locale_id', $identity);
         }
-        _redirect('admin.core.i18n.locale');
+        \Phpfox::redirect('admin.core.i18n.locale');
     }
 }

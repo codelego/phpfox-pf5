@@ -14,7 +14,7 @@ class FilterCorePackageService implements FilterInterface
      */
     public function filter($criteria)
     {
-        $select = _model('core_package')->select();
+        $select = \Phpfox::model('core_package')->select();
 
         if ($criteria->is('type_id', 'string')) {
             $select->where('type_id=?', $criteria->get('type_id', 'string'));

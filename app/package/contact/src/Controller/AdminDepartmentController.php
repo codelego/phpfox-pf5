@@ -15,15 +15,15 @@ class AdminDepartmentController extends AdminController
 
     protected function afterInitialize()
     {
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set(['label' => _text('Contact Us'), 'href' => _url('admin.contact.department')]);
 
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Contact Us'));
 
-        _get('menu.admin.secondary')->load('admin', 'contact');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'contact');
 
-        _get('menu.admin.buttons')
+        \Phpfox::get('menu.admin.buttons')
             ->load('_contact.buttons');
     }
 
@@ -38,11 +38,11 @@ class AdminDepartmentController extends AdminController
 
     public function actionEdit()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $departmentId = $request->get('department_id');
 
         /** @var ContactDepartment $entry */
-        $entry = _model('contact_department')
+        $entry = \Phpfox::model('contact_department')
             ->findById($departmentId);
 
         $form = new EditContactDepartment(['department_id' => $departmentId]);
@@ -57,7 +57,7 @@ class AdminDepartmentController extends AdminController
         if ($request->isPost() and $form->isValid($request->all())) {
             $entry->fromArray($form->getData());
             $entry->save();
-            _redirect('admin.contact');
+            \Phpfox::redirect('admin.contact');
         }
 
         return new ViewModel([
@@ -67,7 +67,7 @@ class AdminDepartmentController extends AdminController
 
     public function actionAdd()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
 
         $form = new EditContactDepartment([]);
 
@@ -76,9 +76,9 @@ class AdminDepartmentController extends AdminController
         }
 
         if ($request->isPost() and $form->isValid($request->all())) {
-            $item = _model('contact_department')->create($form->getData());
+            $item = \Phpfox::model('contact_department')->create($form->getData());
             $item->save();
-            _redirect('admin.contact');
+            \Phpfox::redirect('admin.contact');
         }
 
         return new ViewModel([
@@ -88,10 +88,10 @@ class AdminDepartmentController extends AdminController
 
     public function actionDelete()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
 
         /** @var ContactDepartment $entry */
-        $entry = _model('contact_department')
+        $entry = \Phpfox::model('contact_department')
             ->findById($request->get('department_id'));
 
         $form = new DeleteContactDepartment([]);
@@ -101,7 +101,7 @@ class AdminDepartmentController extends AdminController
 
         if ($request->isPost() and $form->isValid($request->all())) {
             $entry->delete();
-            _redirect('admin.contact');
+            \Phpfox::redirect('admin.contact');
         }
 
         return new ViewModel([

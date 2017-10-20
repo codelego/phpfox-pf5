@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <?= _get('assets')->getStartHtml() ?>
+    <?= \Phpfox::get('assets')->getStartHtml() ?>
 </head>
 <body class="admin-login">
 <section>
     <div class="login">
         <form method="post">
-            <input type="hidden" name="is_login" value="1" />
+            <input type="hidden" name="is_login" value="1"/>
             <h1>Admin</h1>
             <?php if (!empty($message)): ?><p
                     class="text-danger"><?= $message ?></p><?php endif; ?>
@@ -26,6 +26,6 @@
         </form>
     </div>
 </section>
-<?= _get('assets')->getShutdownHtml() ?>
+<?= \Phpfox::get('assets')->getShutdownHtml() ?>
 </body>
 </html>

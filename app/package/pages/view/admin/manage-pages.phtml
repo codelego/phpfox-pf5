@@ -20,14 +20,14 @@
                     </td>
                     <td data-cmd="dropdown" class="dropdown">
                         <ul>
-                            <li><a href="<?= _url('admin.pages.pages',['action'=>'edit','pages_id'=>$item->getId()]) ?>"><?= _text('Edit pages') ?></a></li>
+                            <li><a href="<?= _url('admin.pages.pages', ['action' => 'edit', 'pages_id' => $item->getId()]) ?>"><?= _text('Edit pages') ?></a></li>
                             <li><a href=""><?= _text('Promote this pages') ?></a></li>
                             <li class="divider"></li>
                             <li><a href=""><?= _text('Delete this pages') ?></a></li>
                         </ul>
                     </td>
                     <td>
-                    <a target="_blank" rel="nofollow" href="<?= $item->getUrl() ?>"><?= $item->getName(); ?></a>
+                        <a target="_blank" rel="nofollow" href="<?= $item->getUrl() ?>"><?= $item->getName(); ?></a>
                     </td>
                     <td class="text-center"><?= $item->getLevelId(); ?></td>
                 </tr>

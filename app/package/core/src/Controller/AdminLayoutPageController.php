@@ -15,26 +15,26 @@ class AdminLayoutPageController extends AdminController
 {
     public function afterInitialize()
     {
-        $editingThemeId = _get('core.layout')
+        $editingThemeId = \Phpfox::get('core.layout')
             ->getEditingThemeId();
 
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Layouts', 'admin'));
 
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.layout'),
                 'label' => _text('Layout Editor {0}', 'admin', [$editingThemeId]),
             ]);
 
-        _get('menu.admin.secondary')->load('admin','appearance');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'appearance');
 
     }
 
     protected function afterDispatch($action)
     {
         if (in_array($action, ['index'])) {
-            _get('menu.admin.buttons')
+            \Phpfox::get('menu.admin.buttons')
                 ->load('_core.layout.page.buttons');
         }
     }
@@ -74,11 +74,11 @@ class AdminLayoutPageController extends AdminController
     public function actionDesign()
     {
 
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $actionId = $request->get('action_id');
         $themeId = $request->get('theme_id', 'default');
 
-        $layoutService = _get('core.layout');
+        $layoutService = \Phpfox::get('core.layout');
 
         $pageId = $layoutService->findPageIdForEdit($actionId, $themeId);
 
@@ -86,13 +86,13 @@ class AdminLayoutPageController extends AdminController
 
 
         if (!$layoutContent) {
-            _get('response')
+            \Phpfox::get('response')
                 ->redirect(_url('admin.core.layout.action',
                     ['action' => 'clone-page', 'action_id' => $actionId, 'theme_id' => $themeId]));
         }
 
 
-        _get('menu.admin.buttons')
+        \Phpfox::get('menu.admin.buttons')
             ->add([
                 'label' => 'Add Container',
                 'extra' => [
@@ -103,7 +103,7 @@ class AdminLayoutPageController extends AdminController
                 ],
             ]);
 
-        _get('require_js')
+        \Phpfox::get('require_js')
             ->deps('package/core/layout-editor');
 
         return new ViewModel(['layoutPage' => $layoutContent,],
@@ -113,18 +113,18 @@ class AdminLayoutPageController extends AdminController
 
     public function actionClone()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $actionId = $request->get('action_id');
         $themeId = $request->get('theme_id');
         $confirmed = $request->get('confirmed', false);
-        $layoutService = _get('core.layout');
+        $layoutService = \Phpfox::get('core.layout');
         $parentPageId = $layoutService->findPageIdForRender($actionId, $themeId);
         /** @var LayoutPage $parentPage */
-        $parentPage = _model('layout_page')->findById($parentPageId);
+        $parentPage = \Phpfox::model('layout_page')->findById($parentPageId);
 
         if ($confirmed) {
             $layoutService->clonePage($actionId, $themeId);
-            _get('response')
+            \Phpfox::get('response')
                 ->redirect(_url('admin.core.layout.design-page', ['action_id' => $actionId]));
         }
 

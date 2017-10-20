@@ -1,1 +1,1 @@
-<?php return array(0=>'level_id',1=>array('level_id'=>1,),2=>'level_id',3=>array('level_id'=>1,'inherit_id'=>1,'title'=>1,'item_count'=>1,'is_core'=>1,),4=>array(),);
+<?php return [0 => 'level_id', 1 => ['level_id' => 1,], 2 => 'level_id', 3 => ['level_id' => 1, 'inherit_id' => 1, 'title' => 1, 'item_count' => 1, 'is_core' => 1,], 4 => [],];

@@ -15,13 +15,13 @@ class AdminCategoryController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Marketplace'));
 
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set(['href' => _url('admin.marketplace'), 'label' => _text('Marketplace')]);
 
-        _get('menu.admin.secondary')->load('admin', 'marketplace');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'marketplace');
 
     }
 

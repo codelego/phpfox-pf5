@@ -15,7 +15,7 @@ class PackageManager
      */
     public function findById($identity)
     {
-        return _model('core_package')
+        return \Phpfox::model('core_package')
             ->findById((int)$identity);
     }
 
@@ -26,7 +26,7 @@ class PackageManager
      */
     public function findByName($name)
     {
-        return _model('core_package')
+        return \Phpfox::model('core_package')
             ->select()
             ->where('name=?', (string)$name)
             ->first();
@@ -45,7 +45,7 @@ class PackageManager
     {
         return array_map(function ($item) {
             return ['label' => $item['author'], 'value' => $item['author']];
-        }, _model('core_package')->select('distinct author')->setPrototype(null)->all());
+        }, \Phpfox::model('core_package')->select('distinct author')->setPrototype(null)->all());
     }
 
     /**
@@ -55,7 +55,7 @@ class PackageManager
     {
         return array_map(function (CorePackage $corePackage) {
             return $corePackage->getName();
-        }, _model('core_package')
+        }, \Phpfox::model('core_package')
             ->select('name')
             ->where('is_active=?', 1)
             ->all());
@@ -66,28 +66,28 @@ class PackageManager
      */
     public function getPackageIdOptions()
     {
-        return _try('shared.cache', 'getPackageIdOptions', 0, function () {
+        return \Phpfox::_try('shared.cache', 'getPackageIdOptions', 0, function () {
             return array_map(function (CorePackage $v) {
                 return [
                     'label' => $v->getTitle(),
                     'value' => $v->getName(),
                 ];
-            }, _model('core_package')->select()->order('title',1)->all());
+            }, \Phpfox::model('core_package')->select()->order('title', 1)->all());
         });
     }
 
     public function getAppIdOptions()
     {
-        return _try('shared.cache', 'getAppIdOptions', 0, function () {
+        return \Phpfox::_try('shared.cache', 'getAppIdOptions', 0, function () {
             return array_map(function (CorePackage $v) {
                 return [
                     'label' => $v->getTitle(),
                     'value' => $v->getName(),
                 ];
-            }, _model('core_package')
+            }, \Phpfox::model('core_package')
                 ->select()
-                ->where('type_id=?','app')
-                ->order('title',1)->all());
+                ->where('type_id=?', 'app')
+                ->order('title', 1)->all());
         });
     }
 }

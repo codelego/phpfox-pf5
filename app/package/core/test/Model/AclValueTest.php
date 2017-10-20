@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class AclValueTest extends \PHPUnit_Framework_TestCase
@@ -11,7 +12,8 @@ class AclValueTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getValueId());
         $this->assertSame('', $obj->getInternalId());
         $this->assertSame('', $obj->getActionId());
-        $this->assertSame('', $obj->getValueActual());    }
+        $this->assertSame('', $obj->getValueActual());
+    }
 
     public function testParameters()
     {
@@ -27,7 +29,8 @@ class AclValueTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getValueId());
         $this->assertSame('', $obj->getInternalId());
         $this->assertSame('', $obj->getActionId());
-        $this->assertSame('', $obj->getValueActual());    }
+        $this->assertSame('', $obj->getValueActual());
+    }
 
     public function testSave()
     {
@@ -36,24 +39,25 @@ class AclValueTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var AclValue $obj */
-        $obj = _model('acl_value')
-            ->select()->where('value_id=?','')->first();
+        $obj = \Phpfox::model('acl_value')
+            ->select()->where('value_id=?', '')->first();
 
         $this->assertSame('acl_value', $obj->getModelId());
         $this->assertSame('', $obj->getValueId());
         $this->assertSame('', $obj->getInternalId());
         $this->assertSame('', $obj->getActionId());
-        $this->assertSame('', $obj->getValueActual());    }
+        $this->assertSame('', $obj->getValueActual());
+    }
 
     public static function setUpBeforeClass()
     {
-        _model('acl_value')
-            ->delete()->where('value_id=?','')->execute();
+        \Phpfox::model('acl_value')
+            ->delete()->where('value_id=?', '')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('acl_value')
-            ->delete()->where('value_id=?','')->execute();
+        \Phpfox::model('acl_value')
+            ->delete()->where('value_id=?', '')->execute();
     }
 }

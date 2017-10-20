@@ -17,28 +17,28 @@ class AdminI18nMessageController extends AdminController
 
     protected function afterInitialize()
     {
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.i18n'),
                 'label' => _text('International', 'admin'),
             ]);
 
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('International', 'admin'));
 
-        _get('menu.admin.secondary')->load('admin', 'i18n');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'i18n');
     }
 
     protected function afterDispatch($action)
     {
         if (in_array($action, ['index'])) {
-            _get('menu.admin.buttons')->load('_core.i18n.message.buttons');
+            \Phpfox::get('menu.admin.buttons')->load('_core.i18n.message.buttons');
         }
     }
 
     public function actionIndex()
     {
-        _get('require_js')
+        \Phpfox::get('require_js')
             ->deps('package/core/admin-i18n');
 
         return (new AdminListEntryProcess([
@@ -51,10 +51,10 @@ class AdminI18nMessageController extends AdminController
 
     public function actionSave()
     {
-        $req = _get('request');
+        $req = \Phpfox::get('request');
         $identity = $req->get('message_id');
         /** @var I18nMessage $entry */
-        $entry = _find('i18n_message', $identity);
+        $entry = \Phpfox::find('i18n_message', $identity);
         $entry->setMessageValue($req->get('message_value'));
         $entry->save();
 

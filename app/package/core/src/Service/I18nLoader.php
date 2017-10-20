@@ -18,7 +18,7 @@ class I18nLoader implements I18nLoaderInterface
     public function loadMessage($locale, $domain)
     {
         $result = [];
-        $stmt = _get('db')
+        $stmt = \Phpfox::get('db')
             ->select('*')
             ->from(':i18n_message')
             ->where('locale_id in ?', ['', $locale])

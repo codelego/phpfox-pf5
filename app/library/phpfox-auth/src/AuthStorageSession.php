@@ -12,13 +12,13 @@ class AuthStorageSession implements AuthStorageInterface
 
     public function __construct()
     {
-        _get('session')->start();
+        \Phpfox::get('session')->start();
     }
 
 
     public function initialize(AuthFacades $auth)
     {
-        $info = _get('session')->get($this->key);
+        $info = \Phpfox::get('session')->get($this->key);
 
         if (!$info) {
             return false;
@@ -36,10 +36,10 @@ class AuthStorageSession implements AuthStorageInterface
         }
 
         $user = null;
-        $login = _find('user', $loginId);
+        $login = \Phpfox::find('user', $loginId);
 
         if ($userType != 'user' || ($userId != $loginId)) {
-            $user = _find($userType, $userId);
+            $user = \Phpfox::find($userType, $userId);
         }
 
         if (!$user) {
@@ -57,7 +57,7 @@ class AuthStorageSession implements AuthStorageInterface
 
     public function remember($userId, $loginAs, $loginAsId, $remember)
     {
-        $session = _get('session');
+        $session = \Phpfox::get('session');
 
         $session->set($this->key, [$userId, $loginAs, $loginAsId]);
 
@@ -68,6 +68,6 @@ class AuthStorageSession implements AuthStorageInterface
 
     public function forgot()
     {
-        _get('session')->delete($this->key);
+        \Phpfox::get('session')->delete($this->key);
     }
 }

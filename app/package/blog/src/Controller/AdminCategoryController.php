@@ -14,21 +14,21 @@ class AdminCategoryController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Blogs'));
 
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set(['href' => _url('admin.blog'), 'label' => _text('Blogs')]);
 
-        _get('menu.admin.buttons')->load('_blog.buttons');
-        _get('menu.admin.secondary')->load('admin', 'blog');
+        \Phpfox::get('menu.admin.buttons')->load('_blog.buttons');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'blog');
 
     }
 
     protected function afterDispatch($action)
     {
         if (in_array($action, ['index'])) {
-            _get('menu.admin.buttons')->load('_blog.category.buttons');
+            \Phpfox::get('menu.admin.buttons')->load('_blog.category.buttons');
         }
 
     }

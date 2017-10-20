@@ -18,12 +18,16 @@
                         <ul>
                             <li>
                                 <a data-cmd="modal" href="<?= _url('admin.contact.department', [
-                                        'action' => 'edit', 'department_id' => $item->getId()]) ?>">
+                                    'action'        => 'edit',
+                                    'department_id' => $item->getId(),
+                                ]) ?>">
                                     <?= _text('Edit') ?></a>
                             </li>
                             <li>
                                 <a data-cmd="modal" href="<?= _url('admin.contact.department', [
-                                    'action' => 'delete', 'department_id' => $item->getId()]) ?>">
+                                    'action'        => 'delete',
+                                    'department_id' => $item->getId(),
+                                ]) ?>">
                                     <?= _text('Delete') ?></a>
                             </li>
                         </ul>

@@ -16,11 +16,11 @@
             <tr>
                 <td class="dropdown" data-cmd="dropdown">
                     <ul>
-                        <li><a data-cmd="modal" href="<?= _url('admin.video.manage',['action'=>'edit','video_id'=>$item->getId()])?>"><?= _text('Edit') ?></a></li>
-                        <li><a data-cmd="modal" href="<?= _url('admin.video.manage',['action'=>'delete','video_id'=>$item->getId()])?>"><?= _text('Delete') ?></a></li>
-                        <li><a data-cmd="modal" href="<?= _url('admin.video.manage',['action'=>'feature','video_id'=>$item->getId()])?>"><?= _text('Feature') ?></a></li>
-                        <li><a data-cmd="modal" href="<?= _url('admin.video.manage',['action'=>'un-feature','video_id'=>$item->getId()])?>"><?= _text('Un-Feature') ?></a></li>
-                        <li><a data-cmd="modal" href="<?= _url('admin.video.manage',['action'=>'approve','video_id'=>$item->getId()])?>"><?= _text('Approve') ?></a></li>
+                        <li><a data-cmd="modal" href="<?= _url('admin.video.manage', ['action' => 'edit', 'video_id' => $item->getId()]) ?>"><?= _text('Edit') ?></a></li>
+                        <li><a data-cmd="modal" href="<?= _url('admin.video.manage', ['action' => 'delete', 'video_id' => $item->getId()]) ?>"><?= _text('Delete') ?></a></li>
+                        <li><a data-cmd="modal" href="<?= _url('admin.video.manage', ['action' => 'feature', 'video_id' => $item->getId()]) ?>"><?= _text('Feature') ?></a></li>
+                        <li><a data-cmd="modal" href="<?= _url('admin.video.manage', ['action' => 'un-feature', 'video_id' => $item->getId()]) ?>"><?= _text('Un-Feature') ?></a></li>
+                        <li><a data-cmd="modal" href="<?= _url('admin.video.manage', ['action' => 'approve', 'video_id' => $item->getId()]) ?>"><?= _text('Approve') ?></a></li>
                     </ul>
                 </td>
                 <td class="w30">
@@ -31,10 +31,10 @@
                 <td><?= $item->getTitle() ?>
                 </td>
                 <td class="180">
-                    <?= _date($item->getCreatedAt())?>
+                    <?= _date($item->getCreatedAt()) ?>
                 </td>
             </tr>
-        <?php endforeach;?>
+        <?php endforeach; ?>
         </tbody>
     </table>
 </div>

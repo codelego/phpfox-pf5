@@ -14,20 +14,20 @@ class AdminBanController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set(['href' => _url('admin.core.ban'), 'label' => _text('User Groups', 'admin'),]);
 
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Ban Settings', 'admin'));
 
-        _get('menu.admin.secondary')
+        \Phpfox::get('menu.admin.secondary')
             ->load('_core.ban');
     }
 
     protected function afterDispatch($action)
     {
         if (in_array($action, ['index'])) {
-            _get('menu.admin.buttons')->load('_core.ban.buttons');
+            \Phpfox::get('menu.admin.buttons')->load('_core.ban.buttons');
         }
     }
 

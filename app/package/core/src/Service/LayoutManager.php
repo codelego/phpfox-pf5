@@ -25,7 +25,7 @@ class LayoutManager implements LoaderInterface
         $limit = 5;
 
         do {
-            $row = _get('db')
+            $row = \Phpfox::get('db')
                 ->select('parent_id')
                 ->from(':layout_theme')
                 ->where('theme_id=?', $themeId)
@@ -53,7 +53,7 @@ class LayoutManager implements LoaderInterface
         $limit = 5;
 
         do {
-            $row = _get('db')
+            $row = \Phpfox::get('db')
                 ->select('parent_action_id')
                 ->from(':layout_action')
                 ->where('action_id=?', $actionId)
@@ -79,7 +79,7 @@ class LayoutManager implements LoaderInterface
     public function findPageIdForEdit($actionId, $themeId)
     {
         /** @var LayoutPage $layoutPage */
-        $layoutPage = _model('layout_page')
+        $layoutPage = \Phpfox::model('layout_page')
             ->select()
             ->where('theme_id=?', $themeId)
             ->where('action_id =?', $actionId)
@@ -106,7 +106,7 @@ class LayoutManager implements LoaderInterface
         foreach ($themeIdList as $themeId) {
             $temp = [];
             /** @var LayoutPage[] $rows */
-            $rows = _model('layout_page')
+            $rows = \Phpfox::model('layout_page')
                 ->select()
                 ->where('is_active=?', 1)
                 ->where('theme_id=?', $themeId)
@@ -125,7 +125,7 @@ class LayoutManager implements LoaderInterface
         }
 
         /** @var LayoutPage $alternate */
-        $alternate = _model('layout_page')
+        $alternate = \Phpfox::model('layout_page')
             ->select()
             ->where('theme_id=?', 'default')
             ->where('action_id=?', 'default')
@@ -145,7 +145,7 @@ class LayoutManager implements LoaderInterface
         $page = new LayoutContent($pageId);
 
         /** @var LayoutContainer[] $layoutContainers */
-        $layoutContainers = _model('layout_container')
+        $layoutContainers = \Phpfox::model('layout_container')
             ->select()
             ->where('page_id=?', $pageId)
             ->whereIf($activeOnly, 'is_active=?', 1)
@@ -161,7 +161,7 @@ class LayoutManager implements LoaderInterface
             ]));
 
             /** @var LayoutGrid $grid */
-            $grid = _find('layout_grid', $layoutContainer->getGridId());
+            $grid = \Phpfox::find('layout_grid', $layoutContainer->getGridId());
 
             $locationIds = json_decode($grid->getLocations(), true);
 
@@ -175,7 +175,7 @@ class LayoutManager implements LoaderInterface
             }
 
             /** @var LayoutLocation[] $containerLocations */
-            $containerLocations = _model('layout_location')
+            $containerLocations = \Phpfox::model('layout_location')
                 ->select()
                 ->where('container_id=?', $layoutContainer->getId())
                 ->all();
@@ -186,7 +186,7 @@ class LayoutManager implements LoaderInterface
                     $params);
             }
 
-            $selectBlocks = _get('db')
+            $selectBlocks = \Phpfox::get('db')
                 ->select('blk.*, cmp.component_class, cmp.component_name')
                 ->from(':layout_block', 'blk')
                 ->join(':layout_component', 'cmp',
@@ -225,7 +225,7 @@ class LayoutManager implements LoaderInterface
     {
         $pageId = $this->findPageIdForRender($actionId, $themeId);
 
-        $page = _try('shared.cache', ['layouts', 'loadForRender', $pageId], 0,
+        $page = \Phpfox::_try('shared.cache', ['layouts', 'loadForRender', $pageId], 0,
             function () use ($pageId) {
                 return $this->loadPageDataById($pageId, $activeOnly = true);
             });
@@ -267,16 +267,16 @@ class LayoutManager implements LoaderInterface
         // find container map
         $pageId = $this->findPageIdForRender($actionId, $themeId);
 
-        $db = _get('db');
+        $db = \Phpfox::get('db');
 
         $db->begin();
 
         try {
             /** @var LayoutPage $page */
-            $page = _model('layout_page')->findById($pageId);
+            $page = \Phpfox::model('layout_page')->findById($pageId);
 
             /** @var LayoutPage $newPage */
-            $newPage = _model('layout_page')
+            $newPage = \Phpfox::model('layout_page')
                 ->create(array_merge($page->toArray(), [
                     'page_id'   => null,
                     'action_id' => $actionId,
@@ -287,14 +287,14 @@ class LayoutManager implements LoaderInterface
 
             /** @var LayoutContainer[] $containers */
             $containers
-                = _model('layout_container')
+                = \Phpfox::model('layout_container')
                 ->select()
                 ->where('page_id=?', $pageId)
                 ->all();
 
             foreach ($containers as $container) {
                 /** @var LayoutContainer $newContainer */
-                $newContainer = _model('layout_container')
+                $newContainer = \Phpfox::model('layout_container')
                     ->create(array_merge($container->toArray(), [
                         'container_id' => null,
                         'page_id'      => $newPage->getId(),
@@ -302,14 +302,14 @@ class LayoutManager implements LoaderInterface
                 $newContainer->save();
 
                 /** @var LayoutLocation[] $locations */
-                $locations = _model('layout_location')
+                $locations = \Phpfox::model('layout_location')
                     ->select()
                     ->where('container_id=?', $container->getId())
                     ->all();
 
                 foreach ($locations as $location) {
                     /** @var LayoutLocation $newLocation */
-                    $newLocation = _model('layout_location')
+                    $newLocation = \Phpfox::model('layout_location')
                         ->create(array_merge($location->toArray(), [
                             'container_id' => $newContainer->getId(),
                         ]));
@@ -317,7 +317,7 @@ class LayoutManager implements LoaderInterface
                 }
 
                 /** @var LayoutBlock[] $blocks */
-                $blocks = _model('layout_block')
+                $blocks = \Phpfox::model('layout_block')
                     ->select()
                     ->where('container_id=?', $container->getId())
                     ->where('parent_id=?', 0)
@@ -325,7 +325,7 @@ class LayoutManager implements LoaderInterface
 
                 foreach ($blocks as $block) {
                     /** @var LayoutBlock $block */
-                    $newBlock = _model('layout_block')
+                    $newBlock = \Phpfox::model('layout_block')
                         ->create(array_merge($block->toArray(), [
                             'block_id'     => null,
                             'parent_id'    => 0,
@@ -351,7 +351,7 @@ class LayoutManager implements LoaderInterface
      */
     public function getEditingThemeId()
     {
-        $theme = _model('layout_theme')
+        $theme = \Phpfox::model('layout_theme')
             ->select()
             ->where('is_editing=?', 1)
             ->first();
@@ -374,7 +374,7 @@ class LayoutManager implements LoaderInterface
                 'value' => $v->__get('grid_id'),
                 'note'  => $v->__get('description'),
             ];
-        }, _model('layout_grid')->select()->all());
+        }, \Phpfox::model('layout_grid')->select()->all());
     }
 
 
@@ -396,7 +396,7 @@ class LayoutManager implements LoaderInterface
      */
     public function getActionIdOptions($excludes = [])
     {
-        $select = _model('layout_action')->select();
+        $select = \Phpfox::model('layout_action')->select();
 
         if (!empty($excludes)) {
             $select->where('action_id not in ?', $excludes);
@@ -417,12 +417,12 @@ class LayoutManager implements LoaderInterface
      */
     public function findPageById($pageId)
     {
-        return _model('layout_page')->findById($pageId);
+        return \Phpfox::model('layout_page')->findById($pageId);
     }
 
     public function getComponentIdOptions()
     {
-        $select = _model('layout_component')
+        $select = \Phpfox::model('layout_component')
             ->select()
             ->where('is_active=?', 1)
             ->order('package_id,component_name', 1);
@@ -446,17 +446,17 @@ class LayoutManager implements LoaderInterface
             return;
         }
 
-        _model('layout_block')
+        \Phpfox::model('layout_block')
             ->delete()
             ->where('container_id in ?', $containerIdList)
             ->execute();
 
-        _model('layout_location')
+        \Phpfox::model('layout_location')
             ->delete()
             ->where('container_id in ?', $containerIdList)
             ->execute();
 
-        _model('layout_container')
+        \Phpfox::model('layout_container')
             ->delete()
             ->where('container_id in ?', $containerIdList)
             ->execute();

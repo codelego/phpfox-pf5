@@ -15,7 +15,7 @@ return [
         UserLevel::class,
         'package/user/config/model/user_level.php',
     ],
-    'user_catalog' => [
+    'user_catalog'      => [
         'table_factory',
         ':user_catalog',
         UserCatalog::class,

@@ -10,7 +10,7 @@ class AdminFilter extends Component
 {
     public function run()
     {
-        $form = _get('context')
+        $form = \Phpfox::get('context')
             ->get('filter.form');
 
         if (!$form instanceof Form) {

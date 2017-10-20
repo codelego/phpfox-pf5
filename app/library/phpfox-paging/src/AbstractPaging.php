@@ -212,7 +212,7 @@ abstract class AbstractPaging implements PagingInterface
 
     public function render($params = [])
     {
-        $class = _param('pagination.decorators', $this->getRender());
+        $class = \Phpfox::param('pagination.decorators', $this->getRender());
 
         if (!$class) {
             throw new \InvalidArgumentException(

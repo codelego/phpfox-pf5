@@ -16,11 +16,11 @@
             <tr>
                 <td class="dropdown" data-cmd="dropdown">
                     <ul>
-                        <li><a data-cmd="modal" href="<?= _url('admin.photo.manage',['action'=>'edit','photo_id'=>$item->getId()])?>"><?= _text('Edit') ?></a></li>
-                        <li><a data-cmd="modal" href="<?= _url('admin.photo.manage',['action'=>'delete','photo_id'=>$item->getId()])?>"><?= _text('Delete') ?></a></li>
-                        <li><a data-cmd="modal" href="<?= _url('admin.photo.manage',['action'=>'feature','photo_id'=>$item->getId()])?>"><?= _text('Feature') ?></a></li>
-                        <li><a data-cmd="modal" href="<?= _url('admin.photo.manage',['action'=>'un-feature','photo_id'=>$item->getId()])?>"><?= _text('Un-Feature') ?></a></li>
-                        <li><a data-cmd="modal" href="<?= _url('admin.photo.manage',['action'=>'approve','photo_id'=>$item->getId()])?>"><?= _text('Approve') ?></a></li>
+                        <li><a data-cmd="modal" href="<?= _url('admin.photo.manage', ['action' => 'edit', 'photo_id' => $item->getId()]) ?>"><?= _text('Edit') ?></a></li>
+                        <li><a data-cmd="modal" href="<?= _url('admin.photo.manage', ['action' => 'delete', 'photo_id' => $item->getId()]) ?>"><?= _text('Delete') ?></a></li>
+                        <li><a data-cmd="modal" href="<?= _url('admin.photo.manage', ['action' => 'feature', 'photo_id' => $item->getId()]) ?>"><?= _text('Feature') ?></a></li>
+                        <li><a data-cmd="modal" href="<?= _url('admin.photo.manage', ['action' => 'un-feature', 'photo_id' => $item->getId()]) ?>"><?= _text('Un-Feature') ?></a></li>
+                        <li><a data-cmd="modal" href="<?= _url('admin.photo.manage', ['action' => 'approve', 'photo_id' => $item->getId()]) ?>"><?= _text('Approve') ?></a></li>
                     </ul>
                 </td>
                 <td>
@@ -31,10 +31,10 @@
                 <td><?= $item->getTitle() ?>
                 </td>
                 <td class="w160">
-                    <?= _date($item->getCreatedAt())?>
+                    <?= _date($item->getCreatedAt()) ?>
                 </td>
             </tr>
-        <?php endforeach;?>
+        <?php endforeach; ?>
         </tbody>
     </table>
 </div>

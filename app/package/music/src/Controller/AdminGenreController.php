@@ -8,13 +8,13 @@ class AdminGenreController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Music'));
 
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set(['href' => _url('admin.music'), 'label' => _text('Music')]);
 
-        _get('menu.admin.secondary')->load('_music');
+        \Phpfox::get('menu.admin.secondary')->load('_music');
 
     }
 

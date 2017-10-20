@@ -1,4 +1,5 @@
 <?php
+
 namespace Neutron\Group\Model;
 
 class GroupCatalogTest extends \PHPUnit_Framework_TestCase
@@ -14,7 +15,8 @@ class GroupCatalogTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getDescription());
         $this->assertSame('', $obj->isActive());
         $this->assertSame('', $obj->isCore());
-        $this->assertSame('', $obj->getOrdering());    }
+        $this->assertSame('', $obj->getOrdering());
+    }
 
     public function testParameters()
     {
@@ -36,7 +38,8 @@ class GroupCatalogTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getDescription());
         $this->assertSame('', $obj->isActive());
         $this->assertSame('', $obj->isCore());
-        $this->assertSame('', $obj->getOrdering());    }
+        $this->assertSame('', $obj->getOrdering());
+    }
 
     public function testSave()
     {
@@ -45,8 +48,8 @@ class GroupCatalogTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var GroupCatalog $obj */
-        $obj = _model('group_catalog')
-            ->select()->where('catalog_id=?','')->first();
+        $obj = \Phpfox::model('group_catalog')
+            ->select()->where('catalog_id=?', '')->first();
 
         $this->assertSame('group_catalog', $obj->getModelId());
         $this->assertSame('', $obj->getCatalogId());
@@ -55,17 +58,18 @@ class GroupCatalogTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getDescription());
         $this->assertSame('', $obj->isActive());
         $this->assertSame('', $obj->isCore());
-        $this->assertSame('', $obj->getOrdering());    }
+        $this->assertSame('', $obj->getOrdering());
+    }
 
     public static function setUpBeforeClass()
     {
-        _model('group_catalog')
-            ->delete()->where('catalog_id=?','')->execute();
+        \Phpfox::model('group_catalog')
+            ->delete()->where('catalog_id=?', '')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('group_catalog')
-            ->delete()->where('catalog_id=?','')->execute();
+        \Phpfox::model('group_catalog')
+            ->delete()->where('catalog_id=?', '')->execute();
     }
 }

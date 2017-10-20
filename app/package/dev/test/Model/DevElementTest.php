@@ -1,11 +1,40 @@
 <?php
+
 namespace Neutron\Dev\Model;
 
 class DevElementTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new DevElement(array (  'element_id' => 15,  'element_name' => 'id',  'factory_id' => 'text',  'is_require' => 1,  'label' => 'Id',  'ordering' => 7,  'is_active' => 1,  'default_value' => '',  'note' => '[Id Note]',  'info' => '[Id Info]',  'info_domain' => NULL,  'text_domain' => NULL,  'placeholder' => 'Id',  'max_length' => NULL,  'rows' => NULL,  'cols' => NULL,  'is_readonly' => 0,  'is_disabled' => 0,  'class_name' => '',  'is_primary' => 1,  'is_identity' => 1,  'data_cmd' => '',  'meta_id' => 9,  'primary_length' => 1,  'options_text' => NULL,  'note_domain' => NULL,  'has_note' => 0,  'has_info' => 0,));
+        $obj = new DevElement(['element_id'     => 15,
+                               'element_name'   => 'id',
+                               'factory_id'     => 'text',
+                               'is_require'     => 1,
+                               'label'          => 'Id',
+                               'ordering'       => 7,
+                               'is_active'      => 1,
+                               'default_value'  => '',
+                               'note'           => '[Id Note]',
+                               'info'           => '[Id Info]',
+                               'info_domain'    => null,
+                               'text_domain'    => null,
+                               'placeholder'    => 'Id',
+                               'max_length'     => null,
+                               'rows'           => null,
+                               'cols'           => null,
+                               'is_readonly'    => 0,
+                               'is_disabled'    => 0,
+                               'class_name'     => '',
+                               'is_primary'     => 1,
+                               'is_identity'    => 1,
+                               'data_cmd'       => '',
+                               'meta_id'        => 9,
+                               'primary_length' => 1,
+                               'options_text'   => null,
+                               'note_domain'    => null,
+                               'has_note'       => 0,
+                               'has_info'       => 0,
+        ]);
 
         $this->assertSame('dev_element', $obj->getModelId());
         $this->assertSame(15, $obj->getElementId());
@@ -35,7 +64,8 @@ class DevElementTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getOptionsText());
         $this->assertSame('', $obj->getNoteDomain());
         $this->assertSame(0, $obj->getHasNote());
-        $this->assertSame(0, $obj->getHasInfo());    }
+        $this->assertSame(0, $obj->getHasInfo());
+    }
 
     public function testParameters()
     {
@@ -99,17 +129,46 @@ class DevElementTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getOptionsText());
         $this->assertSame('', $obj->getNoteDomain());
         $this->assertSame(0, $obj->getHasNote());
-        $this->assertSame(0, $obj->getHasInfo());    }
+        $this->assertSame(0, $obj->getHasInfo());
+    }
 
     public function testSave()
     {
-        $obj = new DevElement(array (  'element_id' => 15,  'element_name' => 'id',  'factory_id' => 'text',  'is_require' => 1,  'label' => 'Id',  'ordering' => 7,  'is_active' => 1,  'default_value' => '',  'note' => '[Id Note]',  'info' => '[Id Info]',  'info_domain' => NULL,  'text_domain' => NULL,  'placeholder' => 'Id',  'max_length' => NULL,  'rows' => NULL,  'cols' => NULL,  'is_readonly' => 0,  'is_disabled' => 0,  'class_name' => '',  'is_primary' => 1,  'is_identity' => 1,  'data_cmd' => '',  'meta_id' => 9,  'primary_length' => 1,  'options_text' => NULL,  'note_domain' => NULL,  'has_note' => 0,  'has_info' => 0,));
+        $obj = new DevElement(['element_id'     => 15,
+                               'element_name'   => 'id',
+                               'factory_id'     => 'text',
+                               'is_require'     => 1,
+                               'label'          => 'Id',
+                               'ordering'       => 7,
+                               'is_active'      => 1,
+                               'default_value'  => '',
+                               'note'           => '[Id Note]',
+                               'info'           => '[Id Info]',
+                               'info_domain'    => null,
+                               'text_domain'    => null,
+                               'placeholder'    => 'Id',
+                               'max_length'     => null,
+                               'rows'           => null,
+                               'cols'           => null,
+                               'is_readonly'    => 0,
+                               'is_disabled'    => 0,
+                               'class_name'     => '',
+                               'is_primary'     => 1,
+                               'is_identity'    => 1,
+                               'data_cmd'       => '',
+                               'meta_id'        => 9,
+                               'primary_length' => 1,
+                               'options_text'   => null,
+                               'note_domain'    => null,
+                               'has_note'       => 0,
+                               'has_info'       => 0,
+        ]);
 
         $obj->save();
 
         /** @var DevElement $obj */
-        $obj = _model('dev_element')
-            ->select()->where('element_id=?',15)->first();
+        $obj = \Phpfox::model('dev_element')
+            ->select()->where('element_id=?', 15)->first();
 
         $this->assertSame('dev_element', $obj->getModelId());
         $this->assertSame(15, $obj->getElementId());
@@ -139,17 +198,18 @@ class DevElementTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getOptionsText());
         $this->assertSame('', $obj->getNoteDomain());
         $this->assertSame(0, $obj->getHasNote());
-        $this->assertSame(0, $obj->getHasInfo());    }
+        $this->assertSame(0, $obj->getHasInfo());
+    }
 
     public static function setUpBeforeClass()
     {
-        _model('dev_element')
-            ->delete()->where('element_id=?',15)->execute();
+        \Phpfox::model('dev_element')
+            ->delete()->where('element_id=?', 15)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('dev_element')
-            ->delete()->where('element_id=?',15)->execute();
+        \Phpfox::model('dev_element')
+            ->delete()->where('element_id=?', 15)->execute();
     }
 }

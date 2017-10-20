@@ -258,7 +258,7 @@ class Request
      */
     public function singleton()
     {
-        _get('manager')->set('request', $this);
+        \Phpfox::get('manager')->set('request', $this);
     }
 
     /**

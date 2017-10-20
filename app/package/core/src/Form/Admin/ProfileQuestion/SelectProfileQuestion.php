@@ -24,7 +24,7 @@ class SelectProfileQuestion extends Form
         $this->setInfo(_text('[Add Profile Question Info]', ''));
         $this->setAction(_url('#'));
 
-        $options = _get('core.profile')->getSuggestProfileAttributeOptions($this->itemType, $this->processId);
+        $options = \Phpfox::get('core.profile')->getSuggestProfileAttributeOptions($this->itemType, $this->processId);
 
 
         $this->addElement([

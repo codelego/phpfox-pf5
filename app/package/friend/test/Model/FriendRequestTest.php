@@ -50,7 +50,7 @@ class FriendRequestTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var FriendRequest $obj */
-        $obj = _model('friend_request')
+        $obj = \Phpfox::model('friend_request')
             ->select()->where('parent_id=?', 12)->where('user_id=?', 11)
             ->where('status_id=?', 4)
             ->where('created_at=?', '2012-11-11 00:00:00')->first();
@@ -64,7 +64,7 @@ class FriendRequestTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _model('friend_request')
+        \Phpfox::model('friend_request')
             ->delete()->where('parent_id=?', 12)->where('user_id=?', 11)
             ->where('status_id=?', 4)
             ->where('created_at=?', '2012-11-11 00:00:00')->execute();
@@ -72,7 +72,7 @@ class FriendRequestTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        _model('friend_request')
+        \Phpfox::model('friend_request')
             ->delete()->where('parent_id=?', 12)->where('user_id=?', 11)
             ->where('status_id=?', 4)
             ->where('created_at=?', '2012-11-11 00:00:00')->execute();

@@ -1,11 +1,23 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class ProfileStepTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new ProfileStep(array (  'step_id' => 1,  'process_id' => 'user:create',  'form_name' => 'Neutron\\User\\Registration\\EditPaymentInformation',  'step_name' => 'payment',  'form_step_name' => 'Neutron\\User\\Registration\\PaymentInformation',  'ordering' => 10,  'package_id' => 'user',  'is_active' => 1,  'is_require' => 1,  'title' => 'Payment Information',  'description' => 'Fill user payment',));
+        $obj = new ProfileStep(['step_id'        => 1,
+                                'process_id'     => 'user:create',
+                                'form_name'      => 'Neutron\\User\\Registration\\EditPaymentInformation',
+                                'step_name'      => 'payment',
+                                'form_step_name' => 'Neutron\\User\\Registration\\PaymentInformation',
+                                'ordering'       => 10,
+                                'package_id'     => 'user',
+                                'is_active'      => 1,
+                                'is_require'     => 1,
+                                'title'          => 'Payment Information',
+                                'description'    => 'Fill user payment',
+        ]);
 
         $this->assertSame('profile_step', $obj->getModelId());
         $this->assertSame(1, $obj->getStepId());
@@ -18,7 +30,8 @@ class ProfileStepTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->isActive());
         $this->assertSame(1, $obj->isRequire());
         $this->assertSame('Payment Information', $obj->getTitle());
-        $this->assertSame('Fill user payment', $obj->getDescription());    }
+        $this->assertSame('Fill user payment', $obj->getDescription());
+    }
 
     public function testParameters()
     {
@@ -48,17 +61,29 @@ class ProfileStepTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->isActive());
         $this->assertSame(1, $obj->isRequire());
         $this->assertSame('Payment Information', $obj->getTitle());
-        $this->assertSame('Fill user payment', $obj->getDescription());    }
+        $this->assertSame('Fill user payment', $obj->getDescription());
+    }
 
     public function testSave()
     {
-        $obj = new ProfileStep(array (  'step_id' => 1,  'process_id' => 'user:create',  'form_name' => 'Neutron\\User\\Registration\\EditPaymentInformation',  'step_name' => 'payment',  'form_step_name' => 'Neutron\\User\\Registration\\PaymentInformation',  'ordering' => 10,  'package_id' => 'user',  'is_active' => 1,  'is_require' => 1,  'title' => 'Payment Information',  'description' => 'Fill user payment',));
+        $obj = new ProfileStep(['step_id'        => 1,
+                                'process_id'     => 'user:create',
+                                'form_name'      => 'Neutron\\User\\Registration\\EditPaymentInformation',
+                                'step_name'      => 'payment',
+                                'form_step_name' => 'Neutron\\User\\Registration\\PaymentInformation',
+                                'ordering'       => 10,
+                                'package_id'     => 'user',
+                                'is_active'      => 1,
+                                'is_require'     => 1,
+                                'title'          => 'Payment Information',
+                                'description'    => 'Fill user payment',
+        ]);
 
         $obj->save();
 
         /** @var ProfileStep $obj */
-        $obj = _model('profile_step')
-            ->select()->where('step_id=?',1)->first();
+        $obj = \Phpfox::model('profile_step')
+            ->select()->where('step_id=?', 1)->first();
 
         $this->assertSame('profile_step', $obj->getModelId());
         $this->assertSame(1, $obj->getStepId());
@@ -71,17 +96,18 @@ class ProfileStepTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->isActive());
         $this->assertSame(1, $obj->isRequire());
         $this->assertSame('Payment Information', $obj->getTitle());
-        $this->assertSame('Fill user payment', $obj->getDescription());    }
+        $this->assertSame('Fill user payment', $obj->getDescription());
+    }
 
     public static function setUpBeforeClass()
     {
-        _model('profile_step')
-            ->delete()->where('step_id=?',1)->execute();
+        \Phpfox::model('profile_step')
+            ->delete()->where('step_id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('profile_step')
-            ->delete()->where('step_id=?',1)->execute();
+        \Phpfox::model('profile_step')
+            ->delete()->where('step_id=?', 1)->execute();
     }
 }

@@ -14,27 +14,27 @@ class AdminModelController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.mail'),
                 'label' => _text('Rapid Development Tools', 'admin'),
             ]);
 
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Rapid Development Tools', 'admin'));
 
-        _get('menu.admin.secondary')->load('admin', 'dev');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'dev');
 
-        _get('menu.admin.buttons')
+        \Phpfox::get('menu.admin.buttons')
             ->load('_dev.table.buttons');
     }
 
     public function actionIndex()
     {
-        $select = _model('dev_model')
+        $select = \Phpfox::model('dev_model')
             ->select();
 
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $tableName = $request->get('table_name');
         $packageId = $request->get('package_id');
 
@@ -46,10 +46,10 @@ class AdminModelController extends AdminController
         }
 
         return (new AdminListEntryProcess([
-            'filter.form'   => FilterDevTable::class,
-            'select'   => $select,
-            'noLimit'  => true,
-            'template' => 'dev/admin-dev/manage-dev-model',
+            'filter.form' => FilterDevTable::class,
+            'select'      => $select,
+            'noLimit'     => true,
+            'template'    => 'dev/admin-dev/manage-dev-model',
         ]))->process();
     }
 
@@ -74,15 +74,15 @@ class AdminModelController extends AdminController
 
     public function actionDelete()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $identity = $request->get('table_name');
 
-        $devTable = _model('dev_table')->findById($identity);
+        $devTable = \Phpfox::model('dev_table')->findById($identity);
 
         if ($devTable instanceof DevTable) {
             $devTable->delete();
         }
 
-        _redirect('admin.dev.table');
+        \Phpfox::redirect('admin.dev.table');
     }
 }

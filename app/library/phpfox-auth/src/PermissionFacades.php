@@ -34,7 +34,7 @@ class PermissionFacades
      */
     public function loadPermissionData($levelKey, $itemType, $levelId)
     {
-        $this->data[$levelKey] = _get('permission.loader')
+        $this->data[$levelKey] = \Phpfox::get('permission.loader')
             ->getPermissionParameter($itemType, $levelId);
     }
 
@@ -92,14 +92,14 @@ class PermissionFacades
         $map = $parent->getRelationships();
         // should use table :acl_relation to convert getRelationships so admin can control (enable, disable they).
         foreach ($map as $name) {
-            if (!_has($name)) {
+            if (!\Phpfox::has($name)) {
                 continue;
             }
-            $result = _try('internal.cache',
+            $result = \Phpfox::_try('internal.cache',
                 [$parent->getUniqueId(), $user->getUniqueId(), $name],
                 0,
                 function () use ($name, $parent, $user, $relationType) {
-                    return _get($name)->getRelationships($parent, $user, $relationType);
+                    return \Phpfox::get($name)->getRelationships($parent, $user, $relationType);
                 });
 
             if (in_array($relationValue, $result)) {

@@ -23,7 +23,7 @@ class FilterCorePackage extends Form
             'name'        => 'type_id',
             'factory'     => 'select',
             'placeholder' => _text('Type', '_core.package'),
-            'options'     => _get('core.packages')->getTypeIdOptions(),
+            'options'     => \Phpfox::get('core.packages')->getTypeIdOptions(),
         ]);
 
         /** element `author` id=526 **/
@@ -31,7 +31,7 @@ class FilterCorePackage extends Form
             'name'        => 'author',
             'factory'     => 'select',
             'placeholder' => _text('Author', '_core.package'),
-            'options'     => _get('core.packages')->getAuthorIdOptions(),
+            'options'     => \Phpfox::get('core.packages')->getAuthorIdOptions(),
         ]);
         /** end elements **/
 

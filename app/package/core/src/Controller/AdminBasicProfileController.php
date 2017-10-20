@@ -36,51 +36,51 @@ class AdminBasicProfileController extends AdminController
 
     public function actionCatalog()
     {
-        $items = _model($this->catalogModel)->select()->all();
+        $items = \Phpfox::model($this->catalogModel)->select()->all();
 
-        return new ViewModel(['items'=>$items],'core/admin-profile/manage-catalog');
+        return new ViewModel(['items' => $items], 'core/admin-profile/manage-catalog');
     }
 
     public function actionAttribute()
     {
-        $items = _model('profile_attribute')
+        $items = \Phpfox::model('profile_attribute')
             ->select()
             ->where('item_type=?', $this->itemType)
             ->all();
 
-        return new ViewModel(['items'=>$items],'core/admin-profile/manage-attribute');
+        return new ViewModel(['items' => $items], 'core/admin-profile/manage-attribute');
     }
 
     public function actionProcess()
     {
-        $items = _model('profile_process')
+        $items = \Phpfox::model('profile_process')
             ->select()
             ->where('item_type=?', $this->itemType)
             ->all();
 
-        return new ViewModel(['items'=>$items],'core/admin-profile/manage-process');
+        return new ViewModel(['items' => $items], 'core/admin-profile/manage-process');
     }
 
     public function actionSection()
     {
-        $items = _model('profile_section')
+        $items = \Phpfox::model('profile_section')
             ->select()
             ->where('item_type=?', $this->itemType)
             ->all();
 
-        return new ViewModel(['items'=>$items],'core/admin-profile/manage-section');
+        return new ViewModel(['items' => $items], 'core/admin-profile/manage-section');
     }
 
     public function actionIndex()
     {
         $catalogId = 1;
         $processType = 'create';
-        $coreProfile = _get('core.profile');
+        $coreProfile = \Phpfox::get('core.profile');
 
         $process = $coreProfile->getProfileProcess($this->itemType, $processType, $catalogId);
 
-        if (!$process and _model($this->catalogModel)->findById($catalogId) != null) {
-            $process = _model('profile_process')
+        if (!$process and \Phpfox::model($this->catalogModel)->findById($catalogId) != null) {
+            $process = \Phpfox::model('profile_process')
                 ->create([
                     'item_type'    => $this->itemType,
                     'process_type' => $processType,
@@ -97,7 +97,7 @@ class AdminBasicProfileController extends AdminController
 
         $backUrl = base64_encode(_url('#'));
 
-        _get('menu.admin.buttons')
+        \Phpfox::get('menu.admin.buttons')
             ->clear()
             ->add([
                 'label' => 'Add Section',
@@ -119,9 +119,9 @@ class AdminBasicProfileController extends AdminController
     public function actionAddSection()
     {
 
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $processId = $request->get('process_id');
-        $coreProfile = _get('core.profile');
+        $coreProfile = \Phpfox::get('core.profile');
 
         // validate information
         $profileProcess = $coreProfile->findProfileProcess($processId);
@@ -143,11 +143,11 @@ class AdminBasicProfileController extends AdminController
                 'dependencies' => '[]',
             ]);
 
-            _model('profile_section')->create($data)->save();
+            \Phpfox::model('profile_section')->create($data)->save();
 
             $backUrl = base64_decode($request->get('back'));
 
-            _get('response')->redirect($backUrl);
+            \Phpfox::get('response')->redirect($backUrl);
         }
 
         return new ViewModel([
@@ -157,10 +157,10 @@ class AdminBasicProfileController extends AdminController
 
     public function actionAddQuestion()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $sectionId = $request->get('section_id');
         $processId = $request->get('process_id');
-        $coreProcess = _get('core.profile');
+        $coreProcess = \Phpfox::get('core.profile');
 
         $profileProcess = $coreProcess->findProfileProcess($processId);
         $profileSection = $coreProcess->findProfileSection($sectionId);

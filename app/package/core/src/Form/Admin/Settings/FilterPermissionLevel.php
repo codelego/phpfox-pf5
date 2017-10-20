@@ -20,7 +20,7 @@ class FilterPermissionLevel extends Form
                 'label' => $v['title'],
                 'note'  => $v['description'],
             ];
-        }, _model($this->model)
+        }, \Phpfox::model($this->model)
             ->select()
             ->order('inherit_id', 1)
             ->setPrototype(null)
@@ -29,10 +29,10 @@ class FilterPermissionLevel extends Form
 
     public function getFormIdOptions()
     {
-        $select = _model('acl_form')
+        $select = \Phpfox::model('acl_form')
             ->select()
             ->where('accept_type=?', $this->model)
-            ->orWhere('accept_type=?','*')
+            ->orWhere('accept_type=?', '*')
             ->order('ordering', 1);
 
         return array_map(function (AclForm $aclForm) {

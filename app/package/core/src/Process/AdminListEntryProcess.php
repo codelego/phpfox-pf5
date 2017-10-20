@@ -5,17 +5,17 @@ namespace Neutron\Core\Process;
 
 use Phpfox\Db\SqlSelect;
 use Phpfox\Form\Form;
-use Phpfox\Model\ModelInterface;
 use Phpfox\Kernel\AbstractProcess;
 use Phpfox\Kernel\FilterCriteria;
 use Phpfox\Kernel\FilterInterface;
+use Phpfox\Model\ModelInterface;
 use Phpfox\View\ViewModel;
 
 class AdminListEntryProcess extends AbstractProcess
 {
     function process()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $criteria = new FilterCriteria();
 
 
@@ -25,16 +25,15 @@ class AdminListEntryProcess extends AbstractProcess
 
             $search->populate($_GET);
 
-            _get('context')->set('filter.form', $search);
+            \Phpfox::get('context')->set('filter.form', $search);
 
             $criteria->addCriteria($search->getData());
         }
 
 
-
         /** @var FilterInterface $filter */
         $filter = $this->get('filter.service');
-        
+
         if ($filter instanceof FilterInterface) {
             /** @var SqlSelect $select */
             $select = $filter->filter($criteria);
@@ -49,12 +48,12 @@ class AdminListEntryProcess extends AbstractProcess
                 /** @var string $modelId */
                 $modelId = $model->getModelId();
 
-                $select = _model($modelId)
+                $select = \Phpfox::model($modelId)
                     ->select();
             }
         }
 
-        $items = _get('pagination')
+        $items = \Phpfox::get('pagination')
             ->factory($select)
             ->setLimit($this->get('limit', $request->get('limit', 10)))
             ->setPageNumber($this->get('page', $request->get('page', 1)))

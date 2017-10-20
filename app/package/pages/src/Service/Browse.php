@@ -14,7 +14,7 @@ class Browse
      */
     public function findById($id)
     {
-        $browse = _model('pages');
+        $browse = \Phpfox::model('pages');
         $pages = null;
 
         if (substr($id, 0, 1) > '9') {

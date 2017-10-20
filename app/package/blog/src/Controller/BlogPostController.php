@@ -10,10 +10,10 @@ class BlogPostController extends ActionController
     public function actionView()
     {
 
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $id = $request->get('id');
 
-        $entry = _model('blog_post')->findById($id);
+        $entry = \Phpfox::model('blog_post')->findById($id);
 
         return new ViewModel(['item' => $entry,], 'blog/post/view');
     }

@@ -9,16 +9,16 @@ class AdminI18nSettingsController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.i18n'),
                 'label' => _text('International', 'admin'),
             ]);
 
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('International', 'admin'));
 
-        _get('menu.admin.secondary')->load('admin','i18n');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'i18n');
     }
 
     public function actionIndex()

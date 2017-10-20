@@ -56,7 +56,7 @@ class NotificationTypeTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var NotificationType $obj */
-        $obj = _model('notification_type')
+        $obj = \Phpfox::model('notification_type')
             ->select()
             ->where('type_id=?', '[comment_add]')
             ->first();
@@ -71,7 +71,7 @@ class NotificationTypeTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _model('notification_type')
+        \Phpfox::model('notification_type')
             ->delete()
             ->where('type_id=?', '[comment_add]')
             ->execute();
@@ -79,7 +79,7 @@ class NotificationTypeTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        _model('notification_type')
+        \Phpfox::model('notification_type')
             ->delete()
             ->where('type_id=?', '[comment_add]')
             ->execute();

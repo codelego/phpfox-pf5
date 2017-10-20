@@ -6,7 +6,26 @@ class BlogPostTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new BlogPost(array (  'blog_id' => 1,  'title' => 'dddd',  'content' => 'ddd',  'parent_type' => '',  'description' => 'dddd',  'parent_id' => 0,  'category_id' => 0,  'created_at' => '0000-00-00 00:00:00',  'updated_at' => '0000-00-00 00:00:00',  'poster_type' => '',  'poster_id' => 0,  'publish_at' => '0000-00-00 00:00:00',  'view_count' => 0,  'comment_count' => 0,  'privacy_id' => 1,  'status_id' => 1,  'is_approved' => 0,  'is_featured' => 1,  'user_id' => 0,));
+        $obj = new BlogPost(['blog_id'       => 1,
+                             'title'         => 'dddd',
+                             'content'       => 'ddd',
+                             'parent_type'   => '',
+                             'description'   => 'dddd',
+                             'parent_id'     => 0,
+                             'category_id'   => 0,
+                             'created_at'    => '0000-00-00 00:00:00',
+                             'updated_at'    => '0000-00-00 00:00:00',
+                             'poster_type'   => '',
+                             'poster_id'     => 0,
+                             'publish_at'    => '0000-00-00 00:00:00',
+                             'view_count'    => 0,
+                             'comment_count' => 0,
+                             'privacy_id'    => 1,
+                             'status_id'     => 1,
+                             'is_approved'   => 0,
+                             'is_featured'   => 1,
+                             'user_id'       => 0,
+        ]);
 
         $this->assertSame('blog_post', $obj->getModelId());
         $this->assertSame(1, $obj->getId());
@@ -80,13 +99,32 @@ class BlogPostTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new BlogPost(array (  'blog_id' => 1,  'title' => 'dddd',  'content' => 'ddd',  'parent_type' => '',  'description' => 'dddd',  'parent_id' => 0,  'category_id' => 0,  'created_at' => '0000-00-00 00:00:00',  'updated_at' => '0000-00-00 00:00:00',  'poster_type' => '',  'poster_id' => 0,  'publish_at' => '0000-00-00 00:00:00',  'view_count' => 0,  'comment_count' => 0,  'privacy_id' => 1,  'status_id' => 1,  'is_approved' => 0,  'is_featured' => 1,  'user_id' => 0,));
+        $obj = new BlogPost(['blog_id'       => 1,
+                             'title'         => 'dddd',
+                             'content'       => 'ddd',
+                             'parent_type'   => '',
+                             'description'   => 'dddd',
+                             'parent_id'     => 0,
+                             'category_id'   => 0,
+                             'created_at'    => '0000-00-00 00:00:00',
+                             'updated_at'    => '0000-00-00 00:00:00',
+                             'poster_type'   => '',
+                             'poster_id'     => 0,
+                             'publish_at'    => '0000-00-00 00:00:00',
+                             'view_count'    => 0,
+                             'comment_count' => 0,
+                             'privacy_id'    => 1,
+                             'status_id'     => 1,
+                             'is_approved'   => 0,
+                             'is_featured'   => 1,
+                             'user_id'       => 0,
+        ]);
 
         $obj->save();
 
         /** @var BlogPost $obj */
-        $obj = _model('blog_post')
-            ->select()->where('blog_id=?',1)->first();
+        $obj = \Phpfox::model('blog_post')
+            ->select()->where('blog_id=?', 1)->first();
 
         $this->assertSame('blog_post', $obj->getModelId());
         $this->assertSame(1, $obj->getId());
@@ -112,13 +150,13 @@ class BlogPostTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _model('blog_post')
-            ->delete()->where('blog_id=?',1)->execute();
+        \Phpfox::model('blog_post')
+            ->delete()->where('blog_id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('blog_post')
-            ->delete()->where('blog_id=?',1)->execute();
+        \Phpfox::model('blog_post')
+            ->delete()->where('blog_id=?', 1)->execute();
     }
 }

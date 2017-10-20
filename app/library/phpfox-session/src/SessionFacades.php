@@ -26,13 +26,13 @@ class SessionFacades
 
         $this->started = true;
 
-        $parameter = _get('package.loader')->getSessionParameter('');
+        $parameter = \Phpfox::get('package.loader')->getSessionParameter('');
 
         $class = $parameter->get('class');
 
         /** @var SessionInterface $handler */
         $handler = new $class($parameter->all());
-        
+
         $php_ini = (bool)$parameter->get('php_ini');
 
         if (!$php_ini) {

@@ -1,11 +1,24 @@
 <?php
+
 namespace Neutron\User\Model;
 
 class UserLevelTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new UserLevel(array (  'level_id' => 1,  'inherit_id' => 0,  'title' => 'Super',  'item_count' => 0,  'is_core' => 1,  'is_super' => 1,  'is_admin' => 1,  'is_moderator' => 1,  'is_staff' => 1,  'is_registered' => 1,  'is_banned' => 0,  'is_guest' => 0,));
+        $obj = new UserLevel(['level_id'      => 1,
+                              'inherit_id'    => 0,
+                              'title'         => 'Super',
+                              'item_count'    => 0,
+                              'is_core'       => 1,
+                              'is_super'      => 1,
+                              'is_admin'      => 1,
+                              'is_moderator'  => 1,
+                              'is_staff'      => 1,
+                              'is_registered' => 1,
+                              'is_banned'     => 0,
+                              'is_guest'      => 0,
+        ]);
 
         $this->assertSame('user_level', $obj->getModelId());
         $this->assertSame(1, $obj->getLevelId());
@@ -19,7 +32,8 @@ class UserLevelTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->isStaff());
         $this->assertSame(1, $obj->isRegistered());
         $this->assertSame(0, $obj->isBanned());
-        $this->assertSame(0, $obj->isGuest());    }
+        $this->assertSame(0, $obj->isGuest());
+    }
 
     public function testParameters()
     {
@@ -51,17 +65,30 @@ class UserLevelTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->isStaff());
         $this->assertSame(1, $obj->isRegistered());
         $this->assertSame(0, $obj->isBanned());
-        $this->assertSame(0, $obj->isGuest());    }
+        $this->assertSame(0, $obj->isGuest());
+    }
 
     public function testSave()
     {
-        $obj = new UserLevel(array (  'level_id' => 1,  'inherit_id' => 0,  'title' => 'Super',  'item_count' => 0,  'is_core' => 1,  'is_super' => 1,  'is_admin' => 1,  'is_moderator' => 1,  'is_staff' => 1,  'is_registered' => 1,  'is_banned' => 0,  'is_guest' => 0,));
+        $obj = new UserLevel(['level_id'      => 1,
+                              'inherit_id'    => 0,
+                              'title'         => 'Super',
+                              'item_count'    => 0,
+                              'is_core'       => 1,
+                              'is_super'      => 1,
+                              'is_admin'      => 1,
+                              'is_moderator'  => 1,
+                              'is_staff'      => 1,
+                              'is_registered' => 1,
+                              'is_banned'     => 0,
+                              'is_guest'      => 0,
+        ]);
 
         $obj->save();
 
         /** @var UserLevel $obj */
-        $obj = _model('user_level')
-            ->select()->where('level_id=?',1)->first();
+        $obj = \Phpfox::model('user_level')
+            ->select()->where('level_id=?', 1)->first();
 
         $this->assertSame('user_level', $obj->getModelId());
         $this->assertSame(1, $obj->getLevelId());
@@ -75,17 +102,18 @@ class UserLevelTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->isStaff());
         $this->assertSame(1, $obj->isRegistered());
         $this->assertSame(0, $obj->isBanned());
-        $this->assertSame(0, $obj->isGuest());    }
+        $this->assertSame(0, $obj->isGuest());
+    }
 
     public static function setUpBeforeClass()
     {
-        _model('user_level')
-            ->delete()->where('level_id=?',1)->execute();
+        \Phpfox::model('user_level')
+            ->delete()->where('level_id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('user_level')
-            ->delete()->where('level_id=?',1)->execute();
+        \Phpfox::model('user_level')
+            ->delete()->where('level_id=?', 1)->execute();
     }
 }

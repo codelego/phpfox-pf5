@@ -21,11 +21,11 @@ return [
             'controller' => 'pages.admin-pages',
             'action'     => 'index',
             'children'   => [
-                'category' => [
+                'category'   => [
                     'route'      => 'category(/<action>)',
                     'controller' => 'pages.admin-category',
                 ],
-                'settings' => [
+                'settings'   => [
                     'route'      => 'settings(/<action>)',
                     'controller' => 'pages.admin-settings',
                 ],
@@ -33,11 +33,11 @@ return [
                     'route'      => 'levels(/<action>)',
                     'controller' => 'pages.admin-level',
                 ],
-                'permission'      => [
+                'permission' => [
                     'route'      => 'permission(/<action>)',
                     'controller' => 'pages.admin-permission',
                 ],
-                'pages'    => [
+                'pages'      => [
                     'route'      => '<action>',
                     'controller' => 'pages.admin-pages',
                 ],

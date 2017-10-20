@@ -1,11 +1,19 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class AclFormTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new AclForm(array (  'form_id' => 'core_admin',  'package_id' => 'core',  'title' => 'Admin Settings',  'form_name' => 'Neutron\\Core\\Form\\Admin\\Settings\\EditAdminPermissions',  'description' => '',  'ordering' => 1,  'is_active' => 1,));
+        $obj = new AclForm(['form_id'     => 'core_admin',
+                            'package_id'  => 'core',
+                            'title'       => 'Admin Settings',
+                            'form_name'   => 'Neutron\\Core\\Form\\Admin\\Settings\\EditAdminPermissions',
+                            'description' => '',
+                            'ordering'    => 1,
+                            'is_active'   => 1,
+        ]);
 
         $this->assertSame('acl_form', $obj->getModelId());
         $this->assertSame('core_admin', $obj->getFormId());
@@ -14,7 +22,8 @@ class AclFormTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('Neutron\Core\Form\Admin\Settings\EditAdminPermissions', $obj->getFormName());
         $this->assertSame('', $obj->getDescription());
         $this->assertSame(1, $obj->getOrdering());
-        $this->assertSame(1, $obj->isActive());    }
+        $this->assertSame(1, $obj->isActive());
+    }
 
     public function testParameters()
     {
@@ -36,17 +45,25 @@ class AclFormTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('Neutron\Core\Form\Admin\Settings\EditAdminPermissions', $obj->getFormName());
         $this->assertSame('', $obj->getDescription());
         $this->assertSame(1, $obj->getOrdering());
-        $this->assertSame(1, $obj->isActive());    }
+        $this->assertSame(1, $obj->isActive());
+    }
 
     public function testSave()
     {
-        $obj = new AclForm(array (  'form_id' => 'core_admin',  'package_id' => 'core',  'title' => 'Admin Settings',  'form_name' => 'Neutron\\Core\\Form\\Admin\\Settings\\EditAdminPermissions',  'description' => '',  'ordering' => 1,  'is_active' => 1,));
+        $obj = new AclForm(['form_id'     => 'core_admin',
+                            'package_id'  => 'core',
+                            'title'       => 'Admin Settings',
+                            'form_name'   => 'Neutron\\Core\\Form\\Admin\\Settings\\EditAdminPermissions',
+                            'description' => '',
+                            'ordering'    => 1,
+                            'is_active'   => 1,
+        ]);
 
         $obj->save();
 
         /** @var AclForm $obj */
-        $obj = _model('acl_form')
-            ->select()->where('form_id=?','core_admin')->first();
+        $obj = \Phpfox::model('acl_form')
+            ->select()->where('form_id=?', 'core_admin')->first();
 
         $this->assertSame('acl_form', $obj->getModelId());
         $this->assertSame('core_admin', $obj->getFormId());
@@ -55,17 +72,18 @@ class AclFormTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('Neutron\Core\Form\Admin\Settings\EditAdminPermissions', $obj->getFormName());
         $this->assertSame('', $obj->getDescription());
         $this->assertSame(1, $obj->getOrdering());
-        $this->assertSame(1, $obj->isActive());    }
+        $this->assertSame(1, $obj->isActive());
+    }
 
     public static function setUpBeforeClass()
     {
-        _model('acl_form')
-            ->delete()->where('form_id=?','core_admin')->execute();
+        \Phpfox::model('acl_form')
+            ->delete()->where('form_id=?', 'core_admin')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('acl_form')
-            ->delete()->where('form_id=?','core_admin')->execute();
+        \Phpfox::model('acl_form')
+            ->delete()->where('form_id=?', 'core_admin')->execute();
     }
 }

@@ -1,11 +1,28 @@
 <?php
+
 namespace Neutron\Video\Model;
 
 class VideoTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new Video(array (  'video_id' => 14,  'is_active' => 1,  'is_approval' => 1,  'channel_id' => 0,  'category_id' => 4,  'provider_id' => '[youtube]',  'title' => '[title]',  'user_id' => 44,  'parent_id' => 45,  'parent_type' => 'pages',  'poster_id' => 434,  'poster_type' => 'user',  'description' => '[description]',  'created_at' => '0000-00-00 00:00:00',  'updated_at' => '0000-00-00 00:00:00',  'params' => '[]',));
+        $obj = new Video(['video_id'    => 14,
+                          'is_active'   => 1,
+                          'is_approval' => 1,
+                          'channel_id'  => 0,
+                          'category_id' => 4,
+                          'provider_id' => '[youtube]',
+                          'title'       => '[title]',
+                          'user_id'     => 44,
+                          'parent_id'   => 45,
+                          'parent_type' => 'pages',
+                          'poster_id'   => 434,
+                          'poster_type' => 'user',
+                          'description' => '[description]',
+                          'created_at'  => '0000-00-00 00:00:00',
+                          'updated_at'  => '0000-00-00 00:00:00',
+                          'params'      => '[]',
+        ]);
 
         $this->assertSame('video', $obj->getModelId());
         $this->assertSame(14, $obj->getVideoId());
@@ -23,7 +40,8 @@ class VideoTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('[description]', $obj->getDescription());
         $this->assertSame('0000-00-00 00:00:00', $obj->getCreatedAt());
         $this->assertSame('0000-00-00 00:00:00', $obj->getUpdatedAt());
-        $this->assertSame('[]', $obj->getParams());    }
+        $this->assertSame('[]', $obj->getParams());
+    }
 
     public function testParameters()
     {
@@ -63,17 +81,34 @@ class VideoTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('[description]', $obj->getDescription());
         $this->assertSame('0000-00-00 00:00:00', $obj->getCreatedAt());
         $this->assertSame('0000-00-00 00:00:00', $obj->getUpdatedAt());
-        $this->assertSame('[]', $obj->getParams());    }
+        $this->assertSame('[]', $obj->getParams());
+    }
 
     public function testSave()
     {
-        $obj = new Video(array (  'video_id' => 14,  'is_active' => 1,  'is_approval' => 1,  'channel_id' => 0,  'category_id' => 4,  'provider_id' => '[youtube]',  'title' => '[title]',  'user_id' => 44,  'parent_id' => 45,  'parent_type' => 'pages',  'poster_id' => 434,  'poster_type' => 'user',  'description' => '[description]',  'created_at' => '0000-00-00 00:00:00',  'updated_at' => '0000-00-00 00:00:00',  'params' => '[]',));
+        $obj = new Video(['video_id'    => 14,
+                          'is_active'   => 1,
+                          'is_approval' => 1,
+                          'channel_id'  => 0,
+                          'category_id' => 4,
+                          'provider_id' => '[youtube]',
+                          'title'       => '[title]',
+                          'user_id'     => 44,
+                          'parent_id'   => 45,
+                          'parent_type' => 'pages',
+                          'poster_id'   => 434,
+                          'poster_type' => 'user',
+                          'description' => '[description]',
+                          'created_at'  => '0000-00-00 00:00:00',
+                          'updated_at'  => '0000-00-00 00:00:00',
+                          'params'      => '[]',
+        ]);
 
         $obj->save();
 
         /** @var Video $obj */
-        $obj = _model('video')
-            ->select()->where('video_id=?',14)->first();
+        $obj = \Phpfox::model('video')
+            ->select()->where('video_id=?', 14)->first();
 
         $this->assertSame('video', $obj->getModelId());
         $this->assertSame(14, $obj->getVideoId());
@@ -91,17 +126,18 @@ class VideoTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('[description]', $obj->getDescription());
         $this->assertSame('0000-00-00 00:00:00', $obj->getCreatedAt());
         $this->assertSame('0000-00-00 00:00:00', $obj->getUpdatedAt());
-        $this->assertSame('[]', $obj->getParams());    }
+        $this->assertSame('[]', $obj->getParams());
+    }
 
     public static function setUpBeforeClass()
     {
-        _model('video')
-            ->delete()->where('video_id=?',14)->execute();
+        \Phpfox::model('video')
+            ->delete()->where('video_id=?', 14)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('video')
-            ->delete()->where('video_id=?',14)->execute();
+        \Phpfox::model('video')
+            ->delete()->where('video_id=?', 14)->execute();
     }
 }

@@ -10,7 +10,7 @@ class IndexController extends ActionController
 {
     public function actionIndex()
     {
-        $items = _model('blog_post')->select()->all();
+        $items = \Phpfox::model('blog_post')->select()->all();
 
         return new ViewModel([
             'items' => $items,
@@ -21,13 +21,13 @@ class IndexController extends ActionController
     {
         $form = new AddBlogPost();
 
-        $request = _get('request');
+        $request = \Phpfox::get('request');
 
-        $userId = _get('auth')->getLoginId();
+        $userId = \Phpfox::get('auth')->getLoginId();
 
-        $quota = _allow(null, 'blog.post_limit', 10);
+        $quota = \Phpfox::allow(null, 'blog.post_limit', 10);
 
-        $total = _model('blog_post')
+        $total = \Phpfox::model('blog_post')
             ->select()
             ->where('user_id=?', $userId)
             ->count();
@@ -38,7 +38,7 @@ class IndexController extends ActionController
 
         if ($request->isPost() and $form->isValid($request->all())) {
             $data = $form->getData();
-            $entry = _model('blog_post')->create($data);
+            $entry = \Phpfox::model('blog_post')->create($data);
             $entry->save();
         }
 

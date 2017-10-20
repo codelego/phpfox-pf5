@@ -6,7 +6,7 @@ class AjaxController extends ActionController
 {
     protected function initialize()
     {
-        _get('response')
+        \Phpfox::get('response')
             ->setPrototype('response.ajax');
     }
 }

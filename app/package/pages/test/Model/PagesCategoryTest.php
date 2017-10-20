@@ -1,17 +1,19 @@
 <?php
+
 namespace Neutron\Pages\Model;
 
 class PagesCategoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new PagesCategory(array (  'category_id' => 12,  'is_active' => 1,  'name' => '[example name]',  'description' => '[description]',));
+        $obj = new PagesCategory(['category_id' => 12, 'is_active' => 1, 'name' => '[example name]', 'description' => '[description]',]);
 
         $this->assertSame('pages_category', $obj->getModelId());
         $this->assertSame(12, $obj->getCategoryId());
         $this->assertSame(1, $obj->isActive());
         $this->assertSame('[example name]', $obj->getName());
-        $this->assertSame('[description]', $obj->getDescription());    }
+        $this->assertSame('[description]', $obj->getDescription());
+    }
 
     public function testParameters()
     {
@@ -27,33 +29,35 @@ class PagesCategoryTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(12, $obj->getCategoryId());
         $this->assertSame(1, $obj->isActive());
         $this->assertSame('[example name]', $obj->getName());
-        $this->assertSame('[description]', $obj->getDescription());    }
+        $this->assertSame('[description]', $obj->getDescription());
+    }
 
     public function testSave()
     {
-        $obj = new PagesCategory(array (  'category_id' => 12,  'is_active' => 1,  'name' => '[example name]',  'description' => '[description]',));
+        $obj = new PagesCategory(['category_id' => 12, 'is_active' => 1, 'name' => '[example name]', 'description' => '[description]',]);
 
         $obj->save();
 
         /** @var PagesCategory $obj */
-        $obj = _model('pages_category')
-            ->select()->where('category_id=?',12)->first();
+        $obj = \Phpfox::model('pages_category')
+            ->select()->where('category_id=?', 12)->first();
 
         $this->assertSame('pages_category', $obj->getModelId());
         $this->assertSame(12, $obj->getCategoryId());
         $this->assertSame(1, $obj->isActive());
         $this->assertSame('[example name]', $obj->getName());
-        $this->assertSame('[description]', $obj->getDescription());    }
+        $this->assertSame('[description]', $obj->getDescription());
+    }
 
     public static function setUpBeforeClass()
     {
-        _model('pages_category')
-            ->delete()->where('category_id=?',12)->execute();
+        \Phpfox::model('pages_category')
+            ->delete()->where('category_id=?', 12)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('pages_category')
-            ->delete()->where('category_id=?',12)->execute();
+        \Phpfox::model('pages_category')
+            ->delete()->where('category_id=?', 12)->execute();
     }
 }

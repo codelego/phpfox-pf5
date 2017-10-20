@@ -1,11 +1,12 @@
 <?php
+
 namespace Neutron\Report\Model;
 
 class ReportCategoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new ReportCategory(array (  'category_id' => 1,  'is_active' => 0,  'name' => 'It\'s annoying or not interesting',  'description' => '',));
+        $obj = new ReportCategory(['category_id' => 1, 'is_active' => 0, 'name' => 'It\'s annoying or not interesting', 'description' => '',]);
 
         $this->assertSame('report_category', $obj->getModelId());
         $this->assertSame(1, $obj->getCategoryId());
@@ -36,8 +37,8 @@ class ReportCategoryTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var ReportCategory $obj */
-        $obj = _model('report_category')
-            ->select()->where('category_id=?',1)->first();
+        $obj = \Phpfox::model('report_category')
+            ->select()->where('category_id=?', 1)->first();
 
         $this->assertSame('report_category', $obj->getModelId());
         $this->assertSame(1, $obj->getCategoryId());
@@ -47,13 +48,13 @@ class ReportCategoryTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _model('report_category')
-            ->delete()->where('category_id=?',1)->execute();
+        \Phpfox::model('report_category')
+            ->delete()->where('category_id =?',1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('report_category')
-            ->delete()->where('category_id=?',1)->execute();
+        \Phpfox::model('report_category')
+            ->delete()->where('category_id =?',1)->execute();
     }
 }

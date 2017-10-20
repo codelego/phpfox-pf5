@@ -27,7 +27,7 @@ class VimeoProvider implements ProviderInterface
         ], $context);
 
 
-        return _get('template')
+        return \Phpfox::get('template')
             ->render('video/partial/embed', [
                 'iframe' => '<iframe ' . _attrize($props) . '></iframe>',
                 'id'     => $id,
@@ -45,7 +45,7 @@ class VimeoProvider implements ProviderInterface
         $url = "http://vimeo.com/api/oembed.json?url=" . rawurlencode($url)
             . '&with=640';
 
-        $info = _get('curl')->factory($url)->getJSON();
+        $info = \Phpfox::get('curl')->factory($url)->getJSON();
 
         if (empty($info) or empty($info['title'])) {
             throw new ParseException("Invalid video url");

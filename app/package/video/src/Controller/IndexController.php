@@ -10,7 +10,7 @@ class IndexController extends ActionController
 {
     public function actionIndex()
     {
-        $items = _model('video')
+        $items = \Phpfox::model('video')
             ->select()
             ->all();
 

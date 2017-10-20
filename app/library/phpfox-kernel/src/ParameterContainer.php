@@ -57,6 +57,7 @@ class ParameterContainer
     /**
      * Use this method to get setting from `package.php` file.
      * to get value from admin setting in `site_setting` table, try ::setting() method
+     *
      * @param string $key
      * @param string $item
      *

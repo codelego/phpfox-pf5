@@ -18,7 +18,7 @@ class FilterLayoutComponent extends Form {
             $this->addElement(array ( 'name' => 'q', 'factory' => 'text', 'placeholder' => _text('Keywords','_core.component'), ));        
         
             /** element `package_id` id=978 **/
-            $this->addElement(array ( 'name' => 'package_id', 'factory' => 'select', 'placeholder' => _text('Package','_core.component'), 'options' => _get('core.packages')->getPackageIdOptions(), ));        
+            $this->addElement(array ( 'name' => 'package_id', 'factory' => 'select', 'placeholder' => _text('Package','_core.component'), 'options' => \Phpfox::get('core.packages')->getPackageIdOptions(), ));
         /** end elements **/
 
         $this->addButton([

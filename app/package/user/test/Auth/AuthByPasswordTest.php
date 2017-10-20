@@ -93,12 +93,12 @@ class AuthByPasswordTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _get('db')->delete(':user')
+        \Phpfox::get('db')->delete(':user')
             ->where('email=?', 'code.unitest@example.com')
             ->execute();
 
         $user = new User([
-            'level_id'       => 1,
+            'level_id'      => 1,
             'user_photo_id' => 0,
             'gender'        => 0,
             'status_id'     => 0,
@@ -128,7 +128,7 @@ class AuthByPasswordTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        _get('db')->delete(':user')
+        \Phpfox::get('db')->delete(':user')
             ->where('email=?', 'code.unitest@example.com')
             ->execute();
 

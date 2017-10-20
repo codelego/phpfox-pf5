@@ -9,15 +9,15 @@ class UpdateContainersResponse implements ResponsePrototypeInterface
     {
         $jsonArray = [];
 
-        $jsonArray['content'] = _get('layouts')
+        $jsonArray['content'] = \Phpfox::get('layouts')
             ->prepare()
             ->setAjaxLoad(true)
             ->render();
 
         $jsonArray['meta'] = [
-            'title'       => _get('html.title')->getContent(),
-            'description' => _get('html.description')->getContent(),
-            'keyword'     => _get('html.keyword')->getContent(),
+            'title'       => \Phpfox::get('html.title')->getContent(),
+            'description' => \Phpfox::get('html.description')->getContent(),
+            'keyword'     => \Phpfox::get('html.keyword')->getContent(),
         ];
 
         return json_encode($jsonArray);

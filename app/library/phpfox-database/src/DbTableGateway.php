@@ -81,7 +81,7 @@ class DbTableGateway implements GatewayInterface
         if ($meta) {
             list($this->_identity, $this->_primary, $this->_query_id,
                 $this->_columns)
-                = load_config(PHPFOX_APP_DIR . $meta) ;
+                = load_config(PHPFOX_APP_DIR . $meta);
         }
 
     }
@@ -111,7 +111,7 @@ class DbTableGateway implements GatewayInterface
      */
     public function adapter()
     {
-        return _get($this->_adapter);
+        return \Phpfox::get($this->_adapter);
     }
 
     /**

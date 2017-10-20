@@ -6,7 +6,7 @@ class ReportTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new Report(array (  'report_id' => 86,  'category_id' => 0,  'message' => 'message content',  'user_id' => 100,  'about_id' => 21,  'about_type' => 'user',  'created_at' => '0000-00-00 00:00:00',));
+        $obj = new Report(['report_id' => 86, 'category_id' => 0, 'message' => 'message content', 'user_id' => 100, 'about_id' => 21, 'about_type' => 'user', 'created_at' => '0000-00-00 00:00:00',]);
 
         $this->assertSame('report', $obj->getModelId());
         $this->assertSame(86, $obj->getId());
@@ -44,13 +44,13 @@ class ReportTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new Report(array (  'report_id' => 86,  'category_id' => 0,  'message' => 'message content',  'user_id' => 100,  'about_id' => 21,  'about_type' => 'user',  'created_at' => '0000-00-00 00:00:00',));
+        $obj = new Report(['report_id' => 86, 'category_id' => 0, 'message' => 'message content', 'user_id' => 100, 'about_id' => 21, 'about_type' => 'user', 'created_at' => '0000-00-00 00:00:00',]);
 
         $obj->save();
 
         /** @var Report $obj */
-        $obj = _model('report')
-            ->select()->where('report_id=?',86)->first();
+        $obj = \Phpfox::model('report')
+            ->select()->where('report_id=?', 86)->first();
 
         $this->assertSame('report', $obj->getModelId());
         $this->assertSame(86, $obj->getId());
@@ -64,13 +64,13 @@ class ReportTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _model('report')
-            ->delete()->where('report_id=?',86)->execute();
+        \Phpfox::model('report')
+            ->delete()->where('report_id=?', 86)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('report')
-            ->delete()->where('report_id=?',86)->execute();
+        \Phpfox::model('report')
+            ->delete()->where('report_id=?', 86)->execute();
     }
 }

@@ -30,7 +30,8 @@
                         <?= $item->getId() ?>
                     </td>
                     <td><?= $item->__get('component_name') ?><br/>
-                    <small><?= $item->__get('description') ?></small></td>
+                        <small><?= $item->__get('description') ?></small>
+                    </td>
                     <td><?= $item->__get('package_id') ?></td>
                     <td><?= _yesno($item->isActive()) ?></td>
                 </tr>

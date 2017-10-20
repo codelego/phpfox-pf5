@@ -38,7 +38,7 @@ class StorageManager
      */
     public function getAdapterIdOptions()
     {
-        $select = _model('storage_adapter')->select()
+        $select = \Phpfox::model('storage_adapter')->select()
             ->where('is_active=?', 1);
 
         return array_map(function (StorageAdapter $adapter) {
@@ -57,7 +57,7 @@ class StorageManager
      */
     public function findDriverByName($name)
     {
-        return _model('core_driver')
+        return \Phpfox::model('core_driver')
             ->select()
             ->where('driver_type=?', self::DRIVER_TYPE)
             ->where('driver_name=?', $name)
@@ -69,7 +69,7 @@ class StorageManager
      */
     public function getDriverIdOptions()
     {
-        return _get('core.adapter')
+        return \Phpfox::get('core.adapter')
             ->getDriverIdOptions(self::DRIVER_TYPE);
     }
 

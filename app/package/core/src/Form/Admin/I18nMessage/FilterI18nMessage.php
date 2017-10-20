@@ -24,7 +24,7 @@ class FilterI18nMessage extends Form
             'factory'     => 'select',
             'placeholder' => _text('Package', null),
             'value'       => 'core',
-            'options'     => _get('core.packages')->getAppIdOptions(),
+            'options'     => \Phpfox::get('core.packages')->getAppIdOptions(),
         ]);
 
         /** element `locale_id` id=836 **/
@@ -32,7 +32,7 @@ class FilterI18nMessage extends Form
             'name'        => 'locale_id',
             'factory'     => 'select',
             'placeholder' => _text('Locale', null),
-            'options'     => _get('core.i18n')->getLocaleIdOptions(),
+            'options'     => \Phpfox::get('core.i18n')->getLocaleIdOptions(),
         ]);
 
         /** element `domain_id` id=837 **/

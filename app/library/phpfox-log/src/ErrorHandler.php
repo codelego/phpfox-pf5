@@ -44,7 +44,7 @@ class ErrorHandler
 
         register_shutdown_function(function () {
             if (null != ($error = error_get_last())) {
-                _get('main.log')->debug(json_encode($error, JSON_PRETTY_PRINT));
+                \Phpfox::get('main.log')->debug(json_encode($error, JSON_PRETTY_PRINT));
             }
         });
 
@@ -100,7 +100,7 @@ class ErrorHandler
                 $line,
                 $this->formatBacktrace(array_slice(debug_backtrace(), 1)));
 
-            _get('main.log')->log($level, $message);
+            \Phpfox::get('main.log')->log($level, $message);
 
         }
 
@@ -124,7 +124,7 @@ class ErrorHandler
         $message = 'Error Code: ' . $this->getErrorCode(true) . PHP_EOL .
             $exception->__toString();
 
-        _get('main.log')->error($message);
+        \Phpfox::get('main.log')->error($message);
 
         if (!PHPFOX_UNIT_TEST) {
             $this->_sendFatalResponse();

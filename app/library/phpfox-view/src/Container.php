@@ -180,7 +180,7 @@ class Container
     public function render()
     {
         $data = [];
-        $layouts = _get('layouts');
+        $layouts = \Phpfox::get('layouts');
 
         foreach ($this->locations as $locationId => $location) {
             $data[$locationId] = '';

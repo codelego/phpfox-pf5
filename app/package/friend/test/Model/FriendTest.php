@@ -40,7 +40,7 @@ class FriendTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var Friend $obj */
-        $obj = _model('friend')
+        $obj = \Phpfox::model('friend')
             ->select()
             ->where('user_id=?', 4)
             ->where('friend_id=?', 12)
@@ -54,7 +54,7 @@ class FriendTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _model('friend')
+        \Phpfox::model('friend')
             ->delete()
             ->where('user_id=?', 4)
             ->where('friend_id=?', 12)
@@ -63,7 +63,7 @@ class FriendTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        _model('friend')
+        \Phpfox::model('friend')
             ->delete()
             ->where('user_id=?', 4)
             ->where('friend_id=?', 12)

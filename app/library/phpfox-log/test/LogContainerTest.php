@@ -64,7 +64,7 @@ class LogContainerTest extends \PHPUnit_Framework_TestCase
 
     function totalRows()
     {
-        return _get('db')
+        return \Phpfox::get('db')
             ->select('*')
             ->from(':core_log')
             ->count();

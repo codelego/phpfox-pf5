@@ -10,19 +10,19 @@ class AdminPermissionController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set(['href' => _url('admin.pages'), 'label' => _text('Pages', 'admin')])
             ->add([
                 'href'  => _url('admin.pages.permission'),
                 'label' => _text('Permissions', 'admin'),
             ]);
 
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Pages', 'admin'));
 
-        _get('menu.admin.secondary')->load('admin', 'pages');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'pages');
 
-        _get('menu.admin.buttons')->load('_pages.buttons');
+        \Phpfox::get('menu.admin.buttons')->load('_pages.buttons');
     }
 
     public function actionIndex()

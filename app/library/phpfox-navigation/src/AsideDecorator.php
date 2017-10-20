@@ -55,7 +55,7 @@ class AsideDecorator extends AbstractDecorator
     {
         $href = null;
         // validate passed acl
-        if ($item->get('permission') and !_allow(null, $item->get('permission'))) {
+        if ($item->get('permission') and !\Phpfox::allow(null, $item->get('permission'))) {
             return '';
         }
 
@@ -64,7 +64,7 @@ class AsideDecorator extends AbstractDecorator
         if (!empty($params)) {
             foreach ($params as $k => $v) {
                 if (substr($v, 0, 1) == '$') {
-                    $params[$k] = _get('request')->get(substr($v, 1));
+                    $params[$k] = \Phpfox::get('request')->get(substr($v, 1));
                 }
             }
         }

@@ -18,29 +18,29 @@ class AdminSessionController extends AdminController
 
     protected function afterInitialize()
     {
-        _get('html.title')->set(_text('Session Settings', 'menu'));
+        \Phpfox::get('html.title')->set(_text('Session Settings', 'menu'));
 
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.session'),
                 'label' => _text('Session Settings', 'menu'),
             ]);
 
-        _get('menu.admin.secondary')->load('admin', 'session');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'session');
 
-        _get('menu.admin.buttons')->load('_core.session.buttons');
+        \Phpfox::get('menu.admin.buttons')->load('_core.session.buttons');
     }
 
     public function actionIndex()
     {
-        $select = _model('core_adapter')
+        $select = \Phpfox::model('core_adapter')
             ->select()
             ->where('driver_type=?', self::DRIVER_TYPE);
 
         return (new AdminListEntryProcess([
             'select'   => $select,
             'template' => 'core/admin-session/manage-session-adapter',
-            'data'     => ['defaultValue' => _param('core.default_session_id')],
+            'data'     => ['defaultValue' => \Phpfox::param('core.default_session_id')],
         ]))->process();
     }
 
@@ -53,7 +53,7 @@ class AdminSessionController extends AdminController
 
     public function actionAdd()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $driverId = $request->get('driver_id');
 
         if (!$driverId) {
@@ -62,7 +62,7 @@ class AdminSessionController extends AdminController
             ], 'layout/form-edit');
         }
 
-        _redirect('admin.core.session', [
+        \Phpfox::redirect('admin.core.session', [
             'action'    => 'config',
             'driver_id' => $driverId,
         ]);
@@ -70,10 +70,10 @@ class AdminSessionController extends AdminController
 
     public function actionConfig()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $driverId = $request->get('driver_id');
 
-        $form = _get('core.adapter')
+        $form = \Phpfox::get('core.adapter')
             ->getEditingForm($driverId, 'session');
 
         if ($request->isGet()) {
@@ -84,7 +84,7 @@ class AdminSessionController extends AdminController
             $data = $form->getData();
 
             /** @var CoreAdapter $adapterEntry */
-            $adapterEntry = _model('core_adapter')
+            $adapterEntry = \Phpfox::model('core_adapter')
                 ->create([
                     'driver_id'   => $driverId,
                     'driver_type' => self::DRIVER_TYPE,
@@ -97,7 +97,7 @@ class AdminSessionController extends AdminController
             // how to get name
             $adapterEntry->save();
 
-            _redirect('admin.core.session');
+            \Phpfox::redirect('admin.core.session');
         }
 
 
@@ -108,13 +108,13 @@ class AdminSessionController extends AdminController
 
     public function actionEdit()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $adapterId = $request->get('adapter_id');
 
         /** @var CoreAdapter $adapterEntry */
-        $adapterEntry = _model('core_adapter')->findById($adapterId);
+        $adapterEntry = \Phpfox::model('core_adapter')->findById($adapterId);
 
-        $form = _get('core.adapter')
+        $form = \Phpfox::get('core.adapter')
             ->getEditingForm($adapterEntry->getDriverId(), self::DRIVER_TYPE);
 
         if ($request->isGet()) {
@@ -129,7 +129,7 @@ class AdminSessionController extends AdminController
             $adapterEntry->setParams(json_encode($data));
             $adapterEntry->save();
 
-            _redirect('admin.core.session');
+            \Phpfox::redirect('admin.core.session');
         }
 
         return new ViewModel([
@@ -139,20 +139,20 @@ class AdminSessionController extends AdminController
 
     public function actionDelete()
     {
-        $entry = _get('core.adapter')->getAdapterById(_get('request')->get('adapter_id'));
+        $entry = \Phpfox::get('core.adapter')->getAdapterById(\Phpfox::get('request')->get('adapter_id'));
 
         $entry->delete();
 
-        _redirect('admin.core.session');
+        \Phpfox::redirect('admin.core.session');
     }
 
     public function actionDefault()
     {
-        $adapterId = _get('request')
+        $adapterId = \Phpfox::get('request')
             ->get('adapter_id');
 
         /** @var CoreAdapter $entry */
-        $entry = _model('core_adapter')->findById($adapterId);
+        $entry = \Phpfox::model('core_adapter')->findById($adapterId);
 
         if (!$entry) {
             throw new \InvalidArgumentException('Invalid params "adapter_id"');
@@ -160,7 +160,7 @@ class AdminSessionController extends AdminController
 
         if (!$entry->isDefault()) {
 
-            _model('core_adapter')
+            \Phpfox::model('core_adapter')
                 ->update()
                 ->values(['is_default' => 0])
                 ->where('adapter_id <> ?', $adapterId)
@@ -171,10 +171,10 @@ class AdminSessionController extends AdminController
             $entry->setDefault(1);
             $entry->setActive(1);
             $entry->save();
-            _get('core.setting')->updateValue('core.default_session_id', $adapterId);
+            \Phpfox::get('core.setting')->updateValue('core.default_session_id', $adapterId);
         }
 
 
-        _redirect('admin.core.session');
+        \Phpfox::redirect('admin.core.session');
     }
 }

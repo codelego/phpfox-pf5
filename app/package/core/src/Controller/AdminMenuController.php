@@ -13,24 +13,24 @@ class AdminMenuController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Menus', '_core'));
 
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.menu'),
                 'label' => _text('Menus', '_core'),
             ]);
 
-        _get('menu.admin.secondary')->load('admin', 'appearance');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'appearance');
     }
 
     public function actionIndex()
     {
-        $items = _model('core_menu')
+        $items = \Phpfox::model('core_menu')
             ->select()
             ->where('is_admin=?', 0)
-            ->where('package_id in ?', _get('package.loader')->getActivePackageIds())
+            ->where('package_id in ?', \Phpfox::get('package.loader')->getActivePackageIds())
             ->all();
 
         return new ViewModel([
@@ -40,7 +40,7 @@ class AdminMenuController extends AdminController
 
     public function actionUpdateOrdering()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $ordering = $request->get('ordering');
         $keys = array_map(function ($v) {
             return (int)substr($v, 1);
@@ -51,7 +51,7 @@ class AdminMenuController extends AdminController
         }
 
         /** @var CoreMenuItem[] $items */
-        $items = _model('core_menu_item')
+        $items = \Phpfox::model('core_menu_item')
             ->select()
             ->where('id in ?', $keys)
             ->all();
@@ -62,16 +62,16 @@ class AdminMenuController extends AdminController
             $item->setParentName($value['parent']);
             $item->save();
         }
-        _trigger('onSettingChanges');
+        \Phpfox::trigger('onSettingChanges');
     }
 
     public function actionEditItem()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $itemId = $request->get('item_id');
 
         /** @var CoreMenuItem $menuItem */
-        $menuItem = _model('core_menu_item')
+        $menuItem = \Phpfox::model('core_menu_item')
             ->findById($itemId);
 
         $form = new EditCoreMenuItem();
@@ -84,7 +84,7 @@ class AdminMenuController extends AdminController
             $menuItem->fromArray($form->getData());
             $menuItem->save();
 
-            _redirect('admin.core.menu', ['action' => 'edit', 'menu_id' => $menuItem->getMenuId()]);
+            \Phpfox::redirect('admin.core.menu', ['action' => 'edit', 'menu_id' => $menuItem->getMenuId()]);
         }
 
         return new ViewModel([
@@ -95,7 +95,7 @@ class AdminMenuController extends AdminController
     public function actionAddItem()
     {
         $form = new AddCoreMenuItem([]);
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $menuId = $request->get('menu_id');
 
         if ($request->isGet()) {
@@ -115,7 +115,7 @@ class AdminMenuController extends AdminController
                 'extra'       => '[]',
             ]);
             $entry->save();
-            _redirect('admin.core.menu', ['action' => 'edit', 'menu_id' => $menuId]);
+            \Phpfox::redirect('admin.core.menu', ['action' => 'edit', 'menu_id' => $menuId]);
         }
 
         return new ViewModel(['form' => $form], 'layout/form-edit');
@@ -123,18 +123,18 @@ class AdminMenuController extends AdminController
 
     public function actionDeleteItem()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $itemId = $request->get('item_id');
 
         /** @var CoreMenuItem $menuItem */
-        $menuItem = _model('core_menu_item')
+        $menuItem = \Phpfox::model('core_menu_item')
             ->findById($itemId);
 
         if (!$menuItem) {
             exit(1);
         }
 
-        $hasChildren = _model('core_menu_item')
+        $hasChildren = \Phpfox::model('core_menu_item')
                 ->select()
                 ->where('menu_id=?', $menuItem->getMenuId())
                 ->where('parent_name=?', $menuItem->getName())
@@ -158,10 +158,10 @@ class AdminMenuController extends AdminController
     public function actionEdit()
     {
 
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $menuId = $request->get('menu_id');
         $data = [];
-        $items = _get('db')
+        $items = \Phpfox::get('db')
             ->select('*')
             ->from(':core_menu_item')
             ->where('menu_id=?', trim($menuId))
@@ -192,10 +192,10 @@ class AdminMenuController extends AdminController
 
         $menuContent = $navigation->render('edit');
 
-        _get('require_js')
+        \Phpfox::get('require_js')
             ->deps('package/core/menu-editor');
 
-        _get('menu.admin.buttons')->clear()->add([
+        \Phpfox::get('menu.admin.buttons')->clear()->add([
             'label' => _text('Add Item', '_core.menu'),
             'href'  => _url('admin.core.menu', ['action' => 'add-item', 'menu_id' => $menuId]),
             'extra' => ['class' => 'btn btn-danger', 'data-cmd' => 'modal'],

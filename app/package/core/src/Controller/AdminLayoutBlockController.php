@@ -13,21 +13,21 @@ class AdminLayoutBlockController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('menu.admin.secondary')
+        \Phpfox::get('menu.admin.secondary')
             ->load('_core.layout');
     }
 
     public function actionAdd()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $locationId = $request->get('location_id');
         $containerId = $request->get('container_id');
 
         /** @var LayoutContainer $container */
-        $container = _find('layout_container', $containerId);
+        $container = \Phpfox::find('layout_container', $containerId);
 
         /** @var LayoutPage $page */
-        $page = _find('layout_page', $container->getPageId());
+        $page = \Phpfox::find('layout_page', $container->getPageId());
 
         $form = new AddLayoutBlock([
             'locationId'  => $locationId,
@@ -48,14 +48,14 @@ class AdminLayoutBlockController extends AdminController
             ]);
 
             /** @var LayoutBlock $entry */
-            $entry = _model('layout_block')
+            $entry = \Phpfox::model('layout_block')
                 ->create($data);
 
             $entry->save();
 
-            _get('shared.cache')->flush();
+            \Phpfox::get('shared.cache')->flush();
 
-            _redirect('admin.core.layout.page', [
+            \Phpfox::redirect('admin.core.layout.page', [
                 'action'    => 'design',
                 'action_id' => $page->getActionId(),
             ]);
@@ -69,13 +69,13 @@ class AdminLayoutBlockController extends AdminController
 
     public function actionEdit()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $id = $request->get('id');
 
         $form = new EditLayoutBlock([]);
 
         /** @var LayoutBlock $entry */
-        $entry = _model('layout_block')->findById($id);
+        $entry = \Phpfox::model('layout_block')->findById($id);
 
         if ($request->isGet()) {
             $form->populate($entry);
@@ -93,23 +93,23 @@ class AdminLayoutBlockController extends AdminController
 
     public function actionEnable()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $blockId = $request->get('block_id');
 
         /** @var LayoutBlock $block */
-        $block = _find('layout_block', $blockId);
+        $block = \Phpfox::find('layout_block', $blockId);
 
-        $container = _find('layout_container', $block->getContainerId());
+        $container = \Phpfox::find('layout_container', $block->getContainerId());
 
         /** @var LayoutPage $page */
-        $page = _find('layout_page', $container->getPageId());
+        $page = \Phpfox::find('layout_page', $container->getPageId());
 
         $block->setActive(1);
         $block->save();
 
-        _get('shared.cache')->flush();
+        \Phpfox::get('shared.cache')->flush();
 
-        _redirect('admin.core.layout.page', [
+        \Phpfox::redirect('admin.core.layout.page', [
             'action'    => 'design',
             'action_id' => $page->getActionId(),
         ]);
@@ -117,23 +117,23 @@ class AdminLayoutBlockController extends AdminController
 
     public function actionSettings()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $blockId = $request->get('block_id');
 
         /** @var LayoutBlock $block */
-        $block = _find('layout_block', $blockId);
+        $block = \Phpfox::find('layout_block', $blockId);
 
-        $container = _find('layout_container', $block->getContainerId());
+        $container = \Phpfox::find('layout_container', $block->getContainerId());
 
         /** @var LayoutPage $page */
-        $page = _find('layout_page', $container->getPageId());
+        $page = \Phpfox::find('layout_page', $container->getPageId());
 
         $block->setActive(1);
         $block->save();
 
-        _get('shared.cache')->flush();
+        \Phpfox::get('shared.cache')->flush();
 
-        _redirect('admin.core.layout.page', [
+        \Phpfox::redirect('admin.core.layout.page', [
             'action'    => 'design',
             'action_id' => $page->getActionId(),
         ]);
@@ -141,23 +141,23 @@ class AdminLayoutBlockController extends AdminController
 
     public function actionDisable()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $blockId = $request->get('block_id');
 
         /** @var LayoutBlock $block */
-        $block = _find('layout_block', $blockId);
+        $block = \Phpfox::find('layout_block', $blockId);
 
-        $container = _find('layout_container', $block->getContainerId());
+        $container = \Phpfox::find('layout_container', $block->getContainerId());
 
         /** @var LayoutPage $page */
-        $page = _find('layout_page', $container->getPageId());
+        $page = \Phpfox::find('layout_page', $container->getPageId());
 
         $block->setActive(0);
         $block->save();
 
-        _get('shared.cache')->flush();
+        \Phpfox::get('shared.cache')->flush();
 
-        _redirect('admin.core.layout.action.page', [
+        \Phpfox::redirect('admin.core.layout.action.page', [
             'action'    => 'design',
             'action_id' => $page->getActionId(),
         ]);
@@ -166,21 +166,21 @@ class AdminLayoutBlockController extends AdminController
 
     public function actionDelete()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $blockId = $request->get('block_id');
 
         /** @var LayoutBlock $block */
-        $block = _find('layout_block', $blockId);
+        $block = \Phpfox::find('layout_block', $blockId);
 
-        $container = _find('layout_container', $block->getContainerId());
+        $container = \Phpfox::find('layout_container', $block->getContainerId());
         /** @var LayoutPage $page */
-        $page = _find('layout_page', $container->getPageId());
+        $page = \Phpfox::find('layout_page', $container->getPageId());
 
         $block->delete();
 
-        _get('shared.cache')->flush();
+        \Phpfox::get('shared.cache')->flush();
 
-        _redirect('admin.core.layout.action.page', [
+        \Phpfox::redirect('admin.core.layout.action.page', [
             'action'    => 'design',
             'action_id' => $page->getActionId(),
         ]);

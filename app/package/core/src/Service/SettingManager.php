@@ -71,7 +71,7 @@ class SettingManager
         }
 
         /** @var SettingValue $entry */
-        $entry = _model('setting_value')
+        $entry = \Phpfox::model('setting_value')
             ->select()
             ->where('domain_id=?', (string)$group)
             ->where('name=?', (string)$name)
@@ -85,7 +85,7 @@ class SettingManager
         $entry->setValueActual(json_encode($value));
         $entry->save();
 
-        _trigger('onSettingsChanged');
+        \Phpfox::trigger('onSettingsChanged');
 
         return true;
     }
@@ -101,7 +101,7 @@ class SettingManager
         $result = [];
         foreach ($domains as $domain => $names) {
             /** @var SettingValue[] $entries */
-            $entries = _model('setting_value')
+            $entries = \Phpfox::model('setting_value')
                 ->select()
                 ->where('domain_id=?', (string)$domain)
                 ->where('name in ?', $names)
@@ -125,7 +125,7 @@ class SettingManager
             $keys = array_keys($values);
 
             /** @var SettingValue[] $entries */
-            $entries = _model('setting_value')
+            $entries = \Phpfox::model('setting_value')
                 ->select()
                 ->where('domain_id=?', (string)$domain)
                 ->where('name in ?', $keys)
@@ -139,7 +139,7 @@ class SettingManager
         }
 
 
-        _trigger('onSettingsChanged');
+        \Phpfox::trigger('onSettingsChanged');
 
         return true;
     }
@@ -147,7 +147,7 @@ class SettingManager
     public function updateSettingRevision()
     {
         /** @var SettingValue $entries */
-        $entry = _model('setting_value')
+        $entry = \Phpfox::model('setting_value')
             ->select()
             ->where('domain_id=?', 'core')
             ->where('name=?', 'setting_version')
@@ -156,7 +156,7 @@ class SettingManager
         $value = time();
 
         if (!$entry) {
-            $entry = _model('setting_value')
+            $entry = \Phpfox::model('setting_value')
                 ->create([
                     'package_id'   => 'core',
                     'form_id'      => 'core_general',

@@ -6,7 +6,14 @@ class ReportItemTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new ReportItem(array (  'item_id' => 86,  'category_id' => 0,  'message' => 'message content',  'user_id' => 100,  'about_id' => 21,  'about_type' => 'user',  'created_at' => '0000-00-00 00:00:00',));
+        $obj = new ReportItem(['item_id'     => 86,
+                               'category_id' => 0,
+                               'message'     => 'message content',
+                               'user_id'     => 100,
+                               'about_id'    => 21,
+                               'about_type'  => 'user',
+                               'created_at'  => '0000-00-00 00:00:00',
+        ]);
 
         $this->assertSame('report_item', $obj->getModelId());
         $this->assertSame(86, $obj->getId());
@@ -44,13 +51,20 @@ class ReportItemTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new ReportItem(array (  'item_id' => 86,  'category_id' => 0,  'message' => 'message content',  'user_id' => 100,  'about_id' => 21,  'about_type' => 'user',  'created_at' => '0000-00-00 00:00:00',));
+        $obj = new ReportItem(['item_id'     => 86,
+                               'category_id' => 0,
+                               'message'     => 'message content',
+                               'user_id'     => 100,
+                               'about_id'    => 21,
+                               'about_type'  => 'user',
+                               'created_at'  => '0000-00-00 00:00:00',
+        ]);
 
         $obj->save();
 
         /** @var ReportItem $obj */
-        $obj = _model('report_item')
-            ->select()->where('item_id=?',86)->first();
+        $obj = \Phpfox::model('report_item')
+            ->select()->where('item_id=?', 86)->first();
 
         $this->assertSame('report_item', $obj->getModelId());
         $this->assertSame(86, $obj->getId());
@@ -64,13 +78,13 @@ class ReportItemTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _model('report_item')
-            ->delete()->where('item_id=?',86)->execute();
+        \Phpfox::model('report_item')
+            ->delete()->where('item_id=?', 86)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('report_item')
-            ->delete()->where('item_id=?',86)->execute();
+        \Phpfox::model('report_item')
+            ->delete()->where('item_id=?', 86)->execute();
     }
 }

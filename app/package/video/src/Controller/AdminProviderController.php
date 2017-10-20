@@ -6,19 +6,18 @@ use Neutron\Core\Controller\AdminController;
 use Neutron\Core\Process\AdminEditSettingsProcess;
 use Neutron\Core\Process\AdminListEntryProcess;
 use Neutron\Video\Model\VideoProvider;
-use Phpfox\Form\Form;
 
 class AdminProviderController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Videos'));
 
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set(['href' => _url('admin.video'), 'label' => _text('Videos')]);
 
-        _get('menu.admin.secondary')->load('admin', 'video');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'video');
     }
 
     public function actionIndex()
@@ -34,12 +33,12 @@ class AdminProviderController extends AdminController
 
     public function actionEdit()
     {
-        $req = _get('request');
+        $req = \Phpfox::get('request');
         $identity = $req->get('provider_id');
 
 
         /** @var VideoProvider $entry */
-        $entry = _find('video_provider', $identity);
+        $entry = \Phpfox::find('video_provider', $identity);
 
 
         return (new AdminEditSettingsProcess(

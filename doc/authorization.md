@@ -19,7 +19,7 @@ Call pattern
 ```php
 _can($roleId, $actionId): check permission only
 _pass($resource, $user, $action): check permission + privacy
-_allow(): check only privacy
+\Phpfox::allow(): check only privacy
 ```
 
 AS you see in `_pass` method, there are convention rules between permission `action_name` and privacy `privacy_name` (comment, view, like, share ...)

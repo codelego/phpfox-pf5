@@ -1,11 +1,12 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class ProfileSectionTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new ProfileSection(array (  'section_id' => 1,  'process_id' => 1,  'section_label' => 'Test',  'ordering' => 1,  'is_active' => 1,  'dependencies' => '[]',));
+        $obj = new ProfileSection(['section_id' => 1, 'process_id' => 1, 'section_label' => 'Test', 'ordering' => 1, 'is_active' => 1, 'dependencies' => '[]',]);
 
         $this->assertSame('profile_section', $obj->getModelId());
         $this->assertSame(1, $obj->getSectionId());
@@ -13,7 +14,8 @@ class ProfileSectionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('Test', $obj->getSectionLabel());
         $this->assertSame(1, $obj->getOrdering());
         $this->assertSame(1, $obj->isActive());
-        $this->assertSame('[]', $obj->getDependencies());    }
+        $this->assertSame('[]', $obj->getDependencies());
+    }
 
     public function testParameters()
     {
@@ -33,17 +35,18 @@ class ProfileSectionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('Test', $obj->getSectionLabel());
         $this->assertSame(1, $obj->getOrdering());
         $this->assertSame(1, $obj->isActive());
-        $this->assertSame('[]', $obj->getDependencies());    }
+        $this->assertSame('[]', $obj->getDependencies());
+    }
 
     public function testSave()
     {
-        $obj = new ProfileSection(array (  'section_id' => 1,  'process_id' => 1,  'section_label' => 'Test',  'ordering' => 1,  'is_active' => 1,  'dependencies' => '[]',));
+        $obj = new ProfileSection(['section_id' => 1, 'process_id' => 1, 'section_label' => 'Test', 'ordering' => 1, 'is_active' => 1, 'dependencies' => '[]',]);
 
         $obj->save();
 
         /** @var ProfileSection $obj */
-        $obj = _model('profile_section')
-            ->select()->where('section_id=?',1)->first();
+        $obj = \Phpfox::model('profile_section')
+            ->select()->where('section_id=?', 1)->first();
 
         $this->assertSame('profile_section', $obj->getModelId());
         $this->assertSame(1, $obj->getSectionId());
@@ -51,17 +54,18 @@ class ProfileSectionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('Test', $obj->getSectionLabel());
         $this->assertSame(1, $obj->getOrdering());
         $this->assertSame(1, $obj->isActive());
-        $this->assertSame('[]', $obj->getDependencies());    }
+        $this->assertSame('[]', $obj->getDependencies());
+    }
 
     public static function setUpBeforeClass()
     {
-        _model('profile_section')
-            ->delete()->where('section_id=?',1)->execute();
+        \Phpfox::model('profile_section')
+            ->delete()->where('section_id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('profile_section')
-            ->delete()->where('section_id=?',1)->execute();
+        \Phpfox::model('profile_section')
+            ->delete()->where('section_id=?', 1)->execute();
     }
 }

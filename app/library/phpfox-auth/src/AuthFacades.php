@@ -22,12 +22,12 @@ class AuthFacades
      */
     public function __construct()
     {
-        _get('auth.storage')->initialize($this);
+        \Phpfox::get('auth.storage')->initialize($this);
     }
 
     protected function initialize()
     {
-        _trigger('onAuthInit', $this);
+        \Phpfox::trigger('onAuthInit', $this);
     }
 
     /**
@@ -40,7 +40,7 @@ class AuthFacades
      */
     public function authenticate($id, $identity, $credential, $extra)
     {
-        return _get('auth.factory')->factory($id)
+        return \Phpfox::get('auth.factory')->factory($id)
             ->authenticate($identity, $credential, $extra);
     }
 
@@ -56,7 +56,7 @@ class AuthFacades
         $this->user = $user;
         $this->loginUser = $user;
 
-        _trigger('onUserLogin', $user);
+        \Phpfox::trigger('onUserLogin', $user);
 
         $this->remember($remember);
 
@@ -75,20 +75,20 @@ class AuthFacades
             $userId = $user->getId();
         }
 
-        _get('auth.storage')
+        \Phpfox::get('auth.storage')
             ->remember($loginId, $userType, $userId, $remember);
     }
 
     protected function forgot()
     {
-        _get('auth.storage')->forgot();
+        \Phpfox::get('auth.storage')->forgot();
     }
 
     public function logout()
     {
         $this->user = null;
         $this->loginUser = null;
-        _get('auth.storage')->forgot();
+        \Phpfox::get('auth.storage')->forgot();
     }
 
     /**
@@ -132,7 +132,7 @@ class AuthFacades
     public function setLoginUser($loginUser)
     {
         $this->loginUser = $loginUser;
-        _trigger('onLoginUser', $loginUser);
+        \Phpfox::trigger('onLoginUser', $loginUser);
     }
 
     public function isLoggedIn()

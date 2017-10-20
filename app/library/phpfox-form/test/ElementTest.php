@@ -40,7 +40,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
             'param1'  => 'value1',
             'param2'  => 'value2',
             'example' => 'example-value',
-            'label'=> 'input label',
+            'label'   => 'input label',
         ], $obj->getParams());
         $this->assertNull($obj->getParam('param3'));
         $this->assertEquals('example-value', $obj->getParam('example'));

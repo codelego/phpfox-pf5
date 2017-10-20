@@ -8,7 +8,7 @@ class ContactUs extends Form
 {
     protected function initialize()
     {
-        $contactService = _get('contact_us');
+        $contactService = \Phpfox::get('contact_us');
         $this->addElements([
             [
                 'name'     => 'department_id',
@@ -20,28 +20,28 @@ class ContactUs extends Form
                 'options'  => $contactService->getActiveDepartmentOptions(),
             ],
             [
-                'name'       => 'name',
-                'factory'    => 'text',
-                'required'   => true,
-                'label'      => _text('Name', 'contact-form'),
+                'name'     => 'name',
+                'factory'  => 'text',
+                'required' => true,
+                'label'    => _text('Name', 'contact-form'),
             ],
             [
-                'name'       => 'email',
-                'factory'    => 'text',
-                'required'   => true,
-                'label'      => _text('Email', 'contact-form'),
+                'name'     => 'email',
+                'factory'  => 'text',
+                'required' => true,
+                'label'    => _text('Email', 'contact-form'),
             ],
             [
-                'name'       => 'subject',
-                'factory'    => 'text',
-                'required'   => true,
-                'label'      => _text('Subject', 'contact-form'),
+                'name'     => 'subject',
+                'factory'  => 'text',
+                'required' => true,
+                'label'    => _text('Subject', 'contact-form'),
             ],
             [
-                'name'       => 'message',
-                'factory'    => 'textarea',
-                'required'   => true,
-                'label'      => _text('Message', 'contact-form'),
+                'name'     => 'message',
+                'factory'  => 'textarea',
+                'required' => true,
+                'label'    => _text('Message', 'contact-form'),
             ],
         ]);
     }

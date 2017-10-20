@@ -13,7 +13,7 @@ class ContactUsController extends ActionController
         $form = new ContactUs();
 
         return new ViewModel([
-            'form'    => $form,
+            'form' => $form,
         ], 'contact/index/index');
     }
 }

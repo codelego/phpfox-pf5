@@ -26,7 +26,7 @@ class Pagination
      */
     public function getDecorator($name)
     {
-        $class = _param('pagination.decorators', $name);
+        $class = \Phpfox::param('pagination.decorators', $name);
 
         if (!$class) {
             throw new \InvalidArgumentException("Oops! Pagination decorator '{$name}' does not exists.");

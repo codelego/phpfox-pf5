@@ -48,8 +48,8 @@ class RequireJs
 
     public function __construct()
     {
-        $this->_shim = _param('requirejs.shim');
-        $this->_paths = _param('requirejs.paths');
+        $this->_shim = \Phpfox::param('requirejs.shim');
+        $this->_paths = \Phpfox::param('requirejs.paths');
     }
 
     /**
@@ -265,7 +265,7 @@ class RequireJs
      */
     public function renderConfig()
     {
-        _trigger('onBeforeJavascriptRender', $this);
+        \Phpfox::trigger('onBeforeJavascriptRender', $this);
 
         $config = [
             'baseUrl'     => $this->getBaseUrl(),

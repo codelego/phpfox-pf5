@@ -16,7 +16,7 @@ class AbstractGenerator
         }
 
         $filename = PHPFOX_DIR . $filename;
-        
+
         file_put_contents($filename, $data);
 
         if (file_exists($filename)) {

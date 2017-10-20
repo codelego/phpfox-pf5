@@ -1,11 +1,23 @@
 <?php
+
 namespace Neutron\Dev\Model;
 
 class DevFormTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new DevForm(array (  'id' => 9,  'package_id' => 'core',  'table_name' => 'acl_perm_allow',  'action_type' => 'admin_add',  'action_id' => 'delete',  'text_domain' => NULL,  'form_title' => NULL,  'form_info' => NULL,  'data_submit' => NULL,  'cancel_url' => NULL,  'action_url' => NULL,));
+        $obj = new DevForm(['id'          => 9,
+                            'package_id'  => 'core',
+                            'table_name'  => 'acl_perm_allow',
+                            'action_type' => 'admin_add',
+                            'action_id'   => 'delete',
+                            'text_domain' => null,
+                            'form_title'  => null,
+                            'form_info'   => null,
+                            'data_submit' => null,
+                            'cancel_url'  => null,
+                            'action_url'  => null,
+        ]);
 
         $this->assertSame('dev_form', $obj->getModelId());
         $this->assertSame(9, $obj->getId());
@@ -18,7 +30,8 @@ class DevFormTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getFormInfo());
         $this->assertSame('', $obj->getDataSubmit());
         $this->assertSame('', $obj->getCancelUrl());
-        $this->assertSame('', $obj->getActionUrl());    }
+        $this->assertSame('', $obj->getActionUrl());
+    }
 
     public function testParameters()
     {
@@ -48,17 +61,29 @@ class DevFormTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getFormInfo());
         $this->assertSame('', $obj->getDataSubmit());
         $this->assertSame('', $obj->getCancelUrl());
-        $this->assertSame('', $obj->getActionUrl());    }
+        $this->assertSame('', $obj->getActionUrl());
+    }
 
     public function testSave()
     {
-        $obj = new DevForm(array (  'id' => 9,  'package_id' => 'core',  'table_name' => 'acl_perm_allow',  'action_type' => 'admin_add',  'action_id' => 'delete',  'text_domain' => NULL,  'form_title' => NULL,  'form_info' => NULL,  'data_submit' => NULL,  'cancel_url' => NULL,  'action_url' => NULL,));
+        $obj = new DevForm(['id'          => 9,
+                            'package_id'  => 'core',
+                            'table_name'  => 'acl_perm_allow',
+                            'action_type' => 'admin_add',
+                            'action_id'   => 'delete',
+                            'text_domain' => null,
+                            'form_title'  => null,
+                            'form_info'   => null,
+                            'data_submit' => null,
+                            'cancel_url'  => null,
+                            'action_url'  => null,
+        ]);
 
         $obj->save();
 
         /** @var DevForm $obj */
-        $obj = _model('dev_form')
-            ->select()->where('id=?',9)->first();
+        $obj = \Phpfox::model('dev_form')
+            ->select()->where('id=?', 9)->first();
 
         $this->assertSame('dev_form', $obj->getModelId());
         $this->assertSame(9, $obj->getId());
@@ -71,17 +96,18 @@ class DevFormTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $obj->getFormInfo());
         $this->assertSame('', $obj->getDataSubmit());
         $this->assertSame('', $obj->getCancelUrl());
-        $this->assertSame('', $obj->getActionUrl());    }
+        $this->assertSame('', $obj->getActionUrl());
+    }
 
     public static function setUpBeforeClass()
     {
-        _model('dev_form')
-            ->delete()->where('id=?',9)->execute();
+        \Phpfox::model('dev_form')
+            ->delete()->where('id=?', 9)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('dev_form')
-            ->delete()->where('id=?',9)->execute();
+        \Phpfox::model('dev_form')
+            ->delete()->where('id=?', 9)->execute();
     }
 }

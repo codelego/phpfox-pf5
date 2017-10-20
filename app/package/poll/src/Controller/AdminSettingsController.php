@@ -10,13 +10,13 @@ class AdminSettingsController extends AdminController
 
     protected function afterInitialize()
     {
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Polls'));
 
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set(['href' => _url('admin.poll'), 'label' => _text('Polls')]);
 
-        _get('menu.admin.secondary')->load('admin', 'poll');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'poll');
     }
 
 

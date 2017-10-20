@@ -6,11 +6,11 @@ use Neutron\Core\Model\AclAction;
 use Neutron\Core\Model\AclForm;
 use Neutron\Core\Model\SettingForm;
 use Neutron\Core\Model\SettingValue;
-use Neutron\Dev\FormPermissionGenerator;
 use Neutron\Dev\FormAdminAddGenerator;
 use Neutron\Dev\FormAdminDeleteGenerator;
 use Neutron\Dev\FormAdminEditGenerator;
 use Neutron\Dev\FormAdminFilterGenerator;
+use Neutron\Dev\FormPermissionGenerator;
 use Neutron\Dev\FormSettingGenerator;
 use Neutron\Dev\Model\DevAction;
 use Neutron\Dev\Model\DevElement;
@@ -67,7 +67,7 @@ class CodeGenerator
     {
         $this->dbTables = array_map(function ($tableName) {
             return substr($tableName, strlen(PHPFOX_TABLE_PREFIX));
-        }, _get('db')->tables());
+        }, \Phpfox::get('db')->tables());
     }
 
     /**
@@ -75,7 +75,7 @@ class CodeGenerator
      */
     public function getAclForms()
     {
-        return _model('acl_form')
+        return \Phpfox::model('acl_form')
             ->select('form_id')
             ->all();
     }
@@ -85,7 +85,7 @@ class CodeGenerator
      */
     public function getSiteSettingForm()
     {
-        return _model('setting_form')
+        return \Phpfox::model('setting_form')
             ->select()
             ->all();
     }
@@ -102,7 +102,7 @@ class CodeGenerator
         }
 
         /** @var DevAction[] $devActions */
-        $devActions = _model('dev_action')
+        $devActions = \Phpfox::model('dev_action')
             ->select()
             ->where('meta_id in ?', $selected)
             ->where('action_type <> ?', 'skip')
@@ -163,7 +163,7 @@ class CodeGenerator
 
         foreach ($formTypes as $actionType) {
             foreach ($tables as $tableName) {
-                $entry = _model('dev_action')
+                $entry = \Phpfox::model('dev_action')
                     ->select()
                     ->where('action_type=?', $actionType)
                     ->where('table_name=?', $tableName)
@@ -173,7 +173,7 @@ class CodeGenerator
                     continue;
                 }
 
-                _model('dev_action')
+                \Phpfox::model('dev_action')
                     ->create([
                         'action_type' => $actionType,
                         'table_name'  => $tableName,
@@ -182,14 +182,14 @@ class CodeGenerator
         }
 
         foreach ($tables as $tableName) {
-            $entry = _model('dev_table')
+            $entry = \Phpfox::model('dev_table')
                 ->findById($tableName);
 
             if ($entry) {
                 continue;
             }
 
-            _model('dev_table')
+            \Phpfox::model('dev_table')
                 ->create([
                     'table_name' => $tableName,
                 ])->save();
@@ -219,7 +219,7 @@ class CodeGenerator
         $actionType = self::FORM_SITE_SETTINGS;
 
         foreach ($this->getSiteSettingForm() as $settingForm) {
-            $entry = _model('dev_action')
+            $entry = \Phpfox::model('dev_action')
                 ->select()
                 ->where('action_type=?', $actionType)
                 ->where('table_name=?', $settingForm->getId())
@@ -229,7 +229,7 @@ class CodeGenerator
                 continue;
             }
 
-            _model('dev_action')
+            \Phpfox::model('dev_action')
                 ->create([
                     'package_id'  => $settingForm->getPackageId(),
                     'text_domain' => 'admin.' . $settingForm->getFormId() . '_setting',
@@ -244,7 +244,7 @@ class CodeGenerator
         $actionType = self::FORM_SITE_SETTINGS;
         foreach ($this->getSiteSettingForm() as $settingForm) {
             /** @var DevAction $devAction */
-            $devAction = _model('dev_action')
+            $devAction = \Phpfox::model('dev_action')
                 ->select()
                 ->where('action_type=?', $actionType)
                 ->where('table_name=?', $settingForm->getFormId())
@@ -262,7 +262,7 @@ class CodeGenerator
         $actionType = self::FORM_ACL_SETTINGS;
 
         foreach ($this->getAclForms() as $settingForm) {
-            $entry = _model('dev_action')
+            $entry = \Phpfox::model('dev_action')
                 ->select()
                 ->where('action_type=?', $actionType)
                 ->where('table_name=?', $settingForm->getFormId())
@@ -272,7 +272,7 @@ class CodeGenerator
                 continue;
             }
 
-            _model('dev_action')
+            \Phpfox::model('dev_action')
                 ->create([
                     'package_id'  => $settingForm->getPackageId(),
                     'text_domain' => '_' . $settingForm->getPackageId() . '.' . $settingForm->getFormId() . '_acl',
@@ -287,7 +287,7 @@ class CodeGenerator
         $actionType = self::FORM_ACL_SETTINGS;
         foreach ($this->getAclForms() as $aclForm) {
             /** @var DevAction $devAction */
-            $devAction = _model('dev_action')
+            $devAction = \Phpfox::model('dev_action')
                 ->select()
                 ->where('action_type=?', $actionType)
                 ->where('table_name=?', $aclForm->getFormId())
@@ -306,7 +306,7 @@ class CodeGenerator
     protected function upgradeElements()
     {
         /** @var DevTable[] $devTables */
-        $devTables = _model('dev_table')
+        $devTables = \Phpfox::model('dev_table')
             ->select()
             ->where('package_id<>?', 'undefined')
             ->all();
@@ -331,7 +331,7 @@ class CodeGenerator
 
     public function getActionByTableName($tableName)
     {
-        return _model('dev_action')
+        return \Phpfox::model('dev_action')
             ->select()
             ->where('table_name=?', $tableName)
             ->all();
@@ -349,7 +349,7 @@ class CodeGenerator
 
 
         /** @var DevElement[] $elements */
-        $elements = _model('dev_element')
+        $elements = \Phpfox::model('dev_element')
             ->select()
             ->where('meta_id=?', $devAction->getMetaId())
             ->all();
@@ -386,7 +386,7 @@ class CodeGenerator
             }
 
 
-            _model('dev_element')
+            \Phpfox::model('dev_element')
                 ->create([
                     'meta_id'        => $devAction->getMetaId(),
                     'package_id'     => $devAction->getPackageId(),
@@ -411,7 +411,7 @@ class CodeGenerator
         if ($devAction->getActionType() == 'admin_filter') {
             // add query options
             /** @var DevElement[] $elements */
-            $queryElement = _model('dev_element')
+            $queryElement = \Phpfox::model('dev_element')
                 ->select()
                 ->where('meta_id=?', $devAction->getMetaId())
                 ->where('element_name=?', 'q')
@@ -420,7 +420,7 @@ class CodeGenerator
             if ($queryElement) {
 
             } else {
-                _model('dev_element')
+                \Phpfox::model('dev_element')
                     ->create([
                         'meta_id'        => $devAction->getMetaId(),
                         'package_id'     => $devAction->getPackageId(),
@@ -452,7 +452,7 @@ class CodeGenerator
     protected function updateElementsBySiteSettingsForm($devAction, $settingForm)
     {
         if (null == $settingForm) {
-            $settingForm = _model('setting_form')
+            $settingForm = \Phpfox::model('setting_form')
                 ->findById($devAction->getTableName());
         }
 
@@ -461,7 +461,7 @@ class CodeGenerator
         }
 
         /** @var SettingValue[] $settingValues */
-        $settingValues = _model('setting_value')
+        $settingValues = \Phpfox::model('setting_value')
             ->select()
             ->where('form_id=?', $settingForm->getFormId())
             ->order('ordering', 1)
@@ -470,7 +470,7 @@ class CodeGenerator
         foreach ($settingValues as $settingValue) {
             $elementName = $settingValue->getDomainId() . '__' . $settingValue->getName();
             /** @var DevElement $devElement */
-            $devElement = _model('dev_element')
+            $devElement = \Phpfox::model('dev_element')
                 ->select()
                 ->where('meta_id=?', $devAction->getMetaId())
                 ->where('element_name=?', $elementName)
@@ -508,7 +508,7 @@ class CodeGenerator
                 $factoryId = 'yesno';
             }
 
-            $devAction = _model('dev_element')
+            $devAction = \Phpfox::model('dev_element')
                 ->create([
                     'meta_id'      => $devAction->getMetaId(),
                     'factory_id'   => $factoryId,
@@ -532,14 +532,14 @@ class CodeGenerator
     protected function updateElementsByAclSettingForm($devAction, $aclForm)
     {
         if (!$aclForm) {
-            $aclForm = _model('acl_form')
+            $aclForm = \Phpfox::model('acl_form')
                 ->select()
                 ->where('form_id=?', $devAction->getTableName())
                 ->first();
         }
 
         /** @var AclAction[] $settingActions */
-        $settingActions = _model('acl_action')
+        $settingActions = \Phpfox::model('acl_action')
             ->select()
             ->where('form_id=?', $aclForm->getId())
             ->all();
@@ -548,7 +548,7 @@ class CodeGenerator
             $elementName = $settingAction->getDomainId() . '__' . $settingAction->getName();
 
             /** @var DevElement $devElement */
-            $devElement = _model('dev_element')
+            $devElement = \Phpfox::model('dev_element')
                 ->select()
                 ->where('meta_id=?', $devAction->getMetaId())
                 ->where('element_name=?', $elementName)
@@ -563,7 +563,7 @@ class CodeGenerator
                 return ucfirst($v);
             }, explode('_', $settingAction->getName())));
 
-            $devElement = _model('dev_element')
+            $devElement = \Phpfox::model('dev_element')
                 ->create([
                     'meta_id'      => $devAction->getMetaId(),
                     'element_name' => $elementName,
@@ -589,16 +589,16 @@ class CodeGenerator
 action_type IN (\'admin_add\',\'admin_edit\',\'admin_filter\',\'admin_delete\',\'model_class\')
 AND TABLE_NAME NOT IN (SELECT TABLE_NAME FROM pf5_dev_table);';
 
-        _get('db')->execute($sql);
+        \Phpfox::get('db')->execute($sql);
 
         $sql
             = 'UPDATE `pf5_dev_action`, `pf5_dev_table` SET pf5_dev_action.package_id = pf5_dev_table.package_id WHERE
 pf5_dev_action.`table_name` = pf5_dev_table.`table_name`';
 
-        _get('db')->execute($sql);
+        \Phpfox::get('db')->execute($sql);
 
         $sql = 'DELETE FROM pf5_dev_element WHERE meta_id NOT IN (SELECT meta_id FROM pf5_dev_action);';
 
-        _get('db')->execute($sql);
+        \Phpfox::get('db')->execute($sql);
     }
 }

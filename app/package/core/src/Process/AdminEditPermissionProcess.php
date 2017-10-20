@@ -72,7 +72,7 @@ class AdminEditPermissionProcess extends AbstractProcess
      */
     public function findAction($domainId, $name)
     {
-        return _model('acl_action')
+        return \Phpfox::model('acl_action')
             ->select()
             ->where('domain_id=?', $domainId)
             ->where('name=?', $name)
@@ -88,7 +88,7 @@ class AdminEditPermissionProcess extends AbstractProcess
     {
         $validate = $this->collectDomains($form);
 
-        $permissionFacades = _get('acl');
+        $permissionFacades = \Phpfox::get('acl');
 
 
         foreach ($validate as $domainId => $names) {
@@ -118,7 +118,7 @@ class AdminEditPermissionProcess extends AbstractProcess
 
     public function process()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
 
         $filter = new FilterPermissionLevel([
             'model' => $this->get('levelModel'),
@@ -133,7 +133,7 @@ class AdminEditPermissionProcess extends AbstractProcess
 
 
         /** @var AclForm $settingForm */
-        $settingForm = _find('acl_form', $formId);
+        $settingForm = \Phpfox::find('acl_form', $formId);
 
         if (!$settingForm) {
             throw new \InvalidArgumentException(_sprintf('Invalid group [{0}]', [$formId]));
@@ -153,7 +153,7 @@ class AdminEditPermissionProcess extends AbstractProcess
 
         if ($request->isGet()) {
 
-            $data = _get('core.permission')->getForEdit($itemType, $levelId, $this->collectDomains($form));
+            $data = \Phpfox::get('core.permission')->getForEdit($itemType, $levelId, $this->collectDomains($form));
 
             $form->populate($data);
         }
@@ -162,7 +162,7 @@ class AdminEditPermissionProcess extends AbstractProcess
 
             $data = $this->collectPostData($form);
 
-            _get('core.permission')->updateValues($itemType, $levelId, $data);
+            \Phpfox::get('core.permission')->updateValues($itemType, $levelId, $data);
         }
 
         $vm = new ViewModel(['form' => $form, 'filter' => $filter], 'core/admin-settings/edit-permission');

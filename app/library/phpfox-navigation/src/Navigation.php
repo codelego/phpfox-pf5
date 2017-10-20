@@ -57,7 +57,7 @@ class Navigation
         $this->menu = $menu;
 
         if ($this->menu) {
-            $this->data = _get('package.loader')->getNavigationParameter($menu, $partial)->all();
+            $this->data = \Phpfox::get('package.loader')->getNavigationParameter($menu, $partial)->all();
         }
         return $this;
     }
@@ -214,7 +214,7 @@ class Navigation
             return '';
         }
 
-        $class = _param('navigation.decorators', $decorator);
+        $class = \Phpfox::param('navigation.decorators', $decorator);
 
         if (!$class) {
             throw new \InvalidArgumentException("Oops! Navigation decorator '{$decorator}' does not exists.");

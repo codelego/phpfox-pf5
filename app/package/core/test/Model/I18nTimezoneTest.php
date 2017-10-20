@@ -1,11 +1,19 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class I18nTimezoneTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new I18nTimezone(array (  'timezone_id' => 'UTC-1',  'timezone_location' => 'Azores, Cape Verde Is.',  'is_active' => 1,  'ordering' => 12,  'timezone_code' => 'Atlantic/Azores',  'timezone_offset' => 'UTC-1',  'is_default' => 0,));
+        $obj = new I18nTimezone(['timezone_id'       => 'UTC-1',
+                                 'timezone_location' => 'Azores, Cape Verde Is.',
+                                 'is_active'         => 1,
+                                 'ordering'          => 12,
+                                 'timezone_code'     => 'Atlantic/Azores',
+                                 'timezone_offset'   => 'UTC-1',
+                                 'is_default'        => 0,
+        ]);
 
         $this->assertSame('i18n_timezone', $obj->getModelId());
         $this->assertSame('UTC-1', $obj->getTimezoneId());
@@ -14,7 +22,8 @@ class I18nTimezoneTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(12, $obj->getOrdering());
         $this->assertSame('Atlantic/Azores', $obj->getTimezoneCode());
         $this->assertSame('UTC-1', $obj->getTimezoneOffset());
-        $this->assertSame(0, $obj->isDefault());    }
+        $this->assertSame(0, $obj->isDefault());
+    }
 
     public function testParameters()
     {
@@ -36,17 +45,25 @@ class I18nTimezoneTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(12, $obj->getOrdering());
         $this->assertSame('Atlantic/Azores', $obj->getTimezoneCode());
         $this->assertSame('UTC-1', $obj->getTimezoneOffset());
-        $this->assertSame(0, $obj->isDefault());    }
+        $this->assertSame(0, $obj->isDefault());
+    }
 
     public function testSave()
     {
-        $obj = new I18nTimezone(array (  'timezone_id' => 'UTC-1',  'timezone_location' => 'Azores, Cape Verde Is.',  'is_active' => 1,  'ordering' => 12,  'timezone_code' => 'Atlantic/Azores',  'timezone_offset' => 'UTC-1',  'is_default' => 0,));
+        $obj = new I18nTimezone(['timezone_id'       => 'UTC-1',
+                                 'timezone_location' => 'Azores, Cape Verde Is.',
+                                 'is_active'         => 1,
+                                 'ordering'          => 12,
+                                 'timezone_code'     => 'Atlantic/Azores',
+                                 'timezone_offset'   => 'UTC-1',
+                                 'is_default'        => 0,
+        ]);
 
         $obj->save();
 
         /** @var I18nTimezone $obj */
-        $obj = _model('i18n_timezone')
-            ->select()->where('timezone_id=?','UTC-1')->first();
+        $obj = \Phpfox::model('i18n_timezone')
+            ->select()->where('timezone_id=?', 'UTC-1')->first();
 
         $this->assertSame('i18n_timezone', $obj->getModelId());
         $this->assertSame('UTC-1', $obj->getTimezoneId());
@@ -55,17 +72,18 @@ class I18nTimezoneTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(12, $obj->getOrdering());
         $this->assertSame('Atlantic/Azores', $obj->getTimezoneCode());
         $this->assertSame('UTC-1', $obj->getTimezoneOffset());
-        $this->assertSame(0, $obj->isDefault());    }
+        $this->assertSame(0, $obj->isDefault());
+    }
 
     public static function setUpBeforeClass()
     {
-        _model('i18n_timezone')
-            ->delete()->where('timezone_id=?','UTC-1')->execute();
+        \Phpfox::model('i18n_timezone')
+            ->delete()->where('timezone_id=?', 'UTC-1')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('i18n_timezone')
-            ->delete()->where('timezone_id=?','UTC-1')->execute();
+        \Phpfox::model('i18n_timezone')
+            ->delete()->where('timezone_id=?', 'UTC-1')->execute();
     }
 }

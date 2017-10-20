@@ -53,7 +53,7 @@ class HeadTitle implements HtmlElementInterface
     public function getHtml()
     {
         if (empty($this->data)) {
-            $this->data = [_setting('core.site_title')];
+            $this->data = [\Phpfox::setting('core.site_title')];
         }
         return '<title>' . $this->__toString() . '</title>';
     }

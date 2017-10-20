@@ -98,6 +98,6 @@ class MessageContainer
             return '';
         }
 
-        return _get('error_formater')->format($this, $type);
+        return \Phpfox::get('error_formater')->format($this, $type);
     }
 }

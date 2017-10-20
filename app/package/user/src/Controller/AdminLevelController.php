@@ -16,22 +16,22 @@ class AdminLevelController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set(['href' => _url('admin.user'), 'label' => _text('Members', 'admin'),])
             ->add(['href' => _url('admin.user.level'), 'label' => _text('Levels', 'admin'),]);
 
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Levels', '_core'));
 
-        _get('menu.admin.secondary')->load('admin','user');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'user');
 
-        _get('menu.admin.buttons')->load('_user.buttons');
+        \Phpfox::get('menu.admin.buttons')->load('_user.buttons');
     }
 
     protected function afterDispatch($action)
     {
         if (in_array($action, ['index'])) {
-            _get('menu.admin.buttons')->load('_core.acl.buttons');
+            \Phpfox::get('menu.admin.buttons')->load('_core.acl.buttons');
         }
     }
 

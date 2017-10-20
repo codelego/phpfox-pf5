@@ -29,7 +29,7 @@ class Router
      */
     protected function initialize()
     {
-        $parameters = _get('package.loader')->getRouteParameters();
+        $parameters = \Phpfox::get('package.loader')->getRouteParameters();
 
         $this->phrases = $parameters->get('phrases');
 

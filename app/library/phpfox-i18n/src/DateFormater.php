@@ -10,7 +10,7 @@ class DateFormater
     /**
      * @var string
      */
-    protected $locale =  'en_us';
+    protected $locale = 'en_us';
 
     /**
      * @var string
@@ -63,18 +63,18 @@ class DateFormater
         if (null != $full) {
             $this->full_pattern = $full;
         }
-        if (null != $long){
+        if (null != $long) {
             $this->long_pattern = $long;
         }
         if (null != $medium) {
             $this->medium_pattern = $medium;
         }
 
-        if (null != $short ) {
+        if (null != $short) {
             $this->short_pattern = $short;
         }
 
-        $this->formater = new IntlDateFormatter($this->locale, IntlDateFormatter::FULL, IntlDateFormatter::FULL, $this->timezone,$this->calendar);
+        $this->formater = new IntlDateFormatter($this->locale, IntlDateFormatter::FULL, IntlDateFormatter::FULL, $this->timezone, $this->calendar);
 
     }
 
@@ -86,7 +86,7 @@ class DateFormater
      */
     public function format($time, $type)
     {
-        if(!preg_match('/^\d+$/', $time)){
+        if (!preg_match('/^\d+$/', $time)) {
             $time = strtotime($time);
         }
 

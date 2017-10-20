@@ -71,7 +71,7 @@ class LikeTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var Like $obj */
-        $obj = _model('like')
+        $obj = \Phpfox::model('like')
             ->select()
             ->where('poster_id=?', 33)
             ->where('about_id=?', 2)
@@ -94,7 +94,7 @@ class LikeTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        _model('like')
+        \Phpfox::model('like')
             ->delete()
             ->where('poster_id=?', 33)
             ->where('about_id=?', 2)
@@ -105,7 +105,7 @@ class LikeTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _model('like')
+        \Phpfox::model('like')
             ->delete()
             ->where('poster_id=?', 33)
             ->where('about_id=?', 2)

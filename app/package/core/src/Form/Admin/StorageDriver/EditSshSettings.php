@@ -97,7 +97,7 @@ class EditSshSettings extends Form
             'value'    => 0,
             'label'    => _text('Is Active', 'admin.core_storage'),
             'info'     => _text('[Is Active Info]', 'admin.core_storage'),
-            'options'  => _get('core.storage')->getActiveIdOptions(),
+            'options'  => \Phpfox::get('core.storage')->getActiveIdOptions(),
             'required' => true,
         ]);
         /** end elements */

@@ -10,10 +10,10 @@ class EmbedVideo extends Form
     {
         $this->addElements([
             [
-                'factory'    => 'text',
-                'name'       => 'origin_url',
-                'label'      => _text('Video Url', 'video'),
-                'required'   => true,
+                'factory'  => 'text',
+                'name'     => 'origin_url',
+                'label'    => _text('Video Url', 'video'),
+                'required' => true,
             ],
         ]);
     }

@@ -70,7 +70,7 @@ class InviteTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var Invite $obj */
-        $obj = _model('invite')
+        $obj = \Phpfox::model('invite')
             ->select()->where('id=?', 'tad')->first();
 
         $this->assertSame('invite', $obj->getModelId());
@@ -86,13 +86,13 @@ class InviteTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _model('invite')
+        \Phpfox::model('invite')
             ->delete()->where('id=?', 'tad')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('invite')
+        \Phpfox::model('invite')
             ->delete()->where('id=?', 'tad')->execute();
     }
 }

@@ -6,7 +6,22 @@ class EventTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new Event(array (  'event_id' => 34,  'is_featured' => 1,  'is_sponsor' => 0,  'privacy_id' => 1,  'parent_id' => 33,  'poster_id' => 22,  'user_id' => 99,  'location_id' => 33,  'photo_id' => 17,  'start_at' => '2014-12-11 00:11:44',  'end_at' => '2014-12-12 00:11:44',  'created_at' => '2013-12-11 00:11:44',  'title' => 'exmple value test',  'poster_type' => 'user',  'parent_type' => 'pages',));
+        $obj = new Event(['event_id'    => 34,
+                          'is_featured' => 1,
+                          'is_sponsor'  => 0,
+                          'privacy_id'  => 1,
+                          'parent_id'   => 33,
+                          'poster_id'   => 22,
+                          'user_id'     => 99,
+                          'location_id' => 33,
+                          'photo_id'    => 17,
+                          'start_at'    => '2014-12-11 00:11:44',
+                          'end_at'      => '2014-12-12 00:11:44',
+                          'created_at'  => '2013-12-11 00:11:44',
+                          'title'       => 'exmple value test',
+                          'poster_type' => 'user',
+                          'parent_type' => 'pages',
+        ]);
 
         $this->assertSame('', $obj->getModelId());
         $this->assertSame(34, $obj->getId());
@@ -68,13 +83,28 @@ class EventTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $obj = new Event(array (  'event_id' => 34,  'is_featured' => 1,  'is_sponsor' => 0,  'privacy_id' => 1,  'parent_id' => 33,  'poster_id' => 22,  'user_id' => 99,  'location_id' => 33,  'photo_id' => 17,  'start_at' => '2014-12-11 00:11:44',  'end_at' => '2014-12-12 00:11:44',  'created_at' => '2013-12-11 00:11:44',  'title' => 'exmple value test',  'poster_type' => 'user',  'parent_type' => 'pages',));
+        $obj = new Event(['event_id'    => 34,
+                          'is_featured' => 1,
+                          'is_sponsor'  => 0,
+                          'privacy_id'  => 1,
+                          'parent_id'   => 33,
+                          'poster_id'   => 22,
+                          'user_id'     => 99,
+                          'location_id' => 33,
+                          'photo_id'    => 17,
+                          'start_at'    => '2014-12-11 00:11:44',
+                          'end_at'      => '2014-12-12 00:11:44',
+                          'created_at'  => '2013-12-11 00:11:44',
+                          'title'       => 'exmple value test',
+                          'poster_type' => 'user',
+                          'parent_type' => 'pages',
+        ]);
 
         $obj->save();
 
         /** @var Event $obj */
-        $obj = _model('')
-            ->select()->where('event_id=?',34)->first();
+        $obj = \Phpfox::model('')
+            ->select()->where('event_id=?', 34)->first();
 
         $this->assertSame('', $obj->getModelId());
         $this->assertSame(34, $obj->getId());
@@ -96,13 +126,13 @@ class EventTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _model('')
-            ->delete()->where('event_id=?',34)->execute();
+        \Phpfox::model('')
+            ->delete()->where('event_id=?', 34)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('')
-            ->delete()->where('event_id=?',34)->execute();
+        \Phpfox::model('')
+            ->delete()->where('event_id=?', 34)->execute();
     }
 }

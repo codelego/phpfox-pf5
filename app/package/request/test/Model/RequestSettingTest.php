@@ -35,7 +35,7 @@ class RequestSettingTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var RequestSetting $obj */
-        $obj = _model('request_setting')
+        $obj = \Phpfox::model('request_setting')
             ->select()
             ->where('user_id=?', '22')
             ->first();
@@ -47,7 +47,7 @@ class RequestSettingTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _model('request_setting')
+        \Phpfox::model('request_setting')
             ->delete()
             ->where('user_id=?', '22')
             ->execute();
@@ -55,7 +55,7 @@ class RequestSettingTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        _model('request_setting')
+        \Phpfox::model('request_setting')
             ->delete()
             ->where('user_id=?', '22')
             ->execute();

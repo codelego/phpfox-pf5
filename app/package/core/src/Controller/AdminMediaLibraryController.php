@@ -9,13 +9,13 @@ class AdminMediaLibraryController extends AdminController
      */
     public function actionIndex()
     {
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.mail'),
                 'label' => _text('Mail Settings', 'admin'),
             ]);
 
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Mail Settings', 'admin'));
 
     }

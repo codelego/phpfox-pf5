@@ -50,8 +50,8 @@ class Response
         $this->code = intval($code);
 
         /** @var ResponsePrototypeInterface $obj */
-        $obj = _get($this->prototype);
-        $obj->redirect($url,$code);
+        $obj = \Phpfox::get($this->prototype);
+        $obj->redirect($url, $code);
 
         return false;
     }
@@ -62,7 +62,7 @@ class Response
     public function terminate()
     {
         /** @var ResponsePrototypeInterface $obj */
-        $obj = _get($this->prototype);
+        $obj = \Phpfox::get($this->prototype);
         echo $obj->run($this);
     }
 

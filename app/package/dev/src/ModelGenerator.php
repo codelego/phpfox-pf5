@@ -68,7 +68,7 @@ class ModelGenerator extends AbstractGenerator
 
         $this->packageId = $this->meta->getPackageId();
 
-        $this->packageInfo = _model('core_package')
+        $this->packageInfo = \Phpfox::model('core_package')
             ->select()
             ->where('name=?', $this->packageId)
             ->first();
@@ -145,7 +145,7 @@ class ModelGenerator extends AbstractGenerator
         $whereArrays = [];
         $id_value = '0';
 
-        $savedData = _get('db')
+        $savedData = \Phpfox::get('db')
             ->select('*')
             ->from(':' . $tableName)
             ->first();
@@ -202,7 +202,7 @@ class ModelGenerator extends AbstractGenerator
             $value = isset($savedData[$name]) ? $savedData[$name] : '';
             $isPrimary = false;
 
-            if ($column->isPrimary() and count($tableInfo->getPrimary())==1 and $name != 'id') {
+            if ($column->isPrimary() and count($tableInfo->getPrimary()) == 1 and $name != 'id') {
                 $isPrimary = true;
             }
 
@@ -237,7 +237,7 @@ class ModelGenerator extends AbstractGenerator
                         $replacements);
 
                     // primary only
-                    if($isPrimary){
+                    if ($isPrimary) {
                         $getterAndSetterMethods[]
                             = _sprintf('public function getId(){return (int) $this->__get(\'{column}\');}',
                             $replacements);
@@ -248,7 +248,7 @@ class ModelGenerator extends AbstractGenerator
                         $replacements);
 
                     // primary only
-                    if($isPrimary){
+                    if ($isPrimary) {
                         $getterAndSetterMethods[]
                             = _sprintf('public function getId(){return $this->__get(\'{column}\');}',
                             $replacements);
@@ -271,7 +271,7 @@ class ModelGenerator extends AbstractGenerator
                     = _sprintf('public function set{name}($value){$this->__set(\'{column}\', $value);}',
                     $replacements);
 
-                if($isPrimary){
+                if ($isPrimary) {
                     $getterAndSetterMethods[]
                         = _sprintf('public function setId($value){$this->__set(\'{column}\', $value);}',
                         $replacements);

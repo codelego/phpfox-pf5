@@ -42,7 +42,7 @@ class EditI18nLocale extends Form
             'label'     => _text('Direction', '_core.i18n_locale'),
             'info'      => _text('[Language Direction Info]', '_core.i18n_locale'),
             'value'     => 'ltr',
-            'options'   => _get('core.i18n')->getDirectionIdOptions(),
+            'options'   => \Phpfox::get('core.i18n')->getDirectionIdOptions(),
             'maxlength' => 255,
             'required'  => true,
         ]);

@@ -1,1 +1,22 @@
-<?php return array(0=>'attribute_id',1=>array('attribute_id'=>1,),2=>'attribute_id',3=>array('attribute_id'=>1,'item_type'=>1,'attribute_name'=>1,'factory_id'=>1,'attribute_label'=>1,'placeholder'=>1,'note'=>1,'info'=>1,'is_basic'=>1,'is_require'=>1,'ordering'=>1,'options'=>1,'is_system'=>1,'is_active'=>1,),4=>array(),);
+<?php return [
+    0 => 'attribute_id',
+    1 => ['attribute_id' => 1,],
+    2 => 'attribute_id',
+    3 => [
+        'attribute_id'    => 1,
+        'item_type'       => 1,
+        'attribute_name'  => 1,
+        'factory_id'      => 1,
+        'attribute_label' => 1,
+        'placeholder'     => 1,
+        'note'            => 1,
+        'info'            => 1,
+        'is_basic'        => 1,
+        'is_require'      => 1,
+        'ordering'        => 1,
+        'options'         => 1,
+        'is_system'       => 1,
+        'is_active'       => 1,
+    ],
+    4 => [],
+];

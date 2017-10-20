@@ -56,10 +56,9 @@ class EditDecorator extends AbstractDecorator
     {
         $href = null;
         // validate passed acl
-        if ($item->acl and !_allow(null, $item->acl)) {
+        if ($item->acl and !\Phpfox::allow(null, $item->acl)) {
             return '';
         }
-
 
 
         $label = _text($item->label, 'menu');
@@ -80,18 +79,18 @@ class EditDecorator extends AbstractDecorator
                 _text('Are you sure?'),
                 $id,
                 _text('Oops!, Can not remove a parent item. <br/> Move <strong>all children</strong> before delete this item!'),
-                $item->get('custom')? ' data-custom="1" ': ' data-custom="0" ',
+                $item->get('custom') ? ' data-custom="1" ' : ' data-custom="0" ',
             ]);
 
         if (!empty($item->children) && $level < $this->level) {
             $childrenHtml = $this->renderChildren($level + 1, $item->children, $name);
             return '<li data-id="' . $id . '" data-name="' . $name . '">'
                 . '<div class="menu-label ' . $disabled . '"><span class="disclose"><span></span></span>'
-                . $label . $append .$sup. '</div>'
+                . $label . $append . $sup . '</div>'
                 . $childrenHtml . '</li>';
         } else {
             return '<li data-id="' . $id . '" data-name="' . $name . '"><div class="menu-label ' . $disabled . '">'
-                . $label .$sup
+                . $label . $sup
                 . $append . '</div><ol class="" data-name="' . $name . '"></ol></li>';
         }
     }

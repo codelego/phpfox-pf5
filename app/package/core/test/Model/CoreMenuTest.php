@@ -1,11 +1,12 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class CoreMenuTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new CoreMenu(array (  'menu_id' => 'admin',  'menu_name' => 'Admin',  'package_id' => 'core',  'ordering' => 2,  'is_admin' => 1,  'is_system' => 1,  'is_custom' => 0,  'description' => NULL,));
+        $obj = new CoreMenu(['menu_id' => 'admin', 'menu_name' => 'Admin', 'package_id' => 'core', 'ordering' => 2, 'is_admin' => 1, 'is_system' => 1, 'is_custom' => 0, 'description' => null,]);
 
         $this->assertSame('core_menu', $obj->getModelId());
         $this->assertSame('admin', $obj->getMenuId());
@@ -15,7 +16,8 @@ class CoreMenuTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->isAdmin());
         $this->assertSame(1, $obj->isSystem());
         $this->assertSame(0, $obj->isCustom());
-        $this->assertSame('', $obj->getDescription());    }
+        $this->assertSame('', $obj->getDescription());
+    }
 
     public function testParameters()
     {
@@ -39,17 +41,18 @@ class CoreMenuTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->isAdmin());
         $this->assertSame(1, $obj->isSystem());
         $this->assertSame(0, $obj->isCustom());
-        $this->assertSame('', $obj->getDescription());    }
+        $this->assertSame('', $obj->getDescription());
+    }
 
     public function testSave()
     {
-        $obj = new CoreMenu(array (  'menu_id' => 'admin',  'menu_name' => 'Admin',  'package_id' => 'core',  'ordering' => 2,  'is_admin' => 1,  'is_system' => 1,  'is_custom' => 0,  'description' => NULL,));
+        $obj = new CoreMenu(['menu_id' => 'admin', 'menu_name' => 'Admin', 'package_id' => 'core', 'ordering' => 2, 'is_admin' => 1, 'is_system' => 1, 'is_custom' => 0, 'description' => null,]);
 
         $obj->save();
 
         /** @var CoreMenu $obj */
-        $obj = _model('core_menu')
-            ->select()->where('menu_id=?','admin')->first();
+        $obj = \Phpfox::model('core_menu')
+            ->select()->where('menu_id=?', 'admin')->first();
 
         $this->assertSame('core_menu', $obj->getModelId());
         $this->assertSame('admin', $obj->getMenuId());
@@ -59,17 +62,18 @@ class CoreMenuTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->isAdmin());
         $this->assertSame(1, $obj->isSystem());
         $this->assertSame(0, $obj->isCustom());
-        $this->assertSame('', $obj->getDescription());    }
+        $this->assertSame('', $obj->getDescription());
+    }
 
     public static function setUpBeforeClass()
     {
-        _model('core_menu')
-            ->delete()->where('menu_id=?','admin')->execute();
+        \Phpfox::model('core_menu')
+            ->delete()->where('menu_id=?', 'admin')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('core_menu')
-            ->delete()->where('menu_id=?','admin')->execute();
+        \Phpfox::model('core_menu')
+            ->delete()->where('menu_id=?', 'admin')->execute();
     }
 }

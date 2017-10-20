@@ -22,7 +22,7 @@ class GatewayManager implements GatewayManagerInterface
      */
     public function __construct()
     {
-        $this->params = _get('package.loader')->getModelParameters();
+        $this->params = \Phpfox::get('package.loader')->getModelParameters();
     }
 
     public function set($id, $gateway)
@@ -59,7 +59,7 @@ class GatewayManager implements GatewayManagerInterface
         array_unshift($ref, $id);
 
         return call_user_func_array([
-            _get($factory),
+            \Phpfox::get($factory),
             'factory',
         ], $ref);
     }

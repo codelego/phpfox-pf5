@@ -10,7 +10,7 @@ class SqlConditionTest extends PHPUnit_Framework_TestCase
     public function testGeneral()
     {
 
-        $db = _get('db');
+        $db = \Phpfox::get('db');
         $sql = (new SqlSelect($db))->select('*')->from(':setting_value')
             ->where('is_active=?', 1);
 

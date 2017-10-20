@@ -17,18 +17,18 @@ class AdminDevController extends AdminController
 
     protected function afterInitialize()
     {
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.mail'),
                 'label' => _text('Dev Tools', 'admin'),
             ]);
 
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Dev Tools', 'admin'));
 
-        _get('menu.admin.secondary')->load('admin', 'dev');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'dev');
 
-        _get('menu.admin.buttons')->load('_dev.buttons');
+        \Phpfox::get('menu.admin.buttons')->load('_dev.buttons');
     }
 
     public function actionEditAction()
@@ -50,14 +50,14 @@ class AdminDevController extends AdminController
 
     public function actionScan()
     {
-        _get('dev.code_generator')
+        \Phpfox::get('dev.code_generator')
             ->scans();
-        _redirect('admin.dev.form');
+        \Phpfox::redirect('admin.dev.form');
     }
 
     public function actionIndex()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $filter = new FilterDevActionMeta([]);
 
         $filter->populate($request->all());
@@ -65,7 +65,7 @@ class AdminDevController extends AdminController
         $filterData = $filter->getData();
         $selected = [];
 
-        _get('context')
+        \Phpfox::get('context')
             ->set('filter.form', $filter);
 
         if ($request->isGet()) {
@@ -76,7 +76,7 @@ class AdminDevController extends AdminController
             $selected = $_POST['selected'];
 
             /** @var DevAction[] $entries */
-            $entries = _model('dev_action')
+            $entries = \Phpfox::model('dev_action')
                 ->select()
                 ->where('meta_id in ?', array_keys($actions))
                 ->all();
@@ -86,13 +86,13 @@ class AdminDevController extends AdminController
             }
 
             if (!empty($selected)) {
-                _get('dev.code_generator')->generateFromActionMetaIds($selected);
+                \Phpfox::get('dev.code_generator')->generateFromActionMetaIds($selected);
             }
 
 
         }
         /** @var SqlSelect $select */
-        $select = _model('dev_action')
+        $select = \Phpfox::model('dev_action')
             ->select()
             ->order('table_name, action_type', 1);
 

@@ -19,7 +19,7 @@ class AuthByToken implements AuthInterface
         }
 
         /** @var AuthToken $token */
-        $token = _find('auth_token', $identity);
+        $token = \Phpfox::find('auth_token', $identity);
 
         if (!$token) {
             $result->setResult(AuthResult::INVALID_IDENTITY, null);
@@ -32,7 +32,7 @@ class AuthByToken implements AuthInterface
             return $result;
         }
 
-        $user = _find('user', $token['user_id']);
+        $user = \Phpfox::find('user', $token['user_id']);
 
         if (!$user) {
             $token->delete();

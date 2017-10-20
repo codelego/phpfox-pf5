@@ -1,11 +1,26 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class ProfileAttributeTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new ProfileAttribute(array (  'attribute_id' => 1,  'item_type' => 'user',  'attribute_name' => 'username',  'factory_id' => 'text',  'attribute_label' => 'Username',  'placeholder' => NULL,  'note' => NULL,  'info' => NULL,  'is_basic' => 1,  'is_require' => 1,  'ordering' => 1,  'options' => '',  'is_system' => 0,  'is_active' => 1,));
+        $obj = new ProfileAttribute(['attribute_id'    => 1,
+                                     'item_type'       => 'user',
+                                     'attribute_name'  => 'username',
+                                     'factory_id'      => 'text',
+                                     'attribute_label' => 'Username',
+                                     'placeholder'     => null,
+                                     'note'            => null,
+                                     'info'            => null,
+                                     'is_basic'        => 1,
+                                     'is_require'      => 1,
+                                     'ordering'        => 1,
+                                     'options'         => '',
+                                     'is_system'       => 0,
+                                     'is_active'       => 1,
+        ]);
 
         $this->assertSame('profile_attribute', $obj->getModelId());
         $this->assertSame(1, $obj->getAttributeId());
@@ -21,7 +36,8 @@ class ProfileAttributeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->getOrdering());
         $this->assertSame('', $obj->getOptions());
         $this->assertSame(0, $obj->isSystem());
-        $this->assertSame(1, $obj->isActive());    }
+        $this->assertSame(1, $obj->isActive());
+    }
 
     public function testParameters()
     {
@@ -57,17 +73,32 @@ class ProfileAttributeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->getOrdering());
         $this->assertSame('', $obj->getOptions());
         $this->assertSame(0, $obj->isSystem());
-        $this->assertSame(1, $obj->isActive());    }
+        $this->assertSame(1, $obj->isActive());
+    }
 
     public function testSave()
     {
-        $obj = new ProfileAttribute(array (  'attribute_id' => 1,  'item_type' => 'user',  'attribute_name' => 'username',  'factory_id' => 'text',  'attribute_label' => 'Username',  'placeholder' => NULL,  'note' => NULL,  'info' => NULL,  'is_basic' => 1,  'is_require' => 1,  'ordering' => 1,  'options' => '',  'is_system' => 0,  'is_active' => 1,));
+        $obj = new ProfileAttribute(['attribute_id'    => 1,
+                                     'item_type'       => 'user',
+                                     'attribute_name'  => 'username',
+                                     'factory_id'      => 'text',
+                                     'attribute_label' => 'Username',
+                                     'placeholder'     => null,
+                                     'note'            => null,
+                                     'info'            => null,
+                                     'is_basic'        => 1,
+                                     'is_require'      => 1,
+                                     'ordering'        => 1,
+                                     'options'         => '',
+                                     'is_system'       => 0,
+                                     'is_active'       => 1,
+        ]);
 
         $obj->save();
 
         /** @var ProfileAttribute $obj */
-        $obj = _model('profile_attribute')
-            ->select()->where('attribute_id=?',1)->first();
+        $obj = \Phpfox::model('profile_attribute')
+            ->select()->where('attribute_id=?', 1)->first();
 
         $this->assertSame('profile_attribute', $obj->getModelId());
         $this->assertSame(1, $obj->getAttributeId());
@@ -83,17 +114,18 @@ class ProfileAttributeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $obj->getOrdering());
         $this->assertSame('', $obj->getOptions());
         $this->assertSame(0, $obj->isSystem());
-        $this->assertSame(1, $obj->isActive());    }
+        $this->assertSame(1, $obj->isActive());
+    }
 
     public static function setUpBeforeClass()
     {
-        _model('profile_attribute')
-            ->delete()->where('attribute_id=?',1)->execute();
+        \Phpfox::model('profile_attribute')
+            ->delete()->where('attribute_id=?', 1)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('profile_attribute')
-            ->delete()->where('attribute_id=?',1)->execute();
+        \Phpfox::model('profile_attribute')
+            ->delete()->where('attribute_id=?', 1)->execute();
     }
 }

@@ -14,22 +14,22 @@ class AdminI18nCurrencyController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('International', 'admin'));
 
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.i18n'),
                 'label' => _text('International', 'admin'),
             ]);
 
-        _get('menu.admin.secondary')->load('admin', 'i18n');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'i18n');
     }
 
     protected function afterDispatch($action)
     {
         if (in_array($action, ['index'])) {
-            _get('menu.admin.buttons')->load('_core.i18n.currency.buttons');
+            \Phpfox::get('menu.admin.buttons')->load('_core.i18n.currency.buttons');
         }
     }
 
@@ -37,7 +37,7 @@ class AdminI18nCurrencyController extends AdminController
     {
         return (new AdminListEntryProcess([
             'model'    => I18nCurrency::class,
-            'data'     => ['defaultValue' => _param('core.default_currency_id')],
+            'data'     => ['defaultValue' => \Phpfox::param('core.default_currency_id')],
             'template' => 'core/admin-i18n/manage-currency',
         ]))->process();
     }
@@ -64,18 +64,18 @@ class AdminI18nCurrencyController extends AdminController
 
     public function actionDefault()
     {
-        $identity = _get('request')
+        $identity = \Phpfox::get('request')
             ->get('currency_id');
 
         /** @var I18nCurrency $entry */
-        $entry = _model('i18n_currency')->findById($identity);
+        $entry = \Phpfox::model('i18n_currency')->findById($identity);
 
         if (!$entry) {
             throw new \InvalidArgumentException('Invalid params "currency_id"');
         }
 
         if (!$entry->isDefault()) {
-            _model('i18n_currency')
+            \Phpfox::model('i18n_currency')
                 ->update()
                 ->values(['is_default' => 0])
                 ->where('currency_id <> ?', $identity)
@@ -85,8 +85,8 @@ class AdminI18nCurrencyController extends AdminController
             $entry->setDefault(1);
             $entry->setActive(1);
             $entry->save();
-            _get('core.setting')->updateValue('core.default_currency_id', $identity);
+            \Phpfox::get('core.setting')->updateValue('core.default_currency_id', $identity);
         }
-        _redirect('admin.core.i18n.currency');
+        \Phpfox::redirect('admin.core.i18n.currency');
     }
 }

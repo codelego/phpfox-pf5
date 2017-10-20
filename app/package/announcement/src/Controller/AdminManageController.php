@@ -14,7 +14,7 @@ class AdminManageController extends AdminController
     {
         $form = new AddAnnouncement();
 
-        $request = _get('request');
+        $request = \Phpfox::get('request');
 
         if ($request->isGet()) {
 
@@ -31,7 +31,7 @@ class AdminManageController extends AdminController
 
 
         $vm = new ViewModel([
-            'form'    => $form,
+            'form' => $form,
         ], 'layout/form-edit');
 
         return $vm;

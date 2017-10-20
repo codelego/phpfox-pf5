@@ -49,7 +49,7 @@ class AuthHistoryTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var AuthHistory $entry */
-        $entry = _model('auth_history')
+        $entry = \Phpfox::model('auth_history')
             ->select()
             ->where('remote_address=?', '::0')
             ->first();
@@ -66,7 +66,7 @@ class AuthHistoryTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        _get('db')
+        \Phpfox::get('db')
             ->delete(':auth_history')
             ->where('remote_address=?', '::0')
             ->execute();
@@ -74,7 +74,7 @@ class AuthHistoryTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _get('db')
+        \Phpfox::get('db')
             ->delete(':auth_history')
             ->where('remote_address=?', '::0')
             ->execute();

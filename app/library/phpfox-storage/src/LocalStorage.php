@@ -73,7 +73,7 @@ class LocalStorage implements StorageInterface
         $this->ensure($path);
 
         if (!file_exists($local)) {
-            _get('dev.log')
+            \Phpfox::get('dev.log')
                 ->error('File not found {0}, {1}', [$local, __CLASS__]);
         }
 

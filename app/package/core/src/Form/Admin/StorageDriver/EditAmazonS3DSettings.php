@@ -47,7 +47,7 @@ class EditAmazonS3DSettings extends Form
             'label'     => _text('Amazon Region', 'admin.core_storage'),
             'note'      => _text('[Amazon Region Note]', 'admin.core_storage'),
             'maxlength' => 500,
-            'options'   => _get('core.storage')->getS3RegionIdOptions(),
+            'options'   => \Phpfox::get('core.storage')->getS3RegionIdOptions(),
             'required'  => true,
         ]);
 
@@ -85,7 +85,7 @@ class EditAmazonS3DSettings extends Form
             'value'    => 0,
             'label'    => _text('Is Active', 'admin.core_storage'),
             'info'     => _text('[Is Active Info]', 'admin.core_storage'),
-            'options'  => _get('core.storage')->getActiveIdOptions(),
+            'options'  => \Phpfox::get('core.storage')->getActiveIdOptions(),
             'required' => true,
         ]);
 

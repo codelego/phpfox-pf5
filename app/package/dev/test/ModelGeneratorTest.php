@@ -14,7 +14,7 @@ class ModelGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testBase()
     {
-        $meta = _model('dev_action')->findById(450);
+        $meta = \Phpfox::model('dev_action')->findById(450);
 
         $generator = new ModelGenerator($meta, []);
 

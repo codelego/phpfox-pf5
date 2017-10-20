@@ -43,7 +43,7 @@ class SelectCoreDriver extends Form
         /** start elements **/
 
         /** @var array $options */
-        $options = _get('core.adapter')->getDriverIdOptions($this->getDriverType());
+        $options = \Phpfox::get('core.adapter')->getDriverIdOptions($this->getDriverType());
         $defaultValue = null;
 
         foreach ($options as $option) {

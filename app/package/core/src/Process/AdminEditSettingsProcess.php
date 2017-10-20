@@ -65,18 +65,18 @@ class AdminEditSettingsProcess extends AbstractProcess
 
     public function process()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $formId = $this->get('form_id');
 
-        $formName =  $this->get('form');
+        $formName = $this->get('form');
 
-        if(!$formName){
+        if (!$formName) {
             if (!$formId) {
                 $formId = $request->get('form_id');
             }
 
             /** @var SettingForm $settingForm */
-            $settingForm = _find('setting_form', $formId);
+            $settingForm = \Phpfox::find('setting_form', $formId);
 
             if (!$settingForm) {
                 throw new \InvalidArgumentException(_sprintf('Invalid group [{0}]', [$formId]));
@@ -96,7 +96,7 @@ class AdminEditSettingsProcess extends AbstractProcess
 
         if ($request->isGet()) {
 
-            $data = _get('core.setting')->getForEdit($this->collectDomains($form));
+            $data = \Phpfox::get('core.setting')->getForEdit($this->collectDomains($form));
 
             $form->populate($data);
         }
@@ -105,9 +105,9 @@ class AdminEditSettingsProcess extends AbstractProcess
 
             $data = $this->collectPostData($form);
 
-            _get('core.setting')->updateValues($data);
+            \Phpfox::get('core.setting')->updateValues($data);
 
-            _get('shared.cache')->flush();
+            \Phpfox::get('shared.cache')->flush();
         }
 
         $vm = new ViewModel(['form' => $form], 'layout/form-edit');

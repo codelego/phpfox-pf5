@@ -50,7 +50,7 @@ class EventMemberListTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var EventMemberList $obj */
-        $obj = _model('event_member_list')
+        $obj = \Phpfox::model('event_member_list')
             ->select()->where('list_id=?', 2)->where('parent_id=?', 4)
             ->where('type_id=?', 5)->where('member_count=?', 15)->first();
 
@@ -63,14 +63,14 @@ class EventMemberListTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _model('event_member_list')
+        \Phpfox::model('event_member_list')
             ->delete()->where('list_id=?', 2)->where('parent_id=?', 4)
             ->where('type_id=?', 5)->where('member_count=?', 15)->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('event_member_list')
+        \Phpfox::model('event_member_list')
             ->delete()->where('list_id=?', 2)->where('parent_id=?', 4)
             ->where('type_id=?', 5)->where('member_count=?', 15)->execute();
     }

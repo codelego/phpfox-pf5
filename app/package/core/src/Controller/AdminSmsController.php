@@ -18,34 +18,34 @@ class AdminSmsController extends AdminController
 
     protected function afterInitialize()
     {
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.sms'),
                 'label' => _text('Verify Service Settings', 'menu'),
             ]);
 
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Mobile Service Settings', 'menu'));
 
-        _get('menu.admin.secondary')->load('admin', 'sms');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'sms');
     }
 
     protected function afterDispatch($action)
     {
-        _get('menu.admin.buttons')
+        \Phpfox::get('menu.admin.buttons')
             ->load('_core.sms.buttons');
     }
 
     public function actionIndex()
     {
-        $select = _model('core_adapter')
+        $select = \Phpfox::model('core_adapter')
             ->select()
             ->where('driver_type=?', self::DRIVER_TYPE);
 
         return (new AdminListEntryProcess([
             'select'   => $select,
             'template' => 'core/admin-sms/manage-sms-adapter',
-            'data'     => ['defaultValue' => _param('core.default_sms_id')],
+            'data'     => ['defaultValue' => \Phpfox::param('core.default_sms_id')],
         ]))->process();
     }
 
@@ -58,7 +58,7 @@ class AdminSmsController extends AdminController
 
     public function actionAdd()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $driverId = $request->get('driver_id');
 
         if (!$driverId) {
@@ -67,7 +67,7 @@ class AdminSmsController extends AdminController
             ], 'layout/form-edit');
         }
 
-        _redirect('admin.core.sms', [
+        \Phpfox::redirect('admin.core.sms', [
             'action'    => 'config',
             'driver_id' => $driverId,
         ]);
@@ -75,10 +75,10 @@ class AdminSmsController extends AdminController
 
     public function actionConfig()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $driverId = $request->get('driver_id', 'files');
 
-        $form = _get('core.adapter')
+        $form = \Phpfox::get('core.adapter')
             ->getEditingForm($driverId, 'sms');
 
         if ($request->isGet()) {
@@ -88,7 +88,7 @@ class AdminSmsController extends AdminController
         if ($request->isPost() and $form->isValid($request->all())) {
 
             /** @var CoreAdapter $adapterEntry */
-            $adapterEntry = _model('core_adapter')
+            $adapterEntry = \Phpfox::model('core_adapter')
                 ->create([
                     'driver_id'   => $driverId,
                     'driver_type' => self::DRIVER_TYPE,
@@ -102,7 +102,7 @@ class AdminSmsController extends AdminController
             $adapterEntry->setParams(json_encode($data));
             $adapterEntry->save();
 
-            _redirect('admin.core.sms');
+            \Phpfox::redirect('admin.core.sms');
         }
 
         return new ViewModel([
@@ -112,13 +112,13 @@ class AdminSmsController extends AdminController
 
     public function actionEdit()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $adapterId = $request->get('adapter_id');
 
         /** @var CoreAdapter $adapterEntry */
-        $adapterEntry = _model('core_adapter')->findById($adapterId);
+        $adapterEntry = \Phpfox::model('core_adapter')->findById($adapterId);
 
-        $form = _get('core.adapter')
+        $form = \Phpfox::get('core.adapter')
             ->getEditingForm($adapterEntry->getDriverId(), self::DRIVER_TYPE);
 
         if ($request->isGet()) {
@@ -133,7 +133,7 @@ class AdminSmsController extends AdminController
             $adapterEntry->setParams(json_encode($data));
             $adapterEntry->save();
 
-            _redirect('admin.core.sms');
+            \Phpfox::redirect('admin.core.sms');
         }
 
         return new ViewModel([
@@ -143,18 +143,18 @@ class AdminSmsController extends AdminController
 
     public function actionDefault()
     {
-        $adapterId = _get('request')
+        $adapterId = \Phpfox::get('request')
             ->get('adapter_id');
 
         /** @var CoreAdapter $entry */
-        $entry = _model('core_adapter')->findById($adapterId);
+        $entry = \Phpfox::model('core_adapter')->findById($adapterId);
 
         if (!$entry) {
             throw new \InvalidArgumentException('Invalid params "adapter_id"');
         }
 
         if (!$entry->isDefault()) {
-            _model('core_adapter')
+            \Phpfox::model('core_adapter')
                 ->update()
                 ->values(['is_default' => 0])
                 ->where('adapter_id <> ?', $adapterId)
@@ -165,9 +165,9 @@ class AdminSmsController extends AdminController
             $entry->setActive(1);
             $entry->save();
 
-            _get('core.setting')->updateValue('core.default_sms_id', $adapterId);
+            \Phpfox::get('core.setting')->updateValue('core.default_sms_id', $adapterId);
         }
 
-        _redirect('admin.core.sms');
+        \Phpfox::redirect('admin.core.sms');
     }
 }

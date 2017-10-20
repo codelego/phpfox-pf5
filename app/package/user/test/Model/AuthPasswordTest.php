@@ -45,7 +45,7 @@ class AuthPasswordTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         /** @var AuthPassword $obj */
-        $obj = _model('auth_password')
+        $obj = \Phpfox::model('auth_password')
             ->select()
             ->where('source_id=?', 'test')
             ->first();
@@ -66,7 +66,7 @@ class AuthPasswordTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        _get('db')
+        \Phpfox::get('db')
             ->delete(':auth_password')
             ->where('source_id=?', 'test')
             ->execute();
@@ -74,7 +74,7 @@ class AuthPasswordTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        _get('db')
+        \Phpfox::get('db')
             ->delete(':auth_password')
             ->where('source_id=?', 'test')
             ->execute();

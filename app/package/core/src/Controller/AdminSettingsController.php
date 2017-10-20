@@ -8,10 +8,10 @@ class AdminSettingsController extends AdminController
 {
     protected function afterInitialize()
     {
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Manage Settings', 'admin'));
 
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.settings'),
                 'label' => _text('Manage Settings', 'admin'),

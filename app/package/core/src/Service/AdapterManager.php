@@ -15,7 +15,7 @@ class AdapterManager
      */
     public function getAdapterById($identity)
     {
-        return _model('core_adapter')
+        return \Phpfox::model('core_adapter')
             ->findById($identity);
     }
 
@@ -28,7 +28,7 @@ class AdapterManager
                 'label' => _text($id . '_adapter_label', '_core'),
                 'note'  => _text($id . '_adapter_note', '_core'),
             ];
-        }, _model('core_adapter')
+        }, \Phpfox::model('core_adapter')
             ->select('distinct container_id')->where('driver_type=?', $driverType)->all());
     }
 
@@ -40,7 +40,7 @@ class AdapterManager
      */
     public function getAdapterByContainerId($driverType, $containerId)
     {
-        return _model('core_adapter')
+        return \Phpfox::model('core_adapter')
             ->select()
             ->where('container_id=?', $containerId)
             ->where('driver_type=?', $driverType)
@@ -51,7 +51,7 @@ class AdapterManager
     {
         $entry = $this->getAdapterById($identity);
 
-        _model('core_adapter')->update()
+        \Phpfox::model('core_adapter')->update()
             ->values(['is_default' => 0])
             ->where('container_id=?', $entry->getContainerId())
             ->where('driver_type=?', $entry->getDriverType())
@@ -64,7 +64,7 @@ class AdapterManager
 
     public function getAdapterIdOptions($driverType)
     {
-        $select = _model('core_adapter')
+        $select = \Phpfox::model('core_adapter')
             ->select()
             ->where('driver_type=?', $driverType)
             ->where('is_active=?', 1);
@@ -109,7 +109,7 @@ class AdapterManager
      */
     public function getDriverIdOptions($driverType)
     {
-        $select = _model('core_driver')
+        $select = \Phpfox::model('core_driver')
             ->select()
             ->where('driver_type=?', $driverType)
             ->where('is_active=?', 1)
@@ -162,13 +162,13 @@ class AdapterManager
                     $available = extension_loaded($dep['value']);
                     break;
                 case 'service':
-                    $available = _has($dep['value']);
+                    $available = \Phpfox::has($dep['value']);
                     break;
                 case 'callback':
                     list($service, $method) = explode('::', $dep['value']);
-                    if (!_has($service)
-                        or !method_exists(_get($service), $method)
-                        or !call_user_func([_get($service), $method])
+                    if (!\Phpfox::has($service)
+                        or !method_exists(\Phpfox::get($service), $method)
+                        or !call_user_func([\Phpfox::get($service), $method])
                     ) {
                         $available = false;
                     }
@@ -192,7 +192,7 @@ class AdapterManager
      */
     public function getDriver($driverId, $driverType)
     {
-        return _model('core_driver')
+        return \Phpfox::model('core_driver')
             ->select()
             ->where('driver_id=?', $driverId)
             ->where('driver_type=?', $driverType)
@@ -206,7 +206,7 @@ class AdapterManager
      */
     public function findDriverByIdentity($identity)
     {
-        return _model('core_driver')
+        return \Phpfox::model('core_driver')
             ->findById($identity);
     }
 }

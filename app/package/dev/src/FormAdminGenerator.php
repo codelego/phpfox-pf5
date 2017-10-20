@@ -65,7 +65,7 @@ class FormAdminGenerator extends AbstractGenerator
 
         $this->packageId = $this->meta->getPackageId();
 
-        $this->packageInfo = _model('core_package')
+        $this->packageInfo = \Phpfox::model('core_package')
             ->select()
             ->where('name=?', $this->packageId)
             ->first();
@@ -96,7 +96,7 @@ class FormAdminGenerator extends AbstractGenerator
         $messageContainer = new MessageContainer($this->meta->getTextDomain());
         $elementGenerator->setMessageContainer($messageContainer);
 
-        $elements = _model('dev_element')
+        $elements = \Phpfox::model('dev_element')
             ->select()
             ->where('is_active=?', 1)
             ->where('meta_id=?', $this->meta->getMetaId())
@@ -172,7 +172,7 @@ class FormAdminGenerator extends AbstractGenerator
             'metaId'           => $this->meta->getId(),
         ], $this->template))->render();
 
-        _get('core.i18n')->insertDomainMessages($messageContainer->all(), $this->packageId, '');
+        \Phpfox::get('core.i18n')->insertDomainMessages($messageContainer->all(), $this->packageId, '');
 
         if (file_exists($formClassPath)) {
             if (strpos(file_get_contents($formClassPath), '/** lock')) {

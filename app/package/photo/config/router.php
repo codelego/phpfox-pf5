@@ -24,7 +24,7 @@ return [
                     'route'      => 'album/(<action>)',
                     'controller' => 'photo.admin-album',
                 ],
-                'manage'    => [
+                'manage'   => [
                     'route'      => 'manage(/<action>)',
                     'controller' => 'photo.admin-photo',
                 ],

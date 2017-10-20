@@ -14,8 +14,7 @@ class EditAdminPermissions extends EditPermissionSettings
         $this->setInfo(_text('[Edit Admin Permissions Info]', '_core.permissions'));
         $this->setAction(_url('#'));
 
-        if(!_get('acl')->checkByLevel($this->levelId, $this->itemType, 'core.access_admin'))
-        {
+        if (!\Phpfox::get('acl')->checkByLevel($this->levelId, $this->itemType, 'core.access_admin')) {
             return false;
         }
 

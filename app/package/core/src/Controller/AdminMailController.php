@@ -18,18 +18,18 @@ class AdminMailController extends AdminController
 
     protected function afterInitialize()
     {
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set([
                 'href'  => _url('admin.core.mail'),
                 'label' => _text('Mail Settings', 'menu'),
             ]);
 
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Mail Settings', 'menu'));
 
-        _get('menu.admin.secondary')->load('admin', 'mail');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'mail');
 
-        _get('menu.admin.buttons')->load('_core.mail.buttons');
+        \Phpfox::get('menu.admin.buttons')->load('_core.mail.buttons');
     }
 
     public function actionSettings()
@@ -41,21 +41,21 @@ class AdminMailController extends AdminController
 
     public function actionIndex()
     {
-        $select = _model('core_adapter')
+        $select = \Phpfox::model('core_adapter')
             ->select()
             ->where('driver_type=?', self::DRIVER_TYPE);
 
         return (new AdminListEntryProcess([
             'noLimit'  => true,
             'select'   => $select,
-            'data'     => ['defaultValue' => _param('core.default_mailer_id')],
+            'data'     => ['defaultValue' => \Phpfox::param('core.default_mailer_id')],
             'template' => 'core/admin-mail/manage-mail-adapter',
         ]))->process();
     }
 
     public function actionAdd()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $driverName = $request->get('driver_id');
 
         if (!$driverName) {
@@ -64,16 +64,16 @@ class AdminMailController extends AdminController
             ], 'layout/form-edit');
         }
 
-        _redirect('admin.core.mail.adapter', ['action' => 'config', 'driver_id' => $driverName]);
+        \Phpfox::redirect('admin.core.mail.adapter', ['action' => 'config', 'driver_id' => $driverName]);
 
     }
 
     public function actionConfig()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $driverId = $request->get('driver_id');
 
-        $form = _get('core.adapter')
+        $form = \Phpfox::get('core.adapter')
             ->getEditingForm($driverId, self::DRIVER_TYPE);
 
         if ($request->isGet()) {
@@ -82,7 +82,7 @@ class AdminMailController extends AdminController
 
         if ($request->isPost() and $form->isValid($request->all())) {
             /** @var CoreAdapter $adapterEntry */
-            $adapterEntry = _model('core_adapter')
+            $adapterEntry = \Phpfox::model('core_adapter')
                 ->create([
                     'driver_id'   => $driverId,
                     'is_active'   => 0,
@@ -94,7 +94,7 @@ class AdminMailController extends AdminController
             $adapterEntry->setParams(json_encode($data));
             $adapterEntry->save();
 
-            _redirect('admin.core.mail.adapter');
+            \Phpfox::redirect('admin.core.mail.adapter');
         }
 
         return new ViewModel([
@@ -104,13 +104,13 @@ class AdminMailController extends AdminController
 
     public function actionEdit()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $adapterId = $request->get('adapter_id');
 
         /** @var CoreAdapter $adapterEntry */
-        $adapterEntry = _model('core_adapter')->findById($adapterId);
+        $adapterEntry = \Phpfox::model('core_adapter')->findById($adapterId);
 
-        $form = _get('core.adapter')
+        $form = \Phpfox::get('core.adapter')
             ->getEditingForm($adapterEntry->getDriverId(), self::DRIVER_TYPE);
 
 
@@ -123,7 +123,7 @@ class AdminMailController extends AdminController
             $adapterEntry->fromArray($data);
             $adapterEntry->setParams(json_encode($data));
             $adapterEntry->save();
-            _redirect('admin.core.mail.adapter');
+            \Phpfox::redirect('admin.core.mail.adapter');
         }
 
         return new ViewModel([
@@ -133,16 +133,16 @@ class AdminMailController extends AdminController
 
     public function actionTest()
     {
-        $req = _get('request');
+        $req = \Phpfox::get('request');
         $adapterId = $req->get('adapter_id');
 
         /** @var CoreAdapter $adapterEntry */
-        $adapterEntry = _model('core_adapter')->findById($adapterId);
+        $adapterEntry = \Phpfox::model('core_adapter')->findById($adapterId);
 
         $form = new TestEmailSettings([]);
 
         if ($req->isGet()) {
-            $data = _param('test_mail');
+            $data = \Phpfox::param('test_mail');
             $form->populate($data);
         }
 
@@ -158,7 +158,7 @@ class AdminMailController extends AdminController
                 'bodyAlt' => $data['message'],
             ];
 
-            list($result, $message) = _get('mailer')
+            list($result, $message) = \Phpfox::get('mailer')
                 ->test($adapterEntry->getDriverId(), $params, $testEmail);
 
             if (!$result) {
@@ -173,11 +173,11 @@ class AdminMailController extends AdminController
 
     public function actionDelete()
     {
-        $entry = _get('core.adapter')->getAdapterById(_get('request')->get('adapter_id'));
+        $entry = \Phpfox::get('core.adapter')->getAdapterById(\Phpfox::get('request')->get('adapter_id'));
 
         $entry->delete();
 
-        _redirect('admin.core.mail.adapter');
+        \Phpfox::redirect('admin.core.mail.adapter');
     }
 
     /**
@@ -186,11 +186,11 @@ class AdminMailController extends AdminController
      */
     public function actionDefault()
     {
-        $request = _get('request');
+        $request = \Phpfox::get('request');
         $adapterId = $request->get('adapter_id');
 
         /** @var CoreAdapter $entry */
-        $entry = _model('core_adapter')->findById($adapterId);
+        $entry = \Phpfox::model('core_adapter')->findById($adapterId);
 
         if (!$entry) {
             throw new \InvalidArgumentException('Invalid params "adapter_id"');
@@ -198,7 +198,7 @@ class AdminMailController extends AdminController
 
         if (!$entry->isDefault()) {
 
-            _model('core_adapter')
+            \Phpfox::model('core_adapter')
                 ->update()
                 ->values(['is_default' => 0])
                 ->where('adapter_id <> ?', $adapterId)
@@ -212,8 +212,8 @@ class AdminMailController extends AdminController
             // do not put default to another type
 
 
-            _get('core.setting')->updateValue('core.default_mailer_id', $adapterId);
+            \Phpfox::get('core.setting')->updateValue('core.default_mailer_id', $adapterId);
         }
-        _redirect('admin.core.mail.adapter');
+        \Phpfox::redirect('admin.core.mail.adapter');
     }
 }

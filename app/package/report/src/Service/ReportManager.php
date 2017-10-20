@@ -15,7 +15,7 @@ class ReportManager
      */
     public function findReportById($id)
     {
-        return _model('report')
+        return \Phpfox::model('report')
             ->findById(intval($id));
     }
 
@@ -26,7 +26,7 @@ class ReportManager
      */
     public function findCategoryById($id)
     {
-        return _model('report_category')
+        return \Phpfox::model('report_category')
             ->findById((int)$id);
     }
 
@@ -37,7 +37,7 @@ class ReportManager
      */
     public function addReport($data)
     {
-        $item = _model('report')
+        $item = \Phpfox::model('report')
             ->create($data);
 
         $item->save();
@@ -52,7 +52,7 @@ class ReportManager
      */
     public function deleteReport($reportId)
     {
-        $result = _model('report')
+        $result = \Phpfox::model('report')
             ->deleteById(intval($reportId));
 
         return $result->isValid();
@@ -63,7 +63,7 @@ class ReportManager
      */
     public function getActiveCategoryOptions()
     {
-        return _try('shared.cache', ['report', 'getActiveCategoryOptions'], 0, function () {
+        return \Phpfox::_try('shared.cache', ['report', 'getActiveCategoryOptions'], 0, function () {
             return $this->_getActiveCategoryOptions();
         });
     }
@@ -72,7 +72,7 @@ class ReportManager
     {
         return array_map(function (ReportCategory $item) {
             return ['label' => $item->getName(), 'value' => $item->getId()];
-        }, _model('report_category')->select()
+        }, \Phpfox::model('report_category')->select()
             ->where('is_active=1')->execute()->all());
     }
 }

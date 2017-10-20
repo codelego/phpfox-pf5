@@ -55,14 +55,14 @@ class NavbarDecorator extends AbstractDecorator
         $params = $item->params;
 
         // validate passed acl
-        if ($item->get('permission') and !_allow(null, $item->get('permission'))) {
+        if ($item->get('permission') and !\Phpfox::allow(null, $item->get('permission'))) {
             return '';
         }
 
         if (!empty($params)) {
             foreach ($params as $k => $v) {
                 if (substr($v, 0, 1) == '$') {
-                    $params[$k] = _get('request')->get(substr($v, 1));
+                    $params[$k] = \Phpfox::get('request')->get(substr($v, 1));
                 }
             }
         }

@@ -1,11 +1,12 @@
 <?php
+
 namespace Neutron\Core\Model;
 
 class I18nLocaleTest extends \PHPUnit_Framework_TestCase
 {
     public function testBase()
     {
-        $obj = new I18nLocale(array (  'locale_id' => 'en',  'name' => 'English (US)',  'native_name' => 'English US',  'code_6391' => 'en',  'direction_id' => 'ltr',  'is_active' => 1,  'is_default' => 0,));
+        $obj = new I18nLocale(['locale_id' => 'en', 'name' => 'English (US)', 'native_name' => 'English US', 'code_6391' => 'en', 'direction_id' => 'ltr', 'is_active' => 1, 'is_default' => 0,]);
 
         $this->assertSame('i18n_locale', $obj->getModelId());
         $this->assertSame('en', $obj->getLocaleId());
@@ -14,7 +15,8 @@ class I18nLocaleTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('en', $obj->getCode6391());
         $this->assertSame('ltr', $obj->getDirectionId());
         $this->assertSame(1, $obj->isActive());
-        $this->assertSame(0, $obj->isDefault());    }
+        $this->assertSame(0, $obj->isDefault());
+    }
 
     public function testParameters()
     {
@@ -36,17 +38,18 @@ class I18nLocaleTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('en', $obj->getCode6391());
         $this->assertSame('ltr', $obj->getDirectionId());
         $this->assertSame(1, $obj->isActive());
-        $this->assertSame(0, $obj->isDefault());    }
+        $this->assertSame(0, $obj->isDefault());
+    }
 
     public function testSave()
     {
-        $obj = new I18nLocale(array (  'locale_id' => 'en',  'name' => 'English (US)',  'native_name' => 'English US',  'code_6391' => 'en',  'direction_id' => 'ltr',  'is_active' => 1,  'is_default' => 0,));
+        $obj = new I18nLocale(['locale_id' => 'en', 'name' => 'English (US)', 'native_name' => 'English US', 'code_6391' => 'en', 'direction_id' => 'ltr', 'is_active' => 1, 'is_default' => 0,]);
 
         $obj->save();
 
         /** @var I18nLocale $obj */
-        $obj = _model('i18n_locale')
-            ->select()->where('locale_id=?','en')->first();
+        $obj = \Phpfox::model('i18n_locale')
+            ->select()->where('locale_id=?', 'en')->first();
 
         $this->assertSame('i18n_locale', $obj->getModelId());
         $this->assertSame('en', $obj->getLocaleId());
@@ -55,17 +58,18 @@ class I18nLocaleTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('en', $obj->getCode6391());
         $this->assertSame('ltr', $obj->getDirectionId());
         $this->assertSame(1, $obj->isActive());
-        $this->assertSame(0, $obj->isDefault());    }
+        $this->assertSame(0, $obj->isDefault());
+    }
 
     public static function setUpBeforeClass()
     {
-        _model('i18n_locale')
-            ->delete()->where('locale_id=?','en')->execute();
+        \Phpfox::model('i18n_locale')
+            ->delete()->where('locale_id=?', 'en')->execute();
     }
 
     public static function tearDownAfterClass()
     {
-        _model('i18n_locale')
-            ->delete()->where('locale_id=?','en')->execute();
+        \Phpfox::model('i18n_locale')
+            ->delete()->where('locale_id=?', 'en')->execute();
     }
 }

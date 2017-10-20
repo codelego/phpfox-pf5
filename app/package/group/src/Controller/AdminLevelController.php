@@ -15,15 +15,15 @@ class AdminLevelController extends AdminController
     protected function afterInitialize()
     {
 
-        _get('breadcrumb')
+        \Phpfox::get('breadcrumb')
             ->set(['href' => _url('admin.group'), 'label' => _text('Groups', 'admin')]);
 
-        _get('html.title')
+        \Phpfox::get('html.title')
             ->set(_text('Groups', 'admin'));
 
-        _get('menu.admin.secondary')->load('admin', 'group');
+        \Phpfox::get('menu.admin.secondary')->load('admin', 'group');
 
-        _get('menu.admin.buttons')->load('_group.buttons');
+        \Phpfox::get('menu.admin.buttons')->load('_group.buttons');
     }
 
 
