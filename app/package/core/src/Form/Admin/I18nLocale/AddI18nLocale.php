@@ -10,8 +10,7 @@ class AddI18nLocale extends Form
     public function initialize()
     {
 
-        $this->setTitle(_text('Add Locale', ''));
-        $this->setInfo(_text('[Add Locale Info]', ''));
+        $this->setTitle(_text('Add Locale', '_core.i18n_locale'));
         $this->setAction(_url('#'));
 
         /** start elements **/
@@ -20,9 +19,8 @@ class AddI18nLocale extends Form
         /** element `locale_id` **/
         $this->addElement([
             'name'      => 'locale_id',
-            'factory'   => 'select',
-            'label'     => _text('Locale Id', null),
-            'note'      => _text('[Locale Id Note]', null),
+            'factory'   => 'text',
+            'label'     => _text('Locale Id', '_core.i18n_locale'),
             'options'   => \Phpfox::get('core.i18n')->getLocaleIdOptions(),
             'maxlength' => 255,
             'required'  => true,
@@ -32,8 +30,8 @@ class AddI18nLocale extends Form
         $this->addElement([
             'name'      => 'name',
             'factory'   => 'text',
-            'label'     => _text('Name', null),
-            'note'      => _text('[Name Note]', null),
+            'label'     => _text('English Name', '_core.i18n_locale'),
+            'info'      => _text('English Name [Info]', '_core.i18n_locale'),
             'maxlength' => 255,
             'required'  => true,
         ]);
@@ -42,18 +40,18 @@ class AddI18nLocale extends Form
         $this->addElement([
             'name'      => 'native_name',
             'factory'   => 'text',
-            'label'     => _text('Native Name', null),
-            'note'      => _text('[Native Name Note]', null),
+            'label'     => _text('Native Name', '_core.i18n_locale'),
+            'info'      => _text('Native Name [Info]', '_core.i18n_locale'),
             'maxlength' => 255,
-            'required'  => false,
+            'required'  => true,
         ]);
 
         /** element `code_6391` **/
         $this->addElement([
             'name'      => 'code_6391',
             'factory'   => 'text',
-            'label'     => _text('Code 6391', null),
-            'note'      => _text('[Code 6391 Note]', null),
+            'label'     => _text('Code 6391', '_core.i18n_locale'),
+            'info'     => _text('Code 6391 [Info]', '_core.i18n_locale'),
             'maxlength' => 255,
             'required'  => true,
         ]);
@@ -61,10 +59,10 @@ class AddI18nLocale extends Form
         /** element `direction_id` **/
         $this->addElement([
             'name'      => 'direction_id',
-            'factory'   => 'select',
-            'label'     => _text('Direction Id', null),
-            'note'      => _text('[Direction Id Note]', null),
+            'factory'   => 'radio',
+            'label'     => _text('Direction Id', '_core.i18n_locale'),
             'value'     => 'ltr',
+            'inline'    => true,
             'options'   => \Phpfox::get('core.i18n')->getDirectionIdOptions(),
             'maxlength' => 255,
             'required'  => true,
@@ -74,8 +72,8 @@ class AddI18nLocale extends Form
         $this->addElement([
             'name'     => 'is_active',
             'factory'  => 'yesno',
-            'label'    => _text('Is Active', null),
-            'note'     => _text('[Is Active Note]', null),
+            'label'    => _text('Is Active', '_core.i18n_locale'),
+            'info'     => _text('Is Active [Info]', '_core.i18n_locale'),
             'value'    => '1',
             'required' => true,
         ]);

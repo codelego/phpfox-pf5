@@ -53,10 +53,20 @@ class AdminI18nMessageController extends AdminController
     {
         $req = \Phpfox::get('request');
         $identity = $req->get('message_id');
+        $cmd = $req->get('cmd');
+
+
         /** @var I18nMessage $entry */
         $entry = \Phpfox::find('i18n_message', $identity);
-        $entry->setMessageValue($req->get('message_value'));
-        $entry->save();
+
+        switch ($cmd) {
+            case 'delete':
+                $entry->delete();
+                break;
+            default:
+                $entry->setMessageValue($req->get('message_value'));
+                $entry->save();
+        }
 
         return ['value' => $entry->getMessageValue(), 'message' => 'Successful'];
     }

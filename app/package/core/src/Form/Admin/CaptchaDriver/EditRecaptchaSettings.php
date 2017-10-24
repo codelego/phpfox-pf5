@@ -56,6 +56,6 @@ class EditRecaptchaSettings extends Form
 
     protected function afterGetData(&$data)
     {
-        $data['title'] = 'Google ReCaptcha';
+        $data['title'] = 'ReCaptcha `'.$data['site_key'].'`';
     }
 }

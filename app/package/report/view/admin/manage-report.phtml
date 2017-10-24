@@ -1,1 +1,53 @@
-<?php
+<div class="panel panel-default">
+    <div class="table-responsive">
+        <table class="table table-admin">
+            <thead>
+            <tr>
+                <th class="w30">
+                    <input type="checkbox" class="moderation-check-all"/>
+                </th>
+                <th class="w30 text-center">#</th>
+                <th class="w30 text-center">ID</th>
+                <th class="w30 text-center">Category</th>
+                <th class="w30 text-center">Poster</th>
+                <th class="w100 text-center">About Type</th>
+                <th class="w100 text-center">About Id</th>
+                <th class="">Message</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item): ?>
+                <tr>
+                    <td>
+                        <label><input id="cb" type="checkbox" name="cb[]" value="<?= $item->getId() ?>"
+                                      class="item_checkbox"/></label>
+                    </td>
+                    <td data-cmd="dropdown" class="dropdown">
+                        <ul>
+                            <li><a href="<?= _url('admin.report.manage.user', ['action' => 'delete', 'report_id' => $item->getId()]) ?>"><?= _text('Delete') ?></a></li>
+                        </ul>
+                    </td>
+                    <td><?= $item->getId(); ?></td>
+                    <td><?= $item->getCategoryId(); ?></td>
+                    <td><?= $item->getUserId(); ?></td>
+                    <td><?= $item->getAboutId(); ?></td>
+                    <td><?= $item->getAboutType(); ?></td>
+                    <td><?= $item->getMessage(); ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="toolbar-bottom">
+    <div class="dropup">
+        <a class="btn btn-default btn-dropdown" data-toggle="dropdown">With
+            Selected</a>
+        <ul class="dropdown-menu">
+            <li role="presentation">
+                <a role="button" class="danger">Delete</a>
+            </li>
+        </ul>
+    </div>
+    <?= $items->render() ?>
+</div>

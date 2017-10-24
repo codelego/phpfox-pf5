@@ -121,7 +121,7 @@ return [
                     'route'      => 'currency(/<action>)',
                     'controller' => 'core.admin-i18n-currency',
                 ],
-                'message'  => ['route' => '<action>',],
+                'message'  => ['route' => 'message(/<action>)',],
             ],
         ],
         'admin.core.mail'      => [

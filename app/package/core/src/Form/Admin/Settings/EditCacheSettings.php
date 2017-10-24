@@ -20,12 +20,13 @@ class EditCacheSettings extends Form
 
 
         /** element `core__shared_cache_cache_id` id=2173 **/
-        $this->addElement(['name'     => 'core__shared_cache_cache_id',
-                           'factory'  => 'select',
-                           'label'    => _text('Default Cache', '_core.cache'),
-                           'info'     => _text('Default Cache Id [Info]', '_core.cache'),
-                           'options'  => \Phpfox::get('core.adapter')->getAdapterIdOptions('cache'),
-                           'required' => true,
+        $this->addElement([
+            'name'     => 'core__shared_cache_cache_id',
+            'factory'  => 'radio',
+            'label'    => _text('Default Cache', '_core.cache'),
+            'info'     => _text('Default Cache Id [Info]', '_core.cache'),
+            'options'  => \Phpfox::get('core.adapter')->getAdapterIdOptions('cache'),
+            'required' => true,
         ]);
         /** end elements **/
 

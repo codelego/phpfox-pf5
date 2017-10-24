@@ -23,7 +23,7 @@ class EditCaptchaSettings extends Form
         /** element `core__default_captcha_id` id=1946 **/
         $this->addElement([
             'name'     => 'core__default_captcha_id',
-            'factory'  => 'select',
+            'factory'  => 'radio',
             'required' => 1,
             'label'    => _text('Default Captcha', '_core.captcha'),
             'info'     => _text('Default Captcha [Info]', '_core.captcha'),

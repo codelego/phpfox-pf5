@@ -4,7 +4,7 @@ namespace Neutron\Core\Form\Admin\MailTemplate;
 
 use Phpfox\Form\Form;
 
-class AddMailTemplate extends Form
+class TranslateMailTemplate extends Form
 {
 
     public function initialize()
@@ -19,33 +19,24 @@ class AddMailTemplate extends Form
 
         /** skip element `id` #identity **/
 
-        /** element `package_id` **/
+        /** element `language_id` **/
         $this->addElement([
-            'name'      => 'package_id',
+            'name'      => 'locale_id',
             'factory'   => 'select',
-            'label'     => _text('Package Id', '_core.mail_template'),
-            'info'      => _text('Package Id [Info]', '_core.mail_template'),
-            'options'   => \Phpfox::get('core.packages')->getPackageIdOptions(),
+            'label'     => _text('Locale Id', '_core.mail_template'),
+            'info'      => _text('Locale Id [Info]', '_core.mail_template'),
+            'options'   => \Phpfox::get('core.i18n')->getLocaleIdOptions(),
             'maxlength' => 255,
-            'required'  => true,
+            'required'  => false,
         ]);
 
-        /** element `code` **/
-        $this->addElement([
-            'name'      => 'code',
-            'factory'   => 'text',
-            'label'     => _text('Code Id', '_core.mail_template'),
-            'info'      => _text('Code Id [Info]', '_core.mail_template'),
-            'maxlength' => 255,
-            'required'  => true,
-        ]);
 
         /** element `vars` **/
         $this->addElement([
-            'name'      => 'vars',
+            'name'      => 'subject',
             'factory'   => 'textarea',
-            'label'     => _text('Placeholders', '_core.mail_template'),
-            'info'      => _text('Placeholders [Info]', '_core.mail_template'),
+            'label'     => _text('Vars', '_core.mail_template'),
+            'info'      => _text('Vars [Info]', '_core.mail_template'),
             'maxlength' => 255,
             'required'  => true,
         ]);

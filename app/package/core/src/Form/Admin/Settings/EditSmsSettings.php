@@ -20,13 +20,14 @@ class EditSmsSettings extends Form
 
 
         /** element `core__default_sms_id` id=2191 **/
-        $this->addElement(['name'        => 'core__default_sms_id',
-                           'factory'     => 'select',
-                           'label'       => _text('Default SMS Service', '_core.sms'),
-                           'placeholder' => _text('Default SMS Service', '_core.sms'),
-                           'info'        => _text('Default SMS Id [Info]', '_core.sms'),
-                           'options'     => \Phpfox::get('core.adapter')->getAdapterIdOptions('sms'),
-                           'required'    => true,
+        $this->addElement([
+            'name'        => 'core__default_sms_id',
+            'factory'     => 'radio',
+            'label'       => _text('Default SMS Service', '_core.sms'),
+            'placeholder' => _text('Default SMS Service', '_core.sms'),
+            'info'        => _text('Default SMS Id [Info]', '_core.sms'),
+            'options'     => \Phpfox::get('core.adapter')->getAdapterIdOptions('sms'),
+            'required'    => true,
         ]);
         /** end elements **/
 

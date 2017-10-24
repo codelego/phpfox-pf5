@@ -12,7 +12,7 @@ class EditMailSettings extends Form
     {
 
         $this->setTitle(_text('Edit Mail Settings', '_core.mail_settings'));
-        $this->setInfo(_text('Edit Site Settings [Info]', '_core'));
+        $this->setInfo(_text('Edit Site Settings [Info]', '_core.mail_settings'));
         $this->setMethod('post');
         $this->setAction(_url('#'));
 
@@ -20,11 +20,13 @@ class EditMailSettings extends Form
 
 
         /** element `core__default_mailer_id` id=2177 **/
-        $this->addElement(['name'     => 'core__default_mailer_id',
-                           'factory'  => 'select',
-                           'label'    => _text('Default Mail', '_core.mail_settings'),
-                           'info'     => _text('Default Mail Id [Info]', '_core.mail_settings'),
-                           'required' => true,
+        $this->addElement([
+            'name'     => 'core__default_mailer_id',
+            'factory'  => 'radio',
+            'label'    => _text('Default Mail', '_core.mail_settings'),
+            'info'     => _text('Default Mail Id [Info]', '_core.mail_settings'),
+            'options'  => \Phpfox::get('core.adapter')->getAdapterIdOptions('mail'),
+            'required' => true,
         ]);
         /** end elements **/
 

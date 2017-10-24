@@ -26,7 +26,7 @@ define([
         dom.toggleClass((prop.length > 1 ? prop[1] : 'hide').replace('.', ' '));
         evt.preventDefault();
         return false;
-    }).cmd('form.cmd', function (ele) {
+    }).cmd('form.cmd', function (ele,evt) {
         var rel = ele.data('rel') || '',
             form = ele.closest('form'),
             hidden = form.find('input[name=cmd]');

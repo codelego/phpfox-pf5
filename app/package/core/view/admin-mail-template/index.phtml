@@ -1,0 +1,32 @@
+<div class="panel panel-default">
+    <div class="table-responsive">
+        <table class="table table-admin">
+            <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th class="sortable asc">Name</th>
+                <th class="w300">Package</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item): ?>
+                <tr>
+                    <td data-cmd="dropdown" class="dropdown">
+                        <ul>
+                            <li><a href="<?= _url('admin.core.mail.template', ['action' => 'edit', 'template_id' => $item->getId()]) ?>"><?= _text('Edit') ?></a></li>
+                            <li><a href="<?= _url('admin.core.mail.template', ['action' => 'translate', 'template_id' => $item->getId()]) ?>"><?= _text('Translate') ?></a></li>
+                            <li class="divider"></li>
+                            <li><a href="<?= _url('admin.core.mail.template', ['action' => 'delete', 'template_id' => $item->getId()]) ?>"><?= _text('Delete') ?></a></li>
+                        </ul>
+                    </td>
+                    <td><?= $item->getCode(); ?></td>
+                    <td><?= $item->getPackageId(); ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="toolbar-bottom">
+    <?= $items->render() ?>
+</div>

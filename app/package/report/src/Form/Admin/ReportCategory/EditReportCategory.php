@@ -1,44 +1,75 @@
 <?php
+
 namespace Neutron\Report\Form\Admin\ReportCategory;
 
 use Phpfox\Form\Form;
 
-class EditReportCategory extends Form {
+class EditReportCategory extends Form
+{
 
     /** id=210 */
-    public function initialize(){
+    public function initialize()
+    {
 
-        $this->setTitle(_text('Edit Report Category',''));
-        $this->setInfo(_text('Edit Report Category [Form Info]',''));
+        $this->setTitle(_text('Edit Report Category', '_report'));
+        $this->setInfo(_text('Edit Report Category [Info]', '_report'));
         $this->setAction(_url('#'));
 
         /** start elements **/
 
-        
-        
-            /** element `is_active` id=3167 **/
-            $this->addElement(array ( 'name' => 'is_active', 'factory' => 'yesno', 'label' => _text('Is Active',null), 'placeholder' => _text('Is Active',null), 'info' => _text('Is Active [Info]', null), 'value' => '0', 'required' => true, ));        
-        
-            /** element `name` id=3168 **/
-            $this->addElement(array ( 'name' => 'name', 'factory' => 'text', 'label' => _text('Name',null), 'placeholder' => _text('Name',null), 'info' => _text('Name [Info]', null), 'required' => true, ));        
-        
-            /** element `description` id=3169 **/
-            $this->addElement(array ( 'name' => 'description', 'factory' => 'textarea', 'label' => _text('Description',null), 'placeholder' => _text('Description',null), 'info' => _text('Description [Info]', null), ));        
+
+        /** element `name` id=3164 **/
+        $this->addElement([
+            'name'        => 'name',
+            'factory'     => 'text',
+            'label'       => _text('Category Name', '_report'),
+            'placeholder' => _text('Category Name', '_report'),
+            'info'        => _text('Category Name [Info]', '_report'),
+            'maxlength'   => 100,
+            'required'    => true,
+        ]);
+
+        /** element `description` id=3165 **/
+        $this->addElement([
+            'name'        => 'description',
+            'factory'     => 'textarea',
+            'label'       => _text('Category Description', '_report'),
+            'placeholder' => _text('Category Description', '_report'),
+            'info'        => _text('Category Description [Info]', '_report'),
+        ]);
         /** end elements **/
 
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'save',
+            'label'      => _text('Submit'),
+            'attributes' => ['class' => 'btn btn-primary', 'type' => 'submit',],
+        ]);
+
+        /** element `is_active` id=3163 **/
+        $this->addElement([
+            'name'     => 'is_active',
+            'factory'  => 'yesno',
+            'label'    => _text('Is Active', '_report'),
+            'info'     => _text('Is Active [Info]', '_report'),
+            'value'    => '0',
+            'required' => true,
+        ]);
+
+
+        $this->addButton([
+            'factory'    => 'button',
+            'name'       => 'save',
             'label'      => _text('Save Changes'),
-            'attributes' => ['class' => 'btn btn-primary','type' => 'submit',],
+            'attributes' => ['class' => 'btn btn-primary', 'type' => 'submit',],
         ]);
 
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'cancel',
-            'href'       => _url('#'),
+            'href'       => _url('admin.report.category'),
             'label'      => _text('Cancel'),
-            'attributes' => ['class' => 'btn btn-link cancel','type'=>'button','data-cmd' => 'form.cancel',],
+            'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);
     }
 }

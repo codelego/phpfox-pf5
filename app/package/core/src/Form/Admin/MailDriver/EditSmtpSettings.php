@@ -8,14 +8,15 @@ class EditSmtpSettings extends Form
 {
     protected function initialize()
     {
-        $this->setTitle(_text('SMTP Driver Settings', 'admin.core_mail'));
-        $this->setInfo(_text('[Mail SMTP Driver Settings Info]', 'admin.core_mail'));
+        $this->setTitle(_text('Edit SMTP Settings', '_core.mail'));
+        $this->setInfo(_text('Edit SMTP Settings [Info]', '_core.mail'));
         $this->setAction(_url('#'));
 
         $this->addElement([
             'name'     => 'host',
             'factory'  => 'text',
-            'label'    => _text('SMTP Hostname'),
+            'label'    => _text('SMTP Server', '_core.mail'),
+            'info'     => _text('SMTP Server [Info]', '_core.mail'),
             'value'    => '127.0.0.1',
             'required' => true,
         ]);
@@ -23,11 +24,12 @@ class EditSmtpSettings extends Form
         $this->addElement([
             'name'     => 'secure',
             'factory'  => 'radio',
-            'label'    => _text('Security?'),
+            'label'    => _text('SMTP Security?', '_core.mail'),
+            'info'     => _text('SMTP Security [Info]', '_core.mail'),
             'value'    => 'none',
             'required' => true,
             'options'  => [
-                ['label' => 'none', 'value' => 'none'],
+                ['label' => 'None', 'value' => 'none'],
                 ['label' => 'TLS', 'value' => 'tls'],
                 ['label' => 'SSL', 'value' => 'ssl'],
             ],
@@ -37,34 +39,36 @@ class EditSmtpSettings extends Form
             'name'     => 'port',
             'factory'  => 'text',
             'label'    => _text('SMTP Port'),
+            'info'     => _text('SMTP Port [Info]', '_core.mail'),
             'value'    => '25',
-            'note'     => 'Default: 25. Also commonly on port 465 (SMTP over SSL) or port 587.',
             'required' => true,
         ]);
 
         $this->addElement([
             'name'     => 'auth',
             'factory'  => 'radio',
-            'label'    => _text('SMTP Authentication'),
-            'info'     => _text('Does your SMTP Server require authentication?', 'admin'),
+            'label'    => _text('SMTP Authentication', '_core.mail'),
+            'info'     => _text('SMTP Authentication [Info]', '_core.mail'),
             'value'    => '0',
             'required' => true,
             'options'  => [
-                ['value' => 0, 'label' => _text('No, does not authentication'),],
-                ['value' => 1, 'label' => _text('Yes, use authentication')],
+                ['value' => 0, 'label' => _text('No, does not authentication', '_core.mail'),],
+                ['value' => 1, 'label' => _text('Yes, use authentication', '_core.mail')],
             ],
         ]);
         $this->addElement([
             'name'     => 'username',
             'factory'  => 'text',
-            'label'    => _text('SMTP Login Username'),
+            'label'    => _text('SMTP Login Username', '_core.mail'),
+            'info'     => _text('SMTP Login Username [Info]', '_core.mail'),
             'value'    => '',
             'required' => false,
         ]);
         $this->addElement([
             'name'     => 'password',
             'factory'  => 'password',
-            'label'    => _text('SMTP Login Password'),
+            'label'    => _text('SMTP Login Password', '_core.mail'),
+            'info'     => _text('SMTP Login Password [Info]', '_core.mail'),
             'value'    => '',
             'required' => false,
         ]);
@@ -72,7 +76,8 @@ class EditSmtpSettings extends Form
         $this->addElement([
             'factory'     => 'text',
             'name'        => 'fromAddress',
-            'label'       => _text('From Address', 'admin'),
+            'label'       => _text('From Address', '_core.mail'),
+            'info'        => _text('From Address [Info]', '_core.mail'),
             'placeholder' => 'your@domain.com',
             'value'       => '',
             'required'    => true,
@@ -81,7 +86,8 @@ class EditSmtpSettings extends Form
         $this->addElement([
             'name'        => 'fromName',
             'factory'     => 'text',
-            'label'       => _text('From Name', 'admin'),
+            'label'       => _text('From Name', '_core.mail'),
+            'info'        => _text('From Name [Info]', '_core.mail'),
             'placeholder' => 'Admin',
             'value'       => '',
             'required'    => true,
@@ -90,7 +96,8 @@ class EditSmtpSettings extends Form
         $this->addElement([
             'name'        => 'replyAddress',
             'factory'     => 'text',
-            'label'       => _text('Reply To Address', 'admin'),
+            'label'       => _text('Reply to Address', '_core.mail'),
+            'info'        => _text('Reply to Address [Info]', '_core.mail'),
             'placeholder' => 'no-reply@domain.com',
             'value'       => '',
             'required'    => true,
@@ -99,7 +106,8 @@ class EditSmtpSettings extends Form
         $this->addElement([
             'name'        => 'replyName',
             'factory'     => 'text',
-            'label'       => _text('Reply To Name', 'admin'),
+            'label'       => _text('Reply to Name', '_core.mail'),
+            'info'        => _text('Reply to Name [Info]', '_core.mail'),
             'placeholder' => 'No-Reply',
             'value'       => '',
             'required'    => true,
@@ -125,6 +133,6 @@ class EditSmtpSettings extends Form
 
     protected function afterGetData(&$data)
     {
-        $data['title'] = 'SMTP ' . $data['host'] . ':' . $data['port'];
+        $data['title'] = 'SMTP send from <b>' . $data['host'] . ':' . $data['port'] .'</b>';
     }
 }

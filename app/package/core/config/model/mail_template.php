@@ -1,0 +1,1 @@
+<?php return array(0=>'id',1=>array('id'=>1,),2=>'id',3=>array('id'=>1,'language_id'=>1,'code'=>1,'package_id'=>1,'vars'=>1,),4=>array(),);

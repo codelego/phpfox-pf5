@@ -10,8 +10,8 @@ class AddI18nCurrency extends Form
     public function initialize()
     {
 
-        $this->setTitle(_text('Add Currency', ''));
-        $this->setInfo(_text('[Add Currency Info]', ''));
+        $this->setTitle(_text('Add Currency', '_core.currency'));
+        $this->setInfo(_text('Edit Currency [Info]', '_core.currency'));
         $this->setAction(_url('#'));
 
         /** start elements **/
@@ -19,53 +19,47 @@ class AddI18nCurrency extends Form
 
         /** element `currency_id` **/
         $this->addElement([
-            'name'      => 'currency_id',
-            'factory'   => 'text',
-            'label'     => _text('Currency Id', null),
-            'note'      => _text('[Currency Id Note]', null),
-            'maxlength' => 255,
-            'required'  => true,
+            'name'     => 'currency_id',
+            'factory'  => 'text',
+            'label'    => _text('Currency Id', '_core.currency'),
+            'info'     => _text('Currency Id [Info]', '_core.currency'),
+            'required' => '1',
         ]);
 
         /** element `symbol` **/
         $this->addElement([
-            'name'      => 'symbol',
-            'factory'   => 'text',
-            'label'     => _text('Symbol', null),
-            'note'      => _text('[Symbol Note]', null),
-            'maxlength' => 255,
-            'required'  => true,
+            'name'     => 'symbol',
+            'factory'  => 'text',
+            'label'    => _text('Symbol', '_core.currency'),
+            'info'     => _text('Symbol [Info]', '_core.currency'),
+            'required' => '1',
         ]);
 
         /** element `name` **/
         $this->addElement([
-            'name'      => 'name',
-            'factory'   => 'text',
-            'label'     => _text('Name', null),
-            'note'      => _text('[Name Note]', null),
-            'maxlength' => 255,
-            'required'  => true,
+            'name'     => 'name',
+            'factory'  => 'text',
+            'label'    => _text('Name', '_core.currency'),
+            'info'     => _text('Name [Info]', '_core.currency'),
+            'required' => '1',
         ]);
 
         /** element `ordering` **/
         $this->addElement([
-            'name'      => 'ordering',
-            'factory'   => 'text',
-            'label'     => _text('Ordering', null),
-            'note'      => _text('[Ordering Note]', null),
-            'value'     => '0',
-            'maxlength' => 255,
-            'required'  => true,
+            'name'     => 'ordering',
+            'factory'  => 'hidden',
+            'value'    => '0',
+            'required' => '1',
         ]);
 
         /** element `is_active` **/
         $this->addElement([
             'name'     => 'is_active',
             'factory'  => 'yesno',
-            'label'    => _text('Is Active', null),
-            'note'     => _text('[Is Active Note]', null),
+            'label'    => _text('Is Active', '_core.currency'),
+            'info'     => _text('Is Active [Info]', '_core.currency'),
             'value'    => '0',
-            'required' => true,
+            'required' => '1',
         ]);
         /** end elements **/
 

@@ -31,7 +31,7 @@ class EditSessionSettings extends Form
         /** element `core__default_session_id` id=2142 **/
         $this->addElement([
             'name'     => 'core__default_session_id',
-            'factory'  => 'select',
+            'factory'  => 'radio',
             'label'    => _text('Default Session', '_core.session'),
             'info'     => _text('Default Session Id [Info]', '_core.session'),
             'value'    => 'files',

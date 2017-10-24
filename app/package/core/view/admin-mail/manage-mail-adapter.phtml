@@ -3,12 +3,9 @@
         <table class="table table-admin">
             <tr>
                 <th class="text-center">#</th>
-                <th>ID</th>
                 <th>Name</th>
                 <th>Driver ID</th>
-                <th>Active?</th>
                 <th>Default</th>
-                <th>Required</th>
             </tr>
             <?php foreach ($items as $item): ?>
                 <tr>
@@ -31,12 +28,9 @@
                                     ]) ?>"><?= _text('Send Test Email') ?></a></li>
                         </ul>
                     </td>
-                    <td><?= $item->getId() ?></td>
                     <td><?= $item->getTitle() ?></td>
                     <td><?= $item->getDriverId() ?></td>
-                    <td><?= _yesno($item->isActive(), true, false) ?></td>
                     <td><?= _yesno($item->isDefault(), true, false) ?></td>
-                    <td><?= _yesno($item->isRequired(), true, false) ?></td>
                 </tr>
             <?php endforeach; ?>
         </table>

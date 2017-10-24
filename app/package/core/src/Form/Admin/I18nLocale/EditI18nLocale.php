@@ -11,52 +11,72 @@ class EditI18nLocale extends Form
     {
 
         $this->setTitle(_text('Edit Locale', ''));
-        $this->setInfo(_text('[Edit Locale Info]', ''));
         $this->setAction(_url('#'));
 
         /** start elements **/
 
-        // element `name`
+
+        /** element `locale_id` **/
         $this->addElement([
-            'name'      => 'name',
+            'name'      => 'locale_id',
             'factory'   => 'text',
-            'label'     => _text('Name', 'admin'),
+            'label'     => _text('Locale Id', '_core.i18n_locale'),
+            'options'   => \Phpfox::get('core.i18n')->getLocaleIdOptions(),
             'maxlength' => 255,
             'required'  => true,
         ]);
 
-        // element `native_name`
+        /** element `name` **/
+        $this->addElement([
+            'name'      => 'name',
+            'factory'   => 'text',
+            'label'     => _text('English Name', '_core.i18n_locale'),
+            'info'      => _text('English Name [Info]', '_core.i18n_locale'),
+            'maxlength' => 255,
+            'required'  => true,
+        ]);
+
+        /** element `native_name` **/
         $this->addElement([
             'name'      => 'native_name',
             'factory'   => 'text',
             'label'     => _text('Native Name', '_core.i18n_locale'),
-            'info'      => _text('[Native Name Info]', '_core.i18n_locale'),
+            'info'      => _text('Native Name [Info]', '_core.i18n_locale'),
             'maxlength' => 255,
             'required'  => true,
         ]);
 
-        // element `direction_id`
+        /** element `code_6391` **/
+        $this->addElement([
+            'name'      => 'code_6391',
+            'factory'   => 'text',
+            'label'     => _text('Code 6391', '_core.i18n_locale'),
+            'info'      => _text('Code 6391 [Info]', '_core.i18n_locale'),
+            'maxlength' => 255,
+            'required'  => true,
+        ]);
+
+        /** element `direction_id` **/
         $this->addElement([
             'name'      => 'direction_id',
-            'factory'   => 'select',
-            'label'     => _text('Direction', '_core.i18n_locale'),
-            'info'      => _text('[Language Direction Info]', '_core.i18n_locale'),
+            'factory'   => 'radio',
+            'inline'    => true,
+            'label'     => _text('Direction Id', '_core.i18n_locale'),
             'value'     => 'ltr',
             'options'   => \Phpfox::get('core.i18n')->getDirectionIdOptions(),
             'maxlength' => 255,
             'required'  => true,
         ]);
 
-        // element `is_active`
+        /** element `is_active` **/
         $this->addElement([
             'name'     => 'is_active',
             'factory'  => 'yesno',
-            'label'    => _text('Is Active', 'admin'),
-            'info'     => _text('[Is Active Info]', '_core.i18n_locale'),
+            'label'    => _text('Is Active', '_core.i18n_locale'),
+            'info'     => _text('Is Active [Info]', '_core.i18n_locale'),
             'value'    => '1',
             'required' => true,
         ]);
-
         /** end elements **/
 
         $this->addButton([

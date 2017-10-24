@@ -4,12 +4,9 @@
             <thead>
             <tr>
                 <th class="text-center w40">#</th>
-                <th class="w40">ID</th>
                 <th><?= _text('Title') ?></th>
                 <th class="w100"><?= _text('Driver') ?></th>
-                <th class="w50"><?= _text('Active') ?></th>
                 <th class="w50"><?= _text('Default') ?></th>
-                <th class="w50"><?= _text('Require') ?></th>
             </tr>
             </thead>
             <tbody>
@@ -34,12 +31,9 @@
                             <?php endif; ?>
                         </ul>
                     </td>
-                    <td><?= $item->getId() ?></td>
                     <td><?= $item->getTitle() ?></td>
                     <td><?= $item->getDriverId() ?></td>
-                    <td><?= _yesno($item->isActive()) ?></td>
                     <td><?= _yesno($item->isDefault(), true, false) ?></td>
-                    <td><?= _yesno($item->isRequired(), true, false) ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

@@ -5,7 +5,7 @@ define([
     var Core = require('core'),
         Toast = require('package/jquery/jquery.toast');
 
-    Core.cmd('admin.i18n.phrase.save', function (ele) {
+    Core.cmd('admin.i18n.phrase.save', function (ele,evt) {
 
         var form = ele.closest('form');
 
@@ -14,7 +14,6 @@ define([
 
         Core.ajaxForm(form)
             .done(function (data) {
-                console.log(data);
                 if (data.cmd == 'delete') {
                     form.closest('tr').fadeOut(250, function () {
                         form.closest('tr').remove();
@@ -29,7 +28,7 @@ define([
             .error(function () {
                 alert('can not save form');
             });
-
+        evt.preventDefault();
         return false;
     }).cmd('admin.i18n.phrase.delete', function (btn) {
         btn.closest('tr').addClass('hide');

@@ -7,6 +7,7 @@ use Neutron\Core\Process\AdminAddEntryProcess;
 use Neutron\Core\Process\AdminEditEntryProcess;
 use Neutron\Core\Process\AdminListEntryProcess;
 use Neutron\Report\Form\Admin\ReportCategory\AddReportCategory;
+use Neutron\Report\Form\Admin\ReportCategory\DeleteReportCategory;
 use Neutron\Report\Form\Admin\ReportCategory\EditReportCategory;
 use Neutron\Report\Model\ReportCategory;
 
@@ -52,6 +53,16 @@ class AdminCategoryController extends AdminController
             'key'      => 'category_id',
             'model'    => ReportCategory::class,
             'form'     => EditReportCategory::class,
+            'redirect' => _url('admin.report.category'),
+        ]))->process();
+    }
+
+    public function actionDelete()
+    {
+        return (new AdminEditEntryProcess([
+            'key'      => 'category_id',
+            'model'    => ReportCategory::class,
+            'form'     => DeleteReportCategory::class,
             'redirect' => _url('admin.report.category'),
         ]))->process();
     }

@@ -1,18 +1,22 @@
 <?php
+/**
+ * @author  OvalSky
+ * @license phpfox.com
+ */
 
-namespace Neutron\Report\Form\Admin\ReportCategory;
+namespace Neutron\Report\Form\Admin\ReportItem;
+
 
 use Phpfox\Form\Form;
 
-class DeleteReportCategory extends Form
+class DeleteReportItem extends Form
 {
-
-    /** id=320 */
+    /** id=249 */
     public function initialize()
     {
 
         $this->setTitle(_text('Are You Sure?', ''));
-        $this->setInfo(_text('Delete Report Category [Info]', '_report'));
+        $this->setInfo(_text('Delete Report Item [Info]', '_report'));
         $this->setAction(_url('#'));
 
         /** start elements **/
@@ -29,7 +33,7 @@ class DeleteReportCategory extends Form
         $this->addButton([
             'factory'    => 'button',
             'name'       => 'cancel',
-            'href'       => _url('admin.report.category'),
+            'href'       => _url('admin.report.manage'),
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);

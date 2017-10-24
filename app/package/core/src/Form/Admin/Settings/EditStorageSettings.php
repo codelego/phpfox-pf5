@@ -22,7 +22,7 @@ class EditStorageSettings extends Form
         /** element `core__default_storage_id` id=2148 **/
         $this->addElement([
             'name'     => 'core__default_storage_id',
-            'factory'  => 'select',
+            'factory'  => 'radio',
             'label'    => _text('Default Storage', '_core.storage'),
             'info'     => _text('Default Storage Id [Info]', '_core.storage'),
             'options'  => \Phpfox::get('core.storage')->getAdapterIdOptions(),

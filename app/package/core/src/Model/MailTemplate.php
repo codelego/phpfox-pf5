@@ -21,14 +21,14 @@ class MailTemplate extends DbModel
         $this->__set('id', $value);
     }
 
-    public function getLanguageId()
+    public function getLocaleId()
     {
-        return $this->__get('language_id');
+        return $this->__get('locale_id');
     }
 
-    public function setLanguageId($value)
+    public function setLocaleId($value)
     {
-        $this->__set('language_id', $value);
+        $this->__set('locale_id', $value);
     }
 
     public function getCode()

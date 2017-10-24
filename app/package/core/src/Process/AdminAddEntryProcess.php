@@ -33,7 +33,7 @@ class AdminAddEntryProcess extends AbstractProcess
                 ->create($form->getData());
             $entry->save();
 
-            \Phpfox::$service->get('response')->redirect($this->get('redirect'));
+            \Phpfox::get('response')->redirect($this->get('redirect'));
         }
 
         $vm = new ViewModel(['form' => $form], 'layout/form-edit');
