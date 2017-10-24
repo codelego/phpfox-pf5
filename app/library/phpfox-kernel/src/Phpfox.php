@@ -236,8 +236,7 @@ namespace {
          */
         public static function trigger($name, $target = null, $params = [])
         {
-            return self::get('mvc.events')
-                ->trigger(new Event($name, $target, $params));
+            return self::get('mvc.events')->trigger(new Event($name, $target, $params));
         }
 
         /**

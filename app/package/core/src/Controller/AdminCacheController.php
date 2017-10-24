@@ -108,6 +108,13 @@ class AdminCacheController extends AdminController
         ], 'layout/form-edit');
     }
 
+    public function actionTest()
+    {
+        return new ViewModel([
+
+        ], 'core/admin-cache/test-adapter-settings');
+    }
+
     public function actionEdit()
     {
         $request = \Phpfox::get('request');

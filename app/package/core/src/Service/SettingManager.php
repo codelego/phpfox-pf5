@@ -27,16 +27,16 @@ class SettingManager
     public function getPrivateSiteIdOptions()
     {
         return [
-            ['value' => '0', 'label' => _text('[Private Site Option No]', '_core.general_settings')],
-            ['value' => '1', 'label' => _text('[Private Site Option Yes]', '_core.general_settings')],
+            ['value' => '0', 'label' => _text('Yes')],
+            ['value' => '1', 'label' => _text('No')],
         ];
     }
 
     public function getSiteModeIdOptions()
     {
         return [
-            ['value' => '1', 'label' => _text('[Site Offline]', '_core.general_settings')],
-            ['value' => '0', 'label' => _text('[Site Online]', '_core.general_settings')],
+            ['value' => '1', 'label' => _text('Yes')],
+            ['value' => '0', 'label' => _text('No')],
         ];
     }
 

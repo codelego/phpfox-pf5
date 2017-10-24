@@ -41,7 +41,7 @@ class MysqliSqlResult implements SqlResultInterface
 
     public function isValid()
     {
-        return $this->resource != false;
+        return $this->resource !== false;
     }
 
     public function error()

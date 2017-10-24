@@ -9,7 +9,7 @@ class EditRecaptchaSettings extends Form
     protected function initialize()
     {
         $this->setTitle(_text('ReCaptcha Settings', '_core.recaptcha'));
-        $this->setInfo(_text('[ReCaptcha Settings Info]', '_core.recaptcha'));
+        $this->setInfo(_text('ReCaptcha Settings [Info]', '_core.recaptcha'));
         $this->setAction(_url('#'));
 
         /** start elements */
@@ -18,7 +18,7 @@ class EditRecaptchaSettings extends Form
             'name'       => 'site_key',
             'value'      => '',
             'label'      => _text('Site Key', '_core.recaptcha'),
-            'info'       => _text('[Site Key Info]', '_core.recaptcha'),
+            'info'       => _text('Site Key [Info]', '_core.recaptcha'),
             'maxlength'  => 255,
             'spellcheck' => 'false',
             'required'   => true,
@@ -29,7 +29,7 @@ class EditRecaptchaSettings extends Form
             'name'       => 'secret_key',
             'value'      => '',
             'label'      => _text('Secret Key', '_core.recaptcha'),
-            'info'       => _text('[Secret Key Info]', '_core.recaptcha'),
+            'info'       => _text('Secret Key [Info]', '_core.recaptcha'),
             'maxlength'  => 255,
             'spellcheck' => 'false',
             'required'   => true,

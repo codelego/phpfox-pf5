@@ -27,9 +27,9 @@ class ActionController
 
         if (\Phpfox::param('core.offline_mode')) {
             $code = isset($_SESSION['offline_code']) ? $_SESSION['offline_code'] : 'none';
-        }
-        if ($code != \Phpfox::param('core.offline_code')) {
-            return false;
+            if ($code != \Phpfox::param('core.offline_code')) {
+                return false;
+            }
         }
 
         return true;

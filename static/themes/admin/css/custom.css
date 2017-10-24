@@ -510,7 +510,7 @@ th.draggable, td.draggable {
 td.draggable {
   cursor: ns-resize; }
   td.draggable:before {
-    content: "\f0c9";
+    content: "\f047";
     display: inline-block;
     font-family: FontAwesome; }
 

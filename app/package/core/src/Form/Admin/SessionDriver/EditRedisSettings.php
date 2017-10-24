@@ -10,14 +10,14 @@ class EditRedisSettings extends Form
     protected function initialize()
     {
         $this->setTitle(_text('Redis Settings', '_core.session'));
-        $this->setInfo(_text('[Redis Settings Info]', '_core.session'));
+        $this->setInfo(_text('Redis Settings [Info]', '_core.session'));
 
         $this->addElement([
             'factory'  => 'text',
             'name'     => 'host',
             'value'    => '127.0.0.1',
             'label'    => _text('Redis Host', '_core.session'),
-            'info'     => _text('[Redis Host Info]', '_core.session'),
+            'info'     => _text('Redis Host [Info]', '_core.session'),
             'required' => true,
         ]);
 
@@ -26,7 +26,7 @@ class EditRedisSettings extends Form
             'name'     => 'port',
             'value'    => '6379',
             'label'    => _text('Redis Port', '_core.session'),
-            'info'     => _text('[Redis Port Info]', '_core.session'),
+            'info'     => _text('Redis Port [Info]', '_core.session'),
             'required' => true,
         ]);
 
@@ -38,15 +38,21 @@ class EditRedisSettings extends Form
                 ['value' => 'tcp', 'label' => 'tcp'],
             ],
             'label'    => _text('Select Redis Protocol', '_core.session'),
-            'info'     => _text('[Select Redis Protocol Info]', '_core.session'),
             'required' => true,
         ]);
         $this->addElement([
             'factory'  => 'text',
             'name'     => 'auth',
             'label'    => _text('Redis Password', '_core.session'),
-            'info'     => _text('[Redis Password]', '_core.session'),
+            'info'     => _text('Redis Password [Info]', '_core.session'),
             'required' => false,
+        ]);
+
+        $this->addButton([
+            'factory'    => 'button',
+            'name'       => 'test',
+            'label'      => _text('Test'),
+            'attributes' => ['class' => 'btn btn-info', 'type' => 'submit',],
         ]);
 
         $this->addButton([
@@ -67,6 +73,6 @@ class EditRedisSettings extends Form
 
     protected function afterGetData(&$data)
     {
-        $data['title'] = 'Redis ' . $data['host'] . ':' . $data['port'];
+        $data['title'] = 'Redis <b>' . $data['host'] . ':' . $data['port'] .'</b>';
     }
 }

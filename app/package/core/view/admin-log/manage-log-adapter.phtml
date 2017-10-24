@@ -16,7 +16,6 @@
                 <thead>
                 <tr>
                     <th class="text-center w40">#</th>
-                    <th class="w40">ID</th>
                     <th>Title</th>
                     <th class="w100">Driver</th>
                     <th class="w50">Enable</th>
@@ -47,7 +46,6 @@
                                     </a></li>
                             </ul>
                         </td>
-                        <td><?= $item->getId() ?></td>
                         <td><?= $item->getTitle() ?></td>
                         <td><?= $item->getDriverId() ?></td>
                         <td><?= _yesno($item->isActive(), true, true) ?></td>

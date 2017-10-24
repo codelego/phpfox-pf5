@@ -9,36 +9,26 @@ class EditTwilioSettings extends Form
 {
     protected function initialize()
     {
-        $this->setTitle(_text('Twilio Service Settings', 'admin.core_verify_twilio'));
-        $this->setInfo(_text('[Twilio Service Settings Info]', 'admin.core_verify'));
+        $this->setTitle(_text('Twilio Service Settings', '_core.twilio_sms'));
+        $this->setInfo(_text('Twilio Service Settings [Info]', '_core.twilio_sms'));
 
         $this->addElement([
-            'name'      => 'account_id',
+            'name'      => 'core_twilio__account_id',
             'factory'   => 'text',
-            'label'     => _text('Account ID', 'admin.core_verify_twilio'),
-            'info'      => _text('[Account ID Info]', 'admin.core_verify_twilio'),
+            'label'     => _text('Account ID', '_core.twilio_sms'),
+            'info'      => _text('Account ID [Info]', '_core.twilio_sms'),
             'maxlength' => 100,
             'required'  => true,
         ]);
 
         $this->addElement([
-            'name'      => 'auth_token',
+            'name'      => 'core_twilio__auth_token',
             'factory'   => 'text',
-            'label'     => _text('Auth Token', 'admin.core_verify_twilio'),
-            'info'      => _text('[Auth Token Info]', 'admin.core_verify_twilio'),
+            'label'     => _text('Auth Token', '_core.twilio_sms'),
+            'info'      => _text('Auth Token [Info]', '_core.twilio_sms'),
             'maxlength' => 100,
             'required'  => true,
         ]);
-
-        $this->addElement([
-            'name'      => 'phone_number',
-            'factory'   => 'text',
-            'label'     => _text('Phone Number', 'admin.core_verify_twilio'),
-            'info'      => _text('[Phone Number Info]', 'admin.core_verify_twilio'),
-            'maxlength' => 100,
-            'required'  => true,
-        ]);
-        /** end elements */
 
         $this->addButton([
             'factory'    => 'button',
@@ -54,7 +44,13 @@ class EditTwilioSettings extends Form
             'label'      => _text('Cancel'),
             'attributes' => ['class' => 'btn btn-link cancel', 'type' => 'button', 'data-cmd' => 'form.cancel',],
         ]);
+    }
 
-
+    protected function afterGetData(&$data)
+    {
+        $data['title'] = 'Twilio <b>' . $data['core_twilio__account_id'] . '</b>';
+        $data['is_active'] = 1;
+        $data['is_default'] = 0;
+        $data['is_required'] = 0;
     }
 }

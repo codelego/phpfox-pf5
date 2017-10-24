@@ -9,7 +9,6 @@
                 <th class="w100">Driver</th>
                 <th class="w50">Active</th>
                 <th class="w50">Default</th>
-                <th class="w50">Require</th>
             </tr>
             </thead>
             <tbody>
@@ -41,7 +40,6 @@
                     <td><?= $item->getDriverId() ?></td>
                     <td><?= _yesno($item->isActive()) ?></td>
                     <td><?= _yesno($item->isDefault(), true, false) ?></td>
-                    <td><?= _yesno($item->isRequired(), true, false) ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

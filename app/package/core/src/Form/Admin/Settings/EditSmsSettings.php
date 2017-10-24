@@ -12,7 +12,7 @@ class EditSmsSettings extends Form
     {
 
         $this->setTitle(_text('Edit SMS Service Settings', '_core.sms'));
-        $this->setInfo(_text('Edit Site Settings [Info]', '_core'));
+        $this->setInfo(_text('Edit SMS Service Settings [Info]', '_core.sms'));
         $this->setMethod('post');
         $this->setAction(_url('#'));
 

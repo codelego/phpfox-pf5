@@ -13,7 +13,7 @@ class EditCaptchaSettings extends Form
     {
 
         $this->setTitle(_text('Edit Captcha Settings', '_core.captcha'));
-        $this->setInfo(_text('[Edit Captcha Settings Info]', '_core.captcha'));
+        $this->setInfo(_text('Edit Captcha Settings [Info]', '_core.captcha'));
         $this->setMethod('post');
         $this->setAction(_url('#'));
 
@@ -26,7 +26,7 @@ class EditCaptchaSettings extends Form
             'factory'  => 'select',
             'required' => 1,
             'label'    => _text('Default Captcha', '_core.captcha'),
-            'info'     => _text('[Default Captcha Id Info]', '_core.captcha'),
+            'info'     => _text('Default Captcha [Info]', '_core.captcha'),
             'options'  => \Phpfox::get('core.adapter')->getAdapterIdOptions('captcha'),
         ]);
         /** end elements **/

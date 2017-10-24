@@ -15,6 +15,13 @@ class EditFilesSettings extends Form
 
         $this->addButton([
             'factory'    => 'button',
+            'name'       => 'test',
+            'label'      => _text('Test'),
+            'attributes' => ['class' => 'btn btn-info', 'type' => 'submit',],
+        ]);
+
+        $this->addButton([
+            'factory'    => 'button',
             'name'       => 'save',
             'label'      => _text('Submit'),
             'attributes' => ['class' => 'btn btn-primary', 'type' => 'submit',],

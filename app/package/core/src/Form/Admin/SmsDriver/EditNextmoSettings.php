@@ -9,32 +9,23 @@ class EditNextmoSettings extends Form
 {
     protected function initialize()
     {
-        $this->setTitle(_text('Nextmo Service Settings', 'admin.core_verify_nextmo'));
-        $this->setInfo(_text('[Nextmo Service Settings Info]', 'admin.core_verify'));
+        $this->setTitle(_text('Nextmo Service Settings', '_core.sms_nextmo'));
+        $this->setInfo(_text('Nextmo Service Settings [Info]', '_core.sms_nextmo'));
 
         $this->addElement([
-            'name'      => 'account_id',
+            'name'      => 'api_key',
             'factory'   => 'text',
-            'label'     => _text('Account ID', 'admin.core_verify_nextmo'),
-            'info'      => _text('[Account ID Info]', 'admin.core_verify_nextmo'),
+            'label'     => _text('API Key', '_core.sms_nextmo'),
+            'info'      => _text('API Key [Info]', '_core.sms_nextmo'),
             'maxlength' => 100,
             'required'  => true,
         ]);
 
         $this->addElement([
-            'name'      => 'auth_token',
+            'name'      => 'api_secret',
             'factory'   => 'text',
-            'label'     => _text('Auth Token', 'admin.core_verify_nextmo'),
-            'info'      => _text('[Auth Token Info]', 'admin.core_verify_nextmo'),
-            'maxlength' => 100,
-            'required'  => true,
-        ]);
-
-        $this->addElement([
-            'name'      => 'phone_number',
-            'factory'   => 'text',
-            'label'     => _text('Phone Number', 'admin.core_verify_nextmo'),
-            'info'      => _text('[Phone Number Info]', 'admin.core_verify_nextmo'),
+            'label'     => _text('API Secret', '_core.sms_nextmo'),
+            'info'      => _text('API Secret [Info]', '_core.sms_nextmo'),
             'maxlength' => 100,
             'required'  => true,
         ]);
@@ -56,5 +47,13 @@ class EditNextmoSettings extends Form
         ]);
 
 
+    }
+
+    protected function afterGetData(&$data)
+    {
+        $data['title'] = 'Nextmo <b>' . $data['api_key'] . '</b>';
+        $data['is_active'] = 1;
+        $data['is_default'] = 0;
+        $data['is_required'] = 0;
     }
 }

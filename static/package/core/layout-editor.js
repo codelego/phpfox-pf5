@@ -1,6 +1,6 @@
 define([
     'jquery',
-    'jqueryui',
+    'jqueryui'
 ], function () {
     // Sortable rows
     $('ul.layout-editor-location').sortable({

@@ -59,6 +59,13 @@ class EditMemcacheSettings extends Form
 
         $this->addButton([
             'factory'    => 'button',
+            'name'       => 'test',
+            'label'      => _text('Test'),
+            'attributes' => ['class' => 'btn btn-info', 'type' => 'submit',],
+        ]);
+
+        $this->addButton([
+            'factory'    => 'button',
             'name'       => 'save',
             'label'      => _text('Save Changes'),
             'attributes' => ['class' => 'btn btn-primary', 'type' => 'submit',],

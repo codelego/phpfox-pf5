@@ -12,7 +12,7 @@ class EditStorageSettings extends Form
     {
 
         $this->setTitle(_text('Edit Storage Settings', '_core.storage'));
-        $this->setInfo(_text('Edit Site Settings [Info]', '_core'));
+        $this->setInfo(_text('Edit Storage Settings [Info]', '_core.storage'));
         $this->setMethod('post');
         $this->setAction(_url('#'));
 
@@ -20,12 +20,13 @@ class EditStorageSettings extends Form
 
 
         /** element `core__default_storage_id` id=2148 **/
-        $this->addElement(['name'     => 'core__default_storage_id',
-                           'factory'  => 'select',
-                           'label'    => _text('Default Storage', '_core.storage'),
-                           'info'     => _text('Default Storage Id [Info]', '_core.storage'),
-                           'options'  => \Phpfox::get('core.storage')->getAdapterIdOptions(),
-                           'required' => true,
+        $this->addElement([
+            'name'     => 'core__default_storage_id',
+            'factory'  => 'select',
+            'label'    => _text('Default Storage', '_core.storage'),
+            'info'     => _text('Default Storage Id [Info]', '_core.storage'),
+            'options'  => \Phpfox::get('core.storage')->getAdapterIdOptions(),
+            'required' => true,
         ]);
         /** end elements **/
 

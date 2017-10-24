@@ -123,10 +123,9 @@ class SqlInsert
 
         if (!$result->isValid()) {
             if (PHPFOX_ENV == 'development') {
-                exit($sql);
+                exit($this->adapter->error(true));
             }
-            throw new SqlException($this->adapter->error(true) . PHP_EOL
-                . $sql);
+            throw new SqlException($this->adapter->error(true) . PHP_EOL . $sql);
         }
 
         return $result;

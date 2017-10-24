@@ -2,22 +2,20 @@
 
 namespace Neutron\Core\Form\Admin\StorageDriver;
 
-use Phpfox\Form\ButtonField;
 use Phpfox\Form\Form;
 
 class EditLocalSettings extends Form
 {
     protected function initialize()
     {
-        $this->setTitle(_text('Local Storage Settings', 'admin.core_storage'));
-        $this->setInfo(_text('[Local Storage Settings Note]', 'admin.core_storage'));
+        $this->setTitle(_text('Local Storage Settings', '_core.storage'));
         $this->setAction(_url('#'));
 
         $this->addElement([
             'name'      => 'basePath',
             'factory'   => 'text',
-            'label'     => _text('Base Path', 'admin.core_storage'),
-            'note'      => _text('[Base Path Note]', 'admin.core_storage'),
+            'label'     => _text('Base Path', '_core.storage'),
+            'info'      => _text('Base Path [Info]', '_core.storage'),
             'maxlength' => 500,
             'required'  => true,
         ]);
@@ -25,8 +23,8 @@ class EditLocalSettings extends Form
         $this->addElement([
             'name'      => 'baseUrl',
             'factory'   => 'text',
-            'label'     => _text('Base Url', 'admin.core_storage'),
-            'note'      => _text('[Base Url Note]', 'admin.core_storage'),
+            'label'     => _text('Base Url', '_core.storage'),
+            'info'      => _text('Base Url [Info]', '_core.storage'),
             'maxlength' => 500,
             'required'  => true,
         ]);
@@ -34,8 +32,8 @@ class EditLocalSettings extends Form
         $this->addElement([
             'name'      => 'baseCdnUrl',
             'factory'   => 'text',
-            'label'     => _text('Base CDN Url', 'admin.core_storage'),
-            'note'      => _text('[Base CDN Url Note]', 'admin.core_storage'),
+            'label'     => _text('Base CDN Url', '_core.storage'),
+            'info'      => _text('Base CDN Url [Info]', '_core.storage'),
             'maxlength' => 500,
             'required'  => false,
         ]);
@@ -45,8 +43,7 @@ class EditLocalSettings extends Form
             'factory'  => 'radio',
             'inline'   => false,
             'value'    => 0,
-            'label'    => _text('Is Active', 'admin.core_storage'),
-            'info'     => _text('[Is Active Info]', 'admin.core_storage'),
+            'label'    => _text('Is Active', '_core.storage'),
             'options'  => \Phpfox::get('core.storage')->getActiveIdOptions(),
             'required' => true,
         ]);
@@ -71,6 +68,6 @@ class EditLocalSettings extends Form
 
     protected function afterGetData(&$data)
     {
-        $data['title'] = 'Local `' . $data['basePath'].'`';
+        $data['title'] = 'Local <b>' . $data['basePath'] . '</b>';
     }
 }
